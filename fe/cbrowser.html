@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<script src="../notes.js"></script>
+<title>跨浏览器编程</title>
+</head>
+<body>
+<div id="article">
+
+<h1>跨浏览器编程</h1>
+
+<div>
+<h2>让老版本IE支持 html5+css3 特性</h2>
+<pre>
+&lt;!--[if lt IE 9]&gt;
+&lt;script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"&gt;&lt;/script&gt;
+&lt;script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"&gt;&lt;/script&gt;
+&lt;![endif]--&gt;
+</pre>
+
+<h3>Conditional Comments</h3>
+<p>You might stumble upon conditional comments in HTML:</p>
+<pre>
+&lt;!--[if IE 8]&gt;
+    .... some HTML here ....
+&lt;![endif]--&gt;
+</pre>
+<p>Conditional comments defines HTML tags to be executed by Internet Explorer only.</p>
+
+
+</div>
+
+</div>
+</body>
+</html>

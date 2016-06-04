@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<style>#this li{color:blue;}</style>
+<script src="../notes.js"></script>
+<script src="../codecolor.js"></script>
+<title>忍者秘籍3</title>
+</head>
+<body>
+<div id="article">
+
+<h1>第13章 不老事件</h1>
+
+<div>
+<h2>13.1 绑定和解绑事件处理程序</h2>
+<h2>13.2 Event 对象</h2>
+<pre class='js'>
+/* 规范化 Event 对象实例 */
+</pre>
+  
+<h2>13.3 处理程序的管理</h2>
+<h3>13.3.1 集中存储相关信息</h3>
+<pre class="js">
+/* 实现一个中央对象用于保存 DOM 元素信息 */
+(function () {
+var cache = {},  // 一个中央对象用于保存和元素相关联的数据
+    guidCounter = 1, // 一个用于生成元素 GUID 的计数器
+    expando = "data" + (new Date).getTime();
+    // 一个属性名称，使用当前时间戳做名称可以防止与用户自定义名称有潜在的冲突
+this.getData = function (elem) {  // 定义 getData 函数
+  var guid = elem[expando];
+  if (!guid) {
+    guid = elem[expando] = guidCounter++;
+    cache[guid] = {};
+  }
+  return cache[guid];
+};
+this.removeData = function (elem) {  // 定义 removeData 函数
+  var guid = elem[expando];
+  if (!guid) return;
+  delete cache[guid];
+  try { delete elem[expando]; } // 某些情况下删除 expando 可能会失败
+  catch (e) {
+    if (elem.removeAttribute) elem.removeAttribute(expando);
+  }
+};
+})();
+</pre>
+<h3>13.3.2 管理事件处理程序</h3>
+<h4>绑定事件处理程序</h4>
+<pre class='js'>
+(function(){
+  var nextGuid = 1;
+  this.addEvent = function (elem, type, fn) {
+    var data = getData(elem);                           //#1
+    if (!data.handlers) data.handlers = {};             //#2
+    if (!data.handlers[type])                           //#3
+    data.handlers[type] = [];                           //#3
+    if (!fn.guid) fn.guid = nextGuid++;                 //#4
+    data.handlers[type].push(fn);                       //#5
+    if (!data.dispatcher) {                            // #6
+      data.disabled = false;
+      data.dispatcher = function (event) {
+
+        if (data.disabled) return;
+        event = fixEvent(event);
+
+        var handlers = data.handlers[event.type];       //#7
+        if (handlers) {
+          for (var n = 0; n &lt; handlers.length; n++) {   //#7
+            handlers[n].call(elem, event);              //#7
+          }
+        }
+      };
+    }
+    if (data.handlers[type].length == 1) {              //#8
+      if (document.addEventListener) {
+        elem.addEventListener(type, data.dispatcher, false);
+      }
+      else if (document.attachEvent) {
+        elem.attachEvent("on" + type, data.dispatcher);
+      }
+    }
+  };
+})();
+</pre>
+<h4>清理资源</h4>
+<h4>解绑事件处理程序</h4>
+<h4>冒烟测试</h4>
+
+<h2>13.4 事件触发</h2>
+<h4>自定义事件</h4>
+<h4>松耦合</h4>
+<h4>一个 Ajax 示例</h4>
+<h4>触发自定义事件</h4>
+
+<h2>13.5 冒泡与委托</h2>
+<h3>13.5.1 将事件委托给祖先元素</h3>
+<h3>13.5.2 修复浏览器的不足</h3>
+<h4>冒泡 submit 事件</h4>
+<h4>冒泡 change 事件</h4>
+<h4>实现 focusin 和 focusout 事件</h4>
+<h4>实现 mouseenter 和 mouseleave 事件</h4>
+
+<h3></h3>
+
+<h2>13.6 文档就绪事件（document ready）</h2>
+
+</div>
+
+<h1>第14章 DOM 操作</h1>
+
+<div>
+<h2>14.1 向 DOM 中注入 HTML</h2>
+<h3>14.1.1 将 HTML 转换成 DOM</h3>
+<h4>预处理 XML/HTML 源字符串</h4>
+<h4>HTML 包装</h4>
+<h4>生成 DOM</h4>
+
+<h3>14.1.2 将 DOM 插入到文档中</h3>
+<h3>14.1.3 脚本执行</h3>
+<h4>全局上下文中的代码求值</h4>
+
+<h2>14.2 克隆元素</h2>
+
+<h2>14.3 删除元素</h2>
+
+<h2>14.4 文本内容</h2>
+<h3>14.4.1 设置文本</h3>
+<h3>14.4.2 获取文本</h3>
+
+
+
+</div>
+
+<h1>第15章 CSS 选择器引擎</h1>
+
+<div>
+<h2>15.1 W3C Selectors API</h2>
+
+<h2>15.2 利用 Xpath 查找元素</h2>
+
+<h2>15.3 纯 DOM 实现</h2>
+<h3>15.3.1 对选择器进行解析</h3>
+<h3>15.3.2 查找元素</h3>
+<h3>15.3.3 过滤结果集</h3>
+<h3>15.3.4 递归和合并</h3>
+<h3>15.3.5 自下而上的选择器引用</h3>
+
+
+
+</div>
+
+</div>
+</body>
+</html>

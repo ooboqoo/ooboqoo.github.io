@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<script src="../notes.js"></script>
+<title>测试和调试</title>
+</head>
+<body>
+<div id="article">
+
+<h1>测试和调试</h1>
+
+<div>
+<p>高程P512 把错误记录到服务器</p>
+<pre>
+function logError(sev,msg){
+  var img = new Image();
+  img.src = "log.php?sev=" + encodeURIComponent(sev) + "&msg=" + encodeURIComponent(msg);
+}
+</pre>
+
+</div>
+
+</div>
+</body>
+</html>

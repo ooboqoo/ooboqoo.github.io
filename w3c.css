@@ -1,0 +1,193 @@
+/* W3.CSS 2.6 by Jan Egil and Borge Refsnes. Do not remove this line */
+*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+/* Extract from normalize.css by Nicolas Gallagher and Jonathan Neal git.io/normalize */
+html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}
+article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}
+audio,canvas,video{display:inline-block;vertical-align:baseline}
+audio:not([controls]){display:none;height:0}[hidden],template{display:none}
+a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}
+b,strong,optgroup{font-weight:bold}dfn{font-style:italic}mark{background:#ff0;color:#000}
+small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-0.5em}sub{bottom:-0.25em}
+img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}
+hr{-moz-box-sizing:content-box;box-sizing:content-box}
+code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}
+button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}
+button{overflow:visible}button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+input[type=checkbox],input[type=radio]{padding:0}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}
+input[type=search]{box-sizing:content-box;-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box}
+input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}
+fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}pre,textarea{overflow:auto}
+/*End extract from normalize.css*/
+html,body{font-family:Verdana,Arial,sans-serif,SimSun,"Microsoft YaHei";font-size:16px;line-height:1.5}html{overflow-x:hidden}
+h1{font-size:36px}h2{font-size:30px}h3{font-size:24px}h4{font-size:20px}h5{font-size:18px}h6{font-size:16px}
+h1,h2{font-family:"Microsoft YaHei",sans-serif;}
+h1,h2,h3,h4,h5,h6{font-weight:400;margin:10px 0}
+h1 a,h2 a,h3 a,h4 a,h5 a,h6 a{font-weight:inherit}
+hr{height:0;border:0;border-top:1px solid #ccc;margin:6px 0}
+img{margin-bottom:-5px} a{color:inherit}
+table{border-collapse:collapse;border-spacing:0;width:100%;display:table}
+table,th,td{border:none}
+
+.w3-responsive{overflow-x:auto}
+.w3-container:after,.w3-row:after,.w3-row-padding:after,.w3-clear:after,.w3-btn-group:before,.w3-btn-group:after{content:"";display:table;clear:both}
+.w3-col,.w3-half,.w3-third,.w3-twothird,.w3-threequarter,.w3-quarter{float:left;width:100%}
+.w3-col.s1{width:8.33333%}
+.w3-col.s2{width:16.66666%}
+.w3-col.s3{width:24.99999%}
+.w3-col.s4{width:33.33333%}
+.w3-col.s5{width:41.66666%}
+.w3-col.s6{width:49.99999%}
+.w3-col.s7{width:58.33333%}
+.w3-col.s8{width:66.66666%}
+.w3-col.s9{width:74.99999%}
+.w3-col.s10{width:83.33333%}
+.w3-col.s11{width:91.66666%}
+.w3-col.s12,.w3-half,.w3-third,.w3-twothird,.w3-threequarter,.w3-quarter{width:99.99999%}
+@media only screen and (min-width:601px){
+.w3-col.m1{width:8.33333%}
+.w3-col.m2{width:16.66666%}
+.w3-col.m3,.w3-quarter{width:24.99999%}
+.w3-col.m4,.w3-third{width:33.33333%}
+.w3-col.m5{width:41.66666%}
+.w3-col.m6,.w3-half{width:49.99999%}
+.w3-col.m7{width:58.33333%}
+.w3-col.m8,.w3-twothird{width:66.66666%}
+.w3-col.m9,.w3-threequarter{width:74.99999%}
+.w3-col.m10{width:83.33333%}
+.w3-col.m11{width:91.66666%}
+.w3-col.m12{width:99.99999%}}
+@media only screen and (min-width:993px){
+.w3-col.l1{width:8.33333%}
+.w3-col.l2{width:16.66666%}
+.w3-col.l3,.w3-quarter{width:24.99999%}
+.w3-col.l4,.w3-third{width:33.33333%}
+.w3-col.l5{width:41.66666%}
+.w3-col.l6,.w3-half{width:49.99999%}
+.w3-col.l7{width:58.33333%}
+.w3-col.l8,.w3-twothird{width:66.66666%}
+.w3-col.l9,.w3-threequarter{width:74.99999%}
+.w3-col.l10{width:83.33333%}
+.w3-col.l11{width:91.66666%}
+.w3-col.l12{width:99.99999%}}
+.w3-content{max-width:980px;margin:auto}
+.w3-rest{overflow:hidden}
+.w3-hide{display:none!important}.w3-show-block,.w3-show{display:block!important}.w3-show-inline-block{display:inline-block!important}
+.w3-top,.w3-bottom{position:fixed;width:100%;z-index:1}.w3-top{top:0}.w3-bottom{bottom:0}
+.w3-overlay{position:fixed;display:none;width:100%;height:100%;top:0;left:0;right:0;bottom:0;background-color:rgba(0,0,0,0.5);z-index:2}
+.w3-row-padding,.w3-row-padding>.w3-half,.w3-row-padding>.w3-third,.w3-row-padding>.w3-twothird,.w3-row-padding>.w3-threequarter,.w3-row-padding>.w3-quarter,.w3-row-padding>.w3-col{padding:0 8px}
+
+.w3-left{float:left!important}.w3-right{float:right!important}
+.w3-tiny{font-size:10px!important}.w3-small{font-size:12px!important}
+.w3-medium{font-size:15px!important}
+.w3-large{font-size:18px!important}
+.w3-xlarge{font-size:24px!important}
+.w3-xxlarge{font-size:36px!important}
+.w3-xxxlarge{font-size:48px!important}
+.w3-jumbo{font-size:64px!important}
+.w3-vertical{word-break:break-all;line-height:1;text-align:center;width:0.6em}
+.w3-left-align{text-align:left!important}
+.w3-right-align{text-align:right!important}
+.w3-justify{text-align:justify!important}
+.w3-center{text-align:center!important}
+.w3-display-topleft{position:absolute;left:0;top:0}.w3-display-topright{position:absolute;right:0;top:0}
+.w3-display-bottomleft{position:absolute;left:0;bottom:0}.w3-display-bottomright{position:absolute;right:0;bottom:0}
+.w3-display-middle{position:absolute;left:0;bottom:50%;width:100%;text-align:center}
+.w3-display-topmiddle{position:absolute;left:0;top:0;width:100%;text-align:center}.w3-display-bottommiddle{position:absolute;left:0;bottom:0;width:100%;text-align:center}
+.w3-circle{border-radius:50%!important}
+.w3-round-small{border-radius:2px!important}.w3-round,.w3-round-medium{border-radius:4px!important}
+.w3-round-large{border-radius:8px!important}.w3-round-xlarge{border-radius:16px!important}
+.w3-round-xxlarge{border-radius:32px!important}.w3-round-jumbo{border-radius:64px!important}
+.w3-border-0{border:0!important}
+.w3-border{border:1px solid #ccc!important}
+.w3-border-top{border-top:1px solid #ccc!important}.w3-border-bottom{border-bottom:1px solid #ccc!important}
+.w3-border-left{border-left:1px solid #ccc!important}.w3-border-right{border-right:1px solid #ccc!important}
+.w3-margin{margin:16px!important}.w3-margin-0{margin:0!important}
+.w3-margin-top{margin-top:16px!important}.w3-margin-bottom{margin-bottom:16px!important}
+.w3-margin-left{margin-left:16px!important}.w3-margin-right{margin-right:16px!important}
+.w3-section{margin-top:16px!important;margin-bottom:16px!important}
+.w3-black,.w3-hover-black:hover{color:#fff!important;background-color:#000!important}
+.w3-light-grey,.w3-hover-light-grey:hover{color:#000!important;background-color:#f1f1f1!important}
+
+.w3-dropdown-hover,.w3-dropdown-click{position:relative}
+.w3-dropdown-hover:hover .w3-dropdown-content{display:block;z-index:1}
+.w3-dropdown-content{cursor:auto;color:#000;background-color:#fff;display:none;position:absolute;min-width:160px;margin:0;padding:0}
+.w3-dropdown-content a{padding:0 16px;display:block;white-space:nowrap;} .w3-dropdown-content a:hover{background-color:#ccc}
+.w3-card-2,.w3-example{box-shadow:0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important}
+.w3-card-4,.w3-hover-shadow:hover{box-shadow:0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important}
+.w3-closebtn{text-decoration:none;float:right;font-size:24px;font-weight:bold;color:inherit}
+.w3-closebtn:hover,.w3-closebtn:focus{color:#000;text-decoration:none;cursor:pointer}
+
+/* 抽取 w3.css 结束，下面开始自定义内容 */
+
+  /* 通用类 */
+@media only screen and (min-width:601px){.w3-multicolumn{-webkit-column-count: 3;-moz-column-count:3;column-count:3;}}
+@media only screen and (min-width:993px){.w3-multicolumn{-webkit-column-count: 5;-moz-column-count:5;column-count:5;}}
+  /* 文档主体内容定义 */
+#article{width:100%;text-align:left; border: 0;}
+@media only screen and (min-width:993px){#article{max-width:980px;margin:auto;box-shadow:0 2px 4px 0 rgba(0,0,0,0.2),0 2px 10px 0 rgba(0,0,0,0.12)!important}}
+#article > div{margin:0 15px;padding: 6px 0;border-bottom:1px solid #999;}
+#article h1{margin:0 15px;border-bottom:2px solid #999;padding:15px 0 5px;text-align:center;font-size:1.75em;}
+#article h2{margin:8px 0;font-size: 1.25em;}
+#article h3{margin:10px 0 0;font-size:1em;color:#f09;font-weight:400;}
+#article h4{margin:10px 0 0;font-size:1em;font-weight:400;text-decoration:underline;}
+#article p{line-height:1.25;margin:0.25em 0;}
+#article ul, #article ol{margin:2px 0 0 2em;padding:0;}
+
+  /* 段落特殊格式设置 important 重要 warning 警告 note 注释 tip 提示 */
+p.important span:first-child, p.warning span:first-child, p.note span:first-child, p.tip span:first-child, p.prop span:first-child{font-weight: bold;}
+p.important span:first-child, p.warning span:first-child{color:#dd0000;}
+p em{padding:0 8px 0 0;}
+p code{color:#00f;padding: 0 4px;border:1px dotted #ccc;}
+blockquote{margin:0;padding-left:12px;border-left:2px solid green;}
+
+  /* w3school.com.cn 代码栏 */
+pre, pre code{font-family:Consolas, "Courier New", Courier, monospace;}
+pre	{margin: 3px 0;padding: 2px 10px;border: 1px dotted #999;white-space: pre-wrap; }
+pre code{color:#0000dd;}
+pre span{color:#999;}
+
+  /* 表格 */
+table {margin:4px 0 0;border-collapse:collapse;border:1px solid #999;}
+table th{padding:2px 10px;text-align:center;color:#fff; background-color:#666;}
+table td{padding:2px 10px; border-top:1px solid #ccc;}
+table p {margin:0 0 2px 0;}
+table td em	{color:#0000ff;	font-weight:normal;}
+table .table_value {color:#0F93D2;}
+table .no_wrap {white-space:nowrap;}
+table td.html5badge {background: url(../images/html5_badge20.png) right no-repeat;}
+table tr.notsupported {color:#999999;}
+table tr.separator{line-height:0.25em;}
+table td:first-child a{text-decoration:none;color:#f33;}
+table tr:hover {background-color: #f5f5f5;}
+#article table{empty-cells: show;}
+.table-responsive {overflow-x: auto;} /* 在table外套一层 div class=".table-responsive" */
+
+  /* 顶部导航条 */
+#topnav{width:100%;background-color: #5f5f5f;color: #f1f1f1;font-size:18px;box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;}
+#topnav ul{margin:0;padding:0;} #topnav li{display:inline-block;padding:2px 12px;}
+#topnav ul:first-child li:first-child{padding-left:16px} #topnav ul:last-child li:last-child{padding-right:16px}
+#topnav ul a{font-family:"Microsoft YaHei",sans-serif;text-decoration:none;}
+#topnav ul li:hover{color:#fff;background-color:#000}
+#topnav ul a > i{font-style:normal;font-size:0.75em;display:inline-block;padding-left:4px;}
+#topnav::after{content:"";display:table;clear:both}
+#topnav .w3-dropnav{position:absolute;right:0;z-index:2;}
+#topnav .w3-dropnav h3{padding-top: 6px;text-align: left;}
+#topnav .w3-dropnav a{display:block;font-size: 1rem;padding:0 0 0 8px;} #topnav .w3-dropnav a:hover{text-decoration:underline!important}
+#topnav .w3-dropnav .w3-closebtn {padding: 0 16px !important;position: absolute;right: 0;}
+#topnavpage{left:0;}
+#nav_references{visibility:hidden;width:100%;}
+@media only screen and (min-width:993px){#nav_references{width:863px;}}
+#sidemenu {visibility:hidden;width:230px;position: absolute !important;z-index:1;overflow-x: hidden;background-color:#eee;}
+#sidemenu h3 {font-size: 20px;padding-left: 8px;color: #000;}
+#sidemenu a{padding: 0 16px;color: #555;font-size:1rem; display:block} #sidemenu a:hover{background-color:#ccc}
+@media only screen and (min-width: 1210px){#sidemenu{visibility:visible;left:-115px;} #article{position:relative;left:+115px;}}
+
+  /* 页面内锚点导航 */
+#contents ul{text-align:center;}
+#contents li{display:inline;padding:0.25em;white-space:nowrap;line-height:1.5;}
