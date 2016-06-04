@@ -13,7 +13,7 @@ if(/ipad/i.test(navigator.userAgent)){
 }
   /*  下载topnav 并初始化 */
 var xmlhttp=new XMLHttpRequest();
-xmlhttp.open("GET","/notes/topnav",true);
+xmlhttp.open("GET","/topnav",true);
 xmlhttp.send();
 xmlhttp.onreadystatechange=function() {
   if (xmlhttp.readyState==4 && xmlhttp.status==200){
