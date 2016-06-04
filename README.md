@@ -11,4 +11,4 @@ Gavin 在学习前端开发的过程中做的笔记以及整理的速查手册�
 * http://www.w3schools.com/
 * 《JavaScript 高级程序设计（第3版）》
 * 《JavaScript 忍者秘籍》
-* 《PHP 和 MySQL Web 开发（元素第4版）》
+* 《PHP 和 MySQL Web 开发（原书第4版）》
