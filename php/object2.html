@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<script src="../notes.js"></script>
+<title>PHP 对象难点</title>
+</head>
+<body>
+<div id="article">
+
+<h1>PHP 类与对象 -- 难点专题解读</h1>
+
+<div>
+<h2>static 关键字 -- 定义静态变量</h2>
+
+<h3>1 在类的方法里定义静态变量</h3>
+<p>http://php.net/manual/zh/language.variables.scope.php</p>
+<pre>
+class sample_class {
+  public function func_having_static_var($x = NULL) {
+    static $var = 0;
+    if ($x === NULL) return $var; 
+    $var = $x;
+  }
+}
+
+$a = new sample_class();
+$b = new sample_class();
+
+$a->func_having_static_var(3);
+
+echo $a->func_having_static_var()."\n";
+echo $b->func_having_static_var()."\n";  // 此处输出为3，而不是0
+
+// 对象只是属性的集合，而方法还是在类里，所以在方法里定义的静态变量被该类的各实例所共享。
+如果要区分开，代码应该像下面这样：
+class sample_class{
+    public $var =0;
+    public function func_having_static_var($x = NULL){ $this->var = $x;}
+}
+</pre>
+<p>Having an object is just a collection of properties, the functions remain at the class. So if you declare a variable as static inside a function, it's static for the whole class and all of its instances, not for each object.
+</p>
+</div>
+
+<div>
+<h2>static 关键字 -- （类中）定义静态方法和属性</h2>
+<p>http://php.net/manual/zh/language.oop5.static.php</p>
+<p>声明类属性或方法为静态，就可以不实例化类而直接访问。</p>
+<p>由于静态方法不需要通过对象即可调用，所以伪变量 $this 在静态方法中不可用。</p>
+<p>静态属性不可以由对象通过 -> 操作符来访问；但静态方法可以。（其实道理是一样的，静态的属性和全部的方法都存在类里而不在实例里面。）</p>
+<p>跟静态变量一样，静态属性只能被初始化为文字或常量，不能使用表达式。所以可以把静态属性初始化为整数或数组，但不能初始化为另一个变量或函数返回值，也不能指向一个对象。</p>
+<p>但该变量的值不能为关键字 self，parent 或 static。</p>
+<pre>
+class Foo {
+    public static $my_static = 'foo';
+    public function staticValue() {
+        return self::$my_static;
+    }
+}
+
+class Bar extends Foo {
+    public function fooStatic() {
+        return parent::$my_static;
+    }
+}
+
+print Foo::$my_static . "\n";
+
+$foo = new Foo();
+print $foo->staticValue() . "\n";
+print $foo->my_static . "\n";      // Undefined "Property" my_static 
+
+print $foo::$my_static . "\n";
+$classname = 'Foo';
+print $classname::$my_static . "\n"; // As of PHP 5.3.0
+
+print Bar::$my_static . "\n";
+$bar = new Bar();
+print $bar->fooStatic() . "\n";
+</pre>
+
+
+</div>
+
+<div>
+<h2>static 关键字 -- （类）后期静态绑定</h2>
+<h3>理解转发调用与非转发调用</h3>
+<pre>
+class A {
+    public static function foo() {
+        static::who();
+    }
+
+    public static function who() {
+        echo __CLASS__."\n";
+    }
+}
+
+class B extends A {
+    public static function test() {
+        A::foo();  // 输出A，非转发调用
+        parent::foo();  // 输出C，转发调用
+        self::foo();  // 输出C，转发调用
+    }
+
+    public static function who() {
+        echo __CLASS__."\n";
+    }
+}
+class C extends B {
+    public static function who() {
+        echo __CLASS__."\n";
+    }
+}
+
+C::test();
+</pre>
+
+</div>
+
+<div>
+<h2>static 关键字 -- self:: parent:: static::</h2>
+<p>self parent static 这三个特殊的关键字是用于在类定义的内部对其属性或方法进行访问的。当在类定义之外引用要使用类名。</p>
+<table class="dataintable">
+	<tr>
+		<td>self::</td>
+		<td>类中的静态变量，无法用 $this->varS 调用，必须用 self::$varS 调用<br />
+		对于静态函数，$this->functionS() 和 self::functionS() 等效</td>
+	</tr>
+	<tr>
+		<td>$this-></td>
+		<td>指代最终调用它的实例，没有实例就没有$this。影响属性抓取，对函数没影响。<br />
+		在静态函数里面，无法使用$this-> 只能用 self::</td>
+	</tr>
+	<tr>
+		<td>parent::</td>
+		<td>子类中重载属性或方法后，调用父类方法的最初版本（不能调父类属性）<br />
+			调用父类的静态变量（self::$varS 也是指向同一个父类静态变量的）<br />
+			调用父类的静态方法（self::functionS() 和 parent::functionS() 指向完全一样）</td>
+	</tr>
+	<tr>
+		<td>static::</td>
+		<td>在静态环境（方法）下，表示运行时最初调用的类
+		<ul>
+			<li>其实跟$this有异曲同工之妙，但是静态环境下不能用$this，只能用self</li>
+			<li>而 self:: 或者 __CLASS__ 对当前类的静态引用，取决于定义当前方法所在的类</li>
+		</ul>
+		在非静态环境（方法）下，所调用的类即为该对象实例所属的类（非静态环境下有$this照理就不用static::了，这里又有不同）<br />
+		<ul>
+			<li>$this-> 会优先在同一作用范围内尝试调用私有方法</li>
+			<li>而 static:: 则优先调用最初调用的类的方法，如果没有才会调用同一作用范围的方法</li>
+			<li>另一个区别是 static:: 只能用于静态属性。（在属性方面，$this 和 static 各司其职）</li>
+		</ul></td>
+	</tr>
+</table>
+<pre>
+class A {
+    public $var="varA";
+    static $vars='varSA';
+    private function fthis(){  // 本方法测试$this对方法的影响，private函数正常跑，但属性抓取会变
+        echo " fthis+",$this->var;
+    }
+    public function foo() {
+        echo 'Afoo ',$this->var;
+        $this->fthis();
+        $this->staticfA();
+    }
+    static function staticfA(){
+        echo "staticfA".__CLASS__;
+    }
+}
+
+class B extends A {
+    public $var="varB";
+    public function foo() {
+        echo 'Bfoo ',$this->var;
+    }
+    public function printB (){
+echo '$this->var: ',$this->var;  // 输出 varB
+echo parent::$var;  // 报错，不能调父类普通变量
+$this->foo();  // 输出 Bfoo varB
+parent::foo(); // 输出 Afoo varB fthis+varB，说明$this 指代发生了变化，主要影响属性抓取
+self::$vars="newVarS"; //self::$vars parent::$vars 和static::$vars 实际都指向A的$vars
+echo self::$vars,parent::$vars,static::$vars;  // 都输出NewVarS，三者等效
+echo 'A::$vars: ',A::$vars; // parent::$vars 和 A::$vars 都能用，等效
+self::staticfA(); parent::staticfA(); $this->staticfA(); // 三者等效，指向的都是父类方法
+    }
+}
+
+$b = new B();
+$b->printb();
+</pre>
+<pre>
+class A {
+    public $var='varA';
+    private function foo() {
+        echo "Afoo+$this->var\n";
+    }
+    public function test() {
+        $this->foo();
+        static::foo();
+    }
+}
+
+class B extends A {
+    public $var='varB';
+    /* foo() will be copied to B, hence its scope will still be A and
+     * the call be successful */
+}
+
+class C extends A {
+    public $var='varC';
+    private function foo() {
+        echo "Cfoo+$this->var\n";/* original method is replaced; the scope of the new one is C */
+    }
+}
+
+$b = new B();
+$b->test();  // 输出 Afoo+varB Afoo+varB
+$c = new C();
+$c->test();   // 此时，对 A和C下的 foo() 方法的修饰符在private 和 protected(/public) 之间修改，会出现3种不同结果
+              //                             $this->     static::
+              // A private   + C private:   Afoo+varC   Fatal error
+              // A private   + C protected: Afoo+varC   Cfoo+varC
+              // A protected + C protected: Cfoo+varC   Cfoo+varC
+</pre>
+
+
+
+
+</div>
+
+<div>
+<h2>范围解析操作符 :: </h2>
+<p>Scope Resolution Operator (::) // http://php.net/manual/en/oop4.php</p>
+<p>Sometimes it is useful to refer to functions and variables in base classes or to refer to functions in classes that have not yet any instances. The :: operator is being used for this.</p>
+<pre>
+class A {
+    <code>const</code> PI =3.14;
+    <code>public $varp</code> = 'var1_public';
+    <code>static $vars</code> = 'var2_static';
+    function example() {
+        echo "I am the original function A::example().&lt;br /&gt;\n";
+        <code>$this-&gt;other()</code>; }
+    function other() {echo "I am the original function A::other().&lt;br /&gt;\n";}
+}
+
+class B extends A {
+    function example() {
+        echo "I am the redefined function B::example().&lt;br /&gt;\n";
+        A::example();  }
+    function other() {echo "I am the redefined function B::other().&lt;br /&gt;\n";}
+}
+
+echo A::PI;    // 正常
+echo A::$varp; // 本行会报致命错误：Access to undeclared static property: A::$varp
+A::example();  // 本行会出错：Non-static method A::example()
+$classname="A";
+echo $classname::$vars; // 正常，展示在类外部通过变量名来引用类
+
+$b = new B;
+echo $b-&gt;varp; // 正常
+$b-&gt;example(); // 将输出以下内容
+//   I am the redefined function B::example().
+//   I am the original function A::example().
+//   I am the redefined function <code>B::other()</code>.  // 注意，此处的调用的是B的other()
+</pre>
+<p>上面这个例子把所有双冒号的用法和注意点都囊括在内了。</p>
+<ul>
+	<li>随时从外部访问类中的常量</li>
+	<li>从外部访问类中的静态成员（变量和方法），如果不是static的，类的外部无法用双冒号访问</li>
+	<li>从类定义的外部访问静态成员要使用类名，从PHP5.3起可以通过变量来引用类</li>
+	<li>子类重载父类变量和操作后，可以通过parent::访问父类操作的最初版本，但是父类操作中的$this将调用当前类的属性和方法。（不能访问父类属性）</li>
+</ul>
+</div>
+
+<div>
+<h2>一些注意的细节</h2>
+<h3>1 循环块里的变量，在函数内还是有效的，变量生命周期一直到函数结束。</h3>
+<p>Note that unlike Java and C++, variables declared inside blocks such as loops or if's, will also be recognized and accessible outside of the block, so:</p>
+<pre>
+for($j=0; $j<3; $j++){
+    if($j == 1) $a = 4;
+}
+echo $j, $a;  //将输出 3 4
+</pre>
+
+
+</div>
+
+
+</div>
+</body>
+</html>

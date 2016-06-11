@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<script src="../notes.js"></script>
+<title>PHP 系统交互函数</title>
+</head>
+<body>
+<div id="article">
+
+<h1>与文件系统和服务器的交互</h1>
+
+<div>
+<h2>文件读写</h2>
+<h3>fopen() --- 打开文件或者 URL</h3>
+<pre>resource fopen (string $filename, string $mode [,bool $use_include_path=false [,resource $context]])</pre>
+<p>如果 filename 是 "scheme://..." 的格式，则被当成一个URL，PHP将检查allow_url_fopen 设置，然后搜索协议处理器（封装协议）来处理。注意，URL中域名不区分大小写，但路径和文件名可能区分。</p>
+<p>mode 说明</p>
+
+<table><col style="color:blue" /><col />
+<tr><td>r</td><td>只读方式打开，将文件指针指向文件头</td></tr>
+<tr><td>r+</td><td>读写方式打开，将文件指针指向文件头</td></tr>
+<tr><td>w</td><td>写入方式打开，将文件指针指向文件头并将文件大小截为零。如果文件不存在则尝试创建之</td></tr>
+<tr><td>w+</td><td>读写方式打开，将文件指针指向文件头并将文件大小截为零。如果文件不存在则尝试创建之</td></tr>
+<tr><td>a</td><td>写入方式打开，将文件指针指向文件末尾。如果文件不存在则尝试创建之</td></tr>
+<tr><td>a+</td><td>读写方式打开，将文件指针指向文件末尾。如果文件不存在则尝试创建之</td></tr>
+<tr><td>x</td><td>创建并以写入方式打开，将文件指针指向文件头。如果文件已存在将产生一个警告</td></tr>
+<tr><td>x+</td><td>创建并以读写方式打开，其他的行为和 'x' 一样</td></tr>
+<tr><td>c</td><td>写入方式打开，将文件指针指向文件头但不会将文件清零。如果文件不存在则尝试创建之</td></tr>
+<tr><td>c+</td><td>写入方式打开，其他的行为和 'c' 一样</td></tr></table>
+<p>附加项，作为mode 参数的最后一个字符</p>
+<table><col style="color:blue" /><col />
+<tr><td>b</td><td>二进制模式。默认值，为了获得最大程度的可移植性和防止产生奇怪问题（不该改的改了），推荐一直使用这个选项</td></tr>
+<tr><td>t</td><td>文本模式。Windows下特有标记，可以透明地将\n转换为\r\n。当t选项用在二进制文件时可能会出现错误结果</td></tr>
+</table>
+<pre>$DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];  // 采用相对路径的目的是防止服务器目录意外变更
+@ $fp=fopen("$DOCUMENT_ROOT/../orders/orders.txt", 'ab')</pre>
+
+<h3>fwrite() / fputs() --- 写入文件（可安全用于二进制文件）</h3>
+<pre>int fwrite ( resource $handle, string $string [,int $length])</pre>
+
+<h3>fclose() --- 关闭一个已打开的文件指针</h3>
+
+<h3>file_put_contents() --- 将一个字符串写入文件</h3>
+<pre>int file_put_contents ( string $filename , mixed $data [, int $flags = 0 [, resource $context ]] )</pre>
+<p>相当于依次调用了fopen()，fwrite() 以及fclose() 功能</p>
+<pre>$file = 'people.txt';
+$current = file_get_contents($file);  // Open the file to get existing content
+$current .= "John Smith\n";
+file_put_contents($file, $current);  // Write the contents back to the file
+</pre>
+
+<h3>feof() --- 测试文件指针是否到了文件结束的位置</h3>
+<pre>while (!feof($fp))  // 读取文件内容直至遇到EOF</pre>
+<hr />
+
+<h3>fgets() --- 从文件指针中读取一行</h3>
+<pre>string fgets ($handle [,$length]) // 碰到\n（包括在返回值中）EOF 或者已经读取了length-1 字节后停止</pre>
+<h3>fgetss() --- 从文件指针中读取一行，并过滤掉 HTML和PHP 标记。fgets safely</h3>
+<h3>fgetcsv() --- 从文件指针中读入一行，并解析 CSV 字段</h3>
+<pre>array fgetcsv ( $handle [, $length=0 [, $delimiter=',' [, $enclosure='"' [, $escape='\\']]]])</pre>
+<hr />
+
+<h3>fgetc() --- 从文件指针中逐个读取字符</h3>
+<p>逐个读取字符的现实意义不大，该函数在读到文件尾部时会返回文件结束符EOF</p>
+
+<h3>fread() --- 读取任意长度字符</h3>
+<pre>string fread ( resource $handle , int $length )</pre>
+<hr />
+
+<h3>readfile() --- 读取整个文件并写入到输出缓冲</h3>
+<pre>int readfile ( string $filename [, bool $use_include_path = false [, resource $context ]] )</pre>
+
+<h3>file() --- 把整个文件读入一个数组中</h3>
+<pre>array file ( string $filename [, int $flags=0 [, resource $context]])</pre>
+<h3>fpassthru() --- 输出文件指针处的所有剩余数据 thru = through</h3>
+<pre>int fpassthru ( resource $handle )</pre>
+<h3>file_get_contents() --- 将整个文件读入一个字符串</h3>
+<hr />
+
+<h3>file_exists() --- 检查文件或目录是否存在</h3>
+<h3>filesize() --- 取得文件大小</h3>
+<hr />
+
+<h3>rewind() --- 将文件指针复位到文件的开始</h3>
+<h3>ftell() --- 返回文件指针读/写的位置，也就是文件流中的偏移量</h3>
+<h3>fseek() --- 设定文件指针位置</h3>
+<pre>int fseek ( resource $handle, int $offset [, int $whence=SEEK_SET])</pre>
+<p>新位置从文件头开始以字节数度量，是以whence 指定的位置加上offset。fseek($fp, 0) 相当于rewind($fp)</p>
+
+<h3>flock() --- 锁定或释放文件</h3>
+<pre>bool flock ( resource $handle, $operation [,int &$wouldblock ] ) //若设置为1或TRUE则当进行锁定时阻挡其他进程</pre>
+<p>operation 可能的值：<br />
+LOCK_SH 取得共享锁定（读取的程序）LOCK_EX 取得独占锁定（写入的程序）<br />
+LOCK_UN 释放锁定（无论共享或独占）LOCK_NB 防止在请求加锁时发生阻塞 
+</p>
+</div>
+
+<div>
+<h2>文件上传</h2>
+<p>php.ini中关于文件上传的设置指令</p>
+<table>
+<tr><th>指令</th><th>描述</th><th>默认值</th></tr>
+<tr><td>file_uploads</td><td>控制是否允许HTTP方式的文件上传</td><td>ON</td></tr>
+<tr><td>upload_tmp_dir</td><td>指定上传的文件在被处理之前的临时保存目录</td><td>NULL</td></tr>
+<tr><td>upload_max_filesize</td><td>控制允许上传的文件最大大小（单位B）</td><td>2M</td></tr>
+<tr><td>post_max_size</td><td>控制通过POST方法上传数据的最大值</td><td>8M</td></tr></table>
+<p>超全局数组$_FILES</p>
+<table>
+<tr><td>$_FILES['userfile']['tmp_name']</td><td>文件在web服务器中临时存储的位置</td></tr>
+<tr><td>$_FILES['userfile']['name']</td><td>用户系统中的文件名称</td></tr>
+<tr><td>$_FILES['userfile']['size']</td><td>文件的字节大小</td></tr>
+<tr><td>$_FILES['userfile']['type']</td><td>文件的MIME类型</td></tr>
+<tr><td>$_FILES['userfile']['error']</td><td>任何与文件上传相关的错误代码（代码参考手册“文件上传处理”）</td></tr>
+</table>
+<h3>is_uploaded_file() --- 判断文件是否是通过HTTP POST上传的</h3>
+<h3>move_uploaded_file() --- 将上传的文件移动到新位置</h3>
+<h3>basename() --- 返回路径中的文件名部分</h3>
+<p>文件上传代码很简单，重点在于错误检测，应该尽量避免文件上传存在的潜在安全风险。</p>
+</div>
+
+<div>
+<h2>目录函数</h2>
+<h3>opendir --- 打开目录句柄</h3>
+<h3>readdir --- 从目录句柄中读取条目，无法排序</h3>
+<pre>string readdir ([ resource $dir_handle ] )</pre>
+<pre>while (false !== ($file = readdir($handle))) { echo "$file\n"; }</pre>
+<h3>closedir --- 关闭目录句柄</h3>
+<h3>scandir --- 返回含有文件和目录的数组，按字母表顺序排序</h3>
+<pre>array scandir ( string $directory [, int $sorting_order [, resource $context ]] )</pre>
+<h3>dirname() --- 返回路径中的目录部分</h3>
+<h3>mkdir() --- 新建目录</h3>
+<h3>umask() --- 改变当前的 umask</h3>
+<pre>$oldumask=umask(0); mkdir("/tmp/testing",0777); umask($oldumask);
+// 当前的umask值将与mkdir指定值相与（做减法）。umask()会修改umask值，但返回的是原先的umask值</pre>
+<h3>rmdir() --- 删除目录</h3>
+<h3>dir类 --- 除了函数外，PHP还提供了dir类</h3>
+<p>该类具有handle 和path 属性，以及read()、close()、rewind()方法</p>
+<h3>disk_free_space() / diskfreespace()--- 返回目录中的可用空间</h3>
+<h3>disk_total_space() --- 返回一个目录的磁盘总大小</h3>
+</div>
+
+<div>
+<h2>与文件系统的交互</h2>
+<h3>fileowner() --- 取得文件的所有者</h3>
+<h3>filegroup() --- 取得文件的组</h3>
+<h3>filetype() --- 取得文件类型</h3>
+<h3>filemtime() --- 取得文件修改时间</h3>
+<h3>fileperms() --- 取得文件的权限</h3>
+<hr />
+<h3>touch() --- 设定文件的访问和修改时间</h3>
+<h3>copy() --- 拷贝文件</h3>
+<h3>unlink() --- 删除文件，PHP里没有delete函数</h3>
+<h3>rename() --- 重命名一个文件或目录</h3>
+<hr />
+<h3>chgrp() --- 改变文件所属的组</h3>
+<h3>chmod() --- 改变文件模式</h3>
+<h3>chown() --- 改变文件的所有者</h3>
+<hr />
+<h3>is_dir() --- 判断给定文件名是否是一个目录</h3>
+<h3>is_file() --- 判断给定文件名是否为一个正常的文件</h3>
+<h3>is_link() --- 判断给定文件名是否为一个符号连接</h3>
+<h3>is_readable() --- 判断给定文件名是否可读</h3>
+<h3>is_writable() / is_writeable() --- 判断给定的文件名是否可写</h3>
+<h3>is_executable() --- 判断给定文件名是否可执行</h3>
+</div>
+
+<div>
+<h2>程序执行函数（部分）</h2>
+<p>当要为一个已有的命令行系统提供一个基于web的前台时，这些函数是非常有用的。</p>
+<p>使用外部函数的一个缺点是，代码不再是可移植的。</p>
+<h3>exec --- 执行一个外部程序</h3>
+<h3>passthru --- 执行外部程序并且显示原始输出</h3>
+<h3>system --- 执行外部程序，并且显示输出</h3>
+<h3>反引号`` --- 执行结果以字符串形式返回</h3>
+</div>
+
+<div>
+<h2>与环境变量交互</h2>
+<h3>getenv — 获取一个环境变量的值，使用phpinfo()可以看到所有环境变量的列表</h3>
+<h3>putenv() - 设置环境变量的值，如 putenv("DOCUMENT_ROOT=/var/www/html");</h3>
+</div>
+
+<div>
+<h2>其他函数（全）</h2>
+<p>PHP中的大多数文件系统函数都与操作系统函数对应，可以通过linux的man手册获取更多信息。</p>
+<h3>clearstatcache() --- 清除文件状态缓存</h3>
+<h3>dir --- 返回一个Directory 类实例</h3>
+<h3>getcwd --- 取得当前工作目录</h3>
+<h3>rewinddir --- 倒回目录句柄</h3>
+<h3>chdir --- 改变目录</h3>
+<h3>chroot --- 改变根目录</h3>
+<h3>fflush() --- 将缓冲内容输出到文件</h3>
+<h3>fileatime() --- 取得文件的上次访问时间</h3>
+<h3>filectime() --- 取得文件的 inode 修改时间</h3>
+<h3>fileinode() --- 取得文件的 inode</h3>
+<h3>fnmatch() --- 用模式匹配文件名</h3>
+<h3>fputcsv() --- 将行格式化为 CSV 并写入文件指针</h3>
+<h3>fscanf() --- 从文件中格式化输入</h3>
+<h3>fstat() --- 通过已打开的文件指针取得文件信息</h3>
+<h3>ftruncate() --- 将文件截断到给定的长度</h3>
+<h3>glob() --- 寻找与模式匹配的文件路径</h3>
+<h3>lchgrp() --- Changes group ownership of symlink</h3>
+<h3>lchown() --- Changes user ownership of symlink</h3>
+<h3>link() --- 建立一个硬连接</h3>
+<h3>linkinfo() --- 获取一个连接的信息</h3>
+<h3>lstat() --- 给出一个文件或符号连接的信息</h3>
+<h3>stat() --- 给出文件的信息</h3>
+<h3>parse_ini_file() --- 解析一个配置文件</h3>
+<h3>parse_ini_string() --- Parse a configuration string</h3>
+<h3>pathinfo() --- 返回文件路径的信息</h3>
+<h3>pclose() --- 关闭进程文件指针</h3>
+<h3>popen() --- 打开进程文件指针</h3>
+<h3>readlink() --- 返回符号连接指向的目标</h3>
+<h3>realpath_cache_get() --- Get realpath cache entries</h3>
+<h3>realpath_cache_size() --- Get realpath cache size</h3>
+<h3>realpath() --- 返回规范化的绝对路径名</h3>
+<pre>putenv('GDFONTPATH=' . realpath('.'));  // 设定GD2的字符路径为当前路径。例见imagettftext </pre>
+<h3>set_file_buffer() --- stream_set_write_buffer 的别名</h3>
+<h3>symlink() --- 建立符号连接</h3>
+<h3>tempnam() --- 建立一个具有唯一文件名的文件</h3>
+<h3>tmpfile() --- 建立一个临时文件</h3>
+</div>
+
+</div>
+</body>
+</html>

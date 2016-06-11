@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<script src="../notes.js"></script>
+<title>PHP 系统交互函数</title>
+</head>
+<body>
+<div id="article">
+
+<h1>创建图像</h1>
+
+<div>
+<h2>exif 扩展（全） ---- 可交换图像信息</h2>
+<p>通过使用exif 扩展，你可以操作图像元数据。例如：你可以使用exif 相关的函数从文件头读取数码相机拍摄的JPEG 和TIFF 格式的图像文件元数据。</p>
+<h3>exif_imagetype --- 判断一个图像的类型</h3>
+<h3>exif_read_data() / read_exif_data() --- 从JPEG 或TIFF 文件中读取EXIF 头信息</h3>
+<h3>exif_tagname --- 获取指定索引的头名称</h3>
+<h3>exif_thumbnail --- 取得嵌入在TIFF 或JPEG 图像中的缩略图</h3>
+</div>
+
+<div>
+<h2>GD 库 ---- 图像处理</h2>
+<h3>imagecreatetruecolor --- 新建一个真彩色图像</h3>
+<pre>resource imagecreatetruecolor ( int $width, int $height )</pre>
+<pre>
+$im = @imagecreatetruecolor(120, 20) or die('Cannot Initialize new GD image stream');
+$text_color = imagecolorallocate($im, 233, 14, 91);
+imagestring($im, 1, 5, 5,  'A Simple Text String', $text_color);
+header ('Content-Type: image/png'); // 输出文件头告诉浏览器这是图片
+imagepng($im); // 输出图片
+imagedestroy($im); // 释放资源</pre>
+
+<h3>imagecreate --- 新建一个基于调色板的图像</h3>
+<h3>imagecreatefromgif --- 由文件或 URL 创建一个新图象。</h3>
+<h3>imagecreatefromjpeg --- 由文件或 URL 创建一个新图象。</h3>
+<h3>imagecreatefrompng --- 由文件或 URL 创建一个新图象。</h3>
+<pre>resource imagecreatefrompng ( string $filename )</pre>
+<h3>imagecreatefromstring --- 从字符串中的图像流新建一图像</h3>
+<h3>imagepng --- 以 PNG 格式将图像输出到浏览器或文件</h3>
+<h3>imagedestroy() --- 释放与image 关联的内存</h3>
+<h3>imagecolorallocate --- 为一幅图像分配颜色 allocate /ˈæləkeɪt/ v.分配</h3>
+<pre>int imagecolorallocate ( resource $image , int $red , int $green , int $blue )</pre>
+<p>函数返回一个标识符；必须调用该函数以创建新颜色；第一次调用会给“基于调色板”的图像填充背景色。 
+</p>
+
+<h3>imagefill --- 区域填充</h3>
+<pre>bool imagefill ( resource $image, int $x, int $y, int $color )</pre>
+<p>与 x, y 点颜色相同且相邻的点都会被填充</p>
+
+<h3>imageline --- 画一条线段</h3>
+<pre>bool imageline ( resource $image, int $x1, int $y1, int $x2, int $y2, int $color )</pre>
+<p>用 color 颜色在图像 image 中从坐标 x1，y1 到 x2，y2 画一条线段</p>
+
+<h3>imagestring --- 水平地画一行字符串</h3>
+<pre>bool imagestring ( resource $image, int $font, int $x, int $y, string $s, int $col )</pre>
+<p>用col颜色将字符串s画到image图像的x，y坐标处（这是字符串左上角坐标）。</p>
+<h3>imagestringup --- 垂直地画一行字符串</h3>
+
+<h3>imagettftext --- 用 TrueType 字体向图像写入文本</h3>
+<pre>array imagettftext ( resource $image, float $size, float $angle, $x, $y, int $color, string $fontfile, string $text )</pre>
+<p>由 x，y 所表示的坐标定义了第一个字符的基本点（大概是字符的<strong>左下角</strong>）。angle 是指文字旋转角度</p>
+
+<h3>imagettfbbox --- 取得使用 TrueType 字体的文本的范围 bounding box</h3>
+<pre>array imagettfbbox ( float $size, float $angle, string $fontfile, string $text ) //返回像素值</pre>
+<table><tr><td>upper left corner, X:6 Y:7</td><td>upper right corner, X:4 Y:5</td></tr>
+<tr><td>lower left corner, X:0 Y:1</td><td>lower right corner, X:2 Y:3</td></tr></table>
+
+
+<h3>imageloadfont --- 加载一个用户定义的位图字体并返回该字体的标识符</h3>
+<pre>int imageloadfont ( string $file )  // 返回值大于5, 1-5是内置字体</pre>
+
+<h3>imagerectangle --- 画一个矩形</h3>
+<pre>bool imagerectangle ( resource $image, int $x1, int $y1, $x2, $y2, int $col ) // 1左上 2右下</pre>
+<h3>imagefilledrectangle --- 画一矩形并填充</h3>
+
+</div>
+
+<div>
+<h2>在其他页面中使用自动生成的图像</h2>
+<p>因为报头只可以发送一次，而这是告诉浏览器正在发送图像数据的唯一方法，所以在普通页面里嵌入动态图像会遇到一些麻烦，我们可以通过以下途径解决：</p>
+<p>1，可以将图像写到一个文件中，然后用&lt;img&gt;标记指向它</p>
+<p>2，可以将图像创建脚本置于一个图像标记中</p>
+<pre>&lt;img src="image.php" height="200" width="200" alt="image" /&gt;</pre>
+</div>
+
+<div>
+<h2>Imagick 是用 ImageMagic API 来创建和修改图像的PHP官方扩展</h2>
+<p>ImageMagick库并不是标准PHP的一部分，但是可以通过PHP扩展类库（PECL）很容易安装这个函数库。在某些方面，ImageMagick比GD2的功能更丰富一些。</p>
+
+</div>
+
+</div>
+</body>
+</html>

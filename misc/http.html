@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../w3c.css" />
+<title>HTTP TCP/IP 协议</title>
+</head>
+<body>
+<div id="article">
+
+<h1>HTTP 协议</h1>
+
+<div>
+<h2>W3C 文档</h2>
+<p>HTTP1.1: https://www.w3.org/Protocols/rfc2616/rfc2616.html</p>
+<p>HTTP/2: https://tools.ietf.org/html/rfc7540</p>
+<h3>官方文档的一个翻译项目</h3>
+<p>https://quafoo.gitbooks.io/http2-rfc7540-zh-cn-en/content/chapter1/index.html</p>
+</div>
+
+<div>
+<h2>HTTP 服务器</h2>
+<h2>apache  lighttpd  nginx</h2>
+<p>建议方案：<br />
+Apache 后台服务器（主要处理php及一些功能请求 如：中文url）<br />
+Nginx  前端服务器（利用它占用系统资源少得优势来处理静态页面大量请求）<br />
+Lighttpd 图片服务器<br />
+总体来说，随着nginx功能得完善将使他成为今后web server得主流。</p>
+<p>http://www.blogjava.net/daniel-tu/archive/2008/12/29/248883.html</p>
+</div>
+
+<div>
+<h2>HTTP: The Protocol Every Web Developer Must Know</h2>
+<p>http://code.tutsplus.com/tutorials/http-the-protocol-every-web-developer-must-know-part-1--net-31177</p>
+</div>
+
+<div>
+<h2>分析工具</h2>
+<h3>使用 Wireshark 抓TCP http包</h3>
+<h3>Chrome</h3>
+</div>
+
+<div>
+<h2>html里的charset无效</h2>
+<p>抓包搞试验的时候，发现html里的charset设置并没有什么卵用，html head 里面的内容也不会进入 http 报文头部，而charset以报文头部（apache设置）的为准。</p>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<script src="../notes.js"></script>
+<title>PHP 杂项函数</title>
+</head>
+<body>
+<div id="article">
+
+<h1>日期时间函数</h1>
+
+<div>
+<h3>date --- 格式化一个本地时间/日期</h3>
+<pre>string date ( string $format [, int $timestamp ] ) // 没有时间戳则使用本地当前时间</pre>
+
+<table>
+<tr><th></th><th>标识</th><th>描述</th><th>示例</th></tr>
+<tr><td rowspan="6">天</td><td><em>d</em></td><td>月的第几天，2 位数字</td><td>从 <em>01</em> 到 <em>31</em></td></tr>
+<tr><td><em>D</em></td><td>星期几，3 个字符</td><td>从 <em>Mon</em> 到 <em>Sun</em></td></tr>
+<tr><td><em>j</em></td><td>月的第几天，无前导 0</td><td>从 <em>1</em> 到 <em>31</em></td></tr>
+<tr><td><em>l</em></td><td>星期几，英文全称 小写L</td><td>从 <em>Sunday</em> 到 <em>Saturday</em></td></tr>
+<tr><td><em>S</em></td><td>月的第几天，2 位英语序数词</td><td><em>st</em>，<em>nd</em>，<em>rd</em> 或者<em>th</em>，应与<em>j</em> 联合使用</td></tr>
+<tr><td><em>z</em></td><td>年的第几天，从 0 开始计数</td><td>从 <em>0</em> 到 <em>365</em></td></tr>
+<tr><td rowspan="5">月</td><td><em>F</em></td><td>月份英文全拼</td><td>从 <em>January</em> 到 <em>December</em></td></tr>
+<tr><td><em>m</em></td><td>数字表示的月份，2位</td><td>从 <em>01</em> 到 <em>12</em></td></tr>
+<tr><td><em>M</em></td><td>月份的英文简拼</td><td>从 <em>Jan</em> 到 <em>Dec</em></td></tr>
+<tr><td><em>n</em></td><td>数字表示的月份，无前导 0 </td><td><em>1</em> 到 <em>12</em></td></tr>
+<tr><td><em>t</em></td><td>给定月份中包含多少天</td><td>从 <em>28</em> 到 <em>31</em></td></tr>
+<tr><td rowspan="2">年</td><td><em>Y</em></td><td>4 位数字的年份</td><td>示例：<em>1999</em> 或 <em>2003</em></td></tr>
+<tr><td><em>y</em></td><td>2 位数字的年份</td><td>示例： <em>99</em> 或 <em>03</em></td></tr>
+<tr><td rowspan="8">时</td><td><em>a</em></td><td>上午还是下午，2 位小写字符</td><td><em>am</em> 或 <em>pm</em></td></tr>
+<tr><td><em>A</em></td><td>上午还是下午，2 位大写字符</td><td><em>AM</em> 或 <em>PM</em></td></tr>
+<tr><td><em>g</em></td><td>12时制小时，无前导 0 </td><td>从 <em>1</em> 到 <em>12</em></td></tr>
+<tr><td><em>G</em></td><td>24时制小时，无前导 0 </td><td>从 <em>0</em> 到 <em>23</em></td></tr>
+<tr><td><em>h</em></td><td>12时制小时，有前导 0</td><td>从 <em>01</em> 到 <em>12</em></td></tr>
+<tr><td><em>H</em></td><td>24时制小时，有前导 0</td><td><em>00</em> 到 <em>23</em></td></tr>
+<tr><td><em>i</em></td><td>分钟，有前导 0</td><td>从 <em>00</em> 到 <em>59</em></td></tr>
+<tr><td><em>s</em></td><td>秒，有前导 0</td><td>从 <em>00</em> 到 <em>59</em></td></tr>
+<tr><td rowspan="3">区</td><td><em>O</em></td><td>和格林威治时间（GMT）的时差</td><td>示例：<em>+0200</em></td></tr>
+<tr><td><em>T</em></td><td>时区缩写</td><td>示例：<em>EST</em>, <em>MDT</em> ...</td></tr>
+<tr><td><em>r</em></td><td>»&nbsp;RFC 2822</a> 格式的日期和时间</td><td>示例：<em>Thu, 21 Dec 2000 16:01:07 +0200</em></td></tr>
+<tr><td></td><td><em>U</em></td><td>自 1970/01/01 0:0:0 GMT 以来的秒数</td><td>参见 time()</td></tr>
+</table>
+<pre>echo date('jS F Y'); // 输出类似：15th August 2005</pre>
+<h3>time() --- 返回当前的 Unix 时间戳</h3>
+<p>Unix 时间戳，即从 Unix 纪元（January 1 1970 00:00:00 GMT）到特定时刻的秒数</p>
+<h3>mktime() --- 根据给出的参数返回 Unix 时间戳</h3>
+<h3>getdate() --- 取得日期/时间信息，返回数组</h3>
+<h3>checkdate() --- 验证日期的有效性</h3>
+<h3>date_default_timezone_set('Asia/Shanghai'); --- 设定用于一个脚本中所有日期时间函数的默认时区</h3>
+<h3>date_default_timezone_get --- 取得一个脚本中所有日期时间函数所使用的默认时区</h3>
+<h3>strftime --- 根据区域设置格式化时间/日期</h3>
+<h3>strtotime() --- 将任何英文文本的日期时间描述解析为 Unix 时间戳</h3>
+
+</div>
+
+<div>
+<h2>时间日期的对象实现</h2>
+<h3>DateTime::diff -- DateTimeImmutable::diff -- DateTimeInterface::diff -- date_diff — Returns the difference between two DateTime objects</h3>
+<pre>面向对象风格
+$datetime1 = new DateTime('2009-10-11'); $datetime2 = new DateTime('2009-10-13');
+$interval = $datetime1->diff($datetime2);
+echo $interval->format('%R%a days');
+过程化风格
+$datetime1 = date_create('2009-10-11'); $datetime2 = date_create('2009-10-13');
+$interval = date_diff($datetime1, $datetime2);
+echo $interval->format('%R%a days');
+</pre>
+</div>
+
+<div>
+<h2>在MySQL中计算日期</h2>
+</div>
+
+<h1>其他有用的特性</h1>
+
+<div>
+<h2>eval() --- 把字符串作为PHP代码执行</h2>
+<h2>exit() / die() --- 输出一个消息并且退出当前脚本</h2>
+<h2>序列化变量和对象 serialize() unserialize()</h2>
+<h2>获取PHP环境对象</h2>
+<h3>24.4.1 找到所加载的PHP扩展部件</h3>
+<p>get_loaded_extensions() --- 返回所有编译并加载模块名的 array</p>
+<p>get_extension_funcs() --- 返回模块函数名称的数组</p>
+
+<h3>24.4.2 识别脚本所有者 get_current_user()</h3>
+<h3>24.4.3 确定脚本最近修改时间 getlastmod()</h3>
+<h2>暂时改变运行时环境</h2>
+<p>如果我们知道脚本需要运行一段时间，可以通过设置max_execution_time() 指令来限制脚本的最长运行时间。使用 ini_get() 和 ini_set() 函数可以访问和修改指令。</p>
+<h2>源代码加亮</h2>
+<p>和许多IDE一样，PHP内置一个默认的语法加亮器。这项功能在与别人共享代码或在web页面上讨论并展示代码时非常有用。</p>
+<h3>highlight_file() / show_source() --- 语法高亮一个文件</h3>
+<h3>highlight_string() --- 字符串的语法高亮</h3>
+<h2>在命令行中使用PHP</h2>
+
+</div>
+
+</div>
+</body>
+</html>

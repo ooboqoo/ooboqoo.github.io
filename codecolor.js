@@ -5,7 +5,7 @@
   window.onload = function(){
     if(typeof oldonload=='function') oldonload();
     var x = document.getElementsByTagName('pre');  // 默认只给 <pre> 中的内容上色
-    var reg = /html|css|js|php/;
+    var reg = /html|css|less|js|php/;
     for(var i=0;i<x.length;i++) {
       var text = x[i].innerHTML;
       var lang = reg.exec(x[i].className);  // 如果需要指定上色语言，通过 class 指定，默认为 html
@@ -39,15 +39,18 @@ function w3CodeColorize(x, lang) {
   if (!lang) {lang = "html"; }
   if (lang == "html") {return htmlMode(x);}
   if (lang == "css") {return cssMode(x);}
+  if (lang == "less") {return lessMode(x);}
   if (lang == "js") {return jsMode(x);}
   if (lang == "php") {return phpMode(x);}
   return x;
+
   function extract(str, start, end, func, repl) {
+    // str 待处理文本；start 开始标志；end 结束标志；func 处理方法；repl 替换字符
     var s, e, d = "", a = [];
     while (str.search(start) > -1) {
       s = str.search(start);
       e = str.indexOf(end, s);
-      if (e == -1) {e = str.length;}
+      if (e == -1) {e = str.length;}  // 这里应该是 str.length -1 吧
       if (repl) {
         a.push(func(str.substring(s, e + (end.length))));      
         str = str.substring(0, s) + repl + str.substr(e + (end.length));
@@ -60,6 +63,7 @@ function w3CodeColorize(x, lang) {
     this.rest = d + str;
     this.arr = a;
   }
+
   function htmlMode(txt) {
     var rest = txt, done = "", php, comment, angular, startpos, endpos, note, i;
     php = new extract(rest, "&lt;\\?php", "?&gt;", phpMode, "W3PHPPOS");
@@ -102,6 +106,7 @@ function w3CodeColorize(x, lang) {
     }
     return rest;
   }
+
   function tagMode(txt) {
     var rest = txt, done = "", startpos, endpos, result;
     while (rest.search(/(\s|<br>)/) > -1) {    
@@ -119,6 +124,7 @@ function w3CodeColorize(x, lang) {
     }
     return "<span style=color:" + tagnamecolor + ">" + result + "</span>";
   }
+
   function attributeMode(txt) {
     var rest = txt, done = "", startpos, endpos, singlefnuttpos, doublefnuttpos, spacepos;
     while (rest.indexOf("=") > -1) {
@@ -140,15 +146,19 @@ function w3CodeColorize(x, lang) {
     }
     return "<span style=color:" + attributecolor + ">" + done + rest + "</span>";
   }
+
   function attributeValueMode(txt) {
     return "<span style=color:" + attributevaluecolor + ">" + txt + "</span>";
   }
+
   function angularMode(txt) {
     return "<span style=color:" + angularstatementcolor + ">" + txt + "</span>";
   }
+
   function commentMode(txt) {
     return "<span style=color:" + commentcolor + ">" + txt + "</span>";
   }
+
   function cssMode(txt) {
     var rest = txt, done = "", comment, prop, i;
     comment = new extract(rest, /\/\*/, "*/", commentMode, "W3CSSCOMMENTPOS");
@@ -160,6 +170,30 @@ function w3CodeColorize(x, lang) {
     }
     return "<span style=color:" + cssselectorcolor + ">" + rest + "</span>";
   }
+
+  function lessMode(txt) {  // 自己添加的方法以处理 less 文档高亮显示，主要解决了嵌套问题
+    var rest = txt, done = "", comment, commentline, prop, i;
+    comment = new extract(rest, /\/\*/, "*/", commentMode, "W3CSSCOMMENTPOSML");
+    rest = comment.rest;
+    commentline = new extract(rest, /\/\//, "\n", commentMode, "W3CSSCOMMENTPOSSL");  // 添加单行注释以适应 less 显示
+    rest = commentline.rest;
+    rest = rest.replace(/([a-z\d\-\s]+):([^;}{]+)/g, function(match,p1,p2){  // 我写的这个估计比原作者的牛
+      return "<span style=color:" + csspropertycolor + ">" + p1+ "</span>" +
+          "<span style=color:" + cssdelimitercolor + ">:</span>"+
+          "<span style=color:" + csspropertyvaluecolor + ">"+p2+"</span>";
+    });
+    rest = rest.replace(/\{|\}/g, function(match){
+      return "<span style=color:" + cssdelimitercolor + ">"+ match +"</span>";
+    });
+    for (i = 0; i < comment.arr.length; i++) {
+      rest = rest.replace("W3CSSCOMMENTPOSML", comment.arr[i]);
+    }
+    for (i = 0; i < commentline.arr.length; i++) {
+      rest = rest.replace("W3CSSCOMMENTPOSSL", commentline.arr[i]);
+    }
+    return "<span style=color:" + cssselectorcolor + ">" + rest + "</span>";
+  }
+
   function cssPropertyMode(txt) {
     var rest = txt, propval;
     propval = new extract(rest, ":", ";", cssPropertyValueMode);
@@ -170,6 +204,7 @@ function w3CodeColorize(x, lang) {
     }
     return "<span style=color:" + csspropertycolor + ">" + rest + "</span>";
   }
+
   function cssPropertyValueMode(txt) {
     var result = txt;
     result = "<span style=color:" + cssdelimitercolor + ">:</span>" + result.substring(1);
@@ -180,6 +215,7 @@ function w3CodeColorize(x, lang) {
     }
     return "<span style=color:" + csspropertyvaluecolor + ">" + result + "</span>";
   }
+
   function jsMode(txt) {
     var rest = txt, done = "", sfnuttpos, dfnuttpos, compos, comlinepos, keywordpos, numpos, mypos, y;
     y = 1;
@@ -201,15 +237,19 @@ function w3CodeColorize(x, lang) {
     }
     return "<span style=color:" + jscolor + ">" + done + rest + "</span>";
   }
+
   function jsStringMode(txt) {
     return "<span style=color:" + jsstringcolor + ">" + txt + "</span>";
   }
+
   function jsKeywordMode(txt) {
     return "<span style=color:" + jskeywordcolor + ">" + txt + "</span>";
   }
+
   function jsNumberMode(txt) {
     return "<span style=color:" + jsnumbercolor + ">" + txt + "</span>";
   }
+
   function getMinPos() {
     var i, arr = [];
     for (i = 0; i < arguments.length; i++) {
@@ -220,6 +260,7 @@ function w3CodeColorize(x, lang) {
     if (arr.length == 0) {arr = arguments[i-1];}  // 如果没有有效项目，返回undefined，我把 i 改成了 i-1，不知对错
     return arr;
   }
+
   function phpMode(txt) {
     var rest = txt, done = "", sfnuttpos, dfnuttpos, compos, comlinepos, comhashpos, keywordpos, mypos, y;
     y = 1;
@@ -249,12 +290,15 @@ function w3CodeColorize(x, lang) {
 */
     return "<span style=color:" + phpcolor + ">" + rest + "</span>";
   }
+
   function phpStringMode(txt) {
     return "<span style=color:" + phpstringcolor + ">" + txt + "</span>";
   }
+
   function phpNumberMode(txt) {
     return "<span style=color:" + phpnumbercolor + ">" + txt + "</span>";
   }
+
   function phpKeywordMode(txt) {
     var glb = ["$GLOBALS","$_SERVER","$_REQUEST","$_POST","$_GET","$_FILES","$_ENV","$_COOKIE","$_SESSION"];
     if (glb.indexOf(txt) > -1) {
@@ -263,6 +307,7 @@ function w3CodeColorize(x, lang) {
       return "<span style=color:" + phpkeywordcolor + ">" + txt + "</span>";
     }
   }
+
   function getKeywordPos(typ, txt, func) {
     var words, i, pos, rpos = -1, rpos2 = -1, patt;
     if (typ == "js") {
@@ -291,6 +336,7 @@ function w3CodeColorize(x, lang) {
     }
     return [rpos, rpos2, func];
   }
+
   function getPos(txt, start, end, func) {
     var s, e;
     s = txt.search(start);  // 查找开始标记的位置，没有就返回 -1
@@ -298,6 +344,7 @@ function w3CodeColorize(x, lang) {
     if (e == -1) {e = txt.length;}  // 找不到匹配的结束符，就直接延伸的末尾，这个无法应付一些复杂的代码结构，但也基本够用
     return [s, e + (end.length), func];
   }
+
   function getNumPos(txt, func) {
     var arr = ["<br>", " ", ";", "(", "+", ")", "[", "]", ",", "&", ":", "{", "}", "/" ,"-", "*", "|", "%"], i, j, c, startpos = 0, endpos, word;
     for (i = 0; i < txt.length; i++) {

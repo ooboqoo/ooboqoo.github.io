@@ -1,65 +1,86 @@
 <div class="w3-content" style="position:relative;">
   <ul style="float:left;">
-    <li title="打开菜单" style="font-weight:600;" onclick="sidemenuToggle()">&#x2261;</li>
-    <li><a href="/notes/index.html" title="返回主目录">主目录</a></li>
+    <li title="常用链接导航" style="font-weight:600;" onclick="sidemenuToggle()">&#x2261;
+    <li><a href="/index.html" title="返回主目录">主目录</a>
     <li class="w3-dropdown-hover" style="display:none"><a href="#">页内导航<i>&#x25BC;</i></a>
-      <div id="topnavpage" class="w3-dropdown-content w3-white w3-card-4"></div></li>
+      <div id="topnavpage" class="w3-dropdown-content w3-white w3-card-4"></div>
   </ul>
   <span style="font-size:0.75rem;position:absolute;left:50%;"></span>
-  <ul style="float:right;"><li><a id="topnavbtn_references" href="javascript:void(0);" onclick="navToggle(&quot;references&quot;)">参考手册<i>&#x25BC;</i><i style="display:none">&#x25B2;</i></a></li></ul>
+  <ul style="float:right;"><li><a id="topnavbtn_references" href="javascript:void(0);" onclick="navToggle(&quot;references&quot;)">参考手册<i>&#x25BC;</i><i style="display:none">&#x25B2;</i></a></ul>
 
 <div id="sidemenu" class="w3-card-2">
-<h3>JavaScript</h3>
-<a href="/notes/js/js.html">JavaScript简介</a>
-<a href="/notes/js/dom.html">HTML DOM</a>
-<a href="/notes/js/js13sj.html">13事件</a>
-<a href="/notes/js/json.html">JSON</a>
-<a href="/notes/js/ajax.html">AJAX</a>
-<a href="/notes/js/log.html">学习日志</a>
-<h3>JavaScript 手册</h3>
-<a href="/notes/js/refjs.html">ECMAScript</a>
-<a href="/notes/js/refdom.html">DOM</a>
-<a href="/notes/js/refbom.html">BOM</a>
-<h3>jQuery 教程</h3>
-<a href="/notes/jq/jquery.html">jQuery 教程</a>
-<a href="/notes/jq/jqfunc.html">闭包</a>
-<a href="/notes/jq/jqplgn.html">jQuery 插件开发</a>
-<a href="/notes/jq/jqsrc.html">jQuery 源码分析</a>
-<a href="/notes/jq/jqref.html">jQuery 手册</a>
-<h3>前端综合</h3>
-<a href="/notes/fe/cbrowser.html">跨浏览器编程</a>
-<a href="/notes/fe/test.html">测试和调试</a>
-<a href="/notes/fe/ninja1.html">忍者秘籍1</a>
-<a href="/notes/fe/ninja2.html">忍者秘籍2</a>
+  <h3>HTML 手册</h3>
+  <a href="/html/refhtml.html">HTML 速查表</a>
+  <a href="/html/reftags.html">HTML 标签</a>
+  <a href="/html/refattr.html">HTML 属性</a>
+  <a href="/html/refhtml5.html">HTML5 新元素</a>
+  <a href="/html/refevnt.html">HTML5 事件</a>
+  <a href="/html/refcnvs.html">HTML5 画布</a>
+  <a href="/html/refavdom.html">HTML A/V DOM</a>
+  <h3>CSS</h3>
+  <a href="/css/cssjc.html">CSS 基础</a>
+  <a href="/css/less.html">Less 语法</a>
+  <a href="http://www.w3schools.com/css/css3_animations.asp" target="_blank">w3schools CSS3</a><sup>*</sup>
+  <h3>CSS 手册</h3>
+  <a href="/css/refprop.html">属性手册</a>
+  <a href="/css/refslct.html">选择器手册</a>
+  <a href="/css/refsupt.html">CSS3 浏览器支持</a>
+  <a href="/css/refw3css.html">W3.CSS 手册</a>
+  <h3>JavaScript 手册</h3>
+  <a href="/notes/js/refjs.html">ECMAScript</a>
+  <a href="/notes/js/refdom.html">DOM</a>
+  <a href="/notes/js/refbom.html">BOM</a>
+  <a href="/notes/jq/jqref.html">jQuery</a>
+  <h3>项目工具</h3>
+  <a href="/project/chrome.html">Chrome DevTool</a>
+  <a href="/project/git.html">Git & GitHub</a>
+  <a href="/project/gulp.html">Gulp</a>
+  <h3>Linux & PHP</h3>
+  <a href="/linux/linuxcmd.html">Linux 常用命令</a>
+  <a href="/php/pcre.html">PCRE 正则表达式</a>
+  <h3>开发工具</h3>
+  <a href="/tools/phpstorm.html">PhpStorm</a>
+  <a href="/tools/sublime3.html">Sublime3</a>
+  <a href="/tools/notepadpp.html">Notepad++</a>
+  <a href="/tools/vim.html">Vim</a>
+  <a href="/tools/cheatsheet.html">Emmet手册</a>
 </div>
 
 <div id='nav_references' class='w3-dropnav w3-light-grey w3-card-2'>
   <div id="nav_references_content">
     <span onclick="navToggle(&quot;references&quot;)" class="w3-closebtn w3-xlarge">×</span>
     <div class="w3-row-padding">
-    <div class="w3-col s6 m3">
-      <h3>HTML</h3>
-      <a href="/notes/html/refhtml.html">HTML 速查表</a>
-      <a href="/notes/html/reftags.html">HTML 标签</a>
-      <a href="/notes/html/refattr.html">HTML 属性</a>
-      <a href="/notes/html/refevnt.html">HTML 事件</a>
-      <a href="/notes/html/refcnvs.html">HTML 画布</a>
-      <a href="/notes/html/refavdom.html">HTML A/V DOM</a>
-    </div>
-    <div class="w3-col s6 m3">
-    <h3>CSS</h3>
-      <a href="/notes/css/refprop.html">属性手册</a>
-      <a href="/notes/css/refslct.html">选择器手册</a>
-      <a href="/notes/css/refsupt.html">CSS3 浏览器支持</a>
-      <a href="/notes/css/refw3css.html">W3.CSS 框架</a>
-    </div>
-    <div class="w3-col s6 m3">
-    <h3>JavaScript</h3>
-      <a href="/notes/js/jsref.html">内置对象</a>
-      <a href="/notes/js/refbom.html">BOM 对象</a>
-      <a href="/notes/js/domref.html">DOM 对象</a>
-      <a href="/notes/js/jqref.html">jQuery 手册</a>
-    </div>
+      <div class="w3-col s6 m3">
+        <h3>HTML</h3>
+        <a href="/html/refhtml.html">HTML 速查表</a>
+        <a href="/html/reftags.html">HTML 标签</a>
+        <a href="/html/refattr.html">HTML 属性</a>
+        <a href="/html/refevnt.html">HTML 事件</a>
+        <a href="/html/refcnvs.html">HTML 画布</a>
+        <a href="/html/refavdom.html">HTML A/V DOM</a>
+      </div>
+      <div class="w3-col s6 m3">
+      <h3>CSS</h3>
+        <a href="/css/refprop.html">属性手册</a>
+        <a href="/css/refslct.html">选择器手册</a>
+        <a href="/css/refsupt.html">CSS3 浏览器支持</a>
+        <a href="/css/refw3css.html">W3.CSS 框架</a>
+      </div>
+      <div class="w3-col s6 m3">
+      <h3>JavaScript</h3>
+        <a href="/js/jsref.html">内置对象</a>
+        <a href="/js/refbom.html">BOM 对象</a>
+        <a href="/js/domref.html">DOM 对象</a>
+        <a href="/js/jqref.html">jQuery 手册</a>
+      </div>
+      <div class="w3-col s6 m3">
+      <h3>MISC</h3>
+      <a href="/linux/linuxcmd.html">Linux常用命令</a>
+      <a href="/tools/sublime3.html">Sublime3</a>
+      <a href="/tools/notepadpp.html">Notepad++</a>
+      <a href="/tools/vim.html">Vim</a>
+      <a href="/tools/cheatsheet.html">Emmet手册</a>
+      </div>
     </div>
   </div>
 </div>

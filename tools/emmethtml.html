@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css">
+<script src="../notes.js"></script>
+<title>Emmet Tutorial</title>
+<style>
+body{font-family: "Gotham Rounded A", "Gotham Rounded B", "Helvetica Neue", Helvetica, Arial, sans-serif, "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;font-size: 1.15em; color: #334;}
+p{line-height: 1;margin: 6px;}
+pre{font-size: 0.85em; border-radius: 5px;
+	font-family: "Bitstream Vera Sans Mono", "Consolas", "Courier", monospace;
+	overflow: auto; padding: 5px 20px; margin:0; border: 1px dotted gray; line-height: 1.25;
+	overflow-wrap: break-word; word-wrap: break-word; word-break: break-all;}
+</style>
+</head>
+<body>
+<div class="skinny-read">
+<div>
+<p>这里有一片中文介绍，也不错 <a href="http://www.w3cplus.com/blog/32.html">http://www.w3cplus.com/blog/32.html</a></p>
+
+<p>还有一种更让你感兴趣的方法，我们在编辑中写几行没有任何标签的内容，但我想给每个没有标签的内容嵌套在ul列表中,如下所示</p>
+<pre>
+list1
+list2
+list3
+</pre>       
+<p>我们在编辑器中按【Ctrl+A】选中这几行内容，然后按【Ctrl+Shift+A】在弹出的对话框中输入ul.menu>li.item*>a后按【Enter】键，就会生成如下代码</p>
+<pre>
+&lt;ul class="menu"&gt;
+    &lt;li class="item"&gt;&lt;a href=""&gt;list1&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="item"&gt;&lt;a href=""&gt;list2&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="item"&gt;&lt;a href=""&gt;list3&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+<p>记得选中所有内容哟，我尝试了不选中内容是没有效果出现的哟。</p>
+<h2>官方文档靠谱，有时间直接把官方文档action部分整理出来</h2>
+<p>官方说明文档在这里<a href="http://docs.emmet.io/actions/go-to-edit-point/">http://docs.emmet.io/actions/go-to-edit-point/</a></p>
+</div>
+
+<h1>Using Emmet to Speed Up Front-End Web Development</h1>
+
+<div class="meta">
+	<p><strong><a href="http://blog.teamtreehouse.com/author/mattwest">Matt West</a></strong><br><em>writes on December 16, 2013</em></p>
+</div>
+<p>Emmet is a plugin for your text editor that provides a number of tools to help you quickly write HTML and CSS
+	code. The plugin, which was previously known as <em>Zen Coding</em>, allows you to generate HTML elements using
+	a CSS-like syntax.</p>
+<p>In this post you’re going to be learning how to use the Emmet syntax to generate HTML and CSS code.</p>
+
+<h2>Plugins For Your Favorite Text Editor</h2>
+<p>Before we get started you’ll need to install the Emmet plugin for your text editor. There’s a whole bunch of
+	plugins available that cover most of the popular text editors.</p>
+
+<h2>Generating Elements</h2>
+<p>Now that you’ve got the Emmet plugin installed lets take a look at the syntax that you will be using to generate elements.</p>
+<pre><code>ul&gt;li&gt;img+p</code></pre>
+<p>Emmet uses <em>abbreviations</em> to define the elements that you want to generate. The syntax for these
+	abbreviations is very much like CSS so it might look familiar to you.</p>
+<p>Once you’re done writing an abbreviation, hitting the <code>TAB</code> key will trigger Emmet to parse the line
+	and generate the requested code. The example above would generate the following code.</p>
+<pre><code>&lt;ul&gt;
+&lt;li&gt;
+&lt;img src="" alt=""&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<p>Lets dive a bit deeper into the Emmet syntax to see how you can create more complex abbreviations.</p>
+<h3>Child &gt;</h3>
+<p>The child operator <code>&gt;</code> is used to nest elements within each other.</p>
+<pre><code>section&gt;div&gt;p</code></pre>
+<p>The example above will generate the following markup.</p>
+<pre><code>&lt;section&gt;
+&lt;div&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/section&gt;</code></pre>
+<h3>Sibling +</h3>
+<p>The sibling operator <code>+</code> is used to create elements at the same level as the previous element in the
+	abbreviation.</p>
+<pre><code>section+div+p</code></pre>
+<p>This example generates the following HTML.</p>
+<pre><code>&lt;section&gt;&lt;/section&gt;
+&lt;div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;/p&gt;</code></pre>
+<h3>Climb-up ^</h3>
+<p>The climb-up <code>^</code> operator is used to move up one level in the tree structure. This can come in handy
+	when you’re using the child operator <code>&gt;</code>.</p>
+<pre><code>section&gt;div&gt;p&gt;a^p</code></pre>
+<p>In this abbreviation two paragraph elements will be created within the div but only the first paragraph will
+	contain a link.</p>
+<pre><code>&lt;section&gt;
+&lt;div&gt;
+&lt;p&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/section&gt;</code></pre>
+<h3>Multiplication</h3>
+<p>The multiplication operator <code>*</code> is used to define how many occurrences of the element should be
+	generated. The operator applies to the last element before the operator (unless you are using grouping).</p>
+<pre><code>ul&gt;li*5</code></pre>
+<p>This example will generate an unordered list with five list items.</p>
+<pre><code>&lt;ul&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<h3>Grouping</h3>
+<p>You can group together sections of an abbreviation using parenthesis <code>()</code>. Grouping is useful when
+	creating complex abbreviations.</p>
+<pre><code>ul&gt;(li&gt;a)*3</code></pre>
+<p>This simple example will generate an unordered list and three list items, each of which contain a link.</p>
+<pre><code>&lt;ul&gt;
+&lt;li&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<p>Lets take a look at a more complex example.</p>
+<pre><code>div&gt;header+(article&gt;p*3)+footer&gt;p</code></pre>
+<p>In this abbreviation we have defined a div element that contains an header, article and footer. The article
+	element also contains three paragraph elements.</p>
+<p>This abbreviation would generate the following HTML.</p>
+<pre><code>&lt;div&gt;
+&lt;header&gt;&lt;/header&gt;
+&lt;article&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;/article&gt;
+&lt;footer&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;/footer&gt;
+&lt;/div&gt;</code></pre>
+<h2>Setting Attributes</h2>
+<p>You can also use the Emmet syntax to add attributes to your generated elements. In this section you are going to
+	learn how to define IDs, classes and other attributes in your abbreviations.</p>
+<h3>IDs</h3>
+<p>IDs are defined using the familiar pound-sign <code>#</code> syntax from CSS.</p>
+<pre><code>div#main</code></pre>
+<p>This simple example will generate a <code>&lt;div&gt;</code> element with the ID <code>main</code>.</p>
+<pre><code>&lt;div id="main"&gt;&lt;/div&gt;</code></pre>
+<h3>Classes</h3>
+<p>Classes are defined using the dot-syntax <code>.</code>. You can string together multiple classes just as you do
+	in CSS.</p>
+<pre><code>div.content.page</code></pre>
+<p>This example will generate a <code>&lt;div&gt;</code> element with the classes <code>content</code> and <code>page</code>.
+</p>
+<pre><code>&lt;div class="content page"&gt;&lt;/div&gt;</code></pre>
+<h3>Custom Attributes</h3>
+<p>You can add any attribute you want by enclosing the attribute definition with box brackets <code>[]</code>.</p>
+<pre><code>a[target="_blank"]</code></pre>
+<p>This example generates a link with the <code>target</code> attribute set to <code>_blank</code>.</p>
+<pre><code>&lt;a href="" target="_blank"&gt;&lt;/a&gt;</code></pre>
+<h3>Item Numbering</h3>
+<p><a href="http://blog.teamtreehouse.com/wp-content/uploads/2013/12/ul-li-item-5.gif"><img
+		class="alignright size-full wp-image-22746" alt="ul-li-item$-5"
+		src="http://blog.teamtreehouse.com/wp-content/uploads/2013/12/ul-li-item-5.gif"></a>Emmet also includes a
+	feature that allows you to automatically add numbers to your HTML. This is useful for applications like setting
+	unique classes on list items. Just add a dollar sign <code>$</code> to your abbreviation where you want the
+	number to appear and Emmet will take care of the rest.</p>
+<pre><code>ul&gt;li.item$*5</code></pre>
+<p>Here Emmet will add the current index to the classes for each of the list items.</p>
+<pre><code>&lt;ul&gt;
+&lt;li class="item1"&gt;&lt;/li&gt;
+&lt;li class="item2"&gt;&lt;/li&gt;
+&lt;li class="item3"&gt;&lt;/li&gt;
+&lt;li class="item4"&gt;&lt;/li&gt;
+&lt;li class="item5"&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<h3>Reverse Numbering</h3>
+<p>Using <code>$</code> alone will cause elements to be numbered in ascending order. There may however be occasions
+	when you wish to reverse this ordering. This can be done by adding the <code>@-</code> syntax after the dollar
+	sign <code>$</code>.</p>
+<pre><code>ul&gt;li.item$@-*5</code></pre>
+<p>In this example the list item classes will be numbered in descending order.</p>
+<pre><code>&lt;ul&gt;
+&lt;li class="item5"&gt;&lt;/li&gt;
+&lt;li class="item4"&gt;&lt;/li&gt;
+&lt;li class="item3"&gt;&lt;/li&gt;
+&lt;li class="item2"&gt;&lt;/li&gt;
+&lt;li class="item1"&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<h2>Setting Text</h2>
+<p>You can set the text that should be contained within an element by placing it in curly braces <code>{}</code>.
+</p>
+<pre><code>p{Hello Treehouse!}</code></pre>
+<p>This abbreviation will generate a simple <code>&lt;p&gt;</code> element with the text <code>Hello
+	Treehouse!</code>.</p>
+<pre><code>&lt;p&gt;Hello Treehouse!&lt;/p&gt;</code></pre>
+<p>You can even use the numbering syntax we looked at earlier within the curly braces.</p>
+<pre><code>ul&gt;(li&gt;a{Item $})*5</code></pre>
+<p>This abbreviation will create five list items containing text that is numbered.</p>
+<pre><code>&lt;ul&gt;
+&lt;li&gt;&lt;a href=""&gt;Item 1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=""&gt;Item 2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=""&gt;Item 3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=""&gt;Item 4&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=""&gt;Item 5&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<h2>Using Snippets</h2>
+<p>Another great feature in Emmet is the ability to quickly generate snippets of code using preset
+	abbreviations.</p>
+<pre><code>html:5</code></pre>
+<p>The example above generates a simple HTML5 compliant page template.</p>
+<pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>Take a look at the <a href="http://docs.emmet.io/customization/snippets/"
+						 onclick="__gaTracker('send', 'event', 'outbound-article', 'http://docs.emmet.io/customization/snippets/', 'documentation');">documentation</a>
+	for more about the snippets that are available.</p>
+<h2>Using Emmet with CSS</h2>
+<p>Emmet also includes a number of abbreviations to help you generate CSS code. These abbreviations are often
+	shorthand versions of the CSS property names. You can find a full list of the CSS abbreviations that are
+	available by examining the Emmet <a href="https://github.com/emmetio/emmet/blob/master/snippets.json"
+										onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/emmetio/emmet/blob/master/snippets.json', 'snippets.json');"><code>snippets.json</code></a>
+	file.</p>
+<pre><code>tsh</code></pre>
+<p>This abbreviation will generate the CSS syntax needed for the <code>text-shadow</code> property.</p>
+<pre><code>text-shadow: hoff voff blur #000</code></pre>
+<p>Adding a hyphen <code>-</code> before the abbreviation will trigger Emmet to generate vendor prefixes for the
+	property.</p>
+<pre><code>-tsh</code></pre>
+<p>If your text editor supports tabstops Emmet will place multiple cursors so that you can fill out values for all
+	of the vendor-prefixed properties simultaneously.</p>
+<pre><code>-webkit-text-shadow: hoff voff blur #000
+-moz-text-shadow: hoff voff blur #000
+-ms-text-shadow: hoff voff blur #000
+-o-text-shadow: hoff voff blur #000
+text-shadow: hoff voff blur #000</code></pre>
+<h2>Final Thoughts</h2>
+<p>I’ve been using Emmet for a few months now and I’ve found it really useful. Especially when I need to quickly
+	generate a list or table.</p>
+<p>We’ve covered a lot of the syntax in this blog post but Emmet has a whole bunch of other features that we haven’t
+	looked at. If you’re interested in finding out more I recommend that you spend a bit of time looking through the
+	<a href="http://docs.emmet.io/"
+	   onclick="__gaTracker('send', 'event', 'outbound-article', 'http://docs.emmet.io/', 'Emmet documentation');">Emmet
+		documentation</a>.</p>
+<p>What are your thoughts about Emmet? Share your views in the comments below.</p>
+<h2>Useful Links</h2>
+<ul>
+	<li><a href="http://docs.emmet.io/"
+		   onclick="__gaTracker('send', 'event', 'outbound-article', 'http://docs.emmet.io/', 'Emmet Documentation');">Emmet
+		Documentation</a></li>
+	<li><a href="http://emmet.io/download/"
+		   onclick="__gaTracker('send', 'event', 'outbound-article', 'http://emmet.io/download/', 'Emmet Plugins');">Emmet
+		Plugins</a></li>
+</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css">
+<style>h2{text-align:center;color:#00f;}</style>
+<script src="../notes.js"></script>
+<title>Linux Command</title>
+</head>
+<body>
+<div id="article">
+
+<h1>Linux Command</h1>
+
+<div>
+<h2>文件管理</h2>
+
+<h3>ls 列出当前目录文件</h3>
+<pre><code>-l </code> 列出文件详细信息l(list), 该命令有一个默认别名 ll = ls -l
+<code>-h with -l </code> print sizes in human readable format (e.g., 1K 234M 2G)
+<code>-a </code> 列出当前目录下所有文件及目录，包括隐藏的a(all)</pre>
+
+<h3>pwd 查看当前路径</h3>
+
+<p>pwd 查看当前所在目录的绝对路经 //print working directory</p>
+
+<h3>mkdir 创建目录</h3>
+<pre><code>mkdir –p parent/child/grandson</code> 递归式去创建一些嵌套目录，如已经存在目录，不会报错</pre>
+
+<h3>rmdir 删除空白目录</h3>
+<pre><code>rmdir –p d1/d2</code> 递归式删除一些嵌套目录
+<code>rmdir d1 d2</code> 删除当前目录下的两个空目录 d1 d2 （中间用空格分隔）</pre>
+
+<h3>cd 切换目录</h3>
+<pre><code>cd ../.. </code> 回当前目录的上上级目录
+<code>cd - </code> 回上一次所在的目录
+<code>cd ~ 或 cd</code> 回当前用户的宿主目录
+<code>cd ~用户名</code> 回指定用户的宿主目录</pre>
+
+<h3>cp 复制文件或目录</h3>
+<pre><code>cp file1 dir1 </code> 复制文件file1到dir1目录下
+<code>cp -r dir1 dir2 </code> 复制目录dir1及目录下的项目到dir2</pre>
+
+<h3>rm 删除文件或目录</h3>
+<pre><code>rm -rf 非空目录名</code>  删除一个非空目录，不提示-f。<code>-r,-R</code> 代表递归删除
+<code>rm -f ./a/* </code> 删除a目录下所有文件，不提示-f</pre>
+
+<h3>mv 移动或重命名</h3>
+<pre><code>mv file1.txt file2.txt dir</code> 将文件file1.txt, file2.txt移动到目录dir中
+<code>mv test.log test1.txt</code>  将文件test.log重命名为test1.txt
+<code>mv dir1 dir2 </code>如果目录dir2不存在，将目录dir1改名为dir2；否则，将dir1移动到dir2中</pre>
+
+<h3>touch 创建空文件</h3>
+<p>touch命令不常用，用来修改文件时间戳，或者新建一个不存在的文件</p>
+<pre><code>touch file1 file2</code> 创建两个空文件</pre>
+
+<h3>cat 查看文件内容</h3>
+<p>concatenate 把...连在一起，扩展命令tac则是最后一行到第一行方向显示出来</p>
+<pre><code>cat filename </code> 一次显示整个文件
+<code>cat > filename </code> 从键盘创建一个文件，
+<code>cat file1 file2 > file3 </code> 将几个文件合并为一个文件</pre>
+
+<h3>less 可控分页查看文件</h3>
+<p>应该说是linux正统查看文件内容的工具，功能极其强大。less的用法比起more更加的有弹性</p>
+
+<h3>文件内容查询 cat, tac, nl, more, less, head, tail, od</h3>
+<p>nl 显示带行号；head 只看头几行；tail 只看结尾几行；od 以二进制的方式读取文件内容</p>
+
+<h3>find 查找文件</h3>
+<pre><code>find ./ -type f -name "*.log"</code> 查找当前目录，以.log结尾的普通文件
+<code>find /dirpath \( -name \*.trc -a -mtime +30 \) -exec rm {} \; </code>
+        //find all trc files older than 30 days and remove:</pre>
+
+<h3>Which to use: find, locate or whereis</h3>
+<p>whereis 查命令和手册；locate 通过数据库快速查找文件；find 功能强大的实时查找工具，速度较慢</p>
+
+<h3>grep </h3>
+<p>根据字符匹配来查看文件部分内容。global regular expression print</p>
+<pre><code>grep -i "license" GPL-3</code> 在GPL-3文件中查找并输出license所在行，大小写不敏感</pre>
+
+<h3>ln 创建链接文件</h3>
+<p>我们可以将连结视为档案的别名，连结分两种: 硬连结hard link 与软连结symbolic link。</p>
+<pre><code>ln –s TARGET LINK_NAME </code> // 建立一个到TARGET的连接</pre>
+
+</div>
+
+<div>
+<h2>文件权限</h2>
+
+<h3>chown</h3>
+<pre><code>chown [-R] owner[:group] {File|Directory}</code></pre>
+
+<h3>chgrp</h3>
+<pre><code>chgrp root /home </code> 把/home的属组改成root组</pre>
+
+<h3>chmod</h3>
+<pre><code>chmod 765 file </code> 数字方式重新定义权限
+<code>chmod u=rwx.g+w,o-w file1 file2 </code>符号类型改变文件的权限可以采用 = + - 三种方法</pre>
+<pre>权限与数字对应关系 <code>r:4 w:2 x:1 -:0 </code></pre>
+
+<h3>目录x权限的说明</h3>
+<p>开放目录r权限，只能读取目录结构列表而无法读取目录下具体文件，需开放x权限，他人才能读取目录下文件</p>
+
+</div>
+
+<div>
+<h2>用户管理</h2>
+
+<h3>/etc/passwd /etc/shadow</h3>
+<p>/etc/passwd 存储用户账号，实际用户密码在 /etc/shadow</p>
+<pre>root:x:0:0:root:/root:/bin/bash
+账户名称:伪密码:UID:GID:账户说明:主文件夹:Shell</pre>
+<pre>账号名称:实际密码:最近更改日期:不可更改天数:需重设天数:警告天数:宽限天数:失效日期:保留</pre>
+
+<h3>/etc/group /etc/gshadow</h3>
+<p>/etc/group  存储组账号，实际账号密码在 /etc/gshadow</p>
+<pre>root:x:0:root,user1
+用户组名称:伪密码:GID:组员</pre>
+<pre>用户组名:密码列:组管理员账号:组员  // 密码列为!表示无合法密码；组员列内容同/etc/group</pre>
+
+<h3>useradd 用户名</h3>
+<pre>useradd [-u UID][-g 初始组][-G 次组][-mM][-c 说明][-d 主文件夹绝对路径][-s shell] 用户名</pre>
+
+<h3>passwd 设置密码</h3>
+<pre>passwd  // 给自己改密码，用户自己改会要求输入原密码，而root给自己或用户改都不需输入原密码
+passwd username // 管理员给username设置密码
+</pre>
+
+<h3>usermod 修改账户设置</h3>
+可以通过直接修改账户配置文件修改。该命令参数基本同useradd
+
+<h3>userdel 删除账户</h3>
+<pre>userdel [-r] username  // -r 连同用户的主文件夹也一起删除</pre>
+<p>通常，我们要删除一个账号，可以手动将/etc/passwd /etc/shadow 里面的该账号取消即可。<br />另外，其实用户如果在系统上操作过一陈子的话，该用户在系统内可能会含有其他文件，可以先执行 find / -user uname 查出整个系统内属于uname的文件，然后再进行删除。</p>
+
+<h3>groupadd 新增用户组</h3>
+<pre>groupadd [-g gid][-r] // -g 直接指定用户组；-r 新建系统用户组</pre>
+
+<h3>groupdel 删除用户组</h3>
+
+</div>
+
+<div>
+<h2>进程管理 17章</h2>
+<table class="dataintable"><col style="color:blue" /><col />
+<tr><td>&</td><td>这个用在一个命令的最后，可以把这个命令放到后台执行</td></tr>
+<tr><td>^Z</td><td>将一个正在前台执行的命令放到后台，并且暂停</td></tr>
+<tr><td>jobs</td><td>查看当前有多少在后台运行的命令</td></tr>
+<tr><td>ps -ef</td><td>列出系统中正在运行的进程 processes snapshot</td></tr>
+<tr><td>fg [%jobnum]</td><td>将后台中的命令调至前台继续运行</td></tr>
+<tr><td>bg [%jobnum]</td><td>将一个在后台暂停的命令，变成继续执行</td></tr>
+<tr><td>kill</td><td>发送信号给一个或多个进程（经常用来杀死一个进程）</td></tr>
+</table>
+</div>
+
+<div>
+<h2>应用程序</h2>
+
+<h3>rsync 远程文件同步</h3>
+<pre>
+# rsync -iurp --chmod=Dgo+x,Fgo+r /media/sf_52web/notes/ /var/www/html/notes/
+-i 显示信息 -u 只更新 -r 递归执行 -p --chmod=CHMOD 更改权限（-p不能省）--delete 删除SRC中没有的文件
+</pre>
+
+<h3>crond 计划任务服务</h3>
+<pre>
+# systemctl enable crond.service  // 设置cron服务开机启动
+# systemctl start crond.service  // 立即启动cron服务
+# crontab -e  // 编辑定时任务列表
+</pre>
+<p>用crontab -e命令来编辑的是/var/spool/cron下对应用户的cron文件，也可以直接修改/etc/crontab文件。</p>
+<pre>
+分钟  小时  天   月  星期  命令 
+0-59 0-23 1-31 1-12 0-6 command
+*/10 * * * * date  // 每10分钟显示一次时间
+</pre>
+<p>特殊符号: 
+<code>*</code> 代表所有值, <code>/</code> 代表“每”, <code>-</code> 代表连续的几个值, <code>,</code> 用于组合离散的值</p>
+</div>
+
+<div>
+<h2>CentOS 安装配置中的其他命令</h2>
+<pre>
+less /proc/cpuinfo  // 查看CPU信息，通过伪文件系统提供了一种与进程process 沟通的机制
+less /proc/meminfo  // 查看内存信息
+df -h  // 查看文件系统磁盘使用情况 disk space usage of file system
+ip addr  // 查看IP信息，原先的ifcongfig将废弃
+top  // linux下的任务管理器 h帮助 q退出 k+PID结束进程 table of process
+</pre>
+</div>
+
+<div>
+<h2>grep 命令及正则表达式详解</h2>
+
+</div>
+
+<div>
+<h2>less man 操作</h2>
+<table class="dataintable"><col style="color:blue" /><col />
+<tr><td>d</td><td>下翻半页 down</td></tr>
+<tr><td>u</td><td>上翻半页 up</td></tr>
+<tr><td>/text</td><td>在文档中查找text 按n跳到下一个，shift+n上一个</td></tr>
+<tr><td>q</td><td>退出</td></tr>
+<tr><td>gg / 1G</td><td>跳到文章开头</td></tr>
+<tr><td>G</td><td>跳到文章末尾</td></tr>
+<tr><td>h</td><td>帮助</td></tr>
+</table>
+</div>
+
+<div>
+<h2>BASH SHELL </h2>
+
+<h3>bash 的主要优点</h3>
+<p>命令记忆history ；自动补全Tab；命令别名alias；作业控制；脚本；通配符</p>
+
+<h3>变量功能</h3>
+<p>为了与自定义变量区分，环境变量通常以大写字符来表示：PATH HOME MAIL SHELL</p>
+<pre>echo $var / ${var}  // 两种显示变量的方式
+work="/var/www/html/project/p2file"  // 设定变量时中间不能有空格
+unset 删除变量；export 导出为环境变量；env 查看环境变量；set 查看所有变量；locale 显示语系变量
+LANG=en_US.UTF-8    // 临时设定语言以支持中文正常显示</pre>
+
+<h3>bash 环境配置</h3>
+<p>用命令设置的命令别名、自定义变量在注销bash后都会失效，要保留设置需要写入配置文件</p>
+<pre>
+/etc/profile  // 系统整体的设置，会读取 /etc/profile.d/*.sh /etc/sysconfig/i18n 等
+~/.bash_profile  //用户个人设置，另外会读取 ~/.bashrc < /etc/bashrc  见P323
+利用<code>source 或 . </code>.bashrc 可以不用重新登录就使配置文件生效
+</pre>
+
+<h3>终端机的环境设置：stty, set</h3>
+<table class="dataintable"><col style="color:blue" /><col />
+	<tr><td>^C</td><td>intr 终止目前的命令 interrupt</td></tr>
+	<tr><td>^D</td><td>eof 输入结束（end of file）</td></tr>
+	<tr><td>^U</td><td>kill 删除整行命令 erase the current line</td></tr>
+</table>
+
+<h3>通配符与特殊符号</h3>
+<table class="dataintable"><col style="color:blue" /><col />
+	<tr><td>#</td><td>批注符号，这个最常用在script当中，其后的数据均不执行</td></tr>
+	<tr><td>\</td><td>转义符号，用\[Space]在文件名中插入空格，用\[Enter]实现命令换行输入而不立即执行</td></tr>
+	<tr><td>|</td><td>管道符号</td></tr>
+	<tr><td>;</td><td>连续命令分隔符</td></tr>
+	<tr><td>~</td><td>用户的主文件夹</td></tr>
+	<tr><td>$</td><td>使用变量前导符</td></tr>
+	<tr><td>&</td><td>命令在后台运行</td></tr>
+	<tr><td>!</td><td>逻辑运算上的“非”</td></tr>
+	<tr><td>/</td><td>路径分隔符</td></tr>
+	<tr><td>>,>></td><td>输出重定向，分别是“替换”“追加”。>为标准输出，2>为错误信息输出</td></tr>
+	<tr><td><,<<</td><td>输入重定向，< 由文件来替代键盘输入；而<< 设定多行连续输入，遇结束符才结束</td></tr>
+	<tr><td>' '</td><td>单引号，不具有变量置换的功能</td></tr>
+	<tr><td>" "</td><td>双引号，具有变量置换功能</td></tr>
+	<tr><td>` `</td><td>反单引号，包含的命令优先执行，执行结果加入原命令继续执行。$()效果相同，更为推荐使用</td></tr>
+	<tr><td>( )</td><td>1命令替换$(cmd) 或 2命令块，重新开一个子shell执行内部命令块 </td></tr>
+	<tr><td>{ }</td><td>1变量原型${var} 或 2命令块，在当前shell执行，第一个命令和左括号之间必须要有一个空格</td></tr>
+</table>
+
+<h3>关于空格的问题</h3>
+<p>带空格的文件夹处理：1 使用转义'\ ' 2 使用引号</p>
+<p>命令里哪里加空格哪里不加：一般主命令 和 选项命令 以及后面的参数之间都有空格。</p>
+</div>
+
+<div>
+<h2>认识系统服务</h2>
+<p>实现某种service的程序称之为daemon，主要分为 stand alone 及 super daemon两种</p>
+<p>super daemon 由xinetd(extended Internet services daemon)统一管理，连接机制分单/多线程</p>
+<p>daemon 根据工作形态不同可分为 signal-daemon 和 interval-control</p>
+<p>启动daemon的进程通常会在服务名称之后加个d，提示是daemon</p>
+<p>stand alone daemon 启动脚本在 /etc/init.d/, 配置文件在 /etc/sysconfig/ <br />
+ super daemon 主daemon的配置文件是/etc/xinetd.conf, 子daemon的配置文件在 /etc/xinetd.d/</p>
+<p>利用/etc/init.d/*来启动/关闭/查看stand alone daemon，也可以使用 service命令 (一个智能调用脚本)</p>
+<p>可通过chkconfig设置开机启动</p>
+<pre>
+netstat -lnp // 找出所有的有监听网络的服务
+service --status-all // 查看所有的服务状态
+<code>/etc/init.d/rsyslog status|start|stop|restart</code> // 直接调用脚本控制服务
+<code>service [service name] (start|stop|restart|...)</code> // 通过service命令控制
+<code>chkconfig --list [服务名]</code> // 显示目前的各项服务，<code>chkconfig --list | grep '3:on'</code>
+<code>chkconfig [--level [0123456]] [服务名] [on|off]</code> // 设置某个服务在该level下启闭
+chkconfig --level 345 atd on // 设置后要下次启动才生效，可以先手动启动服务
+</pre>
+</div>
+
+<div>
+<h2>CentOS 7 新变化</h2>
+<h3>CentOS7 的Services 使用了systemd 来代替sysvinit 管理</h3>
+<p>1、systemd的服务管理程序：<br />
+systemctl是主要的工具，它融合之前service和chkconfig的功能于一体。可以使用它永久性或只在当前会话中启用/禁用服务。<br />
+systemctl可以列出正在运行的服务状态，systemd-cgls以树形列出正在运行的进程。</p>
+<p>2、如何启动/关闭、启用/禁用服务？</p>
+<pre>
+服务控制：<code>systemctl start/stop/restart/status postfix.service</code>
+开机服务设置：<code>systemctl enable/disable postfix.service</code>
+查看服务是否开机启动：systemctl is-enabled postfix.service;echo $?
+查看已启动的服务列表：systemctl list-unit-files|grep enabled</pre>
+<p>
+说明：<br />启用服务就是在当前runlevel的配置文件目录建立对应服务配置文件的软链接；禁用服务就是删除此链接。<br />系统运行级别：systemd使用比sysvinit的运行级更为自由的target替代。第3运行级用multi-user.target替代。第5运行级用graphical.target替代。runlevel3.target和runlevel5.target分别是指向 multi-user.target和graphical.target的符号链接。</p>
+
+<h3>ip 替代 ifconfig</h3>
+
+<h3>firewallcmd 替代 iptables</h3>
+
+</div>
+
+<div>
+<h2>日志文件</h2>
+<p>通过查看屏幕上面的错误信息与日志文件的错误信息，几乎可以解决大部分的Linux问题！<br />
+1,解决系统方面的错误 2,解决网络服务的问题 3,过往事件记录簿。日志文件大本营 /var/log/。</p>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<script src="../notes.js"></script>
+<title>PHP 字符串函数</title>
+</head>
+<body>
+<div id="article">
+
+<h1>PHP 字符串函数</h1>
+
+<div>
+<h2>字符输出及格式化</h2>
+<h3>echo() --- 输出一个或多个字符串</h3>
+<p>多个字符串之间用<code>,</code>分隔，也可用<code>.</code>将多个字符串连成一个字符串。语言结构，不必使用括号。</p>
+
+<h3>print() --- 输出单个字符串 并始终返回1</h3>
+<p>注释：print 实际不是函数是语言结构，所以不必使用括号。提示：print 有返回值1，故比echo 稍慢。</p>
+
+<h3>printf() --- 输出格式化的字符串</h3>
+<pre>int printf (string $format [,mixed $args [,mixed $... ]])</pre>
+
+<h3>sprintf() --- 把格式化的字符串写入变量中</h3>
+<pre>string sprintf (string $format [,mixed $args [,mixed $... ]]) //Return a formatted string</pre>
+<table><col style="color:blue" /><col />
+<tr><td>%%</td><td>返回一个百分号 %</td></tr>
+<tr><td>%b</td><td>二进制数</td></tr>
+<tr><td>%c</td><td>ASCII 值对应的字符</td></tr>
+<tr><td>%d</td><td>包含正负号的十进制数（负数、0、正数）</td></tr>
+<tr><td>%e</td><td>使用小写的科学计数法（例如 1.2e+2）</td></tr>
+<tr><td>%E</td><td>使用大写的科学计数法（例如 1.2E+2）</td></tr>
+<tr><td>%u</td><td>不包含正负号的十进制数（大于等于 0）</td></tr>
+<tr><td>%f</td><td>浮点数（本地设置）</td></tr>
+<tr><td>%F</td><td>浮点数（非本地设置）</td></tr>
+<tr><td>%g</td><td>较短的 %e 和 %f</td></tr>
+<tr><td>%G</td><td>较短的 %E 和 %f</td></tr>
+<tr><td>%o</td><td>八进制数</td></tr>
+<tr><td>%s</td><td>字符串</td></tr>
+<tr><td>%x</td><td>十六进制数（小写字母）</td></tr>
+<tr><td>%X</td><td>十六进制数（大写字母）</td></tr></table>
+<p>分类：string s ；integer d, u, c, o, x, X, b  ；double g, G, e, E, f, F</p>
+
+<p>附加的格式值。必需放置在% 和字母之间（例如 %.2f）</p>
+<table><col style="color:blue" /><col />
+<tr><td>+</td><td>在数字前面加上+ 或- 来定义数字的正负性。默认情况下，只有负数才做标记，正数不做标记</td></tr>
+<tr><td>'</td><td>当参数不够指定的最小宽度时，默认用空格填充，也可以指定0，从而用0填充，如%020s<br />当需要指定其他字符时，需要在字符前面加'符号。如%'x20s (用"x"填充)</td></tr>
+<tr><td>-</td><td>设定为left-justified，如sprintf("[%-'*8s]","hello") 结果为[hello***]</td></tr>
+<tr><td>[0-9]</td><td>规定变量值的最小宽度</td></tr>
+<tr><td>.[0-9]</td><td>规定小数位数或最大字符串长度</td></tr></table>
+<p>注释：如果使用多个上述的格式值，它们必须按照以上顺序使用。详细例子可参考w3schools</p>
+<pre>printf("%c",50); echo sprintf("[%08s]","hello")</pre>
+
+<h3>fprintf() --- 将字符串格式化再写入到文件</h3>
+<pre>int fprintf ( resource $handle, string $format [, mixed $args [, mixed $... ]] )</pre>
+<p>参数handle 是典型的由fopen() 创建的resource。format 参见sprintf() 中的描述。 </p>
+<pre>$number = 9; $str = "Beijing";
+$file = fopen("test.txt","w");
+echo fprintf($file,"There are %u million bicycles in %s.",$number,$str);
+输出：40 文件test.txt：There are 9 million bicycles in Beijing.</pre>
+
+<h3>vprintf --- 输出格式化字符串，输入参数为数组</h3>
+<h3>vsprintf --- 返回格式化字符串，输入参数为数组</h3>
+<h3>vfprintf --- 将格式化字符串写入流，输入参数为数组</h3>
+<h3>sscanf() --- 根据指定格式解析输入的字符</h3>
+<h3>fscanf() --- 从文件中格式化输入</h3>
+<h3>localeconv() --- 返回本地数字及货币格式信息。</h3>
+<h3>money_format() --- 返回格式化为货币字符串的字符串</h3>
+<h3>number_format() --- 以千位分组来格式化数字。</h3>
+<pre>string number_format ( $number , $decimals=0 , $dec_point = "." , $thousands_sep = "," )</pre>
+</div>
+
+<div>
+<h2>字符串转义</h2>
+<h3>addslashes() --- 在预定义的字符前添加反斜杠</h3>
+<p>返回字符串，该字符串为了数据库查询语句等的需要在某些字符前加上了反斜线。<br />这些字符是<span class="code">单引号' 双引号" 反斜线\ 与NUL 字符</span>。</p>
+<pre>string addslashes ( string $str )</pre>
+<pre>echo $str="Who's John?"," This is not safe in a database query.
+echo addslashes($str)." This is safe.";  // 输出：Who\'s John? This is safe.
+</pre>
+   
+<h3>addcslashes() --- 在指定的字符前添加反斜杠</h3>
+<pre>string addcslashes ( string $str , string $charlist )</pre>
+<pre>
+echo $str="Hello,my name is John Adams.";
+echo addcslashes($str,'m');  //输出：Hello,\my na\me is John Ada\ms.
+echo addcslashes($str,'A..z');  //对于指定字符或者字符范围是区分大小写的
+</pre>
+
+<h3>stripcslashes() --- 反转义字符串</h3>
+<p>反转义字符串。可识别类似 C 语言的 \n，\r，... 八进制以及十六进制的描述。</p>
+<pre>string stripcslashes ( string $str )</pre>
+
+<h3>stripslashes() --- 删除由 addslashes() 函数添加的反斜杠</h3>
+
+<h3>quotemeta() --- 转义元字符集</h3>
+<p>给后面所列的这些特殊字符加转义符号\ 这些特殊字符包含：<code> . \ + * ? [ ^ ] ( $ )</code></p>
+
+</div>
+
+<div>
+<h2>字符统计</h2>
+<h3>strlen() --- 获取字符串长度</h3>
+<h3>substr_count() --- 计算子字串出现的次数</h3>
+<p>返回子字符串needle 在字符串 haystack 中出现的次数。注意 needle 区分大小写。 </p>
+<pre>int substr_count (string $haystack , string $needle [, int $offset=0 [, int $length]])</pre>
+<p>Note: 该函数不会计算重叠字符串。如 substr_count('gcdgcdgcd', 'gcdgcd'); 结果为1</p>
+<h3>strpos --- 查找字符串首次出现的位置</h3>
+<pre>mixed strpos ( string $haystack , mixed $needle [, int $offset = 0 ] )
+$pos = strpos('abcdefabcdef', 'a', 1);  // $pos = 6, 不是 0</pre>
+<h3>stripos --- 查找字符串首次出现的位置（不区分大小写）</h3>
+<h3>strrpos --- 计算指定字符串在目标字符串中最后一次出现的位置</h3>
+<h3>strripos --- 计算指定字符串在目标字符串中最后一次出现的位置（不区分大小写）</h3>
+</div>
+
+<div>
+<h2>字符串修整</h2>
+<h3>strtolower --- 将字符串转化为小写</h3>
+<h3>strtoupper --- 将字符串转化为大写</h3>
+<h3>ucfirst --- 将字符串的首字母转换为大写 Uppercase a string's first character</h3>
+<h3>ucwords --- 将字符串中每个单词的首字母转换为大写 Uppercase the first character of each word</h3>
+<h3>trim() ltrim() rtrim() --- 去除字符串首尾处的空白字符</h3>
+<p>trim() 去除字符串首尾处的空白字符（或者其他字符）。ltrim()仅开头； rtrim()仅末端。</p>
+<pre>trim ($str [,$charlist= " \t\n\r\0\x0B" ]) // \0 空字节符 \x0B 垂直制表符</pre>
+<p>注意：经试验，可以指定其他字符，另外，不能用单引号否则转义字符无效，错误示例trim($a,'d\na')</p>
+<h3>nl2br() --- 在字符串中的每个新行\n之前插入HTML换行符</h3>
+<h3>strip_tags --- 从字符串中去除 HTML 和 PHP 标记</h3>
+</div>
+
+<div>
+<h2>字符串分割与连接</h2>
+<h3>explode --- 使用一个字符串分割另一个字符串 返回数组</h3>
+<pre>array explode ( string $delimiter , string $string [, int $limit ] )</pre> 
+<p>函数返回由字符串组成的数组，每个元素都是string 的一个子串，它们被字符串delimiter 作为边界点分割出来。</p>
+<p>Note: 此函数可安全用于二进制对象。</p>
+
+<h3>str_split() --- 将字符串分割为等长的子字符串 返回数组</h3>
+<pre>array str_split ( string $string [, int $split_length = 1 ] )  // split_length 每一段的长度。 </pre>
+
+<h3>split (PHP 4, PHP 5)</h3>
+<p>preg_split() 函数是更快的替代方案。如果不需要正则表达式，则用explode()更快。</p>
+
+<h3>preg_split() --- 通过一个正则表达式分割字符串 返回数组</h3>
+<pre>array preg_split ( string $pattern , string $subject [, int $limit = -1 [, int $flags = 0 ]] )</pre>
+
+<h3>chunk_split — 将字符串分割成小块 返回字符串</h3>
+<pre>string chunk_split ( string $body [, int $chunklen = 76 [, string $end = "\r\n" ]] )</pre>
+<p>将字符串分割成小块非常有用。例如将base64_encode() 的输出转换成符合RFC2045 语义的字符串。</p>
+
+<h3>wordwrap --- 按指定的宽度打断字符串</h3>
+<pre>string wordwrap (string $str [,int $width=75 [,string $break="\n" [,bool $cut=false]]])</pre>
+<pre>$text = "The quick brown fox jumped over the lazy dog.";
+echo wordwrap($text, 20, "\n"); // 输出The quick brown fox\njumped over the lazy\ndog.</pre>
+
+<h3>strtok() --- 使用标记分割字符串</h3>
+<pre>string strtok ( string $str , string $token )  // $token 分割时使用的分界符</pre>
+<p>将字符串str以token为分界符分割为若干子字符串，可以使用空格字符将字符串分割成独立的单词。</p>
+<p>注意：仅第一次调用时使用string 参数，后来每次调用都只使用token 参数，因为它会记住它在字符串中的位置。要重新分割一个新的字符串才需要再次使用string参数。</p>
+<p>注意：可以在 token 参数中使用多个字符。字符串将被该参数中任何一个字符分割。</p>
+<pre>
+$string = "This is\tan example\nstring";
+$tok = strtok($string, " \n\t");  /* 使用制表符和换行符作为分界符 */
+while ($tok !== false) echo $tok = strtok(" \n\t");
+</pre>
+
+<h3>str_getcsv --- 解析 CSV 字符串为一个数组</h3>
+<pre>array str_getcsv (string $input [,$delimiter="," [,$enclosure='"' [, $escape="\\"]]])</pre>
+
+<h3>implode() / join() --- 将一个一维数组的值连接为一个字符串</h3>
+<pre>string implode ([string $glue], array $pieces)  // 用glue 将一维数组的值连接为一个字符串 </pre>
+</div>
+
+<div>
+<h2>字符串其他操作</h2>
+<h3>str_replace() str_ireplace() --- 子字符串查找并替换，str_ireplace()忽略大小写</h3>
+<pre>mixed str_replace (mixed $search, mixed $replace, mixed $subject [,int &$count])</pre>
+<p>该函数返回一个字符串或者数组。如果没有特殊的替换需求应优先使用本函数而不用preg_replace()。</p>
+
+<h3>substr_replace --- 替换指定位置的子串</h3>
+<pre>mixed substr_replace (mixed $string, mixed $replacement, $start [, $length])</pre>
+<p>在字符串string 的副本中将由start 和可选的length 参数限定的子字符串使用replacement 进行替换。支持字符串和数组。如果start 为负数，替换将从string 的倒数第start 个位置开始。如果length 为负数，它表示待替换的子字符串结尾处距离string 末端的字符个数。</p>
+<pre>$var = 'ABCDEFGH:/MNRPQR/';
+echo substr_replace($var, 'bob', 0);  // 使用 "bob" 替换整个 $var，输出bob
+echo substr_replace($var, 'bob', 0, 0);   // 将 "bob" 插入到 $var 的开头处
+echo substr_replace($var, 'bob', -7, -1); // "bob" 替换"MNRPQR"
+$input = array('A:XXX', 'B:XXX', 'C:XXX');  // 数组示例
+echo implode('; ', substr_replace($input, 'YYY',3,3)); // 输出A:YYY; B:YYY; C:YYY</pre>
+
+<h3>strtr --- Translate characters or replace substrings</h3>
+<pre>string strtr (string $str, array $replace_pairs)  // 数组格式array('from'=>'to', ...) </pre>
+
+<h3>strstr() stristr() --- 返回从第一次匹配位置开始到结尾的字符串</h3>
+<pre>string strstr (string $haystack, mixed $needle [, bool $before_needle = false])
+$user = strstr('name@example.com','@',true);  // 输出name，不带true输出@example.com</pre>
+
+<h3>strcmp --- 二进制安全字符串比较</h3>
+<pre>int strcmp ( string $str1 , string $str2 )</pre>
+
+<h3>substr_compare --- 二进制安全比较字符串（从偏移位置比较指定长度）</h3>
+<h3>str_shuffle --- 随机打乱一个字符串</h3>
+<h3>strrev --- 反转字符串</h3>
+<pre>echo strrev("Hello world!"); // 输出 "!dlrow olleH"</pre>
+</div>
+
+<div>
+<h2>散列计算</h2>
+<h3>md5() --- 计算字符串的MD5 散列值</h3>
+<h3>md5_file() --- 计算文件的MD5 散列值</h3>
+<h3>sha1 --- 计算字符串的sha1 散列值</h3>
+<h3>sha1_file --- 计算文件的sha1 散列值</h3>
+<p>MD5 SHA1 以及 SHA256 这样的散列算法是面向快速、高效进行散列处理而设计的。现代化计算机通过暴力破解可以快速地"反转"上述散列算法的散列值，所以很多安全专家都强烈建议不要在密码散列中使用这些算法。详见 FAQ > 密码散列安全。 </p>
+<h3>hash() --- 生成哈希值（消息摘要）</h3>
+</div>
+
+<div>
+<h2>URL 函数（部分）</h2>
+<h3>urlencode --- 编码URL字符串  // 可以解决中文乱码等等问题</h3>
+<h3>urldecode --- 解码已编码的URL字符串  // $_GET 和 $_REQUEST 已经被解码，不能重复用这个函数</h3>
+
+<h2>国际化与字符编码支持（部分）</h2>
+<h3>iconv — 字符串按要求的字符编码来转换</h3>
+</div>
+
+<div>
+<h2>PCRE 函数（全）</h2>
+<h3>preg_replace --- 执行一个正则表达式的搜索和替换</h3>
+<h3>preg_split --- 通过一个正则表达式分隔字符串</h3>
+<h3>preg_match_all --- 执行一个全局正则表达式匹配</h3>
+<h3>preg_match --- 执行一个正则表达式匹配</h3>
+<h3>preg_filter --- 执行一个正则表达式搜索和替换</h3>
+<h3>preg_grep --- 返回匹配模式的数组条目</h3>
+<h3>preg_last_error --- 返回最后一个PCRE正则执行产生的错误代码</h3>
+<h3>preg_quote --- 转义正则表达式字符</h3>
+<h3>preg_replace_callback_array --- Perform a regular expression search and replace using callbacks</h3>
+<h3>preg_replace_callback --- 执行一个正则表达式搜索并且使用一个回调进行替换</h3>
+</div>
+
+</div>
+</body>
+</html>

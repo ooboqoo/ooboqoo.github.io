@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<script src="../notes.js"></script>
+<title>问题处理日志</title>
+</head>
+<body>
+<div id="article">
+
+<h1>PHP问题处理日志</h1>
+
+<div>
+<h3>2016/4/8 PDO_MYSQL 缺失</h3>
+<p>今天要用到数据库，上传代码到CentOS7.2主机，报错"could not find the driver"。查看phpinfo PDO扩展里确实没有mysql。
+再想着改php.ini，结果找不到网上说的"extension=php_pdo_mysql.dll"，再查看/usr/lib64/php/modules 目录，根本就没有这个扩展。
+然后查手册然后安装 "yum install php-mysql"，啥配置也不用改，重启apache解决。</p>
+
+<h3>2016/4/21 中文乱码解决方案</h3>
+<p>看视频教程时，碰到调试时出现中文乱码的问题，解决方法就是把输出内容放到html代码里，再有甚者每次调浏览器编码，今天看到个更简单的方法，直接发送个 header 头就解决了。</p>
+<pre>header('Content-Type:text/html;Charset=utf-8');</pre>
+</div>
+
+</div>
+</body>
+</html>

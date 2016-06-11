@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<script src="../notes.js"></script>
+<title>PHP 网络函数</title>
+</head>
+<body>
+<div id="article">
+
+<h1>使用网络函数和协议函数</h1>
+
+<div>
+<h2>HTTP（部分）</h2>
+<h3>获取其他web页面的数据 --- 函数同文件读取函数</h3>
+<p>天气数据接口API，json xml 等数据 http://blog.csdn.net/fancylovejava/article/details/26102635</p>
+
+<h3>header --- 发送原生HTTP 头</h3>
+<h3>gethostbyaddr --- 获取指定的IP地址对应的主机名</h3>
+<h3>gethostbyname --- Get the IPv4 address corresponding to a given Internet host name</h3>
+<h3>getmxrr() /  dns_get_mx()--- Get MX (Mail Exchange) records</h3>
+<h3>checkdnsrr --- 给指定的主机（域名）或者IP地址做DNS通信检查</h3>
+</div>
+
+<div>
+<h2>URL 函数（全）</h2>
+<h3>urldecode --- 解码已编码的URL 字符串</h3>
+<h3>urlencode --- 编码URL 字符串</h3>
+<h3>get_headers --- 取得服务器响应一个HTTP 请求所发送的所有报头</h3>
+<h3>parse_url --- 解析URL，返回其组成部分</h3>
+<p>parse /pɑːz $ pɑːrs/ v.对句子作语法分析</p>
+<pre>URL: http://nobody:secret@example.com:80/script.php?variable=value#anchor
+Array (
+    [scheme] => http
+    [host] => example.com
+    [port] => 80
+    [user] => nobody
+    [pass] => secret
+    [path] => /script.php
+    [query] => variable=value
+    [fragment] => anchor )
+</pre>
+
+<h3>base64_decode --- 对使用 MIME base64 编码的数据进行解码</h3>
+<h3>base64_encode --- 使用 MIME base64 对数据进行编码</h3>
+<h3>get_meta_tags --- 从一个文件中提取所有的 meta 标签 content 属性，返回一个数组</h3>
+<h3>http_build_query --- 生成 URL-encode 之后的请求字符串</h3>
+<h3>rawurldecode --- 对已编码的 URL 字符串进行解码</h3>
+<h3>rawurlencode --- 按照 RFC 3986 对 URL 进行编码</h3>
+
+
+</div>
+
+<div>
+<h2>FTP（部分）</h2>
+<h3>ftp_connect --- 建立一个新的 FTP 连接</h3>
+<h3>ftp_login --- 登录 FTP 服务器</h3>
+<h3>ftp_close --- 关闭一个 FTP 连接</h3>
+<h3>ftp_fput --- 上传一个已经打开的文件到服务器</h3>
+<h3>ftp_fget --- 从服务器上下载一个文件并保存到本地一个已经打开的文件中</h3>
+<h3>ftp_put --- 上传文件到 FTP 服务器</h3>
+<h3>ftp_get --- 从 FTP 服务器上下载一个文件</h3>
+<pre>bool ftp_get ( resource $ftp_stream, $local_file, $remote_file, int $mode [,int $resumepos=0] )
+// 传送模式只能为 (文本模式) FTP_ASCII 或 (二进制模式) FTP_BINARY 中的其中一个</pre>
+<h3>ftp_nb_continue --- 继续获取/发送文件（非阻塞传输模式）</h3>
+<p>关于非阻塞的资料：http://www.ibm.com/developerworks/cn/linux/l-async/</p>
+<h3>ftp_nb_fget --- 从服务器获取文件并写入到一个打开的文件（非阻塞）</h3>
+<h3>ftp_nb_fput --- 将文件存储到服务器（非阻塞）</h3>
+<h3>ftp_nb_get --- 从服务器上获取文件并写入本地文件（non-blocking）</h3>
+<h3>ftp_nb_put --- 存储一个文件至服务器（non-blocking）</h3>
+<h3>ftp_delete --- 删除 FTP 服务器上的一个文件</h3>
+<h3>ftp_size --- 返回指定文件的大小</h3>
+<h3>ftp_chmod --- 设置 FTP 服务器上的文件权限</h3>
+<h3>ftp_rename --- 更改 FTP 服务器上的文件或目录名</h3>
+<h3>ftp_chdir --- 在 FTP 服务器上改变当前目录</h3>
+<h3>ftp_cdup --- 切换到当前目录的父目录</h3>
+<h3>ftp_mkdir --- 建立新目录</h3>
+<h3>ftp_rmdir --- 删除 FTP 服务器上的一个目录</h3>
+<pre>
+$remote_file = 'somefile.txt'; $local_file = 'localfile.txt';
+$handle = fopen($local_file, 'w+');  // 打开本地文件准备读写
+$conn_id = ftp_connect($ftp_server); // 建立连接
+ftp_login($conn_id, $ftp_user_name, $ftp_user_pass); // 登录FTP
+ftp_fput($conn_id, $remote_file, $handle, FTP_ASCII)); // 上传文件
+ftp_fget($conn_id, $handle, $remote_file, FTP_ASCII, 0)); // 下载文件
+ftp_get($conn_id, $local_file, $server_file, FTP_BINARY); // 
+ftp_delete($conn_id, $remote_file)); 
+ftp_close($conn_id);  // 关闭FTP连接
+fclose($handle);  // 关闭本地句柄
+</pre>
+</div>
+
+<div>
+<h2>Mail</h2>
+<h3>mail --- 发送一封电子邮件</h3>
+<pre>bool mail ( string $to , string $subject , string $message [, string $additional_headers [, string $additional_parameters ]] )</pre>
+<pre>
+$to      = 'nobody@example.com';
+$subject = 'the subject';
+$message = 'hello';
+$headers = 'From: webmaster@e100.com' . "\r\n" . 'Reply-To: webmaster@e110.com' . "\r\n" . 'X-Mailer: PHP/' . phpversion();
+mail($to, $subject, $message, $headers);
+</pre>
+<p>测试了下，可以使用任意地址给对方发信件，想起了lemon的事件......不过被qq判定为垃圾邮件，现在外贸沟通也方便了，也许哪天有空再研究下邮件安全吧</p>
+</div>
+
+</div>
+</body>
+</html>

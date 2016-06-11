@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css">
+<script src="../notes.js"></script>
+<script src="../codecolor.js"></script>
+<title>jQuery 源码分析</title>
+</head>
+<body>
+<div id="article">
+
+<h1>jQuery 源码分析</h1>
+
+<div>
+<h2>外包结构分析</h2>
+<pre class="js">
+(function( global, factory ) {
+  // NodeJS 相关代码被省略
+  factory( global );
+}(typeof window !== "undefined" ? window : this,
+    function( window, noGlobal ) {  // 38
+    // .... 这里是主体代码，被省略
+  if ( !noGlobal ) window.jQuery = window.$ = jQuery;
+  return jQuery;  // 9813
+}));  // 9814
+/* 最外层就是个立即执行函数，在浏览器应用环境下只相当于：*/
+(factory(window,noGlobal){
+  if ( !noGlobal ) window.jQuery = window.$ = jQuery;
+})(window);
+</pre>
+</div>
+
+<div>
+<h2>主体框架分析</h2>
+<pre class="js">
+jQuery-2.2.4
+(function(window,noGlobal){
+  /* (45,89) 定义了一些变量和函数 jQuery */
+  jQuery = function(selector,context){return new jQuery.fn.init(selector,context);};
+  /* (91,173) 给 jQuery.prototype 添加一些属性和方法 */
+  jQuery.fn = jQuery.prototype = {属性,方法,...};
+  /* (175,242) 定义 extend 方法用于扩展 target 或 jQuery/jQuery.fn 自身 */
+  jQuery.extend = jQuery.fn.extend = function(){ 代码 };
+  /* (244,511) 扩展一些工具方法 */
+  jQuery.extend( {方法1,方法2, ... } );
+  /* (877,2679) Sizzle 复杂选择器的实现 */
+  var Sizzle =(function(window){ 代码 })(window);
+  /* (2774 ,2818) DOM 刷选 */  
+  jQuery.find = Sizzle; jQuery.text = Sizzle.getText; 等
+  /* (2821,2839) 定义 jQuery 初始化函数（非构造函数） */  
+  init = jQuery.fn.init = function( selector, context, root ) { 代码 };
+  
+  /* (3144,3336) 对回调函数的统一管理 */
+  jQuery.Callbacks = function( options ) { 代码 };
+  
+  /* (3339,3487) Deferred : 延迟对象，对异步的统一管理 */
+  jQuery.extend( {Deferred: function, when: function});
+  
+  /* (3660,4033) 信息集中存储模块 */
+  function Data(){ }  Data.prototype={ };  // 定义 Data 对象
+  jQuery.extend({ }); jQuery.fn.extend({ });  // 扩展相关方法
+  
+  /* (4036,4168) queue() : 队列管理 */
+  
+  /* (4169,) css() 样式的操作 */
+  
+  /* (5140 , 6057) DOM操作，添加 删除 获取 包装 DOM刷选 */
+  /* (,) 文档 */
+  
+  /* (4507,5121) 事件处理模块 */
+  
+  /* (5124,5574) DOM操作 */
+  
+  /* (5574,6338) 特性、属性、样式相关 */
+  
+  /* (6341,7319) 动画引擎 */
+  
+  /* (7321,8083) support : 功能检测 */
+  /* (8084,9482) AJAX 交互 */
+  /* (8585 , 8792) offset() 位置和尺寸的方法 */
+  /* (8804 , 8821) JQ 支持模块化的模式 */
+  
+  /* (9786,9813) 暴露 jQuery */
+  window.jQuery = window.$ = jQuery;
+})(window);
+</pre>
+<pre>
+jQuery-2.1
+;(function(global, factory) {
+    factory(global);
+}(typeof window !== "undefined" ? window : this, function(window, noGlobal) {
+    var jQuery = function( selector, context ) {
+		return new jQuery.fn.init( selector, context );
+	};
+	jQuery.fn = jQuery.prototype = {};
+	// 核心方法
+	// 回调系统
+	// 异步队列
+	// 数据缓存
+	// 队列操作
+	// 选择器引
+	// 属性操作
+	// 节点遍历
+	// 文档处理
+	// 样式操作
+	// 属性操作
+	// 事件体系
+	// AJAX交互
+	// 动画引擎
+	return jQuery;
+}));
+</pre>
+
+</div>
+
+<h3>#63 构造函数</h3>
+<pre>
+function jQuery(){
+  return new jQuery.prototype.init();
+}
+jQuery.prototype.css = function(){ };
+jQuery.prototype.init = function(){ };
+jQuery.prototype.init.prototype = jQuery.prototype;
+jQuery().css();
+</pre>
+
+
+<div>
+<h2>jQuery.fn </h2>
+<pre>
+jQuery.fn = jQuery.prototype = {
+  jquery : 版本
+  constructor : 修正指向问题
+  init() : 初始化和参数管理
+  selector : 存储选择字符串
+  length : this对象的长度
+  toArray() : 转数组
+  get() : 转原生集合
+  pushStack() : JQ对象的入栈
+  each() : 遍历集合
+  ready() : DOM加载的接口
+  slice() : 集合的截取
+  first() : 集合的第一项
+  last() : 集合的最后一项
+  eq() : 集合的指定项
+  map() : 返回新集合
+  end() : 返回集合前一个状态
+  push() : （内部使用）
+  sort() : （内部使用）
+  splice() : （内部使用）
+};
+
+
+</pre>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</body>
+</html>

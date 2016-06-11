@@ -1,16 +1,9 @@
 /*
  * 该文档负责加载笔记顶部导航栏，并定义了 setBase 函数
- * 支持IE9及更新浏览器
+ * 支持IE9及以上浏览器
  */
 
 (function(){
-  /*  调整 ipad 字体大小 */
-if(/ipad/i.test(navigator.userAgent)){
-  var meta = document.createElement("meta");
-  meta.name = "viewport";
-  meta.content = "width=980";
-  document.getElementsByTagName("head")[0].appendChild(meta);
-}
   /*  下载topnav 并初始化 */
 var xmlhttp=new XMLHttpRequest();
 xmlhttp.open("GET","/topnav",true);
@@ -26,11 +19,11 @@ function navinit() {
   /*  定义顶部导航栏 */
   var topnav = document.createElement("div");
   topnav.id = "topnav";
-  document.getElementsByTagName("body")[0].appendChild(topnav);
-  document.getElementById("topnav").innerHTML=xmlhttp.responseText;
+  topnav.innerHTML=xmlhttp.responseText;
   topnav.style.position = "fixed";
   topnav.style.top = 0;
   topnav.style.left = 0;
+  document.body.appendChild(topnav);
   document.getElementById("topnavpage").style.top = topnav.offsetHeight + "px";
   document.body.firstElementChild.style.marginTop = topnav.offsetHeight + "px";
   /*  定义顶部导航栏之“页内导航” */
@@ -42,7 +35,7 @@ function navinit() {
     x = contents.getElementsByTagName("a");
     topnavpage.parentElement.style.display = ""; 
     for (i=0; i < x.length; i++) topnavpage.appendChild(x[i].cloneNode(true));
-    topnavpage.style.display = "block"; //见后注
+    topnavpage.style.display = "block";
     if (topnavpage.offsetHeight + topnavHeight > window.innerHeight) {
       topnavpage.style.height = (window.innerHeight - topnavHeight) + "px";
       topnavpage.style.overflow = "scroll";
@@ -68,7 +61,14 @@ function navinit() {
   /*  定义左侧导航栏 */  
   document.getElementById("sidemenu").style.top = topnav.offsetHeight + "px";
   document.getElementById("sidemenu").style.height = (window.innerHeight - topnavHeight) + "px";
-}  
+}
+  /*  调整 ipad 字体大小 */
+if(/ipad/i.test(navigator.userAgent)){
+  var meta = document.createElement("meta");
+  meta.name = "viewport";
+  meta.content = "width=980";
+  document.getElementsByTagName("head")[0].appendChild(meta);
+} 
 })();
 
 /* 负责开关左侧导航条 */

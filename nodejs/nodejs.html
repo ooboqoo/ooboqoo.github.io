@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<script src="../notes.js"></script>
+<title>Node.js</title>
+</head>
+<body>
+<div id="article">
+
+<h1>Node.js</h1>
+
+<div>
+<p>node.js 里所有的模块是独立的，不需要命名空间隔离。</p>
+<p>模块的分类：<br>核心模块：启动时自动加载；<br>文件模块：require()；<br>第三方模块：require()</p>
+<p>模块的流程：<br>创建模块 teacher.js<br>导出模块：exports.add = function(){ }<br>加载模块：var teacher = require('teacher')<br>使用模块：teacher.add('Scott')</p>
+</div>
+
+</div>
+</body>
+</html>

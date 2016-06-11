@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<script src="../notes.js"></script>
+<title>PHP 基础</title>
+</head>
+<body>
+<div id="article">
+
+<h1>S1C5 代码重用与函数编写</h1>
+
+<div>
+<h2>5.1 代码重用的好处</h2>
+<p>5.1.1 成本；5.1.2 可靠性；5.1.3 一致性</p>
+</div>
+
+<div>
+<h2>5.2 使用require()和include()函数</h2>
+<p>require()和include()几乎完全一样，二者唯一的区别在于处理失败的方式不同。失败后，require()函数将给出一个E_COMPILE_ERROR 级别致命错误，并导致脚本中止；而include()只是给出一个警告(E_WARNING)，脚本会继续运行。</p>
+<p>这两个函数允许重新使用任何类型的代码，其中可包括PHP语句、文本、HTML标记、PHP函数或PHP类。</p>
+<p>require_once() 和include_once()是它俩的变体，这两个函数的作用是确保一个包含的文件只能被引入一次。这两个函数可以防止错误地引入同样的函数库两次，从而出现重复定义的错误。</p>
+
+<h3>5.2.1 文件扩展名和require()函数</h3>
+<p>当使用require()语句时，PHP并不关心所需文件的扩展名，这就意味着可以随意命名该文件</p>
+<p>建议将扩展名命名为.inc或.php 需要注意的一个问题是，如果扩展名为.inc 的文件保存在web文档树中，用户可以在浏览器中直接载入他们，并以普通文本的形式查看到源代码，因此将被包含文件保存在文档树之外是非常重要的。</p>
+<p>采用.inc文件并保存到web文档树之外，这种设置是非常不错的，它可以防止下面两种情况的发生：a）如果文件扩展名是.php，但只包含部分页面或脚本，此时可能会引起错误。b）如果已经使用了其他扩展名，别人就可以读取源码。</p>
+<p>注意：被引入文件中的PHP代码需放在PHP标记之间，如果没有PHP标记，代码将会被视为文本或者HTML脚本而不被执行。</p>
+<p>如果希望保证一个文件将被当做纯文本或HTML，而且不会执行任何PHP代码，可以使用readfile()作为替代方法。</p>
+
+<h3>5.2.2 使用require()制作Web站点的模板</h3>
+<p>可以通过将一个页面分割，然后再在home.php中用require()调用 header.php footer.php 来实现生成动态页面。这种方法很容易就是网站具有统一的风格，且便于更新维护。</p>
+<pre>
+&lt;?php require('header.php'); ?&gt;
+Here is the content for this page.
+&lt;?php require('footer.php'); ?&gt;
+</pre>
+
+<h3>5.2.3 使用auto_prepend_file 和 auto_append_file</h3>
+<p>在配置文件php.ini中有两个选项auto_prepend_file 和 auto_append_file，通过这两个选项来设置页眉和页脚。如果使用了这些指令，就不需要在输入include()语句，但页眉和页脚在页面中不再是可选项。</p>
+<pre>
+auto_prepend_file= "/home/username/include/header.php"
+auto_prepend_file= "/home/username/include/footer.php"
+</pre>
+<p>如果使用的是Apache Web服务器，可以对单个目录进行不同配置选项的修改，这样做的前提是服务器允许重设其主配置文件。</p>
+<p>要给目录设定自动前加入和自动追加，需要在该目录中创建一个名为.htaccess的文件。这个文件需要包含如下两行代码：</p>
+<pre>
+php_value auto_prepend_file "/home/username/include/header.php"
+php_value auto_prepend_file "/home/username/include/footer.php"
+</pre>
+<p>许多php.ini中的配置设定也可以按这种方法进行修改。在.htaccess中设置选项，而不是在php.ini中或者是Web服务器的配置文件中进行设置，将带来极大的灵活性。可以在一台只影响你目录的共享机器上进行，不需要重启服务器而且也不用管理员权限。使用.htaccess的一个缺点就是目录中每个被读取和被解析的文件每次都要进行处理，而不是在启动时处理一次，所以性能会有所降低。</p>	
+</div>
+
+<div>
+<h2>5.3 在PHP中使用函数</h2>
+</div>
+
+</div>
+</body>
+</html>

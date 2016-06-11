@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<script src="../notes.js"></script>
+<title>PHP 表单处理</title>
+</head>
+<body>
+<div id="article">
+
+<h1>PHP 表单处理</h1>
+
+<div id="intro">
+<p>PHP 超全局变量 $_GET 和 $_POST 用于收集表单数据（form-data）。</p>
+</div>
+
+<div>
+<h2>PHP - 一个简单的 HTML 表单</h2>
+
+<p>下面的例子显示了一个简单的 HTML 表单，它包含两个输入字段和一个提交按钮：</p>
+
+<h3>实例</h3>
+
+<pre>&lt;html&gt;
+&lt;body&gt;
+
+&lt;form action="welcome.php" method="post"&gt;
+Name: &lt;input type="text" name="name"&gt;&lt;br&gt;
+E-mail: &lt;input type="text" name="email"&gt;&lt;br&gt;
+&lt;input type="submit"&gt;
+&lt;/form&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/s.asp?f=demo_php_form_post">运行实例</a></p>
+
+<p>当用户填写此表单并点击提交按钮后，表单数据会发送到名为 "welcome.php" 的 PHP 文件供处理。表单数据是通过 HTTP POST 方法发送的。</p>
+
+<p>如需显示出被提交的数据，您可以简单地输出（echo）所有变量。"welcome.php" 文件是这样的：</p>
+
+<pre>&lt;html&gt;
+&lt;body&gt;
+
+Welcome &lt;?php echo $_POST["name"]; ?&gt;&lt;br&gt;
+Your email address is: &lt;?php echo $_POST["email"]; ?&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p>输出：</p>
+
+<pre>Welcome John
+Your email address is john.doe@example.com
+</pre>
+
+<p>使用 HTTP GET 方法也能得到相同的结果：</p>
+
+<h3>实例</h3>
+
+<pre>&lt;html&gt;
+&lt;body&gt;
+
+&lt;form action="welcome_get.php" method="get"&gt;
+Name: &lt;input type="text" name="name"&gt;&lt;br&gt;
+E-mail: &lt;input type="text" name="email"&gt;&lt;br&gt;
+&lt;input type="submit"&gt;
+&lt;/form&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/s.asp?f=demo_php_form_get">运行实例</a></p>
+
+<p>"welcome_get.php" 是这样的：</p>
+
+<pre>&lt;html&gt;
+&lt;body&gt;
+
+Welcome &lt;?php echo $_GET["name"]; ?&gt;&lt;br&gt;
+Your email address is: &lt;?php echo $_GET["email"]; ?&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p>上面的代码很简单。不过，最重要的内容被漏掉了。您需要对表单数据进行验证，以防止脚本出现漏洞。</p>
+
+<p class="important"><span>注意：</span>在处理 PHP 表单时请关注安全！</p>
+
+<p>本页未包含任何表单验证程序，它只向我们展示如何发送并接收表单数据。</p>
+
+<p>不过稍后的章节会为您讲解如何提高 PHP 表单的安全性！对表单适当的安全验证对于抵御黑客攻击和垃圾邮件非常重要！</p>
+</div>
+
+
+<div>
+<h2>GET vs. POST</h2>
+
+<p>GET 和 POST 都创建数组（例如，array( key =&gt; value, key2 =&gt; value2, key3 =&gt; value3, ...)）。此数组包含键/值对，其中的键是表单控件的名称，而值是来自用户的输入数据。</p>
+
+<p>GET 和 POST 被视作 $_GET 和 $_POST。它们是超全局变量，这意味着对它们的访问无需考虑作用域 - 无需任何特殊代码，您能够从任何函数、类或文件访问它们。</p>
+
+<p>$_GET 是通过 URL 参数传递到当前脚本的变量数组。</p>
+
+<p>$_POST 是通过 HTTP POST 传递到当前脚本的变量数组。</p>
+</div>
+
+
+<div>
+<h2>何时使用 GET？</h2>
+
+<p>通过 GET 方法从表单发送的信息<em>对任何人都是可见的</em>（所有变量名和值都显示在 URL 中）。GET 对所发送信息的数量也有限制。限制在大于 2000 个字符。不过，由于变量显示在 URL 中，把页面添加到书签中也更为方便。</p>
+
+<p>GET 可用于发送非敏感的数据。</p>
+
+<p class="note"><span>注释：</span>绝不能使用 GET 来发送密码或其他敏感信息！</p>
+</div>
+
+
+<div>
+<h2>何时使用 POST？</h2>
+
+<p>通过 POST 方法从表单发送的信息<em>对其他人是不可见的</em>（所有名称/值会被嵌入 HTTP 请求的主体中），并且对所发送信息的数量也<em>无限制</em>。</p>
+
+<p>此外 POST 支持高阶功能，比如在向服务器上传文件时进行 multi-part 二进制输入。</p>
+
+<p>不过，由于变量未显示在 URL 中，也就无法将页面添加到书签。</p>
+
+<p class="marked">提示：开发者偏爱 POST 来发送表单数据。</p>
+
+<p>接下来让我们看看如何安全地处理 PHP 表单！</p>
+</div>
+
+
+
+
+
+
+
+
+<h1>PHP 表单验证</h1>
+
+
+
+
+<div id="intro">
+<p>本节和下一节讲解如何使用 PHP 来验证表单数据。</p>
+</div>
+
+
+<div>
+<h2>PHP 表单验证</h2>
+
+<p class="tip"><span>提示：</span>在处理 PHP 表单时请重视安全性！</p>
+
+<p>这些页面将展示如何安全地处理 PHP 表单。对 HTML 表单数据进行适当的验证对于防范黑客和垃圾邮件很重要！</p>
+
+<p>我们稍后使用的 HTML 表单包含多种输入字段：必需和可选的文本字段、单选按钮以及提交按钮：</p>
+
+<iframe src="/demo/demo_form_validation_complete.php" width="700" height="700" seamless="" style="border:1px solid #ddd; margin-top:15px;"></iframe>
+
+<p>上面的表单使用如下验证规则：</p>
+
+<table class="dataintable">
+<tbody><tr>
+<th style="width:25%;">字段</th>
+<th>验证规则</th>
+</tr>
+
+<tr>
+<td>Name</td>
+<td>必需。必须包含字母和空格。</td>
+</tr>
+
+<tr>
+<td>E-mail</td>
+<td>必需。必须包含有效的电子邮件地址（包含 @ 和 .）。</td>
+</tr>
+
+<tr>
+<td>Website</td>
+<td>可选。如果选填，则必须包含有效的 URL。</td>
+</tr>
+
+<tr>
+<td>Comment</td>
+<td>可选。多行输入字段（文本框）。</td>
+</tr>
+
+<tr>
+<td>Gender</td>
+<td>必需。必须选择一项。</td>
+</tr>
+</tbody></table>
+
+<p>首先我们看一下这个表单的纯 HTML 代码：</p>
+</div>
+
+
+<div>
+<h2>文本字段</h2>
+
+<p>name、email 和 website 属于文本输入元素，comment 字段是文本框。HTML 代码是这样的：</p>
+
+<pre>Name: &lt;input type="text" name="name"&gt;
+E-mail: &lt;input type="text" name="email"&gt;
+Website: &lt;input type="text" name="website"&gt;
+Comment: &lt;textarea name="comment" rows="5" cols="40"&gt;&lt;/textarea&gt;
+</pre>
+</div>
+
+
+<div>
+<h2>单选按钮</h2>
+
+<p>gender 字段是单选按钮，HTML 代码是这样的：</p>
+
+<pre>Gender:
+&lt;input type="radio" name="gender" value="female"&gt;Female
+&lt;input type="radio" name="gender" value="male"&gt;Male
+</pre>
+</div>
+
+
+<div>
+<h2>表单元素</h2>
+
+<p>表单的 HTML 代码是这样的：</p>
+
+<pre>&lt;form method="post" action="&lt;?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?&gt;"&gt;
+</pre>
+
+<p>当提交此表单时，通过  method="post" 发送表单数据。</p>
+
+<h3>什么是 $_SERVER["PHP_SELF"] 变量？</h3>
+
+<p>$_SERVER["PHP_SELF"] 是一种超全局变量，它返回当前执行脚本的文件名。</p>
+
+<p>因此，$_SERVER["PHP_SELF"] 将表单数据发送到页面本身，而不是跳转到另一张页面。这样，用户就能够在表单页面获得错误提示信息。</p>
+
+<h3>什么是 htmlspecialchars() 函数？</h3>
+
+<p>htmlspecialchars() 函数把特殊字符转换为 HTML 实体。这意味着 &lt; 和 &gt; 之类的 HTML 字符会被替换为  &amp;lt; 和 &amp;gt; 。这样可防止攻击者通过在表单中注入 HTML 或 JavaScript 代码（跨站点脚本攻击）对代码进行利用。</p>
+</div>
+
+
+<div>
+<h2>关于 PHP 表单安全性的重要提示</h2>
+
+<p>$_SERVER["PHP_SELF"] 变量能够被黑客利用！</p>
+
+<p>如果您的页面使用了 PHP_SELF，用户能够输入下划线然后执行跨站点脚本（XSS）。</p>
+
+<p class="tip"><span>提示：</span>跨站点脚本（Cross-site scripting，XSS）是一种计算机安全漏洞类型，常见于 Web 应用程序。XSS 能够使攻击者向其他用户浏览的网页中输入客户端脚本。</p>
+
+<p>假设我们的一张名为 "test_form.php" 的页面中有如下表单：</p>
+
+<pre>&lt;form method="post" action="&lt;?php echo $_SERVER["PHP_SELF"];?&gt;"&gt;
+</pre>
+
+<p>现在，如果用户进入的是地址栏中正常的 URL："http://www.example.com/test_form.php"，上面的代码会转换为：</p>
+
+<pre>&lt;form method="post" action="test_form.php"&gt;
+</pre>
+
+<p>到目前，一切正常。</p>
+
+<p>不过，如果用户在地址栏中键入了如下 URL：</p>
+
+<pre>http://www.example.com/test_form.php/%22%3E%3Cscript%3Ealert('hacked')%3C/script%3E
+</pre>
+
+<p>在这种情况下，上面的代码会转换为：</p>
+
+<pre>&lt;form method="post" action="test_form.php"/&gt;&lt;script&gt;alert('hacked')&lt;/script&gt;
+</pre>
+
+<p>这段代码加入了一段脚本和一个提示命令。并且当此页面加载后，就会执行 JavaScript 代码（用户会看到一个提示框）。这仅仅是一个关于 PHP_SELF 变量如何被利用的简单无害案例。</p>
+
+<p>您应该意识到 <em>&lt;script&gt; 标签内能够添加任何 JavaScript 代码</em>！黑客能够把用户重定向到另一台服务器上的某个文件，该文件中的恶意代码能够更改全局变量或将表单提交到其他地址以保存用户数据，等等。</p>
+</div>
+
+
+<div>
+<h2>如果避免 $_SERVER["PHP_SELF"] 被利用？</h2>
+
+<p>通过使用  htmlspecialchars() 函数能够避免 $_SERVER["PHP_SELF"] 被利用。</p>
+
+<p>表单代码是这样的：</p>
+
+<pre>&lt;form method="post" action="&lt;?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?&gt;"&gt;
+</pre>
+
+<p>htmlspecialchars() 函数把特殊字符转换为 HTML 实体。现在，如果用户试图利用 PHP_SELF 变量，会导致如下输出：</p>
+
+<pre>&lt;form method="post" action="test_form.php/"&gt;&lt;script&gt;alert('hacked')&lt;/script&gt;"&gt;
+</pre>
+
+<p>无法利用，没有危害！</p>
+</div>
+
+
+<div>
+<h2>通过 PHP 验证表单数据</h2>
+
+<p>我们要做的第一件事是通过 PHP 的 htmlspecialchars() 函数传递所有变量。</p>
+
+<p>在我们使用 htmlspecialchars() 函数后，如果用户试图在文本字段中提交以下内容：</p>
+
+<pre>&lt;script&gt;location.href('http://www.hacked.com')&lt;/script&gt;
+</pre>
+
+<p>- 代码不会执行，因为会被保存为转义代码，就像这样：</p>
+
+<pre>&amp;lt;script&amp;gt;location.href('http://www.hacked.com')&amp;lt;/script&amp;gt;
+</pre>
+
+<p>现在这条代码显示在页面上或 e-mail 中是安全的。</p>
+
+<p>在用户提交该表单时，我们还要做两件事：</p>
+
+<ol>
+<li>（通过 PHP trim() 函数）去除用户输入数据中不必要的字符（多余的空格、制表符、换行）</li>
+<li>（通过 PHP stripslashes() 函数）删除用户输入数据中的反斜杠（\）</li>
+</ol>
+
+<p>接下来我们创建一个检查函数（相比一遍遍地写代码，这样效率更好）。</p>
+
+<p>我们把函数命名为 test_input()。</p>
+
+<p>现在，我们能够通过 test_input() 函数检查每个 $_POST 变量，脚本是这样的：</p>
+
+<h3>实例</h3>
+
+<pre>&lt;?php
+<span class="code_comment">// 定义变量并设置为空值</span>
+$name = $email = $gender = $comment = $website = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $name = test_input($_POST["name"]);
+  $email = test_input($_POST["email"]);
+  $website = test_input($_POST["website"]);
+  $comment = test_input($_POST["comment"]);
+  $gender = test_input($_POST["gender"]);
+}
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+?&gt;
+</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/s.asp?f=demo_php_form_validation_escapechar">运行实例</a></p>
+
+<p>请注意在脚本开头，我们检查表单是否使用  $_SERVER["REQUEST_METHOD"] 进行提交。如果 REQUEST_METHOD 是 POST，那么表单已被提交 - 并且应该对其进行验证。如果未提交，则跳过验证并显示一个空白表单。</p>
+
+<p>不过，在上面的例子中，所有输入字段都是可选的。即使用户未输入任何数据，脚本也能正常工作。</p>
+
+<p>下一步是制作必填输入字段，并创建需要时使用的错误消息。</p>
+</div>
+
+
+
+
+
+
+
+
+
+<h1>PHP 表单验证 - 必填字段</h1>
+
+
+
+
+<div id="intro">
+<p>本节展示如何制作必填输入字段，并创建需要时所用的错误消息。</p>
+</div>
+
+
+<div>
+<h2>PHP - 输入字段</h2>
+
+<p>从上一节中的验证规则中，我们看到 "Name", "E-mail" 以及 "Gender" 字段是必需的。这些字段不能为空且必须在 HTML 表单中填写。</p>
+
+<table class="dataintable">
+<tbody><tr>
+<th style="width:25%;">字段</th>
+<th>验证规则</th>
+</tr>
+
+<tr>
+<td>Name</td>
+<td>必需。必须包含字母和空格。</td>
+</tr>
+
+<tr>
+<td>E-mail</td>
+<td>必需。必须包含有效的电子邮件地址（包含 @ 和 .）。</td>
+</tr>
+
+<tr>
+<td>Website</td>
+<td>可选。如果选填，则必须包含有效的 URL。</td>
+</tr>
+
+<tr>
+<td>Comment</td>
+<td>可选。多行输入字段（文本框）。</td>
+</tr>
+
+<tr>
+<td>Gender</td>
+<td>必需。必须选择一项。</td>
+</tr>
+</tbody></table>
+
+<p>在上一节中，所有输入字段都是可选的。</p>
+
+<p>在下面的代码中我们增加了一些新变量：$nameErr、$emailErr、$genderErr 以及 $websiteErr。这些错误变量会保存被请求字段的错误消息。我们还为每个 $_POST 变量添加了一个 if else 语句。这条语句检查 $_POST 变量是否为空（通过 PHP empty() 函数）。如果为空，则错误消息会存储于不同的错误变量中。如果不为空，则通过 test_input() 函数发送用户输入数据：</p>
+
+<pre>&lt;?php
+<span class="code_comment">// 定义变量并设置为空值</span>
+$nameErr = $emailErr = $genderErr = $websiteErr = "";
+$name = $email = $gender = $comment = $website = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (empty($_POST["name"])) {
+    $nameErr = "Name is required";
+  } else {
+    $name = test_input($_POST["name"]);
+  }
+
+  if (empty($_POST["email"])) {
+    $emailErr = "Email is required";
+  } else {
+    $email = test_input($_POST["email"]);
+  }
+
+  if (empty($_POST["website"])) {
+    $website = "";
+  } else {
+    $website = test_input($_POST["website"]);
+  }
+
+  if (empty($_POST["comment"])) {
+    $comment = "";
+  } else {
+    $comment = test_input($_POST["comment"]);
+  }
+
+  if (empty($_POST["gender"])) {
+    $genderErr = "Gender is required";
+  } else {
+    $gender = test_input($_POST["gender"]);
+  }
+}
+?&gt;
+</pre>
+</div>
+
+
+<div>
+<h2>PHP - 显示错误消息</h2>
+
+<p>在 HTML 表单中，我们在每个被请求字段后面增加了一点脚本。如果需要，会生成恰当的错误消息（如果用户未填写必填字段就试图提交表单）：</p>
+
+<h3>实例</h3>
+
+<pre>&lt;form method="post" action="&lt;?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?&gt;"&gt;
+
+Name: &lt;input type="text" name="name"&gt;
+&lt;span class="error"&gt;* &lt;?php echo $nameErr;?&gt;&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+E-mail:
+&lt;input type="text" name="email"&gt;
+&lt;span class="error"&gt;* &lt;?php echo $emailErr;?&gt;&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+Website:
+&lt;input type="text" name="website"&gt;
+&lt;span class="error"&gt;&lt;?php echo $websiteErr;?&gt;&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;label&gt;Comment: &lt;textarea name="comment" rows="5" cols="40"&gt;&lt;/textarea&gt;
+&lt;br&gt;&lt;br&gt;
+Gender:
+&lt;input type="radio" name="gender" value="female"&gt;Female
+&lt;input type="radio" name="gender" value="male"&gt;Male
+&lt;span class="error"&gt;* &lt;?php echo $genderErr;?&gt;&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;input type="submit" name="submit" value="Submit"&gt; 
+
+&lt;/form&gt;
+</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/s.asp?f=demo_php_form_validation_required">运行实例</a></p>
+
+<p>接下来是验证输入数据，即“Name 字段是否只包含字母和空格？”，以及“E-mail 字段是否包含有效的电子邮件地址语法？”，并且如果填写了 Website 字段，“这个字段是否包含了有效的 URL？”。</p>
+</div>
+
+
+
+
+
+
+
+
+
+<h1>PHP 表单验证 - 验证 E-mail 和 URL</h1>
+
+
+
+
+<div id="intro">
+<p>本节展示如何验证名字、电邮和 URL。</p>
+</div>
+
+
+<div>
+<h2>PHP - 验证名字</h2>
+
+<p>以下代码展示的简单方法检查 name 字段是否包含字母和空格。如果 name 字段无效，则存储一条错误消息：</p>
+
+<pre>$name = test_input($_POST["name"]);
+if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
+  $nameErr = "只允许字母和空格！"; 
+}
+</pre>
+
+<p class="note"><span>注释：</span>preg_match() 函数检索字符串的模式，如果模式存在则返回 true，否则返回 false。</p>
+</div>
+
+
+<div>
+<h2>PHP - 验证 E-mail</h2>
+
+<p>以下代码展示的简单方法检查 e-mail 地址语法是否有效。如果无效则存储一条错误消息：</p>
+
+<pre>$email = test_input($_POST["email"]);
+if (!preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/",$email)) {
+  $emailErr = "无效的 email 格式！"; 
+}
+</pre>
+</div>
+
+
+<div>
+<h2>PHP - 验证 URL</h2>
+
+<p>以下代码展示的方法检查 URL 地址语法是否有效（这条正则表达式同时允许 URL 中的斜杠）。如果 URL 地址语法无效，则存储一条错误消息：</p>
+
+<pre>$website = test_input($_POST["website"]);
+if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&amp;@#\/%?=~_|!:,.;]*[-a-z0-9+&amp;@#\/%
+=~_|]/i",$website)) {
+  $websiteErr = "无效的 URL"; 
+}
+</pre>
+</div>
+
+
+<div>
+<h2>PHP - 验证 Name、E-mail、以及 URL</h2>
+
+<p>现在，脚本是这样的：</p>
+
+<h3>实例</h3>
+
+<pre>&lt;?php
+<span class="code_comment">// 定义变量并设置为空值</span>
+$nameErr = $emailErr = $genderErr = $websiteErr = "";
+$name = $email = $gender = $comment = $website = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (empty($_POST["name"])) {
+    $nameErr = "Name is required";
+  } else {
+    $name = test_input($_POST["name"]);
+    <span class="code_comment">// 检查名字是否包含字母和空格</span>
+    if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
+      $nameErr = "Only letters and white space allowed"; 
+    }
+  }
+
+  if (empty($_POST["email"])) {
+    $emailErr = "Email is required";
+  } else {
+    $email = test_input($_POST["email"]);
+    <span class="code_comment">// 检查电邮地址语法是否有效</span>
+    if (!preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/",$email)) {
+      $emailErr = "Invalid email format"; 
+    }
+  }
+
+  if (empty($_POST["website"])) {
+    $website = "";
+  } else {
+    $website = test_input($_POST["website"]);
+    <span class="code_comment">// 检查 URL 地址语言是否有效（此正则表达式同样允许 URL 中的下划线）</span>
+    if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&amp;@#\/%?=~_|!:,.;]*[-a-z0-9+&amp;@#\/%
+    =~_|]/i",$website)) {
+      $websiteErr = "Invalid URL"; 
+    }
+  }
+
+  if (empty($_POST["comment"])) {
+    $comment = "";
+  } else {
+    $comment = test_input($_POST["comment"]);
+  }
+
+  if (empty($_POST["gender"])) {
+    $genderErr = "Gender is required";
+  } else {
+    $gender = test_input($_POST["gender"]);
+  }
+}
+?&gt;
+</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/s.asp?f=demo_php_form_validation_special">运行实例</a></p>
+
+<p>接下来向您讲解如何防止表单在用户提交表单后清空所有输入字段。</p>
+</div>
+
+
+
+
+
+
+
+
+
+<h1>PHP 表单验证 - 完成表单实例</h1>
+
+
+
+
+<div id="intro">
+<p>本节展示如何在用户提交表单后保留输入字段中的值。</p>
+</div>
+
+
+<div>
+<h2>PHP - 保留表单中的值</h2>
+
+<p>如需在用户点击提交按钮后在输入字段中显示值，我们在以下输入字段的 value 属性中增加了一小段 PHP 脚本：name、email 以及 website。在 comment 文本框字段中，我们把脚本放到了 &lt;textarea&gt; 与 &lt;/textarea&gt; 之间。这些脚本输出 $name、$email、$website 和 $comment 变量的值。</p>
+
+<p>然后，我们还需要显示选中了哪个单选按钮。对此，我们必须操作 checked 属性（而非单选按钮的 value 属性）：</p>
+
+<pre>Name: &lt;input type="text" name="name" value="&lt;?php echo $name;?&gt;"&gt;
+
+E-mail: &lt;input type="text" name="email" value="&lt;?php echo $email;?&gt;"&gt;
+
+Website: &lt;input type="text" name="website" value="&lt;?php echo $website;?&gt;"&gt;
+
+Comment: &lt;textarea name="comment" rows="5" cols="40"&gt;&lt;?php echo $comment;?&gt;&lt;/textarea&gt;
+
+Gender:
+
+&lt;input type="radio" name="gender"
+&lt;?php if (isset($gender) &amp;&amp; $gender=="female") echo "checked";?&gt;
+value="female"&gt;Female
+&lt;input type="radio" name="gender"
+&lt;?php if (isset($gender) &amp;&amp; $gender=="male") echo "checked";?&gt;
+value="male"&gt;Male
+</pre>
+</div>
+
+
+<div>
+<h2>PHP - 完整的表单实例</h2>
+
+<p>下面是 PHP 表单验证实例的完整代码：</p>
+
+<h3>实例</h3>
+
+<iframe src="/demo/demo_form_validation_complete.php" width="700" height="700" seamless="" style="border:1px solid #ddd; margin-top:15px;"></iframe>
+
+<p class="tiy"><a target="_blank" href="/tiy/s.asp?f=demo_php_form_validation_complete">运行实例</a></p>
+</div>
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<script src="../notes.js"></script>
+<title>PHP 基础</title>
+</head>
+<body>
+<div id="article">
+
+<h1>极客学院 PDO 教程</h1>
+
+<div>
+<h2>PDO对象认识与应用</h2>
+<h3>课程背景：</h3>
+<p>在做项目的时候，PHP 是可以处理各种数据系统的，包括 MySQL、Oracle、MSSQL、SQLite，但是不同的数据系统之间使用的函数是不同的。之前使用的 mysql和mysqli 只能处理 MySQL 数据库。如果换成别的数据库就必须重新学习别的数据库函数，很麻烦同时移植也比较困难。为了解决这个问题，就需要一个“数据库抽象层”来实现，于是我们学习的 PDO 就此出现。</p>
+<h3>课程目录</h3>
+<dl>
+	<dt>1 PDO 对象认识 12:10</dt>
+	<dd>本课时讲解 PDO 扩展开启、PDO 的优势以及工作原理。</dd>
+	<dt>2 PDO 对象初始化 11:07</dt>
+	<dd>本课时讲解 PDO 初始化的三种方式：传统 PDO 初始化、通过配置文件初始化、配置 php.ini 初始化。</dd>
+	<dt>3 PDO 对象应用 12:12</dt>
+	<dd>本课时讲解 PDO 中常用方法 query、exec、fetchAll。</dd>
+</dl>
+<h3>PDO对象认识</h3>
+1、PDO对象认识
+2、PDO开启安装
+1）--width-pdo-mysql=/usr/local/mysql     //其中/usr/local/mysql是目录(linux)
+2）extension=php_pdo.dll              //PDO驱动程序共享扩展必须有 (windows)
+3 ) extension=php_pdo_mysql.dll   //MySQL扩展
+4 ) extension=php_pdo_mssql.dll   //SQL Server扩展
+5 ) extension=php_pdo_oci.dll       //Oracle扩展
+
+3、PDO工作原理
+4、PDO连接数据库的方式
+
+
+
+<h3>PDO对象初始化</h3>
+
+1、PDO对象初始化
+		PDO __construct( string dsn 
+			[, string username 
+			[, string password 
+			[, array driver_options]]] );
+	         dsn数据库连接信息如“mysql:host=localhost;dbname=库名”
+driver_options：	//配置选项
+2、PDO对象初始化方法介绍
+
+<pre>
+//echo phpinfo();  查看开启的方法
+//单态类（目的是为了产生唯一的对象）
+
+class A{
+    private static $a = null;
+    private function __construct(){	}
+	
+    static function makeA(){
+        if(self::$a == null){
+            self::$a = new self();
+		}
+        return self::$a;
+    }
+}
+print_r(A::makeA());
+</pre>
+
+<h3>PDO对象应用</h3>
+1、PDO对象成员方法应用
+2、PDO对象成员方法
+	1 ) query($sql);  	//用于执行查询SQL语句。返回PDOStatement对象
+	2 ) exec($sql);  		//用于执行增、删、改操作，返回影响行数；
+	3 ) setAttribute(); 	//设置一个"数据库连接对象"属性。
+    4 ) fetchAll();		//解析数据
+
+</div>
+
+<div>
+<h2>PDO 安全处理与事务处理</h2>
+<h3>课程背景</h3>
+<p>在我们做项目的时候，为了优化项目需要对报错模式，线上与线下进行不同的配置。目的为了提高用户体验，同时为了安全处理需要预处理来防止 SQL 注入。有时我们需要（增删改）作为一个操作单元，要么全成功，要么全失败。比如：用户之间转账、删除某一个用户相关的数据，这些都需要事务处理来操作。</p>
+
+<h3>课程目录</h3>
+<dl>
+	<dt>1 课程介绍 01:33</dt>
+	<dd>本课时是对整个课程的概要讲解，其中包括 PDO 报错模式、PDO 预处理、PDO 事务处理。</dd>
+	<dt>2 PDO 异常处理 07:43</dt>
+	<dd>本课时讲解 PDO 异常处理的作用，以及 PDO 异常处理的设置。</dd>
+	<dt>3 PDO 预处理 14:44</dt>
+	<dd>本课时讲解预处理的工作原理，以及预处理的应用。</dd>
+	<dt>4 PDO 事务处理 13:07</dt>
+	<dd>本课时讲解事务处理的应用场合，以及事务处理如何应用。</dd>
+</dl>
+
+<h3>PDO 异常处理</h3>
+<ul>
+	<li>PDO 异常处理介绍</li>
+	<li>PDO::ATTR_ERRMODE
+		<ol>
+			<li>PDO::ATTR_ERRMODE // 忽略,不报错 (0)</li>
+			<li>PDO::ATTR_ERRMODE // 以警告的方式报错 (1)</li>
+			<li>PDO::ATTR_ERRMODE // 以异常的方式报错 (2)</li>
+		</ol>
+	</li>
+	<li>setAttribute()</li>
+	<li>getAttribute()</li>
+</ul>
+
+<h3>PDO 预处理</h3>
+<p>PDO预处理方法</p>
+<ol>
+	<li>prepare() // 用于执行查询SQL语句,返回PDOStatement对象</li>
+	<li>bindValue() // 将值绑定到对应的一个参数,返回布尔值</li>
+	<li>bingParam() // 将参数绑定到相应的查询占位符上,返回布尔值</li>
+	<li>bindColumn() // 用来匹配列名和一个指定的变量名</li>
+	<li>execute() // 执行一个准备好了的预处理语句,返回布尔值</li>
+	<li>rowCount() // 返回使用 增\删\改\查 操作语句后受影响的行总数</li>
+</ol>
+
+<h3>PDO 事务处理</h3>
+<p>数据表需要InnoDB类型</p>
+<p>事务处理操作方法</p>
+<ol>
+	<li>beginTransaction() // 开启一个事务(即做一个滚回点)</li>
+	<li>commit() // 提交事务</li>
+	<li>rollBack() // 事务滚回操作</li>
+</ol>
+</div>
+
+<div>
+<h2>PDO 项目实例——学生信息管理系统</h2>
+<h3>课程背景：</h3>
+<p>当我们学完知识点之后，最好的记忆方法就是用所学知识去做项目或案例。这样才能更加的把知识点彻底的消化和灵活的应用，为此本课程来带大家一起做一个简单的学生管理系统，达到学有所用、学以致用。</p>
+<h3>课程目录</h3>
+<dl>
+	<dt>1 系统介绍与搭建 02:54</dt>
+	<dd>本课时搭建了一个学生信息信息系统，并对该系统的基本功能进行了讲解。</dd>
+	<dt>2 系统功能添加与查看 16:39</dt>
+	<dd>本课时讲解了如何在学生管理信息系统中添加并遍历学生信息。</dd>
+	<dt>3 系统功能删除与修改 14:34</dt>
+	<dd>本课时讲解了如何对学生管理系统中的学生信息进行删除，以及如何修改等。</dd>
+</dl>
+</div>
+
+</div>
+</body>
+</html>

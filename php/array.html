@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<script src="../notes.js"></script>
+<title>PHP 数组</title>
+</head>
+<body>
+<div id="article">
+
+<h1>S1C3 使用数组</h1>
+
+<div><p>PHP 支持数字索引数组和关联数组</p></div>
+
+<div>
+<h2>3.1 什么是数组</h2>
+<p>一个标量变量就是一个用来存储数值的命名区域，而数组是一个用来存储一系列变量值的命名区域。</p>
+<p>储存在数组中的值称为数组元素，每个数组元素有一个相关的索引（关键字），它可以用来访问元素。</p>
+<p>PHP允许间隔性地使用数字或字符串作为数组的索引。</p>
+</div>
+
+<div>	
+<h2>3.2 数字索引数组</h2>
+<p>在PHP中，数字索引的默认值是从0开始的，当然也可以改变它。</p>
+<h3>3.2.1 数字索引数组的初始化</h3>
+<pre>
+<code>array</code>() // 产生一个数组
+<code>range</code>($start, $limit [,$step=1]) // PHP4.1之前range()函数只产生递增/减的整数数组
+</pre>
+<p>就像echo语句一样，array()实际上是一个语言结构，而不是一个函数。</p>
+<h3>3.2.2 访问数组的内容</h3>
+<p>如果一个变量是数组，可以使用变量名称和关键字或索引的组合来访问其内容。如<span class="code">$products[0], $products['tire']</span></p>
+<p>就像PHP其他变量一样，数组不需要预先初始化或创建。数组的大小将根据所增加的元素多少动态地变化，这种大小调整功能并没有在其他大多数编程语言中应用。
+<pre>
+$products[0] = 'Tires'; // 如果$products数组不存在，本行将创建一个只有一个元素的数组
+$products[1] = 'Oil';   // 本行及后续代码将给$products数组添加新的数值
+</pre>
+<h3>使用循环访问数组</h3>
+<p>由于数值索引数组使用有序的数字作为索引，使用for循环就可以很容易得显示数组内容：</p>
+<pre>for ($i=0;$i<3;$i++) echo $products[$i];</pre>
+<p>使用一个简单的循环就可以访问每个元素是数字索引数组的一个非常好的特性。</p>
+<p>也可以使用foreach循环，这个循环语句是专门为数组而设计的：</p>
+<pre>foreach ($products as $current) echo $current;
+foreach ($arr as <code>&</code>$value) $value += 2;  // &表示引用而不是拷贝。</pre>
+</div>
+
+<div>
+<h2>3.3 使用不同索引的数组</h2>
+<h3>3.3.1 初始化关联数组</h3>
+<pre>$prices= array('Tires'=>100, 'Oil'=>10, 'Spark Plugs'=>4);</pre>
+<p>关键字和数值之间使用<span class="code">=></span>符号。</p>
+<h3>3.3.2 访问数组元素</h3>
+<h3>3.3.3 使用循环语句</h3>
+<p>因为关联数组的索引不是数字，因此无法在for循环语句中使用一个简单计数器对数组进行操作。但是可以使用foreach循环或list() 和 each()结构。</p>
+<pre>foreach ($prices as $key => $value) echo $key.' - '.$value.'\n';</pre>
+<p><em>each()</em>函数，会在指针前移一个位置之前返回当前元素。</p>
+<pre>
+while ($element = each($prices)){
+    echo $element['key'].$element['value'];
+}  // 本例中each()每次返回一个带4对索引和值的数组
+</pre>
+<p>此外还有一种更为高级和常见的方式来完成相同的操作。</p>
+<pre>
+reset($prices); // 使用完一个each()循环后，指针位于数组尾部，
+                     如需要在相同脚本再次使用数组，就要先reset()重置指针
+while (list($product, $price) = each($prices)){
+    echo "$product - $price"
+}
+</pre>
+<p>函数<em> list()</em>可以用来将一个数组分解为一系列的值。</p>
+<pre>array list ( mixed $var1 [, mixed $... ] ) 
+// Like array(), this is not really a function, but a language construct. </pre>
+</div>
+
+<div>
+<h2>3.4 数组操作符</h2>
+<table class="dataintable">
+<tr>
+<th>Example</th>
+<th>Name</th>
+<th>Result</th>
+</tr>
+<tr>
+<td>$a + $b</td>
+<td>Union</td>
+<td>Union of <var class="varname"><var class="varname">$a</var></var> and <var class="varname"><var class="varname">$b</var></var>.</td>
+</tr>
+<tr>
+<td>$a == $b</td>
+<td>Equality</td>
+<td><strong><code>TRUE</code></strong> if <var class="varname"><var class="varname">$a</var></var> and <var class="varname"><var class="varname">$b</var></var> have the same key/value pairs.</td>
+</tr>
+<tr>
+<td>$a === $b</td>
+<td>Identity</td>
+<td><strong><code>TRUE</code></strong> if <var class="varname"><var class="varname">$a</var></var> and <var class="varname"><var class="varname">$b</var></var> have the same key/value pairs <br /> in the same order and of the same types.</td>
+</tr>
+<tr>
+<td>$a != $b</td>
+<td>Inequality</td>
+<td><strong><code>TRUE</code></strong> if <var class="varname"><var class="varname">$a</var></var> is not equal to <var class="varname"><var class="varname">$b</var></var>.</td>
+</tr>
+<tr>
+<td>$a &lt;&gt; $b</td>
+<td>Inequality</td>
+<td><strong><code>TRUE</code></strong> if <var class="varname"><var class="varname">$a</var></var> is not equal to <var class="varname"><var class="varname">$b</var></var>.</td>
+</tr>
+<tr>
+<td>$a !== $b</td>
+<td>Non-identity</td>
+<td><strong><code>TRUE</code></strong> if <var class="varname"><var class="varname">$a</var></var> is not identical to <var class="varname"><var class="varname">$b</var></var>.</td>
+</tr>
+</table>
+<p>The<span class='code'>+</span>operator returns the right-hand array appended to the left-hand array; for keys that exist in both arrays, the elements from the left-hand array will be used, and the matching elements from the right-hand array will be ignored.</p>
+</div>
+
+<div>
+<h2>3.5 多维数组</h2>
+<h3>3.5.1 二维数组</h3>
+<p>除了一个元素具有两个索引--行和列外，二维数组和一维数组是类似的。</p>
+<h3>3.5.2 访问一个二维数组（数字索引数组）</h3>
+<p>要显示一个二维数组，可以使用代码按顺序手动访问每个元素</p>
+<pre>
+echo '|'.$products[0][0].'|'.$products[0][1].'|'.$products[0][2];
+echo '|'.$products[1][0].'|'.$products[1][1].'|'.$products[1][2];
+echo '|'.$products[2][0].'|'.$products[2][1].'|'.$products[2][2];
+</pre>
+<p>此外，还可以使用双重for循环来实现同样的效果。</p>
+<pre>
+for ($row=0;$row<3;$row++){
+    for ($col=0;$col<3;$col++) echo '|'.$products[$row][$col];
+}
+</pre>
+<h3>3.5.3 访问一个二维数组（关联数组）</h3>
+<p>如果创建列名称来代替数字，如果检索单个值会容易得多。使用一对有意义的行和列的名称作为索引可以使你很容易找到所需的数据。</p>
+<p>然而，不能使用一个简单的for循环按顺序遍历每一列。对带列名的二维数组可以用一个内嵌有while的for循环。</p>
+<pre>
+for ($row=0;$row<3;$row++){
+    while (list($key,$value)=each($products[$row])) echo '|'.$value;
+}
+</pre>
+<h3>3.5.4 三维数组</h3>
+<p>如果能轻松地将一个二维数组想象成一个有行和列的表格，那么就可以将三维数组想象成一堆像这样的表格。每个元素可以通过层、行和列进行引用。</p>
+<p>在PHP中，并没有设置数组维数的限制，但人们很难设想一个多于三维的数组。大多数实际问题在逻辑上只需要使用三维或者更少维度的数组结构就可以了。</p>
+</div>
+
+<div>
+<h2>3.6 数组排序</h2>
+<pre>sort()  asort()  ksort()
+rsort() arsort() krsort()</pre>
+</div>
+
+<div>
+<h2>3.7 多维数组的排序</h2>
+<p>对多维数组排序，或者不按字母和数字顺序进行排序，要比一维数组普通排序要复杂得多。</p>
+<pre>
+function compare($x,$y){
+    if ($x[1] == $y[1]) return 0;  <span>// return 会中止执行后续代码</span>
+	return ($x[1] < $y[1]) ? -1 : 1;  <span>// 再结合 ? : 语句大大简化了代码，牛逼！</span>
+}
+
+usort($products, 'compare');  <span>// 函数名称的引号不能省，格式就是这样的</span>
+</pre>
+<p>usort()中的“u”代表“user”，因为这个函数要求传入用户定义的比较函数。uasort() uksort() 同样要求传入用户定义的比较函数。因为比较函数是用户自己定义的，所以没有带“r”的反向变体。</p>
+</div>
+
+<div>
+<h2>3.8 对数组进行重新排序</h2>
+<p>函数shuffle()将数组各元素进行随机排序。</p>
+<p>函数array_reverse()给出一个原来数组的反向排序。请注意，该函数将返回一个原数组修改后的副本，如果不再需要原来的数组，可以用新的副本覆盖原来的版本。</p>
+<pre>$numbers=array_reverse($numbers)</pre>
+</div>
+
+<div>
+<h2>3.9 从文件载入数组</h2>
+<pre>array file (string $filename [,int $flags= 0 [,resource $context]])</pre>
+<p>file()函数将整个文件载入一个数组中，文件中的每行则成为数组中的一个元素。</p>
+<pre>array explode (string $delimiter, string $string [,int $limit=PHP_INT_MAX])</pre>
+<p>explode()函数可以将传入的字符串根据界定符分割成一个个小块。可选参数limit可以用来限制被返回的最大块数。</p>
+<pre>int intval ( mixed $var [,int $base=10])</pre>
+<p>intval()函数可以将一个字符串转化成一个整数，这个转换时相当智能化的，它可以忽略某些部分。</p>
+</div>
+
+<div>
+<h2>3.10 执行其他数组操作</h2>
+<h3>3.10.1 在数组中浏览</h3>
+<p><span class="code">current() / pos()</span>返回当前指针指向的元素；</p>
+<p><span class="code">each()</span>会在指针前移一个位置之前返回当前元素；</p>
+<p><span class="code">reset()</span>返回指向数组第一个元素的指针；</p>
+<p><span class="code">end()</span>将指针移到最后1个元素，并返回该元素；</p>
+<p><span class="code">next()</span>将指针前移1个位置，并返回新的当前元素；</p>
+<p><span class="code">prev()</span>将指针回移1个位置，并返回新的当前元素。</p>
+
+<h3>3.10.2 对数组的每个元素应用任何函数</h3>
+
+<h3>3.10.3 统计数组元素个数</h3>
+<p><span class="code">count() / sizeof()</span>返回数组元素的个数；</p>
+<p><span class="code">array_count_values()</span>这个函数将会统计每个特定的值在数组中出现过的次数，并返回一个包含频率表的关联数组。</p>
+
+<h3>3.10.4 将数组转换成标量变量</h3>
+
+</div>
+
+<div>
+<h2>3.11 数组函数在线手册</h2>
+<p>本章介绍了最有用的函数，其他函数请参阅　http://php.net/manual/en/ref.array.php</p>
+</div>
+
+</div>
+</body>
+</html>

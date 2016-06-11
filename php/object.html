@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<script src="../notes.js"></script>
+<title>面向对象的PHP</title>
+</head>
+<body>
+<div id="article">
+
+<h1>S1C6 面向对象的PHP</h1>
+
+<div>
+<h2>6.1 理解面向对象的概念</h2>
+
+<h3>6.1.1 类和对象</h3>
+<p>对象的属性是与对象相关的特性或变量。（属性可以与成员变量和特性这些词交替使用。）</p>
+<p>对象的操作则是对象可以执行的、用来改变其自身或对外部产生影响的方法、行为或函数。（操作可以与方法交替使用。）</p>
+<p>面向对象软件的一个重要优点是支持和鼓励封装---封装也叫数据隐藏。从本质上说，访问一个对象中的数据只能通过对对象的操作来实现，对象的操作也就是对象的接口。</p>
+<p>对象可以按类进行分类。虽然类所包含的对象可能具有不同的属性值，但是，这些对象都具有以相同方式实现的相同操作以及表示相同事物的相同属性。</p>
+
+<h3>多态性</h3>
+<p>面向对象的编程语言必须支持多态性，多态性的意思是指不同的类对同一操作可以有不同行为。</p>
+
+<h3>继承</h3>
+<p>继承允许我们使用子类在类之间创建层次关系。子类将从它的超类继承属性和操作。</p>
+<p>作为术语，你将看到子类和派生类的交替使用，同样，还将看到超类和父类的交替使用。</p>
+</div>
+
+<div>
+<h2>6.2 在PHP中创建类、属性和操作</h2>
+<h3>6.2.1 类的结构</h3>
+<p>创建一个PHP类的时候，必须使用关键字<span class="code">class</span></p>
+<p>通过在类的定义中使用某些关键词来声明变量，可以创建属性。这些关键字与变量的作用域相关：public private protected</p>
+<p>通过在类定义中声明函数，可以创建类的操作。</p>
+
+<h3>6.2.2 构造函数</h3>
+<p>大多数类都有一种称为构造函数的特殊操作。当创建一个对象时，它将调用构造函数，通常，这将执行一些有用的初始化任务：例如，设置属性的初始值或者创建该对象需要的其他对象。</p>
+<p>构造函数的声明与其他操作的声明一样，只是其名称必须是<span class="code">__construct()</span>，尽管可以手工调用构造函数，但其本意是在创建一个对象时自动调用。</p>
+
+<h3>6.2.3 析构函数</h3>
+<p>与构造函数相对的就是析构函数。析构函数允许在销毁一个类之前执行一些操作或完成一些功能，这些操作或功能通常在所有对该类的引用都被重置或超出作用域时自动发生。</p>
+<p>与构造函数的名称类似，一个类的析构函数名称必须是<span class="code">__destruct()</span>，析构函数不能带有任何参数。</p>
+</div>
+
+<div>
+<h2>6.3 类的实例化</h2>
+<p>可以使用关键字<span class="code">new</span>来创建一个对象</p>
+</div>
+
+<div>
+<h2>6.4 使用类的属性</h2>
+<p>在一个类中，可以访问一个特殊的指针<span class="code">$this</span>，当在该类中通过一个操作设置或访问该变量时，可以使用$this->attribute 来引用。</p>
+<p>通常，从类的外部直接访问类的属性是糟糕的想法，面向对象方法的一个优点就是鼓励使用封装。可以通过<span class="code">__get()</span>和<span class="code">__set()</span>函数来实现对属性的访问。我们并不会直接访问这些函数，这些函数名称前面的<em>双下划线</em>表明在PHP中这些函数具有特殊的意义，就像__construct()和__destruct()函数一样。</p>
+<pre>
+class classname {
+  public $attribute;
+  function __get($name){
+    return $this->$name;
+  }
+  function __set($name,$value){
+    $this->$name = $value;
+  }
+}
+
+$a = new classname()
+$a->$attribute=5;  // 该语句间接调用__set()函数
+$a->$attribute;  // 该语句间接调用__get()函数
+</pre>
+<p>只有一个访问入口，就可以实现对要保存的数据进行检查，并可以方便地改变潜在的程序实现。</p>
+</div>
+
+<div>
+<h2>6.5 使用private和public关键字控制访问</h2>
+<p>PHP提供了3种访问修饰符，它们可以控制属性和方法的可见性：</p>
+<ul>
+	<li>默认选项是public，公有的属性或方法可以在类的内部和外部访问。虽然可以不添加public关键词，但是如果存在其他修饰符，添加public修饰符将便于代码的理解和阅读。</li>
+	<li>private 访问修饰符意味着被标记的属性或方法只能在类的内部进行访问。</li>
+	<li>protected 意味着被标记的属性或方法只能在类以及其子类中访问。</li>
+</ul>
+</div>
+
+<div>
+<h2>6.6 类操作的调用</h2>
+<pre>
+$a->operation1(12,'test');  // 调用一个需提供参数的方法
+$x = $a->operation1(12,'test');  // 如果操作具有返回值，可以这样捕获返回数据
+</pre>
+</div>
+
+<div>
+<h2>6.7 类的继承</h2>
+<p>如果类是另一个类的子类，可以用关键字<span class="code">extends</span>来指明其继承关系。</p>
+<p>值得注意的是，继承是单方向的。子类可以从父类或超类继承特性，但父类却不能从子类继承特性。</p>
+<pre>class B extends A {...   }</pre>
+
+<h3>6.7.1 通过使用private和protected访问修饰符控制需要继承的内容</h3>
+<p>private 的属性和方法不能被继承；protected 的属性和方法可以被继承，但在类外部不可见。</p>
+
+<h3>6.7.2 重载</h3>
+<p>在子类中，再次声明相同的属性和操作也是有效的，而且在有些情况下会非常有用，如：在子类中给某个属性赋予一个与其超类属性不同的默认值，或者给某个操作赋予一个与其超类操作不同的功能。这就叫重载。</p>
+<p>与子类中定义新的属性和操作并不影响超类一样，在子类中重载属性或操作也不会影响超类。</p>
+<p><span class="code">parent</span>关键字允许调用父类操作的最初版本。但是，操作中的$this将指向当前子类而非原先的父类。</p>
+<pre>parent::operationname()</pre>
+
+<h3>6.7.3 使用final关键字禁止继承和重载</h3>
+<p>当在一个函数声明前面使用final关键字时，这个函数将不能在任何子类中被重载。</p>
+<p>也可以使用final关键字来禁止一个类被继承。</p>
+<pre>final class A {...   }</pre>
+
+<h3>6.7.4 理解单源继承</h3>
+<p>PHP并不支持多重继承，即一个子类不能有多个父类。超类可以有多个子类，还可以有孙类，这都属于单重继承。（其实翻译有问题，采用多源继承 单源继承就好理解）</p>
+
+<h3>6.7.5 实现接口</h3>
+<p>如果需要实现多重继承功能，在PHP中可以通过接口来变相实现。一个类可以继承一个类，同时又可以实现一个或多个接口。</p>
+<p>接口的思想是指定一个实现了该接口的类必须实现的一系列函数。如果没有实现接口中指定的方法，将产生一个致命错误。</p>
+<pre>
+interface Displayable { function display(); }
+class webPage implements Displayable{ function display(){...   } }
+</pre>
+<h3>6.7.6 Traits</h3>
+<p>PHP5.4 引入了关键字<span class="code">trait</span>，为单继承语言提供了代码复用机制。</p>
+<pre>
+class Base {
+    public function sayHello() { echo 'Hello '; }
+}
+
+trait SayWorld {
+    public function sayHello() {
+        parent::sayHello();
+        echo 'World!';
+    }
+}
+
+class MyHelloWorld extends Base {
+    use SayWorld;
+}
+
+$o = new MyHelloWorld();
+$o->sayHello();
+</pre>
+<p>从基类继承的成员被 trait 插入的成员所覆盖。优先顺序是来自当前类的成员覆盖了 trait 的方法，而 trait 则覆盖了被继承的方法。</p>
+<p>通过逗号分隔，在 use 声明列出多个 trait，可以都插入到一个类中。</p>
+<pre>
+trait Hello {...   }
+trait World {...   }
+
+class MyHelloWorld {
+    use Hello, World;
+    ...
+}
+</pre>
+<p>如果两个 trait 都插入了一个同名的方法，如果没有明确解决冲突将会产生一个致命错误。
+为了解决多个 trait 在同一个类中的命名冲突，需要使用 insteadof 操作符来明确指定使用冲突方法中的哪一个。
+以上方式仅允许排除掉其它方法，as 操作符可以将其中一个冲突的方法以另一个名称来引入。</p>
+
+</div>
+
+<div>
+<h2>6.8 类的设计</h2>
+<p>在上一章中，我们使用简单的包含文件实现了TLA公司网站，使其网站的不同页面具有和谐统一的外观。通过使用节省时间与精力的类和继承，可以创建该网站更高级的版本。</p>
+</div>
+
+<div>
+<h2>6.9 编写类代码</h2>
+<p>在本章的后续内容中，我们将介绍大型项目的设计和管理。现在，我们先集中介绍编写面向对象的PHP脚本部分。</p>
+<pre>...  // 很长的代码实现，具体见p130-137</pre>
+<p>通过PHP类创建页面的好处是显而易见的，通过用类完成了大部分工作，在创建页面的时候，我们就可以做更少的工作。在更新页面的时候，只要简单地更新类即可。通过继承，我们还可以从最初的类派生出不同版本的类而不会破坏这些优势。</p>
+<p>当然，这些优点也伴随着一定的代价。用脚本创建网页需要更多的处理操作，在一个业务繁忙的网站中，处理速度是很重要的，应该尽量使用静态HTML网页，或者尽可能地缓存脚本输出，从而减少在服务器上的载入操作。</p>
+</div>
+
+<div>
+<h2>6.10 理解PHP面向对象的高级功能</h2>
+
+<h3>6.10.1 使用Per-Class常量</h3>
+<p>PHP提供了Per-Class常量设计，可以通过<span class="code">::</span>操作符指定常量所属的类来访问。</p>
+<p>Scope Resolution Operator (::) // http://php.net/manual/en/oop4.php</p>
+<p>Sometimes it is useful to refer to functions and variables in base classes or to refer to functions in classes that have not yet any instances. The :: operator is being used for this.</p>
+<pre>
+class A {
+    <code>const</code> PI =3.14;
+    <code>public $varp</code> = 'var1_public';
+    <code>static $vars</code> = 'var2_static';
+    function example() {
+        echo "I am the original function A::example().&lt;br /&gt;\n";
+        <code>$this-&gt;other()</code>; }
+    function other() {echo "I am the original function A::other().&lt;br /&gt;\n";}
+}
+
+class B extends A {
+    function example() {
+        echo "I am the redefined function B::example().&lt;br /&gt;\n";
+        A::example();  }
+    function other() {echo "I am the redefined function B::other().&lt;br /&gt;\n";}
+}
+
+echo A::PI;    // 正常
+echo A::$vars; // 正常
+echo A::$varp; // 本行会报致命错误：Access to undeclared static property: A::$varp
+A::example();  // 本行会出错：Non-static method A::example()
+
+$b = new B;
+echo $b-&gt;varp; // 正常
+$b-&gt;example(); // 将输出以下内容
+//   I am the redefined function B::example().
+//   I am the original function A::example().
+//   I am the redefined function <code>B::other()</code>.  // 注意，此处的调用的是B的other()
+</pre>
+<p>上面这个例子把所有双冒号的用法和注意点都囊括在内了。</p>
+<ul>
+	<li>类中的常量，随时可访问</li>
+	<li>类中的变量以及方法，如果不是static的，类的外部无法用双冒号访问</li>
+	<li>子类重载父类变量和操作后，可以通过双冒号访问父类资源，但要注意 $this 指代的变化</li>
+</ul>
+
+
+<h3>6.10.2 实现静态方法</h3>
+<p>static关键字适用于允许在未初始化类的情况下就可以调用的方法，这种方法等价于Per-Class常量。</p>
+<p>注意，在一个静态方法中，不能使用$this指针，因为可能会没有可以引用的对象实例。</p>
+
+<h3>6.10.3 检查类的类型和类型提示</h3>
+<p><code>instanceof</code>关键字可以检查一个对象是否是特定类的实例，是否是从某个类继承过来的或者是否实现了某个接口。</p>
+<p>函数使用类型提示，可以指定必须传入的参数类类型。如果传入的类不是指定的类型，将产生一个错误。</p>
+<pre>
+function check_hint(B $someclass){... }
+check_hint($a);   // 此处传入的是父类A的实例$a，将产生一个致命错误；
+                        而如果要求的是父类A，传入子类B的实例$b，就不会报错
+</pre>
+
+<h3>6.10.4 后期静态绑定（没完全看懂）</h3>
+<p>http://php.net/manual/zh/language.oop5.late-static-bindings.php</p>
+
+<p>自 PHP 5.3.0 起，PHP 增加了一个叫做后期静态绑定的功能，用于在继承范围内引用静态调用的类。
+
+准确说，后期静态绑定工作原理是存储了在上一个“非转发调用”（non-forwarding call）的类名。当进行静态方法调用时，该类名即为明确指定的那个（通常在 :: 运算符左侧部分）；当进行非静态方法调用时，即为该对象所属的类。所谓的“转发调用”（forwarding call）指的是通过以下几种方式进行的静态调用：<span class="code">self::，parent::，static:: 以及 forward_static_call()</span>。可用 get_called_class() 函数来得到被调用的方法所在的类名，static:: 则指出了其范围。
+该功能从语言内部角度考虑被命名为“后期静态绑定”。“后期绑定”的意思是说，static:: 不再被解析为定义当前方法所在的类，而是在实际运行时计算的。也可以称之为“静态绑定”，因为它可以用于（但不限于）静态方法的调用。</p>
+<p>在非静态环境下，所调用的类即为该对象实例所属的类。由于 $this-> 会在同一作用范围内尝试调用私有方法，而 static:: 则可能给出不同结果。另一个区别是 static:: 只能用于静态属性。</p>
+<p>后期静态绑定的用法：后期静态绑定本想通过引入一个新的关键字表示运行时最初调用的类来绕过限制。最终决定不引入新的关键字，而是使用已经预留的 static 关键字。</p>
+<pre>
+class A {
+    public static function who() {
+        echo __CLASS__;
+    }
+    public static function test() {
+        static::who(); // 后期静态绑定从这里开始
+    }
+}
+
+class B extends A {
+    public static function who() {
+        echo __CLASS__;
+    }
+}
+
+B::test();  // 输出B
+</pre>
+
+<h3>6.10.5 克隆对象（好理解，但具体用法碰到再研究）</h3>
+<p>在多数情况下，我们并不需要完全复制一个对象来获得其中属性。但有一个情况下确实需要：如果你有一个 GTK 窗口对象，该对象持有窗口相关的资源。你可能会想复制一个新的窗口，保持所有属性与原来的窗口相同，但必须是一个新的对象（因为如果不是新的对象，那么一个窗口中的改变就会影响到另一个窗口）。还有一种情况：如果对象 A 中保存着对象 B 的引用，当你复制对象 A 时，你想其中使用的对象不再是对象 B 而是 B 的一个副本，那么你必须得到对象 A 的一个副本。</p>
+<pre>$copy_of_object = clone $object;</pre>
+<p>当对象被复制后，PHP 5 会对对象的所有属性执行一个浅复制（shallow copy）。所有的引用属性 仍然会是一个指向原来的变量的引用。当复制完成时，如果定义了 __clone() 方法，则新创建的对象（复制生成的对象）中的 __clone() 方法会被自动调用，可用于修改属性的值（如果有必要的话）</p>
+<pre>void __clone ( void )</pre>
+
+<h3>6.10.6 使用抽象类</h3>
+<p>PHP提供了抽象类，这些类不能被实例化，同样类方法只有声明没有实现。包含抽象方法的任何类自身必须是抽象的。</p>
+<p>抽象方法和抽象类主要用于复杂的类层次关系中，该层次关系需要确保每一个子类都包含并重载了某些特定的方法，这可以通过接口来实现。</p>
+<pre>abstract class A {abstract function operationX($param1,...)...   }</pre>
+
+<h3>6.10.7 重载（更正确的词应该是 编译器钩子）</h3>
+<p>PHP所提供的"重载"（overloading）是指动态地"创建"类属性和方法。我们是通过魔术方法（magic methods）来实现的。</p>
+<p>属性重载</p>
+<pre>
+public void __set (string $name , mixed $value ) //在给不可访问属性赋值时，__set() 会被调用
+public mixed __get (string $name )  //读取不可访问属性的值时，__get() 会被调用
+public bool __isset (string $name ) //当对不可访问属性调用 isset() 或 empty() 时，__isset() 会被调用
+public void __unset (string $name ) //当对不可访问属性调用 unset() 时，__unset() 会被调用
+</pre>
+<p>方法重载</p>
+<pre>
+public mixed __call ( string $name , array $arguments ) //在对象中调用一个不可访问方法时，__call() 会被调用
+public static mixed __callStatic ( string $name , array $arguments )
+                                 //用静态方式中调用一个不可访问方法时，__callStatic() 会被调用
+</pre>
+<q>来自社区的评论</q>
+<blockquote>This is a misuse of the term overloading. This article should call this technique "interpreter hooks".</blockquote>
+<blockquote>A word of warning!  It may seem obvious, but remember, when deciding whether to use __get, __set, and __call as a way to access the data in your class (as opposed to hard-coding getters and setters), keep in mind that this will prevent any sort of autocomplete, highlighting, or documentation that your ide mite do.</blockquote>
+
+<h3>6.10.8 使用__autoload()方法</h3>
+<pre>void __autoload ( string $class )</pre>
+<p>你可以通过定义这个函数来启用类的自动加载。他不是一个类方法，而是一个单独的函数。</p>
+<pre>
+function __autoload($classname) {   // 将这个函数放在文档开头，相当于多个include_once语句
+    $filename = "./". $classname .".php";
+    include_once($filename);
+}
+
+$obj = new myClass();  // 此时__autoload将自动加载：include_once("./myClass.php");
+</pre>
+
+<h3>6.10.9 遍历</h3>
+<p>PHP 5 提供了一种定义对象的方法使其可以通过单元列表来遍历，例如用 foreach 语句。默认情况下，所有可见属性都将被用于遍历。</p>
+<pre>
+class MyClass
+{
+    public $var1 = 'value 1';
+    public $var2 = 'value 2';
+    public $var3 = 'value 3';
+    protected $protected = 'protected var';
+    private   $private   = 'private var';
+}
+
+$class = new MyClass();
+foreach($class as $key => $value) {
+    print "$key => $value\n";  // 将输出$var1 $var2 $var3
+}
+</pre>
+
+<h3>6.10.10 将类转换成字符串</h3>
+<p>如果在类定义中实现了__toString()函数，当尝试打印该类时，可以调用这个函数。</p>
+<pre>
+$p = new printable;
+echo $p;
+</pre>
+
+<h3>6.10.11 使用Reflection API</h3>
+<p>PHP的面向对象引擎还包括反射API。反射是通过访问已有类和对象来找到类和对象的结构和内容的能力。当使用未知或文档不详的类时，这个功能是非常有用的，例如使用经过编码的PHP脚本</p>
+<pre>
+require_once("page.inc");
+$class = new ReflectionClass("Page");
+echo $class;
+</pre>
+<p>这里，使用了Reflection类的__toString()方法来打印这个数据。</p>
+
+<h3>6.10.12 对象和引用</h3>
+<p>默认情况下对象是通过引用传递的，php的引用是别名，就是两个不同的变量名字指向相同的内容。在php5，一个对象变量已经不再保存整个对象的值。只是保存一个标识符来访问真正的对象内容。</p>
+
+<h3>6.10.13 序列化对象 - 在会话中存放对象</h3>
+<p>所有php里面的值都可以使用函数serialize()来返回一个包含字节流的字符串来表示。unserialize()函数能够重新把字符串变回php原来的值。 序列化一个对象将会保存对象的所有变量，但是不会保存对象的方法，只会保存类的名字。</p>
+<pre>
+// classa.inc:
+  
+  class A {
+      public $one = 1;
+    
+      public function show_one() {
+          echo $this->one;
+      }
+  }
+  
+// page1.php:
+
+  include("classa.inc");
+  
+  $a = new A;
+  $s = serialize($a);
+  // 把变量$s保存起来以便文件page2.php能够读到
+  file_put_contents('store', $s);
+
+// page2.php:
+  
+  // 要正确了解序列化，必须包含下面一个文件
+  include("classa.inc");
+
+  $s = file_get_contents('store');
+  $a = unserialize($s);
+
+  // 现在可以使用对象$a里面的函数 show_one()
+  $a->show_one();	
+</pre>
+
+
+</div>
+
+
+</div>
+</body>
+</html>

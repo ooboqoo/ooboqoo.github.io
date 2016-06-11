@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css">
+<script src="../notes.js"></script>
+<script>setBase('table', 'http://www.w3schools.com/');</script>
+<title>HTML 进阶</title>
+</head>
+<body>
+<div id="article">
+
+<h1>HTML &lt;!DOCTYPE&gt;</h1>
+
+<div id="intro">
+<p>&lt;!DOCTYPE&gt; 声明帮助浏览器正确地显示网页。</p>
+</div>
+
+<div>
+<h2>&lt;!DOCTYPE&gt; 声明</h2>
+<p>Web 世界中存在许多不同的文档。只有了解文档的类型，浏览器才能正确地显示文档。</p>
+<p>HTML 也有多个不同的版本，只有完全明白页面中使用的确切 HTML 版本，浏览器才能完全正确地显示出 HTML 页面。这就是 &lt;!DOCTYPE&gt; 的用处。</p>
+<p>&lt;!DOCTYPE&gt; 不是 HTML 标签。它为浏览器提供一项信息（声明），即 HTML 是用什么版本编写的。</p>
+<p class="tip"><span>提示：</span>W3School 即将升级为最新的 HTML5 文档类型。</p>
+</div>
+
+<div>
+<p>带有 HTML5 DOCTYPE 的 HTML 文档：</p>
+<pre><code>&lt;!DOCTYPE html&gt;</code>
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Title of the document&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+The content of the document......
+&lt;/body&gt;
+
+&lt;/html&gt;
+</pre>
+</div>
+
+<div>
+<h2>常用的声明</h2>
+<h3>HTML5</h3>
+<pre>&lt;!DOCTYPE html&gt;</pre>
+<h3>HTML 4.01</h3>
+<pre>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd"&gt;
+</pre>
+<h3>XHTML 1.0</h3>
+<pre>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+</pre>
+</div>
+
+<h1>HTML 头部元素</h1>
+
+<div>
+<h2>HTML &lt;head&gt; 元素</h2>
+<p>&lt;head&gt; 元素是所有头部元素的容器。&lt;head&gt; 内的元素可包含脚本，指示浏览器在何处可以找到样式表，提供元信息，等等。</p>
+<p>以下标签都可以添加到 head 部分：&lt;title&gt;、&lt;base&gt;、&lt;link&gt;、&lt;meta&gt;、&lt;script&gt; 以及 &lt;style&gt;。</p>
+</div>
+
+<div>
+<h2>HTML &lt;title&gt; 元素</h2>
+<p>&lt;title&gt; 标签定义文档的标题。</p>
+<p>title 元素在所有 HTML/XHTML 文档中都是必需的。</p>
+<p>title 元素能够：</p>
+<ul>
+<li>定义浏览器工具栏中的标题</li>
+<li>提供页面被添加到收藏夹时显示的标题</li>
+<li>显示在搜索引擎结果中的页面标题</li>
+</ul>
+</div>
+
+<div>
+<h2>HTML &lt;base&gt; 元素</h2>
+<p>&lt;base&gt; 标签为页面上的所有链接规定默认地址或默认目标（target）：</p>
+<pre>&lt;head&gt;
+&lt;base href="http://www.w3school.com.cn/images/" /&gt;
+&lt;base target="_blank" /&gt;
+&lt;/head&gt;
+</pre>
+</div>
+
+<div>
+<h2>HTML &lt;link&gt; 元素</h2>
+<p>&lt;link&gt; 标签定义文档与外部资源之间的关系。</p>
+<p>&lt;link&gt; 标签最常用于连接样式表：</p>
+<pre>&lt;head&gt;
+&lt;link rel="stylesheet" type="text/css" href="mystyle.css" /&gt;
+&lt;/head&gt;
+</pre>
+</div>
+
+<div>
+<h2>HTML &lt;style&gt; 元素</h2>
+<p>&lt;style&gt; 标签用于为 HTML 文档定义样式信息。</p>
+<p>您可以在 style 元素内规定 HTML 元素在浏览器中呈现的样式：</p>
+<pre>&lt;head&gt;
+&lt;style type="text/css"&gt;
+body {background-color:yellow}
+p {color:blue}
+&lt;/style&gt;
+&lt;/head&gt;
+</pre>
+</div>
+
+<div>
+<h2>HTML &lt;meta&gt; 元素</h2>
+<p>元数据（metadata）是关于数据的信息。</p>
+<p>&lt;meta&gt; 标签提供关于 HTML 文档的元数据。元数据不会显示在页面上，但是对于机器是可读的。</p>
+<p>典型的情况是，meta 元素被用于规定页面的描述、关键词、文档的作者、最后修改时间以及其他元数据。</p>
+<p>&lt;meta&gt; 标签始终位于 head 元素中。</p>
+<p>元数据可用于浏览器（如何显示内容或重新加载页面），搜索引擎（关键词），或其他 web 服务。</p>
+
+<h3>针对搜索引擎的关键词</h3>
+<p>一些搜索引擎会利用 meta 元素的 name 和 content 属性来索引您的页面。</p>
+<pre>&lt;meta name="description" content="Free Web tutorials on HTML, CSS, XML" /&gt;
+&lt;meta name="keywords" content="HTML, CSS, XML" /&gt;</pre>
+<p>name 和 content 属性的作用是描述页面的内容。</p>
+</div>
+
+<div>
+<h2>HTML &lt;script&gt; 元素</h2>
+<p>&lt;script&gt; 标签用于定义客户端脚本，比如 JavaScript。我们会在稍后的章节讲解 script 元素。</p>
+</div>
+
+<div>
+<h2>HTML 头部元素</h2>
+<table><tbody>
+<tr><th style="width:30%;">标签</th><th style="width:70%;">描述</th></tr>
+<tr><td><a href="/tags/tag_head.asp" title="HTML  标签">&lt;head&gt;</a></td><td>定义关于文档的信息。</td></tr>
+<tr><td><a href="/tags/tag_title.asp" title="HTML <title> 标签">&lt;title&gt;</a></td><td>定义文档标题。</td></tr>
+<tr><td><a href="/tags/tag_base.asp" title="HTML <base> 标签">&lt;base&gt;</a></td><td>定义页面上所有链接的默认地址或默认目标。</td></tr>
+<tr><td><a href="/tags/tag_link.asp" title="HTML <link> 标签">&lt;link&gt;</a></td><td>定义文档与外部资源之间的关系。</td></tr>
+<tr><td><a href="/tags/tag_meta.asp" title="HTML <meta> 标签">&lt;meta&gt;</a></td><td>定义关于 HTML 文档的元数据。</td></tr>
+<tr><td><a href="/tags/tag_script.asp" title="HTML <script> 标签">&lt;script&gt;</a></td><td>定义客户端脚本。</td></tr>
+<tr><td><a href="/tags/tag_style.asp" title="HTML <style> 标签">&lt;style&gt;</a></td><td>定义文档的样式信息。</td></tr>
+</tbody></table>
+</div>
+
+<h1>HTML 脚本</h1>
+
+<div id="intro">
+<p>JavaScript 使 HTML 页面具有更强的动态和交互性。</p>
+</div>
+
+<div>
+<h2>HTML script 元素</h2>
+<p>&lt;script&gt; 标签用于定义客户端脚本，比如 JavaScript。</p>
+<p>script 元素既可包含脚本语句，也可通过 src 属性指向外部脚本文件。</p>
+<p>必需的 type 属性规定脚本的 MIME 类型。</p>
+<p>JavaScript 最常用于图片操作、表单验证以及内容动态更新。</p>
+</div>
+
+<div>
+<h2>&lt;noscript&gt; 标签</h2>
+<p>&lt;noscript&gt; 标签提供无法使用脚本时的替代内容，比方在浏览器禁用脚本时，或浏览器不支持客户端脚本时。</p>
+<p>noscript 元素可包含普通 HTML 页面的 body 元素中能够找到的所有元素。</p>
+<p>只有在浏览器不支持脚本或者禁用脚本时，才会显示 noscript 元素中的内容：</p>
+<pre>&lt;script type="text/javascript"&gt;document.write("Hello World!")&lt;/script&gt;
+<code>&lt;noscript&gt;</code>Your browser does not support JavaScript!<code>&lt;/noscript&gt;</code>
+</pre>
+</div>
+
+<div>
+<h2>如何应付老式的浏览器</h2>
+<p>如果浏览器压根没法识别 &lt;script&gt; 标签，那么 &lt;script&gt; 标签所包含的内容将以文本方式显示在页面上。为了避免这种情况发生，你应该将脚本隐藏在注释标签当中。那些老的浏览器（无法识别 &lt;script&gt; 标签的浏览器）将忽略这些注释，所以不会将标签的内容显示到页面上。而那些新的浏览器将读懂这些脚本并执行它们，即使代码被嵌套在注释标签内。</p>
+
+<h4>JavaScript:</h4>
+<pre>&lt;script type="text/javascript"&gt;
+<code>&lt;!--</code>
+document.write("Hello World!")
+<code>//--&gt;</code>
+&lt;/script&gt;
+</pre>
+</div>
+
+<div>
+<table>
+<tbody><tr><th style="width:30%;">标签</th><th>描述</th></tr>
+<tr><td><a href="/tags/tag_script.asp">&lt;script&gt;</a></td><td>定义客户端脚本。</td></tr>
+<tr><td><a href="/tags/tag_noscript.asp">&lt;noscript&gt;</a></td><td>为不支持客户端脚本的浏览器定义替代内容。</td></tr>
+</tbody></table>
+</div>
+
+<h1>HTML 字符实体</h1>
+
+<div id="intro"><p>HTML 中的预留字符必须被替换为字符实体。</p></div>
+<div>
+<h2>HTML 实体</h2>
+<p>在 HTML 中，某些字符是预留的。</p>
+<p>在 HTML 中不能使用小于号（&lt;）和大于号（&gt;），这是因为浏览器会误认为它们是标签。</p>
+<p>如果希望正确地显示预留字符，我们必须在 HTML 源代码中使用字符实体（character entities）。</p>
+<p>字符实体类似这样：</p>
+<pre>&amp;<i>entity_name</i>;   或者  &amp;#<i>entity_number</i>;
+</pre>
+<p>如需显示小于号，我们必须这样写：&amp;lt; 或 &amp;#60;</p>
+<p class="tip"><span>提示：</span>使用实体名而不是数字的好处是，名称易于记忆。不过坏处是，浏览器也许并不支持所有实体名称（对实体数字的支持却很好）。</p>
+</div>
+
+<div>
+<h2>不间断空格（non-breaking space）</h2>
+<p>HTML 中的常用字符实体是不间断空格(&amp;nbsp;)。</p>
+<p>浏览器总是会截短 HTML 页面中的空格。如果您在文本中写 10 个空格，在显示该页面之前，浏览器会删除它们中的 9 个。如需在页面中增加空格的数量，您需要使用 &amp;nbsp; 字符实体。</p>
+</div>
+
+<div>
+<h2>HTML 中有用的字符实体</h2>
+<p class="note"><span>注释：</span>实体名称对大小写敏感！</p>
+<table>
+    <tbody><tr><th style="width:20%">显示结果</th><th style="width:20%">描述</th><th style="width:30%">实体名称</th><th style="width:30%">实体编号</th></tr>
+
+    <tr><td>&nbsp;</td><td>空格</td><td>&amp;nbsp;</td><td>&amp;#160;</td></tr>
+
+    <tr><td>&lt;</td><td>小于号</td><td>&amp;lt;</td><td>&amp;#60;</td></tr>
+
+    <tr><td>&gt;</td><td>大于号</td><td>&amp;gt;</td><td>&amp;#62;</td></tr>
+
+    <tr><td>&amp;</td><td>和号</td><td>&amp;amp;</td><td>&amp;#38;</td></tr>
+
+    <tr><td>"</td><td>引号</td><td>&amp;quot;</td><td>&amp;#34;</td></tr>
+
+    <tr><td>'</td><td>撇号&nbsp;</td><td>&amp;apos; (IE不支持)</td><td>&amp;#39;</td></tr>
+
+    <tr><td>￠</td><td>分</td><td>&amp;cent;</td><td>&amp;#162;</td></tr>
+
+    <tr><td>£</td><td>镑</td><td>&amp;pound;</td><td>&amp;#163;</td></tr>
+
+    <tr><td>¥</td><td>日圆</td><td>&amp;yen;</td><td>&amp;#165;</td></tr>
+
+    <tr><td>€</td><td>欧元</td><td>&amp;euro;</td><td>&amp;#8364;</td></tr>
+
+    <tr><td>§</td><td>小节</td><td>&amp;sect;</td><td>&amp;#167;</td></tr>
+
+    <tr><td>©</td><td>版权</td><td>&amp;copy;</td><td>&amp;#169;</td></tr>
+
+    <tr><td>®</td><td>注册商标</td><td>&amp;reg;</td><td>&amp;#174;</td></tr>
+
+    <tr><td>™</td><td>商标</td><td>&amp;trade;</td><td>&amp;#8482;</td></tr>
+
+    <tr><td>×</td><td>乘号</td><td>&amp;times;</td><td>&amp;#215;</td></tr>
+
+    <tr><td>÷</td><td>除号</td><td>&amp;divide;</td><td>&amp;#247;</td></tr>
+</tbody></table>
+
+<p>如需完整的实体符号参考，请访问我们的 <a href="/tags/html_ref_entities.html" title="HTML ISO-8859-1 参考手册">HTML 实体符号参考手册</a>。</p>
+</div>
+
+<h1>HTML 统一资源定位器</h1>
+
+<div id="intro">
+<p>URL 也被称为网址。</p>
+<p>URL 可以由单词组成，比如 “w3school.com.cn”，或者是因特网协议（IP）地址：192.168.1.253。大多数人在网上冲浪时，会键入网址的域名，因为名称比数字容易记忆。</p>
+</div>
+
+
+<div>
+<h2>URL - Uniform Resource Locator</h2>
+<p>当您点击 HTML 页面中的某个链接时，对应的 &lt;a&gt; 标签指向万维网上的一个地址。</p>
+<p>统一资源定位器（URL）用于定位万维网上的文档（或其他数据）。</p>
+<p>网址，比如 <a href="http://www.w3school.com.cn/html/index.asp">http://www.w3school.com.cn/html/index.asp</a>，遵守以下的语法规则：</p>
+<pre>scheme://host.domain:port/path/filename</pre>
+<p>解释：</p>
+<ul>
+<li>scheme - 定义因特网服务的类型。最常见的类型是 http</li>
+<li>host - 定义域主机（http 的默认主机是 www）</li>
+<li>domain - 定义因特网域名，比如 w3school.com.cn</li>
+<li>:port - 定义主机上的端口号（http 的默认端口号是 80）</li>
+<li>path - 定义服务器上的路径（如果省略，则文档必须位于网站的根目录中）。</li>
+<li>filename - 定义文档/资源的名称</li>
+</ul>
+
+<p class="note"><span>编者注：</span>URL 的英文全称是 Uniform Resource Locator，中文也译为“统一资源定位符”。</p>
+</div>
+
+<div>
+<h2>URL Schemes</h2>
+<p>以下是其中一些最流行的 scheme：</p>
+<table>
+<tbody><tr><th>Scheme</th><th>访问</th><th>用于...</th></tr>
+
+<tr><td>http</td><td>超文本传输协议</td><td>以 http:// 开头的普通网页。不加密。</td></tr>
+
+<tr><td>https</td><td>安全超文本传输协议</td><td>安全网页。加密所有信息交换。</td></tr>
+
+<tr><td>ftp</td><td>文件传输协议</td><td>用于将文件下载或上传至网站。</td></tr>
+
+<tr><td>file</td><td>&nbsp;</td><td>您计算机上的文件。</td></tr>
+</tbody></table>
+</div>
+
+<h1>HTML URL 字符编码</h1>
+
+<div id="intro">
+<p>URL 编码会将字符转换为可通过因特网传输的格式。</p>
+</div>
+
+<div>
+<h2>URL - 统一资源定位器</h2>
+<p>Web 浏览器通过 URL 从 web 服务器请求页面。</p>
+<p>URL 是网页的地址，比如 <em>http://www.w3school.com.cn</em>。</p>
+</div>
+
+
+<div>
+<h2>URL 编码</h2>
+<p>URL 只能使用 <a href="/tags/html_ref_ascii.asp" title="HTML ASCII 参考手册">ASCII 字符集</a>来通过因特网进行发送。</p>
+<p>由于 URL 常常会包含 ASCII 集合之外的字符，URL 必须转换为有效的 ASCII 格式。</p>
+<p>URL 编码使用 "%" 其后跟随两位的十六进制数来替换非 ASCII 字符。</p>
+<p>URL 不能包含空格。URL 编码通常使用 + 来替换空格。</p>
+<p>如需完整的 URL 编码参考，请访问我们的 <a href="/tags/html_ref_urlencode.html" title="HTML URL 编码">URL 编码参考手册</a>。</p>
+</div>
+
+<h1>HTML Web Server</h1>
+
+<div>
+<p>如果希望向世界发布您的网站，那么您必须把它存放在 web 服务器上。</p>
+</div>
+
+<h1>HTML 多媒体</h1>
+
+<div>
+<p>Web 上的多媒体指的是音效、音乐、视频和动画。</p>
+<p>现代网络浏览器已支持很多多媒体格式。</p>
+</div>
+
+<div>
+<h2>什么是多媒体？</h2>
+<p>多媒体来自多种不同的格式。它可以是您听到或看到的任何内容，文字、图片、音乐、音效、录音、电影、动画等等。</p>
+<p>在因特网上，您会经常发现嵌入网页中的多媒体元素，现代浏览器已支持多种多媒体格式。</p>
+<p>在本教程中，您将了解到不同的多媒体格式，以及如何在您的网页中使用它们。</p>
+</div>
+
+<div>
+<h2>浏览器支持</h2>
+<p>第一款因特网浏览器只支持文本，而且即使是对文本的支持也仅限于单一字体和单一颜色。随后诞生了支持颜色、字体和文本样式的浏览器，图片支持也被加入。</p>
+<p>不同的浏览器以不同的方式处理对音效、动画和视频的支持。某些元素能够以内联的方式处理，而某些则需要额外的插件。</p>
+<p>您将在下面的章节学习更多有关插件的知识。</p>
+</div>
+
+<div>
+<h2>多媒体格式</h2>
+<p>多媒体元素（比如视频和音频）存储于媒体文件中。</p>
+<p>确定媒体类型的最常用的方法是查看文件扩展名。当浏览器得到文件扩展名 .htm 或 .html 时，它会假定该文件是 HTML 页面。.xml 扩展名指示 XML 文件，而 .css 扩展名指示样式表。图片格式则通过 .gif 或 .jpg 来识别。</p>
+<p>多媒体元素元素也拥有带有不同扩展名的文件格式，比如 .swf、.wmv、.mp3 以及 .mp4。</p>
+</div>
+
+<div>
+<h2>视频格式</h2>
+<p>MP4 格式是一种新的即将普及的因特网视频格式。HTML5 、Flash 播放器以及优酷等视频网站均支持它。</p>
+
+<table>
+<tbody><tr><th style="width:14%;">格式</th><th style="width:10%;">文件</th><th>描述</th></tr>
+
+<tr><td>AVI</td><td>.avi</td><td>AVI (Audio Video Interleave) 格式是由微软开发的。所有运行 Windows 的计算机都支持 AVI 格式。它是因特网上很常见的格式，但非 Windows 计算机并不总是能够播放。</td></tr>
+
+<tr><td>WMV</td><td>.wmv</td><td>Windows Media 格式是由微软开发的。Windows Media 在因特网上很常见，但是如果未安装额外的（免费）组件，就无法播放 Windows Media 电影。一些后期的 Windows Media 电影在所有非 Windows 计算机上都无法播放，因为没有合适的播放器。</td></tr>
+
+<tr><td>MPEG</td><td>
+.mpg<br />.mpeg
+</td><td>MPEG (Moving Pictures Expert Group) 格式是因特网上最流行的格式。它是跨平台的，得到了所有最流行的浏览器的支持。</td></tr>
+
+<tr><td>QuickTime</td><td>.mov</td><td>QuickTime 格式是由苹果公司开发的。QuickTime 是因特网上常见的格式，但是 QuickTime 电影不能在没有安装额外的（免费）组件的 Windows 计算机上播放。</td></tr>
+
+<tr><td>RealVideo</td><td>.rm<br />.ram</td><td>RealVideo 格式是由 Real Media 针对因特网开发的。该格式允许低带宽条件下（在线视频、网络电视）的视频流。由于是低带宽优先的，质量常会降低。</td></tr>
+
+<tr><td>Flash</td><td>.swf<br />.flv</td><td>Flash (Shockwave) 格式是由 Macromedia 开发的。Shockwave 格式需要额外的组件来播放。但是该组件会预装到 Firefox 或 IE 之类的浏览器上。</td></tr>
+
+<tr><td>Mpeg-4</td><td>.mp4</td><td>Mpeg-4 (with H.264 video compression) 是一种针对因特网的新格式。事实上，YouTube 推荐使用 MP4。YouTube 接收多种格式，然后全部转换为 .flv 或 .mp4 以供分发。越来越多的视频发布者转到 MP4，将其作为 Flash 播放器和 HTML5 的因特网共享格式。</td></tr>
+</tbody></table>
+</div>
+
+<div>
+<h2>声音格式</h2>
+
+<table>
+<tbody><tr><th style="width:14%;">格式</th><th style="width:10%;">文件</th><th>描述</th></tr>
+
+<tr><td>MIDI</td><td>.mid<br />.midi</td><td>
+<p>MIDI (Musical Instrument Digital Interface) 是一种针对电子音乐设备（比如合成器和声卡）的格式。MIDI 文件不含有声音，但包含可被电子产品（比如声卡）播放的数字音乐指令。</p>
+<p><a href="/i/beatles.mid">点击这里播放 The Beatles</a>。</p>
+<p>因为 MIDI 格式仅包含指令，所以 MIDI 文件极其小巧。上面的例子只有 23k 的大小，但却能播放将近 5 分钟。MIDI 得到了广泛的平台上的大量软件的支持。大多数流行的网络浏览器都支持 MIDI。</p>
+</td></tr>
+
+<tr><td>RealAudio</td><td>.rm<br />.ram</td><td>RealAudio 格式是由 Real Media 针对因特网开发的。该格式也支持视频。该格式允许低带宽条件下的音频流（在线音乐、网络音乐）。由于是低带宽优先的，质量常会降低。</td></tr>
+
+<tr><td>Wave</td><td>.wav</td><td>Wave (waveform) 格式是由 IBM 和微软开发的。所有运行 Windows 的计算机和所有网络浏览器（除了 Google Chrome）都支持它。</td></tr>
+
+<tr><td>WMA</td><td>.wma</td><td>WMA 格式 (Windows Media Audio)，质量优于 MP3，兼容大多数播放器，除了 iPod。WMA 文件可作为连续的数据流来传输，这使它对于网络电台或在线音乐很实用。</td></tr>
+
+<tr><td>MP3</td><td>.mp3<br />.mpga</td><td>MP3 文件实际上是 MPEG 文件的声音部分。MPEG 格式最初是由运动图像专家组开发的。MP3 是其中最受欢迎的针对音乐的声音格式。期待未来的软件系统都支持它。</td></tr>
+</tbody></table>
+</div>
+
+<div>
+<h2>使用哪种格式？</h2>
+<p>WAVE 是因特网上最受欢迎的<em>无压缩</em>声音格式，所有流行的浏览器都支持它。如果您需要未经压缩的声音（音乐或演讲），那么您应该使用 WAVE 格式。</p>
+<p>MP3 是最新的<em>压缩</em>录制音乐格式。MP3 这个术语已经成为数字音乐的代名词。如果您的网址从事录制音乐，那么 MP3 是一个选项。</p>
+</div>
+
+<h1>HTML Object 元素</h1>
+
+<div>
+<p>&lt;object&gt; 的作用是支持 HTML 助手（插件）。</p>
+</div>
+
+<div>
+<h2>HTML 助手（插件）</h2>
+<p>辅助应用程序（helper application）是可由浏览器启动的程序。辅助应用程序也称为插件。</p>
+<p>辅助程序可用于播放音频和视频（以及其他）。辅助程序是使用 &lt;object&gt; 标签来加载的。</p>
+<p>使用辅助程序播放视频和音频的一个优势是，您能够允许用户来控制部分或全部播放设置。</p>
+<p>大多数辅助应用程序允许对音量设置和播放功能（比如后退、暂停、停止和播放）的手工（或程序的）控制。</p>
+</div>
+
+<div>
+<h2>在 HTML 中播放视频的最好方式？</h2>
+<p>如需了解在 HTML 中包含音视频的最好方法，请参阅下一章节。</p>
+</div>
+
+<div>
+<h2>使用 QuickTime 来播放 Wave 音频</h2>
+
+<p>实例</p>
+
+<pre>&lt;object width="420" height="360"
+classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"
+codebase="http://www.apple.com/qtactivex/qtplugin.cab"&gt;
+&lt;param name="src" value="bird.wav" /&gt;
+&lt;param name="controller" value="true" /&gt;
+&lt;/object&gt;
+</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/t.asp?f=html_object_qtaudio">亲自试一试</a></p>
+</div>
+
+
+<div>
+<h2>使用 QuickTime 来播放 MP4 视频</h2>
+
+<p>实例</p>
+
+<pre>&lt;object width="420" height="360"
+classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"
+codebase="http://www.apple.com/qtactivex/qtplugin.cab"&gt;
+&lt;param name="src" value="movie.mp4" /&gt;
+&lt;param name="controller" value="true" /&gt;
+&lt;/object&gt;
+</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/t.asp?f=html_object_qtvideo">亲自试一试</a></p>
+</div>
+
+
+<div>
+<h2>使用 Flash 来播放 SWF 视频</h2>
+
+<p>实例</p>
+
+<pre>&lt;object width="400" height="40"
+classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+codebase="http://fpdownload.macromedia.com/
+pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0"&gt;
+&lt;param name="SRC" value="bookmark.swf"&gt;
+&lt;embed src="bookmark.swf" width="400" height="40"&gt;&lt;/embed&gt;
+&lt;/object&gt;
+</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/t.asp?f=html_object_flash">亲自试一试</a></p>
+</div>
+
+
+<div>
+<h2>使用 Windows Media Player 来播放 WMV 影片</h2>
+
+<p>下面的例子展示用于播放 Windows 媒体文件的推荐代码：</p>
+
+<p>实例</p>
+
+<pre>&lt;object width="100%" height="100%"
+type="video/x-ms-asf" url="3d.wmv" data="3d.wmv"
+classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6"&gt;
+&lt;param name="url" value="3d.wmv"&gt;
+&lt;param name="filename" value="3d.wmv"&gt;
+&lt;param name="autostart" value="1"&gt;
+&lt;param name="uiMode" value="full" /&gt;
+&lt;param name="autosize" value="1"&gt;
+&lt;param name="playcount" value="1"&gt;
+&lt;embed type="application/x-mplayer2" src="3d.wmv" width="100%"
+ height="100%" autostart="true" showcontrols="true" 
+pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"&gt;&lt;/embed&gt;
+&lt;/object&gt;
+</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/t.asp?f=html_object_mplayer">亲自试一试</a></p>
+</div>
+
+<h1>HTML 音频</h1>
+
+<div>
+<p>在 HTML 中播放声音的方法有很多种。</p>
+</div>
+
+<div>
+<h2>问题，问题，以及解决方法</h2>
+<p>在 HTML 中播放音频并不容易！</p>
+<p>您需要谙熟大量技巧，以确保您的音频文件在所有浏览器中（Internet Explorer, Chrome, Firefox, Safari, Opera）和所有硬件上（PC, Mac , iPad, iPhone）都能够播放。</p>
+<p>在本章，W3School 为您总结了问题和解决方法。</p>
+</div>
+
+<div>
+<h2>使用插件</h2>
+<p>浏览器插件是一种扩展浏览器标准功能的小型计算机程序。</p>
+<p>插件有很多用途：播放音乐、显示地图、验证银行账号，控制输入等等。</p>
+<p>可使用 &lt;object&gt; 或 &lt;embed&gt; 标签来将插件添加到 HTML 页面。</p>
+<p>这些标签定义资源（通常非 HTML 资源）的容器，根据类型，它们即会由浏览器显示，也会由外部插件显示。</p>
+</div>
+
+<div>
+<h2>使用 &lt;embed&gt; 元素</h2>
+<p>&lt;embed&gt; 标签定义外部（非 HTML）内容的容器。（这是一个 HTML5 标签，在 HTML4 中是非法的，但是所有浏览器中都有效）。</p>
+<p>下面的代码片段能够显示嵌入网页中的 MP3 文件：</p>
+<h3>实例</h3>
+<pre>&lt;embed height="100" width="100" src="song.mp3" /&gt;</pre>
+<p class="tiy"><a target="_blank" href="/tiy/t.asp?f=html_audio_embed">亲自试一试</a></p>
+
+<h3>问题：</h3>
+<ul>
+<li>&lt;embed&gt; 标签在 HTML 4 中是无效的。页面无法通过 HTML 4 验证。</li>
+<li>不同的浏览器对音频格式的支持也不同。</li>
+<li>如果浏览器不支持该文件格式，没有插件的话就无法播放该音频。</li>
+<li>如果用户的计算机未安装插件，无法播放音频。</li>
+<li>如果把该文件转换为其他格式，仍然无法在所有浏览器中播放。</li>
+</ul>
+<p class="note"><span>注释：</span>使用 &lt;!DOCTYPE html&gt; (HTML5) 解决验证问题。</p>
+</div>
+
+<div>
+<h2>使用 &lt;object&gt; 元素</h2>
+<p>&lt;object tag&gt; 标签也可以定义外部（非 HTML）内容的容器。</p>
+<p>下面的代码片段能够显示嵌入网页中的 MP3 文件：</p>
+
+<h3>实例</h3>
+<pre>&lt;object height="100" width="100" data="song.mp3"&gt;&lt;/object&gt;</pre>
+<p class="tiy"><a target="_blank" href="/tiy/t.asp?f=html_audio_object">亲自试一试</a></p>
+
+<h3>问题：</h3>
+<ul>
+<li>不同的浏览器对音频格式的支持也不同。</li>
+<li>如果浏览器不支持该文件格式，没有插件的话就无法播放该音频。</li>
+<li>如果用户的计算机未安装插件，无法播放音频。</li>
+<li>如果把该文件转换为其他格式，仍然无法在所有浏览器中播放。</li>
+</ul>
+</div>
+
+<div>
+<h2>使用 HTML5 &lt;audio&gt; 元素</h2>
+<p>&lt;audio&gt; 元素是一个 HTML5 元素，在 HTML 4 中是非法的，但在所有浏览器中都有效。</p>
+<h3>实例</h3>
+
+<pre>&lt;audio controls="controls"&gt;
+  &lt;source src="song.mp3" type="audio/mp3" /&gt;
+  &lt;source src="song.ogg" type="audio/ogg" /&gt;
+Your browser does not support this audio format.
+&lt;/audio&gt;
+</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/t.asp?f=html_audio_html5">亲自试一试</a></p>
+
+<p>上面的例子使用了一个 mp3 文件，这样它在 Internet Explorer、Chrome 以及 Safari 中是有效的。</p>
+
+<p>为了使这段音频在 Firefox 和 Opera 中同样有效，添加了一个 ogg 类型的文件。如果失败，会显示错误消息。</p>
+
+<h3>问题：</h3>
+
+<ul>
+<li>&lt;audio&gt; 标签在 HTML 4 中是无效的。您的页面无法通过 HTML 4 验证。</li>
+<li>您必须把音频文件转换为不同的格式。</li>
+<li>&lt;audio&gt; 元素在老式浏览器中不起作用。</li>
+</ul>
+
+<p class="note"><span>注释：</span>使用 &lt;!DOCTYPE html&gt; (HTML5) 解决验证问题。</p>
+</div>
+
+
+<div>
+<h2>最好的 HTML 解决方法</h2>
+
+<h3>实例</h3>
+
+<pre>&lt;audio controls="controls" height="100" width="100"&gt;
+  &lt;source src="song.mp3" type="audio/mp3" /&gt;
+  &lt;source src="song.ogg" type="audio/ogg" /&gt;
+&lt;embed height="100" width="100" src="song.mp3" /&gt;
+&lt;/audio&gt;
+</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/t.asp?f=html_audio_all">亲自试一试</a></p>
+
+<p>上面的例子使用了两个不同的音频格式。HTML5 &lt;audio&gt; 元素会尝试以 mp3 或 ogg 来播放音频。如果失败，代码将回退尝试 &lt;embed&gt; 元素。</p>
+
+<h3>问题：</h3>
+
+<ul>
+<li>您必须把音频转换为不同的格式。</li>
+<li>&lt;audio&gt; 元素无法通过 HTML 4 和 XHTML 验证。</li>
+<li>&lt;embed&gt; 元素无法通过 HTML 4 和 XHTML 验证。</li>
+<li>&lt;embed&gt; 元素无法回退来显示错误消息。</li>
+</ul>
+
+<p class="note"><span>注释：</span>使用 &lt;!DOCTYPE html&gt; (HTML5) 解决验证问题。</p>
+</div>
+
+
+<div>
+<h2>向网站添加音频的最简单方法</h2>
+
+<p>向网页添加音频的最简单的方法是什么？</p>
+
+<p>雅虎的媒体播放器绝对算其中之一。</p>
+
+<p>使用雅虎媒体播放器是一个不同的途径。您只需简单地让雅虎来完成歌曲播放的工作就好了。</p>
+
+<p>它能播放 mp3 以及一系列其他格式。通过一行简单的代码，您就可以把它添加到网页中，轻松地将 HTML 页面转变为专业的播放列表。</p>
+</div>
+
+
+<div>
+<h2>雅虎媒体播放器</h2>
+
+<h3>实例</h3>
+
+<pre>&lt;a href="song.mp3"&gt;Play Sound&lt;/a&gt;
+
+&lt;script type="text/javascript" src="http://mediaplayer.yahoo.com/js"&gt;
+&lt;/script&gt;
+</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/t.asp?f=html_audio_yahoo">亲自试一试</a></p>
+
+<p>使用雅虎播放器是免费的。如需使用它，您需要把这段 JavaScript 插入网页底部：</p>
+
+<pre>&lt;script type="text/javascript" src="http://mediaplayer.yahoo.com/js"&gt;&lt;/script&gt;</pre>
+
+<p>然后只需简单地把 MP3 文件链接到您的 HTML 中，JavaScript 会自动地为每首歌创建播放按钮：</p>
+
+<pre>&lt;a href="song1.mp3"&gt;Play Song 1&lt;/a&gt;
+&lt;a href="song2.mp3"&gt;Play Song 2&lt;/a&gt;
+...
+...
+...
+</pre>
+
+<p>雅虎媒体播放器为您的用户提供的是一个小型的播放按钮，而不是完整的播放器。不过，当您点击该按钮，会弹出完整的播放器。</p>
+
+<p>请注意，这个播放器始终停靠在窗框底部。只需点击它，就可将其滑出。</p>
+</div>
+
+
+<div>
+<h2>使用超链接</h2>
+
+<p>如果网页包含指向媒体文件的超链接，大多数浏览器会使用“辅助应用程序”来播放文件。</p>
+
+<p>以下代码片段显示指向 mp3 文件的链接。如果用户点击该链接，浏览器会启动“辅助应用程序”来播放该文件：</p>
+
+<h3>实例</h3>
+
+<pre>&lt;a href="song.mp3"&gt;Play the sound&lt;/a&gt;</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/t.asp?f=html_audio_link">亲自试一试</a></p>
+</div>
+
+
+<div>
+<h2>内联的声音</h2>
+
+<p>当您在网页中包含声音，或者作为网页的组成部分时，它被称为内联声音。</p>
+
+<p>如果您打算在 web 应用程序中使用内联声音，您需要意识到很多人都觉得内联声音令人恼火。同时请注意，用户可能已经关闭了浏览器中的内联声音选项。</p>
+
+<p>我们最好的建议是只在用户希望听到内联声音的地方包含它们。一个正面的例子是，在用户需要听到录音并点击某个链接时，会打开页面然后播放录音。</p>
+</div>
+
+
+<div>
+<h2>HTML 4.01 多媒体标签</h2>
+
+<table>
+<tbody><tr><th style="width:30%;">标签</th><th>描述</th></tr>
+
+<tr><td><a href="/tags/tag_applet.asp" title="HTML <applet> 标签">&lt;applet&gt;</a></td><td>不赞成。定义内嵌 applet。</td></tr>
+
+<tr><td>&lt;embed&gt;</td><td>HTML4 中不赞成，HTML5 中允许。定义内嵌对象。</td></tr>
+
+<tr><td><a href="/tags/tag_object.asp" title="HTML <object> 标签">&lt;object&gt;</a></td><td>定义内嵌对象。</td></tr>
+
+<tr><td><a href="/tags/tag_param.asp" title="HTML <param> 标签">&lt;param&gt;</a></td><td>定义对象的参数。</td></tr>
+</tbody></table>
+</div>
+
+
+<div>
+<h2>HTML 5 多媒体标签</h2>
+
+<table>
+<tbody><tr><th style="width:30%;">标签</th><th>描述</th></tr>
+
+<tr><td><a href="/tags/tag_audio.asp" title="HTML <audio> 标签">&lt;audio&gt;</a></td><td>标签定义声音，比如音乐或其他音频流。</td></tr>
+
+<tr><td><a href="/tags/tag_embed.asp" title="HTML <embed> 标签">&lt;embed&gt;</a></td><td>标签定义嵌入的内容，比如插件。</td></tr>
+</tbody></table>
+</div>
+
+<h1>HTML 视频</h1>
+
+<div>
+<p>在 HTML 中播放视频的方法有很多种。</p>
+</div>
+
+
+<div>
+<h2>实例</h2>
+
+<pre>&lt;video width="320" height="240" controls="controls"&gt;
+  &lt;source src="movie.mp4" type="video/mp4" /&gt;
+  &lt;source src="movie.ogg" type="video/ogg" /&gt;
+  &lt;source src="movie.webm" type="video/webm" /&gt;
+  &lt;object data="movie.mp4" width="320" height="240"&gt;
+    &lt;embed src="movie.swf" width="320" height="240" /&gt;
+  &lt;/object&gt;
+&lt;/video&gt;
+</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/t.asp?f=html_video">亲自试一试</a></p>
+</div>
+
+
+<div>
+<h2>问题，问题，以及解决方法</h2>
+
+<p>在 HTML 中播放视频并不容易！</p>
+
+<p>您需要谙熟大量技巧，以确保您的视频文件在所有浏览器中（Internet Explorer, Chrome, Firefox, Safari, Opera）和所有硬件上（PC, Mac , iPad, iPhone）都能够播放。</p>
+
+<p>在本章，W3School 为您总结了问题和解决方法。</p>
+</div>
+
+
+<div>
+<h2>使用 &lt;embed&gt; 标签</h2>
+
+<p>&lt;embed&gt; 标签的作用是在 HTML 页面中嵌入多媒体元素。</p>
+
+<p>下面的 HTML 代码显示嵌入网页的 Flash 视频：</p>
+
+<h3>实例</h3>
+
+<pre>&lt;embed src="movie.swf" height="200" width="200"/&gt;</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/t.asp?f=html_video_embed">亲自试一试</a></p>
+
+<h3>问题</h3>
+
+<ul>
+<li>HTML4 无法识别 &lt;embed&gt; 标签。您的页面无法通过验证。</li>
+<li>如果浏览器不支持 Flash，那么视频将无法播放</li>
+<li>iPad 和 iPhone 不能显示 Flash 视频。</li>
+<li>如果您将视频转换为其他格式，那么它仍然不能在所有浏览器中播放。</li>
+</ul>
+</div>
+
+
+<div>
+<h2>使用 &lt;object&gt; 标签</h2>
+
+<p>&lt;object&gt; 标签的作用是在 HTML 页面中嵌入多媒体元素。</p>
+
+<p>下面的 HTML 片段显示嵌入网页的一段 Flash 视频：</p>
+
+<h3>实例</h3>
+
+<pre>&lt;object data="movie.swf" height="200" width="200"/&gt;</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/t.asp?f=html_video_object">亲自试一试</a></p>
+
+<h3>问题</h3>
+
+<ul>
+<li>如果浏览器不支持 Flash，将无法播放视频。</li>
+<li>iPad 和 iPhone 不能显示 Flash 视频。</li>
+<li>如果您将视频转换为其他格式，那么它仍然不能在所有浏览器中播放。</li>
+</ul>
+</div>
+
+
+<div>
+<h2>使用 &lt;video&gt; 标签</h2>
+
+<p>&lt;video&gt; 是 HTML 5 中的新标签。</p>
+
+<p>&lt;video&gt; 标签的作用是在 HTML 页面中嵌入视频元素。</p>
+
+<p>以下 HTML 片段会显示一段嵌入网页的 ogg、mp4 或 webm 格式的视频：</p>
+
+<h3>实例</h3>
+
+<pre>&lt;video width="320" height="240" controls="controls"&gt;
+  &lt;source src="movie.mp4" type="video/mp4" /&gt;
+  &lt;source src="movie.ogg" type="video/ogg" /&gt;
+  &lt;source src="movie.webm" type="video/webm" /&gt;
+Your browser does not support the video tag.
+&lt;/video&gt;
+</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/t.asp?f=html_video_html5">亲自试一试</a></p>
+
+<h3>问题</h3>
+
+<ul>
+<li>您必须把视频转换为很多不同的格式。</li>
+<li>&lt;video&gt; 元素在老式浏览器中无效。</li>
+<li>&lt;video&gt; 元素无法通过 HTML 4 和 XHTML 验证。</li>
+</ul>
+</div>
+
+
+<div>
+<h2>最好的 HTML 解决方法</h2>
+
+<p>HTML 5 + &lt;object&gt; + &lt;embed&gt;</p>
+
+<pre>&lt;video width="320" height="240" controls="controls"&gt;
+  &lt;source src="movie.mp4" type="video/mp4" /&gt;
+  &lt;source src="movie.ogg" type="video/ogg" /&gt;
+  &lt;source src="movie.webm" type="video/webm" /&gt;
+  &lt;object data="movie.mp4" width="320" height="240"&gt;
+    &lt;embed src="movie.swf" width="320" height="240" /&gt;
+  &lt;/object&gt;
+&lt;/video&gt;
+</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/t.asp?f=html_video">亲自试一试</a></p>
+
+<p>上例中使用了 4 中不同的视频格式。HTML 5 &lt;video&gt; 元素会尝试播放以 mp4、ogg 或 webm 格式中的一种来播放视频。如果均失败，则回退到 &lt;embed&gt; 元素。</p>
+
+<h3>问题</h3>
+
+<ul>
+<li>您必须把视频转换为很多不同的格式</li>
+<li>&lt;video&gt; 元素无法通过 HTML 4 和 XHTML 验证。</li>
+<li>&lt;embed&gt; 元素无法通过 HTML 4 和 XHTML 验证。</li>
+</ul>
+
+<p>注释：使用 &lt;!DOCTYPE html&gt; (HTML5) 解决验证问题。</p>
+</div>
+
+
+<div>
+<h2>优酷解决方案</h2>
+
+<p>在 HTML 中显示视频的最简单的方法是使用优酷等视频网站。</p>
+
+<p>如果您希望在网页中播放视频，那么您可以把视频上传到优酷等视频网站，然后在您的网页中插入 HTML 代码即可播放视频：</p>
+
+<pre>&lt;embed src="http://player.youku.com/player.php/sid/XMzI2NTc4NTMy/v.swf" 
+width="480" height="400" 
+type="application/x-shockwave-flash"&gt;
+&lt;/embed&gt;
+</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/t.asp?f=html_video_youku">亲自试一试</a></p>
+</div>
+
+
+<div>
+<h2>使用超链接</h2>
+
+<p>如果网页包含指向媒体文件的超链接，大多数浏览器会使用“辅助应用程序”来播放文件。</p>
+
+<p>以下代码片段显示指向 AVI 文件的链接。如果用户点击该链接，浏览器会启动“辅助应用程序”，比如 Windows Media Player 来播放这个 AVI 文件：</p>
+
+<h3>实例</h3>
+
+<pre>&lt;a href="movie.swf"&gt;Play a video file&lt;/a&gt;</pre>
+
+<p class="tiy"><a target="_blank" href="/tiy/t.asp?f=html_video_link">亲自试一试</a></p>
+</div>
+
+
+<div>
+<h2>关于内联视频的一段注释</h2>
+
+<p>当视频被包含在网页中时，它被称为内联视频。</p>
+
+<p>如果您打算在 web 应用程序中使用内联视频，您需要意识到很多人都觉得内联视频令人恼火。</p>
+
+<p>同时请注意，用户可能已经关闭了浏览器中的内联视频选项。</p>
+
+<p>我们最好的建议是只在用户希望看到内联视频的地方包含它们。一个正面的例子是，在用户需要看到视频并点击某个链接时，会打开页面然后播放视频。</p>
+</div>
+
+
+<div>
+<h2>HTML 4.01 多媒体标签</h2>
+
+<table>
+<tbody><tr><th style="width:30%;">标签</th><th>描述</th></tr>
+
+<tr><td><a href="/tags/tag_applet.asp" title="HTML <applet> 标签">&lt;applet&gt;</a></td><td><span class="marked">不赞成。</span>定义内嵌 applet。</td></tr>
+
+<tr><td>&lt;embed&gt;</td><td><span class="marked">不赞成。</span>定义内嵌对象。（HTML5 中允许）</td></tr>
+
+<tr><td><a href="/tags/tag_object.asp" title="HTML <object> 标签">&lt;object&gt;</a></td><td>定义内嵌对象。</td></tr>
+
+<tr><td><a href="/tags/tag_param.asp" title="HTML <param> 标签">&lt;param&gt;</a></td><td>定义对象的参数。</td></tr>
+</tbody></table>
+</div>
+
+
+<div>
+<h2>HTML 5 多媒体标签</h2>
+
+<table>
+<tbody><tr><th style="width:30%;">标签</th><th>描述</th></tr>
+
+<tr><td><a href="/tags/tag_video.asp" title="HTML <video> 标签">&lt;video&gt;</a></td><td>标签定义声音，比如音乐或其他音频流。</td></tr>
+
+<tr><td><a href="/tags/tag_embed.asp" title="HTML <embed> 标签">&lt;embed&gt;</a></td><td>标签定义嵌入的内容，比如插件。</td></tr>
+</tbody></table>
+</div>
+
+<h1>XHTML 简介</h1>
+
+<div>
+<p>XHTML 是以 XML 格式编写的 HTML。</p>
+</div>
+
+
+<div>
+<h2>什么是 XHTML？</h2>
+
+<ul>
+<li>XHTML 指的是可扩展超文本标记语言</li>
+<li>XHTML 与 HTML 4.01 几乎是相同的</li>
+<li>XHTML 是更严格更纯净的 HTML 版本</li>
+<li>XHTML 是以 XML 应用的方式定义的 HTML</li>
+<li>XHTML 是 <a href="/w3c/w3c_xhtml.asp" title="W3C XHTML 活动">2001 年 1 月</a>发布的 W3C 推荐标准</li>
+<li>XHTML 得到所有主流浏览器的支持</li>
+</ul>
+</div>
+
+
+<div>
+<h2>为什么使用 XHTML？</h2>
+
+<p>因特网上的很多页面包含了“糟糕”的 HTML。</p>
+
+<p>如果在浏览器中查看，下面的 HTML 代码运行起来非常正常（即使它并未遵守 HTML 规则）：</p>
+
+<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;This is bad HTML&lt;/title&gt;
+&lt;body&gt;
+&lt;h1&gt;Bad HTML
+&lt;p&gt;This is a paragraph
+&lt;/body&gt;
+</pre>
+
+<p>XML 是一种必须正确标记且格式良好的标记语言。</p>
+
+<p>如果希望学习 XML，请阅读我们的 <a href="/xml/index.asp">XML 教程</a>。</p>
+
+<p>今日的科技界存在一些不同的浏览器技术。其中一些在计算机上运行，而另一些可能在移动电话或其他小型设备上运行。小型设备往往缺乏解释“糟糕”的标记语言的资源和能力。</p>
+
+<p>所以 - 通过结合 XML 和 HTML 的长处，开发出了 XHTML。XHTML 是作为 XML 被重新设计的 HTML。</p>
+
+<p>与 HTML 相比最重要的区别：</p>
+
+
+<h3>文档结构</h3>
+
+<ul>
+<li>XHTML DOCTYPE 是<em>强制性的</em></li>
+<li>&lt;html&gt; 中的 XML namespace 属性是<em>强制性的</em></li>
+<li>&lt;html&gt;、&lt;head&gt;、&lt;title&gt; 以及 &lt;body&gt; 也是<em>强制性的</em></li>
+</ul>
+
+<h3>元素语法</h3>
+
+<ul>
+<li>XHTML 元素必须<em>正确嵌套</em></li>
+<li>XHTML 元素必须始终<em>关闭</em></li>
+<li>XHTML 元素必须<em>小写</em></li>
+<li>XHTML 文档必须有<em>一个根元素</em></li>
+</ul>
+
+<h3>属性语法</h3>
+
+<ul>
+<li>XHTML 属性必须使用<em>小写</em></li>
+<li>XHTML 属性值必须用<em>引号包围</em></li>
+<li>XHTML 属性最小化也是<em>禁止的</em></li>
+</ul>
+</div>
+
+
+<div>
+<h2>&lt;!DOCTYPE ....&gt; 是强制性的</h2>
+
+<p>XHTML 文档必须进行 XHTML 文档类型声明（XHTML DOCTYPE declaration）。</p>
+
+<p>您可以在 W3School 的标签参考手册中找到完整的 <a href="/tags/tag_doctype.asp" title="HTML <!DOCTYPE> 标签">XHTML 文档类型</a>。</p>
+
+<p>&lt;html&gt;、&lt;head&gt;、&lt;title&gt; 以及 &lt;body&gt; 元素也必须存在，并且必须使用 &lt;html&gt; 中的 xmlns 属性为文档规定 xml 命名空间。</p>
+
+<p>下面的例子展示了带有最少的必需标签的 XHTML 文档：</p>
+
+<pre>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+
+&lt;head&gt;
+&lt;title&gt;Title of document&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+......
+&lt;/body&gt;
+
+&lt;/html&gt;
+</pre>
+</div>
+
+
+<div>
+<h2>如何从 HTML 转换到 XHTML</h2>
+
+<ol>
+<li>向每张页面的第一行添加 XHTML &lt;!DOCTYPE&gt;</li>
+<li>向每张页面的 html 元素添加 xmlns 属性</li>
+<li>把所有元素名改为小写</li>
+<li>关闭所有空元素</li>
+<li>把所有属性名改为小写</li>
+<li>为所有属性值加引号</li>
+</ol>
+</div>
+
+
+<div>
+<h2>用 W3C 验证器检验 XHTML</h2>
+
+<p>在下面的文本框中输入您的网址：</p>
+
+<form method="get" action="http://validator.w3.org/check" target="_blank">
+<p><input name="uri" size="60" style="margin:10px 0 0 0;" value="http://www.w3school.com.cn/html/index.asp"></p>
+<p><input type="submit" value="验证文件"></p>
+</form>
+</div>
+
+
+<div>
+<h2>XHTML 测验</h2>
+
+<p>该测验包含 20 道问题，且没有时间限制。</p>
+
+<p>本测验是非正式的，它仅仅是了解您 XHTML 知识掌握程度的一个不错的途径。</p>
+
+<p>每项正确答案可获得 1 分。在测试结束后，会显示您的总分。最高分为 20 分。</p>
+
+<p><a href="/xhtml/xhtml_quiz.asp" title="XHTML 测验">开始 XHTML 测验</a></p>
+</div>
+
+<h1>XHTML - 元素</h1>
+
+<div>
+<p>XHTML 元素是以 XML 格式编写的 HTML 元素。</p>
+</div>
+
+
+<div>
+<h2>XHTML 元素 - 语法规则</h2>
+
+<ul>
+<li>XHTML 元素必须<em>正确嵌套</em></li>
+<li>XHTML 元素必须始终<em>关闭</em></li>
+<li>XHTML 元素必须<em>小写</em></li>
+<li>XHTML 文档必须有<em>一个根元素</em></li>
+</ul>
+</div>
+
+
+<div>
+<h2>XHTML 元素必须正确嵌套</h2>
+
+<p>在 HTML 中，某些元素可以不正确地彼此嵌套在一起，就像这样：</p>
+
+<pre>&lt;b&gt;&lt;i&gt;This text is bold and italic&lt;/b&gt;&lt;/i&gt;</pre>
+
+<p>在 XHTML 中，所有元素必须正确地彼此嵌套，就像这样：</p>
+
+<pre>&lt;b&gt;&lt;i&gt;This text is bold and italic&lt;/i&gt;&lt;/b&gt;</pre>
+</div>
+
+
+<div>
+<h2>XHTML 元素必须始终关闭</h2>
+
+<p>这是错误的：</p>
+
+<pre>&lt;p&gt;This is a paragraph
+&lt;p&gt;This is another paragraph
+</pre>
+
+<p>这是正确的：</p>
+
+<pre>&lt;p&gt;This is a paragraph&lt;/p&gt;
+&lt;p&gt;This is another paragraph&lt;/p&gt;
+</pre>
+</div>
+
+
+<div>
+<h2>空元素也必须关闭</h2>
+
+<p>这是错误的：</p>
+
+<pre>A break: &lt;br&gt;
+A horizontal rule: &lt;hr&gt;
+An image: &lt;img src="happy.gif" alt="Happy face"&gt;
+</pre>
+
+<p>这是正确的：</p>
+
+<pre>A break: &lt;br /&gt;
+A horizontal rule: &lt;hr /&gt;
+An image: &lt;img src="happy.gif" alt="Happy face" /&gt;
+</pre>
+</div>
+
+
+<div>
+<h2>XHTML 元素必须小写</h2>
+
+<p>这是错误的：</p>
+
+<pre>&lt;BODY&gt;
+&lt;P&gt;This is a paragraph&lt;/P&gt;
+&lt;/BODY&gt;
+</pre>
+
+<p>这是正确的：</p>
+
+<pre>&lt;body&gt;
+&lt;p&gt;This is a paragraph&lt;/p&gt;
+&lt;/body&gt;
+</pre>
+</div>
+
+<h1>XHTML - 属性</h1>
+
+<div>
+<p>XHTML 属性是以 XML 格式编写的 HTML 属性。</p>
+</div>
+
+<div>
+<h2>XHTML 属性 - 语法规则</h2>
+<ul>
+<li>XHTML 属性必须使用<em>小写</em></li>
+<li>XHTML 属性值必须用<em>引号包围</em></li>
+<li>XHTML 属性简写也是<em>禁止的</em></li>
+</ul>
+</div>
+
+<div>
+<h2>XHTML 属性必须使用小写</h2>
+<p>这是错误的：</p>
+<pre>&lt;table WIDTH="100%"&gt;</pre>
+<p>这是正确的：</p>
+<pre>&lt;table width="100%"&gt;</pre>
+</div>
+
+<div>
+<h2>XHTML 属性值必须用引号包围</h2>
+<p>这是错误的：</p>
+<pre>&lt;table width=100%&gt;</pre>
+<p>这是正确的：</p>
+<pre>&lt;table width="100%"&gt;</pre>
+</div>
+
+<div>
+<h2>禁止属性简写</h2>
+<p>这是错误的：</p>
+<pre>&lt;input checked&gt;
+&lt;input readonly&gt;
+&lt;input disabled&gt;
+&lt;option selected&gt;
+</pre>
+<p>这是正确的：</p>
+<pre>&lt;input checked="checked" /&gt;
+&lt;input readonly="readonly" /&gt;
+&lt;input disabled="disabled" /&gt;
+&lt;option selected="selected" /&gt;
+</pre>
+</div>
+
+</div>
+</body>
+</html>

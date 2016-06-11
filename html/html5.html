@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css">
+<script src="../notes.js"></script>
+<title>HTML5 Best Practice</title>
+</head>
+<body>
+<div id="article">
+
+<h1>HTML(5) Style Guide and Coding Conventions</h1>
+
+<div>
+<h2>HTML Coding Conventions</h2>
+<p>Web developers are often uncertain about the coding style and syntax to use in HTML.</p>
+<p>Between 2000 and 2010, many web developers converted from HTML to XHTML.</p>
+<p>With XHTML, developers were forced to write valid and "well-formed" code.</p>
+<p>HTML5 is a bit more sloppy when it comes to code validation.</p>
+<p>With HTML5, you must create your own <strong>Best Practice, Style Guide and Coding Conventions</strong>.</p>
+<hr />
+
+<h2>Be Smart and Future Proof</h2>
+<p>A consequent use of style, makes it easier for others to understand and use your HTML.</p>
+<p>In the future, programs like XML readers, may want to read your HTML.</p>
+<p>Using a well-formed "close to XHTML" syntax, can be smart.</p>
+<p class="tip"><span>Tips: </span>Always keep your style smart, tidy, clean, and well-formed.</p>
+<hr />
+
+<h2>Use Correct Document Type</h2>
+<p>Always declare the document type as the first line in your document:</p>
+<hr />
+
+<h2>Use Lower Case Element Names</h2>
+<p>HTML5 allows mixing uppercase and lowercase letters in element names.</p>
+<p>We recommend using lowercase element names:</p>
+<ul>
+ <li>Mixing uppercase and lowercase names is bad</li>
+ <li>Developers are used to using lowercase names (as in XHTML)</li>
+ <li>Lowercase look cleaner</li>
+ <li>Lowercase are easier to write</li>
+</ul>
+<hr />
+
+<h2>Close All HTML Elements</h2>
+<p>In HTML5, you don't have to close all elements (for example the &lt;p&gt; element). </p>
+<p>We recommend closing all HTML elements.</p>
+<hr />
+
+<h2>Close Empty HTML Elements</h2>
+<p>In HTML5, it is optional to close empty elements.</p>
+<p>This is allowed: &lt;meta charset="utf-8"&gt;</p>
+<p>This is also allowed: &lt;meta charset="utf-8" /&gt;</p>
+<p>The slash (/) is required in XHTML and XML. If you expect XML software to access your page, it might be a good idea to keep it. </p>
+<hr />
+
+<h2>Use Lower Case Attribute Names</h2>
+<p>HTML5 allows mixing uppercase and lowercase letters in attribute names.</p>
+<p>We recommend using lowercase attribute names:</p>
+<ul>
+ <li>Mixing uppercase and lowercase names is bad</li>
+ <li>Developers are used to using lowercase names (as in XHTML)</li>
+ <li>Lowercase look cleaner</li>
+ <li>Lowercase are easier to write</li>
+</ul>
+<hr />
+
+<h2>Quote Attribute Values</h2>
+<p>HTML5 allows attribute values without quotes.</p>
+<p>We recommend quoting attribute values:</p>
+<ul>
+ <li>You have to use quotes if the value contains spaces</li>
+ <li>Mixing styles is never good</li>
+ <li>Quoted values are easier to read</li>
+</ul>
+<p>This will not work, because the value contains spaces:</p>
+<pre><span style="color:brown"><span style="color:mediumblue">&lt;</span>table<span style="color:red"> class<span style="color:mediumblue">=table </span>striped</span><span style="color:mediumblue">&gt;</span></span></pre>
+<p>This will work: </p>
+<pre><span style="color:brown"><span style="color:mediumblue">&lt;</span>table<span style="color:red"> class<span style="color:mediumblue">="table striped"</span></span><span style="color:mediumblue">&gt;</span></span></pre>
+<hr />
+
+<h2>Image Attributes</h2>
+<p>Always use the <strong>alt</strong> attribute with images. It is important when the image cannot be viewed.</p>
+<p>Always define image size. It reduces flickering because the browser can reserve space for images before they are loaded.</p>
+<hr />
+
+<h2>Spaces and Equal Signs</h2>
+<p>Spaces around equal signs is legal:</p>
+<pre><span style="color:brown"><span style="color:mediumblue">&lt;</span>link<span style="color:red"> rel <span style="color:mediumblue">= "stylesheet"</span> href <span style="color:mediumblue">= "styles.css"</span></span><span style="color:mediumblue">&gt;</span></span></pre>
+<p>But space-less is easier to read, and groups entities better together:</p>
+<pre><span style="color:brown"><span style="color:mediumblue">&lt;</span>link<span style="color:red"> rel<span style="color:mediumblue">="stylesheet"</span> href<span style="color:mediumblue">="styles.css"</span></span><span style="color:mediumblue">&gt;</span></span></pre>
+<hr />
+
+<h2>Avoid Long Code Lines</h2>
+<p>When using an HTML editor, it is inconvenient to scroll right and left to read the HTML code.</p>
+<p>Try to avoid code lines longer than 80 characters.</p>
+<hr />
+
+<h2>Blank Lines and Indentation</h2>
+<p>Do not add blank lines without a reason.</p>
+<p>For readability, add blank lines to separate large or logical code blocks.</p>
+<p>For readability, add 2 spaces of indentation. Do not use TAB.</p>
+<p>Do not use unnecessary blank lines and indentation. It is not necessary to use blank lines between short and related items. It is not necessary to indent every element: </p>
+<hr />
+
+<h2>Omitting &lt;html&gt; and &lt;body&gt;?</h2>
+<p>In the HTML5 standard, the &lt;html&gt; tag and the &lt;body&gt; tag can be omitted.</p>
+
+
+<p><strong>We do not recommend omitting the &lt;html&gt; and &lt;body&gt; tags.</strong></p>
+<p>The &lt;html&gt; element is the document root. It is the recommended place for specifying the page language:</p>
+<pre><span style="color:brown"><span style="color:mediumblue">&lt;</span>html<span style="color:red"> lang<span style="color:mediumblue">="zh-CN"</span></span><span style="color:mediumblue">&gt;</span></span></pre>
+<p>Declaring a language is important for accessibility applications (screen readers) and search engines.</p>
+<p>Omitting &lt;html&gt; or &lt;body&gt; can crash DOM and XML software.</p>
+<p>Omitting &lt;body&gt; can produce errors in older browsers (IE9).</p>
+
+<hr />
+<h2>Omitting &lt;head&gt;?</h2>
+<p>In the HTML5 standard, the &lt;head&gt; tag can also 
+be omitted.</p>
+<p>By default, browsers will add all elements before &lt;body&gt;, to a default &lt;head&gt; 
+element.</p>
+<p>You can reduce the complexity of HTML, by omitting the &lt;head&gt; tag:</p>
+<p class="tip"><span>Tips: </span>Omitting tags is unfamiliar to web developers. It needs time to be established as a guideline.</p>
+<hr />
+
+<h2>Meta Data</h2>
+<p>The &lt;title&gt; element is required in HTML5. Make the title as meaningful as possible:</p>
+<pre><span style="color:brown"><span style="color:mediumblue">&lt;</span>title<span style="color:mediumblue">&gt;</span></span>HTML5 Syntax and Coding Style<span style="color:brown"><span style="color:mediumblue">&lt;</span>/title<span style="color:mediumblue">&gt;</span></span></pre>
+
+<p>To ensure proper interpretation, and correct search engine indexing, both the language and the character encoding should be defined as early as possible in a document:</p>
+<pre>
+<span style="color:brown"><span style="color:mediumblue">&lt;</span>!DOCTYPE<span style="color:red"> html</span><span style="color:mediumblue">&gt;</span></span><br><span style="color:brown"><span style="color:mediumblue">&lt;</span>html<span style="color:red">lang<span style="color:mediumblue">="en-US"</span></span><span style="color:mediumblue">&gt;</span></span><br><span style="color:brown"><span style="color:mediumblue">&lt;</span>head<span style="color:mediumblue">&gt;</span></span><br>&nbsp; <span style="color:brown"><span style="color:mediumblue">&lt;</span>meta<span style="color:red"> charset<span style="color:mediumblue">="UTF-8"</span></span><span style="color:mediumblue">&gt;</span></span><br>&nbsp; <span style="color:brown"><span style="color:mediumblue">&lt;</span>title<span style="color:mediumblue">&gt;</span></span>HTML5 Syntax and Coding Style<span style="color:brown"><span style="color:mediumblue">&lt;</span>/title<span style="color:mediumblue">&gt;</span></span><br><span style="color:brown"><span style="color:mediumblue">&lt;</span>/head<span style="color:mediumblue">&gt;</span></span>
+</pre>
+<hr />
+
+<h2>HTML Comments</h2>
+<p>Short comments should be written on one line, with a space after &lt;!-- and a space before --&gt;:</p>
+<pre><span style="color:green">&lt;!-- This is a comment --&gt;</span></pre>
+<p>Long comments, spanning many lines, should be written with &lt;!-- and --&gt; on separate lines:</p>
+<pre><span style="color:green">&lt;!-- <br>&nbsp; This is a long comment example. This is a long comment example.<br>&nbsp; This is a long comment example. This is a long comment example.<br>--&gt;</span></pre>
+<p>Long comments are easier to observe, if they are indented 2 spaces.</p>
+<hr />
+
+<h2>Style Sheets</h2>
+<p>Use simple syntax for linking style sheets (the type attribute is not necessary):</p>
+<pre><span style="color:brown"><span style="color:mediumblue">&lt;</span>link<span style="color:red"> rel<span style="color:mediumblue">="stylesheet"</span> href<span style="color:mediumblue">="styles.css"</span></span><span style="color:mediumblue">&gt;</span></span></pre>
+<p>Short rules can be written compressed, on one line, like this:</p>
+<pre><span style="color:brown">p.into <span style="color:red"><span style="color:black">{</span>font-family<span style="color:mediumblue"><span style="color:black">:</span> Verdana<span style="color:black">;</span></span> font-size<span style="color:mediumblue"><span style="color:black">:</span> 16em<span style="color:black">;</span></span><span style="color:black">}</span></span></span></pre>
+
+<p>Long rules should be written over multiple lines:</p>
+<pre>
+<span style="color:brown">body <span style="color:red"><span style="color:black">{</span><br>&nbsp; background-color<span style="color:mediumblue"><span style="color:black">:</span> lightgrey<span style="color:black">;</span></span><br>&nbsp; font-family<span style="color:mediumblue"><span style="color:black">:</span> "Arial Black", Helvetica, sans-serif<span style="color:black">;</span></span><br>&nbsp; font-size<span style="color:mediumblue"><span style="color:black">:</span> 16em<span style="color:black">;</span></span><br>&nbsp; color<span style="color:mediumblue"><span style="color:black">:</span> black<span style="color:black">;</span></span><br><span style="color:black">}</span></span></span>
+</pre>
+
+<ul>
+ <li>Place the opening bracket on the same line as the selector.</li>
+ <li>Use one space before the opening bracket.</li>
+ <li>Use 2 spaces of indentation.</li>
+ <li>Use colon plus one space between each property and its value.</li>
+ <li>Use space after each comma or semicolon.</li>
+ <li>Use semicolon after each property-value pair, including the last.</li>
+ <li>Only use quotes around values if the value contains spaces.</li>
+ <li>Place the closing bracket on a new line, without leading spaces.</li>
+ <li>Avoid lines over 80 characters.</li>
+</ul>
+<p class="tip"><span>Tips: </span>Adding a space after a comma, or a semicolon, is a general rule in all types of writing.</p>
+<hr />
+
+<h2>Loading JavaScript in HTML</h2>
+<p>Use simple syntax for loading external scripts (the type attribute is not necessary):</p>
+<pre><span style="color:brown"><span style="color:mediumblue">&lt;</span>script<span style="color:red"> src<span style="color:mediumblue">="myscript.js"</span></span><span style="color:mediumblue">&gt;</span></span></pre>
+<hr />
+
+<h2>Accessing HTML Elements with JavaScript</h2>
+<p>A consequence of using "untidy" HTML styles, might result in JavaScript errors.</p>
+<p>These two JavaScript statements will produce different results:</p>
+<pre><span style="color:black"><span style="color:mediumblue">var</span> obj = getElementById(<span style="color:brown">"Demo"</span>)<br><span style="color:mediumblue">var</span> obj = getElementById(<span style="color:brown">"demo"</span>)</span></pre>
+<p>If possible, use the same naming convention (as JavaScript) in HTML.</p>
+<p><a href="http://w3schools.com/js/js_conventions.asp">Visit the JavaScript Style Guide</a>.</p>
+<hr />
+
+<h2>Use Lower Case File Names</h2>
+<p>Most web servers (Apache, Unix) are case sensitive about file names:</p>
+<p>Other web servers (Microsoft, IIS) are not case sensitive:</p>
+<p>If you use a mix of upper and lower case, you have to be extremely consistent.</p>
+<p>If you move from a case insensitive, to a case sensitive server, even small errors will break your web.</p>
+<p>To avoid these problems, always use lower case file names (if possible). </p>
+<hr />
+
+<h2>File Extensions</h2>
+<p>HTML files should have a <strong>.html</strong> extension (or <strong>.htm</strong>).</p>
+<p>CSS files should have a <strong>.css</strong> extension.</p>
+<p>JavaScript files should have a <strong>.js</strong> extension.</p>
+<hr />
+
+<h2>Differences Between .htm and .html</h2>
+<p>There is no difference between the .htm and .html extensions. Both will be treated as HTML by any web browser or web server.</p>
+<p>The differences are cultural:</p>
+<p>.htm "smells" of early DOS systems where the system limited the extensions to 3 characters.</p>
+<p>.html "smells" of Unix operating systems that did not have this limitation.</p>
+<hr />
+
+<h2>Technical Differences</h2>
+<p>When a URL does not specify a filename (like http://www.w3schools.com/css/), the server returns a default filename. Common default filenames are index.html, index.htm, default.html, and default.htm.</p>
+<p>If your server is configured only with "index.html" as default filename, your file must be named "index.html", not "index.htm."</p>
+<p>However, servers can be configured with more than one default filename, and normally you can set up as many default filenames as needed.</p>
+<p>Anyway, the full extension for HTML files is .html, and there's no reason it should not be used.</p>
+</div>
+
+</div>
+</body>
+</html>

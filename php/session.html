@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<script src="../notes.js"></script>
+<title>Cookie & Session</title>
+</head>
+<body>
+<div id="article">
+
+<h1>Cookie & Session</h1>
+
+<div>
+<h2>php中session的实现原理以及大网站应用应注意的问题</h2>
+
+<h3>PHP Session原理</h3>
+<p>HTTP协议是一种无状态协议，服务器响应完之后就失去了与浏览器的联系。Netscape将cookie引入浏览器，在客户端保持用户数据，解决了数据跨页面交换问题，而session则是服务器端的解决方案，即在服务器端保持用户会话数据</p>
+<p>首先要将客户端和服务器端建立一一联系，每个客户端都得有一个唯一标识，这样服务器才能识别出来。建立唯一标识的方法有两种：cookie或者通过GET方式指定。默认配置的PHP使用session时会建立一个名叫“PHPSESSID”的cookie，如果客户端禁用cookie，你也可以指定通过GET方式把session id传到服务器。</p>
+<p>我们查看服务器端session.save_path目录会发现很多类似sess_vv9lpgf0nmkurgvkba1vbvj915这样的文件，这个就是编号为vv9lpgf0nmkurgvkba1vbvj915 的会话所对应的数据。真相就在这里，客户端将session id传递到服务器，服务器根据session id找到对应的文件，通过反序列化session文件内容来恢复现场，然后在脚本执行完后再序列化并保存。</p>
+<p>事实就是这样，所以如果服务器不支持session或者你想自定义session，完全可以DIY，通过PHP的uniqid生成永不重复的session id，然后找个地方存储session的内容即可，你也可以学flickr把session存储在MySQL数据库中。</p>
+
+<h3>使用session之前为什么必须先执行session_start()</h3>
+<p>了解原理之后，所谓的session其实就是客户端一个session id服务器端一个session file，新建session之前执行session_start()是告诉服务器要种一个cookie以及准备好session文件；读取session之前执行session_start()是告诉服务器，赶紧根据session id把session文件反序列化。</p>
+
+<h3>session影响系统性能</h3>
+<p>session 在大访问量网站上确实影响系统性能，影响性能的原因之一由文件系统设计造成，在同一个目录下超过10000个文件时，文件的定位将非常耗时。PHP支持session目录hash（修改php.ini中session.save_path = "N;/path"），不过需要事先创建目录，并自己负责垃圾回收。</p>
+<p>其实还有很多种存储session的方式，比如 sqlite、eaccelerator，可以通过 php -i | grep "Registered save handlers" 查看可用方式，通过 "session.save_handler" 项目更改设置。</p>
+
+<h3>session的同步</h3>
+<p>我们前端可能有很多台服务器，用户在A服务器上登录了，种下了session信息，然后访问网站的某些页面没准跳到B服务器上去了，如果这个时候B服务器上没有session信息又没有做特殊处理，可能就会出问题了。
+session同步有很多种，如果你是存储在memcached或者MySQL中，那就很容易了，指定到同样的位置即可，如果是文件形式的，你可以用NFS统一存储。</p>
+<p>还有一种方式是通过加密的cookie来实现，用户在A服务器上登录成功，在用户的浏览器上种上一个加密的cookie，当用户访问B服务器时，检查有无session，如果有当然没问题，如果没有，就去检验cookie是否有效，cookie有效的话就在B服务器上重建session。这种方法其实很有用，如果网站有很多个子频道，服务器也不在一个机房，session没办法同步又想做统一登录那就太有用了。</p>
+<p>当然还有一种方法就是在负载均衡那一层保持会话，把访问者绑定在某个服务器上，他的所有访问都在那个服务器上就不需要session同步了，这些都是运维层面的东西。</p>
+
+<h3>关于session和cookie文件的生命周期</h3>
+<p>默认情况下建立的cookie是没有指定lifetime的，也就是说，浏览器关闭即失效，下次开启浏览器，报头不再包含此cookie信息，服务器已不不能辨识此客户端。</p>
+<p>session文件，最近更新时间超出session.gc_maxlifetime设定的时长，就会被认为是垃圾文件，启动垃圾清理程序时就会被删除。与客户端配合，有两种可能情况：1，登录已超出maxlifetime设定，但浏览器还没关闭（虽然开着，但是没有跟网站有交互操作，有操作就会更新session文件），原cookie有效，此时如果垃圾回收机制启动，session还是会被删除，客户被踢出登录；2，客户提前关闭浏览器，但是还没到maxlifetime设定时长，文件暂时会保留，但其实已经没有什么用了，因为客户端下次登录时将被分配新的session_id。</p>
+
+<h3>Cookie/Session机制详解，写得很好，就是有点长</h3>
+<p>http://blog.csdn.net/fangaoxin/article/details/6952954</p>
+</div>
+
+<div>
+<h2>部分session相关php.ini设置</h2>
+<pre>
+session.save_handler = file  // 读取/回写session数据的方式
+session.save_path = "/var/lib/php/session"  // 指定保存session文件的目录
+session.auto_start = 0  // 自动开启session。推荐关闭并使用session_start()
+
+session.gc_probability = 1
+session.gc_divisor = 1000  // 与前项相结合，表示每次启动会话有1%。的几率来启动垃圾回收
+session.gc_maxlifetime = 1440  //表示session文件最小存留时间为1440/60=24分钟，过期就被认为是垃圾
+
+session.use_cookies = 1
+session.use_only_cookies = 1  //默认设置下，如果浏览器禁用cookie 网站可能无法正常工作
+session.use_trans_sid = 0  // 设置开启通过地址栏传递会话id，cookie开启的前提下优先用cookie
+// 经试验，在客户端开启cookie功能的情况下，传递带session_id的网址无效；如果多个浏览器都关闭cookie功能，通过交换网址可实现会话共享。
+
+session.name = PHPSESSID  // 会话名称默认为PHPSESSID，可在脚本中用session_name()读取
+session.cookie_lifetime = 0  // 表示cookie在浏览器重启后就失效
+</pre>
+</div>
+
+<div>
+<h2>相关变量</h2>
+<h3>$_SESSION</h3>
+<p>当前脚本可用 SESSION 变量的数组。</p>
+<h3>$_COOKIE</h3>
+<p>如果在客户端设置了cookie，浏览器每次提交的报头都会包含cookie内容，所以应该尽量简短。</p>
+<p>Once the cookies have been set, they can be accessed on the next page load with the $_COOKIE array. Cookie values may also exist in $_REQUEST.</p>
+</div>
+
+<div>
+<h2>session函数（全）</h2>
+<h3>session_start() --- 启动新会话或者重用现有会话</h3>
+<p>如果服务器session文件没了，然后客户端有串session_id的话，会采用改id 并新建会话文件。</p>
+<h3>session_name() --- 读取/设置会话名称</h3>
+<h3>session_id() --- 获取/设置当前会话 ID</h3>
+<h3>session_unset() --- 释放所有的会话变量</h3>
+<h3>session_destroy() ---- 销毁一个会话中的全部数据</h3>
+<p>销毁当前会话中的全部数据，但是不会重置当前会话所关联的全局变量，也不会重置会话cookie（就是关了会话并删除session文件，$_COOKIE $_SESSION 内容都还在）。如果需要再次使用会话变量，必须重新调用session_start() 函数（$_SESSION 内容会清空）。</p>
+<p>为了彻底销毁会话，比如在用户退出登录的时候，必须同时重置会话ID。如果是通过cookie 方式传送会话ID 的，那么同时也需要调用setcookie() 函数来删除客户端的会话 cookie。 
+</p>
+<h3>session_get_cookie_params() --- 获取会话 cookie 参数</h3>
+<h3>session_set_cookie_params() --- 设置会话 cookie 参数</h3>
+<h3>setcookie() --- Send a cookie</h3>
+<pre>
+session_set_cookie_params(3600);  // 临时改变php.ini环境变量设定
+session_start();  // 与前一项配合，生成的cookie有效期为1小时
+setcookie (session_name(),session_id(),time()+7200);  //向客户端写入新cookie，更新为2小时
+setcookie ('mycookie','value');  // 设置另外一个cookie，浏览器重启前其他页面可通过$_COOKIE['mycookie']读取
+$_SESSION['usrname']="htmler";  // 在服务器端设置一个session变量，同普通操作
+unset($_SSESSION['usrname']);  // 注销服务器的一个session变量，跟普通操作一样
+$_SSESSION = array();  // 销毁所有session变量
+setcookie('mycookie','',time()-3600);  //通过清空内容和设为过去时间来双重保障销毁cookie
+session_destroy();  // 销毁会话，
+session_start();  // 发现这里即使前面有内容输出，也是有效的，此时会重建原id的空白session文件
+$_SESSION['before']=1;  // 测试regenerate函数影响，发现此内容不会写入原id文件，但是会写入新文件
+session_regenerate_id(1);  // 如果参数为1，会删除原session文件，默认会保留原文件
+</pre>
+<h3>session_abort --- Discard session array changes and finish session</h3>
+<h3>session_cache_expire --- 返回当前缓存的到期时间</h3>
+<h3>session_cache_limiter --- 读取/设置缓存限制器</h3>
+<h3>session_commit --- session_write_close 的别名</h3>
+<h3>session_decode --- 解码会话数据</h3>
+<h3>session_encode --- 将当前会话数据编码为一个字符串</h3>
+<h3>session_is_registered --- 检查变量是否在会话中已经注册</h3>
+<h3>session_module_name --- 获取/设置会话模块名称</h3>
+<h3>session_regenerate_id --- 使用新生成的会话 ID 更新现有会话 ID</h3>
+<h3>session_register_shutdown --- 关闭会话</h3>
+<h3>session_register --- Register one or more global variables with the current session</h3>
+<h3>session_reset --- Re-initialize session array with original values</h3>
+<h3>session_save_path --- 读取/设置当前会话的保存路径</h3>
+<h3>session_set_save_handler --- 设置用户自定义会话存储函数</h3>
+<h3>session_status --- 返回当前会话状态</h3>
+<h3>session_unregister --- Unregister a global variable from the current session</h3>
+<h3>session_write_close --- Write session data and end session</h3>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css">
+<script src="../notes.js"></script>
+<title>CentOS6.5 建站笔记</title>
+</head>
+<body>
+<div id="article">
+
+<h1>CentOS6.5 快速搭建 HTTP 服务器</h1>
+
+<div>
+[题记]本文使用CentOS 6.5 minimal快速搭建HTTP服务器和仅供授权用户登陆的FTP服务器。意在使用授权FTP用户通过登陆指定的服务器文件夹来上传、下载、修改、更新、删除位于/var/www/html目录内的网站文件。同时又保持SeLinux和iptables防火墙的工作状态，使其得以安全有效的运行。
+</div>
+
+<div>
+<h3>第一步 安装服务</h3>
+<pre># yum install httpd vsftpd mysql mysql-server php php-mysql</pre>
+
+<h3>第二步 设置开机启动</h3>
+<pre>
+# chkconfig httpd on   // 配置HTTP服务开机启动
+# chkconfig vsftpd on  // 配置FTP服务开机启动
+# chkconfig mysqld on  // 配置MySQL服务开机启动
+# chkconfig   //检查服务配置状态，确认以上服务的 2、3、4、5为on
+</pre>
+
+<h3>第三步 启动服务</h3>
+<pre>
+# service httpd start   //启动HTTP服务
+# service vsftpd start  //启动FTP服务
+# service mysqld start  //启动MySQL服务
+</pre>
+
+<h3>第四步 配置FTP用户及相应权限</h3>
+<pre>
+# groupadd webftp  //添加webftp用户组，用来承载我们的FTP授权用户。
+# useradd -g webftp -M -d /var/www -s /sbin/nologin wwwer  // 登陆到www目录有一个好处是它可以直接FTP进去修改诸如404一类的页面，而不用其他过程来配置
+注释: -g 指定用户组; -M 不设置主目录; -d 设定初始目录; -s 设定shell;
+# useradd -g webftp -M -d /var/www/html -s /sbin/nologin htmler  // 添加用户htmler，正常维护用这个账号
+# passwd wwwer  // 为wwwer添加密码
+# passwd htmler  // 为htmler添加密码
+# chown -R htmler.webftp /var/www/html  //更改目录及其下所有文件和文件夹的用户和用户组
+</pre>
+
+<h3>第五步 关闭ftp匿名登录</h3>
+<pre>
+# vi /etc/vsftpd/vsftpd.conf 找到anonymous_enable=YES，更改为NO
+# service vsftpd restart  //重启使刚才的配置生效
+</pre>
+
+<h3>第六步 配置httpd服务</h3>
+<pre>
+# vi /etc/httpd/conf/httpd.conf  // 配置httpd服务支持路径不区分大小写
+在模块加载区域，添加如下内容：
+LoadModule speling_module modules/mod_speling.so  // 要确保/etc/httpd/modules下有这模块
+&lt;Directory "/var/www/html/xxx"&gt; CheckSpelling ON &lt;/Directory&gt;  // 设置目录
+
+#/etc/init.d/httpd restart  // 重启httpd
+</pre>
+
+<h3>第七步 配置基本安全策略</h3>
+<pre># getsebool -a | grep ftp  //列出所有selinux全部ftp策略
+# setsebool allow_ftpd_full_access on  //允许FTP完全访问
+# iptables -I INPUT -p tcp --dport 80 -j ACCEPT  //插入防火墙规则（CentOS里用-A添加一条规则会处于链表尾，但表尾貌似不起作用，所以用-I插入到链表头），
+//这条规则的意思是所有INPUT到服务器的包，-p如果是tcp协议的，--dport目标端口是80端口的，-j那么就ACCEPT
+# iptables -I INPUT -p tcp --dport 21 -j ACCEPT  //同样的方法接受所有要到达服务器21端口的tcp包，21端口默认为FTP端口
+# modprobe ip_conntrack_ftp  //载入IP连线跟踪模块。
+</pre>
+<p class="note"><span>注意：</span>记住最后这一步的基本安全策略配置在重启后全部失效，你需要重新配置一遍。当然通过修改selinux和iptables的配置文件或service iptables save是可以保持这些策略的。但你应该清晰的认识到一个问题：一个服务器应该总是保持开启状态的，如果服务器重启了，那么只有两种可能，一种是在你的控制之下，一种不在你的控制之下，当服务器重启事件不在你的控制之下时，那么你应该认识到这是很危险的情况，那么刚才那些“放行”的策略应该完全失效而不是继续保持才对。也正因为如此，我想这可能是CentOS这样做的其中一个原因。</p>
+<pre>
+2015/12/31实际遇到ftp无法上传文件, 通过以下方法解决
+setsebool -P ftp_home_dir on  // -P代表设置值会写入磁盘，重启后继续生效
+有点纳闷的是，他的服务器根本就没开selinux，理论上这个解决办法应该没效果才对，可实际上，全部执行完成之后，发现可以上传文件和新建文件夹了。
+</pre>
+<b>其他观点：Linux 下为何要关闭 SELinux</b>
+<p>SELinux提供了比默认ugo+rwx更详细的权限控制。绝大多数业务服务器上不需要SELinux，因为基本上都是用负载均衡设备做流量分发，对外仅开放了仅有的几个端口。虚拟化使用越来越广泛，不同类型应用分布在不同服务器上，并没有不同服务间权限隔离的必要性。SELinux带来的附加安全性和使用复杂性上不成比例，性价比不高。
+不懂怎么用，关了一了百了，懂怎么用的不想折腾，还是关了一了百了。</p>
+
+<h3>第八步 配置ssh</h3>
+<p>/var/log/secure  // ssh服务的登录日志在这里<br />
+/etc/ssh/sshd_config  // 配置文件地址，修改好后要重启服务</p>
+
+<h3>第九步 其他配置</h3>
+<pre>
+/etc/sysconfig/clock 添加 ZONE=Asia/Shanghai  // 更改时区
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  // 通过链接文件方式更改时区 
+/etc/sysconfig/i18n 添加 LANG=en_US.UTF-8  //字符编码调成UTF-8就可以正常显示中文
+</pre>
+
+<h3>第十步 系统备份</h3>
+<p>2016/3/28 发现搬瓦工后台可以保存两个永久系统备份，有空的时候，重新装好系统并备份下</p>
+
+</div>
+
+</div>
+</body>
+</html>

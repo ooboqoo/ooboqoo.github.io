@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css">
+<script src="../notes.js"></script>
+<title>VIM</title>
+</head>
+<body>
+<div id="article">
+
+<h1>VIM</h1>
+<div>
+<table>
+	<tr><th colspan="2">移动光标的方法</th></tr>
+	<tr><td>h / ←</td><td>光标左移一个字符</td></tr>
+	<tr><td>j / ↓</td><td>光标下移一个字符</td></tr>
+	<tr><td>k / ↑</td><td>光标上移一个字符</td></tr>
+	<tr><td>l / →</td><td>光标右移一个字符</td></tr>
+	<tr><td colspan="2">如果想要进行多次移动的话，例如向下移动30行，可以使用“30j”的组合按键。</td></tr>
+	<tr><td>0 / ^ / [Home]</td><td>光标移动到行首</td></tr>
+	<tr><td>$ / [End]</td><td>光标移动到行尾</td></tr>
+	<tr><td>n&lt;space&gt;</td><td>光标向右移动n个字符</td></tr>
+	<tr><td>[n] G</td><td>移动到文件的最后一行/ 第n行</td></tr>
+	<tr><td>gg / 1G</td><td>移动到文件的第一行</td></tr>
+	<tr><td>n[Enter]</td><td>光标下移n行</td></tr>
+	<tr><th colspan="2">查找与替换</th></tr>
+	<tr><td>/word</td><td>向下查找字符串word</td></tr>
+	<tr><td>?word</td><td>向上查找字符串word</td></tr>
+	<tr><td>n,N</td><td>n查找下一个，N向前查找</td></tr>
+	<tr><td colspan="2">使用n和N配合查找是很有帮助的</td></tr>
+	<tr><td>:n1,n2s/old/new</td><td>在n1与n2行之间查找old，并替换每行首次出现的old</td></tr>
+	<tr><td>:1,$s/old/new/gc</td><td>查找全文中的old。substitute<br />g代表替换一行中所有匹配项。global<br />c在替换之前显示提示供确认。 confirm</td /></tr>
+	<tr><th colspan="2">删除、复制与粘贴</th></tr>
+	<tr><td>[n] x,X</td><td>x向后删除一个/n个字符，X向前删除一个字符</td></tr>
+	<tr><td>[n] dd</td><td>删除整行/n行。delete</td></tr>
+	<tr><td colspan="2">d1G dG d0 d$ dw 结合定位符快速删除多行或多个字符</td></tr>
+	<tr><td>[n] yy</td><td>复制整行/向下复制n行。yank</td></tr>
+	<tr><td colspan="2">y1G yG y0 y$ yw 结合定位符快速复制多行或多个字符</td></tr>
+	<tr><td>p,P</td><td>p在光标后粘贴，P在光标前粘贴</td></tr>
+	<tr><th colspan="2">操作</th></tr>
+	<tr><td>J</td><td>将前后两行拼接成一行。Join</td></tr>
+	<tr><td>u</td><td>还原。复原前一个操作。undo</td></tr>
+	<tr><td>[Ctrl]+r</td><td>重做。重做上一个操作。redo</td></tr>
+	<tr><td>[n] .</td><td>再做。小数点符号，重复前一个操作1次/n次</td></tr>
+</table>
+
+<table>
+	<tr><th colspan="2">进入插入或替换的编辑模式</th></tr>
+	<tr><td>i,I</td><td>进入插入模式。insert</td></tr>
+	<tr><td>r,R</td><td>进入替换模式。replace</td></tr>
+	<tr><td>[Esc]</td><td>退出编辑模式。</td></tr>
+	<tr><th colspan="2">命令行模式命令</th></tr>
+	<tr><td>:wq!</td><td>保存后退出，有异常不提醒</td></tr>
+	<tr><td>:w[filename]</td><td>将文件另存到filename</td></tr>
+	<tr><td>:!command</td><td>暂时离开vi到命令行执行命令。例 :! ls /home</td></tr>
+	<tr><th colspan="2">vi环境的更改</th></tr>
+	<tr><td>:set nu / nonu</td><td>显示行号，或取消显示行号</td></tr>
+	<tr><td>:set hlsearch / no~</td><td>查找匹配项高亮显示</td></tr>
+	<tr><td>:set autoindent / no~</td><td>是否自动缩进</td></tr>
+	<tr><td>:set backup</td><td>是否自动备份</td></tr>
+	<tr><td>:syntax on / off</td><td>是否显示语法高亮</td></tr>
+	<tr><td>:set bg=dark / light</td><td>显示色调选择</td></tr>
+	<tr><td>:set</td><td>显示与系统默认值不同的环境参数设置</td></tr>
+	<tr><td>:set all</td><td>显示系统所有环境参数设置</td></tr>
+
+</table>
+
+<table>
+	<tr><th colspan="2">块操作</th></tr>
+	<tr><td>v,V</td><td>v是字符选择，将光标经过的地方反白选择；V是行选择</td></tr>
+	<tr><td>[Ctrl]+v</td><td>块选择，可以用长方形的方式选择数据</td></tr>
+	<tr><td>y</td><td>复制反白选择内容</td></tr>
+	<tr><td>d</td><td>删除反白内容</td></tr>
+	<tr><th colspan="2">多窗口操作</th></tr>
+	<tr><td>:sp[filename] / :vsplit </td><td>水平分割窗口，如提供filename则新窗口显示该文件。vsplit为垂直分割</td></tr>
+	<tr><td>[Ctrl]+w+</td><td>按下该组合键后松开，就可以用方向键在窗口之间移动。</td></tr>
+</table>
+</div>
+
+</div>
+</body>
+</html>

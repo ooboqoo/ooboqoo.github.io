@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css">
+<script src="../notes.js"></script>
+<title>Git</title>
+</head>
+<body>
+<div id="article">
+
+<div>
+<ul>
+<li>Git for Windows: git 的 window 版本，包含 Git 版本控制工具核心、Git Bash 和 Git GUI</li>
+<ul><li>Git Bash: 在 Win10 年度更新原生 Bash 正式推出之前，这个绝对是各种命令行操作的福音。</li>
+    <li>Git GUI: 比较简陋的版本，没鸟用，下面的 GitHub Desktop 才是好用的 GUI。</li></ul>
+<li>GitHub Desktop: GitHub 网站出品的客户端，有了它，正常使用没有 git 命令什么事了。</li>
+</ul>
+</div>
+
+<h1>Git</h1>
+<div>
+<p>主站：https://git-scm.com/</p>
+<p>文档：https://git-scm.com/doc</p>
+<p>官方推荐的免费教程 Pro Git（中文）：https://git-scm.com/book/zh/v2</p>
+</div>
+<div>
+<p>这里打算放 git 命令的学习笔记，有空再补吧，现在没动力。</p>
+<p>看到的好的教程：<a href="http://rogerdudler.github.io/git-guide/index.zh.html">git - 简明指南</a></p>
+</div>
+
+<h1>Git Bash</h1>
+
+<div>
+<h2>右键点击 xterm 标题栏可设置项</h2>
+<p>字体，前景色，背景色，终端选择等</p>
+
+<h2>Git/etc/bash.bashrc 设置</h2>
+<h3>调整终端颜色</h3>
+<p>开启 DIR_COLORS 项目，并设置 Git/etc/DIR_COLORS</p>
+<h3>自定义 prompt</h3>
+<p></p>
+</div>
+
+<h1>GitHub</h1>
+<div>
+<p>GitHub Desktop: https://desktop.github.com/</p>
+<p>GitHub 发布的本地客户端，相比网站操作提供了更多功能，也避免了 git 命令操作的各种麻烦和不给力。</p>
+
+<h2>龙猫关于多人合作项目的经验分享</h2>
+<ol>
+<li>多用客户端和工具，少用命令行，除非是在 linux 服务器上直接开发。</li>
+<li>每次提交前，diff 自己的代码，以免提交错误代码或测试代码。</li>
+<li>下班回家前，整理好自己的工作区并提交。</li>
+<li>并行的项目，使用分支开发。</li>
+<li>遇到冲突时，搞明白冲突的原因，千万不要随意丢弃别人的代码。</li>
+<li>产品发布后，记得打 tag，方便将来拉分支修 bug。</li>
+</ol>
+</div>
+
+<div>
+<h2>学习时碰到的一些好的文章教程</h2>
+<p>GotGitHub 电子书在线阅读：<a href="http://www.worldhello.net/gotgithub/index.html">GotGitHub</a></p>
+<p><a href="https://www.zhihu.com/question/20070065">文科妹子的 github 知乎回答</a></p>
+</div>
+
+<h1>MD 文件语法</h1>
+
+<div>
+<p>github上的README.md文件就是使用的Markdown语言编写的，我们先简单介绍下这门语言的来龙去脉，然后再介绍一些基本的语法和使用。</p>
+<h3>1.来龙去脉和语法特点</h3>
+<p>Markdown 是一种轻量级标记语言，创始人为约翰·格鲁伯（John Gruber）。它允许人们“使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML(或者HTML)文档”。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。
+Markdown 的目标是实现「易读易写」。可读性，无论如何，都是最重要的。一份使用 Markdown 格式撰写的文件应该可以直接以纯文本发布，并且看起来不会像是由许多标签或是格式指令所构成。</p>
+<p>Markdown 语法受到一些既有 text-to-HTML 格式的影响，包括Setext、atx、Textile、reStructuredText、Grutatext 和 EtText，而最大灵感来源其实是纯文本电子邮件的格式。总之， Markdown 的语法全由一些符号所组成，这些符号经过精挑细选，其作用一目了然。比如：在文字两旁加上星号，看起来就像*强调*。Markdown 的列表看起来，嗯，就是列表。Markdown 的区块引用看起来就真的像是引用一段文字，就像你曾在电子邮件中见过的那样。
+Markdown 语法的目标是：成为一种适用于网络的书写语言。Markdown 不是想要取代 HTML，甚至也没有要和它相近，它的语法种类很少，只对应 HTML 标记的一小部分。Markdown 的构想不是要使得 HTML 文档更容易书写。在我看来， HTML 已经很容易写了。Markdown 的理念是，能让文档更容易读、写和随意改。HTML 是一种发布的格式，Markdown 是一种书写的格式。就这样，Markdown 的格式语法只涵盖纯文本可以涵盖的范围。
+正是因为Markdown的这些特点，而且功能比纯文本更强，因此有很多人用它写博客。世界上最流行的博客平台WordPress和大型CMS如joomla、drupal都能很好的支持Markdown。</p>
+<h3>2.常用语法介绍</h3>
+<p>换行：两个以上的空格然后回车</p>
+<p>标题：# 这是 H1；## 这是 H2；...；###### 这是 H6</p>
+<p>无序列表：使用星号、加号或是减号作为列表标记</p>
+<p>有序列表：则使用数字接着一个英文句点</p>
+<p>链接：[链接文字](链接地址) 如 [Markdown](http://blog.csdn.net/zhaokaiqiang1992)</p>
+<p>图片：![替代文字](链接地址) 如 ![Alt text](/path/to/img.jpg)</p>
+<p>强调：*强调* 或者 _强调_ (斜体)；**加重强调** 或者 __加重强调__ (粗体)；***特别强调*** 或者 ___特别强调___ (粗斜体)</p>
+<p>代码：用反引号(esc键下面的按钮)将代码包裹起来</p>
+<p>分割线：在单独一行里输入3个或以上的短横线、星号或者下划线</p>
+<p>区块引用 Blockquotes：在每行的最前面加上 &gt;</p>
+<hr />
+<p>简单介绍，移步 http://blog.chinaunix.net/uid-7374279-id-5114730.html</p>
+<p>详细中文文档，移步 http://wowubuntu.com/markdown/index.html</p>
+<p>详细英文文档，移步 http://daringfireball.net/projects/markdown/syntax</p>
+</div>
+
+</div>
+</body>
+</html>

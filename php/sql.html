@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<script src="../notes.js"></script>
+<script src="../codecolor.js"></script>
+<title>PHP MSQLi</title>
+</head>
+<body>
+<div id="article">
+
+<h1>PHP Connect to MySQL</h1>
+
+<div>
+<p>PHP 5 and later can work with a MySQL database using:</p>
+<ul><li>MySQLi extension (the "i" stands for improved)</li><li>PDO (PHP Data Objects)</li></ul>
+<p>Earlier versions of PHP used the MySQL extension. However, this extension was deprecated in 2012.</p>
+</div>
+
+<div>
+<h2>Open a Connection to MySQL</h2>
+<p>Before we can access data in the MySQL database, we need to be able to connect to the server:</p>
+<pre class="php">
+&lt;?php
+$servername = "localhost"; $database = "databasename"; $username = "username"; $password = "password";
+try {
+	$conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+	$conn-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	echo "Connected successfully";
+}
+catch(PDOException $e) {echo "Connection failed: " . $e-&gt;getMessage();}
+?&gt;
+</pre>
+<p>Notice that PDO require a valid database to connect to. If no database is specified, an exception is thrown.</p>
+<p><strong>Tip:</strong> A great benefit of PDO is that it has an exception class to handle any problems that may occur in our database queries. If an exception is thrown within the try{ } block, the script stops executing and flows directly to the first catch(){ } block.</p>
+</div>
+
+<div>
+<h2>Close the Connection</h2>
+<p>The connection will be closed automatically when the script ends. To close the connection before, use the following:</p>
+<pre class="php">$conn = null;</pre>
+</div>
+
+<h1>Create Database</h1>
+<div>
+<h3>Example (MySQLi Object-oriented)</h3>
+<pre class="php">
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$conn = new mysqli($servername, $username, $password); //Create connection
+if($conn-&gt;connect_error){ die("Connection failed: ".$conn-&gt;connect_error);} //Check connection
+// Create database myDB
+$sql = "CREATE DATABASE myDB";
+if ($conn-&gt;query($sql) === TRUE) {echo "Database created successfully";
+} else { echo "Error creating database: " . $conn-&gt;error;}
+$conn-&gt;close();
+</pre>
+
+<h3>Example (PDO)</h3>
+<pre class="php">
+$servername = "localhost";
+$username = "username";
+$password = "password";
+try {
+$conn = new PDO("mysql:host=$servername;dbname=myDB", $username, $password);
+$conn-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$sql = "CREATE DATABASE myDBPDO";
+$conn-&gt;exec($sql); // use exec() because no results are returned
+echo "Database created successfully";
+}
+catch(PDOException $e) {echo $sql . "&lt;br&gt;" . $e-&gt;getMessage();}	
+$conn = null;
+</pre>
+</div>
+
+<h1>Create Tables</h1>
+<div>
+<pre class="php">
+try { ......
+	$sql = "CREATE TABLE MyGuests (
+		id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+		firstname VARCHAR(30) NOT NULL,
+		lastname VARCHAR(30) NOT NULL,
+		email VARCHAR(50),
+		reg_date TIMESTAMP
+		)";
+	$conn-&gt;exec($sql);
+	echo "Table MyGuests created successfully";
+ }
+</pre>
+</div>
+
+<h1>Insert Data Into MySQL</h1>
+<div>
+<p>Here are some syntax rules to follow:</p>
+<ul>
+	<li>The SQL query must be quoted in PHP</li>
+	<li>String values inside the SQL query must be quoted</li>
+	<li>Numeric values must not be quoted</li>
+	<li>The word NULL must not be quoted</li>
+</ul>
+<p><strong>Note:</strong> If a column is AUTO_INCREMENT (like the "id" column) or TIMESTAMP (like the "reg_date" column), it is no need to be specified in the SQL query; MySQL will automatically add the value.</p>
+<pre class="php">
+try { ......
+$sql = "INSERT INTO MyGuests (firstname, lastname, email) VALUES ('John', 'Doe', 'john@example.com')";
+$conn-&gt;exec($sql);
+echo "New record created successfully";
+}
+</pre>
+</div>
+
+<h1>Get ID of Last Inserted Record</h1>
+<div>
+<p>If we perform an INSERT or UPDATE on a table with an AUTO_INCREMENT field, we can get the ID of the last inserted/updated record immediately.</p>
+<pre class="php">
+try { ......
+$sql = "INSERT INTO MyGuests (firstname, lastname, email) VALUES ('John', 'Doe', 'john@example.com')";
+$conn-&gt;exec($sql);
+$last_id = $conn-&gt;lastInsertId();
+echo "New record created successfully. Last inserted ID is: " . $last_id;
+}
+</pre>
+
+</div>
+
+<h1>Insert Multiple Records Into MySQL</h1>
+
+<div>
+<p>Multiple SQL statements must be executed with the mysqli_multi_query() function.</p>
+<p>The PDO way is a little bit different:</p>
+<pre class="php">
+try { ......
+$conn-&gt;beginTransaction();  // begin the transaction
+$conn-&gt;exec("INSERT INTO MyGuests (firstname, lastname, email) VALUES ('John', 'Doe', 'john@example.com')");
+$conn-&gt;exec("INSERT INTO MyGuests (firstname, lastname, email) VALUES ('Mary', 'Moe', 'mary@example.com')");
+$conn-&gt;exec("INSERT INTO MyGuests (firstname, lastname, email) VALUES ('Julie', 'Dey', 'julie@example.com')");
+$conn-&gt;commit();  // commit the transaction
+echo "New records created successfully";
+}
+</pre>
+</div>
+
+<h1>PHP Prepared Statements</h1>
+<div>
+<h2>Prepared Statements and Bound Parameters</h2>
+<p>A prepared statement is a feature used to execute the same (or similar) SQL statements repeatedly with high efficiency.</p>
+<p>Prepared statements basically work like this:</p>
+<ol>
+	<li>Prepare: An SQL statement template is created and sent to the database. Certain values are left unspecified, called parameters (labeled "?"). Example: INSERT INTO MyGuests VALUES(?, ?, ?)</li>
+	<li>The database parses, compiles, and performs query optimization on the SQL statement template, and stores the result without executing it</li>
+	<li>Execute: At a later time, the application binds the values to the parameters, and the database executes the statement. The application may execute the statement as many times as it wants with different values</li>
+</ol>
+<p>Compared to executing SQL statements directly, prepared statements have two main advantages:</p>
+<ul>
+	<li>Prepared statements reduces parsing time as the preparation on the query is done only once (although the statement is executed multiple times)</li>
+	<li>Bound parameters minimize bandwidth to the server as you need send only the parameters each time, and not the whole query</li>
+	<li>Prepared statements are very useful against SQL injections, because parameter values, which are transmitted later using a different protocol, 
+	need not be correctly escaped. If the original statement template is not derived from external input, SQL injection cannot occur.</li>
+</ul>
+</div>
+
+<div>
+<p>The following example uses prepared statements and bound parameters in PDO:</p>
+<pre class="php">
+try { ......
+  /* prepare sql and bind parameters */
+$stmt = $conn-&gt;prepare("INSERT INTO MyGuests (firstname, lastname, email) VALUES (:firstname, :lastname, :email)");
+$stmt-&gt;bindParam(':firstname', $firstname);
+$stmt-&gt;bindParam(':lastname', $lastname);
+$stmt-&gt;bindParam(':email', $email);
+  /* insert rows */
+$firstname = "John"; $lastname = "Doe"; $email = "john@e.com"; $stmt-&gt;execute();
+$firstname = "Mary"; $lastname = "Moe"; $email = "mary@e.com"; $stmt-&gt;execute();
+$firstname = "Julie"; $lastname = "Dooley"; $email = "julie@e.com"; $stmt-&gt;execute();
+echo "New records created successfully";
+}
+方法2：
+"INSERT INTO MyGuests (firstname, lastname, email) VALUES (?, ?, ?)"
+$stmt->bind_param("sss", $firstname, $lastname, $email);
+//参数解释：i - integer  d - double  s - string  b - BLOB
+</pre>
+</div>
+
+<h1>Select Data From MySQL</h1>
+<div>
+<h2>Select Data With PDO (+ Prepared Statements)</h2>
+<p>The following example uses prepared statements.</p>
+<p>It selects the id, firstname and lastname columns from the MyGuests table and displays it in an HTML table:</p>
+
+
+<pre class="php">
+echo "&lt;table style='border: solid 1px black;'&gt;";
+echo "&lt;tr&gt;&lt;th&gt;Id&lt;/th&gt;&lt;th&gt;Firstname&lt;/th&gt;&lt;th&gt;Lastname&lt;/th&gt;&lt;/tr&gt;";
+class TableRows extends RecursiveIteratorIterator {
+	function __construct($it) { parent::__construct($it, self::LEAVES_ONLY); }
+	function current() {
+		return "&lt;td style='width:150px;border:1px solid black;'&gt;" . 
+		parent::current() . "&lt;/td&gt;"; }
+	function beginChildren() { echo "&lt;tr&gt;";}
+	function endChildren() { echo "&lt;/tr&gt;" . "\n";} 
+}
+try { ......
+$stmt = $conn-&gt;prepare("SELECT id, firstname, lastname FROM MyGuests"); 
+$stmt-&gt;execute();	
+$result = $stmt-&gt;setFetchMode(PDO::FETCH_ASSOC);  // set the resulting array to associative 
+foreach (new TableRows(new RecursiveArrayIterator($stmt-&gt;fetchAll())) as $k=&gt;$v){ echo $v;}
+} ......
+echo "&lt;/table&gt;";
+</pre>
+
+</div>
+
+<h1>Delete Data From MySQL</h1>
+<div>
+<pre class="php">
+try { ......
+$sql = "DELETE FROM MyGuests WHERE id=3";
+$conn-&gt;exec($sql);
+echo "Record deleted successfully";
+} ......
+</pre>
+</div>
+
+<h1>Update Data in MySQL</h1>
+<div>
+<pre class="php">
+try { ......
+$sql = "UPDATE MyGuests SET lastname='Doe' WHERE id=2";
+$stmt = $conn-&gt;prepare($sql);  // Prepare statement
+$stmt-&gt;execute();
+echo $stmt-&gt;rowCount() . " records UPDATED successfully";
+} ......
+</pre>
+</div>
+
+<h1>Limit Data Selections From MySQL</h1>
+<div>
+<p>The LIMIT clause makes it easy to code multi page results or pagination with SQL, and is very useful on large tables. Returning a large number of records can impact on performance.</p>
+<pre class="php">
+$sql = "SELECT * FROM Orders LIMIT 30";
+$sql = "SELECT * FROM Orders LIMIT 10 OFFSET 15";  // select records 16-25 (inclusive)
+$sql = "SELECT * FROM Orders LIMIT 15, 10";  // numbers are reversed when you use a comma.
+</pre>
+</div>
+
+</div>
+</body>
+</html>

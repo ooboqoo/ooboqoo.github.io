@@ -123,12 +123,12 @@ table,th,td{border:none}
 .w3-closebtn{text-decoration:none;float:right;font-size:24px;font-weight:bold;color:inherit}
 .w3-closebtn:hover,.w3-closebtn:focus{color:#000;text-decoration:none;cursor:pointer}
 
-/* ³éÈ¡ w3.css ½áÊø£¬ÏÂÃæ¿ªÊ¼×Ô¶¨ÒåÄÚÈİ */
+/* æŠ½å– w3.css ç»“æŸï¼Œä¸‹é¢å¼€å§‹è‡ªå®šä¹‰å†…å®¹ */
 
-  /* Í¨ÓÃÀà */
+  /* é€šç”¨ç±» */
 @media only screen and (min-width:601px){.w3-multicolumn{-webkit-column-count: 3;-moz-column-count:3;column-count:3;}}
 @media only screen and (min-width:993px){.w3-multicolumn{-webkit-column-count: 5;-moz-column-count:5;column-count:5;}}
-  /* ÎÄµµÖ÷ÌåÄÚÈİ¶¨Òå */
+  /* æ–‡æ¡£ä¸»ä½“å†…å®¹å®šä¹‰ */
 #article{width:100%;text-align:left; border: 0;}
 @media only screen and (min-width:993px){#article{max-width:980px;margin:auto;box-shadow:0 2px 4px 0 rgba(0,0,0,0.2),0 2px 10px 0 rgba(0,0,0,0.12)!important}}
 #article > div{margin:0 15px;padding: 6px 0;border-bottom:1px solid #999;}
@@ -139,20 +139,20 @@ table,th,td{border:none}
 #article p{line-height:1.25;margin:0.25em 0;}
 #article ul, #article ol{margin:2px 0 0 2em;padding:0;}
 
-  /* ¶ÎÂäÌØÊâ¸ñÊ½ÉèÖÃ important ÖØÒª warning ¾¯¸æ note ×¢ÊÍ tip ÌáÊ¾ */
+  /* æ®µè½ç‰¹æ®Šæ ¼å¼è®¾ç½® important é‡è¦ warning è­¦å‘Š note æ³¨é‡Š tip æç¤º */
 p.important span:first-child, p.warning span:first-child, p.note span:first-child, p.tip span:first-child, p.prop span:first-child{font-weight: bold;}
 p.important span:first-child, p.warning span:first-child{color:#dd0000;}
 p em{padding:0 8px 0 0;}
-p code{color:#00f;padding: 0 4px;border:1px dotted #ccc;}
+p code{color:crimson;padding: 0 4px;background-color: #f1f1f1;border-radius:4px;}
 blockquote{margin:0;padding-left:12px;border-left:2px solid green;}
 
-  /* w3school.com.cn ´úÂëÀ¸ */
+  /* w3school.com.cn ä»£ç æ  */
 pre, pre code{font-family:Consolas, "Courier New", Courier, monospace;}
 pre	{margin: 3px 0;padding: 2px 10px;border: 1px dotted #999;white-space: pre-wrap; }
 pre code{color:#0000dd;}
 pre span{color:#999;}
 
-  /* ±í¸ñ */
+  /* è¡¨æ ¼ */
 table {margin:4px 0 0;border-collapse:collapse;border:1px solid #999;}
 table th{padding:2px 10px;text-align:center;color:#fff; background-color:#666;}
 table td{padding:2px 10px; border-top:1px solid #ccc;}
@@ -160,15 +160,15 @@ table p {margin:0 0 2px 0;}
 table td em	{color:#0000ff;	font-weight:normal;}
 table .table_value {color:#0F93D2;}
 table .no_wrap {white-space:nowrap;}
-table td.html5badge {background: url(../images/html5_badge20.png) right no-repeat;}
+table td.html5badge {background: url(images/html5_badge20.png) right no-repeat;}
 table tr.notsupported {color:#999999;}
 table tr.separator{line-height:0.25em;}
 table td:first-child a{text-decoration:none;color:#f33;}
 table tr:hover {background-color: #f5f5f5;}
 #article table{empty-cells: show;}
-.table-responsive {overflow-x: auto;} /* ÔÚtableÍâÌ×Ò»²ã div class=".table-responsive" */
+.table-responsive {overflow-x: auto;} /* åœ¨tableå¤–å¥—ä¸€å±‚ div class=".table-responsive" */
 
-  /* ¶¥²¿µ¼º½Ìõ */
+  /* é¡¶éƒ¨å¯¼èˆªæ¡ */
 #topnav{width:100%;background-color: #5f5f5f;color: #f1f1f1;font-size:18px;box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;}
 #topnav ul{margin:0;padding:0;} #topnav li{display:inline-block;padding:2px 12px;}
 #topnav ul:first-child li:first-child{padding-left:16px} #topnav ul:last-child li:last-child{padding-right:16px}
@@ -184,10 +184,10 @@ table tr:hover {background-color: #f5f5f5;}
 #nav_references{visibility:hidden;width:100%;}
 @media only screen and (min-width:993px){#nav_references{width:863px;}}
 #sidemenu {visibility:hidden;width:230px;position: absolute !important;z-index:1;overflow-x: hidden;background-color:#eee;}
-#sidemenu h3 {font-size: 20px;padding-left: 8px;color: #000;}
+#sidemenu h3{font-family:"Microsoft YaHei",sans-serif;font-size: 20px;padding-left: 8px;color:#000;}
 #sidemenu a{padding: 0 16px;color: #555;font-size:1rem; display:block} #sidemenu a:hover{background-color:#ccc}
 @media only screen and (min-width: 1210px){#sidemenu{visibility:visible;left:-115px;} #article{position:relative;left:+115px;}}
 
-  /* Ò³ÃæÄÚÃªµãµ¼º½ */
+  /* é¡µé¢å†…é”šç‚¹å¯¼èˆª */
 #contents ul{text-align:center;}
 #contents li{display:inline;padding:0.25em;white-space:nowrap;line-height:1.5;}
