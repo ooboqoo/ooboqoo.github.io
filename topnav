@@ -20,7 +20,7 @@
   <h3>CSS</h3>
   <a href="/css/cssjc.html">CSS 基础</a>
   <a href="/css/less.html">Less 语法</a>
-  <a href="http://www.w3schools.com/css/css3_animations.asp" target="_blank">w3schools CSS3</a><sup>*</sup>
+  <a href="http://www.w3schools.com/css/css3_animations.asp" target="_blank">w3schools CSS3<sup>*</sup></a>
   <h3>CSS 手册</h3>
   <a href="/css/refprop.html">属性手册</a>
   <a href="/css/refslct.html">选择器手册</a>
