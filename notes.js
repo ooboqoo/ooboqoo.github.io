@@ -47,7 +47,7 @@ function navinit() {
   }   
   /*  定义顶部导航栏之“页面标题” */
   var topnavcc = topnav.children[0].children
-  if( topnavcc[0].clientWidth + topnavcc[1].clientWidth / 2 +20 < topnav.children[0].clientWidth / 2){
+  if( topnavcc[0].clientWidth + topnavcc[1].clientWidth/2+20 < topnav.children[0].clientWidth/2){
     topnavcc[1].innerHTML = document.title;
     topnavcc[1].style.marginLeft = "-" + topnavcc[1].clientWidth / 2 + "px";
   }  
@@ -77,6 +77,8 @@ function sidemenuToggle() {
     window.getComputedStyle(document.getElementById("sidemenu"),null).getPropertyValue("visibility"):
     document.getElementById("sidemenu").currentStyle["visibility"];
   if (visibility == "hidden") {
+    document.getElementById("sidemenu").style.height = (window.innerHeight -
+      document.getElementById("topnav").offsetHeight) + "px";
     document.getElementById("sidemenu").style.visibility = "visible";
     if(document.getElementById("article")) document.getElementById("article").style.left = null;
     return;
