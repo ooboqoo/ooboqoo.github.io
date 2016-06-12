@@ -10,7 +10,7 @@ xmlhttp.open("GET","/topnav",true);
 xmlhttp.send();
 xmlhttp.onreadystatechange=function() {
   if (xmlhttp.readyState==4 && xmlhttp.status==200){
-    if (document.readyState=="complete") navinit();
+    if (document.body) navinit();
     else document.addEventListener("DOMContentLoaded", navinit());
   }
 };
