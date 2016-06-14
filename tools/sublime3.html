@@ -12,20 +12,27 @@
 
 <h1>Sublime Text3</h1>
 <div>
+<p>最值得查阅的文档：<a href="http://docs.sublimetext.info/en/latest/index.html">Sublime Text Unofficial Documentation</a></p>
+<p>一篇不错的入门教程：https://generalassemb.ly/blog/sublime-text-3-tips-tricks-shortcuts/</p>
+</div>
+
+<div>
 <h2>颜色主题设置</h2>
 <h3>How to install a Sublime Text theme</h3>
 <p><code>Preferences -> Browse Packages</code> 进入"Packages"文件夹，并创建"Colorsublime-Themes"，再将下载的主题文件放入该文件夹。</p>
 <p><code>Preferences -> Color Scheme -> Colorsublime-Themes</code> 选择相应的主题即可。</p>
 <h3>自定义主题的相关文档和资料</h3>
-<ul><li><a href="http://colorsublime.com/how-to-install-a-theme">Colorsublime How to install a theme</a></li>
+<p>如何查看要修改的部分的scope：<code>ctrl+alt+shift+p</code></p>
+<ul>
+<li><a href="http://colorsublime.com/how-to-install-a-theme">Colorsublime How to install a theme</a></li>
 <li><a href="http://docs.sublimetext.info/en/latest/reference/color_schemes.html">Color Schemes — Sublime Text Unofficial Documentation</a></li>
-<li><a href="https://gist.github.com/alehandrof/5361546">scopes for sublime text schemes</a></li></ul>
+</ul>
 <h3>解决标记匹配高亮不明显问题</h3>
 <p>安装 BracketHighlighter 插件即可解决此问题。</p>
 </div>
 
 <div>
-<h2>快键键列表</h2>
+<h2>快捷键列表</h2>
 <p>屌丝的默认快捷键设置：{ "keys": ["ctrl+k", "ctrl+b"], "command": "toggle_side_bar" } 的意思是 Hide Side Bar is the sequence Ctrl+K, Ctrl+B（先按Ctrl+K, 再按Ctrl+B）不谷歌能看懂？</p>
 <p>默认快键键列表在 <code>Preferences -> Key Bindings - Default</code></p>
 <p>Emmet 默认快键键列表在 <code>Preferences -> Package Settings -> Emmet -> Key Bindings - Default</code></p>
@@ -34,109 +41,114 @@
 <table>
 <tr><th>操作</th><th>默认快键键</th><th>自定义快捷键</th></tr>
 <tr><td>toggle_side_bar</td><td>["ctrl+k", "ctrl+b"]</td><td>alt+a</td></tr>
-<tr><td>duplicate_line</td><td>ctrl+shift+d</td><td>/</td></tr>
 <tr><td>emmet wrap_as_you_type</td><td>shift+ctrl+g</td><td>ctrl+alt+t</td></tr>
-<tr><td>swap_line_up</td><td>ctrl+shift+up</td><td>/</td></tr>
-<tr><td>swap_line_down</td><td>ctrl+shift+down</td><td>/</td></tr>
-<tr><td>Delete Line</td><td>ctrl+shift+k</td><td>/</td></tr>
-<tr><td>expand_selection to line</td><td>ctrl+l</td><td>/</td></tr>
-<tr><td></td><td></td><td></td></tr>
 </table>
 <pre>
-Ctrl+D 选词 （反复按快捷键，即可继续向下同时选中下一个相同的文本进行同时编辑）
+###特色功能
+Ctrl+P 查找当前项目中的文件和快速搜索
+Ctrl+Shift+P 打开命令面板
 
-Ctrl+G 跳转到相应的行
-Ctrl+J 合并行（已选择需要合并的多行时）
-Ctrl+L 选择整行（按住-继续选择下行）
-Ctrl+M 光标移动至括号内开始或结束的位置
-Ctrl+T 词互换
-Ctrl+U 软撤销
-Ctrl+P 查找当前项目中的文件和快速搜索；输入 @ 查找文件主标题/函数；或者输入 : 跳转到文件某行；
-Ctrl+R 快速列出/跳转到某个函数
+###缩进
+Ctrl+] 增加缩进
+Ctrl+[ 减少缩进
 
-Ctrl+Enter 插入行后（快速换行）
-Ctrl+Shift+Enter 光标前插入行
+###注释
+Ctrl+/ 注释切换 
+Ctrl+Shift+/ 块注释切换 
+
+###行操作
+Ctrl+Shift+D 复制整行
+Ctrl+Shift+K 删除整行
 Ctrl+Shift+↑可以移动此行代码，与上行互换
 Ctrl+Shift+↓可以移动此行代码，与下行互换
+Ctrl+L 选择整行（按住-继续选择下行）
+Ctrl+J 合并行（已选择需要合并的多行时）
 
-Ctrl+Shift+A 选择光标位置父标签对儿
-Ctrl+Shift+D 复制光标所在整行，插入在该行之前
-ctrl+shift+F 在文件夹内查找，与普通编辑器不同的地方是sublime允许添加多个文件夹进行查找
-Ctrl+Shift+K 删除整行
-Ctrl+Shift+L 鼠标选中多行（按下快捷键），即可同时编辑这些行
-Ctrl+Shift+M 选择括号内的内容（按住-继续选择父括号）
-Ctrl+Shift+P 打开命令面板
-Ctrl+Shift+[ 折叠代码
-Ctrl+Shift+] 展开代码
-
-Ctrl+/ 注释整行（如已选择内容，同“Ctrl+Shift+/”效果）
-Ctrl+Shift+/ 注释已选择内容
-Ctrl+鼠标左键 可以同时选择要编辑的多处文本
-Shift+鼠标右键（或使用鼠标中键）可以用鼠标进行竖向多行选择
-
-Alt+. 闭合当前标签
+###选择
+Ctrl+D 选词 （反复按快捷键，即可继续向下同时选中下一个相同的文本进行同时编辑）
 Alt+F3 选中文本按下快捷键，即可一次性选择全部的相同文本进行同时编辑
+Ctrl+鼠标左键 可以同时选择要编辑的多处文本
+Ctrl+Shift+A 选择光标位置父标签对儿  // 这个好用，可以不用emmet相应功能了
+Ctrl+Shift+M 选择括号内的内容（按住-继续选择父括号）
 
-Tab 缩进 自动完成
-Shift+Tab 去除缩进
-Ctrl+Z 撤销
-Ctrl+Y 恢复撤销
-F11 全屏模式
-
-
+###快速编辑
 alt+shift+w 用标签包裹行或选中项(不需要使用emmet)
+Ctrl+Enter 插入行后（快速换行）
+Ctrl+Shift+Enter 光标前插入行
+Alt+. 闭合当前标签
 
+###列模式的操作方法
+鼠标右键＋Shift 或 鼠标中键
+增加选择：Ctrl，减少选择：Alt
+
+###快速移动光标
+ctrl+left 移动到词首
+ctrl+right 移动到词尾
+alt+left 按单词移动
+alt+right 按单词右移
 alt+- 上一个编辑处
 alt+shift+- 下一个编辑处
-
-列模式的操作方法
-－鼠标右键＋Shift
-－或者鼠标中键
-－增加选择：Ctrl，减少选择：Alt
-
-  { "keys": ["ctrl+left"], "command": "move", "args": {"by": "words", "forward": false} },
-  { "keys": ["ctrl+right"], "command": "move", "args": {"by": "word_ends", "forward": true} },
-  { "keys": ["ctrl+shift+left"], "command": "move", "args": {"by": "words", "forward": false, "extend": true} },
-  { "keys": ["ctrl+shift+right"], "command": "move", "args": {"by": "word_ends", "forward": true, "extend": true} },
-
-  { "keys": ["alt+left"], "command": "move", "args": {"by": "subwords", "forward": false} },
-  { "keys": ["alt+right"], "command": "move", "args": {"by": "subword_ends", "forward": true} },
-  { "keys": ["alt+shift+left"], "command": "move", "args": {"by": "subwords", "forward": false, "extend": true} },
-  { "keys": ["alt+shift+right"], "command": "move", "args": {"by": "subword_ends", "forward": true, "extend": true} },
-
+Ctrl+G 跳转到相应的行
+Ctrl+M 光标移动至括号内开始或结束的位置
 </pre>
-
-
-
-
 </div>
 
 <div>
 <h2>使用技巧</h2>
+<h3>强大的快速搜索 ctrl+p</h3>
+<p>Goto Anything accepts several operators. All of them can be used on their own or after the search term.</p>
+<p>The Goto Anything operators are bound to the following shortcuts:</p>
+<table>
+<tr><th>operator</th><th>shortcut</th><th>description</th></tr>
+<tr><td>@</td><td>Ctrl + R</td><td>Searches the active file for the symbol (usually include class and function names)</td></tr>
+<tr><td>#</td><td>Ctrl + ;</td><td>Performs a fuzzy search and highlights all matches</td></tr>
+<tr><td>:</td><td>Ctrl + G</td><td>Goes to the specified</td></tr>
+</table>
 
+<h3>强大的命令模式：ctrl+shift+p</h3>
+<p>使用命令模式可以减少鼠标的使用，提升效率；</p>
+<p>同时，因为命令模式支持模糊匹配，我们还可以少记些快捷键。</p>
+
+<h3>多行游标功能</h3>
+<ul>
+<li>方式1：ctrl+d 连续选中 ctrl+k 跳过一个项目</li>
+<li>方式2：alt+f3 全选相应项目并生成多行游标</li>
+<li>方式3：shift+鼠标右键拖动</li>
+</ul>
+
+<h3>屏幕拆分</h3>
 
 </div>
-
 
 <div>
 <h2>插件</h2>
 <h3>安装插件管理器 package manager</h3>
 <p>https://sublime.wbond.net/installation</p>
 <h3>安装插件</h3>
+<h4>Emmet</h4>
+<p>Add some useful keyboard shortcuts and snippets to your text editor</p>
+<h4>IMESupport</h4>
+<p>输入中文时，输入框总是在最下面，装了这个插件不用设置，一切就会正常工作了。</p>
+<h4>JavaScript Completions</h4>
+<p>JS 自动补齐功能。</p>
+<h4>JSHint JS代码分析与提示</h4>
+<p>https://github.com/victorporof/Sublime-JSHint</p>
 <h4>Autoprefixer</h4>
 <p>可以自动帮助添加CSS浏览器前缀</p>
 <p>手动调用：hit <code>ctrl+shift+p</code> and type Autoprefix CSS</p>
 <p>自动调用：</p>
 <h4>ColorPicker</h4>
 <p>Pick any color from the palette and add it to your CSS with ctrl+shift+c</p>
-<h4>Emmet</h4>
-<p>Add some useful keyboard shortcuts and snippets to your text editor</p>
 <h4>HTML-CSS-JS prettify</h4>
 <p>This extension gives you a command to format your HTML, CSS and JS</p>
 <h4>Git Gutter</h4>
 <p>Add a marker in the gutter wherever there is a change made to a file.</p>
 <h4>Gutter Color</h4>
 <p>Gutter Color shows you a small color sample next to your CSS.</p>
+<h4>AdvancedNewFile</h4>
+<p>新建文件的增强版，调用方法：<code>ctrl+alt+n</code></p>
+<h4>SyncedSideBar</h4>
+<p>可以在侧边栏同步展开编辑文件所在目录的插件。</p>
 </div>
 
 </div>

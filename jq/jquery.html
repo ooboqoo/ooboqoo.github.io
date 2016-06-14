@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="../w3c.css" />
 <script src="../notes.js"></script>
+<scrip src="../codecolor.js"></scrip>
 <title>jQuery 教程</title>
 </head>
 <body>
@@ -100,7 +101,7 @@
 
 <h3>jQuery CSS 选择器</h3>
 <p>jQuery CSS 选择器可用于改变 HTML 元素的 CSS 属性。</p>
-<pre>$("p").css("background-color","red");  // 把所有 p 元素的背景颜色更改为红色</pre>
+<pre class="js">$("p").css("background-color","red");  // 把所有 p 元素的背景颜色更改为红色</pre>
 </div>
 
 <h1 id="traversing">jQuery 遍历</h1>
@@ -115,18 +116,18 @@
 <h3>parent() 方法返回被选元素的直接父元素。</h3>
 <h3>parents() 方法返回被选元素的所有祖先元素，它一路向上直到文档的根元素 (&lt;html&gt;)。</h3>
 <p>您也可以使用可选参数来过滤对祖先元素的搜索。</p>
-<pre>$("span").parents("ul");</pre>
+<pre class="js">$("span").parents("ul");</pre>
 <h3>parentsUntil() 方法返回介于两个给定元素之间的所有祖先元素。</h3>
-<pre>$("span").parentsUntil("div");</pre>
+<pre class="js">$("span").parentsUntil("div");</pre>
 </div>
 
 <div>
 <h2>向下遍历 DOM 树</h2>
 <h3>children() 方法返回被选元素的所有直接子元素。</h3>
-<pre>$("div").children("p.class1");  // 由选择器筛选（可选）</pre>
+<pre class="js">$("div").children("p.class1");  // 由选择器筛选（可选）</pre>
 
 <h3>find() 方法返回被选元素的后代元素，一路向下直到最后一个后代。</h3>
-<pre>
+<pre class="js">
 $("div").find("span");
 $("div").find("*");  // 返回 &lt;div&gt; 的所有后代，<code>选择器是必选项</code>
 </pre>
@@ -135,16 +136,16 @@ $("div").find("*");  // 返回 &lt;div&gt; 的所有后代，<code>选择器是�
 <div>
 <h2>在 DOM 树中水平遍历</h2>
 <h3>siblings() 方法返回被选元素的所有同胞元素。</h3>
-<pre>$("h2").siblings("p");  // 可以使用可选参数来过滤对同胞元素的搜索</pre>
+<pre class="js">$("h2").siblings("p");  // 可以使用可选参数来过滤对同胞元素的搜索</pre>
 
 <h3>next() 方法返回被选元素的下一个同胞元素。</h3>
-<pre>$("h2").next();  // 该方法只返回一个元素</pre>
+<pre class="js">$("h2").next();  // 该方法只返回一个元素</pre>
 
 <h3>nextAll() 方法返回被选元素的所有跟随的同胞元素。</h3>
-<pre>$("h2").nextAll();  // 返回 &lt;h2&gt; 的所有跟随的同胞元素</pre>
+<pre class="js">$("h2").nextAll();  // 返回 &lt;h2&gt; 的所有跟随的同胞元素</pre>
 
 <h3>nextUntil() 方法返回介于两个给定参数之间的所有跟随的同胞元素。</h3>
-<pre>$("h2").nextUntil("h6");  // 返回介于 &lt;h2&gt; 与 &lt;h6&gt; 元素之间的所有同胞元素</pre>
+<pre class="js">$("h2").nextUntil("h6");  // 返回介于 &lt;h2&gt; 与 &lt;h6&gt; 元素之间的所有同胞元素</pre>
 
 <h3>prev() prevAll() prevUntil() 方法</h3>
 <p>prev(), prevAll() 以及 prevUntil() 方法的工作方式与上面的方法类似，只不过方向相反而已：它们返回的是前面的同胞元素（在 DOM 树中沿着同胞元素向后遍历，而不是向前）。</p>
@@ -155,21 +156,21 @@ $("div").find("*");  // 返回 &lt;div&gt; 的所有后代，<code>选择器是�
 <p>三个最基本的过滤方法是：first(), last() 和 eq()，它们允许您基于其在一组元素中的位置来选择一个特定的元素。其他过滤方法，比如 filter() 和 not() 允许您选取匹配或不匹配某项指定标准的元素。</p>
 
 <h3>first() 方法返回被选元素的首个元素。</h3>
-<pre>$("div p").first();  // 选取首个&lt;div&gt;元素内部的第一个&lt;p&gt;元素</pre>
+<pre class="js">$("div p").first();  // 选取首个&lt;div&gt;元素内部的第一个&lt;p&gt;元素</pre>
 
 <h3>last() 方法返回被选元素的最后一个元素。</h3>
-<pre>$("div p").last();  // 选择最后一个&lt;div&gt;元素中的最后一个&lt;p&gt;元素</pre>
+<pre class="js">$("div p").last();  // 选择最后一个&lt;div&gt;元素中的最后一个&lt;p&gt;元素</pre>
 
 <h3>eq() 方法返回被选元素中带有指定索引号的元素。</h3>
 <p>索引号从 0 开始，因此首个元素的索引号是 0 而不是 1。下面的例子选取第二个 &lt;p&gt; 元素（索引号 1）：</p>
-<pre>$("p").eq(1);</pre>
+<pre class="js">$("p").eq(1);</pre>
 
 <h3>filter() 方法返回匹配标准的元素</h3>
-<pre>$("p").filter(".intro");</pre>
+<pre class="js">$("p").filter(".intro");</pre>
 
 <h3>not() 方法返回不匹配标准的所有元素</h3>
 <p class="tip"><span>提示：</span>not() 方法与 filter() 相反。</p>
-<pre>$("p").not(".intro");</pre>
+<pre class="js">$("p").not(".intro");</pre>
 </div>
 
 <h1 id="events">jQuery 事件</h1>
@@ -196,7 +197,7 @@ $(document).ready(function(){
 <div>
 <h2>文档就绪函数</h2>
 <p>您也许已经注意到在我们的实例中的所有 jQuery 函数位于一个 document ready 函数中：</p>
-<pre>$(document).ready(function(){
+<pre class="js">$(document).ready(function(){
 <span>--- jQuery functions go here ----</span>
 });
 </pre>
@@ -218,7 +219,7 @@ $(document).ready(function(){
 <p>jQuery 使用 $ 符号作为 jQuery 的缩略形式。</p>
 <p>某些其他 JavaScript 库中的函数（比如 Prototype）同样使用 $ 符号。</p>
 <p>jQuery 使用名为 noConflict() 的方法来解决该问题。</p>
-<pre>var jq=jQuery.noConflict()  // 使用 jq 来代替 $ 符号</pre>
+<pre class="js">var jq=jQuery.noConflict()  // 使用 jq 来代替 $ 符号</pre>
 </div>
 <div>
 <h2>总结</h2>
@@ -247,19 +248,19 @@ $(document).ready(function(){
 <h2>jQuery 效果 - 隐藏和显示</h2>
 <h3>jQuery hide() 和 show()</h3>
 <p>通过 jQuery，您可以使用 hide() 和 show() 方法来隐藏和显示 HTML 元素：</p>
-<pre>$(selector).hide(speed,callback);
+<pre class="js">$(selector).hide(speed,callback);
 $(selector).show(speed,callback);
 </pre>
 <p>可选的 speed 参数规定隐藏/显示的速度，可以取以下值："slow"、"fast" 或毫秒。slow 为 600 默认 400 fast 200</p>
 <p>可选的 callback 参数是隐藏或显示完成后所执行的函数名称。</p>
-<pre>$("button").click(function(){
+<pre class="js">$("button").click(function(){
   $("p").hide(1000);
 });
 </pre>
 
 <h3>jQuery toggle()</h3>
 <p>可以使用 toggle() 方法来切换 hide() 和 show() 方法。显示被隐藏的元素，或隐藏已显示的元素：</p>
-<pre>$(selector).toggle(speed,callback);</pre>
+<pre class="js">$(selector).toggle(speed,callback);</pre>
 </div>
 
 <div>
@@ -273,7 +274,7 @@ $(selector).show(speed,callback);
 
 <h3>jQuery fadeTo() 方法</h3>
 <p>jQuery fadeTo() 方法允许渐变为给定的不透明度（值介于 0 与 1 之间）。</p>
-<pre>.fadeTo( duration, opacity [, easing ] [, complete ] )</pre>
+<pre class="js">.fadeTo( duration, opacity [, easing ] [, complete ] )</pre>
 </div>
 
 <div>
@@ -293,7 +294,7 @@ $(selector).show(speed,callback);
 
 <h3>jQuery animate() - 操作多个属性</h3>
 <p>请注意，生成动画的过程中可同时使用多个属性：</p>
-<pre>$("button").click(function(){
+<pre class="js">$("button").click(function(){
   $("div").animate({
     left:'250px',
     opacity:'0.5',
@@ -308,7 +309,7 @@ $(selector).show(speed,callback);
 
 <h3>jQuery animate() - 使用相对值</h3>
 <p>也可以定义相对值（该值相对于元素的当前值）。需要在值的前面加上 += 或 -=：</p>
-<pre>$("button").click(function(){
+<pre class="js">$("button").click(function(){
   $("div").animate({
     left:'250px',
     height:'+=150px',
@@ -320,7 +321,7 @@ $(selector).show(speed,callback);
 <h3>jQuery animate() - 使用预定义的值</h3>
 <p> .animate() 方法针对CSS属性提供了简写值： 'show' 、 'hide'
 和 'toggle' ，以便在简写方法不适用时提供另一种简化方式。</p>
-<pre>$("button").click(function(){
+<pre class="js">$("button").click(function(){
   $("div").animate({
     height:'toggle'
   });
@@ -329,7 +330,7 @@ $(selector).show(speed,callback);
 
 <h3>jQuery animate() - 使用队列功能</h3>
 <p>默认地，jQuery 提供针对动画的队列功能。如果您希望在彼此之后执行不同的动画，那么我们要利用队列功能。</p>
-<pre>$("button").click(function(){
+<pre class="js">$("button").click(function(){
   var div=$("div");
   div.animate({height:'300px',opacity:'0.4'},"slow");
   div.animate({width:'300px',opacity:'0.8'},"slow");
@@ -343,10 +344,10 @@ $(selector).show(speed,callback);
 <h2>jQuery Callback 函数</h2>
 <p>Callback 函数在当前动画 100% 完成之后执行。</p>
 <p>由于 JavaScript 语句（指令）是逐一执行的 - 按照次序，动画之后的语句可能会产生错误或页面冲突，因为动画还没有完成。为了避免这个情况，您可以以参数的形式添加 Callback 函数。</p>
-<pre>$("p").hide(1000);
+<pre class="js">$("p").hide(1000);
 alert("The paragraph is now hidden");  // 弹出提示时，并没有隐藏，错误
 </pre>
-<pre>$("p").hide(1000,function(){
+<pre class="js">$("p").hide(1000,function(){
 alert("The paragraph is now hidden");  // 隐藏执行完毕后才弹出提示，正确
 });
 </pre>
@@ -357,9 +358,10 @@ alert("The paragraph is now hidden");  // 隐藏执行完毕后才弹出提示�
 <h2>jQuery Chaining</h2>
 <p>链接技术（chaining），允许我们在相同的元素上运行多条 jQuery 命令，一条接着另一条。</p>
 <p class="tip"><span>提示：</span>这样的话，浏览器就不必多次查找相同的元素。</p>
-<pre>$("#p1").css("color","red").slideUp(2000).slideDown(2000);</pre>
+<pre class="js">$("#p1").css("color","red").slideUp(2000).slideDown(2000);</pre>
 <p class="tip"><span>提示：</span>当进行链接时，代码行会变得很长。不过，jQuery 在语法上不是很严格；您可以按照希望的格式来写，包含折行和缩进。jQuery 会抛掉多余的空格，并按照一行长代码来执行上面的代码行。</p>
-<pre>$("#p1").css("color","red")
+<pre class="js">
+$("#p1").css("color","red")
   .slideUp(2000)
   .slideDown(2000);
 </pre>
@@ -369,7 +371,7 @@ alert("The paragraph is now hidden");  // 隐藏执行完毕后才弹出提示�
 <h2>4.5 并发与排队效果 （jQuery基础教程 P77）</h2>
 
 <h3>1. 越过队列</h3>
-<pre>
+<pre class="js">
 $("div")
 .css({backgroundColor: '#0f0'})
 .fadeTo(2000, 0.1)
@@ -381,7 +383,7 @@ $("div")
 <h3>2. 手工队列</h3>
 <p>一个需要注意的问题是排队不能自动应用到其他的非效果方法，如 .css() 。下面，假设我们想在 fadeTo 0.1 执行后但在 fadeTo 1.0 执行前，把背景颜色修改为红色。然而，即使把修改背景颜色的代码放在执行链序列中正确的位置上，它也会在单击后立即执行。
 把非效果方法添加到队列中的一种方式，就是使用 .queue() 方法。</p>
-<pre>
+<pre class="js">
 $("div")
 .css({backgroundColor: '#0f0'})
 .fadeTo(2000, 0.1)
@@ -391,7 +393,7 @@ $("div")
 .fadeTo(2000, 1.0);
 </pre>
 <p>像这样传递一个回调函数， .queue() 方法就可以把该函数添加到相应元素的效果队列中。以上代码的效果等同于：</p>
-<pre>
+<pre class="js">
 $("div")
 .css({backgroundColor: '#0f0'})
 .fadeTo(2000, 0.1, function(){ $("div").css({backgroundColor: '#f00'}).dequeue();})
@@ -400,7 +402,7 @@ $("div")
 
 <h3>3. 回调函数中的效果生效时间</h3>
 <p>回调函数中的代码，会立即执行，但如果回调函数中有给当前元素添加效果的代码，那么，只会将效果添加到队列最后，而不会立即执行，或者说，代码执行的结果，是完成了给元素添加效果的过程。</p>
-<pre>
+<pre class="js">
 $("div")
 .css({backgroundColor: '#0f0'})
 .fadeTo(2000, 0.1)
@@ -412,7 +414,7 @@ $("div")
 <h3>4. 处理多组元素</h3>
 <p>当给多组元素添加效果时，每一组元素的效果都是独立进行的，如果要控制先后顺序，就要使用回调函数。</p>
 <p>在使用回调函数控制不同元素间的动画顺序时，要注意 this 对象的变化。最保险的办法就是：先用一个变量存储操作对象，然后在回调函数内引用该变量，这样不容易错。</p>
-<pre>
+<pre class="js">
 // 以下代码，在点击第一个段落时，第二个段落会显示，然后第一个段落会隐藏
 $('p')
 .eq(0).css('border', '1px solid #333')
@@ -427,7 +429,7 @@ $('p')
 <h3>jQuery stop() 方法</h3>
 <p>jQuery stop() 方法用于停止动画或效果，在它们完成之前。</p>
 <p>stop() 方法适用于所有 jQuery 效果函数，包括滑动、淡入淡出和自定义动画。</p>
-<pre>$(selector).stop(stopAll,goToEnd);</pre>
+<pre class="js">$(selector).stop(stopAll,goToEnd);</pre>
 <p>可选的 stopAll 参数规定是否应该清除动画队列。默认是 false，即仅停止活动的动画，允许任何排入队列的动画向后执行。</p>
 <p>可选的 goToEnd 参数规定是否立即完成当前动画。默认是 false。</p>
 <p>因此，默认地，stop() 会清除在被选元素上指定的当前动画。</p>
@@ -452,11 +454,13 @@ $('p')
 
 <h3>获取/设置属性 - attr()</h3>
 <p>jQuery attr() 方法用于获取/设置属性值。</p>
-<pre>$("button").click(function(){
+<pre class="js">
+$("button").click(function(){
   alert($("#w3s").attr("href"));
 });
 </pre>
-<pre>$("button").click(function(){
+<pre class="js">
+$("button").click(function(){
   $("#w3s").attr({
     "href" : "http://www.w3school.com.cn/jquery",
     "title" : "W3School jQuery Tutorial"
@@ -466,7 +470,7 @@ $('p')
 
 <h3>text()、html()、val() 以及 attr() 的回调函数</h3>
 <p>回调函数由两个参数：被选元素列表中当前元素的下标，以及原始（旧的）值。然后以函数新值返回您希望使用的字符串。</p>
-<pre>
+<pre class="js">
 $("#btn2").click(function(){
   $("#test2").html(function(i,origText){
     return "Old html: " + origText + " New html: Hello &lt;b&gt;world!&lt;/b&gt;
@@ -487,15 +491,16 @@ $("#btn2").click(function(){
 </ul>
 
 <h3>jQuery append() 方法在被选元素的结尾插入内容。</h3>
-<pre>$("p").append("Some appended text.");</pre>
+<pre class="js">$("p").append("Some appended text.");</pre>
 
 <h3>jQuery prepend() 方法在被选元素的开头插入内容。</h3>
-<pre>$("p").prepend("Some prepended text.");</pre>
+<pre class="js">$("p").prepend("Some prepended text.");</pre>
 
 <h3>通过 append() 和 prepend() 方法添加多个新元素</h3>
 <p>append() 和 prepend() 方法能够通过参数接收无限数量的新元素。</p>
 <p>这些元素可以通过 text/HTML、jQuery 或者 JavaScript/DOM 来创建。</p>
-<pre>function appendText() {                // 通过3种方法添加相同的3行 &lt;p&gt;Text.&lt;/p&gt;
+<pre class="js">
+function appendText() {                // 通过3种方法添加相同的3行 &lt;p&gt;Text.&lt;/p&gt;
   var txt1="&lt;p&gt;Text.&lt;/p&gt;";               // 以 HTML 创建新元素
   var txt2=$("&lt;p&gt;&lt;/p&gt;").text("Text.");   // 以 jQuery 创建新元素
   var txt3=document.createElement("p");  // 以 DOM 创建新元素
@@ -505,7 +510,7 @@ $("#btn2").click(function(){
 </pre>
 
 <h3>jQuery after() 和 before() 方法</h3>
-<pre>
+<pre class="js">
 $("img").after("Some text after");
 $("img").before("Some text before");
 </pre>
@@ -521,11 +526,11 @@ $("img").before("Some text before");
 <li>empty() - 从被选元素中删除子元素</li>
 </ul>
 <h3>jQuery remove() 方法删除被选元素及其子元素。</h3>
-<pre>$("#div1").remove();</pre>
+<pre class="js">$("#div1").remove();</pre>
 <p>jQuery remove() 方法也可接受一个参数，允许您对被删元素进行过滤。</p>
-<pre>$("p").remove(".italic");</pre>
+<pre class="js">$("p").remove(".italic");</pre>
 <h3>jQuery empty() 方法删除被选元素的子元素。</h3>
-<pre>$("#div1").empty();</pre>
+<pre class="js">$("#div1").empty();</pre>
 </div>
 
 <div>
@@ -539,23 +544,23 @@ $("img").before("Some text before");
 </ul>
 
 <h3>jQuery addClass() 方法</h3>
-<pre>$("button").click(function(){
+<pre class="js">$("button").click(function(){
   $("h1,h2,p").addClass("blue");  // 在添加类时可以选取多个元素
   $("div").addClass("important");
 });
 </pre>
-<pre>$("button").click(function(){
+<pre class="js">$("button").click(function(){
   $("#div1").addClass("important blue");  // 您也可以在 addClass() 方法中规定多个类
 });
 </pre>
 
 <h3>jQuery removeClass() 方法</h3>
-<pre>$("button").click(function(){
+<pre class="js">$("button").click(function(){
   $("h1,h2,p").removeClass("blue");  // 从多个元素删除指定的 class 属性
 });
 </pre>
 <h3>jQuery toggleClass() 方法</h3>
-<pre>$("button").click(function(){
+<pre class="js">$("button").click(function(){
   $("h1,h2,p").toggleClass("blue");  // 该方法对被选元素进行添加/删除类的切换操作
 });
 </pre>
@@ -565,14 +570,14 @@ $("img").before("Some text before");
 <h2>jQuery css() 方法</h2>
 <p>css() 方法设置或返回被选元素的一个或多个样式属性。</p>
 <h3>返回 CSS 属性</h3>
-<pre>css("propertyname");</pre>
-<pre>$("p").css("background-color");</pre>
+<pre class="js">css("propertyname");</pre>
+<pre class="js">$("p").css("background-color");</pre>
 <h3>设置 CSS 属性</h3>
-<pre>css("propertyname","value");</pre>
-<pre>$("p").css("background-color","yellow");</pre>
+<pre class="js">css("propertyname","value");</pre>
+<pre class="js">$("p").css("background-color","yellow");</pre>
 <h3>设置多个 CSS 属性</h3>
-<pre>css({"propertyname":"value","propertyname":"value",...});</pre>
-<pre>$("p").css({"background-color":"yellow","font-size":"200%"});</pre>
+<pre class="js">css({"propertyname":"value","propertyname":"value",...});</pre>
+<pre class="js">$("p").css({"background-color":"yellow","font-size":"200%"});</pre>
 </div>
 
 <div>
@@ -588,7 +593,8 @@ $("img").before("Some text before");
 <li>outerWidth(true) 方法返回元素的宽度（包括内边距、边框和外边距）</li>
 <li>outerHeight(true) 方法返回元素的高度（包括内边距、边框和外边距）</li>
 </ul>
-<pre>$("button").click(function(){
+<pre class="js">
+$("button").click(function(){
   var txt="";
   txt+="Width: " + $("#div1").width() + "&lt;/br&gt;";
   txt+="Height: " + $("#div1").height();
@@ -598,7 +604,8 @@ $("img").before("Some text before");
 
 <h3>jQuery - 更多的 width() 和 height()</h3>
 <p>下面的例子返回文档（HTML 文档）和窗口（浏览器视口）的宽度和高度：</p>
-<pre>$("button").click(function(){
+<pre class="js">
+$("button").click(function(){
   var txt="";
   txt+="Document width/height: " + $(document).width();
   txt+="x" + $(document).height() + "\n";
@@ -608,7 +615,7 @@ $("img").before("Some text before");
 });
 </pre>
 <p>下面的例子设置指定的 &lt;div&gt; 元素的宽度和高度：</p>
-<pre>  $("#div1").width(500).height(500);</pre>
+<pre class="js">  $("#div1").width(500).height(500);</pre>
 </div>
 
 <h1 id="ajax">jQuery - AJAX 简介</h1>
@@ -650,22 +657,22 @@ $(document).ready(function(){
 <p>jQuery load() 方法是简单但强大的 AJAX 方法。</p>
 <p>load() 方法从服务器加载数据，并把返回的数据放入被选元素中。</p>
 <h3>语法：</h3>
-<pre>$(<i>selector</i>).load(<i>URL</i>,<i>data</i>,<i>callback</i>);</pre>
+<pre class="js">$(<i>selector</i>).load(<i>URL</i>,<i>data</i>,<i>callback</i>);</pre>
 <p>必需的 <i>URL</i> 参数规定您希望加载的 URL。</p>
 <p>可选的 <i>data</i> 参数规定与请求一同发送的查询字符串键/值对集合。</p>
 <p>可选的 <i>callback</i> 参数是 load() 方法完成后所执行的函数名称。</p>
 <p><span class="marked">这是示例文件（"demo_test.txt"）的内容：</span></p>
-<pre>&lt;h2&gt;jQuery and AJAX is FUN!!!&lt;/h2&gt;
+<pre class="js">&lt;h2&gt;jQuery and AJAX is FUN!!!&lt;/h2&gt;
 &lt;p id="p1"&gt;This is some text in a paragraph.&lt;/p&gt;
 </pre>
 <p>下面的例子会把文件 "demo_test.txt" 的内容加载到指定的 &lt;div&gt; 元素中：</p>
 <h3>示例</h3>
-<pre>$("#div1").load("demo_test.txt");</pre>
+<pre class="js">$("#div1").load("demo_test.txt");</pre>
 <p class="tiy"><a target="_blank" href="/tiy/t.asp?f=jquery_ajax_load">亲自试一试</a></p>
 <p>也可以把 jQuery 选择器添加到 URL 参数。</p>
 <p>下面的例子把 "demo_test.txt" 文件中 id="p1" 的元素的内容，加载到指定的 &lt;div&gt; 元素中：</p>
 <h3>实例</h3>
-<pre>$("#div1").load("demo_test.txt #p1");</pre>
+<pre class="js">$("#div1").load("demo_test.txt #p1");</pre>
 <p class="tiy"><a target="_blank" href="/tiy/t.asp?f=jquery_ajax_load2">亲自试一试</a></p>
 <p>可选的 callback 参数规定当 load() 方法完成后所要允许的回调函数。回调函数可以设置不同的参数：</p>
 <ul>
@@ -675,7 +682,7 @@ $(document).ready(function(){
 </ul>
 <p>下面的例子会在 load() 方法完成后显示一个提示框。如果 load() 方法已成功，则显示“外部内容加载成功！”，而如果失败，则显示错误消息：</p>
 <h3>实例</h3>
-<pre>$("button").click(function(){
+<pre class="js">$("button").click(function(){
   $("#div1").load("demo_test.txt",function(responseTxt,statusTxt,xhr){
     if(statusTxt=="success")
       alert("外部内容加载成功！");
@@ -702,12 +709,12 @@ $(document).ready(function(){
 <h2>jQuery $.get() 方法</h2>
 <p>$.get() 方法通过 HTTP GET 请求从服务器上请求数据。</p>
 <h3>语法：</h3>
-<pre>$.get(<i>URL</i>,<i>callback</i>);</pre>
+<pre class="js">$.get(<i>URL</i>,<i>callback</i>);</pre>
 <p>必需的 <i>URL</i> 参数规定您希望请求的 URL。</p>
 <p>可选的 <i>callback</i> 参数是请求成功后所执行的函数名。</p>
 <p>下面的例子使用 $.get() 方法从服务器上的一个文件中取回数据：</p>
 <h3>实例</h3>
-<pre>$("button").click(function(){
+<pre class="js">$("button").click(function(){
   $.get("demo_test.asp",function(data,status){
     alert("Data: " + data + "\nStatus: " + status);
   });
@@ -717,7 +724,7 @@ $(document).ready(function(){
 <p>$.get() 的第一个参数是我们希望请求的 URL（"demo_test.asp"）。</p>
 <p>第二个参数是回调函数。第一个回调参数存有被请求页面的内容，第二个回调参数存有请求的状态。</p>
 <p class="tip"><span>提示：</span>这个 ASP 文件 ("demo_test.asp") 类似这样：</p>
-<pre>&lt;%
+<pre class="js">&lt;%
 response.write("This is some text from an external ASP file.")
 %&gt;
 </pre>
@@ -726,13 +733,13 @@ response.write("This is some text from an external ASP file.")
 <h2>jQuery $.post() 方法</h2>
 <p>$.post() 方法通过 HTTP POST 请求从服务器上请求数据。</p>
 <h3>语法：</h3>
-<pre>$.post(<i>URL</i>,<i>data</i>,<i>callback</i>);</pre>
+<pre class="js">$.post(<i>URL</i>,<i>data</i>,<i>callback</i>);</pre>
 <p>必需的 <i>URL</i> 参数规定您希望请求的 URL。</p>
 <p>可选的 <i>data</i> 参数规定连同请求发送的数据。</p>
 <p>可选的 <i>callback</i> 参数是请求成功后所执行的函数名。</p>
 <p>下面的例子使用 $.post() 连同请求一起发送数据：</p>
 <h3>实例</h3>
-<pre>$("button").click(function(){
+<pre class="js">$("button").click(function(){
   $.post("demo_test_post.asp",
   {
     name:"Donald Duck",
@@ -749,7 +756,7 @@ response.write("This is some text from an external ASP file.")
 <p>"demo_test_post.asp" 中的 ASP 脚本读取这些参数，对它们进行处理，然后返回结果。</p>
 <p>第三个参数是回调函数。第一个回调参数存有被请求页面的内容，而第二个参数存有请求的状态。</p>
 <p class="tip"><span>提示：</span>这个 ASP 文件 ("demo_test_post.asp") 类似这样：</p>
-<pre>&lt;%
+<pre class="js">&lt;%
 dim fname,city
 fname=Request.Form("name")
 city=Request.Form("city")
@@ -774,7 +781,7 @@ Response.Write("Hope you live well in " &amp; city &amp; ".")
 <p>noConflict() 方法会释放会 $ 标识符的控制，这样其他脚本就可以使用它了。</p>
 <h3>实例</h3>
 <p>当然，您仍然可以通过全名替代简写的方式来使用 jQuery：</p>
-<pre>$.noConflict();
+<pre class="js">$.noConflict();
 jQuery(document).ready(function(){
   jQuery("button").click(function(){
     jQuery("p").text("jQuery 仍在运行！");
@@ -784,7 +791,7 @@ jQuery(document).ready(function(){
 <p class="tiy"><a target="_blank" href="/tiy/t.asp?f=jquery_noconflict">亲自试一试</a></p>
 <h3>实例</h3>
 <p>您也可以创建自己的简写。noConflict() 可返回对 jQuery 的引用，您可以把它存入变量，以供稍后使用。请看这个例子：</p>
-<pre>var jq = $.noConflict();
+<pre class="js">var jq = $.noConflict();
 jq(document).ready(function(){
   jq("button").click(function(){
     jq("p").text("jQuery 仍在运行！");
@@ -794,7 +801,7 @@ jq(document).ready(function(){
 <p class="tiy"><a target="_blank" href="/tiy/t.asp?f=jquery_noconflict2">亲自试一试</a></p>
 <h3>实例</h3>
 <p>如果你的 jQuery 代码块使用 $ 简写，并且您不愿意改变这个快捷方式，那么您可以把 $ 符号作为变量传递给 ready 方法。这样就可以在函数内使用 $ 符号了 - 而在函数外，依旧不得不使用 "jQuery"：</p>
-<pre>$.noConflict();
+<pre class="js">$.noConflict();
 jQuery(document).ready(function($){
   $("button").click(function(){
     $("p").text("jQuery 仍在运行！");

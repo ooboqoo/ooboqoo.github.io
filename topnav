@@ -27,10 +27,10 @@
   <a href="/css/refsupt.html">CSS3 浏览器支持</a>
   <a href="/css/refw3css.html">W3.CSS 手册</a>
   <h3>JavaScript 手册</h3>
-  <a href="/notes/js/refjs.html">ECMAScript</a>
-  <a href="/notes/js/refdom.html">DOM</a>
-  <a href="/notes/js/refbom.html">BOM</a>
-  <a href="/notes/jq/jqref.html">jQuery</a>
+  <a href="/js/refjs.html">ECMAScript</a>
+  <a href="/js/refdom.html">DOM</a>
+  <a href="/js/refbom.html">BOM</a>
+  <a href="/jq/jqref.html">jQuery</a>
   <h3>项目工具</h3>
   <a href="/project/chrome.html">Chrome DevTool</a>
   <a href="/project/git.html">Git & GitHub</a>
