@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../w3c.css" />
+<style>td:first-Child{color:red;} h2 a{text-decoration:none;}</style>
+<script src="../notes.js"></script>
+<script src="../highlight.js"></script>
+<script>
+setBase('h2', 'https://nodejs.org/dist/latest-v6.x/docs/api/');
+setBase('table', 'https://nodejs.org/dist/latest-v6.x/docs/api/');
+</script>
+<title>Node.js</title>
+</head>
+<body>
+<div id="article">
+
+<h1>Node.js API 摘要</h1>
+
+<div>
+<ul>
+  <li><a href="http://nodeapi.ucdok.com/#/api/index.html">Node.js v4.2.4 手册 & 文档（中文项目）</a></li>
+  <li><a href="https://nodejs.org/dist/latest-v6.x/docs/api/index.html">Node.js v6.2.2 Documentation（官方文档）</a></li>
+</ul>
+</div>
+
+<h2 id="global"><a href="globals.html">Globals 全局对象</a></h2>
+<div>
+<table><tbody>
+<tr><td>global</td><td>[Object] 全局命名空间对象</td></tr>
+<tr><td>module</td><td>[Object] 当前模块的引用（实际上并非全局的而是各个模块本地的）</td></tr>
+<tr><td>exports</td><td>[Object] 指向 module.exports （实际上并非全局的而是各个模块本地的）</td></tr>
+<tr><td>require</td><td>[Function] 引入模块（实际上并非全局的而是各个模块本地的）<br>
+  require.resolve() 不加载模块，只返回模块的完整文件路径<br>
+  require.main 指向入口模块<br>
+  require.cache 模块在引入时会缓存到该对象。通过删除该对象的键值，下次调用require时会重新加载相应模块。</td></tr>
+<tr><td>process</td><td>[Object] 进程对象</td></tr>
+<tr><td>console</td><td>[Object] 控制台</td></tr>
+<tr><td>类: Buffer</td><td>[Function] 用于处理二进制数据</td></tr>
+<tr><td colspan="2">setTimeout(cb, ms); clearTimeout(t); setInterval(cb, ms); clearInterval(t)</td></tr>
+</tbody></table>
+<pre class="js">
+const refm = require("./testmodule.js");  // refm: requireExportedFromModule
+console.log("require === refm: ", require === refm);         // false
+console.log("resolve: ", require.resolve === refm.resolve); // false
+console.log("main: ", require.main === refm.main);          // true
+console.log("cache: ", require.cache === refm.cache);       // true
+// 结论：每个模块实例拥有独立的 require 变量，所有模块的 require.main 和 require.cache 的引用是相同的。 
+</pre>
+</div>
+
+<h2 id="modules"><a href="modules.html">Modules 模块</a></h2>
+<div>
+<h3>Accessing the main module 访问主模块</h3>
+<table><tbody>
+<tr><td>require.main</td><td>指向入口模块（ which file is run directly from Node.js）<br>可以通过 <code>require.main === module</code> 判断一个文件是否是被直接执行的。</td></tr>
+<tr><td>require.main.filename</td><td>当前应用的入口文件的完整路径</td></tr>
+</tbody></table>
+<h4>Addenda: Package Manager Tips</h4>
+<p>Node.js 根据实际路径来确认模块，所以碰到循环引用和依赖冲突问题也能轻松对付。</p>
+<h3>Caching 缓存</h3>
+<p>Multiple calls to require('foo') may not cause the module code to be executed multiple times. This is an important feature. With it, "partially done" objects can be returned, thus allowing transitive dependencies to be loaded even when they would cause cycles.</p>
+<p>从这句话可以理解 node 是如何解决循环引用问题的。</p>
+<p>缓存是个重要特性，因为不同文件都指向同一个模块实例，可以实现不同文件间的信息（模块内变量）共享。</p>
+<h4>Module Caching Caveats</h4>
+<p>Node 根据完整文件名来区分模块，所以不同位置的相同模块被认为是不同的，在区分大小写的系统里，即使最终指向的文件是同一个文件，如果引用时的路径大小写不同，也被认为是不同模块。</p>
+<h3>Cycles 循环引用</h3>
+<p>Node 允许循环引用，但循环引用得到的结果可能与预期的不一样，所以当存在循环引用时须谨慎规划代码。<a href="modules.html#modules_cycles">点击查看示例</a></p>
+<h3>File Modules 文件模块</h3>
+<p>If the exact filename is not found, then Node.js will attempt to load the required filename with the added extensions: .js, .json, and finally .node.</p>
+<p>模块查找步骤：</p>
+<ul>
+  <li>指定文件路径：根据指定的文件路径查找，找不到报错</li>
+  <li>只指定模块名：是否核心模块 -> 当前目录下的 node_modules 目录 -> 父目录(...逐级向上直至根目录)下的 node_modules 目录 -> NODE_PATH 指定的目录 -> 找不到报错</li>
+</ul>
+<h3>Folders as Modules 包</h3>
+<p>可以把多个程序和库文件放到一个独立文件夹里，并以该文件夹名作为统一入口供外部引用。</p>
+<p>正常该文件夹内应该有 package.json 来指明该包的 main 文件（入口文件）；如果未提供package.json，Node.js 会尝试寻找 index.js 或 index.node 文件。</p>
+<h3>The module wrapper 模块包装器</h3>
+<p>Before a module's code is executed, Node.js will wrap it with a function wrapper that looks like the following:</p>
+<pre class="js">
+(function(exports, require, module, __filename, __dirname){
+  // Your module code actually lives in here
+});
+</pre>
+<p>By doing this, Node.js achieves a few things:</p>
+<ul>
+  <li>It keeps top-level variables scoped to the module rather than the global object.</li>
+  <li>It helps to provide some global-looking variables that are actually specific to the module, such as:<ul>
+      <li>The <code>module</code> and <code>exports</code> objects that the implementor can use to export values from the module.</li>
+      <li>The convenience variables <code>__filename</code> and <code>__dirname</code>, containing the module's absolute filename and directory path.</li>
+      </ul></li>
+</ul>
+<h3>The module Object</h3>
+<table><tbody>
+<tr><td>module.exports</td><td>[Object] The <code>exports</code> variable that is available within a module starts as a reference to <code>module.exports</code>. As with any variable, if you assign a new value to it, it is no longer bound to the previous value.</td></tr>
+<tr><td>module.filename</td><td>[String] The fully resolved filename to the module.</td></tr>
+<tr><td>module.id</td><td>[String] The identifier for the module. Typically this is the fully resolved filename or '.' .</td></tr>
+<tr><td>module.children</td><td>[Array] The module objects required by this one.</td></tr>
+<tr><td>module.parent</td><td>[Object] The module that first required this one.</td></tr>
+<tr><td>module.loaded</td><td>[Boolean] Whether or not the module is done loading, or is in the process of loading.</td></tr>
+<tr><td>module.require(id)</td><td>id [String]; Return: [Object] module.exports from the resolved module<br>
+  The module.require method provides a way to load a module as if require() was called from the original module.(暂时不懂什么时候会用到这功能)<br>
+  前面几项都是 module 实例自己的属性(还有一个 paths 属性)，这一项是在原型上的。</td></tr>
+</tbody></table>
+<h3>require 与 module.require 的区别与联系</h3>
+<p>通过下方关于 <code>require</code> 与 <code>module.require</code> 的试验，可以得出如下结论：</p>
+<ul>
+  <li>不同模块内的 <code>module.require</code> 都指向 <code>Module.prototype.require</code>；</li>
+  <li><code>require</code> 跟 <code>exports</code> 一样，只是闭包（模块）内的私有变量；</li>
+  <li>可以通过 <code>module</code> 对象从外部得到模块的属性，但没办法从外部读取模块内变量。</li>
+</ul>
+<pre class="js">
+// require: 
+function require(path) {
+  try {
+    exports.requireDepth += 1;
+    return self.require(path);  // 这里用到了 module.require
+  } finally {
+    exports.requireDepth -= 1;
+  }
+}
+// module.require: 
+function (path) {
+  assert(path, 'missing path');
+  assert(typeof path === 'string', 'path must be a string');
+  return Module._load(path, this, /* isMain */ false);
+}
+// 不同模块内的 module.require 都指向 Module.prototype.require
+console.log(module.children[0].require === module.require); // true
+</pre>
+<blockquote>
+require 并不是全局性命令，而是 Module.prototype 的一个方法，只有在模块内部才能使用（唯一的例外是 REPL 环境）
+<pre class="js">
+Module.prototype.require = function(path) {
+  return Module._load(path, this);
+};
+</pre>
+</blockquote>
+</div>
+
+<h2 id="process"><a href="process.html">Process 进程</a></h2>
+<div>
+<p>process 对象是一个全局对象，可以在任何地方访问到它。它是EventEmitter的一个实例。</p>
+<table><tbody>
+<tr><td>process.argv</td><td>一个包含命令行参数的数组。<br>
+  第一个元素会是 'node'; 第二个元素将是当前执行文件的名称;<br>
+  接下来的元素依次是命令行传入的参数。</td></tr>
+<tr><td>process.stdin</td><td>标准输入</td></tr>
+<tr><td>process.stdout</td><td>标准输出</td></tr>
+</tbody></table>
+</div>
+
+<h2 id="events"><a href="events.html">Events 事件</a></h2>
+<div>
+<p>Much of the Node.js core API is built around an idiomatic asynchronous event-driven architecture in which certain kinds of objects (called "emitters") periodically emit named events that cause Function objects ("listeners") to be called.</p>
+<p>All objects that emit events are instances of the EventEmitter class. These objects expose an eventEmitter.on() function that allows one or more Functions to be attached to named events emitted by the object. Typically, event names are camel-cased strings but any valid JavaScript property key can be used.</p>
+<p>When the EventEmitter object emits an event, all of the Functions attached to that specific event are called synchronously. Any values returned by the called listeners are ignored and will be discarded.</p>
+<h3>Passing arguments and this to listeners</h3>
+<p><code>.emit()</code> 方法允许向 callback 传递任意个参数。</p>
+<p>如果 callback 是一个普通的函数，那么 this 值将指向 listener 所依附的 EventEmitter；
+<br>如果 callback 采用的是 ES6 的箭头函数的话，this 将不再指向其所依附的 EventEmitter。</p>
+<pre class="js">
+const myEmitter = new MyEmitter();
+myEmitter.on('event', function(a, b) {
+  console.log(a, b, this);
+});
+myEmitter.emit('event', 'a', 'b');
+</pre>
+<h3>Asynchronous vs. Synchronous</h3>
+<p>listeners 是根据注册的先后顺序依次同步执行的；也可以通过 <code>setImmediate()</code> 或 <code>process.nextTick()</code> 将 listener 设定成异步执行模式。</p>
+<h3>Handling events only once</h3>
+<p>使用 <code>eventEmitter.on()</code> 注册 listener，每次触发事件都会调用，如果希望 listener 只执行一次，那么应该使用 <code>eventEmitter.once()</code>（to register a listener that is unregistered before it is called）。</p>
+
+<h3>Error events</h3>
+<pre>
+When an error occurs within an EventEmitter instance, the typical action is for an 'error' event to be emitted. These are treated as a special case within Node.js.
+
+If an EventEmitter does not have at least one listener registered for the 'error' event, and an 'error' event is emitted, the error is thrown, a stack trace is printed, and the Node.js process exits.
+
+To guard against crashing the Node.js process, developers can either register a listener for the process.on('uncaughtException') event or use the domain module (Note, however, that the domain module has been deprecated).
+
+As a best practice, developers should always register listeners for the 'error' event:
+</pre>
+<p></p>
+
+<h3>Class: EventEmitter</h3>
+<table><tbody>
+<tr><td>Event: 'newListener'</td><td></td></tr>
+<tr><td>Event: 'removeListener'</td><td></td></tr>
+<tr><td>EventEmitter.defaultMaxListeners</td><td></td></tr>
+<tr><td>emitter.on(eventName, listener)</td><td></td></tr>
+<tr><td>emitter.addListener(eventName, listener)</td><td>Alias for emitter.on(eventName, listener).</td></tr>
+<tr><td>emitter.emit(eventName[, arg1][, arg2][, ...])</td><td></td></tr>
+<tr><td>emitter.eventNames()</td><td></td></tr>
+<tr><td>emitter.getMaxListeners()</td><td></td></tr>
+<tr><td>emitter.listenerCount(eventName)</td><td></td></tr>
+<tr><td>emitter.listeners(eventName)</td><td></td></tr>
+<tr><td>emitter.once(eventName, listener)</td><td></td></tr>
+<tr><td>emitter.prependListener(eventName, listener)</td><td></td></tr>
+<tr><td>emitter.prependOnceListener(eventName, listener)</td><td></td></tr>
+<tr><td>emitter.removeAllListeners([eventName])</td><td></td></tr>
+<tr><td>emitter.removeListener(eventName, listener)</td><td></td></tr>
+<tr><td>emitter.setMaxListeners(n)</td><td></td></tr>
+</tbody></table>
+</div>
+
+<h2 id="fs"><a href="fs.html">File System 文件系统</a></h2>
+<div>
+<table><tbody>
+<tr><td></td><td></td></tr>
+<tr><td></td><td></td></tr>
+<tr><td></td><td></td></tr>
+</tbody></table>
+</div>
+
+<h2 id="path"><a href="path.html">Path 路径</a></h2>
+<div>
+<table><tbody>
+<tr><td></td><td></td></tr>
+<tr><td></td><td></td></tr>
+<tr><td></td><td></td></tr>
+</tbody></table>
+</div>
+
+<h2 id="buffer"><a href="buffer.html">Buffer 缓存</a></h2>
+<div>
+<table><tbody>
+<tr><td></td><td></td></tr>
+<tr><td></td><td></td></tr>
+<tr><td></td><td></td></tr>
+</tbody></table>
+</div>
+
+<h2 id="stream"><a href="stream.html">Stream 流</a></h2>
+<div>
+<table><tbody>
+<tr><td></td><td></td></tr>
+<tr><td></td><td></td></tr>
+<tr><td></td><td></td></tr>
+</tbody></table>
+</div>
+
+<h2 id="http"><a href="http.html">HTTP</a></h2>
+<div>
+<table><tbody>
+<tr><td>http.request(options[, callback])</td><td></td></tr>
+<tr><td>http.get(options[, callback])</td><td>这是简化版的 http.request。<br>It sets the method to GET and calls req.end() automatically.</td></tr>
+<tr><td></td><td></td></tr>
+</tbody></table>
+</div>
+
+<h2 id="url"><a href="url.html">URL</a></h2>
+<div>
+<pre>
+┌──────────┬┬───────────┬─────────────────┬───────────────────────────┬───────┐
+│ protocol ││   auth    │      host       │           path            │ hash  │
+│          ││           ├──────────┬──────┼──────────┬────────────────┤       │
+│          ││           │ hostname │ port │ pathname │     search     │       │
+│          ││           │          │      │          ├─┬──────────────┤       │
+│          ││           │          │      │          │ │    query     │       │
+"  http:   // user:pass @ host.com : 8080   /p/a/t/h  ?  query=string   #hash "
+└──────────┴┴───────────┴──────────┴──────┴──────────┴─┴──────────────┴───────┘
+注：合法 url 中不能包含 &lt; &gt; " ` \r \n \t { } | \ ^ ' 以及空格，要用则必须先转义
+</pre>
+<pre class="js">
+> url.parse('http://user:pass@host.com:8080/p/a/t/h?q1=str1&q2=str2#hash')
+Url {
+  protocol: 'http:',
+  slashes: true,
+  auth: 'user:pass',
+  host: 'host.com:8080',
+  port: '8080',
+  hostname: 'host.com',
+  hash: '#hash',             // <a href="http://www.ruanyifeng.com/blog/2011/03/url_hash.html">阮一峰的 hash 详解</a>
+  search: '?q1=str1&q2=str2',
+  query: 'q1=str1&q2=str2',  // 返回 字符串 或 经解析后的 query 对象
+  pathname: '/p/a/t/h',
+  path: '/p/a/t/h?query=string',
+  href: 'http://user:pass@host.com:8080/p/a/t/h?query=string#hash' }
+</pre>
+<table><tbody>
+<tr><td>url.format(urlObject)</td><td>urlObject 可以是 Object  或 String，返回格式化后的 url 字符串。</td></tr>
+<tr><td>url.parse(urlString[, parseQueryString[,<br> slashesDenoteHost]])</td><td>根据 URL 字符串，返回相应的 Url 对象。<br>
+  第二个参数设置为 true 则会对 query 进行解析，默认为 false</td></tr>
+<tr><td>url.resolve(from, to)</td><td><pre class="js">url.resolve('/one/two/three', 'four')  //输出 '/one/two/four'
+url.resolve('http://ex.com/', '/one')  // 'http://ex.com/one'</pre></td></tr>
+</tbody></table>
+</div>
+
+<h2 id="net"><a href="net.html">Net 网络</a></h2>
+<div>
+<table><tbody>
+<tr><td></td><td></td></tr>
+<tr><td></td><td></td></tr>
+<tr><td></td><td></td></tr>
+</tbody></table>
+</div>
+
+<h2 id="console"><a href="console.html">Console 控制台</a></h2>
+<div>
+<table><tbody>
+<tr><td></td><td></td></tr>
+<tr><td></td><td></td></tr>
+<tr><td></td><td></td></tr>
+</tbody></table>
+</div>
+
+<h2 id="util"><a href="util.html">Utilities 实用工具</a></h2>
+<div>
+<table><tbody>
+<tr><td>util.format(format[, ...])</td><td>根据第一个参数，返回一个格式化字符串，类似 printf 的格式化输出。<br>
+  %s - 字符串；%d - 数字 (整型和浮点型)
+  <pre>util.format('%s:%d', 'count', 5, 'ex');  // 'count:5 ex' 位置不能乱</pre></td></tr>
+<tr><td>util.inspect(object[, options])</td><td>返回一个对象的字符串表现形式, 在代码调试的时候非常有用。</td></tr>
+<tr><td></td><td></td></tr>
+</tbody></table>
+</div>
+
+</div>
+</body>
+</html>

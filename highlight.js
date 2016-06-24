@@ -8,7 +8,7 @@
     var reg = /html|css|less|js|php/;
     for(var i=0;i<x.length;i++) {
       var text = x[i].innerHTML;
-      var lang = reg.exec(x[i].className);  // 如果需要指定上色语言，通过 class 指定，默认为 html
+      var lang = reg.exec(x[i].className);  // 通过 class 指定语言，默认为 html
       text = w3CodeColorize(text, lang);
       x[i].innerHTML = text;
     }

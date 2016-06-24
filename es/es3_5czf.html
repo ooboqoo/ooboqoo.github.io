@@ -304,6 +304,90 @@ var bResult = "a" &gt;= 3;  // false
 <pre>var iNum1 = 1, iNum = 2, iNum3 = 3;</pre>
 </div>
 
+<div>
+<h2>3.5.11 操作符优先级与结合性</h2>
+
+<p>优先级什么意思大家都清楚，结合性是指多个具有同样优先级的运算符表达式中的运算顺序。有的运算符是左结合的，即运算从左到右执行，下面两个运算是一样的</p>
+
+<p>运算符的优先级《JavaScript权威指南》中有个表阐述的很好（我去掉了位运算部分），其中R/L代表结合性是右结合还是左结合，num-&gt;num表示操作符期望的数据类型和计算结果类型，lval指左值</p>
+<table border="1" cellpadding="6px" cellspacing="0"><tbody><tr><th>运算符</th><th>操作</th><th>结合性</th><th>类型</th></tr><tr><td>++</td><td>自增</td><td>R</td><td>lval-&gt;num</td></tr><tr><td>--</td><td>自减</td><td>R</td><td>lval-&gt;num</td></tr><tr><td>-</td><td>求反</td><td>R</td><td>num-&gt;num</td></tr><tr><td>+（一个操作数）</td><td>转换为数字</td><td>R</td><td>num-&gt;num</td></tr><tr><td>~</td><td>按位求反</td><td>R</td><td>int-&gt;int</td></tr><tr><td>!</td><td>逻辑非</td><td>R</td><td>bool-&gt;bool</td></tr><tr><td>delete</td><td>删除属性</td><td>R</td><td>lval-&gt;bool</td></tr><tr><td>typeof</td><td>检测数据类型</td><td>R</td><td>any-&gt;str</td></tr><tr><td>void</td><td>返回undefined</td><td>R</td><td>any-&gt;undefined</td></tr><tr><td colspan="4"><hr></td></tr><tr><td>*、/、%</td><td>乘、除、求余</td><td>L</td><td>num,num-&gt;num</td></tr><tr><td colspan="4"><hr></td></tr><tr><td>+、-</td><td>加、减</td><td>L</td><td>num,num-&gt;num</td></tr><tr><td>+</td><td>字符串拼接</td><td>L</td><td>str,str-&gt;str</td></tr><tr><td>&lt;、&lt;=、&gt;、&gt;=</td><td>数字大小或字母表顺序</td><td>L</td><td>num/str,num/str-&gt;bool</td></tr><tr><td>instanceof</td><td>对象类型</td><td>L</td><td>obj,function-&gt;bool</td></tr><tr><td>in</td><td>测试属性是否存在</td><td>L</td><td>str,obj-&gt;bool</td></tr><tr><td colspan="4"><hr></td></tr><tr><td>==</td><td>判断相等</td><td>L</td><td>any,any-&gt;bool</td></tr><tr><td>！=</td><td>判断不等</td><td>L</td><td>any,any-&gt;bool</td></tr><tr><td>===</td><td>判断恒等</td><td>L</td><td>any,any-&gt;bool</td></tr><tr><td>!==</td><td>判断非恒等</td><td>L</td><td>any,any-&gt;bool</td></tr><tr><td colspan="4"><hr></td></tr><tr><td>&amp;&amp;</td><td>逻辑与</td><td>L</td><td>any,any-&gt;any</td></tr><tr><td>||</td><td>逻辑或</td><td>L</td><td>any,any-&gt;any</td></tr><tr><td>?:</td><td>条件运算符</td><td>R</td><td>bool,any,any-&gt;any</td></tr><tr><td>=赋值  *=、/=、+=、-=</td><td>赋值  运算且赋值</td><td>R</td><td>lval,any-&gt;any</td></tr><tr><td>,</td><td>忽略第一个操作数，返回第二个操作数</td><td>L</td><td>any,any-&gt;any</td></tr></tbody></table>
+<p>有几个我们需要注意的地方</p>
+<ul>
+<li>typeof的优先级相当的高，比加减乘除神马的都高，所以虽然是操作符，在在复杂表达式的时候我们还是习惯家括号，看个例子</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript hljs"><span class="kw"><span class="hljs-keyword">typeof</span></span> <span class="dv"><span class="hljs-number">2</span></span><span class="op">*</span><span class="dv"><span class="hljs-number">3</span></span><span class="op">;</span><span class="co"><span class="hljs-comment">//NaN</span></span>
+<span class="kw"><span class="hljs-keyword">typeof</span></span> (<span class="dv"><span class="hljs-number">2</span></span><span class="op">*</span><span class="dv"><span class="hljs-number">3</span></span>)<span class="op">;</span><span class="co"><span class="hljs-comment">//"number"</span></span>
+<span class="kw"><span class="hljs-keyword">typeof</span></span> <span class="dv"><span class="hljs-number">2</span>+<span class="hljs-number">3</span></span><span class="op">;</span><span class="co"><span class="hljs-comment">// "number3"</span></span></code></pre></div>
+<ul>
+<li>++、--是右结合的操作符（优先级最高的几个都是右结合），而且比加减乘除优先级高。同时自增、自减运算符的运算数得是左值（可以放在赋值符号左边的值），而不能是常数</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript hljs"><span class="dv"><span class="hljs-number">4</span></span><span class="op">++;</span> <span class="co"><span class="hljs-comment">//ReferenceError: Invalid left-hand side expression in postfix operation</span></span>
+<span class="kw"><span class="hljs-keyword">var</span></span> a<span class="op">=</span><span class="dv"><span class="hljs-number">0</span></span><span class="op">,</span>b<span class="op">=</span><span class="dv"><span class="hljs-number">0</span></span><span class="op">;</span>
+a<span class="op">+++</span>b<span class="op">;</span><span class="co"><span class="hljs-comment">//0</span></span>
+a<span class="op">;</span><span class="co"><span class="hljs-comment">//1，++优先级比+高，所以相当于(a++)+b</span></span>
+b<span class="op">;</span><span class="co"><span class="hljs-comment">//0</span></span></code></pre></div>
+<ul>
+<li>赋值运算符的优先级相当的低</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript hljs">a<span class="op">=</span>b<span class="op">==</span>c<span class="op">;</span><span class="co"><span class="hljs-comment">//等同于a=(b==c)</span></span></code></pre></div>
+<ul>
+<li>逻辑非!也在优先级队列的前端，比加减乘除高，但逻辑与、逻辑或优先级很低，不如加减乘除</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript hljs"><span class="op">!</span><span class="dv"><span class="hljs-number">2</span></span><span class="op">*</span><span class="dv"><span class="hljs-number">0</span></span><span class="op">;</span> <span class="co"><span class="hljs-comment">//0, 等价于(!2)*0</span></span></code></pre></div>
+<ul>
+<li>一个关于逻辑运算符的有意思地方是其“短路”功能，相信大家都有所了解，但有些题目不那么单纯，会结合表达式计算值来考察</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript hljs"><span class="dv"><span class="hljs-number">1</span></span> <span class="op">&amp;&amp;</span> <span class="dv"><span class="hljs-number">3</span></span><span class="op">;</span>
+<span class="dv"><span class="hljs-number">1</span></span> <span class="op">&amp;&amp;</span> <span class="st"><span class="hljs-string">"foo"</span></span> <span class="op">||</span> <span class="dv"><span class="hljs-number">0</span></span><span class="op">;</span>
+<span class="dv"><span class="hljs-number">1</span></span> <span class="op">||</span> <span class="st"><span class="hljs-string">"foo"</span></span> <span class="op">&amp;&amp;</span> <span class="dv"><span class="hljs-number">0</span></span></code></pre></div>
+<p>了解了逻辑运算符的“短路”特点，在知道原始表达式的“返回值”就是本身，题目就很简单了</p>
+<h3 id="运算顺序">运算顺序</h3>
+<p>我们在运算符的优先级和“返回值”上关注了很多，一个经常被我们忽略的知识点就是运算顺序问题，复杂的表达式是由运算符和子表达式组成，优先级和结合性决定了表达式的运算顺序，但是却没有规定子表达式的运算顺序，在JavaScript中严格按照从左到右的顺序计算表达式，然后再按照优先级和结合性计算各个表达式和运算符作用结果。说的比较晦涩，看个例子</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript hljs"><span class="kw"><span class="hljs-keyword">var</span></span> a<span class="op">=</span><span class="dv"><span class="hljs-number">1</span></span><span class="op">;</span>
+b<span class="op">=</span>(a<span class="op">=</span><span class="dv"><span class="hljs-number">3</span></span>)<span class="op">+</span>a<span class="op">++;</span></code></pre></div>
+<p>这个例子中运算顺序是这样的</p>
+<ol>
+<li>计算b</li>
+<li>a＝3</li>
+<li>a++(设为c)</li>
+<li>计算a（这时候a变成了4已经，不是再最后才变得，但表达式使用的是a++的结果c，也就是a原来的值）</li>
+<li>计算3+c</li>
+<li>把3+c赋值给b</li>
+</ol>
+<h3 id="相等">相等</h3>
+<p>我们知道可以使用"=="或"==="判断两个值的相等性，其中区别相信大家清楚，"==="是严格意义的相等，只需注意NaN和NaN不等就行了。而使用"=="的时候，javascript会帮我们做类型转换，造成一些匪夷所思的结果，那么使用"=="的时候会在哪些情况下做类型转换，又会换成什么样子？</p>
+<ol>
+<li>如果两个值类型相同，则执行严格相等的运算</li>
+<li>如果两个值的类型不同<br>
+******</li>
+</ol>
+<ul>
+<li>如果一个是null，一个是undefined，那么相等</li>
+<li>如果一个是数字，一个是字符串，先将字符串转为数字，然后比较</li>
+<li>如果一个值是true/false则将其转为1/0比较</li>
+<li>如果一个值是对象，一个是数字或字符串，则尝试使用valueOf和toString转换后比较</li>
+<li>其它就不相等了</li>
+</ul>
+<blockquote>
+该小节摘选自：<br>
+JavaScript面试时候的坑洼沟洄——表达式与运算符 - Samaritans - 博客园<br>
+http://www.cnblogs.com/dolphinX/p/3524977.html
+</blockquote>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
 </div>
 </body>
 </html>

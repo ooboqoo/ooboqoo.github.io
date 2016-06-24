@@ -175,6 +175,7 @@ var oCar1 = new Car("red",4,23);
   
   if (<code>typeof this.showColor != "function"</code>) {
     Car.prototype.showColor = function() { alert(this.color); };
+    /* ... 这里还可以添加其他原型方法 */
   }  // if 语句检查的可以是初始化之后应该存在的任何属性或方法，只要检查其中一个即可
 }
 </pre>
@@ -225,7 +226,7 @@ function Car(sColor,iDoors,iMpg) {
 
 <div>
 <h2>采用哪种方式</h2>
-<p>如前所述，目前使用最广泛的是混合的构造函数/原型方式。此外，动态原始方法也很流行，在功能上与构造函数/原型方式等价。可以采用这两种方式中的任何一种。</p>
+<p>如前所述，目前使用最广泛的是混合的构造函数/原型方式。此外，动态原型方法也很流行，在功能上与构造函数/原型方式等价。可以采用这两种方式中的任何一种。</p>
 </div>
 
 

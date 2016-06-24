@@ -27,7 +27,8 @@
 </div>
 
 <div>
-<h2>jQuery Selectors</h2>
+<h2 id="selectors">jQuery Selectors</h2>
+<p>jQuery 选择器是 CSS 选择器的超集，像“匹配元素间定位”、属性选择器中的“!=” 以及“其他选择符”中的一些选择符在 CSS 中是没有的。</p>
 <table><tbody>
 <tr><th>Selector</th><th>Example</th><th>Selects</th></tr>
 <tr><td colspan="3">Simple CSS 简单的CSS选择符</td></tr>
@@ -37,7 +38,7 @@
 <tr><td><a href="sel_class.asp">.<em>class</em></a></td><td>$(".intro")</td><td>All elements with class="intro"</td></tr>
 <tr><td><a href="sel_multiple_classes.asp">.<em>class</em>, .<em>class</em></a></td><td>$(".intro,.demo")</td><td>All elements with the class "intro" or "demo"</td></tr>
 <tr><td><a href="sel_multiple_sel.asp"><em>el1</em>,<em>el2</em>,<em>el3</em></a></td><td>$("h1,div,p")</td><td>All &lt;h1&gt;, &lt;div&gt; and &lt;p&gt; elements</td></tr>
-<tr><td><a href="sel_parent_descendant.asp">parent descendant</a></td><td>$("div p")</td><td>All &lt;p&gt; elements that are descendants of a &lt;div&gt; element</td></tr>
+<tr><td><a href="sel_parent_descendant.asp">parent descendant</a></td><td>$("div p")</td><td>All &lt;p&gt; elements that are descendants of a &lt;div&gt; element<br>注意区别 $("div .intro") 与 $("div.intro")</td></tr>
 <tr><td><a href="sel_parent_child.asp">parent &gt; child</a></td><td>$("div &gt; p")</td><td>All &lt;p&gt; elements that are a direct child of a &lt;div&gt; element</td></tr>
 <tr><td><a href="sel_previous_next.asp">element + next</a></td><td>$("div + p")</td><td>The &lt;p&gt; element that are next to each &lt;div&gt; elements</td></tr>
 <tr><td><a href="sel_previous_siblings.asp">element ~ siblings</a></td><td>$("div ~ p")</td><td>All &lt;p&gt; elements that are siblings of a &lt;div&gt; element</td></tr>
@@ -46,7 +47,7 @@
 <tr><td><a href="sel_lastchild.asp">:last-child</a></td><td>$("p:last-child")</td><td>All &lt;p&gt; elements that are the last child of their parent</td></tr>
 <tr><td><a href="sel_firstoftype.asp">:first-of-type</a></td><td>$("p:first-of-type")</td><td>All &lt;p&gt; elements that are the first &lt;p&gt; element of their parent</td></tr>
 <tr><td><a href="sel_lastoftype.asp">:last-of-type</a></td><td>$("p:last-of-type")</td><td>All &lt;p&gt; elements that are the last &lt;p&gt; element of their parent</td></tr>
-<tr><td><a href="sel_nthchild.asp">:nth-child(<em>n</em>)</a></td><td>$("p:nth-child(2)")</td><td>从1开始计数；取值：index even odd formula</td></tr>
+<tr><td><a href="sel_nthchild.asp">:nth-child(<em>n</em>)</a></td><td>$("p:nth-child(2)")</td><td><span style="color:blue;">从1开始计数</span>；取值：index even odd formula</td></tr>
 <tr><td><a href="sel_nthlastchild.asp">:nth-last-child(<em>n</em>)</a></td><td>$("p:nth-last-child(2)")</td><td>All &lt;p&gt; elements that are the 2nd child of their parent, counting from the last child</td></tr>
 <tr><td><a href="sel_onlychild.asp">:only-child</a></td><td>$("p:only-child")</td><td>All &lt;p&gt; elements that are the only child of their parent</td></tr>
 <tr><td><a href="sel_nthoftype.asp">:nth-of-type(<em>n</em>)</a></td><td>$("p:nth-of-type(2)")</td><td>All &lt;p&gt; elements that are the 2nd &lt;p&gt; element of their parent</td></tr>
@@ -64,12 +65,12 @@
 <tr><td colspan="3">Attributes 属性</td></tr>
 <tr><td><a href="sel_attribute.asp">[<em>attribute</em>]</a></td><td>$("[href]")</td><td>All elements with a href attribute</td></tr>
 <tr><td><a href="sel_attribute_equal_value.asp">[<em>attribute</em>=<em>"value"</em>]</a></td><td>$("[href='default.htm']")</td><td>All elements with a href attribute value equal to "default.htm"</td></tr>
+<tr><td><a href="sel_attribute_notequal_value.asp">[<em>attribute</em>!=<em>"value"</em>]</a></td><td>$("[href!='default.htm']")</td><td>All elements with a href attribute value not equal to "default.htm"</td></tr>
+<tr><td><a href="sel_attribute_beginning_value.asp">[<em>attribute</em>^=<em>"value"</em>]</a></td><td>$("[title^='Tom']")</td><td>All elements with a title attribute value starting with "Tom"</td></tr>
 <tr><td><a href="sel_attribute_end_value.asp">[<em>attribute</em>$=<em>"value"</em>]</a></td><td>$("[href$='.jpg']")</td><td>All elements with a href attribute value ending with ".jpg"</td></tr>
 <tr><td><a href="sel_attribute_prefix_value.asp">[<em>attribute</em>|=<em>"value"</em>]</a></td><td>$("[title|='Tomorrow']")</td><td>All elements with a title attribute value equal to 'Tomorrow', or starting with 'Tomorrow' followed by a hyphen</td></tr>
-<tr><td><a href="sel_attribute_beginning_value.asp">[<em>attribute</em>^=<em>"value"</em>]</a></td><td>$("[title^='Tom']")</td><td>All elements with a title attribute value starting with "Tom"</td></tr>
 <tr><td><a href="sel_attribute_contains_value.asp">[<em>attribute</em>~=<em>"value"</em>]</a></td><td>$("[title~='hello']")</td><td>All elements with a title attribute value containing the specific word "hello"</td></tr>
 <tr><td><a href="sel_attribute_contains_string_value.asp">[<em>attribute</em>*=<em>"value"</em>]</a></td><td>$("[title*='hello']")</td><td>All elements with a title attribute value containing the word "hello"</td></tr>
-<tr><td><a href="sel_attribute_notequal_value.asp">[<em>attribute</em>!=<em>"value"</em>]</a></td><td>$("[href!='default.htm']")</td><td>All elements with a href attribute value not equal to "default.htm"</td></tr>
 <tr><td colspan="3">Forms 表单</td></tr>
 <tr><td><a href="sel_input.asp">:input</a></td><td>$(":input")</td><td>All input elements</td></tr>
 <tr><td><a href="sel_input_text.asp">:text</a></td><td>$(":text")</td><td>All input elements with type="text"</td></tr>
@@ -115,16 +116,17 @@
   <tr><td><a href="traversing_slice.asp">.slice(<em>start,[end]</em>)</a></td><td>Reduces the set of matched elements to a subset specified by a range of indices</td></tr>
   <tr><td colspan="2">Descendants 后代元素</td></tr>
   <tr><td><a href="traversing_find.asp">.find(<em>selector</em>)</a></td><td>Returns descendant elements of the selected element</td></tr>
-  <tr><td><a href="traversing_contents.asp">.contents()</a></td><td>Returns all direct children of the selected element (including text and comment nodes)</td></tr>
   <tr><td><a href="traversing_children.asp">.children(<em>[selector]</em>)</a></td><td>Returns all direct children of the selected element</td></tr>
+  <tr><td><a href="traversing_contents.asp">.contents()</a></td><td>Returns all direct children of the selected element (including text and comment nodes)
+<br>与 children()方法的不同之处在于在结果 jQuery 对象中包含了文本以及注释节点。<br>如 &lt;p&gt;text&lt;em&gt;node&lt;/em&gt;&lt;/p&gt; contents() 比 children() 多返回一个 text 节点。</td></tr>
   <tr><td colspan="2">Siblings 同辈元素</td></tr>
+  <tr><td><a href="traversing_siblings.asp">.siblings(<em>[selector]</em>)</a></td><td>Returns all sibling elements of the selected element</td></tr>
   <tr><td><a href="traversing_next.asp">.next(<em>[selector]</em>)</a></td><td>Returns the next sibling element of the selected element</td></tr>
   <tr><td><a href="traversing_nextall.asp">.nextAll(<em>[selector]</em>)</a></td><td>Returns all next sibling elements of the selected element</td></tr>
   <tr><td><a href="traversing_nextuntil.asp">.nextUntil(<em>[selector],[filter]</em>)</a></td><td>Returns all next sibling elements between two given arguments</td></tr>
   <tr><td><a href="traversing_prev.asp">.prev(<em>[selector]</em>)</a></td><td>Returns the previous sibling element of the selected element</td></tr>
   <tr><td><a href="traversing_prevall.asp">.prevAll(<em>[selector]</em>)</a></td><td>Returns all previous sibling elements of the selected element</td></tr>
   <tr><td><a href="traversing_prevuntil.asp">.prevUntil(<em>[selector],[filter]</em>)</a></td><td>Returns all previous sibling elements between two given arguments</td></tr>
-  <tr><td><a href="traversing_siblings.asp">.siblings(<em>[selector]</em>)</a></td><td>Returns all sibling elements of the selected element</td></tr>
   <tr><td colspan="2">Ancestors 祖先元素</td></tr>
   <tr><td><a href="traversing_parent.asp">.parent(<em>[selector]</em>)</a></td><td>Returns the direct parent element of the selected element</td></tr>
   <tr><td><a href="traversing_parents.asp">.parents(<em>[selector]</em>)</a></td><td>Returns all ancestor elements of the selected element</td></tr>
@@ -252,12 +254,12 @@
 <tr><td>.attr(<em>key, fn</em>)</td><td>Sets the attribute named key to the result of fn (called separately on each matched element).</td></tr>
 <tr><td>.attr(<em>obj</em>)</td><td>Sets attribute values given as key-value pairs.</td></tr>
 <tr><td>.removeAttr(<em>key</em>)</td><td>Removes the attribute named key.</td></tr>
-<tr><td>.prop(<em>key</em>)</td><td>Gets the property named key.</td></tr>
+<tr><td>.prop(<em>key</em>)</td><td>Gets the property named key. jq1.6 新添加，注意与 attr 的区别和联系</td></tr>
 <tr><td>.prop(<em>key, value</em>)</td><td>Sets the property named key to value.</td></tr>
 <tr><td>.prop(<em>key, fn</em>)</td><td>Sets the property named key to the result of fn (called separately on each matched element).</td></tr>
 <tr><td>.prop(<em>obj</em>)</td><td>Sets property values given as key-value pairs.</td></tr>
 <tr><td>.removeProp(<em>key</em>)</td><td>Removes the property named key.</td></tr>
-<tr><td>.addClass(<em>class</em>)</td><td>Adds the given class to each matched element.</td></tr>
+<tr><td>.addClass(<em>class</em>)</td><td>Adds the given class ( or more space-separated classes) to each matched element.</td></tr>
 <tr><td>.removeClass(<em>class</em>)</td><td>Removes the given class from each matched element.</td></tr>
 <tr><td>.toggleClass(<em>class</em>)</td><td>Removes the given class if present, and adds it if not, for each matched element.</td></tr>
 <tr><td>.hasClass(<em>class</em>)</td><td>Returns true if any of the matched elements has the given class.</td></tr>
@@ -273,8 +275,8 @@
 <tr><td>.scrollTop(<em>value</em>)</td><td>Sets the vertical scroll position of all matched elements to value.</td></tr>
 <tr><td>.scrollLeft()</td><td>Gets the horizontal scroll position of the first matched element.</td></tr>
 <tr><td>.scrollLeft(<em>value</em>)</td><td>Sets the horizontal scroll position of all matched elements to value.</td></tr>
-<tr><td>.height()</td><td>Gets the height of the first matched element.</td></tr>
-<tr><td>.height(<em>value</em>)</td><td>Sets the height of all matched elements to value.</td></tr>
+<tr><td>.height()</td><td>Gets the height of the first matched element, returns a unit-less pixel value.</td></tr>
+<tr><td>.height(<em>value</em>)</td><td>Sets the height of all matched elements to value. 不能带单位</td></tr>
 <tr><td>.width()</td><td>Gets the width of the first matched element.</td></tr>
 <tr><td>.width(<em>value</em>)</td><td>Sets the width of all matched elements to value.</td></tr>
 <tr><td>.innerHeight()</td><td>Gets the height of the first matched element, including padding, but not border.</td></tr>
@@ -304,13 +306,13 @@
 <tr><td colspan="2">Removal</td></tr>
 <tr><td>.empty()</td><td>Removes the child nodes of each matched element.</td></tr>
 <tr><td>.remove(<em>[selector]</em>)</td><td>Removes the matched nodes (optionally filtered by selector) from the DOM.</td></tr>
-<tr><td>.detach(<em>[selector]</em>)</td><td>Removes the matched nodes (optionally filtered by selector) from the DOM, preserving jQuery data attached to them. 将元素从DOM树中分离</td></tr>
+<tr><td>.detach(<em>[selector]</em>)</td><td>Removes the matched nodes (optionally filtered by selector) from the DOM, preserving jQuery data attached to them. <br>与 remove 唯一的不同是不移除元素上绑定的事件及数据</td></tr>
 <tr><td>.unwrap()</td><td>Removes the element's parent.</td></tr>
 <tr><td colspan="2">Copying</td></tr>
 <tr><td>.clone(<em>[withHandlers], [deepWithHandlers]</em>)</td><td>Makes a <b>deep</b> copy of all matched elements, optionally also copying event handlers.</td></tr>
 <tr><td colspan="2">Data</td></tr>
 <tr><td>.data(<em>key</em>)</td><td>Gets the data item named key associated with the first matched element.<br><a href="https://blog.netsh.org/posts/html-data-jquery_1812.netsh.html">HTML5 自定义属性 data-* 和 jQuery.data 详解</a></td></tr>
-<tr><td>.data(<em>key, value</em>)</td><td>Sets the data item named key associated with each matched element to value.</td></tr>
+<tr><td>.data(<em>key, value</em>)</td><td>Sets the data item named key associated with each matched element to value.<br> jQuery 将信息存储在内部中央信息模块中，不会反映到HTML元素上，注意与 dataset API 区别。</td></tr>
 <tr><td>.removeData(<em>key</em>)</td><td>Removes the data item named key associated with each matched element.</td></tr>
 </tbody></table>
 </div>

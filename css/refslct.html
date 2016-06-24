@@ -4,6 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="../w3c.css">
+<style>[colspan="4"]{font-weight:bold;}</style>
 <script src="../notes.js"></script>
 <script>setBase('table','http://www.w3schools.com/cssref/');</script>
 <title>CSS Selectors</title>
@@ -14,36 +15,46 @@
 
 <div>
 <p>In CSS, selectors are patterns used to select the element(s) you want to style.</p>
-<p>Use our <a target="_blank" href="http://www.w3schools.com/cssref/trysel.asp">CSS Selector Tester</a> to demonstrate the different selectors.</p>
 <p>The "CSS" column indicates in which CSS version the property is defined (CSS1, CSS2, or CSS3).</p>
 
 <div class="table-responsive"><table>
 <thead><tr><th>Selector</th><th>Example</th><th>Example description</th><th>CSS</th></tr></thead>
 <tbody>
+<tr><td colspan="4">简单选择符</td></tr>
 <tr><td><a href="sel_class.asp">.<i>class</i></a></td><td class="notranslate">.intro</td><td>Selects all elements with class="intro"</td><td>1</td></tr>
 <tr><td><a href="sel_id.asp">#<i>id</i></a></td><td class="notranslate">#firstname</td><td>Selects the element with id="firstname"</td><td>1</td></tr>  <tr><td><a href="sel_all.asp">*</a></td><td class="notranslate">*</td><td>Selects all elements</td><td>2</td></tr>
 <tr><td><i><a href="sel_element.asp">element</a></i></td><td class="notranslate">p</td><td>Selects all &lt;p&gt; elements</td><td>1</td></tr>
 <tr><td><i><a href="sel_element_comma.asp">element,element</a></i></td><td class="notranslate">div, p</td><td>Selects all &lt;div&gt; elements and all &lt;p&gt; elements 以及</td><td>1</td></tr>
+<tr><td colspan="4">组合选择符</td></tr>
 <tr><td><a href="sel_element_element.asp"><i>element</i> <i>element</i></a></td><td class="notranslate">div p</td><td>Selects all &lt;p&gt; elements inside &lt;div&gt; elements 后代</td><td>1</td></tr>
 <tr><td><a href="sel_element_gt.asp"><i>element</i>&gt;<i>element</i></a></td><td class="notranslate">div &gt; p</td><td>Selects all &lt;p&gt; elements where the parent is a &lt;div&gt; element 子代</td><td>2</td></tr>
-<tr><td><a href="sel_element_pluss.asp"><i>element</i>+<i>element</i></a></td><td class="notranslate">div + p</td><td>Selects all &lt;p&gt; elements that are placed immediately after &lt;div&gt; elements 紧跟在div后面的那一个p</td><td>2</td></tr>
-<tr><td><a href="sel_gen_sibling.asp"><i>element1</i>~<i>element2</i></a></td><td>p ~ ul</td><td>Selects every &lt;ul&gt; element that are preceded by a &lt;p&gt; element<br />只要在同一个父节点下位于p后面的ul都算，中间可以插入其他节点</td><td>3</td></tr>
+<tr><td><a href="sel_element_pluss.asp"><i>element</i>+<i>element</i></a></td><td class="notranslate">div + p</td><td>Selects all &lt;p&gt; elements that are placed immediately after &lt;div&gt; elements 紧跟着的那一个兄弟</td><td>2</td></tr>
+<tr><td><a href="sel_gen_sibling.asp"><i>element1</i>~<i>element2</i></a></td><td>p ~ ul</td><td>Selects every &lt;ul&gt; element that are preceded by a &lt;p&gt; element 跟在后面的那些兄弟</td><td>3</td></tr>
+<tr><td colspan="4" style="font-weight:normal;">There are four different combinators in CSS3:<br>
+descendant selector (space)<br>
+child selector (>)<br>
+adjacent sibling selector (+) 例 div + p 紧跟在 div 后面的那"一个" p，中间不可插入其他类型节点<br>
+general sibling selector (~) 例 p ~ ul 只要在同一个父节点下位于 p "后面"的 ul 都算，中间可以插入其他节点</td></tr>
+<tr><td colspan="4">属性选择符</td></tr>
 <tr><td><a href="sel_attribute.asp">[<i>attribute</i>]</a></td><td class="notranslate">[target]</td><td>Selects all elements with a target attribute</td><td>2</td></tr>
 <tr><td><a href="sel_attribute_value.asp">[<i>attribute</i>=<i>value</i>]</a></td><td class="notranslate">[target=_blank]</td><td>Selects all elements with target="_blank"</td><td>2</td></tr>
-<tr><td><a href="sel_attribute_value_lang.asp">[<i>attribute</i>|=<i>value</i>]</a></td><td class="notranslate">[lang|=en]</td><td>Selects all elements with a lang attribute value starting with "en" <br />符合："en"; "en-us"; 不符："en cn"; "gb-en"; 要点：相等，可接-</td><td>2</td></tr>
-<tr><td><a href="sel_attribute_value_contains.asp">[<i>attribute</i>~=<i>value</i>]</a></td><td class="notranslate">[title~=flower]</td><td>Selects all elements with a title attribute containing the word "flower" <br />符合："klis flower" 不符："flowers"；要点：包含独立单词</td><td>2</td></tr>
 <tr><td><a href="sel_attr_begin.asp">[<i>attribute</i>^=<i>value</i>]</a></td><td>a[href^="https"]</td><td>Selects every &lt;a&gt; element whose href attribute value begins with "https"<br>符合："https123"；不符：" https"；要点：打头</td><td>3</td></tr>
 <tr><td><a href="sel_attr_end.asp">[<i>attribute</i>$=<i>value</i>]</a></td><td>a[href$=".pdf"]</td><td>Selects every &lt;a&gt; element whose href attribute value ends with ".pdf" 要点：结尾</td><td>3</td></tr>
+<tr><td><a href="sel_attribute_value_lang.asp">[<i>attribute</i>|=<i>value</i>]</a></td><td class="notranslate">[lang|=en]</td><td>Selects all elements with a lang attribute value starting with "en" <br />符合："en"; "en-us"; 不符："en cn"; "gb-en"; 要点：相等，可接-</td><td>2</td></tr>
+<tr><td><a href="sel_attribute_value_contains.asp">[<i>attribute</i>~=<i>value</i>]</a></td><td class="notranslate">[title~=flower]</td><td>Selects all elements with a title attribute containing the word "flower" <br />符合："klis flower" 不符："flowers"；要点：包含独立单词</td><td>2</td></tr>
 <tr><td><a href="sel_attr_contain.asp">[<i>attribute</i>*=<i>value</i>]</a></td><td>a[href*="w3schools"]</td><td>Selects every &lt;a&gt; element whose href attribute value contains the substring "w3schools" 要点：片段</td><td>3</td></tr>
+<tr><td colspan="4">伪类选择符 <small>Anchor</small></td></tr>
 <tr><td><a href="sel_link.asp">:link</a></td><td class="notranslate">a:link</td><td>Selects all unvisited links</td><td>1</td></tr>
 <tr><td><a href="sel_visited.asp">:visited</a></td><td class="notranslate">a:visited</td><td>Selects all visited links</td><td>1</td></tr>
 <tr><td><a href="sel_hover.asp">:hover</a></td><td class="notranslate">a:hover</td><td>Selects links on mouse over</td><td>1</td></tr>
 <tr><td><a href="sel_active.asp">:active</a></td><td class="notranslate">a:active</td><td>Selects the active link</td><td>1</td></tr>
+<tr><td colspan="4">伪类选择符 <small>MISC</small></td></tr>
 <tr><td><a href="sel_not.asp">:not(<i>selector</i>)</a></td><td>:not(p)</td><td>Selects every element that is not a &lt;p&gt; element</td><td>3</td></tr>
 <tr><td><a href="sel_empty.asp">:empty</a></td><td>p:empty</td><td>Selects every &lt;p&gt; element that has no children (including text nodes)</td><td>3</td></tr>
 <tr><td><a href="sel_target.asp">:target</a></td><td>#news:target </td><td>Selects the current active #news element (clicked on a URL containing that anchor name)</td><td>3</td></tr>
 <tr><td><a href="sel_lang.asp">:lang(<i>language</i>)</a></td><td class="notranslate">p:lang(it)</td><td>Selects every &lt;p&gt; element with a lang attribute equal to "it" (Italian)</td><td>2</td></tr>
 <tr><td><a href="sel_root.asp">:root</a></td><td>:root</td><td>Selects the document's root element</td><td>3</td></tr>
+<tr><td colspan="4">伪类选择符 <small>Position among siblings</small></td></tr>
 <tr><td><a href="sel_nth-child.asp">:nth-child(<i>n</i>)</a></td><td>p:nth-child(2)</td><td>Selects every &lt;p&gt; element that is the second child of its parent 父节点下的所有节点纳入计数范围，从1开始计数，n can be a number, a keyword, or a formula.</td><td>3</td></tr>
 <tr><td><a href="sel_nth-last-child.asp">:nth-last-child(<i>n</i>)</a></td><td>p:nth-last-child(2)</td><td>Selects every &lt;p&gt; element that is the second child of its parent, counting from the last child</td><td>3</td></tr>
 <tr><td><a href="sel_firstchild.asp">:first-child</a></td><td class="notranslate">p:first-child</td><td>Selects every &lt;p&gt; element that is the first child of its parent</td><td>2</td></tr>
@@ -54,6 +65,7 @@
 <tr><td><a href="sel_first-of-type.asp">:first-of-type</a></td><td>p:first-of-type</td><td>Selects every &lt;p&gt; element that is the first &lt;p&gt; element of its parent</td><td>3</td></tr>
 <tr><td><a href="sel_last-of-type.asp">:last-of-type</a></td><td>p:last-of-type</td><td>Selects every &lt;p&gt; element that is the last &lt;p&gt; element of its parent</td><td>3</td></tr>
 <tr><td><a href="sel_only-of-type.asp">:only-of-type</a></td><td>p:only-of-type</td><td>Selects every &lt;p&gt; element that is the only &lt;p&gt; element of its parent</td><td>3</td></tr>
+<tr><td colspan="4">伪类选择符 <small>Forms</small></td></tr>
 <tr><td><a href="sel_focus.asp">:focus</a></td><td class="notranslate">input:focus</td><td>Selects the input element which has focus</td><td>2</td></tr>
 <tr><td><a href="sel_checked.asp">:checked</a></td><td>input:checked</td><td>Selects every checked &lt;input&gt; element</td><td>3</td></tr>
 <tr><td><a href="sel_enabled.asp">:enabled</a></td><td>input:enabled</td><td>Selects every enabled &lt;input&gt; element</td><td>3</td></tr>
@@ -66,6 +78,7 @@
 <tr><td><a href="sel_read-write.asp">:read-write</a></td><td class="notranslate">input:read-write</td><td>Selects input elements with the "readonly" attribute NOT specified</td><td>3</td></tr>
 <tr><td><a href="sel_in-range.asp">:in-range</a></td><td class="notranslate">input:in-range</td><td>Selects input elements with a value within a specified range</td><td>3</td></tr>
 <tr><td><a href="sel_out-of-range.asp">:out-of-range</a></td><td class="notranslate">input:out-of-range</td><td>Selects input elements with a value outside a specified range</td><td>3</td></tr>
+<tr><td colspan="4">伪元素选择符</td></tr>
 <tr><td><a href="sel_after.asp">::after</a></td><td class="notranslate">p::after</td><td>Insert something after the content of each &lt;p&gt; element</td><td>2</td></tr>
 <tr><td><a href="sel_before.asp">::before</a></td><td class="notranslate">p::before</td><td>Insert something before&nbsp;the content of each &lt;p&gt; element</td><td>2</td></tr>
 <tr><td><a href="sel_firstletter.asp">::first-letter</a></td><td class="notranslate">p::first-letter</td><td>Selects the first letter of every &lt;p&gt; element</td><td>1</td></tr>
