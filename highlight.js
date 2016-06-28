@@ -4,7 +4,7 @@
   var oldonload = window.onload;
   window.onload = function(){
     if(typeof oldonload=='function') oldonload();
-    var x = document.getElementsByTagName('pre');  // 默认只给 <pre> 中的内容上色
+    var x = document.getElementsByTagName('pre'); // 默认只给 <pre> 中的内容上色
     var reg = /html|css|less|js|php/;
     for(var i=0;i<x.length;i++) {
       var text = x[i].innerHTML;
@@ -171,25 +171,35 @@ function w3CodeColorize(x, lang) {
     return "<span style=color:" + cssselectorcolor + ">" + rest + "</span>";
   }
 
-  function lessMode(txt) {  // 自己添加的方法以处理 less 文档高亮显示，主要解决了嵌套问题
-    var rest = txt, done = "", comment, commentline, prop, i;
-    comment = new extract(rest, /\/\*/, "*/", commentMode, "W3CSSCOMMENTPOSML");
-    rest = comment.rest;
-    commentline = new extract(rest, /\/\//, "\n", commentMode, "W3CSSCOMMENTPOSSL");  // 添加单行注释以适应 less 显示
-    rest = commentline.rest;
-    rest = rest.replace(/([a-z\d\-\s]+):([^;}{]+)/g, function(match,p1,p2){  // 我写的这个估计比原作者的牛
+  // 自己添加的方法以处理 less 文档高亮显示，主要解决了嵌套问题
+  function lessMode(txt) {
+    var rest = txt, done = "", commentML, commentSL, prop, i;
+
+    commentML = new extract(rest, /\/\*/, "*/", commentMode, "COMMENTPOSML");
+    rest = commentML.rest;
+
+    // 添加单行注释以适应 less 显示
+    commentSL = new extract(rest, /\/\//, "\n", commentMode, "COMMENTPOSSL");
+    rest = commentSL.rest;
+
+    // 对键值对进行加亮
+    rest = rest.replace(/&gt;/g,"&gtSEMICOLON"); // 对 &gt; 进行预处理避免干扰
+    rest = rest.replace(/([a-z\d\-\s]+):([^;}{]+)/g, function(match,p1,p2){
       return "<span style=color:" + csspropertycolor + ">" + p1+ "</span>" +
           "<span style=color:" + cssdelimitercolor + ">:</span>"+
           "<span style=color:" + csspropertyvaluecolor + ">"+p2+"</span>";
     });
-    rest = rest.replace(/\{|\}/g, function(match){
+    rest = rest.replace(/&gtSEMICOLON/g,"&gt;");
+
+    rest = rest.replace(/\{|\}|;/g, function(match){
       return "<span style=color:" + cssdelimitercolor + ">"+ match +"</span>";
     });
-    for (i = 0; i < comment.arr.length; i++) {
-      rest = rest.replace("W3CSSCOMMENTPOSML", comment.arr[i]);
+
+    for (i = 0; i < commentML.arr.length; i++) {
+      rest = rest.replace("COMMENTPOSML", commentML.arr[i]);
     }
-    for (i = 0; i < commentline.arr.length; i++) {
-      rest = rest.replace("W3CSSCOMMENTPOSSL", commentline.arr[i]);
+    for (i = 0; i < commentSL.arr.length; i++) {
+      rest = rest.replace("COMMENTPOSSL", commentSL.arr[i]);
     }
     return "<span style=color:" + cssselectorcolor + ">" + rest + "</span>";
   }

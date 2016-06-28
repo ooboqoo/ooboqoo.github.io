@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="../w3c.css" />
+<link rel="stylesheet" href="../main.css" />
 <style>#this li{color:blue;}</style>
-<script src="../notes.js"></script>
+<script src="../main.js"></script>
 <script src="../highlight.js"></script>
 <title>忍者秘籍1</title>
 </head>
@@ -202,7 +202,7 @@ outer();  // 作用域取决于函数定义的位置，与调用的位置无关�
 <li>函数作为第一型对象，除了具有普通对象的属性外，还承担了作用域管理职责。在作用域空间里定义的函数并不会自动成为哪个对象的方法，在没有找到合适投靠对象前它们由 window 对象兜底管理。</li>
 <li>函数 = 对象（有属性，对外可见） + 闭包环境（无法作为属性读取，仅用于控制作用域）。</li>
 </ul>
-<div class="w3-responsive">
+<div style="overflow-x:auto;">
 <svg width="600" height="150">
   <rect width="560" height="150" style="fill:rgb(221,221,255);"></rect>
   <text x="8" y="18">window</text>

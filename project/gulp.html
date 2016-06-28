@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="../w3c.css" />
-<script src="../notes.js"></script>
+<link rel="stylesheet" href="../main.css" />
+<script src="../main.js"></script>
+<script src="../highlight.js"></script>
 <title>gulp</title>
 </head>
 <body>
@@ -64,7 +65,7 @@
 <h3 id="lesson6">6 新建 package.json 文件</h3>
 <p>6.1 package.json 是基于 nodejs 项目必不可少的配置文件，它是存放在项目根目录的普通json文件；</p>
 <p>6.2 它是这样一个json文件<strong>（注意：json文件内是不能写注释的，复制下列内容请删除注释）</strong>：</p>
-<pre>
+<pre class="js">
 {
   "name": "test",   //项目名称（必须）
   "version": "1.0.0",   //项目版本（必须）
@@ -98,7 +99,7 @@
 
 <h3 id="lesson8">8 新建 gulpfile.js 文件（重要）</h3>
 <p>gulpfile.js 是 gulp 的项目配置文件，是位于项目根目录的普通js文件（其实放在其他文件夹下也能正常工作）</p>
-<pre>
+<pre class="js">
 /* 导入工具包 require('node_modules里对应模块') */
 var gulp = require('gulp'), //本地安装gulp所用到的地方
     less = require('gulp-less');
@@ -134,7 +135,18 @@ gulp.task('default',['testLess', 'elseTask']); // 虽然没有实际定义defaul
 
 <div>
 <h2>自用文档模板</h2>
-<pre>
+<h3>插件列表</h3>
+<table><tbody>
+<tr><td><a href="https://browsersync.io/docs/gulp">Browsersync(not plugin)</a></td><td>Time-saving synchronised browser testing</td></tr>
+<tr><td><a href="https://www.npmjs.com/package/gulp-less/">gulp-less</a></td><td>A LESS plugin for Gulp</td></tr>
+<tr><td><a href="https://www.npmjs.com/package/gulp-sourcemaps/">gulp-sourcemaps</a></td><td>Source map support</td></tr>
+<tr><td><a href="https://www.npmjs.com/package/gulp-autoprefixer/">gulp-autoprefixer</a></td><td>Prefix CSS</td></tr>
+<tr><td><a href="https://www.npmjs.com/package/gulp-concat/">gulp-concat</a></td><td>Concatenates files</td></tr>
+<tr><td><a href="https://www.npmjs.com/package/gulp-clean-css/">gulp-clean-css</a></td><td>Minify css with clean-css</td></tr>
+<tr><td><a href="https://www.npmjs.com/package/gulp-uglify/">gulp-uglify</a></td><td>Minify .js files with UglifyJS</td></tr>
+</tbody></table>
+
+<pre class="js">
 /* 模块导入 */
 var gulp = require('gulp'),
     browserSync = require('browser-sync'),

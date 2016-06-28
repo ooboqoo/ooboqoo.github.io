@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="../w3c.css">
-<script src="../notes.js"></script>
+<link rel="stylesheet" href="../main.css">
+<script src="../main.js"></script>
 <title>Sublime Text3</title>
 </head>
 <body>
@@ -80,6 +80,7 @@ alt+shift+w 用标签包裹行或选中项(不需要使用emmet)
 Ctrl+Enter 插入行后（快速换行）
 Ctrl+Shift+Enter 光标前插入行
 Alt+. 闭合当前标签
+shift+ctrl+; 移除标签（emmet 插件功能）
 
 ###列模式的操作方法
 鼠标右键＋Shift 或 鼠标中键
@@ -94,6 +95,29 @@ alt+- 上一个编辑处
 alt+shift+- 下一个编辑处
 Ctrl+G 跳转到相应的行
 Ctrl+M 光标移动至括号内开始或结束的位置
+</pre>
+
+<h3>查找替换</h3>
+<table><tbody>
+<tr><td>Open search panel</td><td>Ctrl + F</td><td>普通查找（按F3会跳到下个匹配项）</td></tr>
+<tr><td>Incremental search</td><td>Ctrl + I</td><td>增量查找（按F3会添加下个匹配项到选择）</td></tr>
+<tr><td>Open replace panel</td><td>Ctrl + H</td><td>打开替换栏</td></tr>
+<tr><td>Regular expressions</td><td>Alt + R</td><td>是否是正则表达式</td></tr>
+<tr><td>Case sensitive</td><td> Alt + C</td><td>大小写敏感</td></tr>
+<tr><td>Exact match</td><td>Alt + W</td><td>完整匹配 Whole word</td></tr>
+<tr><td>Find next</td><td>Enter</td><td>查找下一项</td></tr>
+<tr><td>Find previous</td><td>Shift + Enter</td><td>向前查找下一项</td></tr>
+<tr><td>Find all</td><td>Alt + Enter</td><td>查找全部匹配项</td></tr>
+<tr><td>Preserve case</td><td>Alt+A</td><td>智能调整大小写（碰到驼峰式命名会乱）
+  <pre>This is this -> (this > that ) -> That is that // 智能调整<br>Replace MySQL by PostgreSQL -> PoSTGreSQL // 乱了</pre></td></tr>
+<tr><td>Wrap</td><td></td><td>即 wrap around ，是否循环查找匹配项</td></tr>
+<tr><td>In selection</td><td></td><td>必须是先选中内容再调出“查找替换”栏才有效，<br>调出替换栏后，再用鼠标选中其他内容，系统还是认原先的选中区域</td></tr>
+</tbody></table>
+<pre>
+Open Find in Files  Ctrl + Shift + F
+Search forward using most recent pattern  F3
+Search backwards using most recent pattern  Shift + F3
+Select all matches using most recent pattern  Alt + F3
 </pre>
 </div>
 

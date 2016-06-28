@@ -1,0 +1,109 @@
+// 侧边菜单栏
+#sidemenu {
+  display: none;
+  width: 230px;
+  height: 100%;
+  position: fixed !important;
+  top: 0;
+  z-index: 99;
+  overflow-x: hidden;
+  background-color: #eee;
+  .shadow-2;
+  #closebtn {
+    position: absolute;
+    right: 4px;
+    font-size: 20px;
+    font-weight: bold;
+    color: inherit;
+    padding: 0 6px;
+    border-radius: 4px;
+    background-color: #888;
+    &:hover,
+    &:focus {
+      color: #fff;
+      cursor: pointer
+    }
+  }
+  h2 {
+    font-family: "Microsoft YaHei", sans-serif;
+    font-size: 22px;
+    text-align: center;
+    background-color: #ccc;
+    margin: 2px 6px;
+    &::before {
+      content: "-";
+      color: #fff;
+      font-weight: bold;
+      position: absolute;
+      left: 12px;
+    }
+    &.collapse::before {
+      content: "+";
+    }
+  }
+  h3 {
+    font-family: "Microsoft YaHei", sans-serif;
+    font-size: 20px;
+    padding-left: 8px;
+    color: #000;
+    margin: 2px 0;
+  }
+  a {
+    padding: 0 16px;
+    color: #555;
+    font-size: 1rem;
+    text-decoration: none;
+    display: block
+  }
+  #sidemenu a:hover {
+    background-color: #ccc
+  }
+}
+
+.sidelabel {
+  position: fixed;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 0 6px 6px 0;
+  color: #999;
+  line-height: 1.2em;
+  z-index: 9;
+}
+
+#sidemenu h2,
+.sidelabel:hover {
+  cursor: pointer;
+}
+
+#openmenu {
+  top: 20px;
+}
+
+// 根据“页面内锚点导航”生成的弹出式导航菜单
+#pagenav {
+  top: 100px;
+  display: none;
+  &>div {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 25px;
+    background-color: #fcfcfc;
+    border: 1px solid gray;
+    border-radius: 6px;
+  }
+  &:hover>div {
+    display: block;
+  }
+  a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    padding: 4px 16px;
+    white-space: nowrap;
+    &:hover {
+      color: #fff;
+      background-color: #999;
+    }
+  }
+}

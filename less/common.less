@@ -1,0 +1,116 @@
+// 在 normalize 基础上的再格式化一些常用 tag 的默认表现
+html,
+body {
+  font-family: Verdana, Arial, sans-serif, SimSun, "Microsoft YaHei";
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 20px;
+}
+
+h5 {
+  font-size: 18px;
+}
+
+h6 {
+  font-size: 16px;
+}
+
+h1,
+h2 {
+  font-family: "Microsoft YaHei", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 400;
+  margin: 10px 0;
+  a {
+    font-weight: inherit;
+  }
+}
+
+hr {
+  height: 0;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 6px 0;
+}
+
+img {
+  margin-bottom: -5px;
+}
+
+a {
+  color: inherit;
+}
+
+table {
+  width: 100%;
+}
+
+table,
+th,
+td {
+  border: none;
+}
+
+// 从Bootstrap 抽取的格栅定义
+.row {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .half {
+    float: left;
+    width: 100%;
+    @media only screen and (min-width: 601px) {
+      width: 49.99999%;
+    }
+  }
+}
+
+// 通用类
+.responsive {
+  overflow-x: auto;
+}
+
+.shadow-2 {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)!important;
+}
+
+.multicolumn {
+  @media only screen and (min-width: 601px) {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+  }
+  @media only screen and (min-width:993px) {
+    -webkit-column-count: 5;
+    -moz-column-count: 5;
+    column-count: 5;
+  }
+}

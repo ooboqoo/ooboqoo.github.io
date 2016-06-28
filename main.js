@@ -4,10 +4,15 @@
 **/
 
 (function() {
-  document.removeEventListener("readystatechange", navinit);
 
   // 定义初始化函数
   function navinit() {
+
+    if (!document.body) {
+      return;
+    }
+    document.removeEventListener("readystatechange", navinit);
+
     var nav = document.createElement("div"),
       i = 0;
     nav.id = "nav";
@@ -82,7 +87,7 @@
   xmlhttp.send();
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-      if (document.readyState !== "loading") {
+      if (document.readyState === "complete") {
         navinit();
       } else {
         document.addEventListener("readystatechange", navinit);
@@ -93,17 +98,39 @@
 
 window.addEventListener("DOMContentLoaded", function() {
 
-  // 给笔记正文添加折叠功能
+  function toggleClass(element, className) {
+    if (element.classList) {
+      element.classList.toggle(className); // IE10 or higher
+    } else {
+      element.className = element.className.indexOf(className) === -1 ?
+        element.className + " " + className :
+        element.className.replace(className, "");
+    }
+  }
+
+  // 给笔记正文添加折叠功能 -- #article>h2 区块
   if (document.getElementById("article")) {
-    document.getElementById("article").addEventListener("click",
-      function(e) {
-        var next = e.target.nextElementSibling;
-        if (e.target.tagName.toUpperCase() === "H2" &&
-          next.tagName.toUpperCase() === "DIV") {
-          next.style.display = next.style.display ? "" : "none";
-          e.target.className = e.target.className ? "" : "collapse";
-        }
+    document.getElementById("article").addEventListener("click", function(e) {
+      var next = e.target.nextElementSibling;
+      if (e.target.tagName.toUpperCase() === "H2" &&
+        next.tagName.toUpperCase() === "DIV") {
+        next.style.display = next.style.display ? "" : "none";
+        toggleClass(e.target, "collapse");
+        e.stopPropagation();
+      }
+    });
+  }
+
+  // 给笔记正文添加折叠功能 -- #article .dl 区块
+  var dls = document.getElementsByClassName("dl"),
+    i;
+  if (dls) {
+    for (i = 0; i < dls.length; i++) {
+      dls[i].addEventListener("dblclick", function(e) {
+        toggleClass(this, "collapse");
+        e.stopPropagation();
       });
+    }
   }
 
   // 调整 ipad 字体大小

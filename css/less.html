@@ -3,9 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="../w3c.css">
-<style>.w3-row{border:1px dotted gray;} .w3-row pre{border:0;} .w3-row>div:first-child{border-right: 1px dotted gray;}</style>
-<script src="../notes.js"></script>
+<link rel="stylesheet" href="../main.css">
+<style>.row,.half{border:1px dotted gray;}
+.half{width:49.9%;}
+.half:first-child{border-width: 0 1px 0 0;}
+.half:last-child{border-width: 0 0 0 1px;margin-left: -1px;}
+.row pre{border:0;}</style>
+<script src="../main.js"></script>
 <script src="../highlight.js"></script>
 <title>LESS 语法</title>
 </head>
@@ -14,57 +18,83 @@
 <h1>Less 语法</h1>
 <div id="contents" style="display:none;">
 <ul>
-  <li><a href="#">概述</a></li>
-  <li><a href="#">变量</a></li>
-  <li><a href="#">继承</a></li>
-  <li><a href="#">Mixins</a></li>
+  <li><a href="#overview">概述</a></li>
+  <li><a href="#variables">变量</a></li>
+  <li><a href="#extend">继承</a></li>
+  <li><a href="#mixins">Mixins</a></li>
+  <li><a href="#pmixins">Parametric Mixins</a></li>
 </ul>
 </div>
 
 <div>
-<p>官方文档：http://lesscss.org/</p>
-<p>中文文档：http://www.lesscss.net/</p>
-<p>一个在线编辑工具：http://winless.org/online-less-compiler （更多见中文文档）</p>
+<p>官方文档：<a href="http://lesscss.org/" target="_blank">http://lesscss.org/</a></p>
+<p>中文文档：<a href="http://www.lesscss.net/" target="_blank">http://www.lesscss.net/</a></p>
+<p>一个在线编辑工具：<a href="http://winless.org/online-less-compiler" target="_blank">http://winless.org/online-less-compiler</a> （更多见中文文档）</p>
 <p>本笔记在中英文文档基础上删减、修改而来。</p>
 </div>
 
-<h1>概述 Overview</h1>
+<h2 id="overview">概述 Overview</h2>
 <div>
 <p>Less 是 CSS 的超集。</p>
 
-<h2>变量 Variables (实质为常量, @打头)</h2>
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<h3>变量 Variables</h3>
+<div class="row"><div class="half"><pre class="less">
 @nice-blue: #5B83AD;
 @light-blue: @nice-blue + #111;
 #header {  color: @light-blue; }
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 输出 */
 #header {
   color: #6c94be; }
 </pre></div></div>
-<p>注意：这里所定义的变量，实质上是“常量”。</p>
+<p>注意：这里所定义的变量，实质上是“常量”，在同一作用域内允许赋值多次，但只有最后一次赋值才是有效的（会覆盖前面的赋值）。</p>
 
-<h2>混入 Mixins</h2>
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
-.bordered {  // 供混入的元素，也可以是 #id
+<h3>普通混入 Mixins</h3>
+<p>普通混入指将其他 class / id 的定义完整地拷贝一份，有些类似于继承的概念，但 Less 里有单独的 extend 继承语法。</p>
+<div class="row"><div class="half"><pre class="less">
+.bordered {  // 供 mixin 的元素，也可以是 #id，但 tag 不支持
   border-top: dotted 1px black;
   border-bottom: solid 2px black;
 }
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 #menu a {
   color: #111;
-  .bordered;  // 执行混入
+  .bordered;  // 执行 mixin
 }
 </pre></div></div>
 
-<h2>嵌套规则 Nested Rules</h2>
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<h3>带参混入器 Parametric Mixins</h3>
+<p>带参混入器更像是一个函数，下面列了一些重要特性：</p>
+<ul>
+  <li>带参混入器的参数可以是 0 或 多个，但必须带 ()</li>
+  <li>带参混入器自身不会输出到 css</li>
+  <li>参数可以有参数名，也可以没有参数名</li>
+  <li>参数可以带默认值，也可以不带默认值</li>
+</ul>
+<div class="row"><div class="half"><pre class="less">
+// A parametric mixin with a default value:
+.border-radius-with-default(@radius: 5px) {
+    border-radius: @radius;
+    -moz-border-radius: @radius;
+    -webkit-border-radius: @radius;
+}
+#content { .border-radius-with-default; }
+</pre></div><div class="half"><pre class="less">
+/* 输出 */
+#content {
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+</pre></div></div>
+
+<h3>嵌套规则 Nested Rules</h3>
+<div class="row"><div class="half"><pre class="less">
 /* 普通 CSS 的写法： */
 #header {  color: black; }
 #header .navigation {  font-size: 12px; }
 #header .logo {  width: 300px; }
-
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* Less 中可以采用嵌套简化： */
 #header {
   color: black;
@@ -72,23 +102,24 @@
   .logo { width: 300px;  }
 }
 </pre></div></div>
-<p>采用嵌套使代码更加简明，同时也更直观地匹配 HTML 代码结构。</p>
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<p>采用嵌套使代码更加简明，可以很好地体现 HTML 代码结构。</p>
+<h4>嵌套中的 & 符号</h4>
+<p><code>&</code> 代表当前选择器的父选择器（指 less 嵌套中的父选择器）</p>
+<div class="row"><div class="half"><pre class="less">
 /* 嵌套与伪选择器配合使用 */
  a { text-decoration: none;
       &:hover { border-width: 1px }
 }
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 输出 */
 a {  text-decoration: none; }
 a:hover {  border-width: 1px; }
-// 如果不加&，输出为 a :hover 即相当于 a *:hover
+// 如果不加 &，输出为 a :hover 即相当于 a *:hover
 </pre></div></div>
-<p><code>&</code> 代表当前选择器的父选择器（指 less 嵌套中的父选择器）</p>
 
-<h2>指令嵌套 及 冒泡 Nested Directives and Bubbling</h2>
+<h3>指令嵌套 及 冒泡 Nested Directives and Bubbling</h3>
 <p>像 media、keyframe 这样的指令也可以跟普通选择器一样进行嵌套。指令与普通选择器不同的地方是，指令最终会被提升到最外层，这就是所谓的冒泡。</p>
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<div class="row"><div class="half"><pre class="less">
 .screen-color {
   @media screen {
     color: green;
@@ -96,7 +127,7 @@ a:hover {  border-width: 1px; }
   }
   @media tv { color: black; }
 }
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 输出 */
 @media screen {
   .screen-color { color: green; } }
@@ -106,21 +137,20 @@ a:hover {  border-width: 1px; }
   .screen-color { color: black; } }
 </pre></div></div>
 <p>非条件判断指令，如 font-face、keyframes 也会冒泡，但它们的内容不会改变：</p>
-<p>Remaining non-conditional directives, for example , are bubbled up too. Their bodies do not change:</p>
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<p>Remaining non-conditional directives, eg. font-face or keyframes, are bubbled up too. Their bodies do not change:</p>
+<div class="row"><div class="half"><pre class="less">
 #a {
   color: blue;
   @font-face { src: made-up-url; }
-  padding: 2 2 2 2;  }
-</pre></div><div class="w3-col m6"><pre class="less">
+  padding: 2px; }
+</pre></div><div class="half"><pre class="less">
 /* 输出 */
-#a { color: blue; }
+#a { color: blue; padding: 2px; }
 @font-face { src: made-up-url; }
-#a { padding: 2 2 2 2; }
 </pre></div></div>
 
-<h2>运算符 Operations</h2>
-<p>任何数值，颜色和变量都可以进行运算。</p>
+<h3>运算符 Operations</h3>
+<p>任何数值、颜色和变量都可以进行运算。</p>
 <p>less 会智能转换单位，但在无法转换，或者转换没有意义的情况下，less 会忽略单位。</p>
 <pre class="less">
 /* 不同单位之间智能转换 */
@@ -140,26 +170,26 @@ color:rgba(0,255,0,0.5)-#111;  // color: #00ee00; alpha值丢失；小于 00 的
 <p>颜色操作提示1：alpha 通道不支持算术运算，若参与运算，alpha 值将丢失。</p>
 <p>颜色操作提示2：颜色计算结果超出 00-ff 的范围的时候，超出的不计。</p>
 
-<h2>转义 Escaping</h2>
-<p><code>~"anything" 或 ~'anything'</code>字符串前加<code>~</code>符号，字符串将被原样保留，主要用于 css hack。</p>
+<h3>转义 Escaping</h3>
+<p><code>~"anything"</code> 或 <code>~'anything'</code> 字符串前加 <code>~</code> 符号，字符串将被原样保留，主要用于 css hack。</p>
 <p>Escaping allows you to use any arbitrary string as property or variable value. Anything inside ~"anything" or ~'anything' is used as is with no changes except interpolation.</p>
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<div class="row"><div class="half"><pre class="less">
 .weird-element {
     content: ~"^* some horrible but needed css hack"; }
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 输出 */
 .weird-element { content: ^* some horrible but needed css hack; }
 </pre></div></div>
 
-<h2>函数（颜色处理函数可能比较有用） Functions</h2>
-<p>Less 提供一系列函数用于 转换颜色、操作字符以及数学运算，并提供了详细的在线手册。</p>
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<h3>函数 Functions （最具实用性的应该是其中的 Color functions ）</h3>
+<p>Less 提供一系列函数用于转换颜色、操作字符以及数学运算，并提供了详细的在线手册。</p>
+<div class="row"><div class="half"><pre class="less">
 @base: #f04615;
 @width: 0.5;
 .class {
   width: percentage(@width); // returns `50%`
   color: saturate(@base, 5%); }
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 输出 */
 .class {
   width: 50%;
@@ -167,10 +197,10 @@ color:rgba(0,255,0,0.5)-#111;  // color: #00ee00; alpha值丢失；小于 00 的
 }
 </pre></div></div>
 
-<h2>命名空间 及 存取 Namespaces and Accessors</h2>
+<h3>命名空间 及 存取 Namespaces and Accessors</h3>
 (Not to be confused with CSS @namespace or namespace selectors).
-<p>有时候，出于组织的目的，或者为了提供一些封装，你会希望将你的 mixins 组合在一起，在 Less 中做到这一点非常直观。</p>
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<p>有时候，出于组织代码的目的，或者为了提供一些封装，你会希望将你的 mixins 组合在一起，在 Less 中做到这一点非常直观。</p>
+<div class="row"><div class="half"><pre class="less">
 #bundle {  // 定义一个命名空间
   @color: orange;
   .button {
@@ -179,17 +209,16 @@ color:rgba(0,255,0,0.5)-#111;  // color: #00ee00; alpha值丢失；小于 00 的
   }
   .tab { ... }
 }
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 存取示例 */
 #header a {
-  #bundle > .button;  // 正常调用
-  color: #bundle > @color;  // 调用出错  
+  #bundle &gt; .button;  // 正常调用
+  color: #bundle &gt; @color;  // 调用出错
 }
-
 </pre></div></div>
 <p>请注意，命名空间内部声明的变量的作用域仅限于命名空间内，外部调用无效。</p>
 
-<h2>作用域 Scope</h2>
+<h3>作用域 Scope</h3>
 <p>Less 中的作用域与编程语言中的作用域概念非常相似。首先会在当前作用域查找，如果没找到，编译器就会逐级向上查找。</p>
 <pre class="less">
 @var: red;
@@ -198,40 +227,40 @@ color:rgba(0,255,0,0.5)-#111;  // color: #00ee00; alpha值丢失；小于 00 的
   @var: white;  // 声明位于使用语句后面，一样有效
 }
 </pre>
-<p>提示：变量和 mixins 的声明可以放在调用的后面，也就是说可以先用再声明。</p>
+<p>提示：变量和 mixins 的声明可以放在调用的后面，也就是说可以先用再声明。这种机制称为 Lazy Loading</p>
 
-<h2>注释 Comments</h2>
-<p>Less 在CSS的 块注释 基础上增加了 单行注释 功能，但单行注释在转换时会忽略。</p>
+<h3>注释 Comments</h3>
+<p>Less 在 CSS 的“块注释”基础上增加了“单行注释”功能，但单行注释在编译时会忽略。</p>
 <pre class="less">
 /* 我会被编译 */
 // 我不会被编译
 </pre>
 
-<h2>导入 Importing</h2>
+<h3>导入 Importing</h3>
 <pre class="less">
 @import "library";  // library.less 后缀可省略
 @import "typo.css";  // 导入 css 文件时，后缀不可省略
 </pre>
 </div>
 
-<h1>变量 Variables</h1>
-
+<h2 id="variables">变量 Variables</h2>
 <div>
-<h2>概述 Overview</h2>
-<p>变量通过为你提供一种在一个地方管理这些值的方法让你的代码变得更容易维护。</p>
+<h3>概述 Overview</h3>
+<p>变量通过为你提供一种在单个地方管理变量值的方法让你的代码变得更容易维护。</p>
 
-<h2>变量插值 Variable Interpolation</h2>
-<p>使用变量管理值是变量最常见的使用方式，另外，它们还可以用在其他地方，比如选择器名称，属性名，URLs以及@import语句中。</p>
+<h3>变量插值 Variable Interpolation</h3>
+<p>使用变量管理值是变量最常见的使用方式，另外，它们还可以用在其他地方，如选择器名、属性名、URLs 以及 @import 语句中。</p>
 <p>当变量不是作为值来引用，而是作为字符串来使用时，就是变量插值，使用格式稍微有点区别：<code>@{ variableName }</code></p>
-<h3>Selectors</h3>
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+
+<h3>选择器中的变量 Selectors</h3>
+<div class="row"><div class="half"><pre class="less">
 @my-selector: banner; // Variables
 .@{my-selector} {  // Usage
   font-weight: bold;
   line-height: 40px;
   margin: 0 auto;
 }
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 输出 */
 .banner {
   font-weight: bold;
@@ -240,94 +269,74 @@ color:rgba(0,255,0,0.5)-#111;  // color: #00ee00; alpha值丢失；小于 00 的
 }
 </pre></div></div>
 
-<h3>URLs</h3>
-
+<h3>URL 中的变量 URLs</h3>
+<div class="row"><div class="half"><pre class="less">
 // Variables
 @images: "../img";
-
+</pre></div><div class="half"><pre class="less">
 // Usage
-body {
-  color: #444;
-  background: url("@{images}/white-sand.png");
-}
-<h3>Import Statements</h3>
+body { background: url("@{images}/image.png"); }
+</pre></div></div>
 
-Version: 1.4.0
-
-Syntax: @import "@{themes}/tidal-wave.less";
-
-Note that before v2.0.0, only variables which have been declared in the root or current scope were considered and that only the current file and calling files were considered when looking for a variable.
-
-Example:
-
+<h3>@import 语句中的变量 Import Statements</h3>
+<div class="row"><div class="half"><pre class="less">
 // Variables
 @themes: "../../src/themes";
-
+</pre></div><div class="half"><pre class="less">
 // Usage
 @import "@{themes}/tidal-wave.less";
-Properties
+</pre></div></div>
 
-Version: 1.6.0
-
+<h3>属性名中的变量 Properties</h3>
+<div class="row"><div class="half"><pre class="less">
 @property: color;
-
 .widget {
   @{property}: #0ee;
   background-@{property}: #999;
 }
-Compiles to:
-
+</pre></div><div class="half"><pre class="less">
+// Compiles to:
 .widget {
   color: #0ee;
   background-color: #999;
 }
-Variable Names
-It is also possible to define variables with a variable name:
+</pre></div></div>
 
+<h3>变量名中的变量 Variable Names</h3>
+<p>还可以使用变量来定义变量名：</p>
+<div class="row"><div class="half"><pre class="less">
 @fnord:  "I am fnord.";
 @var:    "fnord";
 content: @@var;
-Which compiles to:
-
+</pre></div><div class="half"><pre class="less">
+// Which compiles to:
 content: "I am fnord.";
+</pre></div></div>
 
-<h2>延迟加载 Lazy Loading</h2>
+<h3>延迟加载 Lazy Loading</h3>
 <p>变量是延迟加载的，在使用前不一定要预先声明。</p>
-<p>当重复定义一个变量时，只会使用最后定义的变量（后面的会覆盖前面的），如果当前作用域没有，Less会逐级向上搜索。这个行为类似于 CSS 的行为。</p>
-
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<p>当重复定义一个变量时，只会使用最后定义的变量（后面的会覆盖前面的）。</p>
+<p>如果当前作用域没有该变量，Less 会逐级向上搜索，这个行为类似于 CSS 的行为。</p>
+<div class="row"><div class="half"><pre class="less">
 @var: 0;
 .class {
   @var: 1;
   .brass { @var: 2; three: @var; @var: 3; }
   one: @var;
 }
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 输出 */
 .class { one: 1; }
 .class .brass { three: 3; }
-
 </pre></div></div>
 
-<h2>Default Variables</h2>
-We sometimes get requests for default variables - an ability to set a variable only if it is not already set. This feature is not required because you can easily override a variable by putting the definition afterwards.
-
-For instance:
-
-// library
-@base-color: green;
-@dark-color: darken(@base-color, 10%);
-
-// use of library
-@import "library.less";
-@base-color: red;
-This works fine because of Lazy Loading - base-color is overridden and dark-color is a dark red.
-
+<h3>变量的默认值 Default Variables</h3>
+<p>有时候你会用到变量的预设值 -- 让你能够在没有设置变量的情况下能够使用预设值。这一特性并不是不可或缺，因为在 Less 中允许先使用再定义变量。</p>
 </div>
 
-<h1>继承 Extend</h1>
+<h2 id="extend">继承 Extend ##</h2>
 <div>
-<h2>继承的使用场合 Use Cases for Extend</h2>
+<h3>继承的使用场合 Use Cases for Extend</h3>
 <h3>经典用法 Classic Use Case</h3>
 <pre class="less">
 .animal {
@@ -343,7 +352,7 @@ This works fine because of Lazy Loading - base-color is overridden and dark-colo
 <h3>减小CSS尺寸 Reducing CSS Size</h3>
 <p>使用 Mixins 会复制所有定义，而 Extend 只会将选择器添加到基类，可以减小 CSS 尺寸。</p>
 <p>采用 mixins 的方案</p>
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<div class="row"><div class="half"><pre class="less">
 .my-inline-block() {
   display: inline-block;
   font-size: 0;
@@ -351,7 +360,7 @@ This works fine because of Lazy Loading - base-color is overridden and dark-colo
 .thing1 { .my-inline-block; }
 .thing2 { .my-inline-block; }
 
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 输出 */
 .thing1 {
   display: inline-block;
@@ -361,14 +370,14 @@ This works fine because of Lazy Loading - base-color is overridden and dark-colo
   font-size: 0;  }
 </pre></div></div>
 <p>采用 extend 的方案</p>
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<div class="row"><div class="half"><pre class="less">
 .my-inline-block {
   display: inline-block;
   font-size: 0;
 }
 .thing1 { &:extend(.my-inline-block); }
 .thing2 { &:extend(.my-inline-block); }
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 输出 */
 .my-inline-block, .thing1, .thing2 {
   display: inline-block;
@@ -378,13 +387,13 @@ This works fine because of Lazy Loading - base-color is overridden and dark-colo
 
 <h3>分组(更高级的mixin) Combining Styles / A More Advanced Mixin</h3>
 <p>另一种用法是作为 mixin 的替代，mixins 只能用于简单选择器，当你有两个选择器要使用相同的 CSS 时，可以采用 extend 实现分组功能。</p>
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<div class="row"><div class="half"><pre class="less">
 li.list > a {
   /* list styles */ }
 button.list-style {
   &:extend(li.list > a);
 }
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 输出 */
 li.list > a,
 button.list-style {
@@ -393,15 +402,15 @@ button.list-style {
 </pre></div></div>
 </div>
 
-<h1>Mixins</h1>
+<h2 id="mixins">Mixins ##</h2>
 
 <div>
 <p>Mixin 负责将现有样式定义“掺入”当前定义。您可以 mix-in 类选择器 及 id 选择器。</p>
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<div class="row"><div class="half"><pre class="less">
 .a, #b { color: red; }
 .mixin-class { .a(); }
 .mixin-id { #b(); } 
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 输出 */
 .a, #b { color: red; }
 .mixin-class { color: red; }
@@ -412,9 +421,9 @@ button.list-style {
 .a;  // 使用 mixins 括号是可选的，两者效果一样
 </pre>
 
-<h2>阻止输出Mixin本身 Not Outputting the Mixin</h2>
+<h3>阻止输出Mixin本身 Not Outputting the Mixin</h3>
 <p>如果 Mixin 只用于供调用而不需要单独输出到CSS中，那么可以通过加括号来阻止编译输出。</p>
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<div class="row"><div class="half"><pre class="less">
 .my-mixin {
   color: black;
 }
@@ -425,7 +434,7 @@ button.list-style {
   .my-mixin;
   .my-other-mixin;
 }
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 输出 */
 .my-mixin {
   color: black;
@@ -437,16 +446,16 @@ button.list-style {
 
 </pre></div></div>
 
-<h2>Mixins中的选择器 Selectors in Mixins</h2>
+<h3>Mixins中的选择器 Selectors in Mixins</h3>
 <p>Mixin 中不仅可以定义属性，而且还可以包含选择器。</p>
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<div class="row"><div class="half"><pre class="less">
 .my-hover-mixin() {
   background-color: #ccc;
   &:hover { border: 1px solid red; }
   .inner {color: black;}
 }
 button { .my-hover-mixin(); }
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 输出 */
 button { background-color: #ccc; }
 button:hover { border: 1px solid red; }
@@ -454,9 +463,9 @@ button .inner { color: black; }
 
 </pre></div></div>
 
-<h2>命名空间 Namespaces</h2>
+<h3>命名空间 Namespaces</h3>
 <p>如果你需要混入复杂选择器中定义的属性，你可以通过嵌套多层 id 或者 class 来调用。</p>
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<div class="row"><div class="half"><pre class="less">
 #outer {
   .inner { color: red; }
 }
@@ -464,7 +473,7 @@ button .inner { color: black; }
   #outer > .inner;
 }
 // 多层嵌套调用时 > 符号以及 空白 都可以省略
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 // 以下几种调用都是合法有效的
 #outer > .inner;
 #outer > .inner();
@@ -484,7 +493,7 @@ button .inner { color: black; }
 }
 </pre>
 
-<h2>带生效条件的命名空间 Guarded Namespaces</h2>
+<h3>带生效条件的命名空间 Guarded Namespaces</h3>
 If namespace have a guard, mixins defined by it are used only if guard condition returns true. Namespace guard is evaluated exactly the same way as guard on mixin, so next two mixins work the same way:
 <pre class="less">
 #namespace when (@mode=huge) {
@@ -503,9 +512,9 @@ The default function is assumed to have the same value for all nested namespaces
 }
 </pre>
 
-<h2>!important 关键字 The !important keyword</h2>
+<h3>!important 关键字 The !important keyword</h3>
 <p>在调用mixin 时加上 !important 关键字，可以使 mixin 里面的所有属性都继承 !important：</p>
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<div class="row"><div class="half"><pre class="less">
 .foo (@bg: #f5f5f5, @color: #900) {
   background: @bg;
   color: @color;
@@ -514,7 +523,7 @@ The default function is assumed to have the same value for all nested namespaces
 .important {
   .foo() !important; // 调用时加了 !important 关键字
 }
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 输出 */
 .unimportant {
   background: #f5f5f5;
@@ -527,16 +536,15 @@ The default function is assumed to have the same value for all nested namespaces
 </pre></div></div>
 </div>
 
-<h1>Parametric Mixins</h1>
-
+<h2 id="pmixins">Parametric Mixins ##</h2>
 <div>
 Mixins can also take arguments, which are variables passed to the block of selectors when it is mixed in.
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<div class="row"><div class="half"><pre class="less">
 .border-radius(@radius) {
   -webkit-border-radius: @radius;
      -moz-border-radius: @radius;
           border-radius: @radius; }
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 使用 */
 #header { .border-radius(4px); }
 .button { .border-radius(6px); }
@@ -544,12 +552,12 @@ Mixins can also take arguments, which are variables passed to the block of selec
 </pre></div></div>
 
 Parametric mixins can also have default values for their parameters:
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<div class="row"><div class="half"><pre class="less">
 .border-radius(@radius: 5px) {
   -webkit-border-radius: @radius;
      -moz-border-radius: @radius;
           border-radius: @radius; }
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 使用 */
 #header { .border-radius; }
 // 因为设置了默认参数，所以不传参不会报错
@@ -557,7 +565,7 @@ Parametric mixins can also have default values for their parameters:
 </pre></div></div>
 
 You can also use parametric mixins which don't take parameters. This is useful if you want to hide the ruleset from the CSS output, but want to include its properties in other rulesets:
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<div class="row"><div class="half"><pre class="less">
 .wrap() {
   text-wrap: wrap;
   white-space: -moz-pre-wrap;
@@ -565,7 +573,7 @@ You can also use parametric mixins which don't take parameters. This is useful i
   word-wrap: break-word;
 }
 pre { .wrap }
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 输出 */
 pre {
   text-wrap: wrap;
@@ -575,7 +583,7 @@ pre {
 }
 </pre></div></div>
 
-<h2>Mixins with Multiple Parameters</h2>
+<h3>Mixins with Multiple Parameters</h3>
 <p>多个参数可以用分号<code>;</code>或者逗号<code>,</code>分割。但是推荐使用分号分割。因为逗号有两个意思：它可以解释为 mixins 参数分隔符或者 css 列表分隔符。</p>
 <p>使用逗号作为mixin的分隔符则无法用它创建逗号分割的参数列表。换句话说，如果编译器在 mixin 调用或者声明中看到至少一个分号，它会假设参数是由分号分割的，而所有的逗号都属于CSS列表:</p>
 <ul>
@@ -594,7 +602,7 @@ three arguments and each contains one number: .name(1, 2, 3),
 use dummy semicolon to create mixin call with one argument containing comma separated css list: .name(1, 2, 3;),
 comma separated default value: .name(@param1: red, blue;).
 It is legal to define multiple mixins with the same name and number of parameters. Less will use properties of all that can apply. If you used the mixin with one parameter e.g. .mixin(green);, then properties of all mixins with exactly one mandatory parameter will be used:
-<div class="w3-row"><div class="w3-col m6"><pre class="less">
+<div class="row"><div class="half"><pre class="less">
 .mixin(@color) { color-1: @color; }
 .mixin(@color; @padding: 2) {
   color-2: @color;
@@ -607,7 +615,7 @@ It is legal to define multiple mixins with the same name and number of parameter
 }
 .some .selector div { .mixin(#008000); }
 
-</pre></div><div class="w3-col m6"><pre class="less">
+</pre></div><div class="half"><pre class="less">
 /* 输出 */
 .some .selector div {
   color-1: #008000;
@@ -616,7 +624,7 @@ It is legal to define multiple mixins with the same name and number of parameter
 }
 </pre></div></div>
 
-<h2>Named Parameters</h2>
+<h3>Named Parameters</h3>
 
 A mixin reference can supply parameters values by their names instead of just positions. Any parameter can be referenced by its name and they do not have to be in any special order:
 
@@ -644,7 +652,7 @@ compiles into:
   padding: 40px;
 }
 
-<h2>The @arguments Variable</h2>
+<h3>The @arguments Variable</h3>
 
 @arguments has a special meaning inside mixins, it contains all the arguments passed, when the mixin was called. This is useful if you don't want to deal with individual parameters:
 
@@ -664,7 +672,7 @@ Which results in:
           box-shadow: 2px 5px 1px #000;
 }
 
-<h2>Advanced Arguments and the @rest Variable</h2>
+<h3>Advanced Arguments and the @rest Variable</h3>
 
 You can use ... if you want your mixin to take a variable number of arguments. Using this after a variable name will assign those arguments to the variable.
 
@@ -680,7 +688,7 @@ Furthermore:
    // @arguments is bound to all arguments
 }
 
-<h2>模式匹配 Pattern-matching</h2>
+<h3>模式匹配 Pattern-matching</h3>
 Sometimes, you may want to change the behavior of a mixin, based on the parameters you pass to it. Let's start with something basic:
 
 .mixin(@s; @color) { ... }
@@ -732,11 +740,11 @@ We can also match on arity, here's an example:
 Now if we call .mixin with a single argument, we will get the output of the first definition, but if we call it with two arguments, we will get the second definition, namely @a faded to @b.
 </div>
 
-<h1>Import Directives</h1>
+<h2 id="import">Import Directives ##</h2>
 <div>
 <p>在标准的CSS中，@import必须在所有其他类型的规则之前，但 Less 中并无此限制。</p>
 
-<h2>文件扩展名 File Extensions</h2>
+<h3>文件扩展名 File Extensions</h3>
 <p>导入时，Less 会根据文件扩展名作出不同操作：</p>
 <ul>
   <li>如果文件名带 .css 后缀，文件被作为 css 文件导入，即原封不动地复制进来；</li>
@@ -751,7 +759,7 @@ Now if we call .mixin with a single argument, we will get the output of the firs
 <p>当然，也可以通过下节介绍的的选项来改变默认行为。</p>
 </div>
 
-<h1>Import Options</h1>
+<h2>Import Options</h2>
 
 <div>
 Less offers several extensions to the CSS @import CSS at-rule to provide more flexibility over what you can do with external files.
@@ -770,7 +778,7 @@ More than one keyword per @import is allowed, you will have to use commas to sep
 Example: @import (optional, reference) "foo.less";
 </div>
 
-<h1>Mixin Guards</h1>
+<h2>Mixin Guards</h2>
 
 <div>
 
