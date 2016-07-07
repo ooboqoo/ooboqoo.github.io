@@ -1,82 +1,59 @@
 // 在 normalize 基础上的再格式化一些常用 tag 的默认表现
-html,
-body {
-  font-family: Verdana, Arial, sans-serif, SimSun, "Microsoft YaHei";
-  font-size: 16px;
-  line-height: 1.5;
+* {
+  box-sizing: border-box
 }
-
 html {
   overflow-x: hidden;
 }
-
+body {
+  font-family: Verdana, Arial, SimSun, "Microsoft YaHei", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
 h1 {
-  font-size: 36px;
+  font-size: 32px;
 }
-
 h2 {
-  font-size: 30px;
+  font-size: 28px;
 }
-
 h3 {
   font-size: 24px;
 }
-
 h4 {
   font-size: 20px;
+  color: #33c;
 }
-
 h5 {
-  font-size: 18px;
-}
-
-h6 {
   font-size: 16px;
 }
-
-h1,
-h2 {
-  font-family: "Microsoft YaHei", sans-serif;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: 400;
+h1, h2, h3, h4, h5 {
   margin: 10px 0;
   a {
     font-weight: inherit;
   }
 }
-
+h1, h2, h3, h4 {
+  font-family: "Microsoft YaHei";
+  font-weight: 400;
+}
 hr {
   height: 0;
   border: 0;
   border-top: 1px solid #ccc;
   margin: 6px 0;
 }
-
 img {
   margin-bottom: -5px;
 }
-
 a {
   color: inherit;
 }
-
 table {
   width: 100%;
 }
-
-table,
-th,
-td {
+table, th, td {
   border: none;
 }
-
 // 从Bootstrap 抽取的格栅定义
 .row {
   &::after {
@@ -92,16 +69,13 @@ td {
     }
   }
 }
-
 // 通用类
 .responsive {
   overflow-x: auto;
 }
-
 .shadow-2 {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)!important;
 }
-
 .multicolumn {
   @media only screen and (min-width: 601px) {
     -webkit-column-count: 3;

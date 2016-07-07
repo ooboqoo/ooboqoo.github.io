@@ -3,25 +3,24 @@
  支持IE9及以上浏览器
 **/
 
+// 下载目录文档并进行相关的初始化工作
 (function() {
 
   // 定义初始化函数
   function navinit() {
 
-    if (!document.body) {
-      return;
-    }
+    if (!document.body) return;
     document.removeEventListener("readystatechange", navinit);
-
-    var nav = document.createElement("div"),
-      i = 0;
+    var i = 0;  // for 语句用的 i
+    var nav = document.createElement("nav");
     nav.id = "nav";
     nav.innerHTML = xmlhttp.responseText;
     document.body.appendChild(nav);
 
+    var sidemenu = document.getElementById("sidemenu");
+
     // 定义打开菜单按钮动作
     document.getElementById("openmenu").addEventListener("click", function(e) {
-      var sidemenu = document.getElementById("sidemenu");
       sidemenu.style.display = sidemenu.style.display === "block" ? "" :
         'block';
       e.stopPropagation();
@@ -29,19 +28,44 @@
 
     // 定义菜单关闭按钮动作
     document.getElementById("closebtn").addEventListener("click", function(e) {
-      document.getElementById("sidemenu").style.display = '';
+      sidemenu.style.display = '';
       e.stopPropagation();
     });
 
     // 定义折叠菜单栏功能
     document.getElementById("sidemenu").addEventListener("click", function(e) {
       var neStyle = e.target.nextElementSibling.style;
-      if (e.target.tagName.toUpperCase().indexOf("H2") === 0) {
+      if (e.target.tagName.toLowerCase().indexOf("h2") === 0) {
         neStyle.display = neStyle.display ? "" : "none";
         e.target.className = e.target.className ? "" : "collapse";
       }
       e.stopPropagation();
     });
+
+    // 初始化菜单栏各区块的展开和折叠（实际就是展开当前页面所在的区块）
+    var anchors = sidemenu.getElementsByTagName("a");
+    var targetA, targetDiv;
+    for(i = 0; i < anchors.length; i++){
+      if (anchors[i].href === document.URL){
+        targetA = anchors[i];
+        break;
+      }
+    }
+    if (targetA){
+      targetDiv = targetA;
+      do {
+        targetDiv = targetDiv.parentElement;
+      } while(targetDiv.tagName !== "DIV" && targetDiv.parentElement);
+      if (targetDiv.style.display === "none") {
+        var h2 = sidemenu.getElementsByTagName("h2");
+        for (i = 0; i< h2.length; i++) {  // 
+          h2[i].className = "collapse";
+          h2[i].nextElementSibling.style.display = "none";
+        }
+        targetDiv.style.display = "";
+        targetDiv.previousElementSibling.className = "";
+      }
+    }
 
     // 定义“页内导航”
     var contents = document.getElementById("contents"),
@@ -81,24 +105,21 @@
     }
   }
 
-  // 下载 nav 并初始化
+  // 下载 nav 并执行 navinit
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.open("GET", "/nav.html", true);
   xmlhttp.send();
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-      if (document.readyState === "complete") {
-        navinit();
-      } else {
-        document.addEventListener("readystatechange", navinit);
-      }
+      if (document.readyState === "complete") navinit();
+      else document.addEventListener("readystatechange", navinit);
     }
   };
 })();
 
+// 后期添加的功能增强
 window.addEventListener("DOMContentLoaded", function() {
-
-  function toggleClass(element, className) {
+  var toggleClass = function(element, className) {
     if (element.classList) {
       element.classList.toggle(className); // IE10 or higher
     } else {
@@ -106,15 +127,19 @@ window.addEventListener("DOMContentLoaded", function() {
         element.className + " " + className :
         element.className.replace(className, "");
     }
-  }
+  };
 
-  // 给笔记正文添加折叠功能 -- #article>h2 区块
+  // 给笔记正文添加折叠功能 -- #article > h2 区块
   if (document.getElementById("article")) {
     document.getElementById("article").addEventListener("click", function(e) {
-      var next = e.target.nextElementSibling;
-      if (e.target.tagName.toUpperCase() === "H2" &&
-        next.tagName.toUpperCase() === "DIV") {
-        next.style.display = next.style.display ? "" : "none";
+      if (e.target.tagName.toLowerCase() === "h2") {
+        var next = e.target.nextElementSibling;
+        var reg = /h2|h1/i;
+        while (!reg.test(next.tagName)) {
+          next.style.display = next.style.display ? "" : "none";
+          next = next.nextElementSibling;
+          if (next === null) break;
+        }
         toggleClass(e.target, "collapse");
         e.stopPropagation();
       }

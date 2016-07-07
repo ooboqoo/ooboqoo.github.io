@@ -4,7 +4,11 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="../main.css" />
-<style>[colspan="2"], [colspan="3"]{font-weight:bold;} table td em{color:gray;}</style>
+<style>
+  td[colspan="2"], td[colspan="3"] {font-weight:bold;}
+  td.remark {font-weight: normal;}
+  td em{color:gray !important;}
+</style>
 <script src="../main.js"></script>
 <script>setBase('table','http://www.w3schools.com/jquery/');</script>
 <title>jQuery References</title>
@@ -36,8 +40,8 @@
 <tr><td><a href="sel_id.asp">#<em>id</em></a></td><td>$("#lastname")</td><td>The element with id="lastname"</td></tr>
 <tr><td><a href="sel_element.asp"><em>element</em></a></td><td>$("p")</td><td>All &lt;p&gt; elements</td></tr>
 <tr><td><a href="sel_class.asp">.<em>class</em></a></td><td>$(".intro")</td><td>All elements with class="intro"</td></tr>
-<tr><td><a href="sel_multiple_classes.asp">.<em>class</em>, .<em>class</em></a></td><td>$(".intro,.demo")</td><td>All elements with the class "intro" or "demo"</td></tr>
-<tr><td><a href="sel_multiple_sel.asp"><em>el1</em>,<em>el2</em>,<em>el3</em></a></td><td>$("h1,div,p")</td><td>All &lt;h1&gt;, &lt;div&gt; and &lt;p&gt; elements</td></tr>
+<tr><td><a href="sel_multiple_classes.asp">.<em>class</em>, .<em>class</em></a></td><td>$(".intro, .demo")</td><td>All elements with the class "intro" or "demo"</td></tr>
+<tr><td><a href="sel_multiple_sel.asp"><em>el1</em>, <em>el2</em>, <em>el3</em></a></td><td>$("h1, div, p")</td><td>All &lt;h1&gt;, &lt;div&gt; and &lt;p&gt; elements</td></tr>
 <tr><td><a href="sel_parent_descendant.asp">parent descendant</a></td><td>$("div p")</td><td>All &lt;p&gt; elements that are descendants of a &lt;div&gt; element<br>注意区别 $("div .intro") 与 $("div.intro")</td></tr>
 <tr><td><a href="sel_parent_child.asp">parent &gt; child</a></td><td>$("div &gt; p")</td><td>All &lt;p&gt; elements that are a direct child of a &lt;div&gt; element</td></tr>
 <tr><td><a href="sel_previous_next.asp">element + next</a></td><td>$("div + p")</td><td>The &lt;p&gt; element that are next to each &lt;div&gt; elements</td></tr>
@@ -53,6 +57,7 @@
 <tr><td><a href="sel_nthoftype.asp">:nth-of-type(<em>n</em>)</a></td><td>$("p:nth-of-type(2)")</td><td>All &lt;p&gt; elements that are the 2nd &lt;p&gt; element of their parent</td></tr>
 <tr><td><a href="sel_nthlastoftype.asp">:nth-last-of-type(<em>n</em>)</a></td><td>$("p:nth-last-of-type(2)")</td><td>All &lt;p&gt; elements that are the 2nd &lt;p&gt; element of their parent, counting from the last child</td></tr>
 <tr><td><a href="sel_onlyoftype.asp">:only-of-type</a></td><td>$("p:only-of-type")</td><td>All &lt;p&gt; elements that are the only child, of its type, of their parent</td></tr>
+<tr><td colspan="3" class="remark">特别注意 :nth-child() 是唯一一个从1开始计数的，另外，括号内可以是公式，如 2n 2n+1 3n 等</td></tr>
 <tr><td colspan="3">Position among matched elements 在匹配元素间定位</td></tr>
 <tr><td><a href="sel_first.asp">:first</a></td><td>$("p:first")</td><td>The first &lt;p&gt; element</td></tr>
 <tr><td><a href="sel_last.asp">:last</a></td><td>$("p:last")</td><td>The last &lt;p&gt; element</td></tr>
@@ -72,26 +77,28 @@
 <tr><td><a href="sel_attribute_contains_value.asp">[<em>attribute</em>~=<em>"value"</em>]</a></td><td>$("[title~='hello']")</td><td>All elements with a title attribute value containing the specific word "hello"</td></tr>
 <tr><td><a href="sel_attribute_contains_string_value.asp">[<em>attribute</em>*=<em>"value"</em>]</a></td><td>$("[title*='hello']")</td><td>All elements with a title attribute value containing the word "hello"</td></tr>
 <tr><td colspan="3">Forms 表单</td></tr>
-<tr><td><a href="sel_input.asp">:input</a></td><td>$(":input")</td><td>All input elements</td></tr>
-<tr><td><a href="sel_input_text.asp">:text</a></td><td>$(":text")</td><td>All input elements with type="text"</td></tr>
-<tr><td><a href="sel_input_password.asp">:password</a></td><td>$(":password")</td><td>All input elements with type="password"</td></tr>
-<tr><td><a href="sel_input_radio.asp">:radio</a></td><td>$(":radio")</td><td>All input elements with type="radio"</td></tr>
-<tr><td><a href="sel_input_checkbox.asp">:checkbox</a></td><td>$(":checkbox")</td><td>All input elements with type="checkbox"</td></tr>
-<tr><td><a href="sel_input_submit.asp">:submit</a></td><td>$(":submit")</td><td>All input elements with type="submit"</td></tr>
-<tr><td><a href="sel_input_reset.asp">:reset</a></td><td>$(":reset")</td><td>All input elements with type="reset"</td></tr>
-<tr><td><a href="sel_input_button.asp">:button</a></td><td>$(":button")</td><td>All input elements with type="button"</td></tr>
-<tr><td><a href="sel_input_image.asp">:image</a></td><td>$(":image")</td><td>All input elements with type="image"</td></tr>
-<tr><td><a href="sel_input_file.asp">:file</a></td><td>$(":file")</td><td>All input elements with type="file"</td></tr>
+<tr><td><a href="sel_input.asp">:input</a></td><td>$(":input")</td><td>选取所有的 &lt;input&gt; &lt;textarea&gt; &lt;select&gt; &lt;button&gt; 元素</td></tr>
+<tr><td><a href="sel_input_text.asp">:text</a></td><td>$(":text")</td><td>type="text" 选取所有的单行文本框</td></tr>
+<tr><td><a href="sel_input_password.asp">:password</a></td><td>$(":password")</td><td>type="password" 选取所有的密码框</td></tr>
+<tr><td><a href="sel_input_radio.asp">:radio</a></td><td>$(":radio")</td><td>type="radio" 选取所有的单选框</td></tr>
+<tr><td><a href="sel_input_checkbox.asp">:checkbox</a></td><td>$(":checkbox")</td><td>type="checkbox" 选取所有的复选框</td></tr>
+<tr><td><a href="sel_input_submit.asp">:submit</a></td><td>$(":submit")</td><td>type="submit" 选取所有的提交按钮</td></tr>
+<tr><td><a href="sel_input_reset.asp">:reset</a></td><td>$(":reset")</td><td>type="reset" 选取所有的重置按钮</td></tr>
+<tr><td><a href="sel_input_button.asp">:button</a></td><td>$(":button")</td><td>type="button" 选取所有的按钮</td></tr>
+<tr><td><a href="sel_input_image.asp">:image</a></td><td>$(":image")</td><td>type="image" 选取所有的图像按钮</td></tr>
+<tr><td><a href="sel_input_file.asp">:file</a></td><td>$(":file")</td><td>type="file" 选取所有的上传域</td></tr>
 <tr><td><a href="sel_input_enabled.asp">:enabled</a></td><td>$(":enabled")</td><td>All enabled input elements</td></tr>
 <tr><td><a href="sel_input_disabled.asp">:disabled</a></td><td>$(":disabled")</td><td>All disabled input elements</td></tr>
-<tr><td><a href="sel_input_selected.asp">:selected</a></td><td>$(":selected")</td><td>All selected input elements</td></tr>
-<tr><td><a href="sel_input_checked.asp">:checked</a></td><td>$(":checked")</td><td>All checked input elements</td></tr>
+<tr><td><a href="sel_input_checked.asp">:checked</a></td><td>$(":checked")</td><td>All checked input elements（单选 复选）</td></tr>
+<tr><td><a href="sel_input_selected.asp">:selected</a></td><td>$(":selected")</td><td>All selected input elements（下拉列表）</td></tr>
+<tr><td colspan="3" class="remark">:enabled :disabled :selected :checked 这4项属于属性过滤选择器
+  <br>注意 <code>:input</code> 与 <code>input</code> 的区别</td></tr>
 <tr><td colspan="3">Miscellaneous selectors 其他选择符</td></tr>
 <tr><td><a href="sel_root.asp">:root</a></td><td>$(":root")</td><td>The document's root element</td></tr>
 <tr><td><a href="sel_header.asp">:header</a></td><td>$(":header")</td><td>All header elements &lt;h1&gt;, &lt;h2&gt; ...</td></tr>
 <tr><td><a href="sel_contains.asp">:contains(<em>"text"</em>)</a></td><td>$(":contains('Hello')")</td><td>All elements which contains the text "Hello"</td></tr>
-<tr><td><a href="sel_has.asp">:has(<em>selector</em>)</a></td><td>$("div:has(p)")</td><td>All &lt;div&gt; elements that have a &lt;p&gt; element</td></tr>
 <tr><td><a href="sel_empty.asp">:empty</a></td><td>$(":empty")</td><td>All elements that are empty</td></tr>
+<tr><td><a href="sel_has.asp">:has(<em>selector</em>)</a></td><td>$("div:has(p)")</td><td>All &lt;div&gt; elements that have a &lt;p&gt; element</td></tr>
 <tr><td><a href="sel_parent.asp">:parent</a></td><td>$(":parent")</td><td>Select all elements that have at least one child node (either an element or text).</td></tr>
 <tr><td><a href="sel_focus.asp">:focus</a></td><td>$(":focus")</td><td>The element that currently has focus</td></tr>
 <tr><td><a href="sel_animated.asp">:animated</a></td><td>$(":animated")</td><td>All animated elements</td></tr>
@@ -107,13 +114,13 @@
 <table><tbody>
   <tr><th>Method</th><th>Description</th></tr>
   <tr><td colspan="2">Filtering 筛选元素</td></tr>
-  <tr><td><a href="traversing_filter.asp">.filter(<em>selector/callback</em>)</a></td><td>Reduce the set of matched elements to those that match the selector or pass the function's test</td></tr>
+  <tr><td><a href="traversing_filter.asp">.filter(<em>selector / callback</em>)</a></td><td>Reduce the set of matched elements to those that match the selector or pass the function's test</td></tr>
   <tr><td><a href="traversing_not.asp">.not(<em>selector</em>)</a></td><td>Remove elements from the set of matched elements</td></tr>
   <tr><td><a href="traversing_has.asp">.has(<em>selector</em>)</a></td><td>Returns all elements that have one or more elements inside of them</td></tr>
   <tr><td><a href="traversing_eq.asp">.eq(<em>index</em>)</a></td><td>Returns an element with a specific index number of the selected elements</td></tr>
   <tr><td><a href="traversing_first.asp">.first()</a></td><td>Returns the first element of the selected elements</td></tr>
   <tr><td><a href="traversing_last.asp">.last()</a></td><td>Returns the last element of the selected elements</td></tr>
-  <tr><td><a href="traversing_slice.asp">.slice(<em>start,[end]</em>)</a></td><td>Reduces the set of matched elements to a subset specified by a range of indices</td></tr>
+  <tr><td><a href="traversing_slice.asp">.slice(<em>start, [end]</em>)</a></td><td>Reduces the set of matched elements to a subset specified by a range of indices</td></tr>
   <tr><td colspan="2">Descendants 后代元素</td></tr>
   <tr><td><a href="traversing_find.asp">.find(<em>selector</em>)</a></td><td>Returns descendant elements of the selected element</td></tr>
   <tr><td><a href="traversing_children.asp">.children(<em>[selector]</em>)</a></td><td>Returns all direct children of the selected element</td></tr>
@@ -123,14 +130,14 @@
   <tr><td><a href="traversing_siblings.asp">.siblings(<em>[selector]</em>)</a></td><td>Returns all sibling elements of the selected element</td></tr>
   <tr><td><a href="traversing_next.asp">.next(<em>[selector]</em>)</a></td><td>Returns the next sibling element of the selected element</td></tr>
   <tr><td><a href="traversing_nextall.asp">.nextAll(<em>[selector]</em>)</a></td><td>Returns all next sibling elements of the selected element</td></tr>
-  <tr><td><a href="traversing_nextuntil.asp">.nextUntil(<em>[selector],[filter]</em>)</a></td><td>Returns all next sibling elements between two given arguments</td></tr>
+  <tr><td><a href="traversing_nextuntil.asp">.nextUntil(<em>[selector], [filter]</em>)</a></td><td>Returns all next sibling elements between two given arguments</td></tr>
   <tr><td><a href="traversing_prev.asp">.prev(<em>[selector]</em>)</a></td><td>Returns the previous sibling element of the selected element</td></tr>
   <tr><td><a href="traversing_prevall.asp">.prevAll(<em>[selector]</em>)</a></td><td>Returns all previous sibling elements of the selected element</td></tr>
-  <tr><td><a href="traversing_prevuntil.asp">.prevUntil(<em>[selector],[filter]</em>)</a></td><td>Returns all previous sibling elements between two given arguments</td></tr>
+  <tr><td><a href="traversing_prevuntil.asp">.prevUntil(<em>[selector], [filter]</em>)</a></td><td>Returns all previous sibling elements between two given arguments</td></tr>
   <tr><td colspan="2">Ancestors 祖先元素</td></tr>
   <tr><td><a href="traversing_parent.asp">.parent(<em>[selector]</em>)</a></td><td>Returns the direct parent element of the selected element</td></tr>
   <tr><td><a href="traversing_parents.asp">.parents(<em>[selector]</em>)</a></td><td>Returns all ancestor elements of the selected element</td></tr>
-  <tr><td><a href="traversing_parentsuntil.asp">.parentsUntil(<em>[selector],[filter]</em>)</a></td><td>Returns all ancestor elements between two given arguments</td></tr>
+  <tr><td><a href="traversing_parentsuntil.asp">.parentsUntil(<em>[selector], [filter]</em>)</a></td><td>Returns all ancestor elements between two given arguments</td></tr>
   <tr><td><a href="traversing_closest.asp">.closest(<em>[selector]</em>)</a></td><td>Returns the first ancestor of the selected element</td></tr>
   <tr><td><a href="traversing_offsetparent.asp">.offsetParent()</a></td><td>Returns the first positioned parent element</td></tr>
   <tr><td colspan="2">Collection manipulation 集合操作</td></tr>
@@ -144,7 +151,7 @@
   <tr><td><a href="traversing_each.asp">.each(<em>callback</em>)</a></td><td>Executes a function for each matched element</td></tr>
   <tr><td>.index(<em>element</em>)</td><td>Search for a given element from among the matched elements.</td></tr>
   <tr><td><a href="misc_index.asp">.index()</a></td><td>Gets the index of the matched element in ralation to its siblings.</td></tr>
-  <tr><td>$.contains(<em>a,b</em>)</td><td>Determines whether DOM node b contains DOM node a.</td></tr>
+  <tr><td>$.contains(<em>a, b</em>)</td><td>Determines whether DOM node b contains DOM node a.</td></tr>
   <tr><td>.length</td><td>Gets the number of matched elements.</td></tr>
   <tr><td>.get(<em>index</em>)</td><td>Gets the DOM node corresponding to the matched elements.</td></tr>
   <tr><td><a href="misc_get.asp">.get()</a></td><td>Gets an array of DOM nodes corresponding to the matched elements.</td></tr>

@@ -33,5 +33,5 @@ gulp.task('default', function() {
     }
   });
   gulp.watch('less/*.less', ['less']);
-  gulp.watch(['**/*.html', '*.css', '*.js'], reload);
+  gulp.watch(['**/*.html', '**/*.md', '*.css', '*.js'], reload);
 });

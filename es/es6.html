@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../main.css">
+  <script src="../main.js"></script>
+  <script src="../marked.js"></script>
+  <script src="../highlight.js"></script>
+  <title>ECMAScript2015</title>
+</head>
+
+<body>
+  <main id="article" class="md" data-src="/md/es6.md"></main>
+  <script>
+    (function() {
+      var src = document.getElementById("article").getAttribute("data-src");
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.open("GET", src, false);
+      xmlhttp.send();
+      document.getElementById('article').innerHTML = marked(xmlhttp.responseText);
+      // 移除 pre 下 code 标记，并修改 class 的值，以适配 highlight.js
+      var pre = document.getElementById('article').getElementsByTagName("pre");
+      var code;
+      for (var i = 0; i < pre.length; i++) {
+        code = pre[i].children[0];
+        pre[i].className = code.className.replace("lang-", "");
+        pre[i].innerHTML = code.innerHTML;
+      }
+    })();
+  </script>
+</body>
+
+</html>

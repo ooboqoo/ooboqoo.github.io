@@ -10,10 +10,8 @@
 <body>
 <div id="article">
 <pre class="less">
-/* 存取示例 */
-#header a {
-  #bundle &gt; .button;  // 正常调用
-  color: #bundle &gt; @color;  // 调用出错
+.bear {
+  &:extend(.animal);
 }
 </pre>
 

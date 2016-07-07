@@ -4,37 +4,43 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="../main.css">
-<style>[colspan="4"]{font-weight:bold;}</style>
+<style>td[colspan="4"] {font-weight:bold;} td.remark {font-weight: normal;}
+</style>
 <script src="../main.js"></script>
 <script>setBase('table','http://www.w3schools.com/cssref/');</script>
 <title>CSS Selectors</title>
 </head>
 <body>
 <div id="article">
+
 <h1>CSS Selectors</h1>
 
 <div>
 <p>In CSS, selectors are patterns used to select the element(s) you want to style.</p>
 <p>The "CSS" column indicates in which CSS version the property is defined (CSS1, CSS2, or CSS3).</p>
-
-<div class="table-responsive"><table>
+<p>CSS 标准参考：<a href="https://www.w3.org/TR/css-2015/">https://www.w3.org/TR/css-2015/</a></p>
+<p>注意：在 <a href="https://www.w3.org/TR/css-2015/#selectors">W3C 标准</a> 中，只有组合选择符符号两边有空格，其他地方都是不带空格的。CSS 中除了 <code>> + ~</code> 和 <code>,</code> 的意义不受空格影响，其他地方有空格和没空格意义是完全不一样的（空格会被认为是“后代”选择符）。</p>
+<p>各选择符优先级：id > class > attr > tag; 层叠优先级: 内联样式 > 内部样式表 > 外部样式表 > 浏览器缺省</p>
+<div class="responsive"><table>
 <thead><tr><th>Selector</th><th>Example</th><th>Example description</th><th>CSS</th></tr></thead>
 <tbody>
 <tr><td colspan="4">简单选择符</td></tr>
-<tr><td><a href="sel_class.asp">.<i>class</i></a></td><td class="notranslate">.intro</td><td>Selects all elements with class="intro"</td><td>1</td></tr>
-<tr><td><a href="sel_id.asp">#<i>id</i></a></td><td class="notranslate">#firstname</td><td>Selects the element with id="firstname"</td><td>1</td></tr>  <tr><td><a href="sel_all.asp">*</a></td><td class="notranslate">*</td><td>Selects all elements</td><td>2</td></tr>
+<tr><td><a href="sel_class.asp">.<i>class</i></a></td><td class="notranslate">.intro</td><td>Selects all elements with class="intro" 注意看下方提示</td><td>1</td></tr>
+<tr><td><a href="sel_id.asp">#<i>id</i></a></td><td class="notranslate">#firstname</td><td>Selects the element with id="firstname"</td><td>1</td></tr>  <tr><td><a href="sel_all.asp">*</a></td><td class="notranslate">*</td><td>Selects all elements 特殊的用法：非子选择符 section * p</td><td>2</td></tr>
 <tr><td><i><a href="sel_element.asp">element</a></i></td><td class="notranslate">p</td><td>Selects all &lt;p&gt; elements</td><td>1</td></tr>
-<tr><td><i><a href="sel_element_comma.asp">element,element</a></i></td><td class="notranslate">div, p</td><td>Selects all &lt;div&gt; elements and all &lt;p&gt; elements 以及</td><td>1</td></tr>
+<tr><td><i><a href="sel_element_comma.asp">elem1, elem2</a></i></td><td class="notranslate">div, p</td><td>Selects all &lt;div&gt; elements and all &lt;p&gt; elements 以及</td><td>1</td></tr>
+<tr><td colspan="4" class="remark">常用的 CSS 选择器：标签选择器；ID选择器；类选择器；群组选择器；后代选择器；通配符
+<br>需要特别注意的是 <code>.c1.c2</code> 与 <code>.c1 .c2</code> 是完全不同的，前者必须是同时拥有两个类的同一个元素，而后者要求两个类分布在不同的元素内。</td></tr>
 <tr><td colspan="4">组合选择符</td></tr>
-<tr><td><a href="sel_element_element.asp"><i>element</i> <i>element</i></a></td><td class="notranslate">div p</td><td>Selects all &lt;p&gt; elements inside &lt;div&gt; elements 后代</td><td>1</td></tr>
-<tr><td><a href="sel_element_gt.asp"><i>element</i>&gt;<i>element</i></a></td><td class="notranslate">div &gt; p</td><td>Selects all &lt;p&gt; elements where the parent is a &lt;div&gt; element 子代</td><td>2</td></tr>
-<tr><td><a href="sel_element_pluss.asp"><i>element</i>+<i>element</i></a></td><td class="notranslate">div + p</td><td>Selects all &lt;p&gt; elements that are placed immediately after &lt;div&gt; elements 紧跟着的那一个兄弟</td><td>2</td></tr>
-<tr><td><a href="sel_gen_sibling.asp"><i>element1</i>~<i>element2</i></a></td><td>p ~ ul</td><td>Selects every &lt;ul&gt; element that are preceded by a &lt;p&gt; element 跟在后面的那些兄弟</td><td>3</td></tr>
-<tr><td colspan="4" style="font-weight:normal;">There are four different combinators in CSS3:<br>
-descendant selector (space)<br>
-child selector (>)<br>
-adjacent sibling selector (+) 例 div + p 紧跟在 div 后面的那"一个" p，中间不可插入其他类型节点<br>
-general sibling selector (~) 例 p ~ ul 只要在同一个父节点下位于 p "后面"的 ul 都算，中间可以插入其他节点</td></tr>
+<tr><td><a href="sel_element_element.asp"><i>elem1</i> <i>elem2</i></a></td><td class="notranslate">div p</td><td>Selects all &lt;p&gt; elements inside &lt;div&gt; elements 后代</td><td>1</td></tr>
+<tr><td><a href="sel_element_gt.asp"><i>elem1</i> &gt; <i>elem2</i></a></td><td class="notranslate">div &gt; p</td><td>Selects all &lt;p&gt; elements where the parent is a &lt;div&gt; element 子代</td><td>2</td></tr>
+<tr><td><a href="sel_element_pluss.asp"><i>elem1</i> + <i>elem2</i></a></td><td class="notranslate">div + p</td><td>Selects all &lt;p&gt; elements that are placed immediately after &lt;div&gt; elements 紧跟着的那一个兄弟</td><td>2</td></tr>
+<tr><td><a href="sel_gen_sibling.asp"><i>elem1</i> ~ <i>elem2</i></a></td><td>p ~ ul</td><td>Selects every &lt;ul&gt; element that are preceded by a &lt;p&gt; element 跟在后面（不一定紧跟）的那些兄弟</td><td>3</td></tr>
+<tr><td colspan="4" class="remark">CSS3 中有4个组合选择符:<br>
+后代选择符 descendant selector (space)<br>
+子选择符 child selector (>)<br>
+紧邻同胞选择符 adjacent sibling selector (+) 例 div + p 紧跟在 div 后面的那"一个" p，中间不可插入其他类型节点<br>
+一般同胞选择符 general sibling selector (~) 例 p ~ ul 只要在同一个父节点下位于 p "后面"的 ul 都算，中间可以插入其他节点</td></tr>
 <tr><td colspan="4">属性选择符</td></tr>
 <tr><td><a href="sel_attribute.asp">[<i>attribute</i>]</a></td><td class="notranslate">[target]</td><td>Selects all elements with a target attribute</td><td>2</td></tr>
 <tr><td><a href="sel_attribute_value.asp">[<i>attribute</i>=<i>value</i>]</a></td><td class="notranslate">[target=_blank]</td><td>Selects all elements with target="_blank"</td><td>2</td></tr>
@@ -48,6 +54,9 @@ general sibling selector (~) 例 p ~ ul 只要在同一个父节点下位于 p "
 <tr><td><a href="sel_visited.asp">:visited</a></td><td class="notranslate">a:visited</td><td>Selects all visited links</td><td>1</td></tr>
 <tr><td><a href="sel_hover.asp">:hover</a></td><td class="notranslate">a:hover</td><td>Selects links on mouse over</td><td>1</td></tr>
 <tr><td><a href="sel_active.asp">:active</a></td><td class="notranslate">a:active</td><td>Selects the active link</td><td>1</td></tr>
+<tr><td colspan="4" class="remark">由于这 4 个伪类的特指度相同，如果不按照这里列出的顺序使用它们，浏览器可能不会显示预期结果。
+  <br>:hover 还可以用于其他元素。
+  <br>CSS 设计指南 将 以上4个选择符以及 :focus :target 等划归 UI 伪类选择符，而与此相对的是结构化伪类</td></tr>
 <tr><td colspan="4">伪类选择符 <small>MISC</small></td></tr>
 <tr><td><a href="sel_not.asp">:not(<i>selector</i>)</a></td><td>:not(p)</td><td>Selects every element that is not a &lt;p&gt; element</td><td>3</td></tr>
 <tr><td><a href="sel_empty.asp">:empty</a></td><td>p:empty</td><td>Selects every &lt;p&gt; element that has no children (including text nodes)</td><td>3</td></tr>
@@ -85,6 +94,19 @@ general sibling selector (~) 例 p ~ ul 只要在同一个父节点下位于 p "
 <tr><td><a href="sel_firstline.asp">::first-line</a></td><td class="notranslate">p::first-line</td><td>Selects the first line of every &lt;p&gt; element</td><td>1</td></tr>
 <tr><td><a href="sel_selection.asp">::selection</a></td><td>::selection</td><td>Selects the portion of an element that is selected by a user</td><td>&nbsp;</td></tr>
 </tbody></table></div>
+</div>
+
+<div>
+  <h3>:target 示例</h3>
+<pre>
+// CSS 代码
+  #more_info:target {background:#eee;}
+// HTML 代码
+  &lt;a href="#more_info"&gt;More Information&lt;/a&gt;
+  &lt;h2 id="more_info"&gt;This is the information you are looking for.&lt;/h2&gt;
+
+会在用户单击链接转向 ID为 more_info 的元素时，为该元素添加浅灰色背景。
+</pre>
 </div>
 
 </div>

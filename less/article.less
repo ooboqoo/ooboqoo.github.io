@@ -2,6 +2,7 @@
 
 #article {
   width: 100%;
+  position: relative;
   text-align: left;
   border: 0;
   @media only screen and (min-width: 993px) {
@@ -9,40 +10,28 @@
     margin: auto;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.12)!important
   }
-  &>div {
+  & > div {
     margin: 0 15px;
-    padding: 6px 0;
-    border-bottom: 1px solid #999;
+    padding-bottom: 6px;
+    h2 {
+      margin-left: 0;
+    }
   }
   h1 {
     margin: 0 15px;
     border-bottom: 2px solid #999;
     padding: 15px 0 5px;
     text-align: center;
-    font-size: 1.75em;
   }
   h2 {
-    font-size: 1.5em;
-  }
-  &>h2 {
-    margin: 8px 0 0 15px &.collapse::after {
+    margin: 8px 15px 0;
+    border-bottom: 1px solid #ccc;
+    &.collapse::after {
       content: "#点击展开#";
       font-size: 1rem;
       position: absolute;
       right: 20px;
     }
-  }
-  h3 {
-    margin: 6px 0;
-    font-size: 1em;
-    color: #334;
-    font-weight: 600;
-  }
-  h4 {
-    margin: 10px 0 0;
-    font-size: 1em;
-    font-weight: 400;
-    text-decoration: underline;
   }
   p {
     margin: 0.25em 0;
@@ -56,6 +45,10 @@
       span:first-child {
         color: #dd0000;
       }
+    }
+    a {
+      text-decoration: none;
+      border-bottom: 1px solid gray;
     }
     em {
       padding: 0 8px 0 0;
@@ -84,6 +77,7 @@ pre {
   white-space: pre-wrap;
   code {
     color: #0000dd;
+    background-color: transparent;
   }
   span {
     color: #999;
@@ -141,6 +135,14 @@ code {
   }
 }
 
+#md {
+  padding: 0 14px 10px 18px;
+  h1,h2{
+    margin-left:0;
+    margin-right: 0; 
+  }
+}
+
 // 页面内锚点导航
 #contents ul {
   text-align: center;
@@ -163,14 +165,15 @@ code {
     right: 30px;
     z-index: -1;
   }
-  &>h4 {
+  &>h5 {
     margin: 0 0 0 -14px;
     color: red;
+    font-weight: normal;
     &>span {
       color: #333;
     }
   }
-  &.collapse>:not(h4) {
+  &.collapse>:not(h5) {
     display: none; // 通过 js 代码切换 collapse 类来控制明细的显示/隐藏
   }
 }

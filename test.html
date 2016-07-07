@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Listing 12.4</title>
+</head>
+
+<body>
+  <form id="testForm" name="fname" action="/">
+    <!--#1-->
+    <input type="text" id="id" name="input1n">
+    <input type="text" name="action" />
+  </form>
+  <script>
+    window.onload = function() {
+      var form = document.getElementById('testForm');
+      console.log(form.id);
+      console.log(form.name);
+      console.log(form.action);
+    };
+  </script>
+</body>
+
+</html>

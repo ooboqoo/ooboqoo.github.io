@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="../main.css">
 <style>.row,.half{border:1px dotted gray;}
-.half{width:49.9%;}
+.half{width:49.9% !important;}
 .half:first-child{border-width: 0 1px 0 0;}
 .half:last-child{border-width: 0 0 0 1px;margin-left: -1px;}
 .row pre{border:0;}</style>
@@ -33,7 +33,7 @@
 <p>本笔记在中英文文档基础上删减、修改而来。</p>
 </div>
 
-<h2 id="overview">概述 Overview</h2>
+<h2 id="overview">概述 Overview ##</h2>
 <div>
 <p>Less 是 CSS 的超集。</p>
 
@@ -216,7 +216,7 @@ color:rgba(0,255,0,0.5)-#111;  // color: #00ee00; alpha值丢失；小于 00 的
   color: #bundle &gt; @color;  // 调用出错
 }
 </pre></div></div>
-<p>请注意，命名空间内部声明的变量的作用域仅限于命名空间内，外部调用无效。</p>
+<p>请注意，命名空间内部声明的变量的作用域仅限于命名空间内，外部调用无效。（这种设计跟 JS 的闭包设计是一样的）</p>
 
 <h3>作用域 Scope</h3>
 <p>Less 中的作用域与编程语言中的作用域概念非常相似。首先会在当前作用域查找，如果没找到，编译器就会逐级向上查找。</p>
@@ -241,9 +241,22 @@ color:rgba(0,255,0,0.5)-#111;  // color: #00ee00; alpha值丢失；小于 00 的
 @import "library";  // library.less 后缀可省略
 @import "typo.css";  // 导入 css 文件时，后缀不可省略
 </pre>
+
+<h3>代码规范 Less standards</h3>
+<ul>
+<li>Two spaces for indentation, never tabs, and always use proper indentation</li>
+<li>Multiple-line formatting (one property and value per line)</li>
+<li>For multiple, comma-separated selectors, place each selector on its own line</li>
+<li>Double quotes only, never single quotes</li>
+<li>Always put a space after a property's colon (e.g., <code>display: block;</code> and not <code>display:block;</code>)</li>
+<li>End <em>all</em> lines with a semi-colon</li>
+<li>Attribute selectors, like <code>input[type="text"]</code> should always wrap the attribute's value in double quotes. This is important to do in your own code as well for consistency and safety (see this <a href="http://mathiasbynens.be/notes/unquoted-attribute-values">blog post on unquoted attribute values</a> that can lead to XSS attacks)</li>
+<li>When using HTML in your examples, use tags and elements appropriate for an HTML5 doctype (e.g., self-closing tags with <em>no trailing slash</em>)</li>
+<li>Separate words in variable and mixin names using dash (e.g., <code>@long-variable-name</code> or <code>.my-favourite-mixin</code>)</li>
+</ul>
 </div>
 
-<h2 id="variables">变量 Variables</h2>
+<h2 id="variables">变量 Variables ##</h2>
 <div>
 <h3>概述 Overview</h3>
 <p>变量通过为你提供一种在单个地方管理变量值的方法让你的代码变得更容易维护。</p>
@@ -336,9 +349,10 @@ content: "I am fnord.";
 
 <h2 id="extend">继承 Extend ##</h2>
 <div>
+
 <h3>继承的使用场合 Use Cases for Extend</h3>
-<h3>经典用法 Classic Use Case</h3>
-<pre class="less">
+<h4>经典用法 Classic Use Case</h4>
+<div class="row"><div class="half"><pre class="less">
 .animal {
   background-color: black;
   color: white;
@@ -347,9 +361,18 @@ content: "I am fnord.";
   &:extend(.animal);
   background-color: brown;
 }
-</pre>
+</pre></div><div class="half"><pre class="less">
+/* 输出 */
+.animal, .bear {
+  background-color: black;
+  color: white;
+}
+.bear {
+  background-color: brown;
+}
+</pre></div></div>
 
-<h3>减小CSS尺寸 Reducing CSS Size</h3>
+<h4>减小 CSS 尺寸 Reducing CSS Size</h4>
 <p>使用 Mixins 会复制所有定义，而 Extend 只会将选择器添加到基类，可以减小 CSS 尺寸。</p>
 <p>采用 mixins 的方案</p>
 <div class="row"><div class="half"><pre class="less">
@@ -359,7 +382,6 @@ content: "I am fnord.";
 }
 .thing1 { .my-inline-block; }
 .thing2 { .my-inline-block; }
-
 </pre></div><div class="half"><pre class="less">
 /* 输出 */
 .thing1 {
@@ -385,7 +407,7 @@ content: "I am fnord.";
 }
 </pre></div></div>
 
-<h3>分组(更高级的mixin) Combining Styles / A More Advanced Mixin</h3>
+<h4>分组(更高级的mixin) Combining Styles / A More Advanced Mixin</h4>
 <p>另一种用法是作为 mixin 的替代，mixins 只能用于简单选择器，当你有两个选择器要使用相同的 CSS 时，可以采用 extend 实现分组功能。</p>
 <div class="row"><div class="half"><pre class="less">
 li.list > a {
@@ -403,7 +425,6 @@ button.list-style {
 </div>
 
 <h2 id="mixins">Mixins ##</h2>
-
 <div>
 <p>Mixin 负责将现有样式定义“掺入”当前定义。您可以 mix-in 类选择器 及 id 选择器。</p>
 <div class="row"><div class="half"><pre class="less">
@@ -422,7 +443,7 @@ button.list-style {
 </pre>
 
 <h3>阻止输出Mixin本身 Not Outputting the Mixin</h3>
-<p>如果 Mixin 只用于供调用而不需要单独输出到CSS中，那么可以通过加括号来阻止编译输出。</p>
+<p>如果 Mixin 只用于供调用而不需要单独输出到 CSS 中，那么可以通过加括号来阻止编译输出。</p>
 <div class="row"><div class="half"><pre class="less">
 .my-mixin {
   color: black;
@@ -538,7 +559,7 @@ The default function is assumed to have the same value for all nested namespaces
 
 <h2 id="pmixins">Parametric Mixins ##</h2>
 <div>
-Mixins can also take arguments, which are variables passed to the block of selectors when it is mixed in.
+<p>Mixins can also take arguments, which are variables passed to the block of selectors when it is mixed in.</p>
 <div class="row"><div class="half"><pre class="less">
 .border-radius(@radius) {
   -webkit-border-radius: @radius;
@@ -550,8 +571,7 @@ Mixins can also take arguments, which are variables passed to the block of selec
 .button { .border-radius(6px); }
 // 参数不能省略，否则报错
 </pre></div></div>
-
-Parametric mixins can also have default values for their parameters:
+<p>Parametric mixins can also have default values for their parameters:</p>
 <div class="row"><div class="half"><pre class="less">
 .border-radius(@radius: 5px) {
   -webkit-border-radius: @radius;
@@ -563,8 +583,7 @@ Parametric mixins can also have default values for their parameters:
 // 因为设置了默认参数，所以不传参不会报错
 // And it will include a 5px border-radius.
 </pre></div></div>
-
-You can also use parametric mixins which don't take parameters. This is useful if you want to hide the ruleset from the CSS output, but want to include its properties in other rulesets:
+<p>You can also use parametric mixins which don't take parameters. This is useful if you want to hide the ruleset from the CSS output, but want to include its properties in other rulesets:</p>
 <div class="row"><div class="half"><pre class="less">
 .wrap() {
   text-wrap: wrap;
@@ -584,51 +603,42 @@ pre {
 </pre></div></div>
 
 <h3>Mixins with Multiple Parameters</h3>
-<p>多个参数可以用分号<code>;</code>或者逗号<code>,</code>分割。但是推荐使用分号分割。因为逗号有两个意思：它可以解释为 mixins 参数分隔符或者 css 列表分隔符。</p>
-<p>使用逗号作为mixin的分隔符则无法用它创建逗号分割的参数列表。换句话说，如果编译器在 mixin 调用或者声明中看到至少一个分号，它会假设参数是由分号分割的，而所有的逗号都属于CSS列表:</p>
+<p>多个参数可以用分号 <code>;</code> 或者逗号 <code>,</code> 分割，但是推荐使用分号分割。因为逗号有两个意思：它可以解释为 mixins 参数分隔符或者 css 列表分隔符，使用逗号作为 mixin 的参数分隔符就无法创建用逗号分割的 css 列表。正因为此原因，编译器优先选用分号作为分隔符。如果编译器在 mixin 调用或者声明中看到至少一个分号，它就会假设参数是由分号分割的，而所有的逗号都属于 css 列表:</p>
 <ul>
-  <li>两个参数，并且每个参数都是逗号分割的列表：.name(1,2,3;something, ele)，</li>
-  <li>三个参数，并且每个参数都包含一个数字：.name(1,2,3)，</li>
-  <li>使用伪造的分号创建mixin，调用的时候参数包含一个逗号分割的css列表：.name(1,2,3;)，</li>
-  <li>逗号分割默认值：.name(@param1: red, blue)。</li>
+  <li>两个参数，并且每个参数都是逗号分割的列表：.name(1,2,3;something, ele)；</li>
+  <li>三个参数，并且每个参数都包含一个数字：.name(1,2,3)；</li>
+  <li>显式使用分号告诉编译器参数是一个逗号分割的 css 列表：.name(1,2,3;)；</li>
+  <li>用逗号分割的默认值：.name(@param1: red, blue)。？？？</li>
 </ul>
-<p>定义多个具有相同名称和参数数量的mixins是合法的。Less会使用它可以应用的属性。如果使用mixin的时候只带一个参数，比如.mixin(green)，这个属性会导致所有的mixin都会使用强制使用这个明确的参数：</p>
-
-
-Using comma as mixin separator makes it impossible to create comma separated lists as an argument. On the other hand, if the compiler sees at least one semicolon inside mixin call or declaration, it assumes that arguments are separated by semicolons and all commas belong to css lists:
-
-two arguments and each contains comma separated list: .name(1, 2, 3; something, else),
-three arguments and each contains one number: .name(1, 2, 3),
-use dummy semicolon to create mixin call with one argument containing comma separated css list: .name(1, 2, 3;),
-comma separated default value: .name(@param1: red, blue;).
-It is legal to define multiple mixins with the same name and number of parameters. Less will use properties of all that can apply. If you used the mixin with one parameter e.g. .mixin(green);, then properties of all mixins with exactly one mandatory parameter will be used:
+<p>定义多个具有相同名称和参数数量的 mixins 是合法的。符合条件的 mixins 的属性都会应用进来。</p>
 <div class="row"><div class="half"><pre class="less">
 .mixin(@color) { color-1: @color; }
-.mixin(@color; @padding: 2) {
+.mixin(@color; @padding: 2px) {
   color-2: @color;
   padding-2: @padding;
 }
-.mixin(@color; @padding; @margin: 2) {
+.mixin(@color; @padding; @margin:2px) {
   color-3: @color;
   padding-3: @padding;
   margin: @margin @margin @margin @margin;
 }
 .some .selector div { .mixin(#008000); }
-
 </pre></div><div class="half"><pre class="less">
 /* 输出 */
 .some .selector div {
   color-1: #008000;
   color-2: #008000;
-  padding-2: 2;
+  padding-2: 2px;
 }
+// 同时调用了 .mixin(@color) 和 .mixin(@color; @padding: 2px)
+// 如果有多个 .mixin(@color)，每个.mixin(@color) 定义的属性都会应用进来
+// 但 .mixin(@color; @padding) 就不符合了
 </pre></div></div>
 
 <h3>Named Parameters</h3>
-
-A mixin reference can supply parameters values by their names instead of just positions. Any parameter can be referenced by its name and they do not have to be in any special order:
-
-.mixin(@color: black; @margin: 10px; @padding: 20px) {
+<p>A mixin reference can supply parameters values by their names instead of just positions. Any parameter can be referenced by its name and they do not have to be in any special order:</p>
+<div class="row"><div class="half"><pre class="less">
+.mixin(@color:black; @margin:10px; @padding:20px) {
   color: @color;
   margin: @margin;
   padding: @padding;
@@ -639,8 +649,8 @@ A mixin reference can supply parameters values by their names instead of just po
 .class2 {
   .mixin(#efca44; @padding: 40px);
 }
-compiles into:
-
+</pre></div><div class="half"><pre class="less">
+// compiles into:
 .class1 {
   color: #33acfe;
   margin: 20px;
@@ -651,12 +661,12 @@ compiles into:
   margin: 10px;
   padding: 40px;
 }
+</pre></div></div>
 
 <h3>The @arguments Variable</h3>
-
-@arguments has a special meaning inside mixins, it contains all the arguments passed, when the mixin was called. This is useful if you don't want to deal with individual parameters:
-
-.box-shadow(@x: 0; @y: 0; @blur: 1px; @color: #000) {
+<p>@arguments has a special meaning inside mixins, it contains all the arguments passed, when the mixin was called. This is useful if you don't want to deal with individual parameters:</p>
+<div class="row"><div class="half"><pre class="less">
+.box-shadow(@x:0; @y:0; @blur:1px; @color:#000) {
   -webkit-box-shadow: @arguments;
      -moz-box-shadow: @arguments;
           box-shadow: @arguments;
@@ -664,40 +674,42 @@ compiles into:
 .big-block {
   .box-shadow(2px; 5px);
 }
-Which results in:
-
+</pre></div><div class="half"><pre class="less">
+// Which results in:
 .big-block {
   -webkit-box-shadow: 2px 5px 1px #000;
      -moz-box-shadow: 2px 5px 1px #000;
           box-shadow: 2px 5px 1px #000;
 }
+</pre></div></div>
 
 <h3>Advanced Arguments and the @rest Variable</h3>
-
-You can use ... if you want your mixin to take a variable number of arguments. Using this after a variable name will assign those arguments to the variable.
-
+<p>You can use ... if you want your mixin to take a variable number of arguments. Using this after a variable name will assign those arguments to the variable.</p>
+<pre class="less">
 .mixin(...) {        // matches 0-N arguments
 .mixin() {           // matches exactly 0 arguments
 .mixin(@a: 1) {      // matches 0-1 arguments
 .mixin(@a: 1; ...) { // matches 0-N arguments
 .mixin(@a; ...) {    // matches 1-N arguments
-Furthermore:
-
+// Furthermore:
 .mixin(@a; @rest...) {
    // @rest is bound to arguments after @a
    // @arguments is bound to all arguments
 }
+</pre>
 
 <h3>模式匹配 Pattern-matching</h3>
 Sometimes, you may want to change the behavior of a mixin, based on the parameters you pass to it. Let's start with something basic:
-
+<div class="row"><div class="half"><pre class="less">
 .mixin(@s; @color) { ... }
-
 .class {
   .mixin(@switch; #888);
 }
-Now let's say we want .mixin to behave differently, based on the value of @switch, we could define .mixin as such:
+</pre></div><div class="half"><pre class="less">
+</pre></div></div>
 
+<p>Now let's say we want .mixin to behave differently, based on the value of @switch, we could define .mixin as such:</p>
+<div class="row"><div class="half"><pre class="less">
 .mixin(dark; @color) {
   color: darken(@color, 10%);
 }
@@ -707,42 +719,39 @@ Now let's say we want .mixin to behave differently, based on the value of @switc
 .mixin(@_; @color) {
   display: block;
 }
-Now, if we run:
-
+</pre></div><div class="half"><pre class="less">
+// Now, if we run:
 @switch: light;
-
 .class {
   .mixin(@switch; #888);
 }
-We will get the following CSS:
-
+// We will get the following CSS:
 .class {
   color: #a2a2a2;
   display: block;
 }
-Where the color passed to .mixin was lightened. If the value of @switch was dark, the result would be a darker color.
-
-Here's what happened:
-
-The first mixin definition didn't match because it expected dark as the first argument.
-The second mixin definition matched, because it expected light.
-The third mixin definition matched because it expected any value.
-Only mixin definitions which matched were used. Variables match and bind to any value. Anything other than a variable matches only with a value equal to itself.
-
-We can also match on arity, here's an example:
-
+</pre></div></div>
+<p>Where the color passed to .mixin was lightened. If the value of @switch was dark, the result would be a darker color.</p>
+<p>Here's what happened:</p>
+<p>The first mixin definition didn't match because it expected dark as the first argument.</p>
+<p>The second mixin definition matched, because it expected light.</p>
+<p>The third mixin definition matched because it expected any value.</p>
+<p>Only mixin definitions which matched were used. Variables match and bind to any value. Anything other than a variable matches only with a value equal to itself.</p>
+<p>We can also match on arity, here's an example:</p>
+<pre class="less">
 .mixin(@a) {
   color: @a;
 }
 .mixin(@a; @b) {
   color: fade(@a; @b);
 }
-Now if we call .mixin with a single argument, we will get the output of the first definition, but if we call it with two arguments, we will get the second definition, namely @a faded to @b.
+</pre>
+<p>Now if we call .mixin with a single argument, we will get the output of the first definition, but if we call it with two arguments, we will get the second definition, namely @a faded to @b.</p>
 </div>
 
 <h2 id="import">Import Directives ##</h2>
 <div>
-<p>在标准的CSS中，@import必须在所有其他类型的规则之前，但 Less 中并无此限制。</p>
+<p>在标准的CSS中，@import 必须在所有其他类型的规则之前，但 Less 中并无此限制。</p>
 
 <h3>文件扩展名 File Extensions</h3>
 <p>导入时，Less 会根据文件扩展名作出不同操作：</p>
@@ -757,11 +766,9 @@ Now if we call .mixin with a single argument, we will get the output of the firs
 @import "foo.css";  // statement left in place, as-is
 </pre>
 <p>当然，也可以通过下节介绍的的选项来改变默认行为。</p>
-</div>
 
-<h2>Import Options</h2>
-
-<div>
+<h3>Import Options</h3>
+<pre>
 Less offers several extensions to the CSS @import CSS at-rule to provide more flexibility over what you can do with external files.
 Syntax: @import (keyword) "filename";
 
@@ -776,13 +783,11 @@ multiple: include the file multiple times
 optional: continue compiling when file is not found
 More than one keyword per @import is allowed, you will have to use commas to separate the keywords:
 Example: @import (optional, reference) "foo.less";
+</pre>
 </div>
 
-<h2>Mixin Guards</h2>
-
+<h2>Mixin Guards ##</h2>
 <div>
-
-
 </div>
 
 </div>

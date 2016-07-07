@@ -38,6 +38,10 @@
 <p>Emmet 默认快键键列表在 <code>Preferences -> Package Settings -> Emmet -> Key Bindings - Default</code></p>
 <p>用户自定义快键键在 <code>Preferences -> Key Bindings - User</code></p>
 
+<h4>如何查找命令并设置快捷键</h4>
+<p>通过 <code>ctrl + shift + p</code> 输入相关词查找命令。</p>
+<p>如果想设置快键键的话，<code>ctrl+`</code> 打开控制台，并输入 <code>sublime.log_commands(True)</code> 命令开启“记录命令”功能，再然后记下命令，并到 Key Bindings - User 下绑定自定义快捷键。关闭命令记录功能是 <code>sublime.log_commands(False)</code> <a href="http://robdodson.me/sublime-text-2-tips-and-shortcuts/">参考来源</a></p>
+
 <table>
 <tr><th>操作</th><th>默认快键键</th><th>自定义快捷键</th></tr>
 <tr><td>toggle_side_bar</td><td>["ctrl+k", "ctrl+b"]</td><td>alt+a</td></tr>

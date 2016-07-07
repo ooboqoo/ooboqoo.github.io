@@ -60,7 +60,7 @@
 </div>
 
 <div>
-<h2>Links & Anchors</h2>
+<h2>Links &amp; Anchors</h2>
 <pre>&lt;a href="http://www.example.com/"&gt;This is a Link&lt;/a&gt;
 &lt;a href="http://www.example.com/"&gt;&lt;img src="URL" alt="Alternate Text"&gt;&lt;/a&gt;
 &lt;a href="mailto:webmaster@example.com"&gt;Send e-mail&lt;/a&gt;A named anchor:
@@ -131,24 +131,27 @@
 <h2>Forms</h2>
 <pre>&lt;form action="http://www.example.com/test.asp" method="get"&gt;
   Last name: &lt;input type="text" name="lastname" value="Nixon" size="30" maxlength="50"&gt;
-  Password: &lt;input type="password" name="psw"&gt;
-  &lt;input type="radio" name="sex" value="male" checked> Male
-  &lt;input type="radio" name="sex" value="female"> Female
-  &lt;input type="checkbox" name="vehicle1" value="Bike"&gt; I have a bike
-  &lt;input type="checkbox" name="vehicle2" value="Car" checked="checked"&gt; I have a car
+  &lt;label for="pswd"&gt;Password: &lt;/label&gt;
+  &lt;input type="password" id="psw" name="password"&gt;
+  &lt;label&gt;&lt;input type="radio" name="sex" value="male" checked> Male&lt;/label&gt;
+  &lt;label&gt;&lt;input type="radio" name="sex" value="female"> Female&lt;/label&gt;
+  &lt;label&gt;&lt;input type="checkbox" name="vehicle1" value="Bike"&gt; I have a bike&lt;/label&gt;
+  &lt;label&gt;&lt;input type="checkbox" name="vehicle2" value="Car" checked="checked"&gt; I have a car&lt;/label&gt;
   &lt;input type="file" name="pic" accept="image/gif"&gt;
   &lt;input type="submit" value="Submit"&gt;
   &lt;input type="reset" value="Clear"&gt;
   &lt;input type="button" onclick="alert('Hello World!')" value="Click Me!"&gt;
   &lt;input type="hidden" name="country" value="Norway"&gt;
-  &lt;select&gt;
+  &lt;select multiple&gt;
     &lt;option&gt;Apples&lt;/option&gt;
     &lt;option selected&gt;Bananas&lt;/option&gt;
   &lt;/select&gt;
-  &lt;textarea name="Comment" rows="60" cols="20"&gt; Some pre-placed words here&lt;/textarea&gt;
+  &lt;textarea name="Comment" rows="4" cols="40"&gt; Some pre-placed words here&lt;/textarea&gt;
   &lt;button type="button" onclick="alert('Hello World!')"&gt;Click Me!&lt;/button&gt;
 &lt;/form&gt;
 </pre>
+<p>label 中的 for 与 id 相对；而 name 跟 value 是传递给服务器的键值对。<br>
+checkbox 被选中的 name 和 value 会传给服务器，没选的忽略，name 不能重名。</p>
 </div>
 
 <div>
