@@ -1,84 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="../main.css" />
-<script src="../main.js"></script>
-<title>Node.js</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../main.css">
+  <script src="../main.js"></script>
+  <script src="../marked.js"></script>
+  <script src="../highlight.pack.js"></script>
+  <title>Node.js</title>
 </head>
+
 <body>
-<div id="article">
-
-<h1>Node.js</h1>
-
-<div>
-<ul>
-  <li>
-    <a href="http://nodeapi.ucdok.com/#/api/index.html">Node.js v4.2.4 手册 & 文档（中文项目）</a>
-  </li>
-  <li>
-    <a href="https://nodejs.org/dist/latest-v6.x/docs/api/index.html">Node.js v6.2.2 Documentation（官方文档）</a>
-  </li>
-</ul>
-</div>
-
-<div>
-<p>node.js 里所有的模块是独立的，不需要命名空间隔离。</p>
-<p>模块的分类：</p>
-<ul>
-<li>核心模块：启动时自动加载；</li>
-<li>文件模块：require()</li>
-<li>第三方模块：require()</li>
-</ul>
-<p>模块的流程：</p>
-<pre>
-创建模块 teacher.js
-导出模块：exports.add = function(){ }
-加载模块：var teacher = require('./teacher') // .js 可以省略
-使用模块：teacher.add('Scott')
-</pre>
-</div>
-
-<div>
-<h3>node.js 的作用域系统</h3>
-<p>在 JavaScript 中，是以函数作为作用域划分的基础的，而 Node 在此基础上加了一层“模块作用域”。</p>
-<p>完全可以把“模块”看做是一个“闭包”，而 module.exports 就是模块提供给外部访问的接口，相当于在闭包内 return 了一个对象。</p>
-
-<h3>Node 里的 this</h3>
-<p>全局环境的 this 指向 global；模块内的 this 指向 exports。</p>
-
-<h3>exports 与 module.exports 的联系和区别</h3>
-<p>exports 指向 module.exports。</p>
-<p>注意，如果将一个引用类型直接赋值给 exports，将切断 exports 与 module.exports 之间的联系, 如果要保持这种联系，使用 module.exports = exports = oneObject</p>
-<p>如果你创建了一个既有 exports 又有 module.exports 的模块，exports 将被忽略，因为模块只返回 module.exports</p>
-<p></p>
-
-<h3>require 时发生了什么</h3>
-<p>被 require 的模块会执行一遍，最终返回一个 module.exports 对象。</p>
-<p>require 是 Node 中少数几个同步 I/O 操作之一，所有同步调用都会阻塞 Node。</p>
-
-<h3>require 模块时没有指明路径时的系统查找模块的步骤</h3>
-<p>当前目录 -》 是否是核心模块 -》 当前目录下的 node_modules 目录 -》 父目录 -》 NODE_PATH 指定的目录</p>
-
-<h3>引用模块时可以是目录</h3>
-<p>如果模块是目录，在模块目录中定义模块的文件必须被命名为index.js，当然，也可以通过 package.json 文件修改 main 键来更改这一默认动作。</p>
-</div>
-
-<div>
-<h2>系统核心模块大概介绍</h2>
-<pre>
-fs filesystem 文件系统模块
-path 目录处理模块
-
-
-</pre>
-
-
-
-
-</div>
-
-</div>
+  <main id="article">
+    <article id="md" data-src="/md/nodejs.md"></article>
+  </main>
+  <script src="/loadmd.js"></script>
 </body>
+
 </html>

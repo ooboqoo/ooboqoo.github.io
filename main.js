@@ -82,18 +82,6 @@
       if (/ipad|iphone/i.test(navigator.userAgent)) {
         document.addEventListener("touchend", function() {});
       }
-      // 解决定位问题
-      if (window.innerWidth >= 1210) {
-        pagenav.style.left = window.innerWidth / 2 - 385 + "px";
-      }
-      window.addEventListener("resize", function() {
-        var pagenav = document.getElementById("pagenav");
-        if (window.innerWidth >= 1210) {
-          pagenav.style.left = window.innerWidth / 2 - 385 + "px";
-        } else {
-          pagenav.style.left = "";
-        }
-      });
     }
 
     // 优化 ipad 侧边按钮点击操作

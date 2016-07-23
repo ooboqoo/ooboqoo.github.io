@@ -5,6 +5,7 @@ var gulp = require('gulp'),
   autoprefixer = require('gulp-autoprefixer'),
   cleanCSS = require('gulp-clean-css'),
   uglify = require('gulp-uglify'),
+  // imagemin = require('gulp-imagemin');
   reload = browserSync.reload;
 
 /* Styles */
@@ -22,6 +23,7 @@ gulp.task('less', function() {
 gulp.task('default', function() {
   browserSync({
     server: { baseDir: '.' },
+    online: true,
     browser: "chrome",
     snippetOptions: {
       rule: {
@@ -33,5 +35,5 @@ gulp.task('default', function() {
     }
   });
   gulp.watch('less/*.less', ['less']);
-  gulp.watch(['**/*.html', '**/*.md', '*.css', '*.js'], reload);
+  gulp.watch(['**/*.html', '**/*.md', '*.css', '001/*', '*.js'], reload);
 });

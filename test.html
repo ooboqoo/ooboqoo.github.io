@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>Listing 12.4</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+
 </head>
-
 <body>
-  <form id="testForm" name="fname" action="/">
-    <!--#1-->
-    <input type="text" id="id" name="input1n">
-    <input type="text" name="action" />
-  </form>
-  <script>
-    window.onload = function() {
-      var form = document.getElementById('testForm');
-      console.log(form.id);
-      console.log(form.name);
-      console.log(form.action);
-    };
-  </script>
-</body>
+<script>
+// 设置 cookies
+function setCookie(name, value, expiredays) {
+  var exp = new Date();
+  exp.setDate(exp.getDate() + expiredays);
+  var dcookie = name + "=" + escape(value) +
+    (expiredays === undefined ? "" : ";expires=" + exp.toUTCString());
+  console.log(dcookie);
+  document.cookie = dcookie;
+}
 
+// 读取 cookies
+function getCookie(name) {
+  var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+  if (arr = document.cookie.match(reg)) return unescape(arr[2]);
+}
+
+// 删除cookies
+function delCookie(name) {
+  var str = name + "=del" + ";expires=" + new Date().toUTCString();
+  console.log(str);
+  document.cookie = str;
+console.log(getCookie("fname"));
+  
+}
+
+</script>
+</body>
 </html>

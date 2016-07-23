@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="practice.css">
+  <title>CORS</title>
+</head>
+
+<body>
+<h1>跨域访问练习</h1>
+
+<h2>CORS 规范</h2>
+<form action="{host}cors.php">
+  跨域主机将返回输入的内容：<input name="message" type="text"><input type="button" onclick="sendMessage(this)" value="发送"><br>
+  <p id="corsecho">这里将显示返回内容</p>
+</form>
+
+<h2>服务器代理</h2>
+<form action="{host}proxy.php">
+  在这里输入网址，代理服务器将返回该网址的 title：<input name="url" type="text"><input type="button" onclick="sendMessage(this)" value="发送"><br>
+  <p id="proxy">这里将显示返回内容</p>
+</form>
+
+<h2>JSONP 传输协议</h2>
+<button onclick="jsonp()">发送请求</button>
+<p id="jsonpecho">这里将显示返回内容</p>
+
+<h2>框架间的交互 - 同源</h2>
+<form action="">
+  输入向框架发送的消息：<input name="messageOut" type="text"><input type="button" onclick="sendMessage(this)" value="发送"><br>
+  <p id="messageIn1">这里将显示消息内容</p>
+</form>
+<iframe src="iframe.html" name="inner1" frameborder="1" width=500 height=140></iframe>
+
+<h2>框架间的交互 - 跨域</h2>
+<p>采用 HTML5 postMessage API (实测 Chrome 还是会阻止消息发送，而 IE 正常。)</p>
+<form action="">
+  输入向框架发送的消息：<input name="messageOut" type="text"><input type="button" onclick="postMessage(this)" value="发送"><br>
+  <p id="messageIn2">这里将显示消息内容</p>
+</form>
+<iframe src="{host}cors_inner.html" name="inner2" frameborder="1" width=500 height=140></iframe>
+<script>
+// 便于更换测试主机
+var host = "http://104.128.85.201/cors/";
+document.body.innerHTML = document.body.innerHTML.replace(/\{host\}/g, host);
+
+window.addEventListener("message", receiveMessage, false);
+
+function get(url, data, callback){
+  var xmlhttp = new XMLHttpRequest();
+  var query = data ? (url + '?' + data) : url;
+  xmlhttp.open('GET', query, true);
+  xmlhttp.send();
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+      callback(xmlhttp.responseText);
+    }
+  };
+}
+
+function sendMessage(target){
+  var form = target.parentElement;
+  if (form.action === location.href){
+    inner1.document.getElementById('messageIn').innerHTML = 
+      "from main page: " + form.messageOut.value;
+    return;
+  }
+  var pe = target.previousElementSibling;
+  if (!pe.name) return;
+  var data = pe.name + '=' + pe.value;
+  var showEcho = function(echo){
+    form.getElementsByTagName('p')[0].innerHTML = echo;
+  };
+  get(form.action, data, showEcho);
+}
+
+function jsonp(){
+  var script = document.createElement('script');
+  window.callback = function(data){
+    document.getElementById('jsonpecho').innerHTML = data.message;
+  };
+  script.src = host + 'jsonp.php?callback=callback';
+  document.getElementsByTagName('head')[0].appendChild(script);
+}
+
+function postMessage(target) {
+  inner2.postMessage(target.parentElement.messageOut.value, "*");
+}
+
+function receiveMessage(e){
+  document.getElementById('messageIn2').innerHTML = e.data;
+}
+</script>
+</body>
+
+</html>

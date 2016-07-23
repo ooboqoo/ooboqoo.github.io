@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+<h2>iframe here</h2>
+<form action="#">
+  输入向宿主页面发送的消息：<input id="messageOut" type="text"><input type="button" onclick="postMessage(this)" value="发送"><br>
+  <p id="messageIn">这里将显示消息内容</p>
+</form>
+<script>
+function postMessage(target) {
+  parent.postMessage(target.parentElement.messageOut.value, "*");
+}
+
+function receiveMessage(e){
+  document.getElementById('messageIn').innerHTML = e.data;
+}
+
+window.addEventListener("message", receiveMessage, false);
+</script>
+</body>
+</html>

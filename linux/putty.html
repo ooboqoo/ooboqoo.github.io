@@ -1,78 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="../main.css">
-<script src="../main.js"></script>
-<title>putty</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../main.css">
+  <script src="../main.js"></script>
+  <script src="../marked.js"></script>
+  <script src="../highlight.pack.js"></script>
+  <title>putty</title>
 </head>
+
 <body>
-<div id="article">
-
-<h1>putty 使用笔记</h1>
-
-<div>
-
-<h3>2015/12/31 建立自动登录的快键方式</h3>
-建立到putty执行文件的快捷方式PuttyBWH, 并将"目标"栏修改为如下内容:
-"D:\Program Files\putty.exe" -ssh -P 28191 -pw qH4NQOej0oBO root@45.78.32.152
-格式注释:putty.exe -ssh -P telport -pw password [user@]host
-
-<h3>PuTTY自动登录的四种方法</h3>
-Putty 基本是我在紧急时候用来登陆 Linux/Unix 终端的不二之先，因其小，开源，界面也非常实用。可是当你要在私有的机器上，经常性的要登陆很多机器的时候就觉得烦琐了，不光打开一堆的窗口，还要一遍一遍的输入用户名和密码。当然登陆用户名是可以保存的，我也是最近才注意到这一点的。Putty 不愿去保存密码是出于安全考虑，相信在多数时候确实是非常必要的。
-一：用 PuTTYgen.exe 生成 ssh 证书，可在特定的机器上自动登陆（比密码登录更加安全）
-二：用 Putty v6.0 修改版，可保存登陆名和密码，实现自动登陆
-三：有了个 PuTTY Connection Manager 管理你的 PuTTY 登陆，还支持 Tab
-四：用快捷方式实现自动登陆
-
-<h3>如何使用鼠标执行复制和粘贴操作</h3>
-在"Setting->Window->Selection"下设置, 默认是:鼠标左键拖动完成选择+复制, 鼠标右键粘贴
-
-<h3>解决 putty 连接频繁断开问题</h3>
-<p>在 Connection 下设置 keepalive 的秒数，并开启 so_KEEPALIVE</p>
-
-<h3>putty 全屏模式与退出</h3>
-<p>putty 有全屏模式，有单击标题栏，在弹出餐单中有 fullscreen 选项。退出全屏模式的方式有点特别。要退出的时候需要把鼠标移到左上角，然后单击鼠标左键，就会跳出选项。</p>
-
-<h3>怎样配置和保存设置</h3>
-1, "Setting->Window->Translation"下设置字符编码为UTF-8可解决中文乱码问题
-2, "Setting->Window->Appearance"下可以修改光标显示方式以及界面字体
-3, "Setting->Window->Colours"下可以修改背景色\前景色, 让眼睛看着更舒服些
-4, "Session"Load某个配置名称, 或输入新名称, 然后点Save, 让之前的设置生效. 不然关闭后在打开, 原先的设置又变回去了
-5, PuTTY的配置保存在注册表里, 如果需要备份, 可以用regedit找到"HKEY_CURRENT_USER >>Software>>SimonTatham"右击并选择导出以完成备份。
-
-<h3>实现 windows 和 linux 互传文件</h3>
-windows使用的是putty和其附带的pscp
-先用putty登入远程主机
-打开cmd窗口，输入命令：
-pscp 源文件路径 root@hostIp:目的路径，如将aaa.jpg传到/home下，则：  pscp aaa.jpg root@192.168.0.101:/home
-从linux向windows传文件：
-在windows的cmd中输入  pscp root@hostIp: linux中源文件路径   windows中目的路径
-如：   pscp root@192.168.0.100:/home/aaa.jpg  G:/putty/
-注意：使用pscp只能传文件，无法传目录，要传目录的话可以用psftp
-可能会遇到的问题：防火墙把一些IP封了之类的，到/etc/hosts.allow中加上一句ALL : ALL(允许所有的IP连接，这个真的很不好，还是设置成只允许特定的IP连接比较好)
-
-<h3>解决 putty 上 vim 小键盘不好使的问题</h3>
-<p>在选项 Terminal->Features 里，找到 Disable application keypad mode，选上就可以了。</p>
-
-<h3>设置Putty SSH使用密钥登录Linux VPS主机</h3>
-<p>参考文章：http://www.laozuo.org/2811.html</p>
-<h4>第一步、生成密钥</h4>
-<p>看到很多教程有提到用 puttygen.exe 文件可以生成密钥的，但是可能会出现 Server refused our key 这样的登陆错误，所以我们这里直接使用 VPS 远程设置密钥，然后下载到本地。</p>
-<p>登陆到 ssh 之后，我们先输入 ssh-keygen -t rsa 生成秘钥对。下载 root/.ssh 目录中的 id_rsa 和 id_rsa.pub 到本地。</p>
-<h4>第二步、修改 sshd 配置文件</h4>
-<p>A - 将 root/.ssh 中的 id_rsa.pub 修改名字为 authorized_keys 并且用 chmod 600 authorized_keys 设置权限。</p>
-<p>B - 找到 /etc/ssh/sshd_config，把 RSAAuthentication 和 PubkeyAuthentication 两行前面的#注释去掉。</p>
-<p>C - 重启 sshd 服务。</p>
-<h4>第三步、客户端配置密钥</h4>
-<p>使用 puttygen.exe 载入密钥并保存为 putty 格式的私钥。</p>
-<h4>第四步、设置 putty 认证链接并登录</h4>
-<h4>第五步、再次修改 sshd 配置文件</h4>
-<p>修改 /etc/ssh/sshd_config 文件中找到 PasswordAuthentication 后面的 yes 改成 no，然后重启 sshd。这样我们的 putty 登陆使用密钥也配置完成，即便他们知道我们的 root 密码也不好登陆，所以到本地的几个文件需要确保安全，只要你本机电脑安全，你的 VPS 就相对足够的安全。</p>
-
-</div>
-
-</div>
+  <main id="article"><article id="md" data-src="putty.md"></article></main>
+  <script src="/loadmd.js"></script>
 </body>
+
 </html>

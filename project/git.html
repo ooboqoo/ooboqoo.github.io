@@ -1,70 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="../main.css">
-<script src="../main.js"></script>
-<title>Git</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../main.css">
+  <script src="../main.js"></script>
+  <script src="../marked.js"></script>
+  <script src="../highlight.pack.js"></script>
+  <script>setBase('table', 'http://www.w3schools.com/tags/');</script>
+  <title>Git &amp; GitHub</title>
 </head>
+
 <body>
-<div id="article">
-
-<div>
-<ul>
-<li>Git for Windows: git 的 window 版本，包含 Git 版本控制工具核心、Git Bash 和 Git GUI</li>
-<ul><li>Git Bash: 在 Win10 年度更新原生 Bash 正式推出之前，这个绝对是各种命令行操作的福音。</li>
-    <li>Git GUI: 比较简陋的版本，没鸟用，下面的 GitHub Desktop 才是好用的 GUI。</li></ul>
-<li>GitHub Desktop: GitHub 网站出品的客户端，有了它，正常使用没有 git 命令什么事了。</li>
-</ul>
-</div>
-
-<h1>Git</h1>
-<div>
-<p>主站：https://git-scm.com/</p>
-<p>文档：https://git-scm.com/doc</p>
-<p>官方推荐的免费教程 Pro Git（中文）：https://git-scm.com/book/zh/v2</p>
-</div>
-<div>
-<p>这里打算放 git 命令的学习笔记，有空再补吧，现在没动力。</p>
-<p>看到的好的教程：<a href="http://rogerdudler.github.io/git-guide/index.zh.html">git - 简明指南</a></p>
-</div>
-
-<h1>Git Bash</h1>
-
-<div>
-<h2>右键点击 xterm 标题栏可设置项</h2>
-<p>字体，前景色，背景色，终端选择等</p>
-
-<h2>Git/etc/bash.bashrc 设置</h2>
-<h3>调整终端颜色</h3>
-<p>开启 DIR_COLORS 项目，并设置 Git/etc/DIR_COLORS</p>
-<h3>自定义 prompt</h3>
-<p></p>
-</div>
-
-<h1>GitHub</h1>
-<div>
-<p>GitHub Desktop: https://desktop.github.com/</p>
-<p>GitHub 发布的本地客户端，相比网站操作提供了更多功能，也避免了 git 命令操作的各种麻烦和不给力。</p>
-
-<h2>龙猫关于多人合作项目的经验分享</h2>
-<ol>
-<li>多用客户端和工具，少用命令行，除非是在 linux 服务器上直接开发。</li>
-<li>每次提交前，diff 自己的代码，以免提交错误代码或测试代码。</li>
-<li>下班回家前，整理好自己的工作区并提交。</li>
-<li>并行的项目，使用分支开发。</li>
-<li>遇到冲突时，搞明白冲突的原因，千万不要随意丢弃别人的代码。</li>
-<li>产品发布后，记得打 tag，方便将来拉分支修 bug。</li>
-</ol>
-</div>
-
-<div>
-<h2>学习时碰到的一些好的文章教程</h2>
-<p>GotGitHub 电子书在线阅读：<a href="http://www.worldhello.net/gotgithub/index.html">GotGitHub</a></p>
-<p><a href="https://www.zhihu.com/question/20070065">文科妹子的 github 知乎回答</a></p>
-</div>
-
-</div>
+  <main id="article">
+    <article id="md" data-src="/md/git.md"></article>
+  </main>
+  <script src="/loadmd.js"></script>
 </body>
+
 </html>

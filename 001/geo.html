@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <style type="text/css">
+    body, html { width: 100%; height: 100%; overflow: hidden; margin: 0; font-family: "微软雅黑"; }
+    #bmap { width: 800px; height: 400px; }
+  </style>
+  <script src="http://api.map.baidu.com/api?v=2.0&ak=ke1M1RdDlpfApVFC3faZZC1VBWwDTvYf"></script>
+  <title>杭州贝特进厂路线</title>
+</head>
+
+<body>
+  <div id="bmap"></div>
+  <script>
+    // 定位到杭州贝特设备制造有限公司
+    var map = new BMap.Map("bmap");
+    var point = new BMap.Point(120.2098, 30.3309);
+    map.centerAndZoom(point, 18);
+    map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+
+    // 添加跳动标注
+    var marker = new BMap.Marker(point); // 创建标注
+    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+    map.addOverlay(marker); // 将标注添加到地图中
+    var opts = {
+      width: 250, // 信息窗口宽度
+      height: 50, // 信息窗口高度
+      title: "杭州贝特设备制造有限公司", // 信息窗口标题
+    };
+    var infoWindow = new BMap.InfoWindow("地址：杭州市下城区兴业街159号", opts); // 创建信息窗口对象 
+    marker.addEventListener("click", function() {
+      map.openInfoWindow(infoWindow, point); //开启信息窗口
+    });
+
+    //  添加路线指引
+    var polyline = new BMap.Polyline([
+      new BMap.Point(120.207566, 30.329699),
+      new BMap.Point(120.210931, 30.329913),
+      new BMap.Point(120.210931, 30.330038),
+      new BMap.Point(120.209728, 30.329975),
+      new BMap.Point(120.209966, 30.330883)
+    ], {
+      strokeColor: "green",
+      strokeWeight: 4,
+      strokeOpacity: 0.5
+    }); //创建折线
+    map.addOverlay(polyline); //增加折线
+
+    // 添加标注
+    var opts = {
+      position: point, // 指定文本标注所在的地理位置
+      offset: new BMap.Size(-120, -80) //设置文本偏移量
+    };
+    var label = new BMap.Label("欢迎光临杭州贝特，请沿绿线指示进厂！", opts); // 创建文本标注对象
+    label.setStyle({
+      color: "red",
+      fontSize: "16px",
+      height: "24px",
+      lineHeight: "24px",
+      fontFamily: "微软雅黑"
+    });
+    map.addOverlay(label);
+  </script>
+</body>
+
+</html>

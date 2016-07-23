@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="practice.css">
+  <style>
+    .magnify { position: relative; }
+    canvas { border: 1px solid gray; }
+    #cvs2 { position: absolute; display: none; }
+    #cvs1:hover + #cvs2 { display: initial; }
+  </style>
+  <script src="canvas.js"></script>
+  <title>Canvas Test</title>
+</head>
+
+<body>
+  <h1>HTML5 Canvas 练习</h1>
+  <h3>图片放大效果</h3>
+  <div class="magnify">
+    <canvas id="cvs1" width="250" height="250"></canvas>
+    <canvas id="cvs2" width="500" height="500"></canvas>
+  </div>
+  <h3>弹跳小球动画</h3>
+  <p>使用说明：在画布区域内单击生成一个小球，小球会弹跳并逐渐减缓直至静止。
+    <br>如果在现有小球上点击并拖拽，小球会重新开始弹跳。</p>
+  <canvas id="ball" width="500" height="500"></canvas>
+</body>
+
+</html>

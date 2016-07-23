@@ -209,11 +209,13 @@ function w3CodeColorize(x, lang) {
 
     // 对键值对进行加亮
     rest = rest.replace(/&gt;/g, "&gtSEMICOLON"); // 对 &gt; 进行预处理避免干扰
+    rest = rest.replace(/&lt;/g, "&ltSEMICOLON"); // 为做笔记方便，对 &lt; 也进行处理
     rest = rest.replace(/([a-z\d\-\s]+):([^;}{]+)/g, function(match, p1, p2) {
       return "<span style=color:" + csspropertycolor + ">" + p1 + "</span>" +
         "<span style=color:" + cssdelimitercolor + ">:</span>" +
         "<span style=color:" + csspropertyvaluecolor + ">" + p2 + "</span>";
     });
+    rest = rest.replace(/&ltSEMICOLON/g, "&lt;");
     rest = rest.replace(/&gtSEMICOLON/g, "&gt;");
 
     rest = rest.replace(/\{|\}|\(|\)/g, function(match) {

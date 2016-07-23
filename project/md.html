@@ -77,19 +77,22 @@ A paragraph separated by one or more blank lines.
 </pre>
 
 <h5>手动换行 &lt;br&gt; Manual Line Breaks</h5>
-<pre>Roses are red,□□□  // End a line with two or more spaces
+<pre>
+Roses are red,□□□  // End a line with two or more spaces
 Violets are blue.
 </pre>
 
 <h5>标题 Headers</h5>
 <p>atx-style (closing #'s are optional): 推荐使用这种风格</p>
-<pre># Header 1 #
+<pre>
+# Header 1 #
 ## Header 2 ##  // 关闭用的 # 是可选的，而且数量并不一定要与前面对应
 ###### Header 6
 </pre>
 
 <p>Setext-style:</p>
-<pre>Header 1
+<pre>
+Header 1
 ========  // = 或 - 的数量是任意的，有就行
 
 Header 2
@@ -99,7 +102,8 @@ Header 2
 
 
 <h5>区块引用 Blockquotes</h5>
-<pre>&gt; Email-style angle brackets are used for blockquotes.
+<pre>
+&gt; Email-style angle brackets are used for blockquotes.
 &gt; 
 &gt; &gt; And, they can be nested.
 &gt; #### Headers in blockquotes
@@ -112,24 +116,27 @@ Header 2
 
 <h5>列表 Lists</h5>
 <p>有序列表 Ordered, without paragraphs:</p>
-<pre>1.  Foo
+<pre>
+1.  Foo
 2.  Bar
 </pre>
 
 <p>无序列表 Unordered, with paragraphs:</p>
-<pre>*   A list item.
+<pre>
+*   A list item.
 *   Bar
 </pre>
 
 <p>列表嵌套 You can nest them:</p>
-<pre>*   Abacus
-    * answer
-*   Bubbles
-    1.  bunk
-    2.  bupkis
-        * BELITTLER
+<pre>
+-   Abacus
+    + answer
+-   Bubbles
+    1. bunk
+    2. bupkis
+        + BELITTLER
     3. burper
-*   Cunning
+-   Cunning
 </pre>
 <p>项目标记后面一定要接着至少一个空格或制表符。</p>
 <p>列表项目标记通常是放在最左边，但是其实也可以缩进，最多 3 个空格。（不适用 GitHub）</p>
@@ -310,6 +317,7 @@ sit amet, consectetuer adipiscing elit.
 
 <h5>编译器</h5>
 <p><a href="https://github.com/chjj/marked">marked</a> A markdown parser and compiler. Built for speed.</p>
+<p><a href="https://stackedit.io/editor">stackedit.io</a> 在线编辑器，看着挺好的哦</p>
 <p><a href="http://dillinger.io/">dillinger.io</a> 一个在线编辑器，方便代码测试</p>
 
 <h5>来龙去脉和语法特点</h5>

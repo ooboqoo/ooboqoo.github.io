@@ -2,6 +2,9 @@
 http://es6.ruanyifeng.com/
 - - -
 
+Babel 入门教程 http://www.ruanyifeng.com/blog/2016/01/babel.html
+
+
 ## 2. let 和 const 命令
 
 ### 2.1. let命令
