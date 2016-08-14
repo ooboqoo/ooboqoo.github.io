@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/lib/normalize.css">
+  <link rel="stylesheet" href="/lib/main.css">
+  <link rel="stylesheet" href="/lib/vs.css">
+  <script src="/lib/marked.js"></script>
+  <script src="/lib/highlight.pack.js"></script>
+  <script src="/lib/main.js"></script>
+  <title>Markdown Reader</title>
+</head>
+
+<body>
+  <iframe id="header" src="/header.html" frameborder="0" width="100%" height="36px"></iframe>
+  <nav id="sidemenu">
+    <div id="togglemenu">菜<br>单<br><span>&gt;</span><span>&lt;</span></div>
+    <!-- 以下内容需手动填入 -->
+    <h2>ES6 入门</h2>
+    <div>
+      <a href="docs/intro.md">ECMAScript 6简介</a>
+      <a href="docs/let.md">let和const命令</a>
+      <a href="docs/destructuring.md">变量的解构赋值</a>
+      <a href="docs/string.md">字符串的扩展</a>
+      <a href="docs/regex.md">正则的扩展</a>
+      <a href="docs/number.md">数值的扩展</a>
+      <a href="docs/array.md">数组的扩展</a>
+      <a href="docs/function.md">函数的扩展</a>
+      <a href="docs/object.md">对象的扩展</a>
+      <a href="docs/symbol.md">Symbol</a>
+      <a href="docs/proxy.md">Proxy和Reflect</a>
+      <a href="docs/arraybuffer.md">二进制数组</a>
+      <a href="docs/set-map.md">Set和Map数据结构</a>
+      <a href="docs/iterator.md">Iterator和for...of循环</a>
+      <a href="docs/generator.md">Generator函数</a>
+      <a href="docs/promise.md">Promise对象</a>
+      <a href="docs/async.md">异步操作和Async函数</a>
+      <a href="docs/class.md">Class</a>
+      <a href="docs/decorator.md">Decorator</a>
+      <a href="docs/module.md">Module</a>
+      <a href="docs/style.md">编程风格</a>
+      <a href="docs/spec.md">读懂规格</a>
+      <a href="docs/reference.md">参考链接</a>
+    </div>
+    <h2>Understanding ES6</h2>
+    <div>
+      <a href="understandinges6/00-Introduction.md">Introduction</a>
+      <a href="understandinges6/01-Block-Bindings.md">Block-Bindings</a>
+      <a href="understandinges6/02-Strings-and-Regular-Expressions.md">Strings-and-Regular-Expressions</a>
+      <a href="understandinges6/03-Functions.md">Functions</a>
+      <a href="understandinges6/04-Objects.md">Objects</a>
+      <a href="understandinges6/05-Destructuring.md">Destructuring</a>
+      <a href="understandinges6/06-Symbols.md">Symbols</a>
+      <a href="understandinges6/07-Sets-And-Maps.md">Sets-And-Maps</a>
+      <a href="understandinges6/08-Iterators-And-Generators.md">Iterators-And-Generators</a>
+      <a href="understandinges6/09-Classes.md">Classes</a>
+      <a href="understandinges6/10-Arrays.md">Arrays</a>
+      <a href="understandinges6/11-Promises.md">Promises</a>
+      <a href="understandinges6/12-Proxies-and-Reflection.md">Proxies-and-Reflection</a>
+      <a href="understandinges6/13-Modules.md">Modules</a>
+      <a href="understandinges6/A-Other-Changes.md">Other-Changes</a>
+      <a href="understandinges6/B-ECMAScript-7.md">ECMAScript-7</a>
+    </div>
+    <h2 class="collapse">TypeScript Book</h2>
+    <div style="display:none;">
+      <a href="tshb/Basic Types.md">Basic Types</a>
+      <a href="tshb/Variable Declarations.md">Variable Declarations</a>
+      <a href="tshb/Interfaces.md">Interfaces</a>
+      <a href="tshb/Classes.md">Classes</a>
+      <a href="tshb/Functions.md">Functions</a>
+      <a href="tshb/Generics.md">Generics</a>
+      <a href="tshb/Enums.md">Enums</a>
+      <a href="tshb/Type Inference.md">Type Inference</a>
+      <a href="tshb/Type Compatibility.md">Type Compatibility</a>
+      <a href="tshb/Advanced Types.md">Advanced Types</a>
+      <a href="tshb/Symbols.md">Symbols</a>
+      <a href="tshb/Iterators and Generators.md">Iterators and Generators</a>
+      <a href="tshb/Modules.md">Modules</a>
+      <a href="tshb/Namespaces.md">Namespaces</a>
+      <a href="tshb/Namespaces and Modules.md">Namespaces and Modules</a>
+      <a href="tshb/Module Resolution.md">Module Resolution</a>
+      <a href="tshb/Declaration Merging.md">Declaration Merging</a>
+      <a href="tshb/Writing Declaration Files.md">Writing Declaration Files</a>
+      <a href="tshb/JSX.md">JSX</a>
+      <a href="tshb/Decorators.md">Decorators</a>
+      <a href="tshb/Mixins.md">Mixins</a>
+      <a href="tshb/Triple-Slash Directives.md">Triple-Slash Directives</a>
+    </div>
+  </nav>
+  <div id="tools"><div id="outline">索引</div><div id="mark">增/删标记</div></div>
+  <main>
+    <article id="md"></article>
+  </main>
+</body>
+
+</html>

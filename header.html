@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>header</title>
+  <style>
+    /* definition of the header */
+    * {box-sizing: border-box; margin: 0; padding: 0;}
+    body {overflow: hidden; width: 100%; height: 100%; background-color: #666; font-family: "Microsoft YaHei", sans-serif;}
+    #ul { position: relative; }
+    @media (min-width:  993px) { #ul { width:  980px; margin:auto;} }
+    @media (min-width: 1210px) { #ul { width: 1210px; margin:auto;} }
+    a {display: inline-block; height:100%; margin: 0 -0.25em; padding: 8px 12px; text-decoration: none; color: #fff;}
+    a:hover {background-color: #ccc; color: #000;}
+    a.active {background-color: #000; color: #fff;}
+  </style>
+  <script>
+  window.onload = function() {
+    document.body.onclick = function(e){
+      if (e.target.tagName !== "A") { return; }
+      window.parent.location.href = e.target.href;
+    };
+    var links = document.getElementsByTagName("a");
+    [].forEach.call(links, function(a) {
+      if (window.parent.location.href.indexOf(a.href) !== -1) { a.className = "active"; }
+    });
+  };
+  </script>
+</head>
+<body>
+  <div id="ul">
+    <a href="/js/js.html">原主站</a>
+    <a href="/html5/">HTML5手册</a>
+    <a href="/es6/">ES6电子书</a>
+    <a href="/ng2/">Angular2</a>
+    <a href="/project/">软件工程</a>
+    <a href="/php/">PHP &amp; SQL</a>
+    <a href="/tools/">工具箱</a>
+  </div>
+</body>
+</html>

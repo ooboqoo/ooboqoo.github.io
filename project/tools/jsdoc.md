@@ -1,0 +1,218 @@
+# JSDoc 3
+
+http://usejsdoc.org/
+
+## 快速入门
+
+JSDoc 注释要求放在被注释代码前面，紧挨着代码。
+注释严格要求以 `/**` 开头，`/*` 或者 `/***` 都不行，这样的目的是方便你在必要时跳过文档生成工具。
+
+### 添加注释
+
+最简单的文档就是仅添加了描述的文档。
+```js
+/** This is a description of the foo function. */
+function foo() {
+}
+```
+
+特定的 “文档标识” 可以提供供多的信息，如 `@constructor` 标识说明这是一个构造函数。
+```js
+/**
+ * Represents a book.
+ * @constructor
+ */
+function Book(title, author) {
+}
+```
+
+还可以添加更多的标识以提供更详尽的文档信息。
+```js
+/**
+ * Represents a book.
+ * @constructor
+ * @param {string} title - The title of the book.
+ * @param {string} author - The author of the book.
+ */
+function Book(title, author) {
+}
+```
+
+#### 生成文档
+
+按照规范添加注释后，就可以使用 JSDoc 3 文档生成工具自动生成 HTML 网站。生成文档默认使用的是 "default" 模板，你可以根据喜好修改该模板或者自己创建一个全新的模板。
+
+```bash
+./jsdoc book.js
+```
+该命令将自动在当前目录下创建  "out" 目录，你可以在那里找到生成的 HTML 文件。
+
+## 常用标签解析
+
+##### @augments / @extends -- 继承
+
+```js
+/**
+ * @constructor
+ */
+function Animal() {
+    /** Is this animal alive? */
+    this.alive = true;
+}
+
+/**
+ * @constructor
+ * @augments Animal
+ */
+function Duck() {}
+Duck.prototype = new Animal();
+
+/** What do ducks say? */
+Duck.prototype.speak = function() {
+    if (this.alive) { alert('Quack!');  }
+};
+
+var d = new Duck();
+d.speak(); // Quack!
+d.alive = false;
+d.speak(); // (nothing)
+
+```
+
+## 完整标签列表
+
+### Block Tags
+<dl>
+  <dt><a href="tags-abstract.html">@abstract</a> (synonyms: @virtual)</dt>
+  <dd>This member must be implemented (or overridden) by the inheritor.</dd>
+  <dt><a href="tags-access.html">@access</a></dt>
+  <dd>Specify the access level of this member (private, public, or protected).</dd>
+  <dt><a href="tags-alias.html">@alias</a></dt>
+  <dd>Treat a member as if it had a different name.</dd>
+  <dt><a href="tags-augments.html">@augments</a> (synonyms: @extends)</dt>
+  <dd>Indicate that a symbol inherits from, ands adds to, a parent symbol.</dd>
+  <dt><a href="tags-author.html">@author</a></dt>
+  <dd>Identify the author of an item.</dd>
+  <dt><a href="tags-borrows.html">@borrows</a></dt>
+  <dd>This object uses something from another object.</dd>
+  <dt><a href="tags-callback.html">@callback</a></dt>
+  <dd>Document a callback function.</dd>
+  <dt><a href="tags-class.html">@class</a> (synonyms: @constructor)</dt>
+  <dd>This function is intended to be called with the &quot;new&quot; keyword.</dd>
+  <dt><a href="tags-classdesc.html">@classdesc</a></dt>
+  <dd>Use the following text to describe the entire class.</dd>
+  <dt><a href="tags-constant.html">@constant</a> (synonyms: @const)</dt>
+  <dd>Document an object as a constant.</dd>
+  <dt><a href="tags-constructs.html">@constructs</a></dt>
+  <dd>This function member will be the constructor for the previous class.</dd>
+  <dt><a href="tags-copyright.html">@copyright</a></dt>
+  <dd>Document some copyright information.</dd>
+  <dt><a href="tags-default.html">@default</a> (synonyms: @defaultvalue)</dt>
+  <dd>Document the default value.</dd>
+  <dt><a href="tags-deprecated.html">@deprecated</a></dt>
+  <dd>Document that this is no longer the preferred way.</dd>
+  <dt><a href="tags-description.html">@description</a> (synonyms: @desc)</dt>
+  <dd>Describe a symbol.</dd>
+  <dt><a href="tags-enum.html">@enum</a></dt>
+  <dd>Document a collection of related properties.</dd>
+  <dt><a href="tags-event.html">@event</a></dt>
+  <dd>Document an event.</dd>
+  <dt><a href="tags-example.html">@example</a></dt>
+  <dd>Provide an example of how to use a documented item.</dd>
+  <dt><a href="tags-exports.html">@exports</a></dt>
+  <dd>Identify the member that is exported by a JavaScript module.</dd>
+  <dt><a href="tags-external.html">@external</a> (synonyms: @host)</dt>
+  <dd>Identifies an external class, namespace, or module.</dd>
+  <dt><a href="tags-file.html">@file</a> (synonyms: @fileoverview, @overview)</dt>
+  <dd>Describe a file.</dd>
+  <dt><a href="tags-fires.html">@fires</a> (synonyms: @emits)</dt>
+  <dd>Describe the events this method may fire.</dd>
+  <dt><a href="tags-function.html">@function</a> (synonyms: @func, @method)</dt>
+  <dd>Describe a function or method.</dd>
+  <dt><a href="tags-global.html">@global</a></dt>
+  <dd>Document a global object.</dd>
+  <dt><a href="tags-ignore.html">@ignore</a></dt>
+  <dd>Omit a symbol from the documentation.</dd>
+  <dt><a href="tags-implements.html">@implements</a></dt>
+  <dd>This symbol implements an interface.</dd>
+  <dt><a href="tags-inheritdoc.html">@inheritdoc</a></dt>
+  <dd>Indicate that a symbol should inherit its parent&#39;s documentation.</dd>
+  <dt><a href="tags-inner.html">@inner</a></dt>
+  <dd>Document an inner object.</dd>
+  <dt><a href="tags-instance.html">@instance</a></dt>
+  <dd>Document an instance member.</dd>
+  <dt><a href="tags-interface.html">@interface</a></dt>
+  <dd>This symbol is an interface that others can implement.</dd>
+  <dt><a href="tags-kind.html">@kind</a></dt>
+  <dd>What kind of symbol is this?</dd>
+  <dt><a href="tags-lends.html">@lends</a></dt>
+  <dd>Document properties on an object literal as if they belonged to a symbol with a given name.</dd>
+  <dt><a href="tags-license.html">@license</a></dt>
+  <dd>Identify the license that applies to this code.</dd>
+  <dt><a href="tags-listens.html">@listens</a></dt>
+  <dd>List the events that a symbol listens for.</dd>
+  <dt><a href="tags-member.html">@member</a> (synonyms: @var)</dt>
+  <dd>Document a member.</dd>
+  <dt><a href="tags-memberof.html">@memberof</a></dt>
+  <dd>This symbol belongs to a parent symbol.</dd>
+  <dt><a href="tags-mixes.html">@mixes</a></dt>
+  <dd>This object mixes in all the members from another object.</dd>
+  <dt><a href="tags-mixin.html">@mixin</a></dt>
+  <dd>Document a mixin object.</dd>
+  <dt><a href="tags-module.html">@module</a></dt>
+  <dd>Document a JavaScript module.</dd>
+  <dt><a href="tags-name.html">@name</a></dt>
+  <dd>Document the name of an object.</dd>
+  <dt><a href="tags-namespace.html">@namespace</a></dt>
+  <dd>Document a namespace object.</dd>
+  <dt><a href="tags-override.html">@override</a></dt>
+  <dd>Indicate that a symbol overrides its parent.</dd>
+  <dt><a href="tags-param.html">@param</a> (synonyms: @arg, @argument)</dt>
+  <dd>Document the parameter to a function.</dd>
+  <dt><a href="tags-private.html">@private</a></dt>
+  <dd>This symbol is meant to be private.</dd>
+  <dt><a href="tags-property.html">@property</a> (synonyms: @prop)</dt>
+  <dd>Document a property of an object.</dd>
+  <dt><a href="tags-protected.html">@protected</a></dt>
+  <dd>This symbol is meant to be protected.</dd>
+  <dt><a href="tags-public.html">@public</a></dt>
+  <dd>This symbol is meant to be public.</dd>
+  <dt><a href="tags-readonly.html">@readonly</a></dt>
+  <dd>This symbol is meant to be read-only.</dd>
+  <dt><a href="tags-requires.html">@requires</a></dt>
+  <dd>This file requires a JavaScript module.</dd>
+  <dt><a href="tags-returns.html">@returns</a> (synonyms: @return)</dt>
+  <dd>Document the return value of a function.</dd>
+  <dt><a href="tags-see.html">@see</a></dt>
+  <dd>Refer to some other documentation for more information.</dd>
+  <dt><a href="tags-since.html">@since</a></dt>
+  <dd>When was this feature added?</dd>
+  <dt><a href="tags-static.html">@static</a></dt>
+  <dd>Document a static member.</dd>
+  <dt><a href="tags-summary.html">@summary</a></dt>
+  <dd>A shorter version of the full description.</dd>
+  <dt><a href="tags-this.html">@this</a></dt>
+  <dd>What does the &#39;this&#39; keyword refer to here?</dd>
+  <dt><a href="tags-throws.html">@throws</a> (synonyms: @exception)</dt>
+  <dd>Describe what errors could be thrown.</dd>
+  <dt><a href="tags-todo.html">@todo</a></dt>
+  <dd>Document tasks to be completed.</dd>
+  <dt><a href="tags-tutorial.html">@tutorial</a></dt>
+  <dd>Insert a link to an included tutorial file.</dd>
+  <dt><a href="tags-type.html">@type</a></dt>
+  <dd>Document the type of an object.</dd>
+  <dt><a href="tags-typedef.html">@typedef</a></dt>
+  <dd>Document a custom type.</dd>
+  <dt><a href="tags-variation.html">@variation</a></dt>
+  <dd>Distinguish different objects with the same name.</dd>
+  <dt><a href="tags-version.html">@version</a></dt>
+  <dd>Documents the version number of an item.</dd>
+</dl>
+
+### Inline Tags
+<dl>
+  <dt><a href="tags-inline-link.html">{@link}</a> (synonyms: {@linkcode}, {@linkplain})</dt>
+  <dd>Link to another item in the documentation.</dd>
+  <dt><a href="tags-inline-tutorial.html">{@tutorial}</a></dt>
+  <dd>Link to a tutorial.</dd>
+</dl>

@@ -1,14 +1,14 @@
 * { box-sizing: border-box }
 html { overflow-x: hidden; }
 body { padding: 0.5em; font-family: Verdana, Arial, SimSun, "Microsoft YaHei", sans-serif; line-height: 1.5; }
-h1 { font-size: 2rem; }
+h1 { font-size: 2rem; text-align: center;}
 h2 { font-size: 1.75rem; }
 h3 { font-size: 1.5rem; }
 h4 { font-size: 1.25rem; }
 h5 { font-size: 1rem; }
 h1, h2, h3, h4, h5 { margin: 0.25em 0; }
 h1, h2, h3, h4 { font-family: "Microsoft YaHei"; font-weight: normal; }
-h1 { text-align: center; }
+p { margin: 0.25em 0; }
 img { margin-bottom: -5px; max-width: 100%; }
 a { color: inherit; }
 table { width: 100%; }

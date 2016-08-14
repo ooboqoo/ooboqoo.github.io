@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/main.css" />
+<style>
+  td[colspan="2"], td[colspan="3"] {font-weight:bold;}
+  td.remark {font-weight: normal;}
+  td em{color:gray !important;}
+</style>
+<script src="../main.js"></script>
+<script>setBase('table','http://www.w3schools.com/jquery/');</script>
+<title>jQuery References</title>
+</head>
+<body>
+<div id="article">
+
+<h1>jQuery References</h1>
+
+<div id="contents">
+<ul>
+    <li><a href="#selectors">Selectors</a></li>
+    <li><a href="#traversing">Traversing</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#effects">Effects</a></li>
+    <li><a href="#html">HTML/CSS</a></li>
+    <li><a href="#ajax">AJAX</a></li>
+    <li><a href="#misc">Misc</a></li>
+</ul>
+</div>
+
+<div>
+<h2 id="selectors">jQuery Selectors</h2>
+<p>jQuery 选择器是 CSS 选择器的超集，像“匹配元素间定位”、属性选择器中的“!=” 以及“其他选择符”中的一些选择符在 CSS 中是没有的。</p>
+<table><tbody>
+<tr><th>Selector</th><th>Example</th><th>Selects</th></tr>
+<tr><td colspan="3">Simple CSS 简单的CSS选择符</td></tr>
+<tr><td><a href="sel_all.asp">*</a></td><td>$("*")</td><td>All elements</td></tr>
+<tr><td><a href="sel_id.asp">#<em>id</em></a></td><td>$("#lastname")</td><td>The element with id="lastname"</td></tr>
+<tr><td><a href="sel_element.asp"><em>element</em></a></td><td>$("p")</td><td>All &lt;p&gt; elements</td></tr>
+<tr><td><a href="sel_class.asp">.<em>class</em></a></td><td>$(".intro")</td><td>All elements with class="intro"</td></tr>
+<tr><td><a href="sel_multiple_classes.asp">.<em>class</em>, .<em>class</em></a></td><td>$(".intro, .demo")</td><td>All elements with the class "intro" or "demo"</td></tr>
+<tr><td><a href="sel_multiple_sel.asp"><em>el1</em>, <em>el2</em>, <em>el3</em></a></td><td>$("h1, div, p")</td><td>All &lt;h1&gt;, &lt;div&gt; and &lt;p&gt; elements</td></tr>
+<tr><td><a href="sel_parent_descendant.asp">parent descendant</a></td><td>$("div p")</td><td>All &lt;p&gt; elements that are descendants of a &lt;div&gt; element<br>注意区别 $("div .intro") 与 $("div.intro")</td></tr>
+<tr><td><a href="sel_parent_child.asp">parent &gt; child</a></td><td>$("div &gt; p")</td><td>All &lt;p&gt; elements that are a direct child of a &lt;div&gt; element</td></tr>
+<tr><td><a href="sel_previous_next.asp">element + next</a></td><td>$("div + p")</td><td>The &lt;p&gt; element that are next to each &lt;div&gt; elements</td></tr>
+<tr><td><a href="sel_previous_siblings.asp">element ~ siblings</a></td><td>$("div ~ p")</td><td>All &lt;p&gt; elements that are siblings of a &lt;div&gt; element</td></tr>
+<tr><td colspan="3">Position among siblings 在同辈元素间定位</td></tr>
+<tr><td><a href="sel_firstchild.asp">:first-child</a></td><td>$("p:first-child")</td><td>All &lt;p&gt; elements that are the first child of their parent</td></tr>
+<tr><td><a href="sel_lastchild.asp">:last-child</a></td><td>$("p:last-child")</td><td>All &lt;p&gt; elements that are the last child of their parent</td></tr>
+<tr><td><a href="sel_firstoftype.asp">:first-of-type</a></td><td>$("p:first-of-type")</td><td>All &lt;p&gt; elements that are the first &lt;p&gt; element of their parent</td></tr>
+<tr><td><a href="sel_lastoftype.asp">:last-of-type</a></td><td>$("p:last-of-type")</td><td>All &lt;p&gt; elements that are the last &lt;p&gt; element of their parent</td></tr>
+<tr><td><a href="sel_nthchild.asp">:nth-child(<em>n</em>)</a></td><td>$("p:nth-child(2)")</td><td><span style="color:blue;">从1开始计数</span>；取值：index even odd formula</td></tr>
+<tr><td><a href="sel_nthlastchild.asp">:nth-last-child(<em>n</em>)</a></td><td>$("p:nth-last-child(2)")</td><td>All &lt;p&gt; elements that are the 2nd child of their parent, counting from the last child</td></tr>
+<tr><td><a href="sel_onlychild.asp">:only-child</a></td><td>$("p:only-child")</td><td>All &lt;p&gt; elements that are the only child of their parent</td></tr>
+<tr><td><a href="sel_nthoftype.asp">:nth-of-type(<em>n</em>)</a></td><td>$("p:nth-of-type(2)")</td><td>All &lt;p&gt; elements that are the 2nd &lt;p&gt; element of their parent</td></tr>
+<tr><td><a href="sel_nthlastoftype.asp">:nth-last-of-type(<em>n</em>)</a></td><td>$("p:nth-last-of-type(2)")</td><td>All &lt;p&gt; elements that are the 2nd &lt;p&gt; element of their parent, counting from the last child</td></tr>
+<tr><td><a href="sel_onlyoftype.asp">:only-of-type</a></td><td>$("p:only-of-type")</td><td>All &lt;p&gt; elements that are the only child, of its type, of their parent</td></tr>
+<tr><td colspan="3" class="remark">特别注意 :nth-child() 是唯一一个从1开始计数的，另外，括号内可以是公式，如 2n 2n+1 3n 等</td></tr>
+<tr><td colspan="3">Position among matched elements 在匹配元素间定位</td></tr>
+<tr><td><a href="sel_first.asp">:first</a></td><td>$("p:first")</td><td>The first &lt;p&gt; element</td></tr>
+<tr><td><a href="sel_last.asp">:last</a></td><td>$("p:last")</td><td>The last &lt;p&gt; element</td></tr>
+<tr><td><a href="sel_even.asp">:even</a></td><td>$("tr:even")</td><td>All even &lt;tr&gt; elements</td></tr>
+<tr><td><a href="sel_odd.asp">:odd</a></td><td>$("tr:odd")</td><td>All odd &lt;tr&gt; elements</td></tr>
+<tr><td><a href="sel_not.asp">:not(<em>selector</em>)</a></td><td>$("input:not(:empty)")</td><td>All input elements that are not empty</td></tr>
+<tr><td><a href="sel_eq.asp">:eq(<em>index</em>)</a></td><td>$("ul li:eq(3)")</td><td>The fourth element in a list (index starts at 0)</td></tr>
+<tr><td><a href="sel_gt.asp">:gt(<em>no</em>)</a></td><td>$("ul li:gt(3)")</td><td>List elements with an index greater than 3</td></tr>
+<tr><td><a href="sel_lt.asp">:lt(<em>no</em>)</a></td><td>$("ul li:lt(3)")</td><td>List elements with an index less than 3</td></tr>
+<tr><td colspan="3">Attributes 属性</td></tr>
+<tr><td><a href="sel_attribute.asp">[<em>attribute</em>]</a></td><td>$("[href]")</td><td>All elements with a href attribute</td></tr>
+<tr><td><a href="sel_attribute_equal_value.asp">[<em>attribute</em>=<em>"value"</em>]</a></td><td>$("[href='default.htm']")</td><td>All elements with a href attribute value equal to "default.htm"</td></tr>
+<tr><td><a href="sel_attribute_notequal_value.asp">[<em>attribute</em>!=<em>"value"</em>]</a></td><td>$("[href!='default.htm']")</td><td>All elements with a href attribute value not equal to "default.htm"</td></tr>
+<tr><td><a href="sel_attribute_beginning_value.asp">[<em>attribute</em>^=<em>"value"</em>]</a></td><td>$("[title^='Tom']")</td><td>All elements with a title attribute value starting with "Tom"</td></tr>
+<tr><td><a href="sel_attribute_end_value.asp">[<em>attribute</em>$=<em>"value"</em>]</a></td><td>$("[href$='.jpg']")</td><td>All elements with a href attribute value ending with ".jpg"</td></tr>
+<tr><td><a href="sel_attribute_prefix_value.asp">[<em>attribute</em>|=<em>"value"</em>]</a></td><td>$("[title|='Tomorrow']")</td><td>All elements with a title attribute value equal to 'Tomorrow', or starting with 'Tomorrow' followed by a hyphen</td></tr>
+<tr><td><a href="sel_attribute_contains_value.asp">[<em>attribute</em>~=<em>"value"</em>]</a></td><td>$("[title~='hello']")</td><td>All elements with a title attribute value containing the specific word "hello"</td></tr>
+<tr><td><a href="sel_attribute_contains_string_value.asp">[<em>attribute</em>*=<em>"value"</em>]</a></td><td>$("[title*='hello']")</td><td>All elements with a title attribute value containing the word "hello"</td></tr>
+<tr><td colspan="3">Forms 表单</td></tr>
+<tr><td><a href="sel_input.asp">:input</a></td><td>$(":input")</td><td>选取所有的 &lt;input&gt; &lt;textarea&gt; &lt;select&gt; &lt;button&gt; 元素</td></tr>
+<tr><td><a href="sel_input_text.asp">:text</a></td><td>$(":text")</td><td>type="text" 选取所有的单行文本框</td></tr>
+<tr><td><a href="sel_input_password.asp">:password</a></td><td>$(":password")</td><td>type="password" 选取所有的密码框</td></tr>
+<tr><td><a href="sel_input_radio.asp">:radio</a></td><td>$(":radio")</td><td>type="radio" 选取所有的单选框</td></tr>
+<tr><td><a href="sel_input_checkbox.asp">:checkbox</a></td><td>$(":checkbox")</td><td>type="checkbox" 选取所有的复选框</td></tr>
+<tr><td><a href="sel_input_submit.asp">:submit</a></td><td>$(":submit")</td><td>type="submit" 选取所有的提交按钮</td></tr>
+<tr><td><a href="sel_input_reset.asp">:reset</a></td><td>$(":reset")</td><td>type="reset" 选取所有的重置按钮</td></tr>
+<tr><td><a href="sel_input_button.asp">:button</a></td><td>$(":button")</td><td>type="button" 选取所有的按钮</td></tr>
+<tr><td><a href="sel_input_image.asp">:image</a></td><td>$(":image")</td><td>type="image" 选取所有的图像按钮</td></tr>
+<tr><td><a href="sel_input_file.asp">:file</a></td><td>$(":file")</td><td>type="file" 选取所有的上传域</td></tr>
+<tr><td><a href="sel_input_enabled.asp">:enabled</a></td><td>$(":enabled")</td><td>All enabled input elements</td></tr>
+<tr><td><a href="sel_input_disabled.asp">:disabled</a></td><td>$(":disabled")</td><td>All disabled input elements</td></tr>
+<tr><td><a href="sel_input_checked.asp">:checked</a></td><td>$(":checked")</td><td>All checked input elements（单选 复选）</td></tr>
+<tr><td><a href="sel_input_selected.asp">:selected</a></td><td>$(":selected")</td><td>All selected input elements（下拉列表）</td></tr>
+<tr><td colspan="3" class="remark">:enabled :disabled :selected :checked 这4项属于属性过滤选择器
+  <br>注意 <code>:input</code> 与 <code>input</code> 的区别</td></tr>
+<tr><td colspan="3">Miscellaneous selectors 其他选择符</td></tr>
+<tr><td><a href="sel_root.asp">:root</a></td><td>$(":root")</td><td>The document's root element</td></tr>
+<tr><td><a href="sel_header.asp">:header</a></td><td>$(":header")</td><td>All header elements &lt;h1&gt;, &lt;h2&gt; ...</td></tr>
+<tr><td><a href="sel_contains.asp">:contains(<em>"text"</em>)</a></td><td>$(":contains('Hello')")</td><td>All elements which contains the text "Hello"</td></tr>
+<tr><td><a href="sel_empty.asp">:empty</a></td><td>$(":empty")</td><td>All elements that are empty</td></tr>
+<tr><td><a href="sel_has.asp">:has(<em>selector</em>)</a></td><td>$("div:has(p)")</td><td>All &lt;div&gt; elements that have a &lt;p&gt; element</td></tr>
+<tr><td><a href="sel_parent.asp">:parent</a></td><td>$(":parent")</td><td>Select all elements that have at least one child node (either an element or text).</td></tr>
+<tr><td><a href="sel_focus.asp">:focus</a></td><td>$(":focus")</td><td>The element that currently has focus</td></tr>
+<tr><td><a href="sel_animated.asp">:animated</a></td><td>$(":animated")</td><td>All animated elements</td></tr>
+<tr><td><a href="sel_hidden.asp">:hidden</a></td><td>$("p:hidden")</td><td>All hidden &lt;p&gt; elements</td></tr>
+<tr><td><a href="sel_visible.asp">:visible</a></td><td>$("table:visible")</td><td>All visible tables</td></tr>
+<tr><td>:target</td><td>$("p:target")</td><td>Selects the target element indicated by the fragment identifier of the document’s URI.</td></tr>
+<tr><td><a href="sel_lang.asp">:lang(<em>language</em>)</a></td><td>$("p:lang(de)")</td><td>All &lt;p&gt; elements with a lang attribute value starting with "de"</td></tr>
+</tbody></table>
+</div>
+
+<div>
+<h2 id="traversing">jQuery Traversing Methods</h2>
+<table><tbody>
+  <tr><th>Method</th><th>Description</th></tr>
+  <tr><td colspan="2">Filtering 筛选元素</td></tr>
+  <tr><td><a href="traversing_filter.asp">.filter(<em>selector / callback</em>)</a></td><td>Reduce the set of matched elements to those that match the selector or pass the function's test</td></tr>
+  <tr><td><a href="traversing_not.asp">.not(<em>selector</em>)</a></td><td>Remove elements from the set of matched elements</td></tr>
+  <tr><td><a href="traversing_has.asp">.has(<em>selector</em>)</a></td><td>Returns all elements that have one or more elements inside of them</td></tr>
+  <tr><td><a href="traversing_eq.asp">.eq(<em>index</em>)</a></td><td>Returns an element with a specific index number of the selected elements</td></tr>
+  <tr><td><a href="traversing_first.asp">.first()</a></td><td>Returns the first element of the selected elements</td></tr>
+  <tr><td><a href="traversing_last.asp">.last()</a></td><td>Returns the last element of the selected elements</td></tr>
+  <tr><td><a href="traversing_slice.asp">.slice(<em>start, [end]</em>)</a></td><td>Reduces the set of matched elements to a subset specified by a range of indices</td></tr>
+  <tr><td colspan="2">Descendants 后代元素</td></tr>
+  <tr><td><a href="traversing_find.asp">.find(<em>selector</em>)</a></td><td>Returns descendant elements of the selected element</td></tr>
+  <tr><td><a href="traversing_children.asp">.children(<em>[selector]</em>)</a></td><td>Returns all direct children of the selected element</td></tr>
+  <tr><td><a href="traversing_contents.asp">.contents()</a></td><td>Returns all direct children of the selected element (including text and comment nodes)
+<br>与 children()方法的不同之处在于在结果 jQuery 对象中包含了文本以及注释节点。<br>如 &lt;p&gt;text&lt;em&gt;node&lt;/em&gt;&lt;/p&gt; contents() 比 children() 多返回一个 text 节点。</td></tr>
+  <tr><td colspan="2">Siblings 同辈元素</td></tr>
+  <tr><td><a href="traversing_siblings.asp">.siblings(<em>[selector]</em>)</a></td><td>Returns all sibling elements of the selected element</td></tr>
+  <tr><td><a href="traversing_next.asp">.next(<em>[selector]</em>)</a></td><td>Returns the next sibling element of the selected element</td></tr>
+  <tr><td><a href="traversing_nextall.asp">.nextAll(<em>[selector]</em>)</a></td><td>Returns all next sibling elements of the selected element</td></tr>
+  <tr><td><a href="traversing_nextuntil.asp">.nextUntil(<em>[selector], [filter]</em>)</a></td><td>Returns all next sibling elements between two given arguments</td></tr>
+  <tr><td><a href="traversing_prev.asp">.prev(<em>[selector]</em>)</a></td><td>Returns the previous sibling element of the selected element</td></tr>
+  <tr><td><a href="traversing_prevall.asp">.prevAll(<em>[selector]</em>)</a></td><td>Returns all previous sibling elements of the selected element</td></tr>
+  <tr><td><a href="traversing_prevuntil.asp">.prevUntil(<em>[selector], [filter]</em>)</a></td><td>Returns all previous sibling elements between two given arguments</td></tr>
+  <tr><td colspan="2">Ancestors 祖先元素</td></tr>
+  <tr><td><a href="traversing_parent.asp">.parent(<em>[selector]</em>)</a></td><td>Returns the direct parent element of the selected element</td></tr>
+  <tr><td><a href="traversing_parents.asp">.parents(<em>[selector]</em>)</a></td><td>Returns all ancestor elements of the selected element</td></tr>
+  <tr><td><a href="traversing_parentsuntil.asp">.parentsUntil(<em>[selector], [filter]</em>)</a></td><td>Returns all ancestor elements between two given arguments</td></tr>
+  <tr><td><a href="traversing_closest.asp">.closest(<em>[selector]</em>)</a></td><td>Returns the first ancestor of the selected element</td></tr>
+  <tr><td><a href="traversing_offsetparent.asp">.offsetParent()</a></td><td>Returns the first positioned parent element</td></tr>
+  <tr><td colspan="2">Collection manipulation 集合操作</td></tr>
+  <tr><td><a href="traversing_add.asp">.add(<em>selector</em>)</a></td><td>Adds elements to the set of matched elements</td></tr>
+  <tr><td>.addBack()</td><td>Add the previous set of elements on the stack to the current set, optionally filtered by a selector.</td></tr>
+  <tr><td>.end()</td><td>Ends the most recent filtering operation in the current chain, and return the set of matched elements to its previous state</td></tr>
+  <tr><td>.map(<em>callback</em>)</td><td>Passes each element in the matched set through a function, producing a new jQuery object containing the return values</td></tr>
+  <tr><td>.pushStack(<em>elements</em>)</td><td>Add a collection of DOM elements onto the jQuery stack.</td></tr>
+  <tr><td colspan="2">Working with selected elements 操作选中的元素</td></tr>
+  <tr><td><a href="traversing_is.asp">.is(<em>selector</em>)</a></td><td>Checks the set of matched elements against a selector/element/jQuery object, and return true if at least one of these elements matches the given arguments</td></tr>
+  <tr><td><a href="traversing_each.asp">.each(<em>callback</em>)</a></td><td>Executes a function for each matched element</td></tr>
+  <tr><td>.index(<em>element</em>)</td><td>Search for a given element from among the matched elements.</td></tr>
+  <tr><td><a href="misc_index.asp">.index()</a></td><td>Gets the index of the matched element in ralation to its siblings.</td></tr>
+  <tr><td>$.contains(<em>a, b</em>)</td><td>Determines whether DOM node b contains DOM node a.</td></tr>
+  <tr><td>.length</td><td>Gets the number of matched elements.</td></tr>
+  <tr><td>.get(<em>index</em>)</td><td>Gets the DOM node corresponding to the matched elements.</td></tr>
+  <tr><td><a href="misc_get.asp">.get()</a></td><td>Gets an array of DOM nodes corresponding to the matched elements.</td></tr>
+  <tr><td><a href="misc_toarray.asp">.toArray()</a></td><td>Gets an array of DOM nodes corresponding to the matched elements.</td></tr>
+</tbody></table>
+</div>
+
+<div>
+<h2 id="events">Event methods</h2>
+<table><tbody>
+<tr><th>Event method</th><th>Description</th></tr>
+<tr><td colspan="2">Binding</td></tr>
+<tr><td>.ready(<em>handler</em>)</td><td>Binds handler to be called when the DOM and CSS are fully loaded.</td></tr>
+<tr><td>.on(<em>type, [selector], [data], handler</em>)</td><td>Binds handler to be called when the given type of event is sent to the element. If selector is provided, performs event delegation.</td></tr>
+<tr><td>.on(<em>events, [selector], [data]</em>)</td><td>Binds multiple handlers for events as specified in the events object parameter.</td></tr>
+<tr><td>.off(<em>type, [selector], [handler]</em>)</td><td>Removes bindings on the element.</td></tr>
+<tr><td>.bind(<em>type, [data], handler</em>)</td><td>Binds handler to be called when the given type of event is sent to the element. In general, use .on(<em></em>) instead.</td></tr>
+<tr><td>.one(<em>type, [data], handler</em>)</td><td>Binds handler to be called when the given type of event is sent to the element. Removes the binding when the handler is called.</td></tr>
+<tr><td>.unbind(<em>[type], [handler]</em>)</td><td>Removes the bindings on the element (<em>for an event type, a particular handler, or all bindings</em>).</td></tr>
+<tr><td>.delegate(<em>selector, type, [data], handler</em>)</td><td>Binds handler to be called when the given type of event is sent to a descendant element matching selector.</td></tr>
+<tr><td>.delegate(<em>selector, handlers</em>)</td><td>Binds a collection of handlers to be called when the given types of events are sent to a descendant element matching selector.</td></tr>
+<tr><td>.undelegate(<em>selector, type, [handler]</em>)</td><td>Removes the bindings on the element previously bound with .delegate(<em></em>).</td></tr>
+<tr><td colspan="2">Shorthand binding</td></tr>
+<tr><td>.blur(<em>handler</em>)</td><td>Binds handler to be called when the element loses keyboard focus.</td></tr>
+<tr><td>.change(<em>handler</em>)</td><td>Binds handler to be called when the element's value changes.</td></tr>
+<tr><td>.click(<em>handler</em>)</td><td>Binds handler to be called when the element is clicked.</td></tr>
+<tr><td>.dblclick(<em>handler</em>)</td><td>Binds handler to be called when the element is double-clicked.</td></tr>
+<tr><td>.error(<em>handler</em>)</td><td>Binds handler to be called when the element receives an error event (<em>browser-dependent</em>).</td></tr>
+<tr><td>.focus(<em>handler</em>)</td><td>Binds handler to be called when the element gains keyboard focus.</td></tr>
+<tr><td>.focusin(<em>handler</em>)</td><td>Binds handler to be called when the element, or a descendant, gains keyboard focus.</td></tr>
+<tr><td>.focusout(<em>handler</em>)</td><td>Binds handler to be called when the element, or a descendant, loses keyboard focus.</td></tr>
+<tr><td>.keydown(<em>handler</em>)</td><td>Binds handler to be called when a key is pressed and the element has keyboard focus.</td></tr>
+<tr><td>.keypress(<em>handler</em>)</td><td>Binds handler to be called when a keystroke occurs and the element has keyboard focus.</td></tr>
+<tr><td>.keyup(<em>handler</em>)</td><td>Binds handler to be called when a key is released and the element has keyboard focus.</td></tr>
+<tr><td>.load(<em>handler</em>)</td><td>Binds handler to be called when the element finishes loading.</td></tr>
+<tr><td>.mousedown(<em>handler</em>)</td><td>Binds handler to be called when the mouse button is pressed within the element.</td></tr>
+<tr><td>.mouseenter(<em>handler</em>)</td><td>Binds handler to be called when the mouse pointer enters the element. Not affected by event bubbling.</td></tr>
+<tr><td>.mouseleave(<em>handler</em>)</td><td>Binds handler to be called when the mouse pointer leaves the element. Not affected by event bubbling.</td></tr>
+<tr><td>.mousemove(<em>handler</em>)</td><td>Binds handler to be called when the mouse pointer moves within the element.</td></tr>
+<tr><td>.mouseout(<em>handler</em>)</td><td>Binds handler to be called when the mouse pointer leaves the element.</td></tr>
+<tr><td>.mouseover(<em>handler</em>)</td><td>Binds handler to be called when the mouse pointer enters the element.</td></tr>
+<tr><td>.mouseup(<em>handler</em>)</td><td>Binds handler to be called when the mouse button is released within the element.</td></tr>
+<tr><td>.resize(<em>handler</em>)</td><td>Binds handler to be called when the element is resized.</td></tr>
+<tr><td>.scroll(<em>handler</em>)</td><td>Binds handler to be called when the element's scroll position changes.</td></tr>
+<tr><td>.select(<em>handler</em>)</td><td>Binds handler to be called when text in the element is selected.</td></tr>
+<tr><td>.submit(<em>handler</em>)</td><td>Binds handler to be called when the form element is submitted.</td></tr>
+<tr><td>.unload(<em>handler</em>)</td><td>Binds handler to be called when the element is unloaded from memory.</td></tr>
+<tr><td>.hover(<em>enter, leave</em>)</td><td>Binds enter to be called when the mouse enters the element, and leave to be called when the mouse leaves it.</td></tr>
+<tr><td colspan="2">Triggering</td></tr>
+<tr><td>.trigger(<em>type, [data]</em>)</td><td>Triggers handlers for the event on the element and executes the default action for the event.</td></tr>
+<tr><td>.triggerHandler(<em>type, [data]</em>)</td><td>Triggers handlers for the event on the element without executing any default actions.</td></tr>
+<tr><td colspan="2">Shorthand triggering</td></tr>
+<tr><td>.blur(<em></em>)</td><td>Triggers the  blur event.</td></tr>
+<tr><td>.change(<em></em>)</td><td>Triggers the  change event.</td></tr>
+<tr><td>.click(<em></em>)</td><td>Triggers the  click event.</td></tr>
+<tr><td>.dblclick(<em></em>)</td><td>Triggers the  dblclick event.</td></tr>
+<tr><td>.error(<em></em>)</td><td>Triggers the  error event.</td></tr>
+<tr><td>.focus(<em></em>)</td><td>Triggers the  focus event.</td></tr>
+<tr><td>.keydown(<em></em>)</td><td>Triggers the  keydown event.</td></tr>
+<tr><td>.keypress(<em></em>)</td><td>Triggers the  keypress event.</td></tr>
+<tr><td>.keyup(<em></em>)</td><td>Triggers the  keyup event.</td></tr>
+<tr><td>.select(<em></em>)</td><td>Triggers the  selec t event.</td></tr>
+<tr><td>.submit(<em></em>)</td><td>Triggers the  submit event.</td></tr>
+<tr><td colspan="2">Utility</td></tr>
+<tr><td>$.proxy(<em>fn, context</em>)</td><td>Creates a new function that executes with the given context.</td></tr>
+</tbody></table>
+</div>
+
+<div>
+<h2 id="effects">jQuery Effect Methods</h2>
+<table><tbody>
+<tr><th>Effect method</th><th>Description</th></tr>
+<tr><td colspan="2">Predefined effects</td></tr>
+<tr><td>.show(<em>[speed], [callback]</em>)</td><td>Displays the matched elements by animating height, width, and opacity.</td></tr>
+<tr><td>.hide(<em>[speed], [callback]</em>)</td><td>Hides the matched elements by animating height, width, and opacity.</td></tr>
+<tr><td>.toggle(<em>[speed], [callback]</em>)</td><td>Displays or hides the matched elements.</td></tr>
+<tr><td>.slideDown(<em>[speed], [callback]</em>)</td><td>Displays the matched elements with a sliding motion.</td></tr>
+<tr><td>.slideUp(<em>[speed], [callback]</em>)</td><td>Hides the matched elements with a sliding motion.</td></tr>
+<tr><td>.slideToggle(<em>[speed], [callback]</em>)</td><td>Displays or hides the matched elements with a sliding motion.</td></tr>
+<tr><td>.fadeIn(<em>[speed], [callback]</em>)</td><td>Displays the matched elements by fading them to opaque.</td></tr>
+<tr><td>.fadeOut(<em>[speed], [callback]</em>)</td><td>Hides the matched elements by fading them to transparent.</td></tr>
+<tr><td>.fadeToggle(<em>[speed], [callback]</em>)</td><td>Displays or hides the matched elements with a fading animation.</td></tr>
+<tr><td>.fadeTo(<em>speed, opacity, [callback]</em>)</td><td>Adjusts the opacity of the matched elements.</td></tr>
+<tr><td colspan="2">Custom animations</td></tr>
+<tr><td>.animate(<em>{properties}, [speed], [easing], [callback]</em>)</td><td>Performs a custom animation of the specified CSS properties.</td></tr>
+<tr><td>.animate(<em>{properties}, {options}</em>)</td><td>A lower-level interface to .animate(), allowing control over the animation queue.</td></tr>
+<tr><td colspan="2">Queue manipulation</td></tr>
+<tr><td>.queue(<em>[queueName]</em>)</td><td>Retrieves the queue of functions on the first matched element.</td></tr>
+<tr><td>.queue(<em>[queueName], callback</em>)</td><td>Adds callback to the end of the queue.<br>对此项的理解是，将callback作为队列一员插入当前位置。因为正常的动画函数都会在执行完后调用dequeue，所以callback函数内部最后也必须调用一次dequeue</td></tr>
+<tr><td>.queue(<em>[queueName], newQueue</em>)</td><td>Replaces the queue with a new one.</td></tr>
+<tr><td>.dequeue(<em>[queueName]</em>)</td><td>Executes the next function on the queue.</td></tr>
+<tr><td>.clearQueue(<em>[queueName]</em>)</td><td>Empties the queue of all pending functions.</td></tr>
+<tr><td>.stop(<em>[clearQueue], [jumpToEnd]</em>)</td><td>Stops the currently running animation, then starts queued animations, if any.</td></tr>
+<tr><td>.finish(<em>[queueName]</em>)</td><td>Stops the currently running animation and immediately advances all queued animations to their target values.</td></tr>
+<tr><td>.delay(<em>duration, [queueName]</em>)</td><td>Waits duration milliseconds before executing the next item in the queue.</td></tr>
+<tr><td>.promise(<em>[queueName], [target]</em>)</td><td>Returns a promise object to be resolved once all queued actions on the collection have finished.</td></tr>
+</tbody></table>
+</div>
+
+<div>
+<h2 id="html">DOM Manipulation Methods</h2>
+<table>
+<tbody><tr><th>Method</th><th>Description</th></tr>
+<tr><td colspan="2">Attributes and properties</td></tr>
+<tr><td>.attr(<em>key</em>)</td><td>Gets the attribute named key.</td></tr>
+<tr><td>.attr(<em>key, value</em>)</td><td>Sets the attribute named key to value.</td></tr>
+<tr><td>.attr(<em>key, fn</em>)</td><td>Sets the attribute named key to the result of fn (called separately on each matched element).</td></tr>
+<tr><td>.attr(<em>obj</em>)</td><td>Sets attribute values given as key-value pairs.</td></tr>
+<tr><td>.removeAttr(<em>key</em>)</td><td>Removes the attribute named key.</td></tr>
+<tr><td>.prop(<em>key</em>)</td><td>Gets the property named key. jq1.6 新添加，注意与 attr 的区别和联系</td></tr>
+<tr><td>.prop(<em>key, value</em>)</td><td>Sets the property named key to value.</td></tr>
+<tr><td>.prop(<em>key, fn</em>)</td><td>Sets the property named key to the result of fn (called separately on each matched element).</td></tr>
+<tr><td>.prop(<em>obj</em>)</td><td>Sets property values given as key-value pairs.</td></tr>
+<tr><td>.removeProp(<em>key</em>)</td><td>Removes the property named key.</td></tr>
+<tr><td>.addClass(<em>class</em>)</td><td>Adds the given class ( or more space-separated classes) to each matched element.</td></tr>
+<tr><td>.removeClass(<em>class</em>)</td><td>Removes the given class from each matched element.</td></tr>
+<tr><td>.toggleClass(<em>class</em>)</td><td>Removes the given class if present, and adds it if not, for each matched element.</td></tr>
+<tr><td>.hasClass(<em>class</em>)</td><td>Returns true if any of the matched elements has the given class.</td></tr>
+<tr><td>.val()</td><td>Gets the value attribute of the first matched element. This method is primarily used to get the values of form elements.</td></tr>
+<tr><td>.val(<em>value / fn</em>)</td><td>Sets the value attribute of each element to value.</td></tr>
+<tr><td colspan="2">CSS</td></tr>
+<tr><td>.css(<em>key / [[keys]]</em>)</td><td>Gets the CSS attribute named key. 返回的是计算值</td></tr>
+<tr><td>.css(<em>key, value / fn</em>)</td><td>Sets the CSS attribute named key to value.</td></tr>
+<tr><td>.css(<em>obj</em>)</td><td>Sets CSS attribute values given as key-value pairs.</td></tr>
+<tr><td>.offset()</td><td>Gets the top and left pixel coordinates of the first matched element, relative to the viewport.</td></tr>
+<tr><td>.position()</td><td>Gets the top and left pixel coordinates of the first matched element, relative to the element returned by .offsetParent().</td></tr>
+<tr><td>.scrollTop()</td><td>Gets the vertical scroll position of the first matched element.</td></tr>
+<tr><td>.scrollTop(<em>value</em>)</td><td>Sets the vertical scroll position of all matched elements to value.</td></tr>
+<tr><td>.scrollLeft()</td><td>Gets the horizontal scroll position of the first matched element.</td></tr>
+<tr><td>.scrollLeft(<em>value</em>)</td><td>Sets the horizontal scroll position of all matched elements to value.</td></tr>
+<tr><td>.height()</td><td>Gets the height of the first matched element, returns a unit-less pixel value.</td></tr>
+<tr><td>.height(<em>value</em>)</td><td>Sets the height of all matched elements to value. 不能带单位</td></tr>
+<tr><td>.width()</td><td>Gets the width of the first matched element.</td></tr>
+<tr><td>.width(<em>value</em>)</td><td>Sets the width of all matched elements to value.</td></tr>
+<tr><td>.innerHeight()</td><td>Gets the height of the first matched element, including padding, but not border.</td></tr>
+<tr><td>.innerWidth()</td><td>Gets the width of the first matched element, including padding, but not border.</td></tr>
+<tr><td>.outerHeight(<em>includeMargin</em>)</td><td>Gets the height of the first matched element, including padding, border, and optional margin.</td></tr>
+<tr><td>.outerWidth(<em>includeMargin</em>)</td><td>Gets the width of the first matched element, including padding, border, and optional margin.</td></tr>
+<tr><td colspan="2">Content</td></tr>
+<tr><td>.html()</td><td>Gets the HTML content of the first matched element.</td></tr>
+<tr><td>.html(<em>value</em>)</td><td>Sets the HTML content of each matched element to value.</td></tr>
+<tr><td>.text()</td><td>Gets the textual content of all matched elements as a single string.</td></tr>
+<tr><td>.text(<em>value</em>)</td><td>Sets the textual content of each matched element to value.</td></tr>
+<tr><td colspan="2">Insertion</td></tr>
+<tr><td>.append(<em>content</em>)</td><td>Inserts content at the end of the interior of each matched element.</td></tr>
+<tr><td>.appendTo(<em>selector</em>)</td><td>Inserts the matched elements at the end of the interior of the elements matched by selector.</td></tr>
+<tr><td>.prepend(<em>content</em>)</td><td>Inserts content at the beginning of the interior of each matched element.</td></tr>
+<tr><td>.prependTo(<em>selector</em>)</td><td>Inserts the matched elements at the beginning of the interior of the elements matched by selector.</td></tr>
+<tr><td>.after(<em>content</em>)</td><td>Inserts content after each matched element.</td></tr>
+<tr><td>.insertAfter(<em>selector</em>)</td><td>Inserts the matched elements after each of the elements matched by selector.</td></tr>
+<tr><td>.before(<em>content</em>)</td><td>Inserts content before each matched element.</td></tr>
+<tr><td>.insertBefore(<em>selector</em>)</td><td>Inserts the matched elements before each of the elements matched by selector.</td></tr>
+<tr><td>.wrap(<em>content</em>)</td><td>Wraps each of the matched elements within content.</td></tr>
+<tr><td>.wrapAll(<em>content</em>)</td><td>Wraps all of the matched elements as a single unit within content.<br>如果成员位置不在一起的话，会被挪到一起再打包</td></tr>
+<tr><td>.wrapInner(<em>content</em>)</td><td>Wraps the interior contents of each of the matched elements within content.<br>包裹元素放在每个匹配元素内部，即包裹成员内容而非成员本身</td></tr>
+<tr><td colspan="2">Replacement</td></tr>
+<tr><td>.replaceWith(<em>content</em>)</td><td>Replaces the matched elements with content.<br>完成替换后会返回被替换元素，但被替换元素中的全部事件都将消失。</td></tr>
+<tr><td>.replaceAll(<em>selector</em>)</td><td>Replaces the elements matched by selector with the matched elements.<br>一旦完成替换，被替换元素消失。</td></tr>
+<tr><td colspan="2">Removal</td></tr>
+<tr><td>.empty()</td><td>Removes the child nodes of each matched element.</td></tr>
+<tr><td>.remove(<em>[selector]</em>)</td><td>Removes the matched nodes (optionally filtered by selector) from the DOM.</td></tr>
+<tr><td>.detach(<em>[selector]</em>)</td><td>Removes the matched nodes (optionally filtered by selector) from the DOM, preserving jQuery data attached to them. <br>与 remove 唯一的不同是不移除元素上绑定的事件及数据</td></tr>
+<tr><td>.unwrap()</td><td>Removes the element's parent.</td></tr>
+<tr><td colspan="2">Copying</td></tr>
+<tr><td>.clone(<em>[withHandlers], [deepWithHandlers]</em>)</td><td>Makes a <b>deep</b> copy of all matched elements, optionally also copying event handlers.</td></tr>
+<tr><td colspan="2">Data</td></tr>
+<tr><td>.data(<em>key</em>)</td><td>Gets the data item named key associated with the first matched element.<br><a href="https://blog.netsh.org/posts/html-data-jquery_1812.netsh.html">HTML5 自定义属性 data-* 和 jQuery.data 详解</a></td></tr>
+<tr><td>.data(<em>key, value</em>)</td><td>Sets the data item named key associated with each matched element to value.<br> jQuery 将信息存储在内部中央信息模块中，不会反映到HTML元素上，注意与 dataset API 区别。</td></tr>
+<tr><td>.removeData(<em>key</em>)</td><td>Removes the data item named key associated with each matched element.</td></tr>
+</tbody></table>
+</div>
+
+<div>
+<h2 id="ajax">Ajax Methods</h2>
+<table>
+<tbody><tr><th>Method</th><th>Description</th></tr>
+<tr><td colspan="2">Issuing requests</td></tr>
+<tr><td>$.ajax(<em>[url], options</em>)</td><td>Makes an Ajax request using the provided set of options. This is a low-level method that is often called via other convenience methods.</td></tr>
+<tr><td>.load(<em>url, [data], [callback]</em>)</td><td>Makes an Ajax request to url and places the response into the matched elements.</td></tr>
+<tr><td>$.get(<em>url, [data], [callback], [returnType]</em>)</td><td>Makes an Ajax request to url using the GET method.</td></tr>
+<tr><td>$.getJSON(<em>url, [data], [callback]</em>)</td><td>Makes an Ajax request to url, interpreting the response as a JSON data structure.</td></tr>
+<tr><td>$.getScript(<em>url, [callback]</em>)</td><td>Makes an Ajax request to url, executing the response as JavaScript.</td></tr>
+<tr><td>$.post(<em>url, [data], [callback], [returnType]</em>)</td><td>Makes an Ajax request to url using the POST method.</td></tr>
+<tr><td colspan="2">Request monitoring</td></tr>
+<tr><td>.ajaxComplete(<em>handler</em>)</td><td>Binds handler to be called when any Ajax transaction completes.</td></tr>
+<tr><td>.ajaxError(<em>handler</em>)</td><td>Binds handler to be called when any Ajax transaction completes with an error.</td></tr>
+<tr><td>.ajaxSend(<em>handler</em>)</td><td>Binds handler to be called when any Ajax transaction begins.</td></tr>
+<tr><td>.ajaxStart(<em>handler</em>)</td><td>Binds handler to be called when any Ajax transaction begins, and no others are active.</td></tr>
+<tr><td>.ajaxStop(<em>handler</em>)</td><td>Binds handler to be called when any Ajax transaction ends, and no others are still active.</td></tr>
+<tr><td>.ajaxSuccess(<em>handler</em>)</td><td>Binds handler to be called when any Ajax transaction completes successfully.</td></tr>
+<tr><td colspan="2">Configuration</td></tr>
+<tr><td>$.ajaxSetup(<em>options</em>)</td><td>Sets default options for all subsequent Ajax transactions.</td></tr>
+<tr><td>$.ajaxPrefilter(<em>[dataTypes], handler</em>)</td><td>Modifies the options on each Ajax request before it is processed by $.ajax().</td></tr>
+<tr><td>$.ajaxTransport(<em>transportFunct ion</em>)</td><td>Defines a new transport mechanism for Ajax transactions.</td></tr>
+<tr><td colspan="2">Utilities</td></tr>
+<tr><td>.serialize()</td><td>Encodes the values of a set of form controls into a query string.</td></tr>
+<tr><td>.serializeArray()</td><td>Encodes the values of a set of form controls into a JavaScript data structure.</td></tr>
+<tr><td>$.param(<em>obj</em>)</td><td>Encodes an arbitrary object of key-value pairs into a query string.</td></tr>
+<tr><td>$.globalEval(<em>code</em>)</td><td>Evaluates the given JavaScript string in the global context.</td></tr>
+<tr><td>$.parseJSON(<em>json</em>)</td><td>Converts the given JSON string into a JavaScript object.</td></tr>
+<tr><td>$.parseXML(<em>xml</em>)</td><td>Converts the given XML string into an XML document.</td></tr>
+<tr><td>$.parseHTML(<em>html</em>)</td><td>Converts the given HTML string into a set of DOM elements.</td></tr>
+</tbody></table>
+</div>
+
+<div>
+<h2>jQuery AJAX Methods</h2>
+<table><tbody>
+  <tr><th>Method</th><th>Description</th></tr>
+	<tr><td><a href="ajax_ajax.asp">$.ajax()</a></td><td>Performs an async AJAX request</td></tr>
+	<tr><td>$.ajaxPrefilter()</td><td>Handle custom Ajax options or modify existing options before each request is sent and before they are processed by $.ajax()</td></tr>
+	<tr><td><a href="ajax_ajaxsetup.asp">$.ajaxSetup()</a></td><td>Sets the default values for future AJAX requests</td></tr>
+	<tr><td>$.ajaxTransport()</td><td>Creates an object that handles the actual transmission of Ajax data</td></tr>
+	<tr><td><a href="ajax_get.asp">$.get()</a></td><td>Loads data from a server using an AJAX HTTP GET request</td></tr>
+	<tr><td><a href="ajax_getjson.asp">$.getJSON()</a></td><td>Loads JSON-encoded data from a server using a HTTP GET request</td></tr>
+	<tr><td><a href="ajax_getscript.asp">$.getScript()</a></td><td>Loads (and executes) a JavaScript from a server using an AJAX HTTP GET request</td></tr>
+	<tr><td><a href="ajax_param.asp">$.param()</a></td><td>Creates a serialized representation of an array or object (can be used as URL query string for AJAX requests)</td></tr>
+	<tr><td><a href="ajax_post.asp">$.post()</a></td><td>Loads data from a server using an AJAX HTTP POST request</td></tr>
+  <tr><td><a href="ajax_ajaxcomplete.asp">ajaxComplete()</a></td><td>Specifies a function to run when the AJAX request completes</td></tr>
+  <tr><td><a href="ajax_ajaxerror.asp">ajaxError()</a></td><td>Specifies a function to run when the AJAX request completes with an error</td></tr>
+  <tr><td><a href="ajax_ajaxsend.asp">ajaxSend()</a></td><td>Specifies a function to run before the AJAX request is sent</td></tr>
+  <tr><td><a href="ajax_ajaxstart.asp">ajaxStart()</a></td><td>Specifies a function to run when the first AJAX request begins</td></tr>
+  <tr><td><a href="ajax_ajaxstop.asp">ajaxStop()</a></td><td>Specifies a function to run when all AJAX requests have completed</td></tr>
+	<tr><td><a href="ajax_ajaxsuccess.asp">ajaxSuccess()</a></td><td>Specifies a function to run when an AJAX request completes successfully</td></tr>
+	<tr><td><a href="ajax_load.asp">load()</a></td><td>Loads data from a server and puts the returned data into the selected element</td></tr>
+	<tr><td><a href="ajax_serialize.asp">serialize()</a></td><td>Encodes a set of form elements as a string for submission</td></tr>
+	<tr><td><a href="ajax_serializearray.asp">serializeArray()</a></td><td>Encodes a set of form elements as an array of names and values</td></tr>
+</tbody></table>
+</div>
+
+<div>
+<h2 id="misc">Miscellaneous properties and functions</h2>
+<table>
+<tbody><tr><th>Method</th><th>Description</th></tr>
+<tr><td colspan="2">Properties of the jQuery object</td></tr>
+<tr><td>$.support</td><td>jQuery内部使用，不推荐外部使用。</td></tr>
+<tr><td colspan="2">Arrays and objects</td></tr>
+<tr><td>$.each(<em>collection, callback</em>)</td><td>Iterates over collection, executing callback for each item.</td></tr>
+<tr><td>$.extend(<em>target, addition, ...</em>)</td><td>Modifies the object target by adding properties from the other supplied objects. 如果只传了一个参数，则附加到this上</td></tr>
+<tr><td>$.grep(<em>array, callback, [invert]</em>)</td><td>Filters array by using callback as a test.</td></tr>
+<tr><td>$.makeArray(<em>object</em>)</td><td>Converts object into an array.</td></tr>
+<tr><td>$.map(<em>array, callback</em>)</td><td>Constructs a new array consisting of the result of callback being called on each item.</td></tr>
+<tr><td>$.inArray(<em>value, array</em>)</td><td>Determines whether value is in array.</td></tr>
+<tr><td>$.merge(<em>array1, array2</em>)</td><td>Combines the contents of array1 and array2.</td></tr>
+<tr><td>$.unique(<em>array</em>)</td><td>Removes any duplicate DOM elements from array.</td></tr>
+<tr><td colspan="2">Object introspection</td></tr>
+<tr><td>$.isArray(<em>object</em>)</td><td>Determines whether object is a true JavaScript array.</td></tr>
+<tr><td>$.isEmptyObject(<em>object</em>)</td><td>Determines whether object is empty.</td></tr>
+<tr><td>$.isFunction(<em>object</em>)</td><td>Determines whether object is a function.</td></tr>
+<tr><td>$.isPlainObject(<em>object</em>)</td><td>Determines whether object was created as an object literal or with new Object.</td></tr>
+<tr><td>$.isNumeric(<em>object</em>)</td><td>Determines whether object is a numeric scalar value.</td></tr>
+<tr><td>$.isWindow(<em>object</em>)</td><td>Determines whether object represents a browser window.</td></tr>
+<tr><td>$.isXMLDoc(<em>object</em>)</td><td>Determines whether object is an XML node.</td></tr>
+<tr><td>$.type(<em>object</em>)</td><td>Gets the JavaScript class of object.</td></tr>
+<tr><td colspan="2">Other</td></tr>
+<tr><td>$.trim(<em>string</em>)</td><td>Removes whitespace from the ends of string.</td></tr>
+<tr><td>$.noConflict(<em>[removeAll]</em>)</td><td>Reverts $ to its pre-jQuery definition.</td></tr>
+<tr><td>$.noop()</td><td>A function that does nothing.</td></tr>
+<tr><td>$.now()</td><td>The current time in milliseconds since the epoch.</td></tr>
+<tr><td>$.holdReady(<em>hold</em>)</td><td>Stops the  ready event from being triggered, or releases this hold.</td></tr>
+</tbody></table>
+</div>
+
+</div>
+<script>//给未设置查询链接的项目添加到 api.jquery.com 的查询链接
+(function(){
+  var tr = document.getElementsByTagName("tr"), td, result;
+  for (var i=0;i<tr.length;i++){
+    td=tr[i].firstChild.innerHTML;
+    result = td.match(/^\$?.([a-zA-Z]+)\(/);
+    if (result != null){
+      td = '<a href="http://api.jquery.com/' + result[1] +'/">' + td + '</a>';
+      tr[i].firstChild.innerHTML = td;
+    }
+  }
+})();
+</script>
+</body>
+</html>

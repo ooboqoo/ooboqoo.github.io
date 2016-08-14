@@ -31,21 +31,22 @@
   输入向框架发送的消息：<input name="messageOut" type="text"><input type="button" onclick="sendMessage(this)" value="发送"><br>
   <p id="messageIn1">这里将显示消息内容</p>
 </form>
-<iframe src="iframe.html" name="inner1" frameborder="1" width=500 height=140></iframe>
+<iframe src="iframe.html" name="inner1" frameborder="1" width=500 height=160></iframe>
 
 <h2>框架间的交互 - 跨域</h2>
-<p>采用 HTML5 postMessage API (实测 Chrome 还是会阻止消息发送，而 IE 正常。)</p>
+<p>采用 HTML5 postMessage API (实测 Chrome 还是会阻止消息发送，而 IE 正常，应该是 Chrome 的临时性 bug。)</p>
 <form action="">
   输入向框架发送的消息：<input name="messageOut" type="text"><input type="button" onclick="postMessage(this)" value="发送"><br>
   <p id="messageIn2">这里将显示消息内容</p>
 </form>
-<iframe src="{host}cors_inner.html" name="inner2" frameborder="1" width=500 height=140></iframe>
+<iframe src="{host}cors_inner.html" name="inner2" frameborder="1" width=500 height=160></iframe>
 <script>
 // 便于更换测试主机
 var host = "http://104.128.85.201/cors/";
 document.body.innerHTML = document.body.innerHTML.replace(/\{host\}/g, host);
 
 window.addEventListener("message", receiveMessage, false);
+[].forEach.call(document.getElementsByTagName('input'), captureEnter);
 
 function get(url, data, callback){
   var xmlhttp = new XMLHttpRequest();
@@ -90,6 +91,16 @@ function postMessage(target) {
 
 function receiveMessage(e){
   document.getElementById('messageIn2').innerHTML = e.data;
+}
+
+function captureEnter(elem){
+  elem.addEventListener('keypress', function(e){
+    if (e.key === 'Enter') {
+      this.nextElementSibling.click();
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  });
 }
 </script>
 </body>

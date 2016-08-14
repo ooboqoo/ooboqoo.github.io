@@ -1,0 +1,13 @@
+CACHE MANIFEST
+# version 1.00.001
+
+canvas.html
+practice.css
+canvas.js
+flower.jpg
+
+NETWORK:
+*
+
+SETTINGS:
+prefer-online

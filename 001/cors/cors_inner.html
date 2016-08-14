@@ -15,6 +15,14 @@ function postMessage(target) {
   parent.postMessage(target.parentElement.messageOut.value, "*");
 }
 
+document.getElementById('messageOut').addEventListener('keypress', function(e){
+  if (e.key === 'Enter') {
+    this.nextElementSibling.click();
+    e.preventDefault();
+    e.stopPropagation();
+  }
+});
+
 function receiveMessage(e){
   document.getElementById('messageIn').innerHTML = e.data;
 }

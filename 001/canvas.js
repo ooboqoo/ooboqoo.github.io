@@ -49,8 +49,8 @@ window.addEventListener('load', function() {
   function Ball(x, y, radius, color) {
     this.x = x;
     this.y = y;
-    this.dx = 2;
-    this.dy = 0;
+    this.dx = fromTo(-5, 5);
+    this.dy = fromTo(-5, 5);
     this.r = radius;
     this.c = color;
     this.underDrag = false;
@@ -113,6 +113,8 @@ window.addEventListener('load', function() {
 
   function stopDragging() {
     if (ballUnderDrag) {
+      ballUnderDrag.dx = fromTo(-5, 5);
+      ballUnderDrag.dy = fromTo(-5, 5);
       ballUnderDrag.underDrag = false;
     }
     ballUnderDrag = false;

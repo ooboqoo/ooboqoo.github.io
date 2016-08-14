@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="practice.css">
+  <style>
+    h2, h3{text-align: center;}
+    #echo, #log{width: 230px; height:400px; overflow-y: auto; margin:5px; padding: 0 5px; border: 1px solid gray; float:left;}
+  </style>
+  <title>气温监测站点面板</title>
+</head>
+
+<body>
+<h2>监测站1</h2>
+
+<div id="echo"><h3>服务器返回的消息</h3></div>
+<div id="log"><h3>本站监测到的数据</h3></div>
+<script>
+var temp = 20;
+var record;
+var echo = document.getElementById('echo');
+var log = document.getElementById('log');
+
+setInterval(setRecord, 30 * 1000);
+
+function setRecord(){
+  temp = temp + fromTo(-2, 3);
+  temp = temp > 41 ? 41 : temp;
+  record = getTime() + " " + temp +"&#176;C";
+  log.innerHTML = log.innerHTML + record + "<br>";
+}
+
+function getTime() {
+  var date = new Date();
+  return date.getHours() + ":" +date.getMinutes() + ":" + date.getSeconds();
+}
+
+function fromTo(m, n) {
+  return Math.round(m + Math.random() * Math.abs(m - n));
+}
+
+
+
+
+</script>
+</body>
+
+</html>

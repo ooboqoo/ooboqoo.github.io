@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/main.css" />
+<style>
+  td:first-Child{color:red;}
+  h2 a{text-decoration:none;}
+</style>
+<script src="../main.js"></script>
+<script src="../highlight.js"></script>
+<script>
+  setBase('h2', 'https://nodejs.org/dist/latest-v6.x/docs/api/');
+  setBase('table', 'https://nodejs.org/dist/latest-v6.x/docs/api/');
+</script>
+<title>Node.js</title>
+</head>
+<body>
+<div id="article">
+
+<h1>Node.js API 摘要</h1>
+
+<div>
+<ul>
+  <li><a href="http://nodeapi.ucdok.com/#/api/index.html">Node.js v4.2.4 手册 & 文档（中文项目）</a></li>
+  <li><a href="https://nodejs.org/dist/latest-v6.x/docs/api/index.html">Node.js v6.2.2 Documentation（官方文档）</a></li>
+</ul>
+</div>
+
+<h2 id="global" class="collapse"><a href="globals.html">Globals 全局对象</a></h2>
+<div style="display:none;">
+<table><tbody>
+<tr><td>global</td><td>[Object] 全局命名空间对象</td></tr>
+<tr><td>module</td><td>[Object] 当前模块的引用（实际上并非全局的而是各个模块本地的）</td></tr>
+<tr><td>exports</td><td>[Object] 指向 module.exports （实际上并非全局的而是各个模块本地的）</td></tr>
+<tr><td>require</td><td>[Function] 引入模块（实际上并非全局的而是各个模块本地的）<br>
+  require.resolve() 不加载模块，只返回模块的完整文件路径<br>
+  require.main 指向入口模块<br>
+  require.cache 模块在引入时会缓存到该对象。通过删除该对象的键值，下次调用require时会重新加载相应模块。</td></tr>
+<tr><td>process</td><td>[Object] 进程对象</td></tr>
+<tr><td>console</td><td>[Object] 控制台</td></tr>
+<tr><td>Buffer</td><td>[Function] 类，提供数据缓存相关功能</td></tr>
+<tr><td colspan="2">setTimeout(cb, ms); clearTimeout(t); setInterval(cb, ms); clearInterval(t)</td></tr>
+</tbody></table>
+<pre class="js">
+const refm = require("./testmodule.js");  // refm: requireExportedFromModule
+console.log("require === refm: ", require === refm);         // false
+console.log("resolve: ", require.resolve === refm.resolve); // false
+console.log("main: ", require.main === refm.main);          // true
+console.log("cache: ", require.cache === refm.cache);       // true
+// 结论：每个模块实例拥有独立的 require 变量，所有模块的 require.main 和 require.cache 的引用是相同的。 
+</pre>
+</div>
+
+<h2 id="modules" class="collapse"><a href="modules.html">Modules 模块</a></h2>
+<div style="display:none;">
+<h3>Accessing the main module 访问主模块</h3>
+<table><tbody>
+<tr><td>require.main</td><td>指向入口模块（ which file is run directly from Node.js）<br>可以通过 <code>require.main === module</code> 判断一个文件是否是被直接执行的。</td></tr>
+<tr><td>require.main.filename</td><td>当前应用的入口文件的完整路径</td></tr>
+</tbody></table>
+<h4>Addenda: Package Manager Tips</h4>
+<p>Node.js 根据实际路径来确认模块，所以碰到循环引用和依赖冲突问题也能轻松对付。</p>
+<h3>Caching 缓存</h3>
+<p>Multiple calls to require('foo') may not cause the module code to be executed multiple times. This is an important feature. With it, "partially done" objects can be returned, thus allowing transitive dependencies to be loaded even when they would cause cycles.</p>
+<p>从这句话可以理解 node 是如何解决循环引用问题的。</p>
+<p>缓存是个重要特性，因为不同文件都指向同一个模块实例，可以实现不同文件间的信息（模块内变量）共享。</p>
+<h4>Module Caching Caveats</h4>
+<p>Node 根据完整文件名来区分模块，所以不同位置的相同模块被认为是不同的，在区分大小写的系统里，即使最终指向的文件是同一个文件，如果引用时的路径大小写不同，也被认为是不同模块。</p>
+<h3>Cycles 循环引用</h3>
+<p>Node 允许循环引用，但循环引用得到的结果可能与预期的不一样，所以当存在循环引用时须谨慎规划代码。<a href="modules.html#modules_cycles">点击查看示例</a></p>
+<h3>File Modules 文件模块</h3>
+<p>If the exact filename is not found, then Node.js will attempt to load the required filename with the added extensions: .js, .json, and finally .node.</p>
+<p>模块查找步骤：</p>
+<ul>
+  <li>指定文件路径：根据指定的文件路径查找，找不到报错</li>
+  <li>只指定模块名：是否核心模块 -> 当前目录下的 node_modules 目录 -> 父目录(...逐级向上直至根目录)下的 node_modules 目录 -> NODE_PATH 指定的目录 -> 找不到报错</li>
+</ul>
+<h3>Folders as Modules 包</h3>
+<p>可以把多个程序和库文件放到一个独立文件夹里，并以该文件夹名作为统一入口供外部引用。</p>
+<p>正常该文件夹内应该有 package.json 来指明该包的 main 文件（入口文件）；如果未提供package.json，Node.js 会尝试寻找 index.js 或 index.node 文件。</p>
+<h3>The module wrapper 模块包装器</h3>
+<p>Before a module's code is executed, Node.js will wrap it with a function wrapper that looks like the following:</p>
+<pre class="js">
+(function(exports, require, module, __filename, __dirname){
+  // Your module code actually lives in here
+});
+</pre>
+<p>By doing this, Node.js achieves a few things:</p>
+<ul>
+  <li>It keeps top-level variables scoped to the module rather than the global object.</li>
+  <li>It helps to provide some global-looking variables that are actually specific to the module, such as:<ul>
+      <li>The <code>module</code> and <code>exports</code> objects that the implementor can use to export values from the module.</li>
+      <li>The convenience variables <code>__filename</code> and <code>__dirname</code>, containing the module's absolute filename and directory path.</li>
+      </ul></li>
+</ul>
+<h3>The module Object</h3>
+<table><tbody>
+<tr><td>module.exports</td><td>[Object] The <code>exports</code> variable that is available within a module starts as a reference to <code>module.exports</code>. As with any variable, if you assign a new value to it, it is no longer bound to the previous value.</td></tr>
+<tr><td>module.filename</td><td>[String] The fully resolved filename to the module.</td></tr>
+<tr><td>module.id</td><td>[String] The identifier for the module. Typically this is the fully resolved filename or '.' .</td></tr>
+<tr><td>module.children</td><td>[Array] The module objects required by this one.</td></tr>
+<tr><td>module.parent</td><td>[Object] The module that first required this one.</td></tr>
+<tr><td>module.loaded</td><td>[Boolean] Whether or not the module is done loading, or is in the process of loading.</td></tr>
+<tr><td>module.require(id)</td><td>id [String]; Return: [Object] module.exports from the resolved module<br>
+  The module.require method provides a way to load a module as if require() was called from the original module.(暂时不懂什么时候会用到这功能)<br>
+  前面几项都是 module 实例自己的属性(还有一个 paths 属性)，这一项是在原型上的。</td></tr>
+</tbody></table>
+<h3>require 与 module.require 的区别与联系</h3>
+<p>通过下方关于 <code>require</code> 与 <code>module.require</code> 的试验，可以得出如下结论：</p>
+<ul>
+  <li>不同模块内的 <code>module.require</code> 都指向 <code>Module.prototype.require</code>；</li>
+  <li><code>require</code> 跟 <code>exports</code> 一样，只是闭包（模块）内的私有变量；</li>
+  <li>可以通过 <code>module</code> 对象从外部得到模块的属性，但没办法从外部读取模块内变量。</li>
+</ul>
+<pre class="js">
+// require: 
+function require(path) {
+  try {
+    exports.requireDepth += 1;
+    return self.require(path);  // 这里用到了 module.require
+  } finally {
+    exports.requireDepth -= 1;
+  }
+}
+// module.require: 
+function (path) {
+  assert(path, 'missing path');
+  assert(typeof path === 'string', 'path must be a string');
+  return Module._load(path, this, /* isMain */ false);
+}
+// 不同模块内的 module.require 都指向 Module.prototype.require
+console.log(module.children[0].require === module.require); // true
+</pre>
+<blockquote>
+require 并不是全局性命令，而是 Module.prototype 的一个方法，只有在模块内部才能使用（唯一的例外是 REPL 环境）
+<pre class="js">
+Module.prototype.require = function(path) {
+  return Module._load(path, this);
+};
+</pre>
+</blockquote>
+</div>
+
+<h2 id="process" class="collapse"><a href="process.html">Process 进程</a></h2>
+<div style="display:none;">
+<p>process 对象是一个全局对象，可以在任何地方访问到它。它是EventEmitter的一个实例。</p>
+<table><tbody>
+<tr><td>process.argv</td><td>一个包含命令行参数的数组。<br>
+  第一个元素会是 'node'; 第二个元素将是当前执行文件的名称;<br>
+  接下来的元素依次是命令行传入的参数。</td></tr>
+<tr><td>process.stdin</td><td>标准输入</td></tr>
+<tr><td>process.stdout</td><td>标准输出</td></tr>
+<tr><td>process.nextTick()</td><td></td></tr>
+</tbody></table>
+</div>
+
+<h2 id="events" class="collapse"><a href="events.html">Events 事件</a></h2>
+<div style="display:none;">
+<p>Much of the Node.js core API is built around an idiomatic asynchronous event-driven architecture in which certain kinds of objects (called "emitters") periodically emit named events that cause Function objects ("listeners") to be called.</p>
+<p>All objects that emit events are instances of the EventEmitter class. These objects expose an eventEmitter.on() function that allows one or more Functions to be attached to named events emitted by the object. Typically, event names are camel-cased strings but any valid JavaScript property key can be used.</p>
+<p>When the EventEmitter object emits an event, all of the Functions attached to that specific event are called synchronously. Any values returned by the called listeners are ignored and will be discarded.</p>
+
+<h3>Passing arguments and this to listeners</h3>
+<p><code>.emit()</code> 方法允许向 callback 传递任意个参数。</p>
+<p>如果 callback 是一个普通的函数，那么 this 值将指向 listener 所依附的 EventEmitter；
+<br>如果 callback 采用的是 ES6 的箭头函数的话，this 将不再指向其所依附的 EventEmitter。</p>
+<pre class="js">
+const EventEmitter = require('events');
+class MyEmitter extends EventEmitter {}
+const myEmitter = new MyEmitter();
+myEmitter.on('event', function(a, b) {
+  console.log(a, b, this);
+});
+myEmitter.emit('event', 'a', 'b');
+</pre>
+<h3>Asynchronous vs. Synchronous</h3>
+<p>listeners 是根据注册的先后顺序依次同步执行的；也可以通过 <code>setImmediate()</code> 或 <code>process.nextTick()</code> 将 listener 设定成异步执行模式。</p>
+<h3>Handling events only once</h3>
+<p>使用 <code>eventEmitter.on()</code> 注册 listener，每次触发事件都会调用，如果希望 listener 只执行一次，那么应该使用 <code>eventEmitter.once()</code>（to register a listener that is unregistered before it is called）。</p>
+
+<h3>Error events</h3>
+<p>When an error occurs within an EventEmitter instance, the typical action is for an 'error' event to be emitted. These are treated as a special case within Node.js.</p>
+<p>If an EventEmitter does not have at least one listener registered for the 'error' event, and an 'error' event is emitted, the error is thrown, a stack trace is printed, and the Node.js process exits.</p>
+<p>To guard against crashing the Node.js process, developers can register a listener for the process.on('uncaughtException') event.</p>
+<p>As a best practice, developers should always register listeners for the 'error' event.</p>
+
+<h3>Class: EventEmitter</h3>
+<p>The EventEmitter class is defined and exposed by the events module:</p>
+<pre class="js">const EventEmitter = require('events');</pre>
+<table><tbody>
+<tr><td>Event: 'newListener'</td><td>添加 listener 时触发该事件</td></tr>
+<tr><td>Event: 'removeListener'</td><td>解绑 listener 时触发该事件</td></tr>
+<tr><td>EventEmitter.defaultMaxListeners</td><td>可以通过该属性修改单个事件最大可绑定 listener 数量。默认值为10。
+  <br>修改该值将影响所有 EventEmitter 的实例，包括修改之前定义的实例。</td></tr>
+</tbody></table>
+<h4>Event: 'newListener'</h4>
+<p>The EventEmitter instance will emit it's own 'newListener' event <b>before</b> a listener is added to it's internal array of listeners.</p>
+<p>Listeners registered for the 'newListener' event will be passed the event name and a reference to the listener being added.</p>
+<p>The fact that the event is triggered before adding the listener has a subtle but important side effect: any additional listeners registered to the same name within the 'newListener' callback will be inserted before the listener that is in the process of being added.</p>
+<pre class="js">
+const myEmitter = new MyEmitter();
+// Only do this once so we don't loop forever
+myEmitter.once('newListener', (event, listener) => {
+  if (event === 'event') {
+    // Insert a new listener in front
+    myEmitter.on('event', () => { console.log('B'); });
+  }
+});
+myEmitter.on('event', () => { console.log('A');});
+myEmitter.emit('event');  // Prints: B \n A
+</pre>
+<div class="dl">
+<h5>emitter.on(eventName, listener) / emitter.addListener(eventName, listener) <span>-- 添加事件监听器</span></h5>
+<p>在 <code>eventName</code> 的 listeners array 尾部添加 <code>listener</code>。Returns a EventEmitter so calls can be chained.</p>
+<p>eventName [string] | [Symbol]; listener [Function]</p>
+<p>该操作不会检查添加的 listener 是否重复，添加几次执行几次。浏览器环境下的 Target.addEventListener() 重复添加相同 listener 会被忽略，注意区分。</p>
+<h5>emitter.prependListener(eventName, listener) <span>-- Adds the listener to the beginning of the listeners array.</span></h5>
+<h5>emitter.once(eventName, listener) <span>-- 添加事件监听器，监听器只执行一次</span></h5>
+<p>The next time eventName is triggered, this listener is removed and then invoked.</p>
+<h5>emitter.prependOnceListener(eventName, listener)</h5>
+<h5>emitter.removeListener(eventName, listener) <span>-- Removes the specified listener from the listener array.</span></h5>
+<p>Note that any removeListener() or removeAllListeners() calls after emitting and before the last listener finishes execution will not remove them from emit() in progress. Subsequent events will behave as expected.</p>
+<p>Because listeners are managed using an internal array, calling this will change the position indices of any listener registered after the listener being removed. This will not impact the order in which listeners are called, but it will means that any copies of the listener array as returned by the emitter.listeners() method will need to be recreated.</p>
+<p>如果同一个 listener 被添加了多次，那么也需要调用相应次数的删除操作，也就是说一次只删除一条 listener。</p>
+<h5>emitter.removeAllListeners([eventName]) <span>-- Removes all listeners, or those of the specified eventName.</span></h5>
+<p>Note that it is bad practice to remove listeners added elsewhere.</p>
+<h5>emitter.emit(eventName[, arg1][, arg2][, ...]) <span>-- 人工触发事件，指定的参数将传给每个 listener</span></h5>
+<p>Synchronously calls each of the listeners registered for the event named eventName, in the order they were registered, passing the supplied arguments to each. Returns true if the event had listeners, false otherwise.</p>
+<h5>emitter.eventNames() <span>-- Returns an array listing the events for which the emitter has registered listeners.</span></h5>
+<h5>emitter.listeners(eventName) <span>-- Returns a <b>copy</b> of the array of listeners.</span></h5>
+<h5>emitter.listenerCount(eventName) <span>-- Returns the number of listeners.</span></h5>
+<h5>emitter.getMaxListeners() <span>-- Returns the value set by emitter.setMaxListeners(n) or defaults.</span></h5>
+<h5>emitter.setMaxListeners(n) <span>-- 修改实例 emitter 的最大可添加监听器数</span></h5>
+<p>By default EventEmitters will print a warning if more than 10 listeners are added for a particular event. This is a useful default that helps finding memory leaks. Obviously, not all events should be limited to just 10 listeners. The emitter.setMaxListeners() method allows the limit to be modified for this specific EventEmitter instance. The value can be set to Infinity (or 0) for to indicate an unlimited number of listeners.</p>
+</div>
+</div>
+
+<h2 id="fs" class="collapse"><a href="fs.html">File System 文件系统</a></h2>
+<div style="display:none;">
+<p>文件系统模块是一个简单包装的 POSIX I/O 操作方法集。</p>
+<p>文件系统模块中的所有方法均有异步和同步版本。</p>
+<ul>
+  <li>异步方法采用第一个参数来接收 error，而同步方法则需要采用 try/catch 来捕获 error。</li>
+  <li>高负荷系统中，强烈推荐使用异步版函数，同步版本会阻塞进程。</li>
+</ul>
+<p>文件操作函数允许使用文件名的相对路径, 但是记住这个路径是相对于 process.cwd() 的。</p>
+<p>Most fs functions let you omit the callback argument. If you do, a default callback is used that rethrows errors. To get a trace to the original call site, set the NODE_DEBUG environment variable...</p>
+
+<h3>Class 类</h3>
+<table><tbody>
+<tr><td>fs.FSWatcher</td><td>Objects returned from fs.watch() are of this type.
+  <br>Event: 'change' ; Event: 'error' ; watcher.close()</td></tr>
+<tr><td>fs.Stats</td><td>Objects returned from fs.stat(), fs.lstat() and fs.fstat() and their synchronous counterparts are of this type.</td></tr>
+<tr><td>fs.ReadStream</td><td>Event: 'open' ; Event: 'close' ; readStream.path</td></tr>
+<tr><td>fs.WriteStream</td><td>Event: 'open' ; Event: 'close' ; writeStream.path ; writeStream.bytesWritten</td></tr>
+</tbody></table>
+
+<h3>方法摘要</h3>
+<div class="dl">
+<h5>fs.createReadStream(path, [options]) <span>-- 创建并返回一个 ReadStream 对象</span></h5>
+<h5>fs.createWriteStream(path, [options]) <span>-- 创建并返回一个 WriteStream 对象</span></h5>
+<h5>fs.open(path, flags, [mode], callback) <span>-- 打开一个文件，并提供句柄供进一步操作</span></h5>
+<p>callback(err, fd): fd 是文件指针; mode 请参考在线手册，或查看笔记PHP部分说明</p>
+<p>A call to open() creates a new open file description, an entry in the system-wide table of open files. The open file description records the file offset and the file status flags.  A file descriptor is a reference to an open file description; this reference is unaffected if pathname is subsequently removed or modified to refer to a different file.  For further details on open file descriptions, see NOTES.</p>
+<h5>fs.read(fd, buffer, offset, length, position, callback) <span>-- 从文件指针 fd 读取数据</span></h5>
+<p>
+从 <code>fd</code> 句柄指向的文件的 <code>position</code> 位置读取 <code>length</code> 字节的数据，并写入到 <code>buffer</code> 的 <code>offset</code> 位置。</p>
+<p>callback(err, bytesRead, buffer): 分别为错误对象，读取的字节数 和 缓冲区。</p>
+<h5>fs.write(fd, buffer, offset, length[, position], callback) <span>-- 从缓存中读取数据并写入文件</span></h5>
+<p>从 <code>buffer</code> 的 <code>offset</code> 位置读取 <code>length</code> 字节的 buffer, 并向 <code>fd</code> 指针指向的文件从 <code>position</code> 位置写入内容。</p>
+<p>callback(err, written, buffer): <code>written</code> specifies how many bytes were written from <code>buffer</code>.</p>
+<p>Note that it is unsafe to use fs.write multiple times on the same file without waiting for the callback. For this scenario, fs.createWriteStream is strongly recommended.</p>
+<h5>fs.write(fd, data[, position[, encoding]], callback) <span>-- 向文件中写入字符串</span></h5>
+<p>Unlike when writing buffer, the entire string must be written. No substring may be specified.</p>
+<h5>fs.close(fd, callback) <span>-- 关闭文件句柄</span></h5>
+<p>Closes a file descriptor, so that it no longer refers to any file and may be reused.</p>
+<h5>fs.readFile(filename, [options], callback) <span>-- 异步读取一个文件的全部内容</span></h5>
+<p>options: {encoding: [String] | [Null] default = null, flag: [String] default = 'r'} | [String](only encoding)</p>
+<p>callback(err, data): data 就是文件的内容（如果指定了 encoding 就是字符串，没指定就是原生buffer）</p>
+<h5>fs.writeFile(filename, data, [options], callback) <span>-- 异步地将数据写入一个文件，原内容会被覆盖</span></h5>
+<p><code>file</code> filename or file descriptor <code>data</code> [String] | [Buffer]</p>
+<h5>fs.appendFile(filename, data, [options], callback) <span>-- 异步地将数据添加到一个文件的尾部</span></h5>
+<p>如果文件不存在，会创建一个新的文件。</p>
+<pre class="js">fs.appendFile('message.txt', 'data to append', 'utf8', callback);</pre>
+<h5>fs.readdir(path, callback) <span>-- 读取 path 目录的内容，并以数组形式返回列表</span></h5>
+<p>callback(err, files): files 是数组（不包括 '.' 和 '..'）</p>
+<h5>fs.exists(path, callback) <span>-- 检查指定路径的文件或者目录是否存在</span></h5>
+<p>callback(exists): 存在true 不存在false</p>
+<h5>fs.stat(path, callback) <span>-- 读取文件状态信息</span></h5>
+<p>callback(err, stats): stats 是一个 fs.Stats 对象</p>
+<h5>fs.watch(filename, [options], [listener]) <span>-- 监控指定 路径/文件 的变化，并返回 fs.FSWatcher 对象</span></h5>
+<p>filename: 可以是目录或文件。</p>
+<p>options: [String](only encoding) |
+  <br> {persistent: [Boolean] default = true, recursive: [Boolean] default = false, encoding: [String] default = 'utf8'}</p>
+<p>listener(event, filename): event 是 'rename' 或 'change'，filename 则是触发事件的文件的文件名。</p>
+<p>该方法对系统存在严重依赖，不同系统有不同的运作细节，所以使用时务必再确认手册说明 <a href="https://nodejs.org/dist/latest-v6.x/docs/api/fs.html#fs_fs_watch_filename_options_listener">fs.watch()</a></p>
+</div>
+
+<h3>完整方法列表</h3>
+<pre class="js">
+fs.access(path[, mode], callback)
+fs.accessSync(path[, mode])
+fs.appendFile(file, data[, options], callback)
+fs.appendFileSync(file, data[, options])
+fs.chmod(path, mode, callback)
+fs.chmodSync(path, mode)
+fs.chown(path, uid, gid, callback)
+fs.chownSync(path, uid, gid)
+fs.close(fd, callback)
+fs.closeSync(fd)
+fs.createReadStream(path[, options])
+fs.createWriteStream(path[, options])
+fs.exists(path, callback)
+fs.existsSync(path)
+fs.fchmod(fd, mode, callback)
+fs.fchmodSync(fd, mode)
+fs.fchown(fd, uid, gid, callback)
+fs.fchownSync(fd, uid, gid)
+fs.fdatasync(fd, callback)
+fs.fdatasyncSync(fd)
+fs.fstat(fd, callback)
+fs.fstatSync(fd)
+fs.fsync(fd, callback)
+fs.fsyncSync(fd)
+fs.ftruncate(fd, len, callback)
+fs.ftruncateSync(fd, len)
+fs.futimes(fd, atime, mtime, callback)
+fs.futimesSync(fd, atime, mtime)
+fs.lchmod(path, mode, callback)
+fs.lchmodSync(path, mode)
+fs.lchown(path, uid, gid, callback)
+fs.lchownSync(path, uid, gid)
+fs.link(srcpath, dstpath, callback)
+fs.linkSync(srcpath, dstpath)
+fs.lstat(path, callback)
+fs.lstatSync(path)
+fs.mkdir(path[, mode], callback)
+fs.mkdirSync(path[, mode])
+fs.mkdtemp(prefix, callback)
+fs.mkdtempSync(prefix)
+fs.open(path, flags[, mode], callback)
+fs.openSync(path, flags[, mode])
+fs.read(fd, buffer, offset, length, position, callback)
+fs.readdir(path[, options], callback)
+fs.readdirSync(path[, options])
+fs.readFile(file[, options], callback)
+fs.readFileSync(file[, options])
+fs.readlink(path[, options], callback)
+fs.readlinkSync(path[, options])
+fs.readSync(fd, buffer, offset, length, position)
+fs.realpath(path[, options], callback)
+fs.realpathSync(path[, options])
+fs.rename(oldPath, newPath, callback)
+fs.renameSync(oldPath, newPath)
+fs.rmdir(path, callback)
+fs.rmdirSync(path)
+fs.stat(path, callback)
+fs.statSync(path)
+fs.symlink(target, path[, type], callback)
+fs.symlinkSync(target, path[, type])
+fs.truncate(path, len, callback)
+fs.truncateSync(path, len)
+fs.unlink(path, callback)
+fs.unlinkSync(path)
+fs.unwatchFile(filename[, listener])
+fs.utimes(path, atime, mtime, callback)
+fs.utimesSync(path, atime, mtime)
+fs.watch(filename[, options][, listener])
+fs.watchFile(filename[, options], listener)
+fs.write(fd, buffer, offset, length[, position], callback)
+fs.write(fd, data[, position[, encoding]], callback)
+fs.writeSync(fd, buffer, offset, length[, position])
+fs.writeSync(fd, data[, position[, encoding]])
+fs.writeFile(file, data[, options], callback)
+fs.writeFileSync(file, data[, options])
+</pre>
+</div>
+
+<h2 id="path" class="collapse"><a href="path.html">Path 路径</a></h2>
+<div style="display:none;">
+<p>本模块包含一套用于处理和转换文件路径的工具集。几乎所有的方法只做字符串变换，不会调用文件系统检查路径是否有效。</p>
+<p>通过 require('path') 来加载此模块。</p>
+<h3>Windows vs. POSIX</h3>
+<pre class="js">
+path.basename('C:\\temp\\myfile.html');  // On POSIX returns 'C:\temp\myfile.html'
+                                         // On Windows returns 'myfile.html'
+path.win32.basename('C:\\temp\\myfile.html');  // returns 'myfile.html'
+path.posix.basename('/tmp/myfile.html');       // returns 'myfile.html'
+</pre>
+<h3>方法摘要</h3>
+<div class="dl">
+<h5>path.basename(path[, ext]) <span>-- 返回路径的最后部分</span></h5>
+<pre class="js">
+path.basename('/foo/bar/baz/asdf/quux.html')  // returns 'quux.html'
+path.basename('/foo/bar/baz/asdf/quux.html', '.html')  // returns 'quux'
+</pre>
+<h5>path.dirname(path) <span>-- 返回目录（即去掉最后部分）</span></h5>
+<pre class="js">path.dirname('/foo/bar/baz/asdf/quux/')  // returns '/foo/bar/baz/asdf'</pre>
+<h5>path.extname(path) <span>-- 返回文件扩展名（带.）</span></h5>
+<h5>path.format(pathObject) <span>-- 根据提供的 obj 输出格式化后的路径字符串</span></h5>
+<h5>path.isAbsolute(path) <span>-- 判断是否是绝对路径</span></h5>
+<h5>path.join([path[, ...]]) <span>-- 连接路径片段</span></h5>
+<pre class="js">path.join('/foo', 'bar', 'baz/asdf', 'quux', '..')  // returns '/foo/bar/baz/asdf'</pre>
+<h5>path.normalize(path) <span>-- 规范化路径字符串</span></h5>
+<pre class="js">
+POSIX:   path.normalize('/foo/bar//baz/asdf/quux/..')  // returns '/foo/bar/baz/asdf'
+Windows: path.normalize('C:\\temp\\\\foo\\bar\\..\\');  // returns 'C:\\temp\\foo\\'
+</pre>
+<h5>path.parse(path) <span>-- 根据提供的路径字符串返回解析后的 obj</span></h5>
+<h5>path.relative(from, to) <span>-- 计算两个给定路径间的相对路径</span></h5>
+<pre class="js">path.relative('/data/orandea/test/aaa', '/data/orandea/impl/bbb')  // returns '../../impl/bbb'</pre>
+<h5>path.resolve([path[, ...]]) <span>-- 根据提供的路径或路径片段计算最终路径</span></h5>
+<pre class="js">
+path.resolve('/foo/bar', './baz')  // returns '/foo/bar/baz'
+path.resolve('/foo/bar', '/tmp/file/')  // returns '/tmp/file'
+</pre>
+</div>
+</div>
+
+<h2 id="buffer"><a href="buffer.html">Buffer 缓存</a></h2>
+<div>
+<p>在 ES6 之前，JavaScript 并没有操作二进制数据的机制，Node.js 引入 Buffer 类来处理二进制数据流（如 TCP 数据流 及 文件系统操作）。在 ES6 加入 TypedArray 后，Buffer 以更适合 Node.js 的方式实现了 Uint8Array API。</p>
+<p>Buffer 的实例与 arrays of integers 有几分相似，不同的是 buffer 在创建后不能改变大小，且占用的是 V8 heap 之外的内存。</p>
+
+<h3>Buffer.from(), Buffer.alloc(), and Buffer.allocUnsafe()</h3>
+<p>在 Node.js V6 之前的版本中，Buffer 实例是有 Buffer 构造函数创建的，参数不同会有不同的分配方式。<code>new Buffer()</code> 的行为会因为参数的不同而有很大变化，这对代码的安全和可靠性带来了诸多不利，因此引入了 Buffer.from(), Buffer.alloc(), and Buffer.allocUnsafe() 方法来替代 new Buffer() 的使用。</p>
+<h4>What makes Buffer.allocUnsafe(size) and Buffer.allocUnsafeSlow(size) "unsafe"?</h4>
+<p>When calling Buffer.allocUnsafe() (and Buffer.allocUnsafeSlow()), the segment of allocated memory is uninitialized (it is not zeroed-out). While this design makes the allocation of memory quite fast, the allocated segment of memory might contain old data that is potentially sensitive. Using a Buffer created by Buffer.allocUnsafe() without completely overwriting the memory can allow this old data to be leaked when the Buffer memory is read.</p>
+
+<h3>Buffers and Character Encodings</h3>
+<p>The character encodings currently supported by Node.js include: 'ascii' 'utf8' 'utf16le'/'ucs2' 'base64' 'binary' 'hex'</p>
+
+<h3>Buffers and TypedArray</h3>
+<p>Buffers are also Uint8Array TypedArray instances. However, there are subtle incompatibilities with the TypedArray specification in ECMAScript 2015. For instance, while arrayBuffer.slice() creates a copy of the slice, the implementation of buffer.slice() creates a view over the existing Buffer without copying, making buffer.slice() far more efficient.</p>
+
+<h3>Buffers and ES6 iteration</h3>
+<p>Buffers can be iterated over using the ES6 <code>for..of</code> syntax:</p>
+<pre class="js">
+const buf = Buffer.from([1, 2, 3]);
+for (var b of buf) console.log(b)  // Prints: 1 \n 2 \n 3
+</pre>
+
+<h3>bit byte char</h3>
+<p>1字节byte等于8比特bit，byte是存储单位。</p>
+<p>字节与字符串中字符的个数也不是一个概念：½ + ¼ = ¾: 9 characters, 12 bytes</p>
+
+<h3>类方法</h3>
+<div class="dl">
+<h5>Buffer.alloc(size[, fill[, encoding]])</h5>
+
+<h5>Buffer.allocUnsafe(size)</h5>
+
+<h5>Buffer.allocUnsafeSlow(size)</h5>
+
+<h5>Buffer.byteLength(string[, encoding])</h5>
+
+<h5>Buffer.compare(buf1, buf2)</h5>
+
+<h5>Buffer.concat(list[, totalLength])</h5>
+
+<h5>Buffer.from(array)</h5>
+
+<h5>Buffer.from(arrayBuffer[, byteOffset[, length]])</h5>
+
+<h5>Buffer.from(buffer)</h5>
+
+<h5>Buffer.from(str[, encoding])</h5>
+
+<h5>Buffer.isBuffer(obj)</h5>
+
+<h5>Buffer.isEncoding(encoding)</h5>
+
+</div>
+
+<h3>实例方法</h3>
+<div class="dl">
+<h5>buf[index]</h5>
+
+<h5>buf.compare(target[, targetStart[, targetEnd[, sourceStart[, sourceEnd]]]])</h5>
+
+<h5>buf.copy(targetBuffer[, targetStart[, sourceStart[, sourceEnd]]])</h5>
+
+<h5>buf.entries()</h5>
+
+<h5>buf.equals(otherBuffer)</h5>
+
+<h5>buf.fill(value[, offset[, end]][, encoding])</h5>
+
+<h5>buf.indexOf(value[, byteOffset][, encoding])</h5>
+
+<h5>buf.includes(value[, byteOffset][, encoding])</h5>
+
+<h5>buf.keys()</h5>
+
+<h5>buf.lastIndexOf(value[, byteOffset][, encoding])</h5>
+
+<h5>buf.length</h5>
+
+<h5>buf.slice([start[, end]])</h5>
+
+<h5>buf.toString([encoding[, start[, end]]])</h5>
+
+<h5>buf.toJSON()</h5>
+
+<h5>buf.values()</h5>
+
+<h5>buf.write(string[, offset[, length]][, encoding])</h5>
+
+<h5>buffer.INSPECT_MAX_BYTES</h5>
+  
+</div>
+</div>
+
+<h2 id="stream"><a href="stream.html">Stream 流</a></h2>
+<div>
+<p>流是一个抽象接口，被 Node 中的很多对象所实现。比如对一个 HTTP 服务器的请求是一个流，stdout 也是一个流。流是可读、可写或兼具两者的。所有流都是 EventEmitter 的实例。可以通过 require('stream') 加载该模块。</p>
+
+<h3>Types of Streams</h3>
+<p>There are four fundamental stream types within Node.js:</p>
+<ul>
+<li>Readable - streams from which data can be read (eg. <code>fs.createReadStream()</code>).</li>
+<li>Writable - streams to which data can be written (eg. <code>fs.createWriteStream()</code>).</li>
+<li>Duplex - streams that are both Readable and Writable (eg. <code>net.Socket</code>).</li>
+<li>Transform - Duplex streams that can modify or transform the data as it is written and read (eg. <code>zlib.createDeflate()</code>).</li>
+</ul>
+
+<h3>Buffering</h3>
+<p>Both Writable and Readable streams will store data in an internal buffer that can be retrieved using <code>writable._writableState.getBuffer()</code> or <code>readable._readableState.buffer</code>, respectively.</p>
+<p>The amount of data potentially buffered depends on the <code>highWaterMark</code> option passed into the streams constructor. For normal streams, the <code>highWaterMark</code> option specifies a total number of bytes. For streams operating in object mode, the <code>highWaterMark</code> specifies a total number of objects.</p>
+<p>Data is buffered in Readable streams when the implementation calls. If the consumer of the Stream does not call, the data will sit in the internal queue until it is consumed.</p>
+<p>Once the total size of the internal read buffer reaches the threshold specified by <code>highWaterMark</code>, the stream will temporarily stop reading data from the underlying resource until the data currently buffered can be consumed (that is, the stream will stop calling the internal <code> readable.\_read()</code> method that is used to fill the read buffer).</p>
+<p>Data is buffered in Writable streams when the method is called repeatedly. While the total size of the internal write buffer is below the threshold set by <code>highWaterMark</code>, calls to <code>writable.write()</code> will return <code>true</code>. Once the the size of the internal buffer reaches or exceeds the <code>highWaterMark</code>, <code>false</code> will be returned.</p>
+<p>A key goal of the <code>stream</code> API, and in particular the method, is to limit the buffering of data to acceptable levels such that sources and
+destinations of differing speeds will not overwhelm the available memory.</p>
+<p>Because Duplex and Transform streams are both Readable and Writable, each maintain <em>two</em> separate internal buffers used for reading and writing,
+allowing each side to operate independently of the other while maintaining an appropriate and efficient flow of data. For example, instances are Duplex streams whose Readable side allows consumption of data received <em>from</em> the socket and whose Writable side allows writing data <em>to</em> the socket. Because data may be written to the socket at a faster or slower rate than data is received, it is important each side operate (and buffer) independently of the other.</p>
+
+<h3>API for Stream Consumers</h3>
+<h4>Writable Streams</h4>
+<p>Writable streams are an abstraction for a destination to which data is written.</p>
+<p>Examples of Writable streams include:</p>
+<ul>
+  <li>HTTP requests, on the client</li>
+  <li>HTTP responses, on the server</li>
+  <li>fs write streams</li>
+  <li>zlib streams</li>
+  <li>crypto streams</li>
+  <li>TCP sockets</li>
+  <li>child process stdin</li>
+  <li>process.stdout, process.stderr</li>
+</ul>
+<p>Note: Some of these examples are actually Duplex streams that implement the Writable interface.</p>
+<div class="dl">
+<h5>Event: 'close' <span>-- 可写入资源关闭了</span></h5>
+<h5>Event: 'error' <span>-- 出错啦</span></h5>
+<h5>Event: 'drain' <span>-- 缓存下降，可继续写入了</span></h5>
+<p>Note: The stream is not closed when the 'error' event is emitted.</p>
+<h5>Event: 'finish' <span>-- 调用了 stream.end() 且数据都已完成写入时触发</span></h5>
+<h5>Event: 'pipe' <span>-- 调用 readable.pipe(writable) 向该 writable 输入数据时触发</span></h5>
+<h5>Event: 'unpipe' <span>-- 调用 readable.unpipe(writable) 将该 writable 移出 dest 时触发</span></h5>
+<h5>writable.setDefaultEncoding(encoding) <span>-- sets the default encoding for a Writable stream</span></h5>
+<h5>writable.cork() <span>-- 强制缓存在内存，调用 stream.uncork() or stream.end() 时才正式写入 dest</span></h5>
+<p>The primary intent of writable.cork() is to avoid a situation where writing many small chunks of data to a stream do not cause an backup in the internal buffer that would have an adverse impact on performance. In such situations, implementations that implement the writable.\_writev() method can perform buffered writes in a more optimized manner.</p>
+<h5>writable.uncork() <span>-- flushes all data buffered since stream.cork() was called.</span></h5>
+<p>It is recommended that calls to writable.uncork() be deferred using process.nextTick(). Doing so allows batching of all writable.write() calls that occur within a given Node.js event loop phase.</p>
+<p>If the writable.cork() method is called multiple times on a stream, the same number of calls to writable.uncork() must be called to flush the buffered data.</p>
+<h5>writable.write(chunk[, encoding][, callback]) <span>-- 写入数据</span></h5>
+<ul>
+  <li>chunk [String] | [Buffer] The data to write</li>
+  <li>encoding [String] The encoding, if chunk is a String</li>
+  <li>callback [Function] Callback for when this chunk of data is flushed</li>
+  <li>Returns: [Boolean] false if the stream wishes for the calling code to wait for the 'drain' event to be emitted before continuing to write additional data; otherwise true.</li>
+</ul>
+<p>The writable.write() method writes some data to the stream, and calls the supplied callback once the data has been fully handled. If an error occurs, the callback may or may not be called with the error as its first argument. <b>To reliably detect write errors, add a listener for the 'error' event.</b></p>
+<p>The return value indicates whether the written chunk was buffered internally and the buffer has exceeded the highWaterMark configured when the stream was created. <b>If false is returned, further attempts to write data to the stream should be paused until the 'drain' event is emitted.</b></p>
+<h5>writable.end([chunk][, encoding][, callback]) <span>-- 完成最后处理并告知写入完毕</span></h5>
+<p>Calling the writable.end() method signals that no more data will be written to the Writable. The optional chunk and encoding arguments allow one final additional chunk of data to be written immediately before closing the stream. If provided, the optional callback function is attached as a listener for the 'finish' event.</p>
+</div>
+<h4>Readable Streams</h4>
+<p>Examples of Readable streams include:</p>
+<ul>
+  <li>HTTP responses, on the client</li>
+  <li>HTTP requests, on the server</li>
+  <li>fs read streams</li>
+  <li>zlib streams</li>
+  <li>crypto streams</li>
+  <li>TCP sockets</li>
+  <li>child process stdout and stderr</li>
+  <li>process.stdin</li>
+</ul>
+<h5>Two Modes#</h5>
+Readable streams effectively operate in one of two modes: flowing and paused.
+
+When in flowing mode, data is read from the underlying system automatically and provided to an application as quickly as possible using events via the EventEmitter interface.
+
+In paused mode, the stream.read() method must be called explicitly to read chunks of data from the stream.
+
+All Readable streams begin in paused mode but can be switched to flowing mode in one of the following ways:
+
+Adding a 'data' event handler.
+Calling the stream.resume() method.
+Calling the stream.pipe() method to send the data to a Writable.
+The Readable can switch back to paused mode using one of the following:
+
+If there are no pipe destinations, by calling the stream.pause() method.
+If there are pipe destinations, by removing any 'data' event handlers, and removing all pipe destinations by calling the stream.unpipe() method.
+The important concept to remember is that a Readable will not generate data until a mechanism for either consuming or ignoring that data is provided. If the consuming mechanism is disabled or taken away, the Readable will attempt to stop generating the data.
+
+Note: For backwards compatibility reasons, removing 'data' event handlers will not automatically pause the stream. Also, if there are piped destinations, then calling stream.pause() will not guarantee that the stream will remain paused once those destinations drain and ask for more data.
+
+Note: If a Readable is switched into flowing mode and there are no consumers available handle the data, that data will be lost. This can occur, for instance, when the readable.resume() method is called without a listener attached to the 'data' event, or when a 'data' event handler is removed from the stream.
+<h5>Three States#</h5>
+The "two modes" of operation for a Readable stream are a simplified abstraction for the more complicated internal state management that is happening within the Readable stream implementation.
+
+Specifically, at any given point in time, every Readable is in one of three possible states:
+
+readable._readableState.flowing = null
+readable._readableState.flowing = false
+readable._readableState.flowing = true
+When readable._readableState.flowing is null, no mechanism for consuming the streams data is provided so the stream will not generate its data.
+
+Attaching a listener for the 'data' event, calling the readable.pipe() method, or calling the readable.resume() method will switch readable._readableState.flowing to true, causing the Readable to begin actively emitting events as data is generated.
+
+Calling readable.pause(), readable.unpipe(), or receiving "back pressure" will cause the readable._readableState.flowing to be set as false, temporarily halting the flowing of events but not halting the generation of data.
+
+While readable._readableState.flowing is false, data may be accumulating within the streams internal buffer.
+<h5>Choose One#</h5>
+<p>The Readable stream API evolved across multiple Node.js versions and provides multiple methods of consuming stream data. In general, developers should choose one of the methods of consuming data and should never use multiple methods to consume data from a single stream.</p>
+<p><b>Use of the readable.pipe() method is recommended for most users</b> as it has been implemented to provide the easiest way of consuming stream data. Developers that require more fine-grained control over the transfer and generation of data can use the EventEmitter and readable.pause()/readable.resume() APIs.</p>
+
+<div class="dl">
+<h5>Event: 'close' <span>-- 可读流关闭了</span></h5>
+<h5>Event: 'data' <span>-- 数据准备好了，拿走</span></h5>
+<p>The 'data' event is emitted whenever the stream is relinquishing ownership of a chunk of data to a consumer. This may occur whenever the stream is switched in flowing mode by calling readable.pipe(), readable.resume(), or by attaching a listener callback to the 'data' event. The 'data' event will also be emitted whenever the readable.read() method is called and a chunk of data is available to be returned.</p>
+<h5>Event: 'end' <span>-- 这里已经没有更多数据了，都被取走了</span></h5>
+<h5>Event: 'error' <span>-- 出错啦</span></h5>
+<h5>Event: 'readable' <span>-- 您有新的消息</span></h5>
+<p>Effectively, the 'readable' event indicates that the stream has new information: either new data is available or the end of the stream has been reached. In the former case, stream.read() will return the available data. In the latter case, stream.read() will return null.</p>
+<p>Note: In general, the readable.pipe() and 'data' event mechanisms are preferred over the use of the 'readable' event.</p>
+
+<h5>readable.pipe(destination[, options]) <span>-- </span></h5>
+<p>options: {end: [Boolean] End the writer when the reader ends. Defaults to true.}</p>
+<p>The readable.pipe() method attaches a Writable stream to the readable, causing it to switch automatically into flowing mode and push all of its data to the attached Writable. The flow of data will be automatically managed so that the destination Writable stream is not overwhelmed by a faster Readable stream.</p>
+<p>It is possible to attach multiple Writable streams to a single Readable stream.</p>
+<p>The readable.pipe() method returns a reference to the destination stream making it possible to set up chains of piped streams.</p>
+<p>By default, writable.end() is called on the destination Writable stream when the source Readable stream emits 'end', so that the destination is no longer writable. To disable this default behavior, the end option can be passed as false, causing the destination stream to remain open, as illustrated in the following example:</p>
+<pre class="js">
+reader.pipe(writer, { end: false });
+reader.on('end', () => {
+  writer.end('Goodbye\n');
+});
+</pre>
+<p>One important caveat is that if the Readable stream emits an error during processing, the Writable destination is not closed automatically. If an error occurs, it will be necessary to manually close each stream in order to prevent memory leaks.</p>
+<p>Note: The process.stderr and process.stdout Writable streams are never closed until the Node.js process exits, regardless of the specified options.</p>
+<h5>readable.unpipe([destination]) <span>-- </span></h5>
+
+<h5>readable.setEncoding(encoding) <span>-- </span></h5>
+<p>Setting an encoding causes the stream data to be returned as string of the specified encoding rather than as Buffer objects.</p>
+<p>The Readable stream will properly handle multi-byte characters delivered through the stream that would otherwise become improperly decoded if simply pulled from the stream as Buffer objects.</p>
+<p>Encoding can be disabled by calling readable.setEncoding(null).</p>
+
+<h5>readable.pause() <span>-- 等着，先别主动传数据了</span></h5>
+<h5>readable.read([size]) <span>-- </span></h5>
+<p>size [Number] Optional argument to specify how much data to read.</p>
+<p>The readable.read() method should only be called on Readable streams operating in paused mode. In flowing mode, readable.read() is called automatically until the internal buffer is fully drained.</p>
+<p>In general, it is recommended that developers avoid the use of the 'readable' event and the readable.read() method in favor of using either readable.pipe() or the 'data' event.</p>
+<h5>readable.unshift(chunk) <span>-- 将取出的数据重新写回 readable</span></h5>
+<h5>readable.resume() <span>-- 从 paused 切换到 flowing 模式</span></h5>
+<p>The readable.resume() method can be used to fully consume the data from a stream without actually processing any of that data.</p>
+
+<h5>readable.isPaused() <span>-- 判断是否暂停了（pipe() 时系统用，人类一般不用此方法）</span></h5>
+<p>This is used primarily by the mechanism that underlies the readable.pipe() method. In most typical cases, there will be no reason to use this method directly.</p>
+</div>
+
+<h5>Duplex and Transform Streams</h5>
+<p>Transform streams are Duplex streams where the output is in some way related to the input. Like all Duplex streams, Transform streams implement both the Readable and Writable interfaces.</p>
+
+<h3>API for Stream Implemeters</h3>
+<pre class="js">
+const Writable = require('stream').Writable;
+class MyWritable extends Writable {
+  constructor(options) {
+    super(options);
+  }
+}
+</pre>
+<p>The new stream class must then implement one or more specific methods, depending on the type of stream being created, as detailed in the chart below:</p>
+<table><tbody>
+<tr><th>Use-case</th><th>Class</th><th>Method(s) to implement</th></tr>
+<tr><td>Reading only</td><td>Readable</td><td>_read</td></tr>
+<tr><td>Writing only</td><td>Writable</td><td>_write, [_writev]</td></tr>
+<tr><td>Reading and writing</td><td>Duplex</td><td>_read, _write, [_writev]</td></tr>
+<tr><td>Operate on written data, then read the result</td><td>Transform</td><td>_transform, [_flush]</td></tr>
+</tbody></table>
+<h5>Simplified Construction#</h5>
+<p>For many simple cases, it is possible to construct a stream without relying on inheritance. This can be accomplished by directly creating instances of the stream.Writable, stream.Readable, stream.Duplex or stream.Transform objects and passing appropriate methods as constructor options.</p>
+<pre class="js">
+const Writable = require('stream').Writable;
+const myWritable = new Writable({
+  write(chunk, encoding, callback) {
+    // ...
+  }
+});
+</pre>
+<div class="dl">
+<h5>new stream.Writable([options]) <span>-- </span></h5>
+<h5>writable._write(chunk, encoding, callback) <span>-- </span></h5>
+<h5>writable._writev(chunks, callback) <span>-- </span></h5>
+<h5>new stream.Readable([options]) <span>-- </span></h5>
+<h5>readable._read(size) <span>-- </span></h5>
+<h5>readable.push(chunk[, encoding]) <span>-- </span></h5>
+<h5>new stream.Duplex(options) <span>-- </span></h5>
+<h5>new stream.Transform([options]) <span>-- </span></h5>
+<h5>Events: 'finish' and 'end' <span>-- </span></h5>
+<h5>transform._transform(chunk, encoding, callback) <span>-- </span></h5>
+<h5>transform._flush(callback) <span>-- </span></h5>
+</div>
+<pre class="js">
+// learnyounode 练习 12 代码
+// 根据传入的 req 返回大写形式的 res
+const http = require('http'),
+  port = +process.argv[2],
+  createTransStream = require('./program12_createtransstream.js');
+http.createServer((req, res) => {
+  req.pipe(createTransStream(function(chunk) {
+    return chunk.toString().toUpperCase();
+  })).pipe(res);
+}).listen(port);
+
+// program12_createtransstream.js
+const Transform = require('stream').Transform;
+module.exports = function createTransStream(func) {
+  return new Transform({
+    transform(chunk, encoding, callback) {
+      this.push(func(chunk));
+      callback();
+    }
+  });
+};
+</pre>
+</div>
+
+<h2 id="http"><a href="http.html">HTTP</a></h2>
+<div>
+<table><tbody>
+<tr><td>http.request(options[, callback])</td><td></td></tr>
+<tr><td>http.get(options[, callback])</td><td>这是简化版的 http.request。<br>It sets the method to GET and calls req.end() automatically.</td></tr>
+<tr><td></td><td></td></tr>
+</tbody></table>
+</div>
+
+<h2 id="url"><a href="url.html">URL</a></h2>
+<div>
+<pre>
+┌──────────┬┬───────────┬─────────────────┬───────────────────────────┬───────┐
+│ protocol ││   auth    │      host       │           path            │ hash  │
+│          ││           ├──────────┬──────┼──────────┬────────────────┤       │
+│          ││           │ hostname │ port │ pathname │     search     │       │
+│          ││           │          │      │          ├─┬──────────────┤       │
+│          ││           │          │      │          │ │    query     │       │
+"  http:   // user:pass @ host.com : 8080   /p/a/t/h  ?  query=string   #hash "
+└──────────┴┴───────────┴──────────┴──────┴──────────┴─┴──────────────┴───────┘
+注：合法 url 中不能包含 &lt; &gt; " ` \r \n \t { } | \ ^ ' 以及空格，要用则必须先转义
+</pre>
+<pre class="js">
+> url.parse('http://user:pass@host.com:8080/p/a/t/h?q1=str1&q2=str2#hash')
+Url {
+  protocol: 'http:',
+  slashes: true,
+  auth: 'user:pass',
+  host: 'host.com:8080',
+  port: '8080',
+  hostname: 'host.com',
+  hash: '#hash',             // <a href="http://www.ruanyifeng.com/blog/2011/03/url_hash.html">阮一峰的 hash 详解</a>
+  search: '?q1=str1&q2=str2',
+  query: 'q1=str1&q2=str2',  // 返回 字符串 或 经解析后的 query 对象
+  pathname: '/p/a/t/h',
+  path: '/p/a/t/h?query=string',
+  href: 'http://user:pass@host.com:8080/p/a/t/h?query=string#hash' }
+</pre>
+<table><tbody>
+<tr><td>url.format(urlObject)</td><td>urlObject 可以是 Object  或 String，返回格式化后的 url 字符串。</td></tr>
+<tr><td>url.parse(urlString[, parseQueryString[,<br> slashesDenoteHost]])</td><td>根据 URL 字符串，返回相应的 Url 对象。<br>
+  第二个参数设置为 true 则会对 query 进行解析，默认为 false</td></tr>
+<tr><td>url.resolve(from, to)</td><td><pre class="js">url.resolve('/one/two/three', 'four')  //输出 '/one/two/four'
+url.resolve('http://ex.com/', '/one')  // 'http://ex.com/one'</pre></td></tr>
+</tbody></table>
+</div>
+
+<h2 id="net"><a href="net.html">Net 网络</a></h2>
+<div>
+<table><tbody>
+<tr><td></td><td></td></tr>
+<tr><td></td><td></td></tr>
+<tr><td></td><td></td></tr>
+</tbody></table>
+</div>
+
+<h2 id="console"><a href="console.html">Console 控制台</a></h2>
+<div>
+<table><tbody>
+<tr><td></td><td></td></tr>
+<tr><td></td><td></td></tr>
+<tr><td></td><td></td></tr>
+</tbody></table>
+</div>
+
+<h2 id="util"><a href="util.html">Utilities 实用工具</a></h2>
+<div>
+<table><tbody>
+<tr><td>util.format(format[, ...])</td><td>根据第一个参数，返回一个格式化字符串，类似 printf 的格式化输出。<br>
+  %s - 字符串；%d - 数字 (整型和浮点型)
+  <pre>util.format('%s:%d', 'count', 5, 'ex');  // 'count:5 ex' 位置不能乱</pre></td></tr>
+<tr><td>util.inspect(object[, options])</td><td>返回一个对象的字符串表现形式, 在代码调试的时候非常有用。</td></tr>
+<tr><td></td><td></td></tr>
+</tbody></table>
+</div>
+
+</div>
+</body>
+</html>
