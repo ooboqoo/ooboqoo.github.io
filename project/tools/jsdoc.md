@@ -6,24 +6,25 @@ http://usejsdoc.org/
 
 jsdox 是 jsdoc 的一个子集，以下就是 jsdox 支持的标签清单，估计够用了。
 
-<pre class="tag">
-  @class Object                       // 声明类
-  @member [type] name [description]   // 声明一个类的属性
-  @method create                      // 声明一个类的方法
+```tag
+  @class Person                       // 声明类
+  @member {number} age age of people  // 声明一个类的属性，格式 @member [type] name [description]
+  @method {String|Object} create      // 声明一个类的方法，多类型声明格式 {类型1|类型2|类型3}
   @function testAnonynous             // 当解析器无法自动取得函数名/方法名时，可以显示指定
-  @param {Boolean} [optional] cache   // 声明函数/方法的参数
+  @param {Boolean} [optionalparam]    // 声明函数/方法的参数，可选参数用 [] 包裹
   @returns {String} the result        // 声明返回类型, 也支持同义的 @return
   @module test_module                 // 声明模块，后续的函数、类、方法都会归组到该模块下面
--
+  
   @author Joe Schmo                   // 指明作者名字、联系信息 等等...
   @copyright (c) 2012 Blah Blah Blah  // 注明版权信息
   @license MIT                        // 指定许可类型
   @overview This is the overview      // 概述
   @title text                         // 指定生成的文档的标题
-</pre>
+```
 
 另外增加几个感觉有用的标签
-<pre class="tag">
+
+```tag
   @global     // Document a global object.
   @private    // This symbol is meant to be private.
   @public     // This symbol is meant to be public.
@@ -32,20 +33,20 @@ jsdox 是 jsdoc 的一个子集，以下就是 jsdox 支持的标签清单，估
   @readonly   // This symbol is meant to be read-only.
   @property  @prop    // Document a property of an object.
   @member    @var     // Document a member.
--
+  
   @todo       // Document tasks to be completed.
   @this       // What does the 'this' keyword refer to here?
   @version    // Documents the version number of an item.
   @since      // When was this feature added?
--
+  
   @requires   // This file requires a JavaScript module.
   @namespace  // Document a namespace object.
   @override   // Indicate that a symbol overrides its parent.
-  @throws @exception  // Describe what errors could be thrown.
-</pre>
+  @throws  @exception  // Describe what errors could be thrown.
+```
 
 <script>
-  [].forEach.call(document.getElementsByClassName("tag"), function(pre){
+  [].forEach.call(document.getElementsByClassName("lang-tag"), function(pre){
     pre.innerHTML = pre.innerHTML.replace(/(@[a-z]*)/g, '<span style="color:red">$1</span>');
   });
 </script>
@@ -68,7 +69,7 @@ function foo() {
 ```js
 /**
  * Represents a book.
- * @constructor         // @constructor 等同 @class 都是类的标示
+ * @constructor         // @constructor 等同 @class 都是表示类的标签
  */
 function Book(title, author) {
 }

@@ -1,2 +1,4 @@
 # Folders to ignore
 node_modules
+.idea
+.sass-cache

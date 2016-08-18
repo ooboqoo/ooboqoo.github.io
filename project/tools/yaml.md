@@ -2,7 +2,8 @@
 
 http://www.ruanyifeng.com/blog/2016/07/yaml.html?f=tt
 
-YAML 是专门用来写配置文件的语言，非常简洁和强大，远比 JSON 格式方便。  
+YAML: YAML Ain't Markup Language，说的就是 XML 语言，XML 标记过于累赘，不适合直接编辑和阅读，所以造了 YAML 这个轮子。YAML 是专门用来写配置文件的语言，非常简洁和强大，远比 JSON 格式方便。
+
 本文介绍 YAML 的语法，以 [JS-YAML](https://github.com/nodeca/js-yaml) 的实现为例。你可以去 [在线 Demo](https://nodeca.github.io/js-yaml/) 验证下面的例子。
 
 ```yaml

@@ -1,0 +1,391 @@
+@charset "utf-8";
+
+// === Variables ===
+$color-text: #333;
+$color-text-invert: #fff;
+$color-text-lighlight: #f33;
+
+$color-bg: #fff;
+
+$color-code: #c33;
+$color-code-bg: #f3f6f6;
+
+$color-lightgray: #ccc;
+$color-gray: #999;
+$color-darkgray: #666;
+
+$color-menu-text: #555;
+$color-menu-heading: #000;
+$color-menu-bg: #eee;
+
+// === Mixins ===
+@mixin box-shadow {
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2), 0 2px 10px 0 rgba(0,0,0,.12) !important;
+}
+
+/* common definition */
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  font-family: Verdana, Arial, SimSun, "Microsoft YaHei", sans-serif;
+  line-height: 1.5;
+}
+
+@each $header, $size in (h1: 2rem, h2: 1.75rem, h3: 1.5rem, h4: 1.25rem, h5: 1rem) {
+  #{$header} {
+    font-size: $size;
+  }
+}
+
+h1, h2, h3, h4, h5 {
+  margin-top: .5em;
+  margin-bottom: .5em;
+  a {
+    font-weight: inherit;
+  }
+}
+
+h1, h2, h3, h4 {
+  font-family: "Microsoft YaHei", serif;
+  font-weight: normal;
+}
+
+p {
+  margin-top: .5em;
+  margin-bottom: .5em;
+  color: $color-text;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+table {
+  width: 100%;
+}
+
+table, th, td {
+  border: none;
+}
+
+pre, code {
+  font-family: Consolas, "Courier New", Courier, monospace;
+}
+
+pre {
+  padding: .25em .75em;
+  margin: .25em 0;
+  white-space: pre-wrap;
+  border: 1px dotted $color-gray;
+}
+
+code {
+  padding: 1px .25em;
+  color: $color-code;
+  background-color: $color-code-bg;
+  border-radius: .25em;
+}
+
+ul, ol {
+  padding: 0;
+  margin: .25em 0 0 2em;
+}
+
+img {
+  max-width: 100%;
+  margin-bottom: -5px;
+}
+
+blockquote {
+  padding-left: .5em;
+  margin: .25em 0;
+  border: 1px dotted $color-lightgray;
+  border-left: 6px solid $color-lightgray;
+}
+
+hr {
+  height: 0;
+  margin: 6px 0;
+  border: 0;
+  border-top: 1px solid $color-lightgray;
+}
+
+.responsive {
+  overflow-x: auto;
+}
+
+/* definition of the main parts */
+
+html, body {
+  height: 100%;
+}
+
+main {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  text-align: left;
+  border: 0;
+
+  h1 {
+    text-align: center;
+    border-bottom: 2px solid $color-gray;
+  }
+
+  h2 {
+    border-bottom: 1px solid $color-lightgray;
+  }
+
+  h2::after {
+    position: absolute;
+    right: 1rem;
+    font-size: 1rem;
+    content: "#折叠#";
+  }
+
+  h2.collapse::after {
+    content: "#展开#";
+  }
+
+  a {
+    border-bottom: 1px solid $color-lightgray;
+  }
+
+  table {
+    margin: .25em 0 0;
+    border: 1px solid $color-gray;
+    empty-cells: show;
+
+    th {
+      padding: .15em .5em;
+      color: $color-text-invert;
+      text-align: center;
+      background-color: $color-darkgray;
+    }
+
+    td {
+      padding: .15em .5em;
+      border-top: 1px solid $color-lightgray;
+    }
+
+    td:first-child a {
+      color: $color-text-lighlight;
+    }
+  }
+}
+
+#md {
+  padding: .5em 1em 2em;
+
+  pre {
+    padding: 0;
+
+    & > code {
+      display: block;
+      padding: .5em;
+      color: inherit;
+      background-color: $color-code-bg;
+    }
+  }
+}
+
+#html {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+}
+
+@media (min-width: 993px) {
+  main, #html {
+    max-width: 980px;
+    margin: auto;
+    @include box-shadow;
+  }
+}
+
+/* definition of the header / top-nav */
+
+#header {
+  position: fixed;
+  top: -33px;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  overflow: hidden;
+  border-bottom: 20px solid rgba(255, 255, 255, 0);
+  box-sizing: content-box;
+  transition: top .2s ease-out, border-bottom-width .2s ease-out, box-shadow 0s;
+
+  &:hover {
+    top: 0;
+    border-bottom-width: 0;
+    @include box-shadow;
+    transition: top .2s ease-out, border-bottom-width .2s ease-out, box-shadow 0s .2s;
+  }
+}
+
+/* definition of the sidemenu */
+
+#sidemenu {
+
+  position: fixed;
+  top: 4px;
+  left: -230px;
+  z-index: 99;
+  width: 230px;
+  height: 100%;
+  background-color: $color-menu-bg;
+  @include box-shadow;
+
+  h2, h3 {
+    font-family: "Microsoft YaHei", sans-serif;
+  }
+
+  h2 {
+    margin: 2px 6px;
+    font-size: 1.25rem;
+    text-align: center;
+    cursor: pointer;
+    background-color: $color-lightgray;
+  }
+
+  h2::before {
+    position: absolute;
+    left: 12px;
+    font-weight: bold;
+    color: $color-text-invert;
+    content: "-";
+  }
+
+  h2.collapse::before {
+    content: "+";
+  }
+
+  h3 {
+    padding-left: .5em;
+    margin: 2px 0;
+    font-size: 1.125rem;
+    color: $color-menu-heading;
+  }
+
+  a {
+    display: block;
+    padding: 0 1em;
+    font-size: 1rem;
+    color: $color-menu-text;
+    text-decoration: none;
+  }
+
+  a:hover {
+    background-color: $color-lightgray;
+  }
+}
+
+#togglemenu {
+  position: absolute;
+  top: 1.5em;
+  left: 100%;
+  padding: .25em;
+  line-height: 1.25em;
+  color: $color-gray;
+  cursor: pointer;
+  border: 1px solid $color-lightgray;
+  border-radius: 0 .25em .25em 0;
+
+  &:hover {
+    color: $color-darkgray;
+    background-color: $color-menu-bg;
+  }
+
+  span:last-child { display: none; }
+}
+
+#sidemenu.show {
+  left: 0;
+  #togglemenu span { display: none; }
+  #togglemenu span:last-child { display: inline; }
+}
+
+/* definition of the tools icon and relevant subject */
+
+#tools {
+  position: fixed;
+  top: 8px;
+  right: 50px;
+  z-index: 999;
+  opacity: .9;
+
+  & > div {
+    display: inline-block;
+    padding: 0 .25em;
+    margin: .25em;
+    cursor: pointer;
+    border: 1px solid $color-darkgray;
+    border-radius: .25em;
+  }
+}
+
+#outline {
+  & > div {
+    position: absolute;
+    left: -115px;
+    display: none;
+    width: 300px;
+    overflow-x: hidden;
+    white-space: nowrap;
+    background-color: $color-bg;
+    border: 1px solid $color-darkgray;
+    border-radius: .25em;
+  }
+
+  &:hover > div {
+    display: block;
+  }
+
+  .h1 { text-align: center;}
+  .h2 { padding-left: 1em; }
+  .h3 { padding-left: 2em; }
+  .h4 { padding-left: 3em; }
+  .h5 { padding-left: 4em; }
+  .h6 { padding-left: 5em; }
+
+  a {
+    display: block;
+  }
+
+  a:hover {
+    color: $color-text-invert;
+    background-color: $color-gray;
+  }
+}
+
+// .mark 类用于笔记高亮
+.mark, .mark * {
+  font-style: normal;
+  text-decoration: inherit;
+  background-color: #ccf;
+}
+
+p > .mark {
+  padding: .2em 0;
+}
+
+/* special definition for widescreen */
+
+@media (min-width: 1210px) {
+
+  body {
+    position: relative;
+    width: 1210px;
+    margin: auto;
+  }
+
+  main, #html { left: 115px;   }
+  #sidemenu   { left: auto;    }
+  #togglemenu { display: none; }
+  #tools { right: calc(50% - 555px); }
+}

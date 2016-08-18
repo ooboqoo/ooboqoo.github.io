@@ -395,7 +395,7 @@ code {
   color: #f33;
 }
 #article table td.html5badge {
-  background: url(images/html5_badge20.png) right no-repeat;
+  background: url(/images/html5_badge20.png) right no-repeat;
 }
 #article table td em {
   color: #0000ff;
@@ -524,39 +524,11 @@ code {
 #sidemenu #sidemenu a:hover {
   background-color: #ccc;
 }
-.sidelabel {
-  position: fixed;
-  padding: 4px;
-  border: 1px solid #ccc;
-  border-radius: 0 6px 6px 0;
-  color: #999;
-  line-height: 1.2em;
-  z-index: 9;
-}
-.sidelabel:hover {
-  background-color: #eee;
-  color: #666;
-}
-#sidemenu h2,
-.sidelabel:hover {
-  cursor: pointer;
-}
-#openmenu {
-  top: 20px;
-}
-#pagenav {
-  top: 100px;
-  display: none;
-}
-#pagenav > div {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 25px;
-  background-color: #fcfcfc;
-  border: 1px solid gray;
-  border-radius: 6px;
-}
+
+#pagenav {position: fixed; top: 12px; right: 60px; margin: 0.25em; padding:0 0.25em; color: #666;
+          border: 1px solid #666; border-radius: 0.25em; opacity: 0.9; z-index: 999; cursor: pointer;}
+#pagenav > div {display: none; position: absolute; left: -195px; width: 300px;
+    border: 1px solid #333; border-radius: 0.25em; background-color: #fff; overflow-x: hidden; }
 #pagenav:hover > div {
   display: block;
 }
