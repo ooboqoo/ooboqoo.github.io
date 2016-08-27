@@ -7,8 +7,9 @@ $color-text-lighlight: #f33;
 
 $color-bg: #fff;
 
-$color-code: #c33;
+$color-code: #c00;
 $color-code-bg: #f3f6f6;
+$color-pre-bg: #f3f3f6;
 
 $color-lightgray: #ccc;
 $color-gray: #999;
@@ -114,9 +115,6 @@ hr {
   border-top: 1px solid $color-lightgray;
 }
 
-.responsive {
-  overflow-x: auto;
-}
 
 /* definition of the main parts */
 
@@ -156,20 +154,24 @@ main {
   }
 
   table {
+    display: block;
+    overflow-x: auto;
     margin: .25em 0 0;
-    border: 1px solid $color-gray;
     empty-cells: show;
+    border-collapse: collapse;
 
-    th {
-      padding: .15em .5em;
+    thead {
       color: $color-text-invert;
       text-align: center;
       background-color: $color-darkgray;
+      border-style: solid;
+      border-color: $color-lightgray;
+      border-width: 0 2px; 
     }
 
-    td {
+    th, td {
       padding: .15em .5em;
-      border-top: 1px solid $color-lightgray;
+      border: 1px solid $color-lightgray;
     }
 
     td:first-child a {
@@ -188,7 +190,39 @@ main {
       display: block;
       padding: .5em;
       color: inherit;
-      background-color: $color-code-bg;
+      background-color: $color-pre-bg;
+    }
+  }
+
+  // 专用于 API 整理，需要 md文件 (<tag>div class="dl"</tag>) + JS 代码配合
+  .dl {
+    padding: 0 4px 4px 24px;
+    border: 1px solid gray;
+
+    &::before {
+      position: absolute;
+      right: 30px;
+      z-index: -1;
+      content: "方框区域内双击可折叠/展开明细";
+      color: #ccc;
+    }
+
+    & > h4 {
+      margin: 0 0 0 -14px;
+    }
+
+    & > h5 {
+      margin: 0 0 0 -14px;
+      color: red;
+      font-weight: normal;
+    }
+
+    & > h5 > span {
+      color: #333;
+    }
+
+    &.collapse > :not(h5):not(h4) {
+      display: none;
     }
   }
 }

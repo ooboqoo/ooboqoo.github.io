@@ -395,7 +395,7 @@ code {
   color: #f33;
 }
 #article table td.html5badge {
-  background: url(/images/html5_badge20.png) right no-repeat;
+  background: url(../images/html5_badge20.png) right no-repeat;
 }
 #article table td em {
   color: #0000ff;

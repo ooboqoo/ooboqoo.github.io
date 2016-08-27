@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="图层_1" xmlns:bx="https://boxy-svg.com"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="510.236px"
+	 height="297.638px" viewBox="32.107 30.027 510.236 297.638" enable-background="new 32.107 30.027 510.236 297.638"
+	 xml:space="preserve">
+<rect x="117.146" y="76.09" fill="none" stroke="#000000" stroke-dasharray="5,5" width="205.513" height="70.866"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,5" d="M336.831,274.516V76.09h198.425v198.425H336.831z"/>
+<path fill="none" stroke="#000000" stroke-width="1.0205" d="M81.713,40.657H528.17l-14.174,14.173l14.174,14.173H81.713v7.086
+	l-28.346-21.26l28.346-21.26V40.657z"/>
+<text transform="matrix(1 0 0 1 467.9338 110)" font-family="'Calibri'" font-size="14">Shell</text>
+<text transform="matrix(1 0 0 1 453.76 125)" font-family="'MicrosoftYaHei'" font-size="12">spa.shell.js</text>
+<path fill="none" stroke="#000000" d="M343.917,104.437h77.953v43.17h-77.953V104.437L343.917,104.437z"/>
+<text transform="matrix(1 0 0 1 351.0042 125.6968)" font-family="'MicrosoftYaHei'" font-size="14">功能模块1</text>
+<text transform="matrix(1 0 0 1 358.0901 139.3486)" font-family="'MicrosoftYaHei'" font-size="12">spa.fe1.js</text>
+<path fill="none" stroke="#000000" stroke-width="1.0205" d="M93.494,176.146c0,4.405-11.128,7.977-24.855,7.977
+	c-13.727,0-24.854-3.57-24.854-7.977"/>
+<path fill="none" stroke="#000000" stroke-width="1.0205" d="M43.784,176.146c0-4.405,11.128-7.977,24.854-7.977
+	c13.728,0,24.855,3.571,24.855,7.977v31.907c0,4.405-11.128,7.977-24.855,7.977c-13.727,0-24.854-3.57-24.854-7.977V176.146
+	L43.784,176.146L43.784,176.146z"/>
+<text transform="matrix(1 0 0 1 51.9998 202)" font-family="'MicrosoftYaHei'" font-size="14.5">数据</text>
+<path fill="none" stroke="#000000" d="M343.917,161.13h77.953v42.52h-77.953V161.13L343.917,161.13z"/>
+<text transform="matrix(1 0 0 1 351.0042 181)" font-family="'MicrosoftYaHei'" font-size="14">功能模块2</text>
+<text transform="matrix(1 0 0 1 358.0911 197.6875)" font-family="'MicrosoftYaHei'" font-size="12">spa.fe2.js</text>
+<path fill="none" stroke="#000000" d="M443,169"/>
+<path fill="none" stroke="#000000" d="M343.917,217.823h77.953v42.52h-77.953V217.823L343.917,217.823z"/>
+<text transform="matrix(1 0 0 1 351.0042 238)" font-family="'MicrosoftYaHei'" font-size="14">功能模块3</text>
+<text transform="matrix(1 0 0 1 358.092 253.9971)" font-family="'MicrosoftYaHei'" font-size="12">spa.fe3.js</text>
+<path bx:origin="1 0" fill="none" stroke="#000000" d="M223.445,90h84.086v42h-84.086V90L223.445,90z"/>
+<text transform="matrix(1 0 0 1 244.7048 107.9805)" font-family="'MicrosoftYaHei'" font-size="14">Model</text>
+<text transform="matrix(1 0 0 1 230.532 124)" font-family="'MicrosoftYaHei'" font-size="12">spa.model.js</text>
+<path fill="none" stroke="#000000" d="M202.185,90.264v42.52l-70.866-0.17V90.264H202.185z"/>
+<text transform="matrix(1 0 0 1 152.5789 107.9805)" font-family="'MicrosoftYaHei'" font-size="14">Data</text>
+<text transform="matrix(1 0 0 1 138.4055 124.1289)" font-family="'MicrosoftYaHei'" font-size="12">spa.data.js</text>
+<path bx:origin="0 1" fill="none" stroke="#000000" d="M223.445,217.791h85.04v56.692h-85.04V217.791z"/>
+<text transform="matrix(1 0 0 1 237.6184 235.5391)" font-family="'MicrosoftYaHei'" font-size="14">浏览器端</text>
+<text transform="matrix(1 0 0 1 237.6184 253.2236)" font-family="'MicrosoftYaHei'" font-size="14">工具方法</text>
+<text transform="matrix(1 0 0 1 230.532 267.4287)" font-family="'MicrosoftYaHei'" font-size="12">spa.util-b.js</text>
+<path bx:origin="0 1" fill="none" stroke="#000000" d="M202.185,161.13v56.693h-77.953V161.13H202.185z"/>
+<text transform="matrix(1 0 0 1 146.9998 178.8467)" font-family="'MicrosoftYaHei'" font-size="14">基础</text>
+<text transform="matrix(1 0 0 1 132.9998 196.5625)" font-family="'MicrosoftYaHei'" font-size="14">工具方法</text>
+<text transform="matrix(1 0 0 1 138.4055 210.7363)" font-family="'MicrosoftYaHei'" font-size="12">spa.util.js</text>
+<path fill="none" stroke="#000000" d="M39.193,90.264h56.693v42.52H39.193V90.264z"/>
+<text transform="matrix(1 0 0 1 45.9998 116)" font-family="'MicrosoftYaHei'" font-size="14.5">服务器</text>
+<path bx:origin="1 1" fill="none" stroke="#000000" d="M209.272,115.067l-7.75-3.793l7.75-3.293 M202.337,111.523h21.26"/>
+<text transform="matrix(1 0 0 1 265.9651 309.9492)" font-family="'MicrosoftYaHei'" font-size="18">数 据 流</text>
+<text transform="matrix(1 0 0 1 265.9651 61.9175)" font-family="'MicrosoftYaHei'" font-size="18">API 调 用</text>
+<path fill="none" stroke="#000000" d="M756,270"/>
+<path bx:origin="1 1" fill="none" stroke="#000000" d="M428.957,189.477l-7.087-4l7.087-4 M421.87,185.477l14.173,0.456"/>
+<path bx:origin="1 1" fill="none" stroke="#000000" d="M428.957,132.783l-7.087-4l7.087-4 M421.87,128.783l14.173,0.457"/>
+<rect x="450.217" y="90.264" fill="none" stroke="#000000" width="70.866" height="42.52"/>
+<path bx:origin="1 1" fill="none" stroke="#000000" d="M315.572,100.894l-7.087-3.543l7.087-3.543 M308.485,97.351h141.732"/>
+<path fill="none" stroke="#000000" stroke-width="1.0205" d="M499.823,281.602l28.347,21.261l-28.347,21.26v-7.087H53.366
+	l14.173-14.173l-14.173-14.173h446.457V281.602z"/>
+<path bx:origin="1 1" fill="none" stroke="#000000" d="M102.973,115.067l-7.087-3.543l7.087-3.543 M95.886,111.524l35.433,0"/>
+<path bx:origin="1 1" fill="none" stroke="#000000" d="M315.571,246.17l-7.086-3.543l7.086-3.544 M308.485,242.627l28.347-0.001"/>
+<path bx:origin="1 1" fill="none" stroke="#000000" d="M209.273,185.933l-7.087-3.543l7.087-3.543 M202.186,182.39l134.646-0.001"/>
+<path bx:origin="1 1" fill="none" stroke="#000000" d="M71.083,157.586l-3.543,7.087l-3.543-7.087 M67.54,164.673v-31.89"/>
+<path bx:origin="1 1" fill="none" stroke="#000000" d="M166.752,154.043l-3.542,7.087l-3.543-7.087 M163.21,161.13l-0.001-14.173"/>
+<path bx:origin="1 1" fill="none" stroke="#000000" d="M428.957,246.169l-7.088-3.543l7.088-3.543 M421.869,242.626h14.174"/>
+<polyline fill="none" stroke="#000000" points="450.217,118.61 436.043,118.61 436.043,242.626 "/>
+</svg>
