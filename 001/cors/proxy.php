@@ -1,5 +1,5 @@
 <?php
-if (preg_match('/localhost|github.io/i', $_SERVER['HTTP_ORIGIN'])){
+if (preg_match('/localhost|127|github.io/i', $_SERVER['HTTP_ORIGIN'])){
   $url = $_REQUEST["url"];
   trim($url);
   if (stripos($url, "http") === false){

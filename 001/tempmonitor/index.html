@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { width: 960px; }
+    .station { float: left; width: 48%; margin: 8px; border: 1px solid gray; border-radius: 8px; }
+    .station h2 { margin: 12px; padding-top: 12px; text-align: center; vertical-align: baseline; }
+  </style>
+  <title>高温监测系统</title>
+</head>
+
+<body>
+<p>每个框架对应一个气温监测站点，气温监测站点每 5 秒向服务器发送一次温度（随机生成）。</p>
+<p>服务器接收数据后，判断有没有出现更高的气温，如果有，就向全体站点发送消息。</p>
+
+<div>
+  <div class="station">
+    <h2>监测站1</h2>
+    <iframe src="station.html" frameborder="0" width = "480" height="400"></iframe>
+  </div>
+  <div class="station">
+    <h2>监测站2</h2>
+    <iframe src="station.html" frameborder="0" width = "480" height="400"></iframe>
+  </div>
+  <div class="station">
+    <h2>监测站3</h2>
+    <iframe src="station.html" frameborder="0" width = "480" height="400"></iframe>
+  </div>
+  <div class="station">
+    <h2>监测站4</h2>
+    <iframe src="station.html" frameborder="0" width = "480" height="400"></iframe>
+  </div>
+</div>
+
+</body>
+
+</html>

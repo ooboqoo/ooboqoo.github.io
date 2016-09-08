@@ -7,31 +7,55 @@
 
 </head>
 <body>
+<div>
+  <h2>标题</h2>
+  <a href="#id">链接</a>
+</div>
+<div style="height: 1200px"></div>
+<div id="id"></div>
+
 <script>
-// 设置 cookies
-function setCookie(name, value, expiredays) {
-  var exp = new Date();
-  exp.setDate(exp.getDate() + expiredays);
-  var dcookie = name + "=" + escape(value) +
-    (expiredays === undefined ? "" : ";expires=" + exp.toUTCString());
-  console.log(dcookie);
-  document.cookie = dcookie;
-}
+var div = document.getElementsByTagName("div")[0];
+var h2  = document.getElementsByTagName("h2" )[0];
+var a   = document.getElementsByTagName("a"  )[0];
 
-// 读取 cookies
-function getCookie(name) {
-  var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-  if (arr = document.cookie.match(reg)) return unescape(arr[2]);
-}
+div.addEventListener("click", function(e) {
+  console.log("div - true");
+}, true);
 
-// 删除cookies
-function delCookie(name) {
-  var str = name + "=del" + ";expires=" + new Date().toUTCString();
-  console.log(str);
-  document.cookie = str;
-console.log(getCookie("fname"));
-  
-}
+div.addEventListener("click", function(e) {
+  console.log("div - none");
+});
+
+div.addEventListener("click", function(e) {
+  console.log("div - false");
+}, false);
+
+h2.addEventListener("click", function(e) {
+  console.log("h2 - true");
+}, true);
+
+h2.addEventListener("click", function(e) {
+  console.log("h2 - false");
+}, false);
+
+a.addEventListener("click", function(e) {
+  console.log("a - true");
+
+}, true);
+
+a.addEventListener("click", function(e) {
+  console.log("a - false");
+}, false);
+
+div.addEventListener("click", function(e) {
+  var nextStyle;
+
+  console.log("#sidemenu clicked11");
+  e.preventDefault();
+});
+
+a.click();
 
 </script>
 </body>

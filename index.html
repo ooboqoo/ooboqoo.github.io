@@ -2,15 +2,51 @@
 <html lang="zh-CN">
 
 <head>
-  <meta http-equiv="refresh" content="0; url=/ng2/">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/lib/normalize.css">
+  <link rel="stylesheet" href="/lib/main.css">
+  <style>
+    #header { top: 0; border-bottom-width: 0; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important; }
+    main { left: 0; width: 100%; box-sizing: border-box; margin-top: 40px !important; padding: 1rem 5%; }
+    @media (min-width: 1210px) { main { max-width: 1210px; margin:auto;} }
+    a { display: block; padding-top: .5rem; }
+    a:hover { background-color: #eee; }
+    a::before { padding-right: .5em; content: "\260D"; }
+    p { border-bottom: 1px solid #ccc; }
+  </style>
   <title>Gavin's Web Develop Notes</title>
 </head>
 
 <body>
-  <p>Redirect to reference page!</p>
+  <iframe id="header" src="/header.html" frameborder="0" width="100%" height="36px"></iframe>
+  <main>
+  <h3>站点结构介绍</h3>
+    <div>
+      <a href="/tutorial/">前端教程：最早学 html + css + javascript 时整理的笔记，比较基础。</a>
+      <a href="/html5/">HTML5手册：包含了 html5 + css3 笔记和一份前端速查手册，手册虽没什么技术含量，但超级好用！</a>
+      <a href="/es6/">ES6电子书：阮一峰的《ES6 入门》 和 Nicholas 的《Understanding ECMAScript 6》，牛人出品不解释。</a>
+      <a href="/ng2/">Angular2：ES6 + TypeScript + Angular2 相关笔记，正学习中，应该是未来的主攻方向。</a>
+      <a href="/project/">软件工程：自动化、测试、及各种相关工具的笔记。</a>
+      <a href="/php/">PHP &amp; SQL：学前端前专门花了一个多月学习PHP，后面就没学了，因为css多次调整，这部分格式可能有点乱了。</a>
+      <a href="/tools/">工具箱：编辑器及 Linux 方面的笔记，玩 Linux 历史比较久了，所以玩起来还是比较轻松。</a>
+      <p>注：站点主导航条平时都隐藏在页面顶部，鼠标移到页面顶部即可调出导航条。</p>
+    </div>
+    <h3>学习中做的几个小练习</h3>
+    <div>
+      <a href="/001/canvas/index.html" target="_blank">Canvas：包含一个图片放大显示组件和一个弹跳小球练习，顺便做成了离线应用。</a>
+      <a href="/001/cors/index.html" target="_blank">跨域访问：平时难免碰到跨域问题，就系统学习了下。</a>
+      <a href="/001/geo.html" target="_blank">百度地图 API：学习 html5 geolocation 时发现并没什么鸟用，就玩了玩百度地图。</a>
+      <a href="/001/tempmonitor/index.html" target="_blank">高温监控系统：大概试了试 websocket.io，后端还没好好学，先搞定前端。</a>
+      <a href="/001/mi/index.html" target="_blank">仿小米首页：学习 Bootstrap V4 时，顺便拿小米首页练练手，做页面更多的是拼设计和用户体验吧。</a>
+    </div>
+    <h3>小项目 mdReader </h3>
+    <a href="https://github.com/ooboqoo/mdreader">源码地址：https://github.com/ooboqoo/mdreader</a>
+    <p>在本站代码的基础上做了精简和重构，做成了一个小巧的 markdown 文档阅读器。</p>
+    <p>尽量做到了精简和保持独立性。使用不需要借助 Node.js，如果要修改，也是直接 js + css。</p>
+    <p>v1.3 版本新添加了测试文件。</p>
+  </main>
 </body>
 
 </html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    h2, h3 { text-align: center; }
+    #echo, #log { width: 218px; height:380px; float:left; overflow-y: auto; box-sizing: border-box; margin:2px; padding: 0 12px; border: 1px solid gray; }
+    #echo { border-radius: 4px 0 0 4px }
+    #log { border-radius: 0 4px 4px 0 }
+  </style>
+  <title>气温监测站点面板</title>
+</head>
+
+<body>
+<div id="echo"><h3>服务器返回的消息</h3></div>
+<div id="log"><h3>本站监测到的数据</h3></div>
+
+<script src="http://104.128.85.201:3000/socket.io/socket.io.js"></script>
+<script>
+(function() {
+  "use strict";
+
+  var echo = document.getElementById('echo');
+  var log  = document.getElementById('log');
+  var socket = io('http://104.128.85.201:3000');
+  var temp = 20;
+  var record;
+
+  function fromTo(m, n) {
+    return Math.round(m + Math.random() * Math.abs(m - n));
+  }
+
+  function getTime() {
+    var date = new Date();
+    var hour = date.getHours();
+    var min  = date.getMinutes();
+    var sec  = date.getSeconds();
+
+    return (hour > 9 ? hour : "0" + hour) + ":" +
+           (min  > 9 ? min  : "0" + min ) + ":" +
+           (sec  > 9 ? sec  : "0" + sec );
+  }
+
+  function setRecord(){
+    temp = temp + fromTo(-2, 3);
+    temp = temp > 41 ? 41 : temp;
+    record = getTime() + " " + temp +"&#176;C";
+    log.innerHTML = log.innerHTML.slice(0, 17) + record + "<br>" + log.innerHTML.slice(17);
+    socket.emit("message", temp);
+  }
+
+  socket.on('message', function (msg) {
+    echo.innerHTML = echo.innerHTML.slice(0, 17) + getTime() + "<br>" +
+        "近期最高气温为：" + msg + "&#176;C<br>" + echo.innerHTML.slice(17);
+  });
+
+  setInterval(setRecord, 1000*5);
+
+})();
+</script>
+</body>
+
+</html>

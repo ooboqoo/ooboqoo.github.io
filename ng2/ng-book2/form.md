@@ -1,8 +1,8 @@
 ## Forms 表单
 
-• FormControl s encapsulate the inputs in our forms and give us objects to work with them
-• Validator s give us the ability to validate inputs, any way we’d like
-• Observers let us watch our form for changes and respond accordingly
+* FormControl s encapsulate the inputs in our forms and give us objects to work with them
+* Validator s give us the ability to validate inputs, any way we’d like
+* Observers let us watch our form for changes and respond accordingly
 
 ### FormControl & FormGroup 
 
@@ -38,13 +38,12 @@ import { provideForms } from '@angular/forms';
 bootstrap(AppComponent, [ provideForms() ]).catch((err: any) => console.error(err));
 ```
 
-
-
  FORM_DIRECTIVES includes:
-• formControl
-• ngFormGroup
-• ngForm
-• ngModel
+
+* formControl
+* ngFormGroup
+* ngForm
+* ngModel
 
 ### form & NgForm 和 input & NgModel
 
