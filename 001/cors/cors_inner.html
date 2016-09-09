@@ -7,11 +7,11 @@
 <body>
 <h2>iframe here</h2>
 <form action="#">
-  输入向宿主页面发送的消息：<input id="messageOut" type="text"><input type="button" onclick="postMessage(this)" value="发送"><br>
+  输入向宿主页面发送的消息：<input id="messageOut" type="text"><input type="button" onclick="_postMessage(this)" value="发送"><br>
   <p id="messageIn">这里将显示消息内容</p>
 </form>
 <script>
-function postMessage(target) {
+function _postMessage(target) {
   parent.postMessage(target.parentElement.messageOut.value, "*");
 }
 

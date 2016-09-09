@@ -3,12 +3,17 @@
 
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="../practice.css">
+  <style>
+    body { padding: 0.5em; font-family: Verdana, Arial, SimSun, "Microsoft YaHei", sans-serif; line-height: 1.5; }
+    .warning { display: none; padding: 0.5em; background-color: #FCFCBB; border-radius: 0.5em; }
+  </style>
   <title>CORS</title>
 </head>
 
 <body>
 <h1>跨域访问练习</h1>
+
+<p class="warning">github.io 下此页面不能正常测试，5s 后将为您跳转到测试主机下的相同页面。</p>
 
 <h2>CORS 规范</h2>
 <form action="{host}cors.php">
@@ -34,9 +39,9 @@
 <iframe src="iframe.html" name="inner1" frameborder="1" width=500 height=160></iframe>
 
 <h2>框架间的交互 - 跨域</h2>
-<p>采用 HTML5 postMessage API (实测 Chrome 还是会阻止消息发送，而 IE 正常，应该是 Chrome 的临时性 bug。)</p>
+<p>采用 HTML5 postMessage API 解决跨域信息传递。</p>
 <form action="">
-  输入向框架发送的消息：<input name="messageOut" type="text"><input type="button" onclick="postMessage(this)" value="发送"><br>
+  输入向框架发送的消息：<input name="messageOut" type="text"><input type="button" onclick="_postMessage(this)" value="发送"><br>
   <p id="messageIn2">这里将显示消息内容</p>
 </form>
 <iframe src="http://104.128.85.201/cors/cors_inner.html" name="inner2" frameborder="1" width=500 height=160></iframe>
@@ -85,7 +90,7 @@ function jsonp(){
   document.getElementsByTagName('head')[0].appendChild(script);
 }
 
-function postMessage(target) {
+function _postMessage(target) {  // 不加下划线，会覆盖原方法，掉坑里了。
   inner2.postMessage(target.parentElement.messageOut.value, "*");
 }
 
@@ -101,6 +106,14 @@ function captureEnter(elem){
       e.stopPropagation();
     }
   });
+}
+
+// 测试页面跳转
+if (location.hostname.indexOf("github") !== -1) {
+  document.getElementsByClassName("warning")[0].style.display = "block";
+  setTimeout(function() {
+    location.href = host;
+  }, 5000);
 }
 </script>
 </body>
