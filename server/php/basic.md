@@ -49,7 +49,7 @@ PHP 文件的默认文件扩展名是 ".php"。
 
 PHP 文件通常包含 HTML 标签以及一些 PHP 脚本代码。
 
-注释：PHP 语句以分号结尾 `;`。PHP 代码块的关闭标签也会自动表明分号（因此在 PHP 代码块的最后一行不必使用分号）。
+PHP 语句以分号结尾 `;` ，PHP 代码块的关闭标签也会自动表明分号（因此在 PHP 代码块的最后一行不必使用分号）。
 
 ### PHP 中的注释
 
@@ -103,8 +103,6 @@ PHP 没有创建变量的命令。变量会在首次为其赋值时被创建：
 
 PHP 中，我们不必告知 PHP 变量的数据类型。PHP 会根据它的值，自动把变量转换为正确的数据类型。
 
-而在诸如 C 和 C++ 以及 Java 之类的语言中，程序员必须在使用变量之前声明它的名称和类型。
-
 ### PHP 变量作用域
 
 在 PHP 中，可以在脚本的任意位置对变量进行声明。
@@ -119,9 +117,9 @@ PHP 有三种不同的变量作用域：
 
 ### Local 和 Global 作用域
 
-函数_之外_声明的变量拥有 Global 作用域，只能在函数以外进行访问。
+函数之外声明的变量拥有 Global 作用域，只能在函数以外进行访问。
 
-函数_内部_声明的变量拥有 Local 作用域，只能在函数内部进行访问。
+函数内部声明的变量拥有 Local 作用域，只能在函数内部进行访问。
 
 ```php
 $x = 5;      // 全局作用域
@@ -144,27 +142,23 @@ echo "变量 y 是：$y";    // 无法读取局部变量 $y 的值
 global 关键词用于从函数内部访问全局变量。要做到这一点，请在（函数内部）变量前面使用 global 关键词：
 
 ```php
-$x=5;
-$y=10;
+$x = 5; $y = 10;
 function myTest() {
   global $x, $y;  // 经试验，发现用 global 声明时，不能同时给变量赋值，必须分开写。
   $y = $x + $y;
 }
-myTest();
-echo $y;         // 输出 15
+myTest(); echo $y;     // 输出 15
 ```
 
 PHP 同时在名为 $GLOBALS[index]
 的数组中存储了所有的全局变量。下标存有变量名。这个数组在函数内也可以访问，并能够用于直接更新全局变量。上面的例子可以这样重写：
 
 ```php
-$x=5;
-$y=10;
+$x = 5; $y = 10;
 function myTest() {
   $GLOBALS['y'] = $GLOBALS['x'] + $GLOBALS['y'];
 }
-myTest();
-echo $y;  // 输出 15
+myTest(); echo $y;    // 输出 15
 ```
 
 ### PHP static 关键词
@@ -175,7 +169,7 @@ echo $y;  // 输出 15
 
 ```php
 function myTest() {
-  static $x=0;  // 变量只在声明时赋值一次，局部变量产生后，变量值不再受此声明影响
+  static $x = 0;  // 变量只在声明时赋值一次，局部变量产生后，变量值不再受此声明影响
   echo $x; $x++;
 }
 myTest();       // 输出 0
@@ -249,8 +243,8 @@ $x = 047;  var_dump($x);  // 八进制数
 
 ```php
 $x = 10.365; var_dump($x);
-$x = 2.4e3; var_dump($x);
-$x = 8E-5; var_dump($x);
+$x = 2.4e3;  var_dump($x);
+$x = 8E-5;   var_dump($x);
 ```
 
 ### PHP 逻辑
@@ -274,7 +268,7 @@ $cars = array("Volvo", "BMW", "SAAB"); var_dump($cars);
 ```php
 class Car {
   var $color;
-  function Car($color="green") {
+  function Car($color = "green") {
     $this->color = $color;
   }
   function what_color() {
@@ -283,43 +277,18 @@ class Car {
 }
 ```
 
-### PHP NULL 值
+### PHP NULL 类型
 
-特殊的 NULL 值表示变量无值。NULL 是数据类型 NULL 唯一可能的值。
+特殊的 null 值表示变量无值。null 是数据类型 NULL 唯一可能的值。
 
-NULL 值标示变量是否为空。也用于区分空字符串与空值数据库。
+null 值表示变量是否为空。也用于区分空字符串与空值数据库。
 
-可以通过把值设置为 NULL，将变量清空：
+可以通过把值设置为 null，将变量清空：
 
 ```php
 $x = "Hello world!"; $x = null; var_dump($x);
 ```
 
-## PHP 字符串函数
-
-字符串是字符序列，比如 "Hello world!"。本节将学习常用的字符串函数。
-
-### PHP strlen() 函数
-
-strlen() 函数返回字符串的长度，以字符计。
-
-```php
-echo strlen("Hello world!");  // 输出为 12
-```
-
-提示：strlen() 常用于循环和其他函数。例如，在循环中，也许需要在字符串的最后一个字符之后停止循环。
-
-### PHP strpos() 函数
-
-strpos() 函数用于检索字符串内指定的字符或文本。
-
-如果找到匹配，则会返回首个匹配的字符位置。如果未找到匹配，则将返回 FALSE。
-
-```php
-echo strpos("Hello world!","world");  // 输出为 6
-```
-
-提示：上例中字符串 "world" 的位置是 6 而不是 7，理由是，字符串中首字符的位置是 0 而不是 1。
 
 ## PHP 常量
 
@@ -412,7 +381,7 @@ PHP 比较运算符用于比较两个值（数字或字符串）：
 ### PHP 逻辑运算符
 
 运算符 | 名称 | 例子      | 结果
------- | ---- | --------- | -----
+:-----:| ---- | --------- | -----
 and    | 与   | $x and $y | 如果 $x 和 $y 都为 true，则返回 true
 or     | 或   | $x or $y  | 如果 $x 和 $y 至少有一个为 true，则返回 true
 xor    | 异或 | $x xor $y | 如果 $x 和 $y 有且仅有一个为 true，则返回 true
@@ -425,7 +394,7 @@ xor    | 异或 | $x xor $y | 如果 $x 和 $y 有且仅有一个为 true，则�
 PHP 数组运算符用于比较数组：
 
 运算符 | 名称   | 例子      | 结果
------- | ------ | --------- | ----
+:-----:| ------ | --------- | ----
 +      | 联合   | $x + $y   | $x 和 $y 的联合（但不覆盖重复的键）
 ==     | 相等   | $x == $y  | 如果 $x 和 $y 拥有相同的键/值对，则返回 true
 ===    | 全等   | $x === $y |如果 $x 和 $y 拥有相同的键/值对，且顺序相同类型相同，则返回 true
@@ -436,8 +405,8 @@ PHP 数组运算符用于比较数组：
 下例展示了使用不同数组运算符的不同结果：
 
 ```php
-$x = array("a" => "red",  "b" => "green"); 
-$y = array("b" => "blue", "d" => "yellow"); 
+$x = array("a"=>"red",  "b"=>"green"); 
+$y = array("b"=>"blue", "d"=>"yellow"); 
 $z = $x + $y;  // $x 与 $y 的联合，特意修改了示例，$y 中的 "b" 不会覆盖 $x 中的 "b"
 var_dump($z);
 var_dump($x == $y);
@@ -451,7 +420,7 @@ var_dump($x !== $y);
   * _if 语句_ \- 如果指定条件为真，则执行代码
   * _if...else 语句_ \- 如果条件为 true，则执行代码；如果条件为 false，则执行另一端代码
   * _if...elseif....else 语句_ \- 选择若干段代码块之一来执行
-  * _switch 语句_ \- 选择语句多个代码块之一来执行
+  * _switch 语句_ \- 选择多个代码块之一来执行
 
 ### Switch 语句
 
@@ -489,27 +458,13 @@ switch (expression) {
   * _for_ \- 循环代码块指定次数
   * _foreach_ \- 遍历数组中的每个元素并循环代码块
 
-### PHP while 循环
-
-只要指定的条件为真，while 循环就会执行代码块。
-
-while (条件为真) { 要执行的代码; }
-
-### PHP do...while 循环
-
-do...while 循环首先会执行一次代码块，然后检查条件，如果指定条件为真，则重复循环。
-
-do { 要执行的代码; } while (条件为真);
-
-请注意，do while 循环只在执行循环内的语句之后才对条件进行测试。这意味着 do while 循环至少会执行一次语句，即使条件测试在第一次就失败了。
-
 ### PHP for 循环
 
 如果您已经提前确定脚本运行的次数，可以使用 for 循环。
 
 ```php
 for (init counter; test counter; increment counter) { code to be executed; }
-for ($x=0; $x<=10; $x++) { echo "数字是：$x <br>"; }
+for ($x = 0; $x <= 10; $x++) { echo "数字是：$x <br>"; }
 ```
 
 ### PHP foreach 循环
@@ -550,16 +505,13 @@ function functionName() { /* 被执行的代码; */ }
 
 ### PHP 函数参数
 
-可以通过参数向函数传递信息。参数类似变量。
-
 参数被定义在函数名之后，括号内部。您可以添加任意多参数，只要用逗号隔开即可。
 
 ```php
 function familyName($fname, $year) {
   echo "$fname Zhang. Born in $year <br>";
 }
-familyName("Li","1975");
-familyName("Hong","1978");
+familyName("Li", "1975");
 ```
 
 ### PHP 默认参数值
@@ -570,13 +522,12 @@ familyName("Hong","1978");
 function setHeight($minheight = 50) {
   echo "The height is : $minheight <br>";
 }
-setHeight(350);
-setHeight(); // 将使用默认值 50
+setHeight();  // 将使用默认值 50
 ```
 
 ### PHP 函数 - 返回值
 
-如需使函数返回值，请使用 return 语句：
+如需使函数返回值，请使用 return 语句。
 
 ## PHP 数组
 
@@ -624,7 +575,7 @@ echo count($cars);  // 输出 3
 ```php
 $cars = array("Volvo", "BMW", "SAAB");
 $arrlength = count($cars);
-for ($x=0; $x < $arrlength; $x++) {
+for ($x = 0; $x < $arrlength; $x++) {
   echo $cars[$x], "<br>";
 }
 ```
@@ -651,13 +602,6 @@ foreach($age as $x => $x_value) {
 }
 ```
 
-### 多维数组
-
-我们将在 PHP 高级教程中讲解多维数组。
-
-### 完整的 PHP 数组参考手册
-
-如需完整的数组函数参考手册，请访问 [PHP 数组参考手册](/php/php_ref_array.asp)。
 
 ## PHP 数组排序
 
@@ -676,28 +620,25 @@ foreach($age as $x => $x_value) {
 
 ```php
 $cars = array("Volvo", "BMW", "SAAB");
-sort($cars);
+sort($cars);     // BMW, Toyota, Volvo
 $numbers = array(3, 5, 1, 22, 11);
-sort($numbers);
+sort($numbers);  // 1, 3, 5, 11, 22
 ```
 
 ### 根据值对数组进行升序排序 - asort()
 
 ```php
-$age = array("Bill" => "35", "Steve" => "37", "Peter" => "43");
-asort($age);
+$age = array("Bill"=>"35", "Steve"=>"37", "Peter"=>"43");
+asort($age);    // "Bill"=>"35", "Steve"=>"37", "Peter"=>"43"
 ```
 
 ### 根据键对数组进行降序排序 - krsort()
 
 ```php
 $age = array("Bill" => "35", "Steve" => "37", "Peter" => "43");
-krsort($age);
+krsort($age);  // "Steve"=>"37", "Peter"=>"43", "Bill"=>"35"
 ```
 
-### 完整的 PHP 数组参考手册
-
-如需完整的数组函数参考手册，请访问 [PHP 数组参考手册](http://www.w3schools.com/php/php_ref_array.asp)。
 
 ## PHP 全局变量 - 超全局变量
 
@@ -745,9 +686,6 @@ $_SERVER 这种超全局变量保存关于报头、路径和脚本位置的信�
 echo $_SERVER['PHP_SELF'], "<br>";
 echo $_SERVER['SERVER_NAME'], "<br>";
 echo $_SERVER['HTTP_HOST'], "<br>";
-echo $_SERVER['HTTP_REFERER'], "<br>";
-echo $_SERVER['HTTP_USER_AGENT'], "<br>";
-echo $_SERVER['SCRIPT_NAME'];
 ```
 
 下表列出了您能够在 $_SERVER 中访问的最重要的元素：
