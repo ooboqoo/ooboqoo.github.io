@@ -155,31 +155,6 @@ passwd username // 管理员给username设置密码
 </div>
 
 <div>
-<h2>应用程序</h2>
-
-<h3>rsync 远程文件同步</h3>
-<pre>
-# rsync -iurp --chmod=Dgo+x,Fgo+r /media/sf_52web/notes/ /var/www/html/notes/
--i 显示信息 -u 只更新 -r 递归执行 -p --chmod=CHMOD 更改权限（-p不能省）--delete 删除SRC中没有的文件
-</pre>
-
-<h3>crond 计划任务服务</h3>
-<pre>
-# systemctl enable crond.service  // 设置cron服务开机启动
-# systemctl start crond.service  // 立即启动cron服务
-# crontab -e  // 编辑定时任务列表
-</pre>
-<p>用crontab -e命令来编辑的是/var/spool/cron下对应用户的cron文件，也可以直接修改/etc/crontab文件。</p>
-<pre>
-分钟  小时  天   月  星期  命令 
-0-59 0-23 1-31 1-12 0-6 command
-*/10 * * * * date  // 每10分钟显示一次时间
-</pre>
-<p>特殊符号: 
-<code>*</code> 代表所有值, <code>/</code> 代表“每”, <code>-</code> 代表连续的几个值, <code>,</code> 用于组合离散的值</p>
-</div>
-
-<div>
 <h2>CentOS 安装配置中的其他命令</h2>
 <pre>
 less /proc/cpuinfo  // 查看CPU信息，通过伪文件系统提供了一种与进程process 沟通的机制

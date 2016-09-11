@@ -4,7 +4,7 @@
 
 多维数组指的是包含一个或多个数组的数组。
 
-PHP 能理解两、三、四或五级甚至更多级的多维数组。不过，超过三级深的数组对于大多数人难于管理。
+PHP 能理解两、三、四或五级甚至更多级的多维数组。不过，超过三级之后对于大多数人来说会难于管理。
 
 注释：数组的维度指示您需要选择元素的索引数。
 
@@ -65,8 +65,8 @@ PHP Date() 函数把时间戳格式化为更易读的日期和时间。
 
 ```php
 date(format, timestamp)
-// format 必需。规定时间戳的格式
-// timestamp 可选。规定时间戳。默认是当前时间和日期。
+// format 必需，规定时间戳的格式
+// timestamp 可选，规定时间戳，默认是当前时间和日期。
 ```
 
 注释：时间戳是一种字符序列，它表示具体事件发生的日期和事件。
@@ -149,8 +149,6 @@ require 'filename';
 
 PHP 拥有的多种函数可供创建、读取、上传以及编辑文件。
 
-注意：请谨慎操作文件！
-
 当您操作文件时必须非常小心。如果您操作失误，可能会造成非常严重的破坏。常见的错误是：
 
   * 编辑错误的文件
@@ -163,7 +161,7 @@ PHP 拥有的多种函数可供创建、读取、上传以及编辑文件。
 
 readfile() 函数用于简单读取文件，并把它写入输出缓冲。
 
-如果您想做的所有事情就是打开一个文件并读取器内容，那么 readfile() 函数很有用。
+如果您想做的所有事情就是打开一个文件并读取其内容，那么 readfile() 函数很有用。
 
 ```php
 echo readfile("webdictionary.txt");
@@ -172,7 +170,7 @@ echo readfile("webdictionary.txt");
 #### fopen()
 
 打开文件的更好的方法是通过 fopen() 函数。此函数为您提供比 readfile() 函数更多的选项。  
-fopen() 的第一个参数包含被打开的文件名，第二个参数规定打开文件的模式。如果 fopen() 函数未能打开指定的文件，下面的例子会生成一段消息：
+fopen() 的第一个参数包含被打开的文件名，第二个参数规定打开文件的模式。
 
 ```php
 $myfile = fopen("webdictionary.txt", "r") or die("Unable to open file!");
@@ -187,19 +185,17 @@ fclose($myfile);
 r  | 打开文件为只读。文件指针在文件的开头开始。
 w  | 打开文件为只写。删除文件的内容或创建一个新的文件，如果它不存在。文件指针在文件的开头开始。
 a  | 打开文件为只写。文件中的现有数据会被保留。文件指针在文件结尾开始。创建新的文件，如果文件不存在。
-x  | 创建新文件为只写。返回 FALSE 和错误，如果文件已存在。
-r+ | 打开文件为读/写、文件指针在文件开头开始。
-w+ | 打开文件为读/写。删除文件内容或创建新文件，如果它不存在。文件指针在文件开头开始。
-a+ | 打开文件为读/写。文件中已有的数据会被保留。文件指针在文件结尾开始。创建新文件，如果它不存在。
-x+ | 创建新文件为读/写。返回 FALSE 和错误，如果文件已存在。
+x  | 创建新文件为只写。如果文件已存在则返回 FALSE 和错误。
+r+ | 打开文件为读/写、文件指针指向文件开头。
+w+ | 打开文件为读/写。会删除原文件内容或创建新文件。文件指针指向文件开头。
+a+ | 打开文件为读/写。文件中已有的数据会被保留，如果文件不存在则创建新文件。文件指针指向文件结尾。
+x+ | 创建新文件为读/写。如果文件已存在则返回 FALSE 和错误。
 
 #### fread()
 
-fread() 函数读取打开的文件。
+fread() 函数读取打开的文件。`string fread ( resource $handle , int $length )`
 
 fread() 的第一个参数包含待读取文件的文件名，第二个参数规定待读取的最大字节数。
-
-如下 PHP 代码把 "webdictionary.txt" 文件读至结尾：
 
 ```php
 fread($myfile,filesize("webdictionary.txt"));
@@ -207,11 +203,9 @@ fread($myfile,filesize("webdictionary.txt"));
 
 #### fclose()
 
-fclose() 函数用于关闭打开的文件。
+fclose() 函数用于关闭打开的文件。`bool fclose ( resource $handle )`
 
 注释：用完文件后把它们全部关闭是一个良好的编程习惯。您并不想打开的文件占用您的服务器资源。
-
-fclose() 需要待关闭文件的名称（或者存有文件名的变量）：
 
 ```php
 $myfile = fopen("webdictionary.txt", "r");
@@ -219,25 +213,21 @@ $myfile = fopen("webdictionary.txt", "r");
 fclose($myfile);
 ```
 
-### PHP 文件创建 / 写入
+### 文件创建 / 写入
 
-#### PHP 创建文件 - fopen()
+#### 创建文件 - fopen()
 
-fopen() 函数也用于创建文件。也许有点混乱，但是在 PHP 中，创建文件所用的函数与打开文件的相同。
+如果您用 fopen() 打开并不存在的文件，此函数会创建文件。
 
-如果您用 fopen() 打开并不存在的文件，此函数会创建文件，假定文件被打开为写入（w）或增加（a）。
-
-#### PHP 文件权限
+#### 文件权限
 
 如果您试图运行这段代码时发生错误，请检查您是否有向硬盘写入信息的 PHP 文件访问权限。
 
-#### PHP 写入文件 - fwrite()
+#### 写入文件 - fwrite()
 
-fwrite() 函数用于写入文件。
+fwrite() 函数用于写入文件。`int fwrite ( resource $handle , string $string [, int $length ] )`
 
-fwrite() 的第一个参数包含要写入的文件的文件名，第二个参数是被写的字符串。
-
-下面的例子把姓名写入名为 "newfile.txt" 的新文件中：
+fwrite() 的第一个参数包含要写入的文件的文件名，第二个参数是要被写入的字符串。
 
 ```php
 <?php
@@ -249,7 +239,7 @@ fwrite($myfile, $txt);
 fclose($myfile);
 ```
 
-### PHP 文件上传
+### 文件上传
 
 #### 创建一个文件上传表单
 
@@ -257,8 +247,8 @@ fclose($myfile);
 
 ```html
 <form action="upload_file.php" method="post" enctype="multipart/form-data">
-  <label for="file">Filename: <input type="file" name="file" id="file" ></label>
-  <input type="submit" name="submit" value="Submit" />
+  <label for="upfile">Filename: <input type="file" name="upfile" id="upfile" ></label>
+  <input type="submit" name="submit" value="Submit">
 </form>
 ```
 
@@ -276,24 +266,24 @@ fclose($myfile);
 
 ```php
 <?php
-// 用户只能上传 .gif 或 .jpeg 文件，体积小于 50kb
-if ((($_FILES["file"]["type"] == "image/gif")
-    || ($_FILES["file"]["type"] == "image/jpeg")    // 对于 FireFox，必须是 jpeg
-    || ($_FILES["file"]["type"] == "image/pjpeg"))  // 对于 IE，识别 jpg 文件的类型必须是 pjpeg
-    && ($_FILES["file"]["size"] < 20000)) {         // 文件大小必须小于 20 kb
-  if ($_FILES["file"]["error"] > 0) {
-    echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
+// 此例限制用户只能上传 .gif 或 .jpeg 文件，体积小于 50kb
+if ((($_FILES["upfile"]["type"] == "image/gif")
+    || ($_FILES["upfile"]["type"] == "image/jpeg")    // 对于 FireFox，必须是 jpeg
+    || ($_FILES["upfile"]["type"] == "image/pjpeg"))  // 对于 IE，识别 jpg 文件的类型必须是 pjpeg
+    && ($_FILES["upfile"]["size"] < 20000)) {         // 文件大小必须小于 20 kb (千字节)
+  if ($_FILES["upfile"]["error"] > 0) {
+    echo "Return Code: " . $_FILES["upfile"]["error"] . "<br>";
   } else {
-    echo "Upload: " . $_FILES["file"]["name"] . "<br>";
-    echo "Type: " . $_FILES["file"]["type"] . "<br>";
-    echo "Size: " . ($_FILES["file"]["size"] / 1024) . " Kb<br>";
-    echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br>";
-
-    if (file_exists("upload/" . $_FILES["file"]["name"])) {
-      echo $_FILES["file"]["name"] . " already exists. ";
+    echo "Upload: " . $_FILES["upfile"]["name"] . "<br>";
+    echo "Type: " . $_FILES["upfile"]["type"] . "<br>";
+    echo "Size: " . ($_FILES["upfile"]["size"] / 1024) . " Kb<br>";
+    echo "Temp file: " . $_FILES["upfile"]["tmp_name"] . "<br>";
+    // 保存上传的文件
+    if (file_exists("upload/" . $_FILES["upfile"]["name"])) {
+      echo $_FILES["upfile"]["name"] . " already exists. ";
     } else {
-      move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $_FILES["file"]["name"]);
-      echo "Stored in: " . "upload/" . $_FILES["file"]["name"];
+      move_uploaded_file($_FILES["upfile"]["tmp_name"], "upload/" . $_FILES["upfile"]["name"]);
+      echo "Stored in: " . "upload/" . $_FILES["upfile"]["name"];
     }
   }
 } else {
@@ -306,28 +296,21 @@ if ((($_FILES["file"]["type"] == "image/gif")
 
 第一个参数是表单的 input name，第二个下标可以是 "name", "type", "size", "tmp_name" 或 "error"。就像这样：
 
-  * $_FILES["file"]["name"] - 被上传文件的名称
-  * $_FILES["file"]["type"] - 被上传文件的类型
-  * $_FILES["file"]["size"] - 被上传文件的大小，以字节计
-  * $_FILES["file"]["tmp_name"] - 存储在服务器的文件的临时副本的名称
-  * $_FILES["file"]["error"] - 由文件上传导致的错误代码
+  * $_FILES["upfile"]["name"] - 被上传文件的名称
+  * $_FILES["upfile"]["type"] - 被上传文件的类型
+  * $_FILES["upfile"]["size"] - 被上传文件的大小，以字节计
+  * $_FILES["upfile"]["tmp_name"] - 存储在服务器的文件的临时副本的名称
+  * $_FILES["upfile"]["error"] - 由文件上传导致的错误代码
 
-这是一种非常简单文件上传方式。基于安全方面的考虑，您应当增加有关什么用户有权上传文件的限制。
-
-#### 保存被上传的文件
-
-上面的例子在服务器的 PHP 临时文件夹创建了一个被上传文件的临时副本。
-
-这个临时的复制文件会在脚本结束时消失。要保存被上传的文件，我们需要把它拷贝到另外的位置。
-
+上传文件时，PHP 会在临时文件夹创建一个被上传文件的临时副本，这个临时副本会在脚本结束时消失。要保存被上传的文件，我们需要把它拷贝到另外的位置。
 
 ## PHP Cookies
 
 ### 什么是 Cookie
 
-cookie 常用于识别用户。cookie 是服务器留在用户计算机中的小文件。每当相同的计算机通过浏览器请求页面时，它同时会发送 cookie。通过 PHP，您能够创建并取回 cookie 的值。
+cookie 常用于识别用户。cookie 是服务器留在用户计算机中的小文件。每当相同的计算机通过浏览器请求页面时，同时会发送 cookie。通过 PHP，您能够创建并取回 cookie 的值。
 
-### 创建 cookie
+### 创建 Cookie
 
 setcookie() 函数用于设置 cookie。
 
@@ -344,8 +327,7 @@ setcookie("user", "Alex Porter", time()+3600);
 <html><body></body></html>
 ```
 
-注释：在发送 cookie 时，cookie 的值会自动进行 URL 编码，在取回时进行自动解码（为防止 URL 编码，请使用 setrawcookie()
-取而代之）。
+注释：在发送 cookie 时，cookie 的值会自动进行 URL 编码，在取回时进行自动解码。
 
 ### 取回 Cookie
 
@@ -362,10 +344,10 @@ print_r($_COOKIE);      // A way to view all cookies
 
 ```php
 if (isset($_COOKIE["user"])) echo "Welcome " . $_COOKIE["user"] . "!<br>";
-else echo "Welcome guest!<br />";
+else echo "Welcome guest!<br>";
 ```
 
-### 删除 cookie
+### 删除 Cookie
 
 当删除 cookie 时，您应当使过期日期变更为过去的时间点。
 
@@ -376,13 +358,13 @@ setcookie("user", "", time()-3600);  // set the expiration date to one hour ago
 
 ## PHP Sessions
 
-PHP session 变量用于存储有关用户会话的信息，或更改用户会话的设置。Session 变量保存的信息是单一用户的，并且可供应用程序中的所有页面使用。
+PHP session 提供了一个跨页面共享信息的机制。与 cookie 不同的是，信息存储在服务器而非客户端。
 
 ### Session 变量
 
-当您运行一个应用程序时，您会打开它，做些更改，然后关闭它。这很像一次会话。计算机清楚你是谁。它知道你何时启动应用程序，并在何时终止。但是在因特网上，存在一个问题：服务器不知道你是谁以及你做什么，这是由于 HTTP 地址不能维持状态。
+当您运行一个应用程序时，您会打开它，做些更改，然后关闭它。这很像一次会话。计算机清楚你是谁。它知道你何时启动应用程序，并在何时终止。但是在因特网上，存在一个问题：服务器不知道你是谁以及你做了什么，因为 HTTP 地址无法保存状态。
 
-通过在服务器上存储用户信息以便随后使用，PHP session 解决了这个问题（比如用户名称、购买商品等）。不过，会话信息是临时的，在用户离开网站后将被删除。如果您需要永久储存信息，可以把数据存储在数据库中。
+PHP session 通过在服务器上存储用户信息来实现不同页面间的信息共享。不过，会话信息是临时的，当用户关闭浏览器时就会被删除，如果您需要永久储存信息，可以把数据存储在数据库中。
 
 Session 的工作机制是：为每个访问者创建一个唯一的 id (UID)，并基于这个 UID 来存储变量。UID 存储在 cookie 中，亦或通过
 URL 进行传导。
