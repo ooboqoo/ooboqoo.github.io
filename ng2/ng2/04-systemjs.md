@@ -1,12 +1,10 @@
 # SystemJS & JSPM
 
-[JavaScript 模块化历程](http://web.jobbole.com/83761/)
-
 ## SystemJS 配置
 
 ### Configuration Options
 
-配置项告诉 SystemJS 如果正确加载模块。
+配置项告诉 SystemJS 如何正确加载模块。
 
 当 SystemJS 完成加载后，就可以调用 System.config 函数来进行配置，这其实就是在 SystemJS 实例上设置配置属性：`System.config({ prop: 'value' })` 基本等效于 `System.prop = value`
 
@@ -54,7 +52,7 @@ packages: {
 }
 ```
 
-##### bundle - 模块捆绑
+##### bundle - 模块打包
 配合 SystemJS Builder，可以将多个模块打包，引用到包内模块时再动态加载该包。部署阶段将应用拆分为多个子模块时比较有用。
 
 ```js

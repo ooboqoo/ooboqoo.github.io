@@ -9,7 +9,7 @@ http://blog.mgechev.com/2016/06/26/tree-shaking-angular2-production-build-rollup
 
 还没有针对 Angular2 的专门高亮和代码片段等相关插件出现，估计等正式版出来了就会慢慢冒出来。
 
-TypeScript 的默认语法高亮，不支持 Angular2 模板已经各指令高亮，模板高亮比较简单，修改方案在后面，其他的，暂时还是用 Webstorm 比较好，支持比较给力，再说真正做项目还是得习惯使用 Webstorm 的，虽然启动速度实在太挫。
+TypeScript 的默认语法高亮，不支持 Angular2 模板以及各指令高亮，模板高亮比较简单，修改方案在后面，其他的，暂时还是用 Webstorm 比较好，支持比较给力，再说真正做项目还是得习惯使用 Webstorm 的，虽然启动速度实在太挫。
 
 #### 模板高亮支持
 

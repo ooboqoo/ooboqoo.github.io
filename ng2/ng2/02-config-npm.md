@@ -1,11 +1,55 @@
 # package.json 项目配置文件详解
 
+## npm 使用
+
+```bash
+npm install npm -g  # 更新 npm 自身
+npm -v              # 查看 npm 版本
+
+npm npm ls -g --depth=0      # 列出安装的软件包
+npm outdated  # 列出过时的包
+npm update    # 根据 package.json 指示更新包
+npm install               # 安装所有依赖包
+npm install --production  # 只安装产品依赖
+npm uninstall --save lodash  # 卸载软件包并从 package.json 中移除
+```
+
+## 版本规范
+
+Semantic versioning is a standard that a lot of projects use to communicate what kinds of changes are in this release. It's important to communicate what kinds of changes are in a release because sometimes those changes will break the code that depends on the package.
+
+Angular versioning will then follow the MAJOR.MINOR.PATCH scheme as described by [semver](http://semver.org/spec/v2.0.0.html):
+
+the MAJOR version gets incremented when incompatible API changes are made to stable APIs,   
+the MINOR version gets incremented when backwards-compatible functionality are added,   
+the PATCH version gets incremented when backwards-compatible bug are fixed.
+
+#### Semver for publishers
+
+If a project is going to be shared with others, it should start at 1.0.0, though some projects on npm don't follow this rule.
+
+After this, changes should be handled as follows:
+
+Bug fixes and other minor changes: Patch release, increment the last number, e.g. 1.0.1  
+New features which don't break existing features: Minor release, increment the middle number, e.g. 1.1.0  
+Changes which break backwards compatibility: Major release, increment the first number, e.g. 2.0.0
+
+#### Semver for consumers
+
+As a consumer, you can specify which kinds of updates your app can accept in the package.json file.
+
+If you were starting with a package 1.0.4, this is how you would specify the ranges:
+
+* Patch releases: 1.0 or 1.0.x or ~1.0.4
+* Minor releases: 1 or 1.x or ^1.0.4
+* Major releases: * or x
+
 ## npm 包配置详解
 
 ```js
 // package.json (dependencies)
 {
-  "dependencies": {
+  "dependencies": {                        // @angular 为命名空间，详见 npm 介绍
     "@angular/common": "2.0.0-rc.4",       // 常用的服务、管道和指令
     "@angular/compiler": "2.0.0-rc.4",     // 模板编译器
     "@angular/core": "2.0.0-rc.4",         // 框架中关键的运行期部件
@@ -13,15 +57,15 @@
     "@angular/http": "2.0.0-rc.4",         // HTTP 客户端
     "@angular/platform-browser": "2.0.0-rc.4",  // 与 DOM 和浏览器相关的每样东西
     "@angular/platform-browser-dynamic": "2.0.0-rc.4",  // 提供一些提供商和 bootstrap 方法
-    "@angular/router": "3.0.0-beta.1",         // 组件路由器
-    "@angular/upgrade": "2.0.0-rc.4",          // 一组用于升级 Angular 1 应用的工具
+    "@angular/router": "3.0.0-beta.1",          // 组件路由器
+    "@angular/upgrade": "2.0.0-rc.4",           // 一组用于升级 Angular 1 应用的工具
     "systemjs": "0.19.27",          // 一个动态的模块加载器，兼容ES6模块规范，其他还有 webpack 等
     "core-js": "^2.4.0",            // 浏览器补丁，提供了 ES6 的很多基础特性，其他还有 es6-shim 等
     "reflect-metadata": "^0.1.3",   // NG2 和 TS 共享的polyfill，提供 annotation metadata 支持
     "rxjs": "5.0.0-beta.6",         // 一个为 可观察对象 (Observable) 规范 提供的填充库
     "zone.js": "^0.6.12",           // Zone规范的polyfill，主要用于检测数据变更
-    "angular2-in-memory-web-api": "0.0.14",   // 支持库，在开发阶段模拟一个远端服务器
-    "bootstrap": "^3.3.6"                     // 一个广受欢迎的 HTML 和 CSS 框架
+    "angular2-in-memory-web-api": "0.0.14",    // 支持库，在开发阶段模拟一个远端服务器
+    "bootstrap": "^3.3.6"                      // 一个广受欢迎的 HTML 和 CSS 框架
   },
   "devDependencies": {
     "concurrently": "^2.0.0",  // 一个用来同时运行多个 npm 命令的工具
@@ -30,9 +74,6 @@
     "typings": "^1.0.4"        // 一个“ TypeScript 定义”文件管理器
   }
 }
-
-npm install               // 安装所有依赖包
-npm install --production  // 只安装产品依赖
 ```
 
 ### dependencies

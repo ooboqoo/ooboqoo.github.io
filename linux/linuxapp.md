@@ -1,6 +1,6 @@
-# Linux 应用命令
+# Linux 应用专题
 
-
+## 应用命令
 
 ### rsync 远程文件同步
 
@@ -74,4 +74,34 @@ scp [-pr] [ssh options] [[user@]host1:]file1 ... [[user@]host2:]file2
 
 scp file1 file2 centos:/var/www/html  # 同时拷贝多个文件到服务器
 ```
+
+## 应用专题
+
+### 文件监控
+
+tail - output the last part of files
+
+```bash
+tail -f filename  # 监控文件变化，文件有更新就会打印出来
+```
+
+watch - execute a program periodically, showing output fullscreen
+
+```bash
+watch src cp -uvf src des  # 每隔2秒执行一次复制，这是个简易的实时文件同步命令
+```
+
+### 查看日志
+
+通过查看屏幕上面的错误信息与日志文件的错误信息，几乎可以解决大部分的Linux问题！  
+1, 解决系统方面的错误 2, 解决网络服务的问题 3, 过往事件记录簿。
+
+日志文件大本营 /var/log/。
+
+nl 显示带行号；head 只看头几行；tail 只看结尾几行
+
+
+
+
+
 

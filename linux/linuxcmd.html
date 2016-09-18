@@ -238,7 +238,7 @@ LANG=en_US.UTF-8    // 临时设定语言以支持中文正常显示</pre>
 
 <div>
 <h2>认识系统服务</h2>
-<p>实现某种service的程序称之为daemon，主要分为 stand alone 及 super daemon两种</p>
+<p>实现某种service的程序称之为 daemon(守护进程)，主要分为 stand alone 及 super daemon两种</p>
 <p>super daemon 由xinetd(extended Internet services daemon)统一管理，连接机制分单/多线程</p>
 <p>daemon 根据工作形态不同可分为 signal-daemon 和 interval-control</p>
 <p>启动daemon的进程通常会在服务名称之后加个d，提示是daemon</p>
@@ -276,12 +276,6 @@ systemctl可以列出正在运行的服务状态，systemd-cgls以树形列出�
 
 <h3>firewallcmd 替代 iptables</h3>
 
-</div>
-
-<div>
-<h2>日志文件</h2>
-<p>通过查看屏幕上面的错误信息与日志文件的错误信息，几乎可以解决大部分的Linux问题！<br />
-1,解决系统方面的错误 2,解决网络服务的问题 3,过往事件记录簿。日志文件大本营 /var/log/。</p>
 </div>
 
 </div>
