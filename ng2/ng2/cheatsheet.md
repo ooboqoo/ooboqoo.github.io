@@ -1,19 +1,22 @@
 # Angular2  Cheat Sheet
 
-#### Bootstrapping
+#### 引导 Bootstrapping
 
 ```ts
-// Bootstraps the app, using the root component from the specified `NgModule`.
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+// Bootstraps the app, using the root component from the specified `NgModule`.
+// 使用 JIT 编译器引导一个 AppModule 模块定义的应用
 platformBrowserDynamic().bootstrapModule(AppModule);
 ```
 
-#### NgModules
+#### Angular 模块 NgModules
 
 ```ts
-// Defines a module that contains components, directives, pipes, and providers.
 import { NgModule } from '@angular/core';
 
+// Defines a module that contains components, directives, pipes, and providers.
+// 定义一个模块，其中包括组件、指令、管道和提供商。
 @NgModule({
   declarations: ...,
   imports: ...,
@@ -24,22 +27,27 @@ import { NgModule } from '@angular/core';
 class MyModule {}
 
 // List of components, directives, and pipes that belong to this module.
+// 一个数组，包括从属于当前模块的组件、指令和管道。
 declarations: [MyRedComponent, MyBlueComponent, MyDatePipe]
 
 // List of modules to import into this module. Everything from the imported modules is available to `declarations` of this module.
+// 一个数组，包括被导入到当前模块中的所有模块。被导入模块的所有内容可用于 declarations 中。
 imports: [BrowserModule, SomeOtherModule]
 
 // List of components, directives, and pipes visible to modules that import this module.
+// 一个数组，包括对导入当前模块的模块可见的组件、指令、管道。该数组是 declarations 的子集。
 exports: [MyRedComponent, MyDatePipe]
 
 // List of dependency injection providers visible both to the contents of this module and to importers of this module.
+// 一个数组，用于声明依赖注入提供商，对当前模块及导入当前模块的模块可见。
 providers: [MyService, { provide: ... }]
 
 // List of components to bootstrap when this module is bootstrapped.
+// 一个数组，包括由当前模块引导时应该引导的组件
 bootstrap: [MyAppComponent]
 ```
 
-#### Template syntax
+#### 模板语法 Template syntax
 
 ```ts
 // Binds property `value` to the result of expression `firstName`.
@@ -87,7 +95,7 @@ bootstrap: [MyAppComponent]
 </svg>`
 ```
 
-#### Built-in directives
+#### 内建指令 Built-in directives
 
 ```ts
 import { CommonModule } from '@angular/common';
@@ -104,60 +112,69 @@ import { CommonModule } from '@angular/common';
   <template ngSwitchCase="case2LiteralString">...</template>
   <template ngSwitchDefault>...</template>
 </div>`
+// 我能看懂的是下面这样的，上面的具体待考
+`<div class='container' [ngSwitch]='myVar'>
+  <div *ngSwitchWhen='"A"'>Var is A</div>
+  <div *ngSwitchWhen='"A"'>Var is A again</div>     <!-- 同一项可以匹配多次 -->
+  <div *ngSwitchWhen='"B"'>Var is B</div>
+  <div *ngSwitchDefault>Var is something else</div> <!-- 此 default 项不是必需的 -->
+</div>`
 
 // Binds the presence of CSS classes on the element to the truthiness of the associated map values. The right-hand expression should return {class-name: true/false} map.
 `<div [ngClass]="{active: isActive, disabled: isDisabled}">`
 ```
 
-#### Forms
+#### 表单 Forms
 
 ```ts
-// Provides two-way data-binding, parsing, and validation for form controls.
 import { FormsModule } from '@angular/forms';
+
+// Provides two-way data-binding, parsing, and validation for form controls.
+// 提供双向绑定，为表单控件提供解析和验证。
 `<input [(ngModel)]="userName">`
 ```
 
-#### Class decorators
+#### 类装饰器 Class decorators
 
 ```ts
 import { Directive, ... } from '@angular/core';
 
 // Declares that a class is a component and provides metadata about the component.
+// 声明当前类是一个组件，并提供关于该组件的元数据。
 @Component({...})
 class MyComponent() {}
 
 // Declares that a class is a directive and provides metadata about the directive.
+// 声明当前类是一个指令，并提供关于该指令的元数据。
 @Directive({...}) 
 class MyDirective() {}
 
 // Declares that a class is a pipe and provides metadata about the pipe.
+// 声明当前类是一个管道，并且提供关于该管道的元数据。
 @Pipe({...})
 class MyPipe() {}
 
 // Declares that a class has dependencies that should be injected into the constructor when the dependency injector is creating an instance of this class.
+// 声明当前类有一些依赖，当依赖注入器创建该类的实例时，这些依赖应该被注入到构造函数中。
 @Injectable()
 class MyService() {}
 ```
 
-#### Directive configuration
+#### 指令配置项 Directive configuration
 
 ```ts
 @Directive({
+  // Specifies a CSS selector that identifies this directive within a template.
+  // Supported selectors include `element`, `[attribute]`, `.class`, and `:not()`.
+  // Does not support parent-child relationship selectors.
   selector: '.cool-button:not(a)',
-  providers: [MyService, { provide: ... }]
+
+  // List of dependency injection providers for this directive and its children.
+  providers: [MyService, { provide: ... }],
 })
 ```
 
-selector:  
-Specifies a CSS selector that identifies this directive within a template.
-Supported selectors include `element`, `[attribute]`, `.class`, and `:not()`.
-
-Does not support parent-child relationship selectors.
-
-providers:  
-List of dependency injection providers for this directive and its children.
-
-#### Component configuration
+#### 组件配置项 Component configuration
 
 `@Component` extends `@Directive`, so the `@Directive` configuration applies to components as well
 
@@ -165,12 +182,12 @@ List of dependency injection providers for this directive and its children.
 @Component({
   slector: ...,
   providers: ...,
-  moduleId: module.id,
-  viewProviders: [MyService, { provide: ... }],
-  template: 'Hello {{name}}',        // 二选一
-  templateUrl: 'my-component.html',  // 二选一
-  styles: ['.primary {color: red}']  // 二选一
-  styleUrls: ['my-component.css']    // 二选一
+  moduleId: module.id,  // 如果设置了，templateUrl 和 styleUrl 会相对于组件进行地址解析。
+  viewProviders: [MyService, { provide: ... }],  // 注册组件级别的服务供应商
+  template: 'Hello {{name}}',         // 二选一，内嵌模板
+  templateUrl: 'my-component.html',   // 二选一，外部模板
+  styles: ['.primary {color: red}'],  // 二选一，内嵌css
+  styleUrls: ['my-component.css'],    // 二选一，外部css
 })
 ```
 
@@ -181,206 +198,205 @@ List of dependency injection providers for this directive and its children.
 `template` / `templateUrl` | Inline template or external template URL of the component's view.
 `styles` / `styleUrls` | List of inline CSS styles or external stylesheet URLs for styling the component’s view.
 
-#### Class field decorators for directives and components
+#### 字段装饰器  Class field decorators for directives and components
 
 ```ts
 import { Input, ... } from '@angular/core';
 
 // Declares an input property that you can update via property binding
 // (example: `<my-cmp [myProperty]="someExpression">`).
+// 声明一个输入属性，以便我们可以通过属性绑定更新它。
 @Input() myProperty;
 
 // Declares an output property that fires events that you can subscribe to with an event binding
 // (example: `<my-cmp (myEvent)="doSomething()">`).
+// 声明一个输出属性，以便我们可以通过事件绑定进行订阅。
 @Output() myEvent = new EventEmitter();
 
 // Binds a host element property to a directive/component property.
+// 把宿主元素的属性(比如CSS类：valid)绑定到指令/组件的属性(比如：isValid)。
 @HostBinding('[class.valid]') isValid;
 
 // Subscribes to a host element event (`click`) with a directive/component method (`onClick`),
 // optionally passing an argument (`$event`).
+// 通过指令/组件的方法(例如onClick)订阅宿主元素的事件(例如click)，可选传入一个参数($event)。
 @HostListener('click', ['$event']) onClick(e) {...}
 
 // Binds the first result of the component content query (`myPredicate`) to a property (`myChildComponent`) of the class.
+// 把组件内容查询(myPredicate)的第一个结果绑定到类的myChildComponent属性。
 @ContentChild(myPredicate) myChildComponent;
 
 // Binds the results of the component content query (`myPredicate`) to a property (`myChildComponents`) of the class.
+// 把组件内容查询(myPredicate)的全部结果，绑定到类的myChildComponents属性。
 @ContentChildren(myPredicate) myChildComponents;
 
 // Binds the first result of the component view query (`myPredicate`) to a property (`myChildComponent`) of the class. Not available for directives.
+// 把组件视图查询(myPredicate)的第一个结果绑定到类的myChildComponent属性。对指令无效。
 @ViewChild(myPredicate) myChildComponent;
 
 // Binds the results of the component view query (`myPredicate`) to a property (`myChildComponents`) of the class. Not available for directives.
+// 把组件视图查询(myPredicate)的全部结果绑定到类的myChildComponents属性。对指令无效。
 @ViewChildren(myPredicate) myChildComponents;
 ```
 
-#### Directive and component change detection and lifecycle hooks
+#### 变更检测与生命周期钩子  Directive and component change detection and lifecycle hooks
 
-(implemented as class methods)
+implemented as class methods. 作为类方法实现。示例：
 
-`**constructor(myService: MyService, ...)** { ... }`
+```ts
+import { Component, OnInit } from '@angular/core';
+@Component({
+  selector: 'my-dashboard',
+  templateUrl: `<h2>dashboard</h2>`,
+})
+export class DashboardComponent implements OnInit {
+  constructor() {  }
+  ngOnInit(): void {  }
+}
+```
 
-Called before any other lifecycle hook. Use it to inject dependencies, but
-avoid any serious work here.
+```ts
+// Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+// 类的构造函数须在所有其它生命周期钩子之前调用。使用它来注入依赖，但构造函数只能用来初始化实例而不应该负责其他任务。
+constructor(myService: MyService, ...) { ... }
 
-`**ngOnChanges(changeRecord)** { ... }`
+// Called after every change to input properties and before processing content or child views.
+// 在输入属性每次变化了之后、开始处理内容或子视图之前被调用。
+ngOnChanges(changeRecord) { ... }
 
-Called after every change to input properties and before processing content or
-child views.
+// Called after the constructor, initializing input properties, and the first call to `ngOnChanges`.
+// 在执行构造函数、初始化输入属性、第一次调用完ngOnChanges之后调用。
+ngOnInit() { ... }
 
-`**ngOnInit()** { ... }`
+// Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
+// 每当检查组件或指令的输入属性是否变化时调用。通过它，可以用自定义的检查方式来扩展变更检测逻辑。
+ngDoCheck() { ... }
 
-Called after the constructor, initializing input properties, and the first
-call to `ngOnChanges`.
+// Called after `ngOnInit` when the component's or directive's content has been initialized.
+// 当组件或指令的内容已经初始化、ngOnInit完成之后调用。
+ngAfterContentInit() { ... }
 
-`**ngDoCheck()** { ... }`
+// Called after every check of the component's or directive's content.
+// 在每次检查完组件或指令的内容之后调用。
+ngAfterContentChecked() { ... }
 
-Called every time that the input properties of a component or a directive are
-checked. Use it to extend change detection by performing a custom check.
+// Called after `ngAfterContentInit` when the component's view has been initialized. Applies to components only.
+// 当组件的视图已经初始化完毕，每次ngAfterContentInit之后被调用。只适用于组件。
+ngAfterViewInit() { ... }
 
-`**ngAfterContentInit()** { ... }`
+// Called after every check of the component's view. Applies to components only.
+// 每次检查完组件的视图之后调用。只适用于组件。
+ngAfterViewChecked() { ... }
 
-Called after `ngOnInit` when the component's or directive's content has been
-initialized.
+// Called once, before the instance is destroyed.
+// 在所属实例被销毁前，只调用一次。
+ngOnDestroy() { ... }
+```
 
-`**ngAfterContentChecked()** { ... }`
+#### 依赖注入配置项  Dependency injection configuration
 
-Called after every check of the component's or directive's content.
+```ts
+// Sets or overrides the provider for `MyService` to the `MyMockService` class.
+// 把 MyService 类的提供商设置或改写为 MyMockService。
+{ provide: MyService, useClass: MyMockService }
 
-`**ngAfterViewInit()** { ... }`
+// Sets or overrides the provider for `MyService` to the `myFactory` factory function.
+// 把 MyService 的提供商设置或改写为 myFactory 工厂函数。
+{ provide: MyService, useFactory: myFactory }
 
-Called after `ngAfterContentInit` when the component's view has been
-initialized. Applies to components only.
+// Sets or overrides the provider for `MyValue` to the value `41`.
+// 把 MyValue 的提供商设置或改写为值 41。
+{ provide: MyValue, useValue: 41 }
+```
 
-`**ngAfterViewChecked()** { ... }`
+#### 路由与导航 Routing and navigation
 
-Called after every check of the component's view. Applies to components only.
+```ts
+import { Routes, RouterModule, ... } from '@angular/router';
 
-`**ngOnDestroy()** { ... }`
+// Configures routes for the application. Supports static, parameterized, redirect, and wildcard routes.
+// Also supports custom route data and resolve.
+// 为应用配置路由。支持静态、参数化、重定向和通配符路由。还支持自定义路由数据和解析。
+const routes: Routes = [
+  { path: 'path/:routeParam', component: MyComponent },
+  { path: 'staticPath', component: ... },
+  { path: '', component: HomeComponent },
+  { path: '**', component: ... },
+  { path: 'oldPath', redirectTo: '/staticPath' },
+  { path: ..., component: ..., data: { message: 'Custom' } }
+]);
+const routing = RouterModule.forRoot(routes);
 
-Called once, before the instance is destroyed.
+// Marks the location to load the component of the active route.
+// 标记一个位置(容器)，用于加载当前激活路由的组件。
+`<router-outlet></router-outlet>`             // 一个模板中只能有一个未命名插座
+`<router-outlet name="aux"></router-outlet>`  // 路由器支持多个命名插座并存
 
-Dependency injection configuration
+// Creates a link to a different view based on a route instruction consisting of a route path,
+// required and optional parameters, query parameters, and a fragment.
+// To navigate to a root route, use the `/` prefix; for a child route, use the `./`prefix;
+// for a sibling or parent, use the `../` prefix.
+// 基于路由指令创建指向不同视图的链接，由路由路径、必选参数、可选参数、查询参数和片段（fragment）组成。
+// 添加“/”前缀可以导航到根路由。添加“./”前缀可以导航到子路由。添加“../sibling”前缀可以导航到兄弟路由或父路由。
+<a routerLink="/path">
+<a [routerLink]="[ '/path', routeParam ]">
+<a [routerLink]="[ '/path', { matrixParam: 'value' } ]">
+<a [routerLink]="[ '/path' ]" [queryParams]="{ page: 1 }">
+<a [routerLink]="[ '/path' ]" fragment="anchor">
 
-`{ **provide**: MyService, **useClass**: MyMockService }`
+// The provided classes are added to the element when the `routerLink` becomes the current active route.
+// 当 routerLink 被激活时，就把指定的 CSS 类添加到该元素上。
+<a [routerLink]="[ '/path' ]" routerLinkActive="active">
 
-Sets or overrides the provider for `MyService` to the `MyMockService` class.
+// An interface for defining a class that the router should call first to determine if it should activate this component. Should return a boolean or an Observable/Promise that resolves to a boolean.
+// 一个用来定义类的接口，路由器会首先调用它来决定是否应该激活该组件。
+// 应该返回布尔值或能解析为布尔值的可观察对象(Observable)或承诺(Promise)。
+// 检查路由访问权
+class CanActivateGuard implements CanActivate {
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean>|Promise<boolean>|boolean { ... }
+}
+{ path: ..., canActivate: [CanActivateGuard] }
 
-`{ **provide**: MyService, **useFactory**: myFactory }`
+// 一个用来定义类的接口，路由器在导航后会首先调用它来决定是否应该取消该组件的激活状态。
+// 询问是否丢弃未保存的修改
+class CanDeactivateGuard implements CanDeactivate<T> {
+  canDeactivate(
+    component: T,
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean>|Promise<boolean>|boolean { ... }
+}
+{ path: ..., canDeactivate: [CanDeactivateGuard] }
 
-Sets or overrides the provider for `MyService` to the `myFactory` factory
-function.
+// 一个用来定义类的接口，路由器会首先调用它来决定是否应该激活该子路由。
+// 检查子路由访问权
+class CanActivateChildGuard implements CanActivateChild {
+  canActivateChild(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean>|Promise<boolean>|boolean { ... }
+}
+{ path: ..., canActivateChild: [CanActivateGuard], children: ... }
 
-`{ **provide**: MyValue, **useValue**: 41 }`
+// 一个用来定义类的接口，路由器会在渲染该路由之前先调用它来解析路由数据。
+// 预先获取路由数据
+class ResolveGuard implements **Resolve**<T> {
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<any>|Promise<any>|any { ... }
+}
+{ path: ..., resolve: [ResolveGuard] }
 
-Sets or overrides the provider for `MyValue` to the value `41`.
-
-Routing and navigation
-
-`import { Routes, RouterModule, ... } from '@angular/router';`
-
-`const routes: **Routes** = [  
-  { path: '', component: HomeComponent },  
-  { path: 'path/:routeParam', component: MyComponent },  
-  { path: 'staticPath', component: ... },  
-  { path: '**', component: ... },  
-  { path: 'oldPath', redirectTo: '/staticPath' },  
-  { path: ..., component: ..., data: { message: 'Custom' } }  
-]);  
-  
-const routing = RouterModule.forRoot(routes);`
-
-Configures routes for the application. Supports static, parameterized,
-redirect, and wildcard routes. Also supports custom route data and resolve.
-
-`  
-<**router-outlet**></**router-outlet**>  
-<**router-outlet** name="aux"></**router-outlet**>  
-`
-
-Marks the location to load the component of the active route.
-
-`  
-<a routerLink="/path">  
-<a **[routerLink]**="[ '/path', routeParam ]">  
-<a **[routerLink]**="[ '/path', { matrixParam: 'value' } ]">  
-<a **[routerLink]**="[ '/path' ]" [queryParams]="{ page: 1 }">  
-<a **[routerLink]**="[ '/path' ]" fragment="anchor">  
-`
-
-Creates a link to a different view based on a route instruction consisting of
-a route path, required and optional parameters, query parameters, and a
-fragment. To navigate to a root route, use the `/` prefix; for a child route,
-use the `./`prefix; for a sibling or parent, use the `../` prefix.
-
-`<a [routerLink]="[ '/path' ]" routerLinkActive="active">`
-
-The provided classes are added to the element when the `routerLink` becomes
-the current active route.
-
-`class **CanActivate**Guard implements **CanActivate** {  
-    canActivate(  
-      route: ActivatedRouteSnapshot,  
-      state: RouterStateSnapshot  
-    ): Observable<boolean>|Promise<boolean>|boolean { ... }  
-}  
-  
-{ path: ..., canActivate: [**CanActivate**Guard] }`
-
-An interface for defining a class that the router should call first to
-determine if it should activate this component. Should return a boolean or an
-Observable/Promise that resolves to a boolean.
-
-`class **CanDeactivate**Guard implements **CanDeactivate**<T> {  
-    canDeactivate(  
-      component: T,  
-      route: ActivatedRouteSnapshot,  
-      state: RouterStateSnapshot  
-    ): Observable<boolean>|Promise<boolean>|boolean { ... }  
-}  
-  
-{ path: ..., canDeactivate: [**CanDeactivate**Guard] }`
-
-An interface for defining a class that the router should call first to
-determine if it should deactivate this component after a navigation. Should
-return a boolean or an Observable/Promise that resolves to a boolean.
-
-`class **CanActivateChild**Guard implements **CanActivateChild** {  
-    canActivateChild(  
-      route: ActivatedRouteSnapshot,  
-      state: RouterStateSnapshot  
-    ): Observable<boolean>|Promise<boolean>|boolean { ... }  
-}  
-  
-{ path: ..., canActivateChild: [CanActivateGuard],  
-    children: ... }`
-
-An interface for defining a class that the router should call first to
-determine if it should activate the child route. Should return a boolean or an
-Observable/Promise that resolves to a boolean.
-
-`class **Resolve**Guard implements **Resolve**<T> {  
-    resolve(  
-      route: ActivatedRouteSnapshot,  
-      state: RouterStateSnapshot  
-    ): Observable<any>|Promise<any>|any { ... }  
-}  
-  
-{ path: ..., resolve: [**Resolve**Guard] }`
-
-An interface for defining a class that the router should call first to resolve
-route data before rendering the route. Should return a value or an
-Observable/Promise that resolves to a value.
-
-`class **CanLoad**Guard implements **CanLoad** {  
-    canLoad(  
-      route: Route  
-    ): Observable<boolean>|Promise<boolean>|boolean { ... }  
-}  
-  
-{ path: ..., canLoad: [**CanLoad**Guard], loadChildren: ... }`
-
-An interface for defining a class that the router should call first to check
-if the lazy loaded module should be loaded. Should return a boolean or an
-Observable/Promise that resolves to a boolean.
-
+// 一个用来定义类的接口，路由器会首先调用它来决定一个延迟加载的模块是否应该被加载。
+// 在加载特性模块之前进行检查
+class CanLoadGuard implements CanLoad {
+  canLoad(
+    route: Route
+  ): Observable<boolean>|Promise<boolean>|boolean { ... }
+}
+{ path: ..., canLoad: [CanLoadGuard], loadChildren: ... }
+```
