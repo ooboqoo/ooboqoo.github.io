@@ -51,45 +51,58 @@ bootstrap: [MyAppComponent]
 
 ```ts
 // Binds property `value` to the result of expression `firstName`.
+// 把属性 value 绑定到表达式 firstName 的结果。
 `<input [value]="firstName">`
 
 // Binds attribute `role` to the result of expression `myAriaRole`.
+// 把 role 这个 Attribute 绑定到表达式 myAriaRole 的结果。
 `<div [attr.role]="myAriaRole">`
 
 // Binds the presence of the CSS class `extra-sparkle` on the element to the truthiness of the expression `isDelightful`.
+// 把元素是否出现 CSS类 extra-sparkle，绑定到一个表达式 isDelightful 的结果(true or false)。
 `<div [class.extra-sparkle]="isDelightful">`
 
 // Binds style property `width` to the result of expression `mySize` in pixels. Units are optional.
+// 把样式的width属性绑定到表达式mySize的结果，以px为单位。这个单位是可选的。
 `<div [style.width.px]="mySize">`
 
 // Calls method `readRainbow` when a click event is triggered on this button element (or its children) and passes in the event object.
-`<button (click)="readRainbow($event)">`
+// 当按钮(及其子元素)上的 click 事件被触发时，调用 readRainbow 方法，并把事件对象作为参数传入。
+`<button (click)="readRainbow($event)">`  // 注意这里是 <element onclick="script"> 的写法，所以方法要带括号
 
-// Binds a property to an interpolated string, for example, "Hello Seabiscuit". Equivalent to: `<div [title]="'Hello ' + ponyName">`
-`<div title="Hello {{ponyName}}">`
+// Binds a property to an interpolated string, equivalent to: `<div [title]="'Hello ' + ponyName">`
+// 把属性绑定到一个插值表达式字符串，它等价于： <div [title]="'Hello ' + ponyName">
+`<div title="Hello {{ponyName}}">`  // 问题，什么时候加 []
 
 // Binds text content to an interpolated string, for example, "Hello Seabiscuit".
+// 把文本内容绑定到一个插值表达式，比如 "Hello Seabiscuit".
 `<p>Hello {{ponyName}}</p>`
 
 // Sets up two-way data binding. Equivalent to: `<my-cmp [title]="name" (titleChange)="name=$event">`
+// 设置双向数据绑定。等价于：<my-cmp [title]="name" (titleChange)="name=$event">
 `<my-cmp [(title)]="name">`
 
 // Creates a local variable `movieplayer` that provides access to the `video` element instance in data-binding and event-binding expressions in the current template.
+// 创建一个局部变量 movieplayer ，它提供到 video 元素实例的访问，可用于当前模板中的数据绑定和事件绑定表达式中。
 `<video #movieplayer ...> <button (click)="movieplayer.play()"> </video>`
 
 // The `*` symbol turns the current element into an embedded template. Equivalent to: `<template [myUnless]="myExpression"><p>...</p></template>`
+// *符号表示当前元素将被转变成一个内嵌模板。等价于：<template [myUnless]="myExpression"><p>...</p></template>
 `<p *myUnless="myExpression">...</p>`
 
-// Transforms the current value of expression `cardNumber` via the pipe called `myCardNumberFormatter`.
+// 通过名叫 myCardNumberFormatter 的管道，转换表达式的当前值 cardNumber
 `<p>Card No.: {{cardNumber | myCardNumberFormatter}}</p>`
 
 // The safe navigation operator (`?`) means that the `employer` field is optional and if `undefined`, the rest of the expression should be ignored.
+// 安全导航运算符(?.)表示 employer 字段是可选的，如果它是 undefined，表达式剩下的部分将被忽略
 `<p>Employer: {{employer?.companyName}}</p>`
 
 // An SVG snippet template needs an `svg:` prefix on its root element to disambiguate the SVG element from an HTML component.
+// SVG模板需要在它们的根节点上带一个 `svg:` 前缀，以消除模板中 HTML元素和 SVG元素的歧义
 `<svg: rect x="0" y="0" width="100" height="100"/>`
 
 // An `<svg>` root element is detected as an SVG element automatically, without the prefix.
+// <svg>元素在无需前缀的情况下，也能被自动检测为SVG。
 `<svg>
   <rect x="0" y="0" width="100" height="100"/>  
 </svg>`
@@ -127,7 +140,9 @@ import { CommonModule } from '@angular/common';
 #### 表单 Forms
 
 ```ts
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+  // FormsModule 提供 ngModel, ngForm, ngSubmit 等指令
+  // ReactiveFormsModule 提供 formControl, formGroup 等指令
 
 // Provides two-way data-binding, parsing, and validation for form controls.
 // 提供双向绑定，为表单控件提供解析和验证。
@@ -223,19 +238,19 @@ import { Input, ... } from '@angular/core';
 @HostListener('click', ['$event']) onClick(e) {...}
 
 // Binds the first result of the component content query (`myPredicate`) to a property (`myChildComponent`) of the class.
-// 把组件内容查询(myPredicate)的第一个结果绑定到类的myChildComponent属性。
+// 把组件内容查询(myPredicate)的第一个结果绑定到类的 myChildComponent 属性。
 @ContentChild(myPredicate) myChildComponent;
 
 // Binds the results of the component content query (`myPredicate`) to a property (`myChildComponents`) of the class.
-// 把组件内容查询(myPredicate)的全部结果，绑定到类的myChildComponents属性。
+// 把组件内容查询(myPredicate)的全部结果，绑定到类的 myChildComponents 属性。
 @ContentChildren(myPredicate) myChildComponents;
 
 // Binds the first result of the component view query (`myPredicate`) to a property (`myChildComponent`) of the class. Not available for directives.
-// 把组件视图查询(myPredicate)的第一个结果绑定到类的myChildComponent属性。对指令无效。
+// 把组件视图查询(myPredicate)的第一个结果绑定到类的 myChildComponent 属性。对指令无效。
 @ViewChild(myPredicate) myChildComponent;
 
 // Binds the results of the component view query (`myPredicate`) to a property (`myChildComponents`) of the class. Not available for directives.
-// 把组件视图查询(myPredicate)的全部结果绑定到类的myChildComponents属性。对指令无效。
+// 把组件视图查询(myPredicate)的全部结果绑定到类的 myChildComponents 属性。对指令无效。
 @ViewChildren(myPredicate) myChildComponents;
 ```
 
@@ -247,7 +262,7 @@ implemented as class methods. 作为类方法实现。示例：
 import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'my-dashboard',
-  templateUrl: `<h2>dashboard</h2>`,
+  template: `<h2>dashboard</h2>`,
 })
 export class DashboardComponent implements OnInit {
   constructor() {  }
@@ -265,7 +280,7 @@ constructor(myService: MyService, ...) { ... }
 ngOnChanges(changeRecord) { ... }
 
 // Called after the constructor, initializing input properties, and the first call to `ngOnChanges`.
-// 在执行构造函数、初始化输入属性、第一次调用完ngOnChanges之后调用。
+// 在执行构造函数、初始化输入属性、第一次调用完 ngOnChanges 之后调用。
 ngOnInit() { ... }
 
 // Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
@@ -273,7 +288,7 @@ ngOnInit() { ... }
 ngDoCheck() { ... }
 
 // Called after `ngOnInit` when the component's or directive's content has been initialized.
-// 当组件或指令的内容已经初始化、ngOnInit完成之后调用。
+// 当组件或指令的内容已经初始化、ngOnInit 完成之后调用。
 ngAfterContentInit() { ... }
 
 // Called after every check of the component's or directive's content.
@@ -281,7 +296,7 @@ ngAfterContentInit() { ... }
 ngAfterContentChecked() { ... }
 
 // Called after `ngAfterContentInit` when the component's view has been initialized. Applies to components only.
-// 当组件的视图已经初始化完毕，每次ngAfterContentInit之后被调用。只适用于组件。
+// 当组件的视图已经初始化完毕，每次 ngAfterContentInit 之后被调用。只适用于组件。
 ngAfterViewInit() { ... }
 
 // Called after every check of the component's view. Applies to components only.

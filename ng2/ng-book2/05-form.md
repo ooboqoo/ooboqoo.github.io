@@ -1,3 +1,85 @@
+# Forms
+
+## Our First Form
+
+### Simple SKU Form: template
+
+form & NgForm
+
+Now things get interesting: because we imported FormsModule , that makes NgForm available to our view. **Remember that whenever we make directives available to our view, they will get attached to any element that matches their selector**
+
+NgForm does something handy but non-obvious: it includes the form tag in its selector (instead
+of requiring you to explicitly add ngForm as an attribute). What this means is that if you import
+FormsModule , NgForm will get automatically attached to any `<form>` tags you have in your view.
+This is really useful but potentially confusing because it happens behind the scenes.
+There are two important pieces of functionality that NgForm gives us:
+
+1. A FormGroup named ngForm
+2. A (ngSubmit) output
+
+```ts
+`<form #f="ngForm"  // 给 ngForm 指定别名 f，直接使用 ngForm 是因为 NgForm 指令会自动添加的 ngForm 特性
+                    // ngForm 是一个 FormGroup 对象
+                    // 疑问：直接 #f 行不行，还有 ngForm NgForm 的区别
+    (ngSubmit)="onSubmit(f.value)">
+  <label for="skuInput">SKU</label>
+  <input type="text" id="skuInput" placeholder="SKU" name="sku" ngModel>  // ngModel 指令定义一个 FormControl
+  <button type="submit">Submit</button>
+</form>`
+```
+
+> **NgModel vs. ngModel**
+> 
+> what’s the difference? Generally, when we use PascalCase, like
+NgModel , we’re specifying the class and referring to the object as it’s defined in code. The
+lower case (CamelCase), as in ngModel , comes from the selector of the directive and it’s
+only used in the DOM / template.
+>
+> It’s also worth pointing out that NgModel and FormControl are separate objects. NgModel
+is the directive that you use in your view, whereas FormControl is the object used for
+representing the data and validations in your form.
+
+## Reactive Forms with FormBuilder
+
+Building our FormControl s and FormGroup s implicitly using ngForm and ngControl is convenient.  
+But a more flexible and common way to configure forms is to use a FormBuilder.  
+FormBuilder is an aptly-named helper class that helps us build forms.
+
+```ts
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+
+@Component({
+  selector: 'demo-form-sku-builder',
+  template: `
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
+    <label for="skuInput">SKU</label>
+    <input type="text" id="skuInput" placeholder="SKU" [formControl]="myForm.controls['sku']">
+    <button type="submit">Submit</button>
+    </form>
+  `
+ })
+export class DemoFormSkuBuilder {
+  myForm: FormGroup;
+  constructor(fb: FormBuilder) {  // 需要定义依赖注入
+    this.myForm = fb.group({ 'sku': ['ABC123'] }); }
+  onSubmit(value: string): void {
+    console.log('you submitted value: ', value); }
+}
+```
+
+Remember:  
+To create a new FormGroup and FormControl s implicitly use:  
+• ngForm and
+• ngModel
+But to bind to an existing FormGroup and FormControl s use:  
+• formGroup and
+• formControl
+
+## Adding Validations
+
+
+
 ## Forms 表单
 
 * FormControl s encapsulate the inputs in our forms and give us objects to work with them

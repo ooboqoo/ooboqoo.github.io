@@ -37,7 +37,7 @@ export class AppModule { }
 import { Component } from '@angular/core';
 @Component({
   selector: 'my-app',
-  template: '<h1>My First Angular 2 App</h1>'
+  template: `<h1>My First Angular 2 App</h1>`
 })
 export class AppComponent { }
 
@@ -46,7 +46,7 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent }  from './app.component';
 @NgModule({
-  imports:      [ BrowserModule ],  // 定义依赖项
+  imports:      [ BrowserModule ],  // 定义依赖模块
   declarations: [ AppComponent ],   // 定义模块包含的组件
   bootstrap:    [ AppComponent ]    // 定义启动(顶级)组件
 })
@@ -63,9 +63,9 @@ const platform = platformBrowserDynamic();
 platform.bootstrapModule(AppModule);
 ```
 
-应用的引导过程与创建模块或者展现视图是相互独立的关注点。
+应用的引导过程 与 创建模块 或者 展现视图 是相互独立的关注点。
 
-引导过程是与平台有关的，启动 App 与展现视图是两个相互分离的关注点。把这些关注点混在一起会增加不必要的难度。通过使用不同的引导器 (bootstraper) 来在不同的环境中启动 AppComponent，测试组件也变得更容易。
+引导过程是与平台有关的，启动 App 与展现视图是两个相互分离的关注点。把这些关注点混在一起会增加不必要的复杂度。通过使用不同的引导器 (bootstraper) 来在不同的环境中启动 AppComponent，测试组件也变得更容易。
 
 ## 定义宿主页面
 

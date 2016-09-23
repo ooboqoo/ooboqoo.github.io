@@ -35,7 +35,7 @@ The directive (`<router-outlet>`) that marks where the router should display a v
 
 ##### 路由链接 `RouterLink`
 
-该指令用来把一个可点击的 HTML 元素绑定到路由。 点击带有绑定到 _ 字符串 _ 或 _ 链接参数数组 _ 的 `routerLink` 指令的 A 标签就会触发一次导航。  
+该指令用来把一个可点击的 HTML 元素绑定到路由。点击带有绑定到 _ 字符串 _ 或 _ 链接参数数组 _ 的 `routerLink` 指令的 A 标签就会触发一次导航。  
 The directive for binding a clickable HTML element to a route. Clicking an anchor tag with a `routerLink` directive that is bound to a _Link Parameters Array_ triggers a navigation.
 
 ##### 活动路由链接 `RouterLinkActive`
