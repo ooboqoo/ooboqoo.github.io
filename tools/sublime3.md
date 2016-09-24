@@ -157,7 +157,7 @@ Select all matches using most recent pattern  Alt + F3
 <tr><td>AutoFileName</td><td>自动添加引用文件名。</td></tr>
 <tr><td>AdvancedNewFile</td><td>新建文件的增强版，调用方法：<code>ctrl+alt+n</code></td></tr>
 <tr><td>SideBarEnhancements</td><td>侧边栏右键功能增强。</td></tr>
-<tr><td>SyncedSideBar</td><td>可以在侧边栏同步展开编辑文件所在目录的插件。</td></tr>
+<tr><td>SyncedSideBar</td><td>可以在侧边栏同步展开编辑文件所在目录的插件。后来发现 右键->Reveal in Side Bar 是个更好的选择 </td></tr>
 <tr><td>IMESupport</td><td>输入中文时，输入框总是在最下面，装了这个插件不用设置，一切就会正常工作了。</td></tr>
 </table>
 
