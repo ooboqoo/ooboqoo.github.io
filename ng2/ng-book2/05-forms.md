@@ -2,7 +2,7 @@
 
 ## Forms are Crucial, Forms are Complex
 
-Forms are probably the most crucial aspect of your web application. While we often get events from clicking on links or moving the mouse, it’s throug forms where we get the majority of our rich data input from users.
+Forms are probably the most crucial aspect of your web application. While we often get events from clicking on links or moving the mouse, it’s through forms where we get the majority of our rich data input from users.
 
 It turns out, forms can end up being really complex. Here’s a few reasons why:
 
@@ -98,8 +98,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
    ],
    imports: [
      BrowserModule,
-     FormsModule,         // 提供 `ngModel` `NgForm` 等指令
-     ReactiveFormsModule  // 提供 `formControl` `ngFormGroup` 等指令
+     FormsModule,         // 提供 `ngModel` `ngForm` 等属性
+     ReactiveFormsModule  // 提供 `formControl` `formGroup` 等属性
    ],
    bootstrap: [ FormsDemoApp ]
  })
@@ -170,7 +170,7 @@ Building our `FormControl`s and `FormGroup`s implicitly using `ngForm` and `ngMo
 ```ts
 import { Component } from '@angular/core';
 import {
-  FormBuilder,  // 导入 helper class, 可以认为是 Angular 表格构建工厂
+  FormBuilder,  // 导入 helper class, 可以认为是 Angular 表格构建工厂，提供 group control array 这3个方法
   FormGroup,    // 导入 FormGroup 类 ( FormControl 暂未用到 )
 } from '@angular/forms';
 
@@ -354,7 +354,7 @@ constructor(fb: FormBuilder) {
 
 ## ngModel
 
-NgModel is a special directive: it binds a model to a form. ngModel is special in that it **implements two-way data binding**. Two-way data binding is almost always more complicated and difficult to reason about vs. one-way data binding. Angular 2 is built to generally have data flow one-way: top-down. However, when it comes to forms, there are times where it is easier to opt-in to a two-way bind.
+`NgModel` is a special directive: it binds a model to a form. `ngModel` is special in that it **implements two-way data binding**. Two-way data binding is almost always more complicated and difficult to reason about vs. one-way data binding. Angular 2 is built to generally have data flow one-way: top-down. However, when it comes to forms, there are times where it is easier to opt-in to a two-way bind.
 
 ```ts
 import { Component } from '@angular/core';
