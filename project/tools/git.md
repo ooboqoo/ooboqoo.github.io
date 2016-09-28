@@ -57,6 +57,7 @@ git clone 实际上封装了多个命令：创建新目录，切换到新目录�
 
 ```bash
 $ git add *.js index.html  # 添加所有 js 文件和 index.html 到暂存区
+$ git add .                # 添加所有文件到暂存区
 
 $ git rm <file>                   # 将文件移出 index，并删除本地文件
 $ git rm --cached <file>          # 将文件移出 index，但保留本地文件
@@ -196,6 +197,19 @@ $ git ls-files --stage # 检查保存在 stage 的文件
 $ git cat-file -p d67046  # 查看一个 Git 对象的内容，用于研究 Git 内部机制
 ```
 
+#### GitHub 操作
+
+```bash
+# 在 GitHub 上先新建项目仓库，然后
+$ git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/ooboqoo/primeng-webpack.git  # 如果是现有项目，可以直接从这开始
+git push -u origin master  # -u / --set-upstream 具体讲解如下：
+```
+
+一般只有同时存在多个远程仓库时才会用到--set-upstream。每个git branch可以有个对应的upstream。假设你有两个upstream，分别叫server1和server2，本地master branch的upstream是server1上的master，那么当你不带参数直接输入git pull或者git push时，默认是对server1进行pull/push。如果你成功运行"git push -u server2 master"，那么除了本地branch会被push到server2之外，还会把server2设置成upstream。
+
 ### 配置 .gitignore
 
 文件 .gitignore 的格式规范如下：
@@ -256,7 +270,7 @@ Cmder 是 windows 下的命令行模拟器，不仅能模拟 cmd 而且还自带
 
 各选项过一遍，调整下，方便的，其实也不用怎么调整，初始目录、提示符、标题栏、状态栏 等之类的调下就好。
 
-关于提示符：设置在 `config -> user-startup.cmd`，用法见`help prompt`， 另外，作者的 cmder.lua 脚本写得有问题，直接删除或改名即可。
+关于提示符：设置在 `config -> user-startup.cmd`，用法见`help prompt`，另外，作者的 cmder.lua 脚本写得有问题，直接删除或改名即可。
 
 配置备份：直接拷贝 config 文件夹没效果，需要 `settings -> export` 然后再导入才有效。
 
