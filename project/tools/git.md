@@ -256,7 +256,9 @@ Cmder 是 windows 下的命令行模拟器，不仅能模拟 cmd 而且还自带
 
 各选项过一遍，调整下，方便的，其实也不用怎么调整，初始目录、提示符、标题栏、状态栏 等之类的调下就好。
 
-关于提示符：设置在 `config -> user-startup.cmd` 另外，作者的 cmder.lua 脚本写得有问题，直接删除或改名即可。
+关于提示符：设置在 `config -> user-startup.cmd`，用法见`help prompt`， 另外，作者的 cmder.lua 脚本写得有问题，直接删除或改名即可。
+
+配置备份：直接拷贝 config 文件夹没效果，需要 `settings -> export` 然后再导入才有效。
 
 ## GitHub
 
