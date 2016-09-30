@@ -79,4 +79,8 @@ typings install node --source dt --global --save  # 更新 node 文件的命令
 # --source dt  指定文件来源，默认为 npm
 # --global     Install and persist as a global definition 真实用意不详
 # --save       保存记录到 typings.json
+
+typings install -SG dt~node dt~core-js  # 同时安装多个定义文件
+  # 文件来源有多种写法，具体见 typings install --help
+  # -SG 是 --global + --save 的简写
 ```
