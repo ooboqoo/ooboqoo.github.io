@@ -2,7 +2,7 @@
 
 ## 什么是 Webpack ？
 
-Webpack 是一个强力的模块打包器。所谓 包 (bundle) 就是一个 JavaScript 文件，它把一堆 资源 (assets) 合并在一起，以便它们可以在同一个文件请求中发回给客户端。包中可以包含 JavaScript、CSS 样式、HTML 以及很多其它类型的文件。
+Webpack 是一个强力的模块打包器。所谓 包 (bundle) 就是一个 JavaScript 文件，它把一堆 资源 (assets) 合并在一起，以便它们可以在同一个文件请求中发回给客户端。包中可以包含 JavaScript CSS HTML 以及很多其它类型的文件。
 
 Webpack 会遍历你应用中的所有源码，查找 `import` 语句，构建出依赖图谱，并产出一个(或多个)包。通过“加载器(loaders)”插件，Webpack 可以对各种非 JavaScript 文件进行预处理和最小化(Minify)，比如 TypeScript、SASS 和 LESS 文件等。
 
@@ -12,37 +12,31 @@ Webpack 会遍历你应用中的所有源码，查找 `import` 语句，构建�
 
 我们给 Webpack 提供一个或多个 **入口** 文件，来让它查找与合并那些从这些入口点发散出去的依赖。
 
-然后它把这些文件 输出 到当前配置所指定的 包文件 app.js 中。
+然后它把这些文件 **输出** 到当前配置所指定的包文件中。
 
 ```js
-entry: {
-  app: 'src/app.ts'
-},
-output: {
-  filename: 'app.js'
-}
+entry: { app: 'src/app.ts' },
+output: { filename: 'app.js' }
 ```
 
 #### 多重包
 
 我们可能不会希望把所有东西打进一个巨型包，而更喜欢把多变的应用代码从相对稳定的第三方提供商模块中分离出来。
 
-```ts
+```js
 entry: {
   app: 'src/app.ts',
   vendor: 'src/vendor.ts'
 },
 
 output: {
-  filename: '[name].js'  // [name] 是一个 Webpack 的占位符，它将被替换为入口点的名字，需要一个插件来完成此项工作
+  filename: '[name].js'  // [name] 是一个 Webpack 的占位符，它将被替换为入口点的名字
 }
 ```
 
-Webpack 会构造出两个独立的依赖图谱，并产出两个包文件：一个叫做 app.js ，它只包含我们的应用代码；另一个叫做 vendor.js ，它包含所有的提供商依赖。
+Webpack 会构造出两个独立的依赖图谱，并产出两个包文件：一个叫做 app.js，它只包含我们的应用代码；另一个叫做 vendor.js，它包含所有的提供商依赖。(两个包相同的依赖部分，将使用一个 CommonsChunkPlugin 插件来实现分离。)
 
-我们以前见过 app.ts，就不再赘述了。还要再写一个 vendor.ts，让它导入我们要用的提供商模块：
-
-```ts
+```js
 // Angular
 import '@angular/platform-browser';
 import '@angular/platform-browser-dynamic';
@@ -60,7 +54,7 @@ import 'rxjs';
 
 ### 加载器 (Loader)
 
-Webpack 可以打包任何类型的文件：JavaScript、TypeScript、CSS、SASS、LESS、图片、HTML 以及字体文件等等。 Webpack 本身并不知道该如何处理这些非 JavaScript 文件。我们要通过加载器来告诉它如何把这些文件处理成 JavaScript 文件。
+Webpack 可以打包任何类型的文件：JavaScript、TypeScript、CSS、SASS、LESS、图片、HTML 以及字体文件等等。Webpack 本身并不知道该如何处理这些非 JavaScript 文件。我们要通过加载器来告诉它如何把这些文件处理成 JavaScript 文件。
 
 在这里，我们为 TypeScript 和 CSS 文件配置了加载器。
 
@@ -71,24 +65,11 @@ loaders: [
 ]
 ```
 
-当 Webpack 遇到像这样的 import 语句时……
-
-```ts
-import { AppComponent } from './app.component.ts';
-import 'uiframework/dist/uiframework.css';
-```
-
-……它会使用 test 后面的正则表达式进行模式匹配。如果一个模式匹配上文件名，Webpack 就用它所关联的加载器处理这个文件。
-
-第一个 import 文件匹配上了 .ts 模式，于是 Webpack 就用 ts(TypeScript) 加载器处理它。导入的文件没有匹配上第二个模式，于是它的加载器就被忽略了。
-
-第二个 import 匹配上了第二个 .css 模式，它有两个用叹号字符 (!) 串联起来的加载器。 Webpack 会 **从右到左** 逐个应用串联的加载器，于是它先应用了 css 加载器 ( 用来平面化 CSS 的 @import 和 url(...) 语句 )，然后应用了 style 加载器 (用来把 css 追加到页面上的 `<style>` 元素中)。
-
 ### 插件
 
 Webpack 有一条构建流水线，它被划分成多个经过精心定义的阶段 (phase)。我们可以把插件(比如 uglify 代码最小化插件)挂到流水线上：
 
-```
+```js
 plugins: [
   new webpack.optimize.UglifyJsPlugin()
 ]
@@ -102,29 +83,27 @@ package.json typings.json tsconfig.json webpack.config.js karma.conf.js config/h
 
 ### 公共配置
 
-我们可以为开发、产品和测试环境定义分别各自的配置文件。 但三者总会有一些公共配置。 于是我们把那些公共的配置收集到一个名叫 webpack.common.js 的独立文件中。
-
-来看下入口文件，用一个小节的时间了解下它的内容：
+我们可以为开发、产品和测试环境定义分别各自的配置文件。但三者总会有一些公共配置。于是我们把那些公共的配置收集到一个名叫 webpack.common.js 的独立文件中。
 
 ```js
 // config/webpack.common.js
 
 // Webpack 是一个基于 NodeJS 的工具，所以它的配置文件就是一个 JavaScript 的 CommonJS 模块文件，
 // 它像常规写法一样以 require 语句开始。
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var helpers = require('./helpers');
+var webpack           = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');          // 自动更新 index.html
+var ExtractTextPlugin = require('extract-text-webpack-plugin');  // 
+var helpers           = require('./helpers');
 
 module.exports = {
   // 定义入口文件
-  entry: {                              // 我们正在把应用拆成三个包：
-    'polyfills': './src/polyfills.ts',  // 我们在大多数现代浏览器中运行 Angular 程序时需要的标准填充物
-    'vendor': './src/vendor.ts',        // 我们需要的提供商文件： Angular、Lodash、bootstrap.css ……
+  entry: {                              // 把应用拆成三个包：
+    'polyfills': './src/polyfills.ts',  // 在大多数现代浏览器中运行 Angular 程序时需要的标准填充物
+    'vendor': './src/vendor.ts',        // 需要的提供商文件： Angular、Lodash、bootstrap.css ……
     'app': './src/main.ts'              // 我们的应用代码
   },
 
-  // 大多数 import 语句完全不会去引用扩展名。所以我们要告诉 Webpack 如何通过查找匹配的文件来 解析 模块文件的加载请求：
+  // 大多数 import 语句完全不会去引用扩展名。所以我们要告诉 Webpack 如何通过查找匹配的文件来解析模块文件的加载请求：
   // 一个明确的扩展名 ( 通过一个空白的扩展名字符串 '' 标记出来 ) 
   // 或者 .js 扩展名(标准的 JS文件和预编译过的 TS文件)，或者 .ts 扩展名。
   // 我们以后还可能会添加 .css 和 .html ——如果希望 Webpack 也用无扩展名的方式去解析那些扩展名的话。
@@ -137,7 +116,7 @@ module.exports = {
         test: /\.ts$/, // 
         loaders: ['awesome-typescript-loader', 'angular2-template-loader']
           // awesome-typescript-loader: 把 TS 代码转译成 ES5 的加载器，它会调用 tsconfig.json 文件
-          // angular2-template-loader: 用于加载 Angular 组件的模板和样式
+          // angular2-template-loader: 用于加载 Angular 组件的模板和样式，会改成 template: require() 的形式
       },
       {
         test: /\.html$/,
@@ -156,7 +135,7 @@ module.exports = {
         test: /\.css$/,  // 匹配组件局部样式 (就是在组件元数据的 styleUrls 属性中指定的那些)
         include: helpers.root('src', 'app'),
         loader: 'raw'    // 通过 raw 加载器把它们加载成字符串
-      }                  // 那是 Angular 期望通过元数据的 styleUrls 属性来指定样式的形式
+      }
     ]
   },
 
@@ -187,10 +166,10 @@ webpack.common.js 配置做了大部分繁重的工作。通过合并它们特�
 
 ```js
 // config/webpack.dev.js
-var webpackMerge = require('webpack-merge');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var commonConfig = require('./webpack.common.js');
-var helpers = require('./helpers');
+var webpackMerge      = require('webpack-merge');  // 用于合并配置
+var ExtractTextPlugin = require('extract-text-webpack-plugin');  // 将 css 提取为单独文件
+var commonConfig      = require('./webpack.common.js');
+var helpers           = require('./helpers');
 
 module.exports = webpackMerge(commonConfig, {
   devtool: 'cheap-module-eval-source-map',
@@ -249,15 +228,11 @@ module.exports = webpackMerge(commonConfig, {
     new webpack.NoErrorsPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({ // https://github.com/angular/angular/issues/10618
-      mangle: {
-        keep_fnames: true
-      }
+      mangle: { keep_fnames: true }
     }),
     new ExtractTextPlugin('[name].[hash].css'),
     new webpack.DefinePlugin({
-      'process.env': {
-        'ENV': JSON.stringify(ENV)
-      }
+      'process.env': { 'ENV': JSON.stringify(ENV) }
     })
   ]
 });
@@ -310,7 +285,6 @@ module.exports = {
       {
         test: /\.html$/,
         loader: 'html'
-
       },
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
@@ -331,14 +305,9 @@ module.exports = {
 }
 ```
 
+## 文件结构
 
-## Webpack and Angular2 Starter
-
-https://github.com/AngularClass/angular2-webpack-starter
-
-### 文件结构
-
-```
+```txt
 angular2-webpack-starter/
  ├──config/                  * our configuration
  |   ├──helpers.js           * helper functions for our configuration files
@@ -351,23 +320,17 @@ angular2-webpack-starter/
  │
  ├──src/                     * our source files that will be compiled to javascript
  |   ├──main.browser.ts      * our entry file for our browser environment
- │   │
  |   ├──index.html           * Index.html: where we generate our index page
- │   │
  |   ├──polyfills.ts         * our polyfills file
- │   │
  |   ├──vendor.ts            * our vendor file
- │   │
  │   ├──app/                 * WebApp 主目录
  │   │   ├──app.ts           * App.ts: a simple version of our App component components
  │   │   ├──app.spec.ts      * a simple test of components in app.ts
  │   │   └──app.e2e.ts       * a simple end-to-end test for /
- │   │
  │   └──assets/              * 存放静态资源
  │
  ├──tslint.json              * typescript lint config
- ├──typedoc.json             * typescript documentation generator
  ├──tsconfig.json            * config that webpack uses for typescript
  ├──package.json             * what npm uses to manage it's dependencies
  └──webpack.config.js        * webpack main configuration file
- ```
+```

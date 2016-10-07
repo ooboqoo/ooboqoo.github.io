@@ -16,10 +16,13 @@
     "experimentalDecorators": true, // NG与TS两家的联姻就是从加入 decorators 开始的吧
     "removeComments": false,
     "noImplicitAny": true,          // 编译器无法推断出类型时，是否报错
-    "suppressImplicitAnyIndexErrors": true  // 当上 noImplicitAny 为 true 时，关闭报告 implicit index errors
+    "suppressImplicitAnyIndexErrors": true  // 当 noImplicitAny 为 true 时，不报 implicit index errors
   },
-  "exclude": [
-    "node_modules"
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "filesGlob": [
+    "**/*.ts",
+    "!node_modules/**"
   ]
 }
 ```
@@ -46,6 +49,13 @@ tsconfig.json 文件中指定了用来编译这个项目的根文件和编译选
 
 ## typings.json - 类型声明文件管理
 
+> **从 TS2.0 开始，不再需要 typings 工具，而是直接使用 npm 包管理工具，也就是说，声明文件会以 npm 包的形式提供**  
+> ```bash
+> npm installl @types/node --save  // 安装 node 的类型定义文件
+> ```
+
+---
+
 > TS 类型定义文件 .d.ts 主要就是定义类型，用于类型检测及提示；  
 > TS 需要类型声明文件来理解各个库专有的特性和语法，如果找不到需要的 .d.ts 文件，tsc 编译器就会报错；
 > 另外一个附加功能是通过添加 JSDoc 注释，在编写代码时提供提示。
@@ -62,11 +72,9 @@ tsconfig.json 文件中指定了用来编译这个项目的根文件和编译选
 // typings.json
 {
   "globalDependencies": {
-    "angular-protractor": "registry:dt/angular-protractor#1.5.0+20160425143459",
     "core-js": "registry:dt/core-js#0.0.0+20160602141332",
     "jasmine": "registry:dt/jasmine#2.2.0+20160621224255",
     "node": "registry:dt/node#6.0.0+20160621231320",
-    "selenium-webdriver": "registry:dt/selenium-webdriver#2.44.0+20160317120654"
   }
 }
 ```
@@ -76,9 +84,9 @@ tsconfig.json 文件中指定了用来编译这个项目的根文件和编译选
 ```bash
 typings list  # 列出安装的文件，有过期的会提醒更新
 typings install node --source dt --global --save  # 更新 node 文件的命令
-# --source dt  指定文件来源，默认为 npm
-# --global     Install and persist as a global definition 真实用意不详
-# --save       保存记录到 typings.json
+  # --source dt  指定文件来源，默认为 npm
+  # --global     Install and persist as a global definition 真实用意不详
+  # --save       保存记录到 typings.json
 
 typings install -SG dt~node dt~core-js  # 同时安装多个定义文件
   # 文件来源有多种写法，具体见 typings install --help
