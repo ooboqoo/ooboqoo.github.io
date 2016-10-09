@@ -32,6 +32,9 @@ $ git config --global user.email "<email address>"  # 指定全局默认用户�
 $ git config --global color.ui auto                 # 指定终端输出颜色
 $ git config --global alias.co checkout             # 设定命令别名，git 不会在输入部分命令时自动推断命令
 $ git config --global alias.st status               # 设定命令别名，所以将一些常用操作设定别名会很方便
+$ git config --global credential.helper wincred     # 设定免密码登录(记住密码) [注1]
+
+$ git config --list --global       # 查看全局设置
 
 $ git config user.name "Gavin"     # 配置单个仓库的用户名
 $ git config user.name             # 查看当前仓库使用的用户名
@@ -40,6 +43,8 @@ $ git <command> -h       # 在终端显示指令的简明帮助
 $ git <command> --help   # 通过指令的 help 选项来获取帮助，另开网页显示
 $ git help <command>     # 通过 help 指令来获取帮助，另开网页显示
 ```
+
+注1：GitHub 自动登录介绍 https://help.github.com/articles/caching-your-github-password-in-git/
 
 #### 获取或新建仓库
 
