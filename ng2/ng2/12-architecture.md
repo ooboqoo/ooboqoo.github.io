@@ -121,6 +121,8 @@ Angular 在每个 JavaScript 事件周期中一次性处理**所有的**数据�
 
 ## 指令
 
+> TypeScript 里有对 Decorator 作细致介绍
+
 Angular 模板是动态的。当 Angular 渲染它们时，它会根据指令提供的操作指南对 DOM 进行修改。
 
 指令是一个带有“指令元数据”的类。在 TypeScript 中，要通过 @Directive 装饰器把元数据附加到类上。
