@@ -282,6 +282,10 @@ Cmder 是 windows 下的命令行模拟器，不仅能模拟 cmd 而且还自带
 
 配置备份：直接拷贝 config 文件夹没效果，需要 `settings -> export` 然后再导入才有效。
 
+字体颜色设置在 `Features > Colors` 直接是一个颜色面板，很方便。
+
+`Startup > Tasks` 可以设置任务列表，通过勾选默认任务可以设定点击加号出来的任务，而启动时的任务设置在 `Startup`
+
 ## GitHub
 
 GitHub Desktop: https://desktop.github.com/

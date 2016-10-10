@@ -2,7 +2,7 @@
 
 ## 使用组件样式
 
-对于我们写的每个 Angular 组件来说，除了定义 HTML 模板之外，我们还要用于模板的 CSS 样式、 指定需要的选择器、规则和媒体查询。
+对于我们写的每个 Angular 组件来说，除了定义 HTML 模板之外，我们还要定义用于模板的 CSS 样式、指定需要的选择器、规则和媒体查询。
 
 ```ts
 @Component({
@@ -96,14 +96,24 @@ export class HeroAppComponent {  }
   selector: 'hero-controls',
   template: `
     <style>
-      button {
-        background-color: white;
-        border: 1px solid #777;
-      }
+      h3 { background-color: green; }
     </style>
-    <h3>Controls</h3>
-    <button (click)="activate()">Activate</button>`
+    <h3>Controls</h3>`
 })
+```
+
+Gavin: 模板内的内联样式跟其他用法效果是一样的，上述代码最终会被编译成：
+```html
+<head>
+  <style>
+    h3[_ngcontent-tlt-7] { background-color: green; } /* 属性会根据实际运行变化 */
+  </style>
+</head>
+<body>
+  <!-- ... -->
+  <h3>Controls</h3>
+  <!-- ... -->
+</body>
 ```
 
 ### 元数据中的样式表 URL
@@ -119,7 +129,8 @@ export class HeroAppComponent {  }
 })
 ```
 
-> URL 是相对于应用程序根目录的，它通常是应用的宿主页面 index.html 所在的地方。这个样式文件的 URL 不是 相对于组件文件的。参见 附录 2 来了解如何指定相对于组件文件的 URL。
+> URL 是相对于应用程序根目录的，它通常是应用的宿主页面 index.html 所在的地方。  
+> URL 不是相对于组件文件的，要使用相对地址请参见附录 2。
 - - -
 > 像 Webpack 这类模块打包器的用户可能会这样写：`styles: [require('my.component.css')]`   
 > 注意，这时候我们是在设置 styles 属性，而不是 styleUrls 属性！是模块打包器在加载 CSS 字符串，而不是 Angular。Angular 看到的只是打包器加载它们之后的 CSS 字符串。对 Angular 来说，这跟我们手写了 styles 数组没有任何区别。

@@ -1,5 +1,97 @@
 # Visual Studio Code
 
+## 插件使用
+
+### Angular 2 TypeScript Snippets
+
+Type part of a snippet, press enter, and the snippet unfolds.
+
+TypeScript Snippets
+
+```txt
+ng2-bootstrap       // Angular 2 bootstrapping, for main.ts
+ng2-component       // Angular 2 component
+ng2-component-root  // Angular 2 root app component
+ng2-http-get        // Angular 2 http.get with Rx Observable
+ng2-module          // Angular 2 module
+ng2-module-root     // Angular 2 root app module
+ng2-pipe            // Angular 2 pipe
+ng2-routing         // Angular 2 routing
+ng2-service         // Angular 2 service
+ng2-subscribe       // Angular 2 Rx Observable subscription
+```
+
+HTML Snippets
+
+```
+ng2-ngClass
+ng2-ngFor
+ng2-ngIf
+ng2-ngModel
+ng2-routerLink
+ng2-ngStyle
+ng2-ngSwitch
+Alternatively, press Ctrl+Space (Windows, Linux) or Cmd+Space (OSX) to activate snippets from within the editor.
+```
+
+### Debugger for Chrome
+
+Supported features
+
+* Setting breakpoints, including in source files when source maps are enabled
+* Stepping, including with the buttons on the Chrome page
+* The Locals pane
+* Debugging eval scripts, script tags, and scripts that are added dynamically
+* Watches
+* Console
+
+Unsupported scenarios
+
+* Debugging web workers
+* Any features that aren't script debugging.
+
+使用注意事项：打开调试之前需要将所有 Chrome 窗口关闭，否则编辑器无法连接 Chrome。
+
+感觉直接在编辑器下断点、查看调用堆栈、以及查看变量都比较方便；
+`watch` 项用于监控变量，需要手动输入变量名，调试过程会实时监控该变量。
+
+### vscode-tslint
+
+使用该插件之前需要先全局安装好 TSLint。
+
+#### TSLint
+
+使用说明：http://palantir.github.io/tslint/usage/rule-flags/
+
+创建配置文件：
+```bash
+tslint --init
+```
+
+单文件修改配置：
+```ts
+/* tslint:disable:quotemark */
+```
+
+### TODO Paser
+
+功能描述：列出项目中的 `Todo` 待完成项，支持单行或多行中的 `TODO:` `Todo:` 标记。
+
+使用：列出当前项目的待完成项清单 `F1 > Parse TODOs (all files)`.
+
+设置：
+
+```js
+{
+  "TodoParser": {
+    "include": ["ts"],
+    "folderExclude": ["node_modules", ".vscode"],
+    "only": ["app/win"],
+  }
+}
+```
+
+
 ## Editor
 
 ### The Basic
