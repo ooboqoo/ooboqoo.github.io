@@ -50,7 +50,11 @@ Unsupported scenarios
 * Debugging web workers
 * Any features that aren't script debugging.
 
-使用注意事项：打开调试之前需要将所有 Chrome 窗口关闭，否则编辑器无法连接 Chrome。
+问题处理 -- 无法连接 Chrome：
+
+* 方法1：打开调试之前需要将所有 Chrome 窗口关闭。
+* 方法2：`Chrome启动图标右击 -> 属性 -> 目标` 修改为   
+  `"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222`
 
 感觉直接在编辑器下断点、查看调用堆栈、以及查看变量都比较方便；
 `watch` 项用于监控变量，需要手动输入变量名，调试过程会实时监控该变量。
