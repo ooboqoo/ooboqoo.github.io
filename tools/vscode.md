@@ -96,6 +96,11 @@ tslint --init
 ```
 
 
+## 功能需求
+
+文本拖拽，该功能还未实现 2016/10/11 https://github.com/Microsoft/vscode/issues/1046
+
+
 ## Editor
 
 ### The Basic
