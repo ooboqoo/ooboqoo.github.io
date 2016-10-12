@@ -69,6 +69,36 @@ scp -P 28379 "\Program Files\putty\authorized_keys" root@104.128.85.201:/root/.s
  pscp root@192.168.0.100:/home/aaa.jpg G:/putty/
 ```
 
+## ConEmu, cygwin 下设置 ssh 自动登录
+
+`C:\Users\Gavin` 即相当于 linux 下的 `/root` 目录，所有配置文件默认都放在这个文件夹下。
+
+`C:\Users\Gavin\.ssh` 已经配置好自动登录相关密匙和配置，换电脑的话，只需拷贝此文件夹即可。
+
+```txt
+.ssh
+  |- config   # ssh 配置
+  |- id_rsa   # 私秘文件
+```
+
+```bash
+# accelerate login process
+GSSAPIAuthentication no
+
+# persist connection for scp, it seems not work
+ControlPersist 4h
+
+# multi-link share, just a try, it seems not work
+ControlMaster auto
+
+# after these configuration, can connect the host by "ssh centos"
+Host centos
+HostName 104.128.85.201
+Port 28379
+# IdentityFile ~/.ssh/id_rsa  # ssh will load this key by default
+User root
+```
+
 ## 使用技巧
 
 ##### 如何使用鼠标执行复制和粘贴操作
@@ -82,3 +112,33 @@ scp -P 28379 "\Program Files\putty\authorized_keys" root@104.128.85.201:/root/.s
 
 ##### 解决 putty 上 vim 小键盘不好使的问题
 在选项 Terminal->Features 里，找到 Disable application keypad mode，选上就可以了。
+
+## Git Server
+
+教程：https://git-scm.com/book/en/v2/Git-on-the-Server-Getting-Git-on-a-Server
+
+在开始架设 Git 服务器前，需要把现有仓库导出为裸仓库——即一个不包含当前工作目录的仓库。
+
+```bash
+$ git clone --bare my_project my_project.git  # 在 my_project 的父目录执行该命令
+```
+
+假设服务器已可以通过 SSH 连接，且服务器上存在 /opt/git/ 目录，你可以通过以下命令复制你的裸仓库来创建一个新仓库：
+
+```bash
+$ scp -P 28379 -r primeng-webpack.git root@104.128.85.201:/opt/git/  # 把裸仓库放到服务器上
+```
+
+就这么简单，私人自用的 git 服务器已经搭建完毕，最关键的是要设置好 SSH，现在就来克隆仓库：
+
+```bash
+$ git clone ssh://root@104.128.85.201:28379/opt/git/primeng-webpack.git  # 28379 是 ssh 连接端口
+```
+
+其他后续仓库操作指令
+
+```bash
+$ git remote add bwh ssh://root@104.128.85.201:28379/opt/git/primeng-webpack.git  # 添加远程仓库
+$ git remote -v  # 列出所有远程仓库别名并显示网址
+$ git remote push bwh  # 将本地代码推送到 bwh
+```
