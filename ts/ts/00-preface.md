@@ -84,13 +84,14 @@ interface Square extends Shape { sideLength: number; }
 ### 类
 
 继承：子类可以覆盖父类方法。
-需要在类的开头声明属性的类型，属性都是实例属性(如果没有特地加 static)，这是区别与ES6的地方，另外一个不同是，ES6允许有多个constructor，只要参数不同，但TS只允许有一个constructor。
+
+需要在类的开头声明属性的类型，属性都是实例属性(如果没有特地加 static)，这是区别与ES6的地方，另外一个不同是，ES6 允许有多个 constructor，只要参数不同，但 TS 只允许有一个 constructor。
 
 #### 公共，私有与受保护的修饰符
 
-在TypeScript里，每个成员默认为public的。你也可以明确的将一个成员标记成public。
-当成员被标记成private时，它就不能在声明它的类的外部访问。
-protected修饰符与private修饰符的行为很相似，但有一点不同，protected成员在派生类中仍然可以访问。
+在 TypeScript 里，每个成员默认为 `public` 的。你也可以明确的将一个成员标记成 `public`。
+当成员被标记成 `private` 时，它就不能在声明它的类的外部访问。
+`protected` 修饰符与 `private` 修饰符的行为很相似，但有一点不同，`protected` 成员在派生类中仍然可以访问。
 
 #### 其他特性
 
@@ -104,7 +105,7 @@ protected修饰符与private修饰符的行为很相似，但有一点不同，p
 TypeScript能够根据返回语句自动推断出返回值类型，因此我们通常省略它。
 
 ```ts
-let myAdd: (x:number, y:number)=>number =      // 返回值类型之前使用 => 符号，貌似用表达式定义函数写类型挺麻烦
+let myAdd: (x:number, y:number)=>number =      // 返回值类型之前使用 => 符号
   function(x: number, y: number): number { return x+y; };
 ```
 
@@ -112,7 +113,7 @@ let myAdd: (x:number, y:number)=>number =      // 返回值类型之前使用 =>
 
 ```ts
 // <T>指定用T作为泛型参数，然后T会根据传入参数类型取得值，并用来检验返回值类型
-function identity<T>(arg: T): T { return arg; }
+function funcName<T>(arg: T): T { return arg; }
 ```
 
 ### 高级类型
@@ -130,7 +131,7 @@ type NameResolver = () => string;
 type NameOrResolver = Name | NameResolver;
 ```
 
-类型别名很像接口，但类型别名不支持extends和implements，所以应该尽量使用接口代替类型别名。
+类型别名很像接口，但类型别名不支持 extends 和 implements，所以应该尽量使用接口代替类型别名。
 
 #### 字符串字面量类型
 ```ts
@@ -143,7 +144,7 @@ type Easing = "ease-in" | "ease-out" | "ease-in-out";
 
 ### 模块
 
-为与ES2015保持一致，从TS1.5开始，原“内部模块”称做“命名空间”, 而“模块”则指“外部模块”。
+为与 ES2015 保持一致，从 TS1.5 开始，原“内部模块”称做“命名空间”, 而“模块”则指“外部模块”。
 
 尽管 TypeScript 采用了ES6的模块的语法，但转ES5的话实际生成的还是 CommonJS 的模块。   
 --module (target === "ES6" ? "ES6" : "CommonJS")
@@ -167,11 +168,12 @@ namespace Validation {
 
 ### 声明文件
 
-当使用外部JavaScript库或新的宿主API时，需要编写声明文件 .d.ts 定义程序库的shape。
+当使用外部 JavaScript 库或新的宿主 API 时，需要编写声明文件 .d.ts 定义程序库的 shape。
 
 ### 修饰器
 
-Decorators 是ES7的一个提案，TS已经支持。修饰器本质就是编译时执行的函数，用来修改类的行为。
+Decorators 是 ES7 的一个提案，TS已经支持。修饰器本质就是编译时执行的函数，用来修改类的行为。
+
 ```ts
 @decorator
 class A {}

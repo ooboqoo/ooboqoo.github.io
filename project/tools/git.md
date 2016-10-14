@@ -24,6 +24,17 @@ git 简明指南: http://rogerdudler.github.io/git-guide/index.zh.html
 
 ### 命令速查表
 
+### 最常用命令
+
+```bash
+$ git pull   # 拉取代码
+$ git push   # 上传代码
+$ git add .  # 添加更改到 staged
+$ git reset  # 用最近一次 commit 的内容覆盖 index，相当于撤销 git add . 操作
+$ git stash  # 临时保存还没有提交的工作(工作目录 + 暂存区)并恢复到初始状态，注意未 track 的新文件还留在工作目录
+$ git stash pop   # 恢复最近一次 stash 的内容，注意是保存的变动追加在目前状态之上，而非覆盖目前状态
+```
+
 #### 设置与帮助
 
 ```bash
@@ -81,7 +92,7 @@ $ git commit --amend           # 重做(替换)最近一次提交
 $ git reset <paths>      # 用最近一次提交的内容覆盖 index，相当于撤销一个 add 操作，工作目录中文件不会变化
 $ git reset [<mode>] [<commit>]  # 将 HEAD 回退到指定的 commit，暂存区和工作区内容是否变化取决于 mode 设定：
   #         --soft   只回退 HEAD 指针到指定 commit，不影响 index 和工作目录
-  #         --mixed  默认项，重置 inde 但不会影响工作目录内容
+  #         --mixed  默认项，重置 index 但不会影响工作目录内容
   #         --hard   重置暂存区和工作目录，全部回到指定 commit 时的状态，会丢失工作内容
 
 $ git revert <commit>  # 生成一次新的提交来撤销某个指定 commit，reset 会丢失提交记录，而 revert 不会
