@@ -149,6 +149,8 @@ $ git rebase origin/master      # 以变基的形式合并分支
 $ git rebase --continue         # 如果变基出现冲突，冲突解决后继续
 $ git rebase --abort            # 取消变基操作
 
+# 冲突解决：先查看并处理冲突文件，然后再 `git add .` `git commit -m "解决合并冲突"` 即完成冲突解决
+
 # stash 藏匿/储存变动
 $ git stash    # 临时保存还没有提交的工作(工作目录 + 暂存区)并恢复到初始状态，注意未 track 的新文件还留在工作目录
 $ git stash list  # 列出所有 stash
