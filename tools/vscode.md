@@ -128,19 +128,36 @@ tslint --init
 
 ## Customization
 
+### User and Workspace Settings
+
+```json
+{
+  "editor.rulers": [ 100 ],
+  "editor.tabSize": 2,
+  "editor.wrappingIndent": "indent",
+  "editor.renderWhitespace": "boundary",
+  "editor.detectIndentation": false,
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
+```
+
 ### Key Bindings 快捷键大本营
+
+```js
+{ "key": "f1",                    "command": "workbench.action.showCommands" },
+{ "key": "ctrl+shift+p",          "command": "workbench.action.showCommands" },
+```
 
 #### Basic Editing
 
  Key               | Command           | Command id
 ------------------ | ----------------- | ----------
-`Ctrl+Shift+K`     | Delete Line       | editor.action.deleteLines
+`Shift+Ctrl+K`     | Delete Line       | editor.action.deleteLines
 `Ctrl+Enter`       | Insert Line Below | editor.action.insertLineAfter
-`Ctrl+Shift+Enter` | Insert Line Above | editor.action.insertLineBefore
+`Shift+Ctrl+Enter` | Insert Line Above | editor.action.insertLineBefore
 `Alt+Down`         | Move Line Down    | editor.action.moveLinesDownAction
 `Alt+Up`           | Move Line Up      | editor.action.moveLinesUpAction
 `Shift+Alt+Down`   | Copy Line Down    | editor.action.copyLinesDownAction
-`Ctrl+Shift+D` 改  | Copy Line Down    | editor.action.copyLinesDownAction
 `Shift+Alt+Up`     | Copy Line Up      | editor.action.copyLinesUpAction
 `Ctrl+]`           | Indent Line       | editor.action.indentLines
 `Ctrl+[`           | Outdent Line      | editor.action.outdentLines
@@ -207,7 +224,11 @@ A: In the Default Keyboard Shortcuts, open Quick Outline by pressing `Ctrl+Shift
 
 ### Color Themes
 
+## LANGUAGES
 
+### Markdown
+
+Markdown Preview：`Ctrl+Shift+v` 预览；`Ctrl+K V` 侧栏预览
 
 
 
