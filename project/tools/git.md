@@ -32,7 +32,16 @@ $ git push   # 上传代码
 $ git add .  # 添加更改到 staged
 $ git reset  # 用最近一次 commit 的内容覆盖 index，相当于撤销 git add . 操作
 $ git stash  # 临时保存还没有提交的工作(工作目录 + 暂存区)并恢复到初始状态，注意未 track 的新文件还留在工作目录
-$ git stash pop   # 恢复最近一次 stash 的内容，注意是保存的变动追加在目前状态之上，而非覆盖目前状态
+$ git stash pop     # 恢复最近一次 stash 的内容，注意是保存的变动追加在目前状态之上，而非覆盖目前状态
+# 撤销一次远程提交
+$ git reset HEAD~1  # 回退一次提交
+$ git push -f       # 强制推送到远程仓库
+# 分支操作
+$ git branch -a  # 列出本地和远程所有的分支
+$ git checkout -b newBrach master  # 创建并切换到新分支
+
+$ git push origin :newbranch  # 删除一个远程分支(冒号前为空，即推送一个空白分支到远程分支)
+$ git branch -d newbranch     # 删除一个本地分支
 ```
 
 #### 设置与帮助
@@ -186,6 +195,7 @@ $ git pull origin next:master
 $ git pull -p  # `-p` 告诉 pull 如果远程仓库已经删除了该分支，那么可以将本地分支删除
 
 $ git push <远程仓库名> <本地分支>:<远程分支>
+$ git push origin HEAD:master  # 将当前分支推送到 origin/master
 $ git push origin master  # 将本地的 master 分支推送到 origin 的 master 分支，如后者不存在则会被新建
 $ git push origin :master # 推送一个空的分支到 origin/master，即相当于删除远程 master 分支
 $ git push origin --delete master  # 删除远程 master 分支，效果同上行
