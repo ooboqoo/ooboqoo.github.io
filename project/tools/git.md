@@ -111,6 +111,7 @@ $ git revert <commit>  # 生成一次新的提交来撤销某个指定 commit，
 
 ```bash
 # diff 显示不同提交之间，提交与工作目录，暂存区与工作目录之间的差别
+# meld 提供了图形化显示比较信息，但 windows 下好像没法使用命令行
 $ git diff                 # 查看工作目录与暂存区的差异
 $ git diff --staged        # 查看暂存区与最近一次提交之间的差异
 $ git diff master branchB  # 比较两个不同提交之间的差异，此处的不同分支指向不同的提交
@@ -132,6 +133,8 @@ $ git blame -L 12,22 sth.cs     # 查看 sth.cs 的 12-22行 都有谁在什么�
 
 $ git show     # 查看数据对象 blob 数对象 tree 提交对象 commit 标签对象 tag 等的内容
 ```
+
+阮一峰的 diff 讲解：http://www.ruanyifeng.com/blog/2012/08/how_to_read_diff.html
 
 #### 分支操作
 
@@ -308,6 +311,8 @@ Cmder 是 windows 下的命令行模拟器，不仅能模拟 cmd 而且还自带
 字体颜色设置在 `Features > Colors` 直接是一个颜色面板，很方便。
 
 `Startup > Tasks` 可以设置任务列表，通过勾选默认任务可以设定点击加号出来的任务，而启动时的任务设置在 `Startup`
+
+`` Ctrl+` `` 会调出 cmder，但这会影响到其他编辑器，可以考虑改下快捷键 `Keys & Macro`
 
 ## GitHub
 

@@ -137,6 +137,7 @@ tslint --init
   "editor.wrappingIndent": "indent",
   "editor.renderWhitespace": "boundary",
   "editor.detectIndentation": false,
+  "git.autorefresh": false,                          // 这个开着的话，好像会导致 webpack-dev-server 多次编译
   "typescript.tsdk": "node_modules/typescript/lib"
 }
 ```
