@@ -43,6 +43,15 @@ $ git checkout -b newBrach master  # 创建并切换到新分支
 $ git push origin :newbranch  # 删除一个远程分支(冒号前为空，即推送一个空白分支到远程分支)
 $ git branch -d newbranch     # 删除一个本地分支
 ```
+```bash
+$ git checkout -b newbranch
+$ git add .
+$ git commit -m "update"
+$ git push
+$ git fetch bwh
+$ git merge bwh/tabview
+$ git reset HEAD~2
+```
 
 #### 设置与帮助
 
