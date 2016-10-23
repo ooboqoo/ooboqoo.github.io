@@ -42,6 +42,9 @@ $ git checkout -b newBrach master  # 创建并切换到新分支
 
 $ git push origin :newbranch  # 删除一个远程分支(冒号前为空，即推送一个空白分支到远程分支)
 $ git branch -d newbranch     # 删除一个本地分支
+# patch 操作
+$ git diff > ..\patch1023  # 生成一个 patch 文件，文件放到父目录
+$ git apply ..\patch1023   # 在另一个地方导入这些更改
 ```
 ```bash
 $ git checkout -b newbranch
@@ -154,6 +157,7 @@ $ git branch testing            # 创建 testing 分支
 $ git branch -d testing         # 删除 testing 分支
 $ git branch -m [<oldbranch>] <newbranch>  # 重命名分支
 $ git branch --set-upstream master origin/next  # 手动建立本地 master 与 origin/next 间的追踪关系
+$ git fetch -p  # 当删除远程分支后，本地还是能看到 origin/branchname，就可以通过这条命令删除
 
 # checkout 切换分支或恢复工作目录文件
 $ git checkout <branch-name>    # 切换到某个分支

@@ -31,7 +31,7 @@ Angular 模块(无论是根模块还是特性模块)都是一个带有 **@NgModu
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 @NgModule({            // NgModule 是一个装饰器工厂函数，它接收一个用来描述模块属性的元数据对象
-  imports: [ BrowserModule ],// 导入其他模块以使用它们导出的视图类
+  imports: [ BrowserModule ],// 导入其他模块以使用它们导出的视图类( 组件、指令 和 管道 )
   providers:    [ Logger ],  // 注册外部服务供应商，创建的服务实例能被模块中的任何部分访问，相对应的是组件级服务
   declarations: [ AppComponent ],   // 声明本模块中拥有的视图类：组件、指令和管道，这里不该出现导入模块的视图类
   exports:      [ ],                // 导出视图类，此为 declaration 的子集。根模块不需要导出任何东西。
