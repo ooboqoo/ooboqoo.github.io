@@ -1,5 +1,7 @@
 # PrimeNG
 
+PrimeNG 怎么使用：是在 module 里导入的，而不是 component，导入后直接在 template 里用就是了。
+
 ## Input
 
 ### AutoComplete 智能提示

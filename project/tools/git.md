@@ -45,6 +45,9 @@ $ git branch -d newbranch     # 删除一个本地分支
 # patch 操作
 $ git diff > ..\patch1023  # 生成一个 patch 文件，文件放到父目录
 $ git apply ..\patch1023   # 在另一个地方导入这些更改
+
+# 图形化操作
+$ gitk  # 调用图形界面查看历史提交的详细信息 gitk - a commit viever for git
 ```
 ```bash
 $ git checkout -b newbranch
