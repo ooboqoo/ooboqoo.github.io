@@ -32,14 +32,18 @@ declarations: [MyRedComponent, MyBlueComponent, MyDatePipe]
 
 // List of modules to import into this module. Everything from the imported modules is available to `declarations` of this module.
 // 一个数组，包括被导入到当前模块中的所有模块。被导入模块的所有内容可用于 declarations 中。
+// Specifies a list of modules whose exported directives/pipes should be available to templates in this module. This can also contain ModuleWithProviders.
 imports: [BrowserModule, SomeOtherModule]
 
 // List of components, directives, and pipes visible to modules that import this module.
 // 一个数组，包括对导入当前模块的模块可见的组件、指令、管道。该数组是 declarations 的子集。
+// Specifies a list of directives/pipes/modules that can be used within the template of any component that is part of an Angular module that imports this Angular module.
+// 这里的内容只影响导入该模块的模块的组件的 template，还可以将导入的模块(如模块1)再在这里导出，这样的话，导入本模块的模块(如模块2)的组件就可以直接使用模块1的内容了。
 exports: [MyRedComponent, MyDatePipe]
 
 // List of dependency injection providers visible both to the contents of this module and to importers of this module.
 // 一个数组，用于声明依赖注入提供商，对当前模块及导入当前模块的模块可见。
+// 存在这样一种情况，模块1同时导入了模块2和模块3，导入的模块都定义了一个同样的 providerX，而模块1中某组件需要注入 providerX，但本模块并未定义 providerX，那会出现什么情况呢，试验的结论是，以 imports 数组中后定义的模块为准。
 providers: [MyService, { provide: ... }]
 
 // List of components to bootstrap when this module is bootstrapped.

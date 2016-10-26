@@ -11,15 +11,15 @@
 字符串 String: string 
 符号   Symbol: symbol
 数组   Array: elemType[] 或 Array<elemType> 
-  let list: number[] = [1, 2, 3];
-  let list: Array<number> = [1, 2, 3]
-元组   Tuple : let x: [string, number];  // 越界元素采用联合类型
-  x = ['hello', 10];  // OK
-  x = [10, 'hello'];  // Error
+         let list: number[] = [1, 2, 3];
+         let list: Array<number> = [1, 2, 3]
+元组   Tuple: let x: [string, number];  // 越界元素采用联合类型
+         x = ['hello', 10];  // OK
+         x = [10, 'hello'];  // Error
 枚举   Enum : enum Color {Red, Green, Blue};  // ['enəm]
-  enum Color {Red = 1, Green=128, Blue};
-  console.log(Color[128]);   // Green
-  console.log(Color.Green);  // 128
+         enum Color {Red = 1, Green=128, Blue};
+         console.log(Color[128]);   // Green
+         console.log(Color.Green);  // 128
 任意值 Any: any
   let notSure: any = 4; 
 空值   Void: void

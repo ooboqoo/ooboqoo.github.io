@@ -117,3 +117,36 @@ tom.move(34);  // Tommy the Palomino moved 45m
 
 
 
+
+```ts
+// TypeScript
+class Car {  
+    engine: string;
+    stop: () => string;  // 这个 stop 函数则会出现在 Car 的每个实例中
+    constructor (engine: string) {
+        this.engine = engine;
+        this.stop = () => "Stopped " + this.engine;
+    }
+
+    start() {            // 这个方法存放到 Car.prototype
+        return "Started " + this.engine;
+    }
+}
+
+// 编译后
+var Car = (function () {  
+    function Car(engine) {
+        var _this = this;
+        this.engine = engine;
+        this.stop = function () {
+            return "Stopped " + _this.engine;
+        };
+    }
+    Car.prototype.start = function () {
+        return "Started " + this.engine;
+    };
+    return Car;
+})();
+
+
+
