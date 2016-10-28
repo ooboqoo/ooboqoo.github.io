@@ -6,9 +6,10 @@
 npm install npm -g  # 更新 npm 自身
 npm -v              # 查看 npm 版本
 
-npm npm ls -g --depth=0      # 列出安装的软件包
-npm outdated  # 列出过时的包
-npm update    # 根据 package.json 指示更新包
+npm list --depth=0        # 列出安装的软件包
+npm outdated              # 列出过时的包
+npm update                # 更新本地软件包
+npm update --save         # 更新包并更新 package.json 文件的版本信息
 npm install               # 安装所有依赖包
 npm install --production  # 只安装产品依赖
 npm uninstall --save lodash  # 卸载软件包并从 package.json 中移除
