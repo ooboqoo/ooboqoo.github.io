@@ -28,7 +28,9 @@ Null: null
 Undefined: undefined
 类型断言 Type assertions
   let someValue: any = "this is a string";
-  let strLength: number = (someValue as string).length;
+  let strLength: number = (<string>someValue).length;    // 方式 1
+    // 注意这里的括号，如果 <string>someValue.length 这样写则断言的对象是 length
+  let strLength: number = (someValue as string).length;  // 方式 2
 ```
 
 元组类型允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。   
@@ -79,6 +81,16 @@ class Clock implements ClockInterface {  // 此处用的 implements 而非冒号
 ```ts
 interface Shape { color: string; }
 interface Square extends Shape { sideLength: number; }
+```
+
+#### 附
+
+```ts
+function printLabel(labelledObj: { label: string }) {
+  console.log(labelledObj.label);
+}
+let myObj = {size: 10, label: "Size 10 Object"};  // 这里额外的属性是允许的
+printLabel(myObj);
 ```
 
 ### 类

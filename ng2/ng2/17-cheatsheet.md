@@ -36,10 +36,10 @@ declarations: [MyRedComponent, MyBlueComponent, MyDatePipe]
 imports: [BrowserModule, SomeOtherModule]
 
 // List of components, directives, and pipes visible to modules that import this module.
-// 一个数组，包括对导入当前模块的模块可见的组件、指令、管道。该数组是 declarations 的子集。
+// 一个数组，包括对导入当前模块的模块可见的组件、指令、管道。该数组是 declarations+imports 的子集。
 // Specifies a list of directives/pipes/modules that can be used within the template of any component that is part of an Angular module that imports this Angular module.
 // 这里的内容只影响导入该模块的模块的组件的 template，还可以将导入的模块(如模块1)再在这里导出，这样的话，导入本模块的模块(如模块2)的组件就可以直接使用模块1的内容了。
-exports: [MyRedComponent, MyDatePipe]
+exports: [MyRedComponent, MyDatePipe, SomeOtherModule]
 
 // List of dependency injection providers visible both to the contents of this module and to importers of this module.
 // 一个数组，用于声明依赖注入提供商，对当前模块及导入当前模块的模块可见。

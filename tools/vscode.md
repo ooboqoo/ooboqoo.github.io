@@ -1,5 +1,7 @@
 # Visual Studio Code
 
+> 相关资源： https://github.com/Microsoft/vscode-tips-and-tricks Youtube 有带 1 小时视频
+
 ## 插件使用
 
 ### Angular 2 TypeScript Snippets
@@ -95,6 +97,9 @@ tslint --init
 }
 ```
 
+### Git Blame
+
+安装之后，会在左下角状态栏处实时显示当前行的最后更改人员。
 
 ## 功能需求
 
@@ -118,15 +123,56 @@ tslint --init
 
 #### Column (box) text selection
 
+多行编辑: `Ctrl+Alt+Up` or `Ctrl+Alt+Down`  
 `Shift + Alt + 拖动`  
+
+#### Undo cursor position
+
+`Ctrl+u`
 
 #### Folding
 
 ### Debugging
 
+> 所有这里的功能，只是 Chrome DevTools 功能的一部分(仅针对 Chrome 调试)
+> 部分参考视频 https://www.youtube.com/watch?v=-q1z8BPFItw
 
+#### Breakpoints
 
+Breakpoints can be toggled by clicking on the editor margin.
+Finer breakpoint control (enable/disable/reapply) can be done in the Debug view's BREAKPOINTS section.
 
+#### Conditional Breakpoints
+
+条件断点：先正常设置断点，然后在断点上右击 -> 编辑断点 就可以设置条件断点了。
+
+#### Function Breakpoints
+
+Instead of placing breakpoints directly in source code, a debugger can support creating breakpoints by specifying a function name.
+
+#### Data inspection
+
+Variables can be inspected in the VARIABLES section of the Debug view or by hovering over their source in the editor.
+
+Variables and expression evaluation is relative to the selected stack frame in the CALL STACK section.
+
+Variables and expressions can also be evaluated and watched in the Debug view WATCH section.
+
+#### Using Console - Chrome
+
+console.log() / console.clear()  
+console.assert(expression, object)  
+console.table()  
+同时输入多行命令：`Shift + Enter`
+使用代码片段：`Sources -> Snippets` 右击某条 snippet 选 run 即可执行  
+实时编辑：通过开发工具，我们可以实时改变样式，DOM 结构，另外，在调试断点处暂停时，还可以通过在控制台输入命令，变更代码运行环境(就是在断点处可以实时插入调试代码，如改变变量值啥的)。
+
+#### Debug actions
+
+* Continue: continues code execution until we encounter another breakpoint
+* Step Over: step through code line-by-line to get insights into how each line affects the variables being updated. Should your code call another function, the debugger won't jump into its code, instead stepping over so that the focus remains on the current function(scope).
+* Step Into: like Step Over, however clicking Step into at the function call will cause the debugger to move its execution to the first line in the functions definition.
+* Step Out: having stepped into a function, clicking this will cause the remainder of the funciton definiton to be run and the debugger will move its execution to the parent function.
 
 ## Customization
 
@@ -139,8 +185,9 @@ tslint --init
   "editor.wrappingIndent": "indent",
   "editor.renderWhitespace": "boundary",
   "editor.detectIndentation": false,
-  "git.autorefresh": false,                          // 这个开着的话，好像会导致 webpack-dev-server 多次编译
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "editor.renderIndentGuides": true,
+  "git.autorefresh": false,                          // 这个开着的话，每次刷新会触发 webpack-dev-server 编译
+  "typescript.tsdk": "node_modules/typescript/lib"   // 这行还是放到项目 .vscode/settings.json 下面吧
 }
 ```
 
@@ -191,11 +238,13 @@ tslint --init
 `Ctrl+Shift+P`     | Show All Commands | workbench.action.showCommands
 `Alt+Left`         | Go Back           | workbench.action.navigateBack
 `Alt+Right`        | Go Forward        | workbench.action.navigateForward
+`Ctrl+Shift+\`     | 在匹配括号中跳转  | 
 
 #### Display
 
  Key         | Command            | Command id
 ------------ | ------------------ | ----------
+`Ctrl+B`     | Toggle SideBar     | 
 `F11`        | Toggle Full Screen | workbench.action.toggleFullScreen
 `Ctrl++`     | Zoom in            | workbench.action.zoomIn
 `Ctrl+-`     | Zoom out           | workbench.action.zoomOut
@@ -211,6 +260,16 @@ tslint --init
 `F11`        | Step Into          | workbench.action.debug.stepInto
 `Shift+F11`  | Step Out           | workbench.action.debug.stepOut
 `F10`        | Step Over          | workbench.action.debug.stepOver
+
+#### Side by side editing
+
+ Key         | Command            | Command id
+------------ | ------------------ | ----------
+`Ctrl+Tab`   | 切换标签页         | 
+`Ctrl+1`     | 切换到第一栏       | 
+`Ctrl+2`     | 切换到第二栏       | 
+`Ctrl+单击` `Ctrl+\`  | 在右栏打开         | 
+`Ctrl+双击`  | 新看一栏打开文件   | 
 
 #### Customizing Shortcuts
 
