@@ -9,11 +9,10 @@ x  let message: string = 'some message';  // 如果不删除加这句，整个�
 
   // 属性不会被放到 Person.prototype，而是会被编译进 constructor
   // 所以对于实例属性，可以在 constructor 内声明或在外部声明，推荐都是在外部声明
-  race: string = 'human';
+  race: string = 'human';  // 如果加 static 则会放到 Person.race
 
-  // 这里采用了简写的方式，即在什么参数的同时声明了实例属性
   // 参数属性可以方便地让我们在一个地方定义并初始化一个成员
-  constructor(public name: string, private age: number) {  };  // 如果不加 public 或 private 就不是简写方式
+  constructor(public name: string, private age: number) {  };  // 访问限制符不可省略
 
   // 方法会定义到 Person.prototype
   getRace() { return this.race; }
@@ -188,7 +187,7 @@ employee.fullName = "Bob Smith";
 
 ## 静态属性
 
-到目前为止，我们只讨论了类的实例成员，那些仅当类被实例化的时候才会被初始化的属性。 我们也可以创建类的静态成员，这些属性存在于类本身上面而不是类的实例上。 在这个例子里，我们使用 static定义origin，因为它是所有网格都会用到的属性。 每个实例想要访问这个属性的时候，都要在 origin前面加上类名。 如同在实例属性上使用 this.前缀来访问属性一样，这里我们使用Grid.来访问静态属性。
+在实例属性之外，我们还可以创建类的静态成员，这些属性存在于类本身上面而不是类的实例上。每个实例想要访问这个属性的时候，都要在 origin 前面加上类名，如同在实例属性上使用 this 前缀来访问属性一样。
 
 ```ts
 class Grid {

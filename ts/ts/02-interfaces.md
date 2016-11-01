@@ -92,7 +92,7 @@ interface SearchFunc {
 }
 let mySearch: SearchFunc;
 mySearch = function(src: string, sub: string): boolean {  // 函数的参数名不需要与接口里定义的名字相匹配
-    return true;
+  return true;
 }
 ```
 
