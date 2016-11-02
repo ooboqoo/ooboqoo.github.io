@@ -39,7 +39,7 @@ let myAdd: (baseValue:number, increment:number) => number =
 
 TypeScript 里的每个函数参数都是必须的，传递给一个函数的参数个数必须与函数期望的参数个数一致。
 
-JavaScript 里，每个参数都是可选的，可传可不传。没传参的时候，它的值就是 undefined。在 TypeScript 里我们可以在参数名旁使用 `?` 实现可选参数的功能。**可选参数必须跟在必须参数后面**。
+JavaScript 里，每个参数都是可选的，可传可不传。没传参的时候，它的值就是 undefined。在 TypeScript 里我们可以在参数名旁使用 `?` 实现可选参数的功能。**可选参数必须跟在必选参数后面**。
 
 ```ts
 function buildName(firstName: string, lastName?: string) { /* */ }
@@ -51,7 +51,7 @@ function buildName(firstName: string, lastName?: string) { /* */ }
 function buildName(firstName: string, lastName = "Smith") { /* */ }
 ```
 
-与普通可选参数不同的是，带默认值的参数不需要放在必须参数的后面。如果带默认值的参数出现在必须参数前面，用户必须明确的传入 undefined值来获得默认值。
+与普通可选参数不同的是，带默认值的参数不需要放在必选参数的后面。如果带默认值的参数出现在必选参数前面，用户必须明确的传入 undefined值来获得默认值。
 
 ```ts
 function buildName(firstName = "Will", lastName: string) {

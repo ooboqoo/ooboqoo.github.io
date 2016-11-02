@@ -58,6 +58,36 @@ Angular 发布了一组 JavaScript 模块。每个 Angular 库的名字都带有
 
 我们在类中定义组件的应用逻辑 (它被用来为视图提供支持)。组件通过一些由属性和方法组成的 API 与视图交互。
 
+```ts
+@Component({
+  selector: 'greet',
+  host: { '[class.expanded]': 'expanded' }  // 宿主 class 绑定方法
+  template: 'Hello {{name}}!'
+})
+class Greet {
+  name: string = 'World';
+}
+```
+
+* animations - list of animations of this component
+* changeDetection - change detection strategy used by this component
+* encapsulation - style encapsulation strategy used by this component
+* entryComponents - list of components that are dynamically inserted into the view of this component
+* exportAs - name under which the component instance is exported in a template
+* host - map of class property to host element bindings for events, properties and attributes
+* inputs - list of class property names to data-bind as component inputs
+* interpolation - custom interpolation markers used in this component's template
+* moduleId - ES/CommonJS module id of the file in which this component is defined
+* outputs - list of class property names that expose output events that others can subscribe to
+* providers - list of providers available to this component and its children
+* queries - configure queries that can be injected into the component
+* selector - css selector that identifies this component in a template
+* styleUrls - list of urls to stylesheets to be applied to this component's view
+* styles - inline-defined styles to be applied to this component's view
+* template - inline-defined template for the view
+* templateUrl - url to an external file containing a template for the view
+* viewProviders - list of providers available to this component and its view children
+
 ## 模板
 
 我们通过组件自带的模板来定义视图。模板以 HTML 形式存在，用来告诉 Angular 如何渲染组件(视图)。
