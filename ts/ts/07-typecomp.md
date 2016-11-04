@@ -67,30 +67,69 @@ y = x; // Error because x() lacks a location property
 
 ### 函数参数双向协变
 
+看不懂先跳过
+
 ### 可选参数及剩余参数
+
+比较函数兼容性的时候，原类型上额外的可选参数并不会造成错误，目标类型的可选参数没有对应的参数也不是错误。
+
+当一个函数有剩余参数时，它被当做无限个可选参数。
+
+这对于类型系统来说是不稳定的，但从运行时的角度来看，可选参数一般来说是不强制的，因为对于大多数函数来说相当于传递了一些 undefinded。
 
 ### 函数重载
 
+对于有重载的函数，源函数的每个重载都要在目标函数上找到对应的函数签名。这确保了目标函数可以在所有源函数可调用的地方调用。
+
 ## 枚举
+
+枚举类型与数字类型兼容，并且数字类型与枚举类型兼容。不同枚举类型之间是不兼容的。
 
 ## 类
 
+类与对象字面量和接口差不多，但有一点不同：类有静态部分和实例部分的类型。比较两个类类型的对象时，只有实例的成员会被比较。静态成员和构造函数不在比较的范围内。
+
+```ts
+class Animal {
+  feet: number;
+  constructor(name: string, numFeet: number) { }
+}
+
+class Size {
+  feet: number;
+  constructor(numFeet: number) { }
+}
+
+let a: Animal;
+let s: Size;
+
+a = s;  //OK
+s = a;  //OK
+```
+
 ### 类的私有成员
+
+私有成员会影响兼容性判断。当类的实例用来检查兼容时，如果它包含一个私有成员，那么目标类型必须包含来自同一个类的这个私有成员。这允许子类赋值给父类，但是不能赋值给其它有同样类型的类。
 
 ## 泛型
 
+```ts
+interface Empty<T> {
+}
+let x: Empty<number>;
+let y: Empty<string>;
+
+x = y;  // okay, y matches structure of x
+
+interface NotEmpty<T> {
+  data: T;
+}
+let x: NotEmpty<number>;
+let y: NotEmpty<string>;
+
+x = y;  // error, x and y are not compatible
+```
+
 ## 子类型与赋值
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+看不懂先跳过

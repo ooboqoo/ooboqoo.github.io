@@ -1,9 +1,9 @@
 # 类型推论
 
-TypeScript里，在有些没有明确指出类型的地方，类型推论会帮助提供类型。如：
+TypeScript 里，在有些没有明确指出类型的地方，类型推论会帮助提供类型。如：
 
 ```ts
-let x = 3;  // 变量x的类型被推断为数字
+let x = 3;  // 变量 x 的类型被推断为 number
 ```
 
 这种推断发生在初始化变量和成员，设置默认参数值和决定函数返回值时。
@@ -29,11 +29,11 @@ let zoo: Animal[] = [new Rhino(), new Elephant(), new Snake()];
 
 ## 上下文类型
 
-TypeScript类型推论也可能按照相反的方向进行。这被叫做“按上下文归类”。按上下文归类会发生在表达式的类型与所处的位置相关时。比如：
+TypeScript 类型推论也可能按照相反的方向进行。这被叫做“按上下文归类”。按上下文归类会发生在表达式的类型与所处的位置相关时。比如：
 
 ```ts
 window.onmousedown = function(mouseEvent) {
-  console.log(mouseEvent.buton);  //<- Error
+  console.log(mouseEvent.buton);  // Error
 };
 ```
 
