@@ -35,7 +35,7 @@ function loggingIdentity<T>(arg: T): T {
 }
 ```
 
-现在假设我们想操作T类型的数组而不直接是 T。由于我们操作的是数组，所以 .length 属性是应该存在的。我们可以像创建其它数组一样创建这个数组：
+现在假设我们想操作 T 类型的数组而不直接是 T。由于我们操作的是数组，所以 .length 属性是应该存在的。我们可以像创建其它数组一样创建这个数组：
 
 ```ts
 function loggingIdentity<T>(arg: T[]): T[] {

@@ -21,9 +21,9 @@
          console.log(Color[128]);   // Green
          console.log(Color.Green);  // 128
 任意值 Any: any
-  let notSure: any = 4; 
+         let notSure: any = 4; 
 空值   Void: void
-  function f00(): viod {}
+         function f00(): viod {}
 Null: null
 Undefined: undefined
 类型断言 Type assertions
@@ -109,12 +109,12 @@ printLabel(myObj);
 
 存取器 get set   
 静态属性 static   
-抽象来 abstract   
+抽象类 abstract   
 把类当做接口使用：因为类可以创建出类型，所以你能够在可以使用接口的地方使用类。
 
 ### 函数类型
 
-TypeScript能够根据返回语句自动推断出返回值类型，因此我们通常省略它。
+TypeScript 能够根据返回语句自动推断出返回值类型，因此我们通常省略它。
 
 ```ts
 let myAdd: (x:number, y:number)=>number =      // 返回值类型之前使用 => 符号
@@ -124,17 +124,17 @@ let myAdd: (x:number, y:number)=>number =      // 返回值类型之前使用 =>
 ### 泛型 Generics
 
 ```ts
-// <T>指定用T作为泛型参数，然后T会根据传入参数类型取得值，并用来检验返回值类型
+// <T> 中的 T 是类型变量
 function funcName<T>(arg: T): T { return arg; }
 ```
 
 ### 高级类型
 
 #### 联合类型
-联合类型表示一个值可以是几种类型之一。 我们用竖线（ |）分隔每个类型，如 `number | string | boolean`。
+联合类型表示一个值可以是几种类型之一。 我们用竖线 `|` 分隔每个类型，如 `number | string | boolean`。
 
 #### 交叉类型
-交叉类型表示对象同时拥有这多种类型的成员，主要出现在混入中，如 `Person & Serializable & Loggable`。
+交叉类型表示对象同时拥有多个类型的成员，主要出现在混入中，如 `Person & Serializable & Loggable`。
 
 #### 类型别名
 ```ts
@@ -156,17 +156,17 @@ type Easing = "ease-in" | "ease-out" | "ease-in-out";
 
 ### 模块
 
-为与 ES2015 保持一致，从 TS1.5 开始，原“内部模块”称做“命名空间”, 而“模块”则指“外部模块”。
+为与 ES2015 保持一致，从 TS1.5 开始，原 “内部模块” 称做 “命名空间”, 而 “模块” 则指 “外部模块”。
 
-尽管 TypeScript 采用了ES6的模块的语法，但转ES5的话实际生成的还是 CommonJS 的模块。   
+尽管 TypeScript 采用了 ES6 的模块的语法，但转 ES5 的话实际生成的还是 CommonJS 的模块。   
 --module (target === "ES6" ? "ES6" : "CommonJS")
 
 #### 模块解析
-说明了与 Nodejs 解析不同的地方，import 时不能带后缀的原因也在这，TS 找 ts文件，Nodejs 找 js 文件。
+说明了与 Nodejs 解析不同的地方，import 时不能带后缀的原因也在这，TS 找 ts 文件，Nodejs 找 js 文件。
 
 ### 命名空间
 
-随着更多验证器的加入，我们需要一种手段来组织代码，以便于在记录它们类型的同时还不用担心与其它对象产生命名冲突。 因此，我们把验证器包裹到一个命名空间内，而不是把它们放在全局命名空间下。
+随着更多验证器的加入，我们需要一种手段来组织代码，以便于在记录它们类型的同时还不用担心与其它对象产生命名冲突。 因此，我们把验证器包裹到一个命名空间内，而不是把它们放在全局命名空间下。（使用模块的话，命名空间就没什么用了）
 
 ```ts
 namespace Validation {

@@ -49,7 +49,7 @@ x = [10, "hello"]; // Error
 
 ```ts
 x[3] = "world"; // OK, 'string' can be assigned to 'string | number'
-x[6] = true; // Error, 'boolean' isn't 'string | number'
+x[6] = true;    // Error, 'boolean' isn't 'string | number'
 ```
 
 ### Enum 枚举类型
@@ -57,7 +57,7 @@ x[6] = true; // Error, 'boolean' isn't 'string | number'
 使用枚举类型可以方便地将名称与数值（下标）建立联系，即可以通过名称取得数值，同时又可以通过数值取得名称。默认下标是从 0 开始的，你可以指定某个成员的下标(后续成员下标会受影响)，甚至手动指定所有成员的下标。
 
 ```ts
-enum Color {Red = 1, Green=128, Blue};
+enum Color {Red = 1, Green = 128, Blue};
 console.log(Color[128])   // Green
 console.log(Color.Green)  // 128
 ```
@@ -72,7 +72,7 @@ console.log(Color.Green)  // 128
 
 ```ts
 function warnUser(): void {
-    alert("This is my warning message");
+  alert("This is my warning message");
 }
 ```
 
