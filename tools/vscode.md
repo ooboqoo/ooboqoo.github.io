@@ -174,6 +174,24 @@ console.table()
 * Step Into: like Step Over, however clicking Step into at the function call will cause the debugger to move its execution to the first line in the functions definition.
 * Step Out: having stepped into a function, clicking this will cause the remainder of the funciton definiton to be run and the debugger will move its execution to the parent function.
 
+#### `debugger` 关键字
+
+The debugger keyword stops the execution of JavaScript, and calls (if available) the debugging function.
+
+This has the same function as setting a breakpoint in the debugger.
+
+If no debugging is available, the debugger statement has no effect.
+
+使用 debugger 关键字设置断点，效果同在调试器中设置断点。如果调试器处于打开状态，代码运行到 `debugger;` 时会中断，如果没开调试器，则会被忽略。
+
+> 2016/11/8 调试时，碰到断点代码与实际代码错位的问题，ts 转 js 然后又 webpack 结果调试时差了 4行(这次问题出在 webpack 配置 devtool: 'eval-cheap-module-source-map' 改 'source-map' 后运行正常，估计是 angular2 templateUrl 导致的问题)，这问题很坑，调试器整个都不能正常工作，使用 debugger 可以快速发现到底有没有错行，或者是错了几行。
+> 
+> 错行导致的另外一个问题是，代码旁边的变量计算结果备注，或者是当鼠标移动到代码上时的显示结果，会出现偏差。具体情况是，结果是根据实际代码执行情况实时计算的(跟此时在 console 里输入变量的返回结果是一样的)，而代码定位器与实际代码执行进度不同，结果会出现怪异的结果：
+> ```ts
+> let a = 1;  // 计算结果 a = undefined, 这与代码表面期望结果不符，令人费解
+> // some other code, 调试器指针处于这一行，而实际运行连上一行都还没执行
+> ```
+
 ## Customization
 
 ### User and Workspace Settings
