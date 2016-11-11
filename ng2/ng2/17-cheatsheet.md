@@ -276,8 +276,9 @@ export class DashboardComponent implements OnInit {
 
 ```ts
 // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-// 类的构造函数须在所有其它生命周期钩子之前调用。使用它来注入依赖，但构造函数只能用来初始化实例而不应该负责其他任务。
-constructor(myService: MyService, ...) { ... }
+// 类的构造函数须在所有其它生命周期钩子之前调用。使用它来注入依赖，
+// 但构造函数只能用来初始化实例而不应该负责其他任务。
+constructor(public myService: MyService, ...) { ... }
 
 // Called after every change to input properties and before processing content or child views.
 // 在输入属性每次变化了之后、开始处理内容或子视图之前被调用。
