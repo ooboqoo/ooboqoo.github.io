@@ -101,6 +101,10 @@ tslint --init
 
 安装之后，会在左下角状态栏处实时显示当前行的最后更改人员。
 
+### angular2-inline
+
+提供 angular2 内嵌模板的语法高亮。
+
 ## 功能需求
 
 文本拖拽，该功能还未实现 2016/10/11 https://github.com/Microsoft/vscode/issues/1046
