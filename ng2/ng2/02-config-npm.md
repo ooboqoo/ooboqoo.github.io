@@ -62,9 +62,9 @@ If you were starting with a package 1.0.4, this is how you would specify the ran
     "@angular/upgrade": "2.0.0-rc.4",           // 一组用于升级 Angular 1 应用的工具
     "systemjs": "0.19.27",          // 一个动态的模块加载器，兼容ES6模块规范，其他还有 webpack 等
     "core-js": "^2.4.0",            // 浏览器补丁，提供了 ES6 的很多基础特性，其他还有 es6-shim 等
-    "reflect-metadata": "^0.1.3",   // NG2 和 TS 共享的polyfill，提供 annotation metadata 支持
-    "rxjs": "5.0.0-beta.6",         // 一个为 可观察对象 (Observable) 规范 提供的填充库
-    "zone.js": "^0.6.12",           // Zone规范的polyfill，主要用于检测数据变更
+    "reflect-metadata": "^0.1.3",   // NG2 和 TS 共享的 polyfill，提供 annotation metadata 支持
+    "rxjs": "5.0.0-beta.6",         // 一个为 可观察对象 (Observable) 规范 提供的填充库，该规范已经提交给了 TC39 委员会
+    "zone.js": "^0.6.12",           // Zone 规范的 polyfill，主要用于检测数据变更，该规范已经提交给了 TC39 委员会
     "angular2-in-memory-web-api": "0.0.14",    // 支持库，在开发阶段模拟一个远端服务器
     "bootstrap": "^3.3.6"                      // 一个广受欢迎的 HTML 和 CSS 框架
   },

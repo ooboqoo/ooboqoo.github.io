@@ -112,6 +112,15 @@ tslint --init
 
 ## Editor
 
+```json
+// keybindings.json
+[
+  { "key": "ctrl+shift+s", "command": "workbench.action.files.saveAll" },
+  { "key": "shift+alt+down", "command": "cursorColumnSelectDown", "when": "editorTextFocus" },
+  { "key": "shift+alt+up", "command": "cursorColumnSelectUp", "when": "editorTextFocus" }
+]
+```
+
 ### The Basic
 
 ### Editing Evolved
@@ -127,7 +136,7 @@ tslint --init
 
 #### Column (box) text selection
 
-多行编辑: `Ctrl+Alt+Up` or `Ctrl+Alt+Down`  
+多行编辑: `Ctrl+Alt+Up` or `Ctrl+Alt+Down` 或 `Ctrl+Shift+Alt+Up` or `Ctrl+Shift+Alt+Down`  
 `Shift + Alt + 拖动`  
 
 #### Undo cursor position

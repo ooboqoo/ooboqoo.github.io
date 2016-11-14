@@ -8,12 +8,12 @@
 class Http {
 constructor(_backend: ConnectionBackend, _defaultOptions: RequestOptions)
 request(url: string|Request,    options?: RequestOptionsArgs) : Observable<Response>
-get(    url: string,            options?: RequestOptionsArgs) : Observable<Response>
-post(   url: string, body: any, options?: RequestOptionsArgs) : Observable<Response>
-put(    url: string, body: any, options?: RequestOptionsArgs) : Observable<Response>
-delete( url: string,            options?: RequestOptionsArgs) : Observable<Response>
-patch(  url: string, body: any, options?: RequestOptionsArgs) : Observable<Response>
-head(   url: string,            options?: RequestOptionsArgs) : Observable<Response>
+    get(url: string,            options?: RequestOptionsArgs) : Observable<Response>
+   post(url: string, body: any, options?: RequestOptionsArgs) : Observable<Response>
+    put(url: string, body: any, options?: RequestOptionsArgs) : Observable<Response>
+ delete(url: string,            options?: RequestOptionsArgs) : Observable<Response>
+  patch(url: string, body: any, options?: RequestOptionsArgs) : Observable<Response>
+   head(url: string,            options?: RequestOptionsArgs) : Observable<Response>
 options(url: string,            options?: RequestOptionsArgs) : Observable<Response>
 }
 ```
@@ -281,8 +281,128 @@ import { AppComponent } from './app.component';
 export class AppModule { }
 ```
 
+##《英雄指南》的 HTTP 客户端演示
 
+这是一条“黄金法则”： **总是把数据访问工作委托给一个支持服务类**。
 
+## RxJS 库
 
+RxJS("Reactive Extensions" 的缩写 ) 是一个被 Angular 认可的第三方库，它实现了 [异步可观察对象 (asynchronous observable)](https://www.youtube.com/watch?v=UHI0AzD_WfY) 模式。
 
+### 启用 RxJS 操作符
+
+RxJS 库实在是太大了。当构建一个产品级应用，并且把它发布到移动设备上的时候，大小就会成为一个问题。我们应该只包含那些我们确实需要的特性。因此，Angular 在 rxjs/Observable 模块中导出了一个精简版的 Observable 类，这个版本缺少很多操作符，这让我们可以自由决定添加哪些操作符。
+
+我们可以通过一条 import 语句把 每个 RxJS 操作符都添加进来。虽然这是最简单的方式，但我们也得付出代价，主要是在启动时间和应用大小上，因为完整的库实在太大了。而我们其实只需要用到少量操作符。因为本应用只使用了少许操作符，所以将一个一个的导入 Observable 的操作符和静态类方法比较合适，直到我们得到了一个精确符合我们需求的自定义 Observable 实现。我们将把这些 import 语句放进一个 app/rxjs-operators.ts 文件里。如果忘了导入某个操作符， TypeScript 编译器就会警告说找不到它，那时候我们再来更新此文件。
+
+### 不要返回响应 (Response) 对象
+
+getHeroes() 确实可以返回 HTTP 响应对象，但这不是最佳实践。数据服务的重点在于，对消费者隐藏与服务器交互的细节。调用 HeroService 的组件希望得到英雄数组。它并不关心我们如何得到它们。它也不在乎这些数据从哪里来。毫无疑问，它也不希望直接和一个响应对象打交道。
+
+### 总是处理错误
+
+一旦开始与 I/O 打交道，我们就必须准备好接受墨菲定律：如果一件倒霉事可能发生，它就迟早会发生。我们可以在 HeroService 中捕获错误，并对它们做些处理。只有在用户可以理解并采取相应行动的时候，我们才把错误信息传回到组件，让组件展示给最终用户。
+
+## 往服务器发送数据
+
+## 跨域请求： Wikipedia 范例
+
+出于安全的考虑，网络浏览器会阻止调用与当前页面不“同源”的远端服务器的 XHR 。 所谓 **源** 就是 URI 的协议 (scheme) 、主机名 (host) 和端口号 (port) 这几部分的组合。这被称为 **同源策略**。
+
+在现代浏览器中，如果服务器支持 CORS 协议，那么也可以向不同源的服务器发起 XHR 请求。如果服务器要请求用户凭证，我们就在 **请求头** 中启用它们。
+
+## 奢侈的应用程序
+
+### 1. 等用户停止输入
+
+### 2. 当搜索关键字变化了才搜索
+
+### 3. 对付乱序响应体
+
+## 附录：内存 (in-memory) 服务器
+
+如果我们只关心获取到的数据，我们可以告诉 Angular 从一个 heroes.json 文件中获取英雄列表，就像这样：
+
+```json
+{
+  "data": [
+    { "id": 1, "name": "Windstorm" },
+    { "id": 2, "name": "Bombasto" }
+  ]
+}
+```
+
+> 我们把英雄数组包装进一个带 `data` 属性的对象中，就像一个真正的数据服务器所应该做的那样。这样可以缓解由顶级 JSON 数组导致的 [安全风险](http://stackoverflow.com/questions/3503102/what-are-top-level-json-arrays-and-why-are-they-a-security-risk)。
+
+我们要像这样把端点设置为这个 JSON 文件：
+
+```ts
+private heroesUrl = 'app/heroes.json'; // URL to JSON file
+```
+
+这在 “获取”英雄数据 的场景下确实能工作，但我们还想 **保存** 数据。我们不能把这些改动保存到 JSON 文件中，我们需要一个 Web API 服务器。在本章中，我们不想惹上配置和维护真实服务器的那些麻烦事。所以，我们转而使用一种 内存 Web API 仿真器 代替它。
+
+内存 Web API 从一个带有 `createDb()` 方法的自定义类中获取数据，并且返回一个 map ，它的主键 (key) 是一组名字，而值 (value) 是一组与之对应的对象数组。
+
+这里是与范例中基于 JSON 的数据源完成相同功能的类：
+
+app/hero-data.ts
+```ts
+import { InMemoryDbService } from 'angular-in-memory-web-api';
+export class HeroData implements InMemoryDbService {
+  createDb() {
+    let heroes = [
+      { id: 1, name: 'Windstorm' },
+      { id: 2, name: 'Bombasto' }
+    ];
+    return {heroes};
+  }
+}
+```
+
+确保 HeroService 的端点指向了这个 Web API ：
+
+```ts
+private heroesUrl = 'app/heroes';  // URL to web API
+```
+
+最后，把来自 HTTP 客户端的请求重定向到这个内存 Web API 。
+
+使用内存 Web API 服务模块很容易配置重定向，将 InMemoryWebApiModule 添加到 AppModule.imports 列表中， 同时在 HeroData 类中调用 forRoot 配置方法。
+
+app/app.module.ts
+```ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule, JsonpModule }  from '@angular/http';
+
+import { InMemoryWebApiModule }     from 'angular-in-memory-web-api';
+import { HeroData }                 from './hero-data';
+
+import { AppComponent }             from './app.component';
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    JsonpModule,
+    InMemoryWebApiModule.forRoot(HeroData)
+  ],
+  declarations: [
+    AppComponent,
+  ],
+  bootstrap: [ AppComponent ]
+})
+export class AppModule { }
+```
+
+### 工作原理
+
+这次重定向非常容易配置，这是因为 Angular 的 http 服务把客户端 / 服务器通讯的工作委托给了一个叫做 `XHRBackend` 的辅助服务。
+
+使用标准 Angular 提供商注册方法，`InMemoryWebApiModule` 替代默认的 `XHRBackend` 服务并使用它自己的内存存储服务。`forRoot` 方法来自模拟的英雄数据集的 种子数据 初始化了这个内存 Web API
+
+`forRoot` 方法的名字告诉我们，应该只在设置根模块 AppModule 时调用 InMemoryWebApiModule 一次。不要再次调用它。
+另外要注意的是，Import the InMemoryWebApiModule after the HttpModule to ensure that the XHRBackend provider of the InMemoryWebApiModule supersedes all others.
 
