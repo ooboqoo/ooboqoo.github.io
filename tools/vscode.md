@@ -33,7 +33,6 @@ ng2-ngModel
 ng2-routerLink
 ng2-ngStyle
 ng2-ngSwitch
-Alternatively, press Ctrl+Space (Windows, Linux) or Cmd+Space (OSX) to activate snippets from within the editor.
 ```
 
 ### Debugger for Chrome
@@ -52,14 +51,12 @@ Unsupported scenarios
 * Debugging web workers
 * Any features that aren't script debugging.
 
-问题处理 -- 无法连接 Chrome：
+问题处理 -- 无法连接 Chrome：`Chrome启动图标右击 -> 属性 -> 目标` 修改为   
+`"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222`
 
-* 方法1：打开调试之前需要将所有 Chrome 窗口关闭。
-* 方法2：`Chrome启动图标右击 -> 属性 -> 目标` 修改为   
-  `"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222`
+感觉直接在编辑器下断点、查看调用堆栈、以及查看变量都比较方便；`watch` 项用于监控变量，需要手动输入变量名，调试过程会实时监控该变量。
 
-感觉直接在编辑器下断点、查看调用堆栈、以及查看变量都比较方便；
-`watch` 项用于监控变量，需要手动输入变量名，调试过程会实时监控该变量。
+> 其实这里的功能，Chrome 都有，在浏览器调试，需要先找到代码再调试，但不用切换；在编辑器调试，不用找代码，但调试过程中需要在浏览器与编辑器之间切换，总体感觉还不如直接在浏览器中调试。
 
 ### vscode-tslint
 
@@ -74,7 +71,7 @@ Unsupported scenarios
 tslint --init
 ```
 
-单文件修改配置：
+单文件修改配置(只能开关某项设置，没有办法调整设置值)：
 ```ts
 /* tslint:disable:quotemark */
 ```
@@ -105,21 +102,16 @@ tslint --init
 
 提供 angular2 内嵌模板的语法高亮。
 
+### Document This
+
+自动生成文档的工具。vscode 中的智能提示支持直接显示 markdown 格式，非常方便。
+
 ## 功能需求
 
 文本拖拽，该功能还未实现 2016/10/11 https://github.com/Microsoft/vscode/issues/1046
 
 
 ## Editor
-
-```json
-// keybindings.json
-[
-  { "key": "ctrl+shift+s", "command": "workbench.action.files.saveAll" },
-  { "key": "shift+alt+down", "command": "cursorColumnSelectDown", "when": "editorTextFocus" },
-  { "key": "shift+alt+up", "command": "cursorColumnSelectUp", "when": "editorTextFocus" }
-]
-```
 
 ### The Basic
 
@@ -157,7 +149,7 @@ Finer breakpoint control (enable/disable/reapply) can be done in the Debug view'
 
 #### Conditional Breakpoints
 
-条件断点：先正常设置断点，然后在断点上右击 -> 编辑断点 就可以设置条件断点了。
+条件断点：先正常设置断点，然后在断点上右击 -> 编辑断点 就可以设置条件断点了。条件断点目前支持 ‘表达式’ 和 ‘命中次数’ 两种方式。
 
 #### Function Breakpoints
 
@@ -178,7 +170,7 @@ console.assert(expression, object)
 console.table()  
 同时输入多行命令：`Shift + Enter`
 使用代码片段：`Sources -> Snippets` 右击某条 snippet 选 run 即可执行  
-实时编辑：通过开发工具，我们可以实时改变样式，DOM 结构，另外，在调试断点处暂停时，还可以通过在控制台输入命令，变更代码运行环境(就是在断点处可以实时插入调试代码，如改变变量值啥的)。
+实时编辑：通过开发工具，我们可以实时改变样式，DOM 结构，另外，在调试断点处暂停时，还可以通过在控制台输入命令，**变更代码运行环境**(就是在断点处可以实时插入调试代码，如改变变量值啥的)。
 
 #### Debug actions
 
@@ -240,6 +232,8 @@ If no debugging is available, the debugger statement has no effect.
 `Alt+Up`           | Move Line Up      | editor.action.moveLinesUpAction
 `Shift+Alt+Down`   | Copy Line Down    | editor.action.copyLinesDownAction
 `Shift+Alt+Up`     | Copy Line Up      | editor.action.copyLinesUpAction
+`Ctrl+Shift+Alt+Down`   | Column Select Down    | cursorColumnSelectDown
+`Ctrl+Shift+Alt+Up`     | Column Select Up      | cursorColumnSelectUp
 `Ctrl+]`           | Indent Line       | editor.action.indentLines
 `Ctrl+[`           | Outdent Line      | editor.action.outdentLines
 `Ctrl+/`           | Toggle Line Comment | editor.action.commentLine
@@ -249,7 +243,7 @@ If no debugging is available, the debugger statement has no effect.
  Key               | Command           | Command id
 ------------------ | ----------------- | ----------
 `Ctrl+Space`       | Trigger Suggest   | editor.action.triggerSuggest
-`Ctrl+Shift+Space` | Trigger Parameter Hints | editor.action.triggerParameterHints
+`Shift+Ctrl+Space` | Trigger Parameter Hints | editor.action.triggerParameterHints
 `Shift+Alt+F`      | Format Code       | editor.action.format
 `F12`              | Go to Definition  | editor.action.goToDeclaration
 `Alt+F12`          | Peek Definition 弹窗 | editor.action.previewDeclaration
@@ -300,16 +294,11 @@ If no debugging is available, the debugger statement has no effect.
 `Ctrl+1`     | 切换到第一栏       | 
 `Ctrl+2`     | 切换到第二栏       | 
 `Ctrl+单击` `Ctrl+\`  | 在右栏打开         | 
-`Ctrl+双击`  | 新看一栏打开文件   | 
+`Ctrl+双击`  | 新开一栏打开文件   | 
 
 #### Customizing Shortcuts
 
 File > Preferences > Keyboard Shortcuts.
-
-#### Common Questions
-
-Q: How to find out what command is bound to a specific key?   
-A: In the Default Keyboard Shortcuts, open Quick Outline by pressing `Ctrl+Shift+O`
 
 ### Display Language
 
@@ -322,7 +311,3 @@ A: In the Default Keyboard Shortcuts, open Quick Outline by pressing `Ctrl+Shift
 ### Markdown
 
 Markdown Preview：`Ctrl+Shift+v` 预览；`Ctrl+K V` 侧栏预览
-
-
-
-

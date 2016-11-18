@@ -11,6 +11,7 @@
 取消显示打印分割线: Show right margin
 字体设置: Editor -> Colors & Fonts -> Font Font
 拼写检查: inspections -> spelling -> Typo
+JS 缩进设置：File -> Setting -> Editor -> Code Style -> JavaScript
 ```
 
 ### 快键键设置

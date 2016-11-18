@@ -2,6 +2,10 @@
 
 ## NPM
 
+```bash
+$ npm config get registry  # 查看源设置
+$ npm config set registry https://registry.npm.taobao.org/  # 设置淘宝源
+```
 
 ## Yarn
 
