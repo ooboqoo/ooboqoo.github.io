@@ -117,7 +117,7 @@ Angular 并不是在显示和隐藏这条消息，它是在从 DOM 中添加和�
 @Component({
   selector: 'key-up1',
   template: `
-    <input (keyup)="onKey($event)">  // $event 是模板语法里的系统变量，指向当前事件对象
+    <input (keyup)="onKey($event)">  <!-- $event 是模板语法里的系统变量，指向当前事件对象 -->
     <p>{{values}}</p>`
 })
 export class KeyUpComponent_v1 {
@@ -136,7 +136,7 @@ Angular 有一个叫做 **模板引用变量** 的语法特性。这些变量给
 @Component({
   selector: 'loop-back',
   template: `
-    <input #box (keyup)="0">  // keyup 其实什么也没做，添加异步事件响应只为触发 Angular 来更新绑定
+    <input #box (keyup)="0">  <!-- keyup 其实什么也没做，添加异步事件响应只为触发 Angular 来更新绑定 -->
     <p>{{box.value}}</p>
   `
 })

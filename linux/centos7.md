@@ -7,7 +7,7 @@ https://shadowsocks.org/en/download/servers.html
 
 ```bash
 # 安装
-$ yum install python-setuptools  # 这一步可省略，已经默认安装了
+$ yum install python-setuptools
 $ easy_install pip
 $ pip install shadowsocks
 

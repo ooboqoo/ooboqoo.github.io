@@ -124,12 +124,6 @@ import { CommonModule } from '@angular/common';
 `<li *ngFor="let item of list">`
 
 // Conditionally swaps the contents of the div by selecting one of the embedded templates based on the current value of `conditionExpression`.
-`<div [ngSwitch]="conditionExpression">
-  <template [ngSwitchCase]="case1Exp">...</template>
-  <template ngSwitchCase="case2LiteralString">...</template>
-  <template ngSwitchDefault>...</template>
-</div>`
-// 我能看懂的是下面这样的，上面的具体待考
 `<div class='container' [ngSwitch]='myVar'>
   <div *ngSwitchWhen='"A"'>Var is A</div>
   <div *ngSwitchWhen='"A"'>Var is A again</div>     <!-- 同一项可以匹配多次 -->
@@ -201,7 +195,7 @@ class MyService() {}
 @Component({
   slector: ...,
   providers: ...,
-  moduleId: module.id,  // 如果设置了，templateUrl 和 styleUrl 会相对于组件进行地址解析。
+  moduleId: module.id,  // 提供相对于组件地址支持，此写法仅适用于 CommonJS 格式
   viewProviders: [MyService, { provide: ... }],  // 注册组件级别的服务供应商
   template: 'Hello {{name}}',         // 二选一，内嵌模板
   templateUrl: 'my-component.html',   // 二选一，外部模板

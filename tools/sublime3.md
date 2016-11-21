@@ -5,17 +5,25 @@
 
 ## 颜色主题设置
 
-<h3>How to install a Sublime Text theme</h3>
-<p><code>Preferences -> Browse Packages</code> 进入"Packages"文件夹，并创建"Colorsublime-Themes"，再将下载的主题文件放入该文件夹。</p>
-<p><code>Preferences -> Color Scheme -> Colorsublime-Themes</code> 选择相应的主题即可。</p>
-<h3>自定义主题的相关文档和资料</h3>
-<p>如何查看要修改的部分的scope：<code>ctrl+alt+shift+p</code></p>
-<ul>
-<li><a href="http://colorsublime.com/how-to-install-a-theme">Colorsublime How to install a theme</a></li>
-<li><a href="http://docs.sublimetext.info/en/latest/reference/color_schemes.html">Color Schemes — Sublime Text Unofficial Documentation</a></li>
-</ul>
-<h3>解决标记匹配高亮不明显问题</h3>
-<p>安装 BracketHighlighter 插件即可解决此问题。</p>
+[Garden 主题文件](./Garden.tmTheme)
+
+### How to install a Sublime Text theme
+
+`Preferences -> Browse Packages` 进入"Packages"文件夹，并创建"Colorsublime-Themes"，再将下载的主题文件放入该文件夹。
+
+`Preferences -> Color Scheme -> Colorsublime-Themes` 选择相应的主题即可。
+
+### 自定义主题的相关文档和资料
+
+如何查看要修改的部分的scope：`ctrl+alt+shift+p`
+
+[Colorsublime How to install a theme](http://colorsublime.com/how-to-install-a-theme)   
+[Color Schemes — Sublime Text Unofficial Documentation](http://docs.sublimetext.info/en/latest/reference/color_schemes.html)
+
+### 解决标记匹配高亮不明显问题
+
+安装 BracketHighlighter 插件即可解决此问题。
+
 
 ## 快捷键列表
 <p>屌丝的默认快捷键设置：{ "keys": ["ctrl+k", "ctrl+b"], "command": "toggle_side_bar" } 的意思是 Hide Side Bar is the sequence Ctrl+K, Ctrl+B（先按Ctrl+K, 再按Ctrl+B）不谷歌能看懂？</p>
@@ -33,7 +41,7 @@
 <tr><td>emmet wrap_as_you_type</td><td>shift+ctrl+g</td><td>ctrl+alt+t</td></tr>
 </table>
 
-<pre>
+```bash
 ###特色功能
 Ctrl+P 查找当前项目中的文件和快速搜索
 Ctrl+Shift+P 打开命令面板
@@ -85,7 +93,7 @@ alt+- 上一个编辑处
 alt+shift+- 下一个编辑处
 Ctrl+G 跳转到相应的行
 Ctrl+M 光标移动至括号内开始或结束的位置
-</pre>
+```
 
 ### 查找替换
 
@@ -105,13 +113,12 @@ Ctrl+M 光标移动至括号内开始或结束的位置
 <tr><td>In selection</td><td></td><td>必须是先选中内容再调出“查找替换”栏才有效，<br>调出替换栏后，再用鼠标选中其他内容，系统还是认原先的选中区域</td></tr>
 </table>
 
-<pre>
+```
 Open Find in Files  Ctrl + Shift + F
 Search forward using most recent pattern  F3
 Search backwards using most recent pattern  Shift + F3
 Select all matches using most recent pattern  Alt + F3
-</pre>
-
+```
 
 
 ## 使用技巧
@@ -142,24 +149,24 @@ Select all matches using most recent pattern  Alt + F3
 
 ## 插件
 
-<table>
-<tr><td>Package Control</td><td>插件管理器 https://sublime.wbond.net/installation</td></tr>
-<tr><td>Emmet</td><td>HTML CSS 快速输入必装插件。</td></tr>
-<tr><td>JavaScript Completions</td><td>JS 自动补齐支持。</td></tr>
-<tr><td>jQuery</td><td>jQuery 自动补齐支持。</td></tr>
-<tr><td>SublimeLinter 3</td><td>JS代码分析与提示，需要加装插件 jshint</td></tr>
-<tr><td>HTML-CSS-JS prettify</td><td>This extension gives you a command to format your HTML, CSS and JS</td></tr>
-<tr><td>Autoprefixer</td><td>可以自动帮助添加CSS浏览器前缀</td></tr>
-<tr><td>Less</td><td>Less 语法高亮支持。</td></tr>
-<tr><td>Color Highlighter</td><td>根据颜色代码直观显示颜色，并带 color picker</td></tr>
-<tr><td>BracketHighlighter</td><td>默认的匹配标记高亮很扯淡，所以有了这个插件。</td></tr>
-<tr><td>Git Gutter</td><td>Add a marker in the gutter wherever there is a change made to a file.</td></tr>
-<tr><td>AutoFileName</td><td>自动添加引用文件名。</td></tr>
-<tr><td>AdvancedNewFile</td><td>新建文件的增强版，调用方法：<code>ctrl+alt+n</code></td></tr>
-<tr><td>SideBarEnhancements</td><td>侧边栏右键功能增强。</td></tr>
-<tr><td>SyncedSideBar</td><td>可以在侧边栏同步展开编辑文件所在目录的插件。后来发现 右键->Reveal in Side Bar 是个更好的选择 </td></tr>
-<tr><td>IMESupport</td><td>输入中文时，输入框总是在最下面，装了这个插件不用设置，一切就会正常工作了。</td></tr>
-</table>
+ 插件           | 描述 
+ -------------- | ---------------------------------------------------
+Package Control | 插件管理器 https://sublime.wbond.net/installation
+Emmet           | HTML CSS 快速输入必装插件。
+JavaScript Completions | JS 自动补齐支持。
+SublimeLinter 3 | JS代码分析与提示，需要加装插件 jshint
+HTML-CSS-JS prettify   | This extension gives you a command to format your HTML, CSS and JS
+Autoprefixer    | 可以自动帮助添加CSS浏览器前缀
+Less            | Less 语法高亮支持。
+Color Highlighter      | 根据颜色代码直观显示颜色，并带 color picker
+BracketHighlighter     | 默认的匹配标记高亮很扯淡，所以有了这个插件。
+Git Gutter      | Add a marker in the gutter wherever there is a change made to a file.
+AutoFileName    | 自动添加引用文件名。
+AdvancedNewFile | 新建文件的增强版，调用方法：`ctrl+alt+n`
+SideBarEnhancements    | 侧边栏右键功能增强。
+SyncedSideBar   | 可以在侧边栏同步展开编辑文件所在目录的插件。后来发现 右键->Reveal in Side Bar 是个更好的选择
+IMESupport      | 输入中文时，输入框总是在最下面，装了这个插件不用设置，一切就会正常工作了。
+HTML2Text       | HTML 转 Markdown 插件
 
 ### SublimeLinter
 

@@ -81,7 +81,7 @@ class Greet {
 * outputs - list of class property names that expose output events that others can subscribe to
 * providers - list of providers available to this component and its children
 * queries - configure queries that can be injected into the component
-* selector - css selector that identifies this component in a template
+* selector - **css selector** that identifies this component in a template
 * styleUrls - list of urls to stylesheets to be applied to this component's view
 * styles - inline-defined styles to be applied to this component's view
 * template - inline-defined template for the view
