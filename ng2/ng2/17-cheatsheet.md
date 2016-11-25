@@ -245,7 +245,9 @@ import { Input, ... } from '@angular/core';
 
 // Binds the first result of the component view query (`myPredicate`) to a property (`myChildComponent`) of the class. Not available for directives.
 // 把组件视图查询(myPredicate)的第一个结果绑定到类的 myChildComponent 属性。对指令无效。
+// You can use ViewChild to get the first element or the directive matching the selector from the view DOM. If the view DOM changes, and a new child matches the selector, the property will be updated.
 @ViewChild(myPredicate) myChildComponent;
+  // selector - the directive type or the name used for querying. 选择符为 "指令类型" 或 "局部变量"
 
 // Binds the results of the component view query (`myPredicate`) to a property (`myChildComponents`) of the class. Not available for directives.
 // 把组件视图查询(myPredicate)的全部结果绑定到类的 myChildComponents 属性。对指令无效。
