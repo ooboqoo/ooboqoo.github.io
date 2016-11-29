@@ -185,7 +185,11 @@ $ git stash list  # 列出所有 stash
 $ git stash pop   # 恢复最近一次 stash 的内容，注意是保存的变动追加在目前状态之上，而非覆盖目前状态
 $ git stash apply # 恢复最近一次 stash 的内容，与 pop 的区别是，pop 之后该 stash 就删除了，而 apply 则不删
 $ git stash show stash@{1} # 查看最近的第二次 stash 的具体内容
+$ git stash show -p        # --patch 显示 stash@{0} 的详细内容
+$ gitk stash               # 使用图形界面查看 stash@{0} 的详细内容
+$ git stash branch <branchname> [<stash>]  # 根据 stash 生成新的分支以还原当时现场
 $ git stash drop  # 删除最近一次 stash
+$ git stash clear # 清空所有 stash 的内容
 
 # tag 创建/列出/删除/修改 标签对象
 $ git tag -a v1.4 -m 'version 1.4'  # 创建一个附注标签 annotated，包含创建时间、创建者等详细信息

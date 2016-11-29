@@ -10,8 +10,8 @@
 下移一行     | Ctrl+Shift+Dn |     same      |    Alt+Dn    | Alt+Shift+Dn
 合并行       | Ctrl+Shift+J  |    Ctrl+J     |     N/S      |     same
 添加光标     |     Alt+BL    |    Ctrl+BL    |     same     |     same
-向上添加光标 |     Alt+Up    |   Shift+BR    |     same     |     N/A
-向下添加光标 |     Alt+Dn    |   Shift+BR    |     same     |     N/A
+向上添加光标 |     Alt+Up    |   Shift+BR    | ctrl+Shift+Alt+Up |     N/A
+向下添加光标 |     Alt+Dn    |   Shift+BR    | ctrl+Shift+Alt+Dn |     N/A
 增加缩进     |     Ctrl+]    |     same      |     same     |     Tab
 减少缩进     |     Ctrl+[    |     same      |     same     |   Shift+Tab
 行注释切换   |     Ctrl+/    |     same      |     same     |     same
