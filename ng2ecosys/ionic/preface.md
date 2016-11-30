@@ -39,11 +39,24 @@
 # Install Ionic
 $ npm install -g cordova ionic
 # Start a project
-$ ionic start --v2 myApp sidemenu  # 指定版本不能漏
+$ ionic start --v2 ionic2App sidemenu  # 不要忘记指定版本
 # Run it
-cd myApp
+$ cd ionic2App
+$ ionic serve
+# Platform Guides
 $ ionic platform add android
 $ ionic build android
 $ ionic emulate android
 ```
 
+
+## 故障排除
+
+you have not accepted the license agreements of the following sdk components android sdk platform 24
+
+http://stackoverflow.com/questions/40383323/cant-accept-license-agreement-android-sdk-platform-24
+
+```
+mkdir "%ANDROID_HOME%\licenses"
+echo |set /p="8933bad161af4178b1185d1a37fbf41ea5269c55" > "%ANDROID_HOME%\licenses\android-sdk-license"
+```

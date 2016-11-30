@@ -1,5 +1,20 @@
 # Centos 7
 
+## HTTP 服务器
+
+```bash
+# 安装软件包
+$ yum install httpd php
+
+# 配置开机启动，并先手动启动服务
+$ systemctl enable httpd.service
+$ systemctl is-enabled httpd    # 可以不带 service
+$ systemctl start httpd
+
+# 配置防火墙
+$ firewall-cmd --permanent --add-service=http
+```
+
 ## ShadowSocks
 
 https://github.com/shadowsocks/shadowsocks/wiki/  
@@ -11,12 +26,13 @@ $ yum install python-setuptools
 $ easy_install pip
 $ pip install shadowsocks
 
-# 配置开机自动启动
+# 配置开机自动启动，并先手动启动服务
 $ vi /lib/systemd/system/ss.service  # 内容在后面
 $ systemctl enable ss.service
-
-# 先手动启动服务
 $ systemctl start ss.service
+
+# 配置防火墙
+$ firewall-cmd --permanent --add-port=443/tcp
 
 # 查看日志
 $ less /var/log/shadowsocks.log
