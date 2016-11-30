@@ -182,6 +182,8 @@ namespace Validation {
 
 当使用外部 JavaScript 库或新的宿主 API 时，需要编写声明文件 .d.ts 定义程序库的 shape。
 
+如果我们自己的 ts 文件需要生成声明文件，则只需要运行 `tsc -d`，但如果是 js 文件则得手动编写声明文件了。
+
 ### 修饰器
 
 Decorators 是 ES7 的一个提案，TS已经支持。修饰器本质就是编译时执行的函数，用来修改类的行为。
