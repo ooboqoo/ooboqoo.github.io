@@ -82,21 +82,30 @@ scp -P 28379 "\Program Files\putty\authorized_keys" root@104.128.85.201:/root/.s
 ```
 
 ```bash
-# accelerate login process
-GSSAPIAuthentication no
+# See ssh_config(5) for more information.
 
-# persist connection for scp, it seems not work
-ControlPersist 4h
+Host *
+     Protocol 2
+     TCPKeepAlive yes
+     ServerAliveInterval 15
+     ServerAliveCountMax 4
+     Compression yes
+  # persist connection for scp
+     ControlPersist 1h
+  # multi-link share
+     ControlMaster auto
 
-# multi-link share, just a try, it seems not work
-ControlMaster auto
-
-# after these configuration, can connect the host by "ssh centos"
 Host centos
-HostName 104.128.85.201
-Port 28379
-# IdentityFile ~/.ssh/id_rsa  # ssh will load this key by default
-User root
+     HostName 104.128.85.201
+     Port 28379
+     User root
+  # ssh will load this key by default, remove the '#' when using other key name
+     # IdentityFile ~/.ssh/id_rsa
+
+Host jpn
+     HostName 45.32.60.84
+     Port 22
+     User root
 ```
 
 完成以上配置后，输入以下命令登录：
