@@ -1,14 +1,12 @@
-# Apache Cordova
-
-## Android 开发环境配置
+# Android 开发环境配置
 
 指南：https://cordova.apache.org/docs/en/6.x/guide/platforms/android/
 
-### 安装 JDK - Java Development Kit
+## 安装 JDK - Java Development Kit
 
 下载并安装 http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
-#### 版本
+### 版本
 
 现在的大版本 Java SE 8.0 (1.8.0) 发布于 2014 年。
 
@@ -20,7 +18,7 @@ JDK (Java Development Kit) 是 Java 语言的软件开发工具包 (SDK)。
 
 没有 JDK 的话，无法编译 Java 程序，如果想只运行 Java 程序，要确保已安装相应的 JRE。
 
-#### 常用基本工具
+### 常用基本工具
 
 * javac: Java 源程序编译器，将 Java 源代码转换成字节码。
 * java: Java 解释器，直接从字节码文件 (又称为类文件) 执行 Java 应用程序的字节代码。
@@ -28,18 +26,18 @@ JDK (Java Development Kit) 是 Java 语言的软件开发工具包 (SDK)。
 * Javadoc: Java API 文档生成器，从 Java 源程序代码注释中提取文档，生成 API 文档 HTML 页。
 * jdb: Java 调试器 (debugger)，可以逐行执行程序、设置断点和检查变量。
 
-#### 设置环境变量：
+### 设置环境变量：
 
 * `JAVA_HOME` 设置为安装路径，如 `C:\Program Files\Java\jdk1.8.0_112`
 * 然后在 `Path` 变量添加 `%JAVA_HOME%\bin`
 
-### 安装 Android SDK
+## 安装 Android SDK
 
 下载并安装 `Android Stand-alone SDK Tools` 或 `Android Studio`，如果没特殊需求，安装前者就足够了。
 
 > 如果安装到 C 盘，在下载包和使用过程中会频繁出现权限问题，所以应该安装到其他盘，如 D 盘。
 
-#### Adding SDK Packages
+### Adding SDK Packages
 
 安装完 Android SDK 后需要通过 Android SDK Manager 来下载所需的开发包：
 
@@ -49,14 +47,16 @@ JDK (Java Development Kit) 是 Java 语言的软件开发工具包 (SDK)。
 
 > 如果下载太慢，可以设置通过代理下载 `Tools > Options > Proxy Settings`
 
-##### 设置环境变量
+#### 设置环境变量
 
 * `ANDROID_HOME` 设置为安装路径，如 `D:\Program Files\Android\android-sdk`
 * 然后在 `Path` 变量添加 `%ANDROID_HOME%\platform-tools` 和 `%ANDROID_HOME%\tools`
 
-### Configuring Gradle
+## Configuring Gradle
 
+不同版本的 android 需要下载不同版本的 gradle，自动下载奇慢，先让自动下载，然后有目录后，再手动下载，并放到目录，然后重新开打包，就自动读取了。
 
+然后，这个 gradle 自动打包工具又要去下载一堆东西，这个就只有等着了，还好这个下的东西不多，不用等太久。
 
 
 ## 故障排除

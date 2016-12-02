@@ -94,17 +94,17 @@ Host *
      ControlPersist 1h
   # multi-link share
      ControlMaster auto
+  # ssh will load this key by default, remove the '#' when using other key name
+     # IdentityFile ~/.ssh/id_rsa
 
 Host centos
      HostName 104.128.85.201
      Port 28379
      User root
-  # ssh will load this key by default, remove the '#' when using other key name
-     # IdentityFile ~/.ssh/id_rsa
 
 Host jpn
      HostName 45.32.60.84
-     Port 22
+     Port 28379
      User root
 ```
 
