@@ -12,6 +12,7 @@
     main { left: 0; width: 100%; box-sizing: border-box; margin-top: 40px !important; padding: 1rem 5%; }
     @media (min-width: 1210px) { main { max-width: 1210px; margin:auto;} }
     a { display: block; padding-top: .5rem; }
+    a.initial { display: initial; padding-top: initial; border-bottom: initial; }
     a:hover { background-color: #eee; }
     a::before { padding-right: .5em; content: "\260D"; }
     p { border-bottom: 1px solid #ccc; }
@@ -22,6 +23,11 @@
 <body>
   <iframe id="header" src="/header.html" frameborder="0" width="100%" height="36px"></iframe>
   <main>
+  <blockquote>
+    <p>本前端笔记源码托管于 <a href="https://github.com/ooboqoo/ooboqoo.github.io" class="initial">https://github.com/ooboqoo/ooboqoo.github.io</a></p>
+    <p>可以通过 <a href="https://ooboqoo.github.io" class="initial">https://ooboqoo.github.io</a> 或者 <a href="http://www.ngapps.cn"  class="initial">http://www.ngapps.cn</a> (速度可能更快些) 访问本站。</p>
+  </blockquote>
+
   <h3>站点结构介绍</h3>
     <div>
       <a href="/tutorial/">前端基础：最早学 html + css + javascript 时整理的笔记，比较基础。</a>
