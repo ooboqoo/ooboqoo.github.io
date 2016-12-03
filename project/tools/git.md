@@ -334,6 +334,7 @@ Cmder 是 windows 下的命令行模拟器，不仅能模拟 cmd 而且还自带
 
 `` Ctrl+` `` 会调出 cmder，但这会影响到其他编辑器，可以考虑改下快捷键 `Keys & Macro`
 
+
 ## GitHub
 
 GitHub Desktop: https://desktop.github.com/
@@ -350,3 +351,43 @@ GitHub 发布的本地客户端，相比网站操作提供了更多功能，也�
 > * 产品发布后，记得打 tag，方便将来拉分支修 bug。
 
 
+## Git Server
+
+教程：https://git-scm.com/book/en/v2/Git-on-the-Server-Getting-Git-on-a-Server
+
+```bash
+# 远程主机
+$ mkdir website.git && cd website.git
+$ git init --bare  # 创建裸仓库(一个不包含当前工作目录的仓库)
+
+# 本地仓库操作
+$ git remote add web ssh://root@104.128.85.201:28379/opt/git/website.git
+$ git push web
+```
+
+搭建私人自用的 git 服务器就这么简单，最关键的是要设置好 SSH。
+
+## 使用 git 自动部署 web 服务器
+
+教程：http://toroid.org/git-website-howto
+
+The one-line summary:  
+push into a remote repository that has a detached work tree, and a post-receive hook that runs "git checkout -f".
+
+```bash
+# 远程主机操作
+$ mkdir ooboqoo.github.io.git && cd ooboqoo.github.io.git
+$ git init --bare  # 创建裸仓库(一个不包含当前工作目录的仓库)
+
+$ cat > hooks/post-receive  # 操作目录还是位于 ooboqoo.github.io.git
+#!/bin/sh
+GIT_WORK_TREE=/var/www/ooboqoo.github.io git checkout -f
+$ chmod +x hooks/post-receive
+
+$ mkdir /var/www/ooboqoo.github.io  # 创建web服务器目录
+$ vi /etc/httpd/conf/httpd.conf     # 修改 Apache 相关配置
+
+# 本地仓库操作
+$ git remote add web ssh://root@45.32.60.84:22/opt/git/ooboqoo.github.io.git
+$ git push web  # 完成站点部署/更新，打开浏览器验证下吧！
+```

@@ -15,6 +15,24 @@ $ systemctl start httpd
 $ firewall-cmd --permanent --add-service=http
 ```
 
+## SSH 设置
+
+```bash
+$ firewall-cmd --permanent --add-port=3300/tcp  # 先开放端口，不然下次登不进去了
+$ firewall-cmd --permanent --list-port          # 查看永久开放的端口情况
+$ vim /etc/ssh/sshd_config  # 修改配置文件
+$ systemctl restart sshd    # 重启 SSH 服务
+```
+
+```bash
+# Vultr 东京只能用默认 22端口，改了就连不了了，比较坑
+Port 3300
+Protocol 2
+
+AuthorizedKeysFile .ssh/authorized_keys
+PasswordAuthentication no
+```
+
 ## ShadowSocks
 
 https://github.com/shadowsocks/shadowsocks/wiki/  
@@ -55,7 +73,7 @@ Centos7 系统服务脚本目录：/usr/lib/systemd/ 有系统 system 和用户 
 # Description: 服务描述
 # After: 服务类别
 [Unit]
-Description= shadowsocks server
+Description=shadowsocks server
 After=network.target
 
 # [Service] 服务运行参数设置
@@ -79,26 +97,6 @@ WantedBy=multi-user.target
 
 
 ## 防火墙管理
-
-### 更换为 iptables
-
-CentOS 7.0 默认使用的是 firewall 作为防火墙，这里改为 iptables 防火墙。
-
-```bash
-$ systemctl stop firewalld.service    // 停止 firewall
-$ systemctl disable firewalld.service // 禁止 firewall 开机启动
-$ systemctl enable iptables.service   // 设置 iptables 开机启动
-$ systemctl start iptables.service    // 启动 iptables
-```
-
-### iptables 配置
-
-```bash
-$ iptables -I INPUT -p tcp --dport 80 -j ACCEPT // 开启网页访问，重启失效
-$ iptables -I INPUT -p tcp --dport 21 -j ACCEPT // 开启FTP 端口，重启失效
-```
-
-### Firewall 防火墙配置详解
 
 FirewallD 提供了动态防火墙管理工具，不需要重启整个防火墙便可应用更改。拥有运行时配置和永久配置选项。它也支持允许服务或者应用程序直接添加防火墙规则的接口。
 

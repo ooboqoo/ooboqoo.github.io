@@ -23,7 +23,7 @@ LANG='en_US.UTF-8'
 
 ```bash
 # ~/.bash_profile    # System wide environment and startup programs, for login setup
-html='var/www/html'
+html='/var/www/html'
 cd $html
 
 # ~/.bashrc          # System wide functions and aliases
