@@ -58,6 +58,18 @@ JDK (Java Development Kit) 是 Java 语言的软件开发工具包 (SDK)。
 
 然后，这个 gradle 自动打包工具又要去下载一堆东西，这个就只有等着了，还好这个下的东西不多，不用等太久。
 
+### 方法 2
+
+虽然你装了gradle了但cordova还是要去再下一个，而且下个半天下不下来。我们可以到..\platforms\android\cordova\lib\builders文件下找到GradleBuilder.js文件将
+
+```
+var distributionUrl = process.env['CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL'] || 'http\\://services.gradle.org/distributions/gradle-2.13-all.zip';
+```
+修改成
+```
+var distributionUrl = process.env['CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL'] || 'file:///C:/Users/User/Desktop/gradle-2.13-all.zip';//自己的gradle路径
+```
+
 
 ## 故障排除
 

@@ -5,11 +5,12 @@
 ```bash
 # 创建项目
 $ cordova create test com.cordova.test test  # <文件夹名> <包名> <app名>
+$ cd test
 
 # 平台操作
-$ cordova platforms add android  # 添加平台
-$ cordova platforms rm android   # 移除平台
-$ cordova platforms ls           # 查看平台
+$ cordova platforms add android@5.1.1 --save  # 添加平台
+$ cordova platforms rm android --save         # 移除平台
+$ cordova platforms ls                        # 查看平台
 
 # 插件操作
 $ cordova plugin add cordova-plugin-file  # 添加官方插件
