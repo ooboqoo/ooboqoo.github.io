@@ -294,7 +294,7 @@ mkdir empty && rsync -r --delete empty/ some-dir && rmdir some-dir
 
 - 了解如何运用 `gdb` 连接到一个运行着的进程并获取它的堆栈轨迹。
 
-- 学会使用 `/proc`。它在调试正在出现的问题的时候有时会效果惊人。比如：`/proc/cpuinfo`，`/proc/meminfo`，`/proc/cmdline`，`/proc/xxx/cwd`，`/proc/xxx/exe`，`/proc/xxx/fd/`，`/proc/xxx/smaps`（这里的 `xxx` 表示进程的 id 或 pid）。
+- 学会使用 `/proc`。它在调试正在出现的问题的时候有时效果惊人。比如：`/proc/cpuinfo` `/proc/meminfo` `/proc/cmdline` `/proc/xxx/cwd` `/proc/xxx/exe` `/proc/xxx/fd/` `/proc/xxx/smaps` (这里的 `xxx` 表示进程的 id 或 pid)。
 
 - 当调试一些之前出现的问题的时候，[`sar`](http://sebastien.godard.pagesperso-orange.fr/) 非常有用。它展示了 cpu、内存以及网络等的历史数据。
 
