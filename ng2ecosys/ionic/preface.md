@@ -42,9 +42,22 @@ $ cd ionic2App
 $ ionic serve
 
 # Platform Guides
-$ ionic platform add android
-$ ionic build android  # 这步之前需要改下 platforms/android/platforms.json 内版本为 5.1.1
+$ ionic platform add android@5.0.0  # 如果不指定版本，默认安装的是 6.0.0
+$ ionic build android
 $ ionic emulate android # 这步还没跑起来，还得配置安卓虚拟机
 ```
+
+## 部署到设备
+
+使用 `ionic serve` 开启浏览器调试或者使用模拟器都是比较简便的方式，但可能你还必须到真机上测试一遍，不仅因为你能看到 app 的实际表现，更关键的是 Ionic Native 插件只能在真实环境下工作。
+
+### Android Devices
+
+在安卓设备上调试还是很方便的，你只要开启设备的 USB 调试模式 和 开发模式，然后再敲一行命令就可搞定：
+
+```bash
+$ ionic run android --device
+```
+
 
 
