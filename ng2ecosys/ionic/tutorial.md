@@ -19,7 +19,7 @@ Along with creating your project, this will also install npm modules for the app
 ### Viewing the app in a browser
 
 ```bash
-$ cd MyIonic2Project/
+$ cd MyIonic2Project
 $ ionic serve
 ```
 

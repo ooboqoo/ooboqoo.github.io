@@ -48,6 +48,7 @@ $ git apply ..\patch1023   # 在另一个地方导入这些更改
 
 # 图形化操作
 $ gitk  # 调用图形界面查看历史提交的详细信息 gitk - a commit viever for git
+$ git config --global gui.encoding utf-8  # 解决 gitk 中文乱码
 ```
 ```bash
 $ git checkout -b newbranch
