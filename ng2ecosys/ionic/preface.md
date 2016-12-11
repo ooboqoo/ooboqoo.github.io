@@ -47,6 +47,13 @@ $ ionic build android
 $ ionic emulate android # 这步还没跑起来，还得配置安卓虚拟机
 ```
 
+### `ionic serve` 注意点
+
+https://www.thepolyglotdeveloper.com/2016/02/why-you-should-not-use-ionic-serve-for-hybrid-apps/
+
+使用 `ionic serve` 调试一些 html 样式啥的可能是比较方便的，但浏览器环境跟 native 环境完全不同，所以多数时候不要嫌麻烦，应该直接在真机上测试，绝多数问题，都是在浏览器中会报错，但部署到手机就好了。
+
+
 ## 部署到设备
 
 使用 `ionic serve` 开启浏览器调试或者使用模拟器都是比较简便的方式，但可能你还必须到真机上测试一遍，不仅因为你能看到 app 的实际表现，更关键的是 Ionic Native 插件只能在真实环境下工作。
@@ -59,5 +66,6 @@ $ ionic emulate android # 这步还没跑起来，还得配置安卓虚拟机
 $ ionic run android --device
 ```
 
+### adb 工具使用
 
-
+https://www.thepolyglotdeveloper.com/2014/12/debugging-android-source-code-adb/

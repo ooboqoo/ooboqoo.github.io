@@ -107,7 +107,10 @@ export class HelloIonicPage {}
 
 ### Creating Additional Pages
 
-
+```bash
+$ ionic g page Login
+$ ionic g provider Auth
+```
 
 ## Navigating to Pages
 

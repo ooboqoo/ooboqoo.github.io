@@ -56,6 +56,8 @@ $ firewall-cmd --permanent --add-port=443/tcp
 $ less /var/log/shadowsocks.log
 ```
 
+### github 安装方式
+
 通过以上方法安装的版本是 2.8.2，经过了一年，master 分支上已经有更新，如果想装最新版，可以试试 GitHub 安装方式：
 
 ```bash
@@ -85,7 +87,7 @@ After=network.target
 # 注意：[Service] 的启动、重启、停止命令全部要求使用绝对路径
 [Service]
 Type=forking
-ExecStart=/usr/bin/ssserver -p 443 -k Gavin!@# --fast-open -d start
+ExecStart=/usr/bin/ssserver -p 443 -k myPassword --fast-open -d start
 ExecReload=/usr/bin/ssserver -d restart
 ExecStop=/usr/bin/ssserver -d stop
 
@@ -95,6 +97,37 @@ ExecStop=/usr/bin/ssserver -d stop
 WantedBy=multi-user.target
 ```
 
+### 多用户配置
+
+创建一个配置文件 `/etc/shadowsocks.json`
+
+```json
+{
+    "port_password": {
+        "8501": "password1",
+        "8502": "password2",
+        "8503": "password3"
+    },
+    "method": "aes-256-cfb",
+    "fast_open": false,
+    "timeout": 300
+}
+```
+
+然后再更新上面的自启动配置文件：
+
+```txt
+ExecStart=/usr/bin/ssserver -c /etc/shadowsocks.json -d start
+```
+
+再配置防火墙：
+
+```bash
+$ firewall-cmd --permanent --add-port=8501-8503/tcp
+$ firewall-cmd --reload
+$ firewall-cmd --list-all
+$ firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT_direct 1 -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 30 --hitcount 4 -j REJECT --reject-with tcp-reset
+```
 
 ## 防火墙管理
 
