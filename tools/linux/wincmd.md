@@ -73,3 +73,10 @@ Cmder 是 windows 下的命令行模拟器，不仅能模拟 cmd 而且还自带
 
 `` Ctrl+` `` 会调出 cmder，但这会影响到其他编辑器，可以考虑改下快捷键 `Keys & Macro`
 
+### 终端访问外网走代理
+
+```bash
+$ set http_proxy=http://127.0.0.1:1080   # bash 的 export 无效，所以用 set
+$ set https_proxy=http://127.0.0.1:1080  # http 和 https 需要分别设置
+  # 走 ss 代理，此命令只对当前终端有效，且关闭后即失效。
+```

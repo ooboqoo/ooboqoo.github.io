@@ -68,7 +68,8 @@ $ git config --global user.email "<email address>"  # 指定全局默认用户�
 $ git config --global color.ui auto                 # 指定终端输出颜色
 $ git config --global alias.co checkout             # 设定命令别名，git 不会在输入部分命令时自动推断命令
 $ git config --global alias.st status               # 设定命令别名，所以将一些常用操作设定别名会很方便
-$ git config --global credential.helper wincred     # 设定免密码登录(记住密码) [注1] 
+$ git config --global credential.helper wincred     # 设定免密码登录(记住密码) [注1]
+$ git config --global https.proxy 'socks5://127.0.0.1:1080'  # git 使用 ss 代理加速
 
 $ git config --list --global       # 查看全局设置
 
