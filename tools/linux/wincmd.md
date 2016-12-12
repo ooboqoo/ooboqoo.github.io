@@ -79,4 +79,5 @@ Cmder 是 windows 下的命令行模拟器，不仅能模拟 cmd 而且还自带
 $ set http_proxy=http://127.0.0.1:1080   # bash 的 export 无效，所以用 set
 $ set https_proxy=http://127.0.0.1:1080  # http 和 https 需要分别设置
   # 走 ss 代理，此命令只对当前终端有效，且关闭后即失效。
+  # 如果希望避免每次都输入，可以在 cmder “Settings -> Environment” 下设置
 ```
