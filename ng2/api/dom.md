@@ -7,14 +7,14 @@
 In Angular2 Doc, it suggest to "avoid" using ElementRef. It access DOM directly, can easily be attacked.
 
 ```ts
-import {Component, OnInit, ViewChild, Renderer, ElementRef} from ‘@angular/core‘;
+import {Component, OnInit, ViewChild, Renderer, ElementRef} from '@angular/core';
 
 @Component({
-  selector: ‘widget-three‘,
+  selector: 'widget-three',
   template: `<input type="text" #inputRef/>`
 })
 export class WidgetThree {
-  constructor(private elm: ElementRef) { console.log("elm:", this.elm) }
+  constructor(private elm: ElementRef) { console.log('elm:', this.elm) }
 }
 ```
 
@@ -26,11 +26,11 @@ If we log out the ElementRef, we can see, it refer to host element.
 In the doc, it also suggest, if you want to change some dom prop, use Renderer instead. ElementRef can be just a reference to access native element object.
 
 ```ts
-import { Directive, ElementRef, Input, Renderer } from ‘@angular/core‘;
-@Directive({ selector: ‘[myHighlight]‘ })
+import { Directive, ElementRef, Input, Renderer } from '@angular/core';
+@Directive({ selector: '[myHighlight]' })
 export class HighlightDirective {
   constructor(el: ElementRef, renderer: Renderer) {
-    renderer.setElementStyle(el.nativeElement, ‘backgroundColor‘, ‘yellow‘);
+    renderer.setElementStyle(el.nativeElement, 'backgroundColor', 'yellow');
   }
 }
 ```
@@ -43,21 +43,21 @@ This will set the host element background as yellow.
 Access Child element by Ref or Class Object.
 
 ```ts
-import {Component, OnInit, ViewChild, Renderer} from ‘@angular/core‘;
+import {Component, OnInit, ViewChild, Renderer} from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: ‘widget-three‘,
+  selector: 'widget-three',
   template: `<input type="text" #inputRef/>`
 })
 export class WidgetThree {
-  @ViewChild(‘inputRef‘) input;
+  @ViewChild('inputRef') input;
   constructor(private renderer: Renderer) { }
 
   ngAfterViewInit(){
     this.renderer.invokeElementMethod(
         this.input.nativeElement,
-        ‘focus‘,
+        'focus',
         []
     );
   }

@@ -1,7 +1,21 @@
 # Ionic 2 CLI
 
+### 常用命令
 
+```bash
+# 更新 Ionic CLI
+$ npm install -g cordova ionic
 
+# 更新 Ionic 项目
+$ ionic lib update
+$ npm install
+
+# 快捷调试
+$ ionic serve
+
+# 打包
+$ ionic build android
+```
 
 ### generate
 

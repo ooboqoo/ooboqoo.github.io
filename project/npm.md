@@ -16,6 +16,7 @@ npm uninstall --save lodash  # 卸载软件包并从 package.json 中移除
 
 $ npm config get registry  # 查看源设置
 $ npm config set registry https://registry.npm.taobao.org/  # 设置淘宝源
+$ npm config set registry https://registry.npmjs.org/       # 还原默认源
 ```
 
 
