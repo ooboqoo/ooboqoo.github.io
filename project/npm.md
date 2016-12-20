@@ -3,16 +3,20 @@
 ## NPM
 
 ```bash
-npm install npm -g  # 更新 npm 自身
-npm -v              # 查看 npm 版本
+$ npm install npm -g  # 更新 npm 自身
+$ npm -v              # 查看 npm 版本
 
-npm list --depth=0        # 列出安装的软件包
-npm outdated              # 列出过时的包
-npm update                # 更新本地软件包
-npm update --save         # 更新包并更新 package.json 文件的版本信息
-npm install               # 安装所有依赖包
-npm install --production  # 只安装产品依赖
-npm uninstall --save lodash  # 卸载软件包并从 package.json 中移除
+$ npm list --depth=0        # 列出安装的软件包
+$ npm outdated              # 列出过时的包
+$ npm update                # 更新本地软件包
+$ npm update --save         # 更新包并更新 package.json 文件的版本信息
+$ npm install               # 安装所有依赖包
+$ npm install --production  # 只安装产品依赖
+$ npm uninstall --save lodash  # 卸载软件包并从 package.json 中移除
+
+$ npm install --registry http://registry.cnpmjs.org install angular-cli  # 单次指定源安装
+$ npm install <githubname>/<githubrepo>[#<commit-ish>]  # 通过 GitHub 仓库安装，例：
+$ npm install git+https://github.com/mishoo/UglifyJS2.git#harmony
 
 $ npm config get registry  # 查看源设置
 $ npm config set registry https://registry.npm.taobao.org/  # 设置淘宝源
