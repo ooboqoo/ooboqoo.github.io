@@ -28,6 +28,10 @@ $ npm config set registry https://registry.npmjs.org/       # 还原默认源
 $ npm install git+https://github.com/<repo-owner>/<repo>.git[#branch]
 $ npm install git+ssh://git@github.com/<repo-owner>/<repo>.git[#branch]
 $ npm install git://github.com/<repo-owner>/<repo>.git[#branch]
+
+# 设置代理
+$ npm config set proxy http://127.0.0.1:1080  # 通过代理安装
+$ npm config delete proxy  # 删除代理，恢复直连模式
 ```
 
 
