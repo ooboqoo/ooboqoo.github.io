@@ -13,6 +13,7 @@ $ npm update --save         # 更新包并更新 package.json 文件的版本信
 $ npm install               # 安装所有依赖包
 $ npm install --production  # 只安装产品依赖
 $ npm uninstall --save lodash  # 卸载软件包并从 package.json 中移除
+$ npm view primeng versions # 查看软件包的版本信息
 
 $ npm install --registry http://registry.cnpmjs.org install angular-cli  # 单次指定源安装
 $ npm install <githubname>/<githubrepo>[#<commit-ish>]  # 通过 GitHub 仓库安装，例：
