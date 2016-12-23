@@ -27,9 +27,28 @@ $ keytool -list -keystore hzqx.keystore -alias hzqx -v
 
 ```bash
 # 生成为签名的生产版
-$ ionic build android --release
+$ ionic build android --release --prod --browserify
+  # `--release` translates to release mode
+  # `--prod` AoT and minification are used
 # 对 APP 进行签名
 $ jarsigner -verbose -keystore hzqx.keystore -signedjar hzqx.apk android-release-unsigned.apk hzqx
   # 格式： jarsigner [选项] jar-file 别名
   # 具体参数说明通过 `jarsigner -help` 查看
 ```
+
+### 配置自动签名
+
+When you want to publish your app on the Google Play Store you have to build the apk in release mode, sign it with a key of your keystore and zipalign the package to optimize it.
+
+在 `platforms/android` 文件夹下新建 `release-signing.properties` 文件，然后将 `hzqx.keystore` 秘钥库一并放在此处，后续打包就能实现自动签名了。
+
+`release-signing.properties` 文件内容：
+
+```
+key.store=hzqx.keystore
+key.store.password=www.baidu.com
+key.alias=hzqx
+key.alias.password=www.baidu.com
+```
+
+完成以上配置后，以后每次打包只需要运行 `ionic build android --release --prod --browserify`
