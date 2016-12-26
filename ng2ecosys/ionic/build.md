@@ -1,4 +1,4 @@
-# 打包与部署
+# 打包\部署\调试
 
 ## 准备安卓签名文件
 
@@ -52,3 +52,55 @@ key.alias.password=www.baidu.com
 ```
 
 完成以上配置后，以后每次打包只需要运行 `ionic build android --release --prod --browserify`
+
+## 调试
+
+### ADB 工具
+
+```bash
+$ adb logcat  # 效果不怎么好
+$ monitor     # GUI 客户端，功能更强大
+```
+
+```bash
+$ adb install <path to apk>
+```
+
+### 虚拟机
+
+貌似官方虚拟机很不好用，然后所谓好用的 GenyMotion 自己试着装了下，感觉也是不靠谱，还是直接用手机测试吧。
+
+### Chrome 连接设备调试
+
+系统要求：Chrome 版本必须高于 32，其次你的测试机 Android 系统高于 4.4。
+
+步骤：
+
+1. 先用数据线将 Android 测试机连接到电脑上。需要打开测试机的 “USB 调试” 功能。
+2. 手机进入一个 webview 页面
+3. 在 Chrome 地址栏中输入 `chrome://inspect` 选择相应条目下的 `inspect` 即可
+
+#### Remote Debugging
+
+https://docs.ionic.io/tools/developer/
+
+The following guides help you set up development devices for remote debugging with a browser’s dev tools.
+
+Chrome Inspector
+The Chrome Inspector can be used to debug your app on a physical Android device or emulator, just like it can be used on any web application.
+ 
+Prerequisites
+
+* For Windows, install the necessary USB drivers.
+* A USB cable to connect your device.
+* Chrome for Android installed and running on your device.
+* USB debugging enabled on your device.
+
+Debugging
+
+* In Chrome, go to chrome://inspect in the URL bar.
+* Click inspect in your app’s WebView on your device.
+
+## 其他
+
+Mobile Web 调试指南（1）–– 把静态资源指向到本地 http://blog.allenm.me/2014/05/mobile-web-debug-guide-1/
