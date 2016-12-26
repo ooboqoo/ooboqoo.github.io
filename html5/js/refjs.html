@@ -14,7 +14,7 @@ h2 {text-align: center;}
 h5 > a{text-decoration:none;}
 </style>
 <script src="/lib/html-main.js"></script>
-<title>JavaScript 对象参考手册</title>
+<title>JavaScript 内置对象参考手册</title>
 </head>
 
 <body>
@@ -207,59 +207,59 @@ h5 > a{text-decoration:none;}
 
 <div>
 <div class="dl">
-<h5 class="es">Date.prototype <span>-- 使您有能力向对象添加公共属性和方法。</span></h5>
-<h5 class="es">Date.length <span>-- 值是 7。这是该构造函数可接受的参数个数。</span></h5>
+<h5 class="es3">Date.prototype <span>-- 使您有能力向对象添加公共属性和方法。</span></h5>
+<h5 class="es3">Date.length <span>-- 值是 7。这是该构造函数可接受的参数个数。</span></h5>
 </div>
 <div class="dl">
-<h5 class="es">Date()  <span>-- 以字符串形式返回当前的日期和时间。</span></h5>
-<h5 class="es">Date.now()  <span>-- 返回调用这个方法时的日期和时间的毫秒数。</span></h5>
-<h5 class="es">Date.parse()  <span>-- 返回1970年1月1日午夜到指定日期（字符串）的毫秒数。</span></h5>
-<h5 class="es">Date.UTC()  <span>-- 根据世界时返回 1970 年 1 月 1 日 到指定日期的毫秒数。</span></h5>
+<h5 class="es3">Date() <span>-- 以 <b>字符串</b> 形式返回当前的日期和时间。</span></h5>
+<h5 class="es3">Date.now() <span>-- 返回调用这个方法时的日期和时间的 <b>毫秒数</b>。</span></h5>
+<h5 class="es3">Date.parse(dateString)<span>-- 返回 1970年1月1日午夜 到指定日期（字符串）的 <b>毫秒数</b>。</span></h5>
+<h5 class="es3">Date.UTC(year, month[, ...]) <span>-- 根据世界时返回 1970年1月1日 到指定日期的 <b>毫秒数</b>。</span></h5>
 </div>
 <div class="dl">
-<h5 class="es">Date.prototype.valueOf()  <span>-- 返回 Date 对象的原始值。</span></h5>
-<h5 class="es">Date.prototype.toString()  <span>-- 把 Date 对象转换为字符串。</span></h5>
-<h5 class="es">Date.prototype.toLocaleString()  <span>-- 根据本地时间格式，把 Date 对象转换为字符串。</span></h5>
-<h5 class="es">Date.prototype.toDateString()  <span>-- 把 Date 对象的日期部分转换为字符串。</span></h5>
-<h5 class="es">Date.prototype.toTimeString()  <span>-- 把 Date 对象的时间部分转换为字符串。</span></h5>
-<h5 class="es">Date.prototype.toLocaleDateString()  <span>-- 根据本地时间格式，把 Date 对象的日期部分转换为字符串。</span></h5>
-<h5 class="es">Date.prototype.toLocaleTimeString()  <span>-- 根据本地时间格式，把 Date 对象的时间部分转换为字符串。</span></h5>
-<h5 class="es">Date.prototype.toUTCString()  <span>-- 根据世界时，把 Date 对象转换为字符串。</span></h5>
+<h5 class="es3">Date.prototype.valueOf() <span>-- 返回 Date 对象的原始值。</span></h5>
+<h5 class="es3">Date.prototype.toString() <span>-- 把 Date 对象转换为字符串。</span></h5>
+<h5 class="es3">Date.prototype.toLocaleString() <span>-- 根据本地时间格式，把 Date 对象转换为字符串。</span></h5>
+<h5 class="es3">Date.prototype.toDateString() <span>-- 把 Date 对象的日期部分转换为字符串。</span></h5>
+<h5 class="es3">Date.prototype.toTimeString() <span>-- 把 Date 对象的时间部分转换为字符串。</span></h5>
+<h5 class="es3">Date.prototype.toLocaleDateString() <span>-- 根据本地时间格式，把 Date 对象的日期部分转换为字符串。</span></h5>
+<h5 class="es3">Date.prototype.toLocaleTimeString() <span>-- 根据本地时间格式，把 Date 对象的时间部分转换为字符串。</span></h5>
+<h5 class="es3">Date.prototype.toUTCString() <span>-- 根据世界时，把 Date 对象转换为字符串。</span></h5>
 </div>
 <div class="dl">
-<h5 class="es">Date.prototype.getTime()  <span>-- 返回 1970 年 1 月 1 日至今的毫秒数。</span></h5>
-<h5 class="es">Date.prototype.setTime()  <span>-- 以毫秒设置 Date 对象。</span></h5>
-<h5 class="es">Date.prototype.getFullYear()  <span>-- 从 Date 对象以四位数字返回年份。</span></h5>
-<h5 class="es">Date.prototype.setFullYear()  <span>-- 设置 Date 对象中的年份（四位数字）。</span></h5>
-<h5 class="es">Date.prototype.getMonth()  <span>-- 从 Date 对象返回月份 (0 ~ 11)。</span></h5>
-<h5 class="es">Date.prototype.setMonth()  <span>-- 设置 Date 对象中月份 (0 ~ 11)。</span></h5>
-<h5 class="es">Date.prototype.getDate()  <span>-- 从 Date 对象返回一个月中的某一天 (1 ~ 31)。</span></h5>
-<h5 class="es">Date.prototype.setDate()  <span>-- 设置 Date 对象中月的某一天 (1 ~ 31)。</span></h5>
-<h5 class="es">Date.prototype.getHours()  <span>-- 返回 Date 对象的小时 (0 ~ 23)。</span></h5>
-<h5 class="es">Date.prototype.setHours()  <span>-- 设置 Date 对象中的小时 (0 ~ 23)。</span></h5>
-<h5 class="es">Date.prototype.getMinutes()  <span>-- 返回 Date 对象的分钟 (0 ~ 59)。</span></h5>
-<h5 class="es">Date.prototype.setMinutes()  <span>-- 设置 Date 对象中的分钟 (0 ~ 59)。</span></h5>
-<h5 class="es">Date.prototype.getSeconds()  <span>-- 返回 Date 对象的秒数 (0 ~ 59)。</span></h5>
-<h5 class="es">Date.prototype.setSeconds()  <span>-- 设置 Date 对象中的秒钟 (0 ~ 59)。</span></h5>
-<h5 class="es">Date.prototype.getDay()  <span>-- 从 Date 对象返回一周中的某一天 (0 ~ 6)。</span></h5>
-<h5 class="es">Date.prototype.getMilliseconds()  <span>-- 返回 Date 对象的毫秒(0 ~ 999)。</span></h5>
-<h5 class="es">Date.prototype.setMilliseconds()  <span>-- 设置 Date 对象中的毫秒 (0 ~ 999)。</span></h5>
-<h5 class="es">Date.prototype.getTimezoneOffset()  <span>-- 返回本地时间与格林威治标准时间 (GMT) 的分钟差。</span></h5>
-<h5 class="es">Date.prototype.getUTCDate()  <span>-- 根据世界时从 Date 对象返回月中的一天 (1 ~ 31)。</span></h5>
-<h5 class="es">Date.prototype.getUTCDay()  <span>-- 根据世界时从 Date 对象返回周中的一天 (0 ~ 6)。</span></h5>
-<h5 class="es">Date.prototype.getUTCMonth()  <span>-- 根据世界时从 Date 对象返回月份 (0 ~ 11)。</span></h5>
-<h5 class="es">Date.prototype.getUTCFullYear()  <span>-- 根据世界时从 Date 对象返回四位数的年份。</span></h5>
-<h5 class="es">Date.prototype.getUTCHours()  <span>-- 根据世界时返回 Date 对象的小时 (0 ~ 23)。</span></h5>
-<h5 class="es">Date.prototype.getUTCMinutes()  <span>-- 根据世界时返回 Date 对象的分钟 (0 ~ 59)。</span></h5>
-<h5 class="es">Date.prototype.getUTCSeconds()  <span>-- 根据世界时返回 Date 对象的秒钟 (0 ~ 59)。</span></h5>
-<h5 class="es">Date.prototype.getUTCMilliseconds()  <span>-- 根据世界时返回 Date 对象的毫秒(0 ~ 999)。</span></h5>
-<h5 class="es">Date.prototype.setUTCDate()  <span>-- 根据世界时设置 Date 对象中月份的一天 (1 ~ 31)。</span></h5>
-<h5 class="es">Date.prototype.setUTCMonth()  <span>-- 根据世界时设置 Date 对象中的月份 (0 ~ 11)。</span></h5>
-<h5 class="es">Date.prototype.setUTCFullYear()  <span>-- 根据世界时设置 Date 对象中的年份（四位数字）。</span></h5>
-<h5 class="es">Date.prototype.setUTCHours()  <span>-- 根据世界时设置 Date 对象中的小时 (0 ~ 23)。</span></h5>
-<h5 class="es">Date.prototype.setUTCMinutes()  <span>-- 根据世界时设置 Date 对象中的分钟 (0 ~ 59)。</span></h5>
-<h5 class="es">Date.prototype.setUTCSeconds()  <span>-- 根据世界时设置 Date 对象中的秒钟 (0 ~ 59)。</span></h5>
-<h5 class="es">Date.prototype.setUTCMilliseconds() <span>根据世界时设置 Date 对象中的毫秒 (0 ~ 999)。</span></h5>
+<h5 class="es3">Date.prototype.getTime() <span>-- 返回 1970 年 1 月 1 日至今的毫秒数。</span></h5>
+<h5 class="es3">Date.prototype.setTime() <span>-- 以毫秒设置 Date 对象。</span></h5>
+<h5 class="es3">Date.prototype.getFullYear() <span>-- 从 Date 对象以四位数字返回年份。</span></h5>
+<h5 class="es3">Date.prototype.setFullYear() <span>-- 设置 Date 对象中的年份（四位数字）。</span></h5>
+<h5 class="es3">Date.prototype.getMonth() <span>-- 从 Date 对象返回月份 (0 ~ 11)。</span></h5>
+<h5 class="es3">Date.prototype.setMonth() <span>-- 设置 Date 对象中月份 (0 ~ 11)。</span></h5>
+<h5 class="es3">Date.prototype.getDate() <span>-- 从 Date 对象返回一个月中的某一天 (1 ~ 31)。</span></h5>
+<h5 class="es3">Date.prototype.setDate() <span>-- 设置 Date 对象中月的某一天 (1 ~ 31)。</span></h5>
+<h5 class="es3">Date.prototype.getHours() <span>-- 返回 Date 对象的小时 (0 ~ 23)。</span></h5>
+<h5 class="es3">Date.prototype.setHours() <span>-- 设置 Date 对象中的小时 (0 ~ 23)。</span></h5>
+<h5 class="es3">Date.prototype.getMinutes() <span>-- 返回 Date 对象的分钟 (0 ~ 59)。</span></h5>
+<h5 class="es3">Date.prototype.setMinutes() <span>-- 设置 Date 对象中的分钟 (0 ~ 59)。</span></h5>
+<h5 class="es3">Date.prototype.getSeconds() <span>-- 返回 Date 对象的秒数 (0 ~ 59)。</span></h5>
+<h5 class="es3">Date.prototype.setSeconds() <span>-- 设置 Date 对象中的秒钟 (0 ~ 59)。</span></h5>
+<h5 class="es3">Date.prototype.getDay() <span>-- 从 Date 对象返回一周中的某一天 (0 ~ 6)。</span></h5>
+<h5 class="es3">Date.prototype.getMilliseconds() <span>-- 返回 Date 对象的毫秒(0 ~ 999)。</span></h5>
+<h5 class="es3">Date.prototype.setMilliseconds() <span>-- 设置 Date 对象中的毫秒 (0 ~ 999)。</span></h5>
+<h5 class="es3">Date.prototype.getTimezoneOffset() <span>-- 返回本地时间与格林威治标准时间 (GMT) 的分钟差。</span></h5>
+<h5 class="es3">Date.prototype.getUTCDate() <span>-- 根据世界时从 Date 对象返回月中的一天 (1 ~ 31)。</span></h5>
+<h5 class="es3">Date.prototype.getUTCDay() <span>-- 根据世界时从 Date 对象返回周中的一天 (0 ~ 6)。</span></h5>
+<h5 class="es3">Date.prototype.getUTCMonth() <span>-- 根据世界时从 Date 对象返回月份 (0 ~ 11)。</span></h5>
+<h5 class="es3">Date.prototype.getUTCFullYear() <span>-- 根据世界时从 Date 对象返回四位数的年份。</span></h5>
+<h5 class="es3">Date.prototype.getUTCHours() <span>-- 根据世界时返回 Date 对象的小时 (0 ~ 23)。</span></h5>
+<h5 class="es3">Date.prototype.getUTCMinutes() <span>-- 根据世界时返回 Date 对象的分钟 (0 ~ 59)。</span></h5>
+<h5 class="es3">Date.prototype.getUTCSeconds() <span>-- 根据世界时返回 Date 对象的秒钟 (0 ~ 59)。</span></h5>
+<h5 class="es3">Date.prototype.getUTCMilliseconds() <span>-- 根据世界时返回 Date 对象的毫秒(0 ~ 999)。</span></h5>
+<h5 class="es3">Date.prototype.setUTCDate() <span>-- 根据世界时设置 Date 对象中月份的一天 (1 ~ 31)。</span></h5>
+<h5 class="es3">Date.prototype.setUTCMonth() <span>-- 根据世界时设置 Date 对象中的月份 (0 ~ 11)。</span></h5>
+<h5 class="es3">Date.prototype.setUTCFullYear() <span>-- 根据世界时设置 Date 对象中的年份（四位数字）。</span></h5>
+<h5 class="es3">Date.prototype.setUTCHours() <span>-- 根据世界时设置 Date 对象中的小时 (0 ~ 23)。</span></h5>
+<h5 class="es3">Date.prototype.setUTCMinutes() <span>-- 根据世界时设置 Date 对象中的分钟 (0 ~ 59)。</span></h5>
+<h5 class="es3">Date.prototype.setUTCSeconds() <span>-- 根据世界时设置 Date 对象中的秒钟 (0 ~ 59)。</span></h5>
+<h5 class="es3">Date.prototype.setUTCMilliseconds() <span>根据世界时设置 Date 对象中的毫秒 (0 ~ 999)。</span></h5>
 </div>
 </div>
 
@@ -272,15 +272,15 @@ h5 > a{text-decoration:none;}
 <div class="dl">
 <h5 class="es3">RegExp.prototype.exec() <span>-- 检索字符串中指定的值。返回找到的值，并确定其位置</span></h5>
 <h5 class="es3">RegExp.prototype.test() <span>-- 检索字符串中指定的值。返回 true 或 false</span></h5>
-<h5 class="es3">RegExp.prototype.toString() <span>-- 返回一个字符串，即该正则对象的字面量。重写的方法</span></h5>
+<h5 class="es3">RegExp.prototype.toString() <span>-- 返回一个字符串，即该正则对象的字面量。</span></h5>
 </div>
 </div>
 
 <h2 id="Boolean">Boolean 对象</h2>
 
 <div class="dl">
-<h5 class="es">Boolean.prototype.toString() <span>-- 把逻辑值转换为字符串</span></h5>
-<h5 class="es">Boolean.prototype.valueOf() <span>-- 返回 Boolean 对象的原始值</span></h5>
+<h5 class="es3">Boolean.prototype.toString() <span>-- 把逻辑值转换为字符串</span></h5>
+<h5 class="es3">Boolean.prototype.valueOf() <span>-- 返回 Boolean 对象的原始值</span></h5>
 </div>
 
 <h2 id="Number">Number 对象</h2>
@@ -318,38 +318,38 @@ h5 > a{text-decoration:none;}
 <h2 id="String">String 对象</h2>
 
 <div class="dl">
-<h5 class="es">String.prototype.length <span>-- 返回了字符串的长度</span></h5>
+<h5 class="es3">String.prototype.length <span>-- 返回了字符串的长度</span></h5>
 <h4>字符方法</h4>
-<h5 class="es">String.prototype.charAt() <span>-- 以单字符字符串的形式返回给定位置的那个字符</span></h5>
-<h5 class="es">String.prototype.charCodeAt() <span>-- 返回给定位置的字符的字符编码</span></h5>
+<h5 class="es3">String.prototype.charAt() <span>-- 以单字符字符串的形式返回给定位置的那个字符</span></h5>
+<h5 class="es3">String.prototype.charCodeAt() <span>-- 返回给定位置的字符的字符编码</span></h5>
 <h4>字符串操作方法</h4>
-<h5 class="es">String.prototype.concat() <span>-- 将一个或多个字符串拼接，并返回一个新字符串</span></h5>
-<h5 class="es">String.prototype.slice() <span>-- 摘取一个字符串区域，返回一个新的字符串 str.slice(beginIndex[, endIndex])</span></h5>
-<h5 class="es">String.prototype.substr() <span>-- 从指定位置摘取指定长度的子字符串 str.substr(start[, length])</span></h5>
-<h5 class="es">String.prototype.substring() <span>-- 返回指定的两个下标之间的字符串 str.substring(index1[, index2])</span></h5>
+<h5 class="es3">String.prototype.concat() <span>-- 将一个或多个字符串拼接，并返回一个新字符串</span></h5>
+<h5 class="es3">String.prototype.slice() <span>-- 摘取一个字符串区域，返回一个新的字符串 str.slice(beginIndex[, endIndex])</span></h5>
+<h5 class="es3">String.prototype.substr() <span>-- 从指定位置摘取指定长度的子字符串 str.substr(start[, length])</span></h5>
+<h5 class="es3">String.prototype.substring() <span>-- 返回指定的两个下标之间的字符串 str.substring(index1[, index2])</span></h5>
   <p>注：slice 和 substring 方法，当指定两个index时，返回的字符个数为 abs(index2-index1)</p>
 <h4>字符串位置方法</h4>
-<h5 class="es">String.prototype.indexOf(searchValue[, fromIndex]) <span>-- 返回指定字符在字符串中首次出现的位置, 如找不到为 -1</span></h5>
-<h5 class="es">String.prototype.lastIndexOf() <span>-- 返回指定字符在字符串中最后一次出现的位置, 如找不到为 -1</span></h5>
+<h5 class="es3">String.prototype.indexOf(searchValue[, fromIndex]) <span>-- 返回指定字符在字符串中首次出现的位置, 如找不到为 -1</span></h5>
+<h5 class="es3">String.prototype.lastIndexOf() <span>-- 返回指定字符在字符串中最后一次出现的位置, 如找不到为 -1</span></h5>
 <h4>trim 方法</h4>
-<h5 class="es">String.prototype.trim() <span>-- 删除前置和后缀的所有空格并返回处理后的新字符串</span></h5>
-<h5 class="es">String.prototype.trimLeft()  <span>-- 删除前置的所有空格并返回处理后的新字符串</span></h5>
-<h5 class="es">String.prototype.trimRight()  <span>-- 删除后缀的所有空格并返回处理后的新字符串</span></h5>
+<h5 class="es3">String.prototype.trim() <span>-- 删除前置和后缀的所有空格并返回处理后的新字符串</span></h5>
+<h5 class="es3">String.prototype.trimLeft()  <span>-- 删除前置的所有空格并返回处理后的新字符串</span></h5>
+<h5 class="es3">String.prototype.trimRight()  <span>-- 删除后缀的所有空格并返回处理后的新字符串</span></h5>
 <h4>大小写转换方法</h4>
-<h5 class="es">String.prototype.toLowerCase() <span>-- 将字符串转换成小写并返回新字符串</span></h5>
-<h5 class="es">String.prototype.toUpperCase() <span>-- 将字符串转换成大写并返回新字符串</span></h5>
-<h5 class="es">String.prototype.toLocaleLowerCase() <span>-- 针对特定地区的 toLowerCase() 实现</span></h5>
-<h5 class="es">String.prototype.toLocaleUpperCase() <span>-- 针对特定地区的 toUpperCase() 实现</span></h5>
+<h5 class="es3">String.prototype.toLowerCase() <span>-- 将字符串转换成小写并返回新字符串</span></h5>
+<h5 class="es3">String.prototype.toUpperCase() <span>-- 将字符串转换成大写并返回新字符串</span></h5>
+<h5 class="es3">String.prototype.toLocaleLowerCase() <span>-- 针对特定地区的 toLowerCase() 实现</span></h5>
+<h5 class="es3">String.prototype.toLocaleUpperCase() <span>-- 针对特定地区的 toUpperCase() 实现</span></h5>
 <h4>模式匹配方法</h4>
-<h5 class="es">String.prototype.match() <span>-- 使用正则表达式对象匹配字符串并返回数组，无匹配为null</span></h5>
-<h5 class="es">String.prototype.replace() <span>-- str.replace(regexp|substr, newSubStr|function[, flags])</span></h5>
-<h5 class="es">String.prototype.search() <span>-- str.search(regexp)</span></h5>
-<h5 class="es">String.prototype.split() <span>-- str.split([separator[, limit]])</span></h5>
+<h5 class="es3">String.prototype.match() <span>-- 使用正则表达式对象匹配字符串并返回数组，无匹配为null</span></h5>
+<h5 class="es3">String.prototype.replace() <span>-- str.replace(regexp|substr, newSubStr|function[, flags])</span></h5>
+<h5 class="es3">String.prototype.search() <span>-- str.search(regexp)</span></h5>
+<h5 class="es3">String.prototype.split() <span>-- str.split([separator[, limit]])</span></h5>
 <h4>其他方法（不全）</h4>
-<h5 class="es">String.prototype.localeCompare() <span>-- 比较两个字符串并返回表示先后顺序的值（-1 / 0 / 1）</span></h5>
+<h5 class="e3s">String.prototype.localeCompare() <span>-- 比较两个字符串并返回表示先后顺序的值（-1 / 0 / 1）</span></h5>
 <h4>HTML方法</h4>
-<h5 class="es">String.prototype.anchor() <span>-- 创建一个名为 name 的锚 str.anchor(name)</span></h5>
-<h5 class="es">String.prototype.link() <span>-- 根据提供的url创建一个链接 str.link(url)</span></h5>
+<h5 class="es3">String.prototype.anchor() <span>-- 创建一个名为 name 的锚 str.anchor(name)</span></h5>
+<h5 class="es3">String.prototype.link() <span>-- 根据提供的url创建一个链接 str.link(url)</span></h5>
 <pre>
 var hotText = 'MDN';
 var URL = 'https://developer.mozilla.org/';
@@ -501,13 +501,13 @@ Math.atanh(x) 返回x的反双曲正切（inverse hyperbolic tangent） <span>--
 <h2 id="Promise" class="es6">Promise</h2>
 
 <div class="dl">
-  <h5>Promise.prototype.then(onFulfilled, onRejected) <span>-- 为Promise实例添加状态改变时的回调函数</span></h5>
-    <p>then 和 catch 都会返回一个新的 Promise 对象（具体是什么样的Promise实例，看前面 return 或 throw 了什么），可以进行链式操作</p>
+  <h5>Promise.prototype.then(onFulfilled, onRejected) <span>-- 为 Promise 实例添加状态改变时的回调函数</span></h5>
+    <p>then 和 catch 正常都应该返回一个新的 Promise 对象，以支持链式操作。</p>
   <h5>Promise.prototype.catch(onRejected) <span>-- 是<code>.then(null, onRejected)</code>的别名，用于指定发生错误时的回调函数</span></h5>
-  <h5>Promise.resolve(value) <span>-- 将现有对象转为Promise对象</span></h5>
-  <h5>Promise.reject(reason) <span>-- 返回一个新的Promise实例，该实例的状态为rejected</span></h5>
-  <h5>Promise.all(iterable) <span>-- 将多个Promise实例包装成一个新的Promise实例，返回数组或首个 reject 值</span></h5>
-  <h5>Promise.race(iterable) <span>-- 将多个Promise实例包装成一个新的Promise实例，返回率先改变的Promise实例的返回值</span></h5>
+  <h5>Promise.resolve(value) <span>-- 将现有对象转为 Promise 对象</span></h5>
+  <h5>Promise.reject(reason) <span>-- 返回一个新的 Promise 实例，该实例的状态为 rejected</span></h5>
+  <h5>Promise.all(iterable) <span>-- 将多个 Promise 实例包装成一个新的 Promise 实例，返回数组或首个 reject 值</span></h5>
+  <h5>Promise.race(iterable) <span>-- 将多个 Promise 实例包装成一个新的 Promise 实例，返回率先改变的 Promise 实例的返回值</span></h5>
 </div>
 
 
@@ -547,9 +547,11 @@ var obj = new Proxy({}, {
 </div>
 
 </div>
-<script>//设置到 developer.mozilla.org 的查询链接
+<script>
+//设置到 developer.mozilla.org 的查询链接
 (function(){
-  var list = document.getElementsByTagName("h5"), listHTML, atext, alink, reg=/^[a-zA-Z.]+/g;
+  var list = document.getElementsByTagName("h5"),
+      listHTML, atext, alink, reg=/^[a-zA-Z.]+/g;
   for (var i = 0; i < list.length; i++){
     reg.lastIndex = 0;
     listHTML = list[i].innerHTML;
