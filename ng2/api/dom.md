@@ -66,6 +66,6 @@ export class WidgetThree {
 
 Here we have a ref "inputRef", we use ref to access input element.
 
-`invokeElementMethod` will call the `focus` method the the input nativeElement which should be:
+`invokeElementMethod` will call the `focus` method in the input nativeElement which should be:
 `this.input.nativeElement.focus()` 
 But the risk is on mobile it might have different method to focus on input, `invokeElementMethod` can safely help us to call the method.
