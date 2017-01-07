@@ -4,15 +4,13 @@
   <meta charset="UTF-8">
   <title>header</title>
   <style>
-    /* definition of the header */
-    * {box-sizing: border-box; margin: 0; padding: 0;}
-    body {overflow: hidden; width: 100%; height: 100%; background-color: #666; font-family: "Microsoft YaHei", sans-serif;}
-    #ul { position: relative; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { overflow: hidden; width: 100%; height: 36px; background-color: #666; font-family: "Microsoft YaHei", sans-serif; }
     @media (min-width:  993px) { #ul { width:  980px; margin:auto;} }
     @media (min-width: 1210px) { #ul { width: 1210px; margin:auto;} }
-    a {display: inline-block; height:100%; margin: 0 -0.25em; padding: 8px 12px; text-decoration: none; color: #fff;}
-    a:hover {background-color: #ccc; color: #000;}
-    a.active {background-color: #eee; color: #000;}
+    a { display: inline-block; height:100%; padding: 8px 12px; text-decoration: none; color: #fff; }
+    a:hover  { background-color: #ccc; color: #000; }
+    a.active { background-color: #eee; color: #000; }
   </style>
   <script>
   window.onload = function() {
@@ -29,16 +27,16 @@
 </head>
 <body>
   <div id="ul">
-    <a href="/tutorial/">前端基础</a>
-    <a href="/html5/">HTML5手册</a>
-    <a href="/ebook/">ES6电子书</a>
-    <a href="/ts/">TypeScript</a>
-    <a href="/ng2/">Angular2</a>
-    <a href="/ng2ecosys/">NG2生态圈</a>
-    <a href="/project/">软件工程</a>
-    <a href="/server/">服务器端</a>
-    <a href="/goodies/">优质项目</a>
-    <a href="/tools/">工具箱</a>
+       <a href="/tutorial/">前端基础</a><!--
+    --><a href="/html5/">HTML5手册</a><!--
+    --><a href="/ebook/">ES6电子书</a><!--
+    --><a href="/ts/">TypeScript</a><!--
+    --><a href="/ng2/">Angular2</a><!--
+    --><a href="/ng2ecosys/">NG2生态圈</a><!--
+    --><a href="/project/">软件工程</a><!--
+    --><a href="/server/">服务器端</a><!--
+    --><a href="/goodies/">优质项目</a><!--
+    --><a href="/tools/">工具箱</a>
   </div>
 </body>
 </html>

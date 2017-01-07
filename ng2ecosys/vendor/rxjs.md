@@ -602,6 +602,6 @@ Promise 只能 resolve 一次，输出单值，Observable 能输出多值。
 Promise 一旦建立就只有两种可能，要么 resolve，要么 reject，对应 Observable的 complete，error，但 Observable 还可以定义如何取消。
 Observable 是懒惰的，Observable 对象建立并不立即输出值，而是等到有人来 subscribe 的时候才开始输出。
 
-直觉上 Observable 和 Promise 的区别是功能，Promise 的功能相对单一，因为异步处理单值流要比异步处理多值流，变化空间要小很多。Observable 的变化要多得多。
+直觉上 Observable 和 Promise 的区别是功能，Promise 的功能相对单一，因为异步处理单值流要比异步处理多值流，变化空间要小很多，相对的 Observable 的变化则要多得多。
 
 
