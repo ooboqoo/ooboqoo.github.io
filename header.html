@@ -8,9 +8,14 @@
     body { overflow: hidden; width: 100%; height: 36px; background-color: #666; font-family: "Microsoft YaHei", sans-serif; }
     @media (min-width:  993px) { #ul { width:  980px; margin:auto;} }
     @media (min-width: 1210px) { #ul { width: 1210px; margin:auto;} }
-    a { display: inline-block; height:100%; padding: 8px 12px; text-decoration: none; color: #fff; }
+    a { display: inline-block; height: 100%; padding: 8px 12px; text-decoration: none; color: #fff; }
     a:hover  { background-color: #ccc; color: #000; }
     a.active { background-color: #eee; color: #000; }
+    @media (max-width: 768px) {
+      body { overflow-x: scroll; }
+      #ul { white-space: nowrap; }
+      a { padding-left: 5px; padding-right: 5px; }
+    }
   </style>
   <script>
   window.onload = function() {
@@ -28,11 +33,11 @@
 <body>
   <div id="ul">
        <a href="/tutorial/">前端基础</a><!--
-    --><a href="/html5/">HTML5手册</a><!--
+    --><a href="/html5/">速查手册</a><!--
     --><a href="/ebook/">ES6电子书</a><!--
     --><a href="/ts/">TypeScript</a><!--
     --><a href="/ng2/">Angular2</a><!--
-    --><a href="/ng2ecosys/">NG2生态圈</a><!--
+    --><a href="/ng2ecosys/">NG周边</a><!--
     --><a href="/project/">软件工程</a><!--
     --><a href="/server/">服务器端</a><!--
     --><a href="/goodies/">优质项目</a><!--

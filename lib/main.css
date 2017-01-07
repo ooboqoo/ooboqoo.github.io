@@ -215,12 +215,11 @@ main table td:first-child a {
   left: 0;
   z-index: 999;
   width: 100%;
-  overflow: hidden;
   border-bottom: 20px solid rgba(255, 255, 255, 0);
   box-sizing: content-box;
   transition: top .2s ease-out, border-bottom-width .2s ease-out, box-shadow 0s;
 }
-#header:hover {
+#header:hover, #header.show {
   top: 0;
   border-bottom-width: 0;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
@@ -237,6 +236,7 @@ main table td:first-child a {
   height: 100%;
   background-color: #eee;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
+  transition: left .2s ease-out;
 }
 #sidemenu h2, #sidemenu h3 {
   font-family: "Microsoft YaHei", sans-serif;
@@ -396,4 +396,13 @@ p > .mark {
   }
 }
 
-/*# sourceMappingURL=main.css.map */
+/* special definition for mobilephone screen */
+@media (max-width: 768px) {
+  #outline > div {
+    left: -215px;
+  }
+
+  #header {
+    border-bottom-width: 0;
+  }
+}
