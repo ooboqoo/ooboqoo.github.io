@@ -397,7 +397,7 @@ p > .mark {
 }
 
 /* special definition for mobilephone screen */
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   #outline > div {
     left: -215px;
   }
