@@ -343,6 +343,18 @@ trackByHeroes(index: number, hero: Hero) { return hero.id; }
 
 我们没有看到 `<template>` 标签，那是因为这种 `*` 前缀语法让我们忽略了这个标签，而把注意力直接聚焦在所要包含、排除或重复的那些 HTML 元素上。
 
+```html
+<p *something="someExpression"></p>
+```
+
+This allows you to easily create an embedded template, which would turn into this:
+
+```html
+<template [something]="someExpression">
+  <p></p>
+</template>
+```
+
 ### 展开 `*ngIf`
 
 ```html
