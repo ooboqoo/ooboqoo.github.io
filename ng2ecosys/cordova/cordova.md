@@ -38,3 +38,16 @@ www：最重要的目录，存放项目主题的 HTML5 和 JS 代码的目录。
 
 config.xml：主要是 cordova 的一些配置，比如：项目使用了哪些插件、应用图标 icon 和启动页面 SplashScreen，修改 app 的版本，名字等信息，还有平台的配置。
 
+## 打包 (不用 Ionic)
+
+如果不使用 ionic 而是使用 pc 端 build 出来的代码，那么，在 build 之前需要修改 index.html:
+
+```html
+<!-- 修改前 -->
+<base href="/" />
+<!-- 修改后 -->
+<base href="./" />  <!-- 或 -->
+<base href="file:///android_asset/www/" />
+```
+
+不改的话，会直接去 `file:///` 抓数据，根本启动不起来。
