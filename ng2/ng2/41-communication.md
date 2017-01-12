@@ -32,6 +32,12 @@ export class HeroParentComponent {
 }
 ```
 
+在使用 `@Input` 传值时要注意 html 属性写法的区别：
+
+```html
+<div draggable="false"></div>    <!-- 传的是字符串 -->
+<div [draggable]="false"></div>  <!-- 传的是布尔值 -->
+```
 
 ## 通过 `setter` 截听输入属性值的变化
 

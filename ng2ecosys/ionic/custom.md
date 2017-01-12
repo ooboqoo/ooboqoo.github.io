@@ -25,6 +25,17 @@ import './any.css';
 ```
 
 
+### Script Tag Include
+
+If all else fails and a library simply cannot be bundled, it can always be included in an app via an HTML `<script>` tag. This is how libraries were managed for the past twenty years, and it still works very well.
+
+To access the library from an Ionic Page or Component, make a declare statement and create a variable. See an example below with jQuery.
+
+```ts
+declare const jQuery:any;
+```
+
+When jQuery is included in a web browser, it can be accessed from window.jQuery. In the above example, we’re mapping jQuery to the window.jQuery object. From here, jQuery can be used through the Typescript code without issue.
 
 
 

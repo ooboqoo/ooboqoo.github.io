@@ -68,6 +68,8 @@ If you were starting with a package 1.0.4, this is how you would specify the ran
 
 ## npm 包配置详解
 
+https://docs.npmjs.com/files/package.json
+
 ```js
 // package.json (dependencies)
 {
