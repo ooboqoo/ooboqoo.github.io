@@ -96,17 +96,15 @@ tsconfig.json
 {
     "compilerOptions": {
         "target": "es5",
-        "moduleResolution": "node",
+        "module": "commonjs",
         "sourceMap": true,
         "inlineSources": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "removeComments": true,
-        "noImplicitAny": false,
         "declaration": true,
         "lib": ["dom","es6"],
         "outDir": "dist"
     }
 }
 ```
-
