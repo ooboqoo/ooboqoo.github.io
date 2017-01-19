@@ -1,4 +1,0 @@
-
-你说的是不是REST API?如果是的话已经有很多第三方实现了，文档中有这些框架的信息：
-https://docs.mongodb.com/ecosystem/tools/http-interfaces/
-实际上使用什么框架跟怎么操作数据库是两个比较独立的问题。NodeJS操作MongoDB无论用什么框架都离不开mongoose或者node-mongodb native两个驱动之一，至于什么时候调用这些驱动访问数据库则是要依据KOA或其他框架的使用习惯来决定的事情。所以我并没有看出koa框架和mongodb一起用有什么特别需要说明的地方。可以再把问题细化一下。
