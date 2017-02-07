@@ -16,7 +16,7 @@ $ sass -v
 也可以安装 node-sass，可以免去安装 Ruby：
 
 ```bash
-$ npm install node-sass --sass-binary-site=http://localhost:8080/  # 先下好二进制包再安装
+$ npm install -g node-sass --sass-binary-site=http://localhost:8080  # 先下好二进制包再安装
 ```
 
 > node-sass 安装过程中需要去亚马逊云下载一个二进制包，然后就容易出现 "网络问题"，需要带梯子安装，或像上面这样先下好二进制包再开本地服务器安装。

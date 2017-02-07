@@ -63,7 +63,32 @@ vim 开启256色支持
 
 ## cmder
 
-Yeoman 推荐的，确实好用。
+Cmder 把 ConEmu，Git for Windows 和 clink 打包在一起，让你无需配置就能使用一个真正干净的 Linux 终端！她甚至还附带了漂亮的 monokai 配色主题。作为一个压缩档的存在, 解压即用。
+
+### 项目文档结构
+
+```txt
+Cmder
+  |- bin          # 此处可放自己的命令文件，用于在终端内调用
+  |- config       # 配置文件都放在这，不应该去修改 vendor 下的配置文件
+  |- icons        # 图标文件
+  |- vendor       # Cmder 整合的项目
+  |    |- conemu-maximus5      # 
+  |    |    \- ConEmu.xml          # 这个文件保存了 ConEmu 的完整配置
+  |    |- clink                # 
+  |    |- clink-completions    # 
+  |    |- git-for-windows      # 
+  |    |- psmodules            # PowerShell 模块目录
+  |    |- cmder_exinit         # Cmder 初始化脚本
+  |    |- clink.lua            # clink 初始化脚本
+  |    |- init.bat             # cmd 初始化脚本
+  |    \- profile.ps1          # PowerShell 初始化脚本
+  \- Cmder.exe    # 
+
+# 注：上次复制 config 下所有文件，ConEmu 配置无效，而复制 vendor 下配置文件有效，这个待复核
+```
+
+### 配置
 
 Cmder 是 windows 下的命令行模拟器，不仅能模拟 cmd 而且还自带了 Git Bash，修补了 Bash 的不足，且界面设置也很 sexy。
 
@@ -77,7 +102,11 @@ Cmder 是 windows 下的命令行模拟器，不仅能模拟 cmd 而且还自带
 
 `Startup > Tasks` 可以设置任务列表，通过勾选默认任务可以设定点击加号出来的任务，而启动时的任务设置在 `Startup`
 
-`` Ctrl+` `` 会调出 cmder，但这会影响到其他编辑器，可以考虑改下快捷键 `Keys & Macro`
+`` Ctrl+` `` 会调出 cmder，但这会影响到其他编辑器，可以考虑改下快捷键 `Keys & Macro`，如改为 `` Win+` ``
+
+### 注意项
+
+固定到任务栏，tabs 图标不显示 -- 通过 exe 创建快捷方式，然后再将快捷方式固定到任务栏即可
 
 ### 终端访问外网走代理
 
