@@ -151,7 +151,7 @@ Select all matches using most recent pattern  Alt + F3
 
  插件           | 描述 
  -------------- | ---------------------------------------------------
-Package Control | 插件管理器 https://sublime.wbond.net/installation
+**Package Control** | 插件管理器 https://sublime.wbond.net/installation
 Emmet           | HTML CSS 快速输入必装插件。
 JavaScript Completions | JS 自动补齐支持。
 SublimeLinter 3 | JS代码分析与提示，需要加装插件 jshint
@@ -159,13 +159,12 @@ HTML-CSS-JS prettify   | This extension gives you a command to format your HTML,
 Autoprefixer    | 可以自动帮助添加CSS浏览器前缀
 Less            | Less 语法高亮支持。
 Color Highlighter      | 根据颜色代码直观显示颜色，并带 color picker
-BracketHighlighter     | 默认的匹配标记高亮很扯淡，所以有了这个插件。
+BracketHighlighter     | 默认的匹配标记高亮很扯蛋，所以有了这个插件。
 Git Gutter      | Add a marker in the gutter wherever there is a change made to a file.
 AutoFileName    | 自动添加引用文件名。
-AdvancedNewFile | 新建文件的增强版，调用方法：`ctrl+alt+n`
-SideBarEnhancements    | 侧边栏右键功能增强。
+**SideBarEnhancements**    | 侧边栏右键功能增强。
 SyncedSideBar   | 可以在侧边栏同步展开编辑文件所在目录的插件。后来发现 右键->Reveal in Side Bar 是个更好的选择
-IMESupport      | 输入中文时，输入框总是在最下面，装了这个插件不用设置，一切就会正常工作了。
+**IMESupport**      | 输入中文时，输入框总是在最下面，装了这个插件不用设置，一切就会正常工作了。
 HTML2Text       | HTML 转 Markdown 插件
 
 ### SublimeLinter
