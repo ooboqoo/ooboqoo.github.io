@@ -120,6 +120,8 @@ So now, when we run npm start and type in browser http://localhost:1234/error/te
 
 ## All the juice of MongoDB with async/await
 
+[TypeScript: Declaring Mongoose Schema + Model](http://brianflove.com/2016/10/04/typescript-declaring-mongoose-schema-model/)
+
 > MongoDB 相关配置另外单独介绍。
 
 ```bash
