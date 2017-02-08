@@ -13,13 +13,29 @@ $ gem install sass
 $ sass -v
 ```
 
-也可以安装 node-sass，可以免去安装 Ruby：
+也可以安装 node-sass，可以免去安装 Ruby。
+
+node-sass 安装过程中需要去亚马逊云下载一个二进制包，然后就容易出现 "网络问题"，需要带梯子安装或使用淘宝镜像。
+
+#### 解决方法 （参考：https://github.com/lmk123/blog/issues/28 ）
+
+直接运行下面的命令即可：
 
 ```bash
-$ npm install -g node-sass --sass-binary-site=http://localhost:8080  # 先下好二进制包再安装
+$ npm install -g node-sass --sass-binary-site=http://npm.taobao.org/mirrors/node-sass/
 ```
 
-> node-sass 安装过程中需要去亚马逊云下载一个二进制包，然后就容易出现 "网络问题"，需要带梯子安装，或像上面这样先下好二进制包再开本地服务器安装。
+我们可能更希望能直接使用 `npm install` 安装所有依赖，所以我的做法是在项目内添加一个 `.npmrc` 文件：
+
+```
+phantomjs_cdnurl=http://cnpmjs.org/downloads
+sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
+registry=https://registry.npm.taobao.org
+```
+
+这样使用 `npm install` 安装 node-sass 和 phantomjs 时都能自动从淘宝源上下载，但是在使用 `npm publish` 的时候要把 registry 这一行给注释掉，否则就会发布到淘宝源上去了。
+
+#### 测试安装是否成功
 
 创建文件 style.scss，并输入：
 
@@ -112,8 +128,71 @@ $header-height: 60px;
 ```
 
 
-Sass 的变量是有作用域的，划分依据以 `{}` 来划分，规则跟 JavaScript 是非常相似的，具体参阅：   
+Sass 的 **变量是有作用域** 的，划分依据以 `{}` 来划分，规则跟 JavaScript 是非常相似的，具体参阅：   
 http://webdesign.tutsplus.com/articles/understanding-variable-scope-in-sass--cms-23498
+
+Sass 支持两种变量类型：局部变量 和 全局变量：
+
+* By default, all variables defined outside of any selector are considered global variables. That means they can be accessed from anywhere in our stylesheets.
+* On the other hand, local variables are those which are declared inside a selector. Later, we’ll examine how we can customize that behavior.
+
+Here we define a mixin and then the btn-bg-color variable within it. This is a local variable, and is therefore visible only to the code inside that mixin:
+
+```
+@mixin button-style {
+    $btn-bg-color: lightblue;
+    color: $btn-bg-color;
+}
+
+#main {
+  $width: 5em !global;  // 添加 !global 将局部变量转换成全局变量
+  width: $width;
+}
+```
+
+
+#### Variable Defaults: `!default`
+
+You can assign to variables if they aren’t already assigned by adding the `!default` flag to the end of the value. This means that if the variable has already been assigned to, it won’t be re-assigned, but if it doesn’t have a value yet, it will be given one.
+
+For example:
+
+```scss
+$content: "First content";
+$content: "Second content?" !default;
+$new_content: "First time reference" !default;
+
+#main {
+  content: $content;
+  new-content: $new_content;
+}
+```
+
+is compiled to:
+
+```scss
+#main {
+  content: "First content";
+  new-content: "First time reference"; }
+```
+
+Variables with `null` values are treated as unassigned by `!default`:
+
+```scss
+$content: null;
+$content: "Non-null content" !default;
+
+#main {
+  content: $content;
+}
+```
+
+is compiled to:
+
+```css
+#main {
+  content: "Non-null content"; }
+```
 
 ### 数据类型 Data Types
 
@@ -179,7 +258,7 @@ nav {
 
 CSS 原生支持 `@import`，但其缺点是，每次 inport 都会产生一个 HTTP 请求，而 Sass 则会将这些部件编译到一个文件内。
 
-Sass 不仅支持导入自己的 scss 文件，同时也支持 CSS 的原生 `@import` 指令：
+Sass 不仅支持导入自己的 scss 文件，同时也支持 CSS 的原生 `@import` 指令（这种情况下，css 文件不会被嵌入进来）：
 
 ```css
 @import url()

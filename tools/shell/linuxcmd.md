@@ -179,15 +179,15 @@ $ groupadd [-g gid][-r]  # -g 直接指定用户组；-r 新建系统用户组
 
 ## 进程管理 17章
 
-<table class="dataintable"><col style="color:blue" /><col />
-<tr><td>&</td><td>这个用在一个命令的最后，可以把这个命令放到后台执行</td></tr>
-<tr><td>^Z</td><td>将一个正在前台执行的命令放到后台，并且暂停</td></tr>
-<tr><td>jobs</td><td>查看当前有多少在后台运行的命令</td></tr>
-<tr><td>ps -ef</td><td>列出系统中正在运行的进程 processes snapshot</td></tr>
-<tr><td>fg [%jobnum]</td><td>将后台中的命令调至前台继续运行</td></tr>
-<tr><td>bg [%jobnum]</td><td>将一个在后台暂停的命令，变成继续执行</td></tr>
-<tr><td>kill</td><td>发送信号给一个或多个进程（经常用来杀死一个进程）</td></tr>
-</table>
+ 命令         | 描述 
+ ------------ | -------------
+ &            | 这个用在一个命令的最后，可以把这个命令放到后台执行
+ ^Z           | 将一个正在前台执行的命令放到后台，并且暂停
+ jobs         | 查看当前有多少在后台运行的命令
+ ps -ef       | 列出系统中正在运行的进程 processes snapshot
+ fg [%jobnum] | 将后台中的命令调至前台继续运行
+ bg [%jobnum] | 将一个在后台暂停的命令，变成继续执行
+ kill         | 发送信号给一个或多个进程（经常用来杀死一个进程）
 
 
 ## CentOS 安装配置中的其他命令
@@ -203,12 +203,16 @@ $ top      # linux下的任务管理器 h 帮助 q 退出 k+PID 结束进程 tab
 ## `grep` 命令及正则表达式详解
 
 ## `less` `man` 操作
-<table class="dataintable"><col style="color:blue" /><col />
-<tr><td>d</td><td>下翻半页 down</td></tr>
-<tr><td>u</td><td>上翻半页 up</td></tr>
-<tr><td>/text</td><td>在文档中查找text 按n跳到下一个，shift+n上一个</td></tr>
-<tr><td>q</td><td>退出</td></tr>
-<tr><td>gg / 1G</td><td>跳到文章开头</td></tr>
-<tr><td>G</td><td>跳到文章末尾</td></tr>
-<tr><td>h</td><td>帮助</td></tr>
-</table>
+
+main 调用的 less，所以操作都一样的。
+
+ 命令    | 描述 
+ ------- | -------------
+ d       | 下翻半页 down
+ u       | 上翻半页 up
+ /text   | 在文档中查找text 按 n 跳到下一个，shift+n 上一个
+ q       | 退出
+ gg / 1G | 跳到文章开头
+ G       | 跳到文章末尾
+ h       | 帮助
+

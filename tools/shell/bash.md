@@ -1,18 +1,18 @@
-# BASH SHELL 
+# Bash Shell 
 
 #### bash 的主要优点
 
-<p>命令记忆history ；自动补全Tab；命令别名alias；作业控制；脚本；通配符</p>
+命令记忆history ；自动补全Tab；命令别名alias；作业控制；脚本；通配符
 
 #### 变量功能
 
 为了与自定义变量区分，环境变量通常以大写字符来表示：PATH HOME MAIL SHELL
 
-```
-echo $var / ${var}  // 两种显示变量的方式
-work="/var/www/html/project/p2file"  // 设定变量时中间不能有空格
+```bash
+echo $var / ${var}                   # 两种显示变量的方式
+work="/var/www/html/project/p2file"  # 设定变量时中间不能有空格
 unset 删除变量；export 导出为环境变量；env 查看环境变量；set 查看所有变量；locale 显示语系变量
-LANG=en_US.UTF-8    // 临时设定语言以支持中文正常显示
+LANG=en_US.UTF-8                     # 临时设定语言以支持中文正常显示
 ```
 
 #### bash 环境配置
@@ -22,7 +22,7 @@ LANG=en_US.UTF-8    // 临时设定语言以支持中文正常显示
 /etc/profile 系统整体的设置，会读取 /etc/profile.d/*.sh /etc/sysconfig/i18n 等
 ~/.bash_profile 用户个人设置，另外会读取 ~/.bashrc < /etc/bashrc  见P323
 
-利用<code>source 或 . </code>.bashrc 可以不用重新登录就使配置文件生效
+利用 `source` 或 `.` .bashrc 可以不用重新登录就使配置文件生效
 
 
 #### 终端机的环境设置：stty, set

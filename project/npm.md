@@ -9,7 +9,10 @@ $ npm -v              # 查看 npm 版本
 $ npm list --depth=0        # 列出安装的软件包
 $ npm outdated              # 列出过时的包
 $ npm update                # 更新本地软件包
-$ npm update --save         # 更新包并更新 package.json 文件的版本信息
+$ npm update --save-dev && npm update --save  # 更新本地包并将最新版本信息写入到 package.json
+$ npm update --save-dev     # 仅更新 devDependencies 包并相应更新 package.json
+$ npm update --save         # 更新 dependencies 和 devDependencies 包并更新 package.json
+    # 如果没有先 --save-dev 就执行这条命令，会更新 devDependencies 下的包，然后版本信息会写到 dependencies 下
 $ npm install               # 安装所有依赖包
 $ npm install --production  # 只安装产品依赖
 $ npm uninstall --save lodash  # 卸载软件包并从 package.json 中移除
