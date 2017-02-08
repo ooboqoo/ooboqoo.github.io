@@ -1,5 +1,7 @@
 # Angular CLI
 
+> 该项目处于 beta 快速开发阶段，不要过于频繁更新版本，以避免碰到不必要的报错
+
 官网：https://github.com/angular/angular-cli   
 文档：https://cli.angular.io/
 
@@ -9,7 +11,7 @@
 
 ```bash
 $ ng new project-name # 创建一个新项目，置为默认设置
-$ ng build            # 构建/编译应用
+$ ng build --prod     # 构建/编译应用，不加 --prod 就没有 uglifying and tree-shaking
 $ ng test             # 运行单元测试
 $ ng e2e              # 运行端到端（end-to-end）测试
 $ ng serve            # 启动一个小型 web 服务器
@@ -20,12 +22,13 @@ $ ng deploy           # 即开即用，部署到 Github Pages 或者 Firebase
 除了设置一个新应用之外，该工具还支持开发者运行命令，构建应用的组成部分，如组件（Component）和路由（Route）。
 
 ```bash
-$ ng generate component my-comp      # 生成一个新组件，同时生成其测试规格和相应的HTML/CSS文件
-$ ng generate directive my-directive # 生成一个新指令
-$ ng generate pipe my-pipe           # 生成一个新管道
-$ ng generate service my-service     # 生成一个新服务
-$ ng generate route my-route         # 生成一个新路由
-$ ng generate class my-class         # 生成一个简易的模型类
+# You can use the ng generate (or just ng g) command to generate Angular components:
+$ ng g component my-comp      # 生成一个新组件，同时生成其测试规格和相应的HTML/CSS文件
+$ ng g directive my-directive # 生成一个新指令
+$ ng g pipe my-pipe           # 生成一个新管道
+$ ng g service my-service     # 生成一个新服务
+$ ng g route my-route         # 生成一个新路由
+$ ng g class my-class         # 生成一个简易的模型类
 ```
 
 对于每个生成命令，所产生的文件会根据官方 Angular 样式指南的规定，放置在正确的位置。

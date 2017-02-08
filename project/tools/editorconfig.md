@@ -1,6 +1,7 @@
 # EditorConfig
 
-http://editorconfig.org/
+官网：http://editorconfig.org/   
+配置项完全手册：https://github.com/editorconfig/editorconfig/wiki/EditorConfig-Properties
 
 EditorConfig 帮助开发者在不同的编辑器和 IDEs 之间保持代码的一致性。EditorConfig 易读且能与版本控制系统很好地兼容。
 
