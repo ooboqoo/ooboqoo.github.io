@@ -2,30 +2,41 @@
 
 http://sass-lang.com/documentation/file.SASS_REFERENCE.html
 
-## 概述
+## 1 概述
 
-### 安装
+### 1.1 安装
 
-先安装 Ruby 然后再用以下命令安装：
+先安装 Ruby 然后再用以下命令安装，也可以安装 node-sass，可以免去安装 Ruby。
 
 ```bash
 $ gem install sass
 $ sass -v
 ```
 
-也可以安装 node-sass，可以免去安装 Ruby。
+编译：
+
+```bash
+scss input.scss output.css                                   # 编译单个文件，scss 是 sass --scss 的别名
+sass --watch app/sass:public/style                           # 文件监视，输出前用 `:` 引导
+sass --style nested(default), compact, compressed, expanded  # 设定输出风格
+```
+
+### 1.2 node-sass
+
+#### 1.2.1 安装
+
+参考：https://github.com/lmk123/blog/issues/28
 
 node-sass 安装过程中需要去亚马逊云下载一个二进制包，然后就容易出现 "网络问题"，需要带梯子安装或使用淘宝镜像。
 
-#### 解决方法 （参考：https://github.com/lmk123/blog/issues/28 ）
-
-直接运行下面的命令即可：
-
 ```bash
 $ npm install -g node-sass --sass-binary-site=http://npm.taobao.org/mirrors/node-sass/
+# 或者
+$ set SASS_BINARY_SITE=http://npm.taobao.org/mirrors/node-sass/  # bash 用 `export`
+$ npm install -g node-sass
 ```
 
-我们可能更希望能直接使用 `npm install` 安装所有依赖，所以我的做法是在项目内添加一个 `.npmrc` 文件：
+还有一个方法是在项目内添加一个 `.npmrc` 文件：
 
 ```
 phantomjs_cdnurl=http://cnpmjs.org/downloads
@@ -35,31 +46,11 @@ registry=https://registry.npm.taobao.org
 
 这样使用 `npm install` 安装 node-sass 和 phantomjs 时都能自动从淘宝源上下载，但是在使用 `npm publish` 的时候要把 registry 这一行给注释掉，否则就会发布到淘宝源上去了。
 
-#### 测试安装是否成功
+#### 1.2.2 [Command Line Interface](https://github.com/sass/node-sass#command-line-interface)
 
-创建文件 style.scss，并输入：
+#### 1.2.3 [Binary configuration parameters](https://github.com/sass/node-sass#binary-configuration-parameters)
 
-```scss
-body {
-  background-color: #eee;
-  color: #800;
-  p {
-    color: #008;
-  }
-}
-```
-
-然后在终端输入命令 `sass` 或 `scss` 编译：
-
-```bash
-scss input.scss output.css                                   # 编译单个文件，scss 是 sass --scss 的别名
-sass --watch app/sass:public/style                           # 文件监视，输出前用 : 引导
-sass --style nested(default), compact, compressed, expanded  # 设定输出风格
-```
-
-如果一切正常，会在当前目录生成 style.css 文件。
-
-### Sass 与 SCSS 的区别
+### 1.3 Sass 与 SCSS 的区别
 
 Sass 的原生语法不用花括号和分号，靠缩进和换行来分隔选择符与属性，简洁但可读性差；  
 而 SCSS 即 Sassy CSS，语法添加了花括号和分号，与 CSS 的风格保持了一致，SCSS 语法更受欢迎。
@@ -84,7 +75,131 @@ body {
 }
 ```
 
-### 注释
+### 1.4 编码
+
+Sass follows the [CSS spec](http://www.w3.org/TR/2013/WD-css-syntax-3-20130919/#determine-the-fallback-encoding) to determine the encoding of a stylesheet.
+
+To explicitly specify the encoding of your stylesheet, use a `@charset` declaration just like in CSS. Add `@charset "encoding-name"`; at the beginning of the stylesheet (before any whitespace or comments) and Sass will interpret it as the given encoding.
+
+Sass will always encode its output as UTF-8. It will include a `@charset` declaration if and only if the output file contains non-ASCII characters.
+
+```scss
+@charset "utf-8";  // 出现中文时加这个以防异常
+```
+
+## CSS 扩展
+
+### 2.1 Nested Rules
+
+Sass 使得编写样式也可以像 HTML 一样实现嵌套，比 CSS 的语法更加直观，但过深的嵌套不利于维护，应该避免。
+
+```scss
+#main {
+  width: 97%;
+
+  p, div {
+    font-size: 2em;
+    a { font-weight: bold; }
+  }
+
+  pre { font-size: 3em; }
+}
+```
+
+将编译成：
+
+```css
+#main {
+  width: 97%; }
+  #main p, #main div {
+    font-size: 2em; }
+    #main p a, #main div a {
+      font-weight: bold; }
+  #main pre {
+    font-size: 3em; }
+```
+
+### 2.2 自定义父选择器位置  Referencing Parent Selectors: `&`
+
+嵌套编译时，默认父选择器会放在最前面且后面有空格分隔，但有时，这种组合不是我们想要的，`&` 符号提供了控制父选择器位置的途径。另外，`&` 必须作为单独的选择符或者作为前缀使用，但不能出现在其他位置。
+
+```scss
+a {
+  text-decoration: none;
+  &:hover { text-decoration: underline; }    // 1 常见用法
+  body.firefox & { font-weight: normal; }    // 2 还可以出现在其他位置
+}
+
+#main {
+  &-sidebar { border: 1px solid; }           // 3 还可以带后缀使用，但像 sidebar-& 这样就不行
+}
+```
+
+### 2.3 Nested Properties
+
+CSS 本身的一些属性如 font border 等相当于起了 “命名空间” 的作用，在 Sass 中你可以采用嵌套的写法避免逐条输入。
+
+CSS has quite a few properties that are in “namespaces;” for instance, font-family, font-size, and font-weight are all in the font namespace. In CSS, if you want to set a bunch of properties in the same namespace, you have to type it out each time. Sass provides a shortcut for this: just write the namespace once, then nest each of the sub-properties within it. For example:
+
+```scss
+.funky {
+  font: {
+    family: fantasy;
+    size: 30em;
+    weight: bold;
+  }
+}
+```
+
+is compiled to:
+
+```css
+.funky {
+  font-family: fantasy;
+  font-size: 30em;
+  font-weight: bold; }
+```
+
+The property namespace itself can also have a value. For example:
+
+```scss
+.funky {
+  font: 20px/24px fantasy {
+    weight: bold;
+  }
+}
+```
+
+is compiled to:
+
+```css
+.funky {
+  font: 20px/24px fantasy;
+    font-weight: bold;
+}
+```
+
+### 2.4 Placeholder Selectors: `%foo`
+
+`%类名` 符号用来创建专用于 @extend 的类，其本身不会输出的 css 文件中。
+
+```scss
+// This ruleset won't be rendered on its own.
+#context a%extreme {
+  color: blue;
+}
+
+.notice {
+  @extend %extreme;
+}
+
+// 输出:
+#context a.notice {
+  color: blue; }
+```
+
+### 2.5 注释
+
 同其他语言一样，可以使用单行注释和多行注释，多行注释格式为 CSS 原生支持，会输出到 CSS 文件中，单行注释为 Sass 增强功能，不会输出到 css 文件。
 
 ```scss
@@ -109,13 +224,18 @@ $version: "1.2.3";
 /* This CSS is generated by My Snazzy Framework version 1.2.3. */
 ```
 
+## 3 SassScript
 
+In addition to the plain CSS property syntax, Sass supports a small set of extensions called SassScript. SassScript allows properties to use variables, arithmetic, and extra functions. SassScript can be used in any property value.
 
-## SassScript
+SassScript can also be used to generate selectors and property names, which is useful when writing mixins. This is done via interpolation.
 
-### 变量 Variables
+### 3.1 变量 Variables
 
 变量以 `$` 开头，多个单词之间推荐用 `-` 分隔。变量的引入为样式编辑带来了巨大的便利。
+
+* Sass 的变量是有作用域的，划分依据以 `{}` 来划分
+* 基于历史原因，`-` `_` 是等效的，但应该使用 `-`
 
 ```scss
 $text-color: #222;
@@ -127,80 +247,92 @@ $header-height: 60px;
 }
 ```
 
+#### 3.1.1 局部变量与全局变量
 
-Sass 的 **变量是有作用域** 的，划分依据以 `{}` 来划分，规则跟 JavaScript 是非常相似的，具体参阅：   
-http://webdesign.tutsplus.com/articles/understanding-variable-scope-in-sass--cms-23498
-
-Sass 支持两种变量类型：局部变量 和 全局变量：
-
-* By default, all variables defined outside of any selector are considered global variables. That means they can be accessed from anywhere in our stylesheets.
-* On the other hand, local variables are those which are declared inside a selector. Later, we’ll examine how we can customize that behavior.
-
-Here we define a mixin and then the btn-bg-color variable within it. This is a local variable, and is therefore visible only to the code inside that mixin:
+Variables are only available within the level of nested selectors where they’re defined. If they’re defined outside of any nested selectors, they’re available everywhere. They can also be defined with the !global flag, in which case they’re also available everywhere.
 
 ```
+$width: 5em;                  // 位于选择符外的是全局变量
+#main {
+    width: $width;
+}
+
 @mixin button-style {
-    $btn-bg-color: lightblue;
+    $btn-bg-color: lightblue;  // 局部变量
     color: $btn-bg-color;
 }
 
 #main {
-  $width: 5em !global;  // 添加 !global 将局部变量转换成全局变量
+  $width: 5em !global;         // 添加 !global 将局部变量转换成全局变量
   width: $width;
 }
 ```
 
-
-#### Variable Defaults: `!default`
-
-You can assign to variables if they aren’t already assigned by adding the `!default` flag to the end of the value. This means that if the variable has already been assigned to, it won’t be re-assigned, but if it doesn’t have a value yet, it will be given one.
-
-For example:
+#### 3.1.2 关于变量的一些试验
 
 ```scss
-$content: "First content";
-$content: "Second content?" !default;
-$new_content: "First time reference" !default;
-
-#main {
-  content: $content;
-  new-content: $new_content;
+$width: 1em;
+#main1 {
+  width: $width;  // 1em
+}
+$width: 2em;
+#main2 {
+  width: $width;  // 2em
+}
+#main3-1 {
+  $width: 3em !default;    // `!default` 的相关介绍在 #3.8
+  width: $width;  // 2em
+}
+#main3-2 {
+  $width: null;            // `null` 对 `!default` 的影响
+  $width: 3em !default;
+  width: $width;  // 3em
+}
+#main4 {
+  $width: 4em;
+  width: $width;  // 4em
+}
+#main5 {
+  width: $width;  // 2em
 }
 ```
 
-is compiled to:
+### 3.2 数据类型 Data Types
 
-```scss
-#main {
-  content: "First content";
-  new-content: "First time reference"; }
-```
+SassScript supports seven main data types:
 
-Variables with `null` values are treated as unassigned by `!default`:
+* numbers (e.g. `1.2`, `13`, `10px`)
+* strings of text, with and without quotes (e.g. `"foo"`, `'bar'`, `baz`)
+* colors (e.g. `blue`, `#04a3f9`, `rgba(255, 0, 0, 0.5)`)
+* booleans (e.g. `true`, `false`)
+* nulls (e.g. `null`)
+* lists of values, separated by spaces or commas (e.g. `1.5em 1em 0 2em`, `Helvetica, Arial, sans-serif`)
+* maps from one value to another (e.g. `(key1: value1, key2: value2)`)
 
-```scss
-$content: null;
-$content: "Non-null content" !default;
-
-#main {
-  content: $content;
-}
-```
-
-is compiled to:
-
-```css
-#main {
-  content: "Non-null content"; }
-```
-
-### 数据类型 Data Types
+SassScript also supports all other types of CSS property value, such as Unicode ranges and `!important` declarations. However, it has no special handling for these types. They’re treated just like unquoted strings.
 
 #### Strings
 
 CSS 中字符串可以同时使用 `""` `''` 或不带引号使用，Sass 中也完全一样，Sass 不会去转换格式，除了一种情况：当使用 `#{}` 插值表达式时，Sass 会去除引号，这样做是为了 This makes it easier to use e.g. selector names in mixins.
 
+```scss
+@mixin firefox-message($selector) {
+  body.firefox #{$selector}:before {
+    content: "Hi, Firefox users!";
+  }
+}
+@include firefox-message('.header');
+
+// 输出：
+body.firefox .header:before {
+  content: "Hi, Firefox users!"; }
+```
+
 #### Lists
+
+Lists are how Sass represents the values of CSS declarations like `margin: 10px 15px 0 0` or `font-face: Helvetica, Arial, sans-serif`. Lists are just a series of other values, separated by either spaces or commas. In fact, individual values count as lists, too: they’re just lists with one item.
+
+On their own, lists don’t do much, but the SassScript [**list functions**](http://sass-lang.com/documentation/Sass/Script/Functions.html#list-functions) make them useful. The `nth` function can access items in a list, the `join` function can join multiple lists together, and the `append` function can add items to lists. The `@each` directive can also add styles for each item in a list.
 
 #### Maps
 
@@ -218,30 +350,93 @@ Sass 中的 map 与 json 格式有几分相似，最大的不同是，map 使用
 * Keys must be unique
 * Keys and values can be any Sass type, including lists and other maps.
 
-####Colors
 
+### 3.3 运算 Operations
 
-## 嵌套 Nesting
+http://sass-lang.com/documentation/file.SASS_REFERENCE.html#operations
 
-Sass 使得编写样式也可以像 HTML 一样实现嵌套，比 CSS 的语法更加直观，但过深的嵌套不利于维护，应该避免。。
+All types support equality operations (`==` and `!=`). In addition, each type has its own operations that it has special support for.
+
+#### Number Operations
+#### Color Operations
+#### String Operations
+#### Boolean Operations
+#### List Operations
+
+### 3.4 小括号 Parentheses
 
 ```scss
-nav {
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  li { display: inline-block; }
-
-  a {
-    display: block;
-    padding: 6px 12px;
-    text-decoration: none;
-  }
+p {
+  width: 1em + 2em * 3;    // 7em
+  width: 1em + (2em * 3);  // 7em
+  width: (1em + 2em) * 3;  // 9em
 }
 ```
+
+### 3.5 函数 
+
+SassScript defines some useful functions that are called using the normal CSS function syntax.
+See [this page](http://sass-lang.com/documentation/Sass/Script/Functions.html) for a full list of available functions.
+
+```scss
+p {
+  // 调用方式1：简介，最常用
+  color: hsl(0, 100%, 50%);                                 // red
+  // 调用方式2：带参数名称，麻烦，但使用灵活，在特定情况下使用
+  color: hsl($hue: 0, $saturation: 100%, $lightness: 50%);  // red
+}
+```
+
+Named arguments can be passed in any order, and arguments with default values can be omitted. Since the named arguments are variable names, underscores and dashes can be used interchangeably.
+
+### 3.6 Interpolation: `#{}`
+
+可以使用 `#{}` 在 selectors and property names 中插入变量。
+
+虽然在 property values 中直接使用变量是最方便的，但也可以采用插值实现特殊的用法 -- 插值周边的运算符都会被当做普通文本。
+
+```scss
+$name: foo;
+$attr: border;
+$font-size: 12px;
+$line-height: 30px;
+p.#{$name} {
+  #{$attr}-color: blue;
+  font: #{$font-size}/#{$line-height};  // 运算符都被当做普通文本
+  font-size: $font-size / $line-height;
+}
+
+// 输出：
+p.foo {
+  border-color: blue;
+  font: 12px/30px;
+  font-size: 0.4; }
+```
+
+### 3.7 `&` in SassScript
+
+Just like when it’s used in selectors, `&` in SassScript refers to the current parent selector. It’s a comma-separated list of space-separated lists.
+
+If there is no parent selector, the value of & will be null. This means you can use it in a mixin to detect whether a parent selector exists.
+
+```scss
+.foo.bar .baz.bang, .bip.qux {
+  $selector: &;  // ((".foo.bar" ".baz.bang"), ".bip.qux")
+}
+```
+
+### 3.8 Variable Defaults: `!default`
+
+You can assign to variables if they aren’t already assigned by adding the `!default` flag to the end of the value. This means that if the variable has already been assigned to, it won’t be re-assigned, but if it doesn’t have a value yet, it will be given one. Variables with `null` values are treated as unassigned by `!default`.
+
+
+## 4 @-Rules and Directives
+
+Sass supports all CSS3 **@-rules**, as well as some additional Sass-specific ones known as “**directives**”. These have various effects in Sass, detailed below. See also **control directives** and **mixin directives**.
+
+### 4.1 @import
+
+
 
 ## 部件 Partials
 
@@ -284,44 +479,29 @@ h1 {
 }
 ```
 
-## 混入 Mixins
 
-```scss
-// 1 普通混入
-@mixin warning {
-  background-color: orange;
-  color: #fff;
-}
 
-.warning-button {
-  @include warning;
-  padding: 8px 12px;
-}
 
-// 2 带参混入
-@mixin rounded($radius) {
-  border-radius: $radius;
-}
 
-// 3 带参混入 - 默认值
-@mixin box($radius: 6px, $border: 1px solid #000) {
-  @include round($radius);
-  border: $border;
-}
 
-// 4 带参混入 - 扩展符号
-@mixin box-shadow($shadows...) {    // 通过附加扩展符号，可以实现多参传入
-  box-shadow: $shadows;
-  -moz-box-shadow: $shadows;
-  -webkit-box-shadow: $shadows;
-}
-
-#header {
-  @include box($border: 1px solid #fff, $radius: 12px)  // 参数顺序可以随意
-  @include box($border: 1px solid #fff)                 // 可以省略参数(前提是省略参数带默认值)
-  @include box-shadow(2px 0 4px #999, 1px 1px 6px $secondary-color);
-}
-```
+Partials
+Nested @import
+@media
+@extend
+How it Works
+Extending Complex Selectors
+Multiple Extends
+Chaining Extends
+Selector Sequences
+Merging Selector Sequences
+@extend-Only Selectors
+The !optional Flag
+@extend in Directives
+@at-root
+@at-root (without: ...) and @at-root (with: ...)
+@debug
+@warn
+@error
 
 ## 扩展 @extend
 
@@ -365,24 +545,7 @@ h1 {
   border-color: yellow; }
 ```
 
-### Placeholder Selectors: `%`
 
-`%` 符号用来创建专用于 @extend 的类，其本身不会输出的 css 文件中。
-
-```scss
-// This ruleset won't be rendered on its own.
-#context a%extreme {
-  color: blue;
-}
-
-.notice {
-  @extend %extreme;
-}
-
-// 输出:
-#context a.notice {
-  color: blue; }
-```
 
 ### 可选继承标志 The !optional Flag
 
@@ -392,106 +555,9 @@ a.important {
 }
 ```
 
-## 运算符 Operators
-
-Sass 支持 `+`, `-`, `*`, `/`, `%` 等算术运算符。
-
-```scss
-.container { width: 100%; }
-
-article[role="main"] {
-  float: left;
-  width: 600px / 960px * 100%;    // 输出 width: 62.5%;
-}
-```
 
 ## 高级特性
 
-### 自定义父选择器位置  Referencing Parent Selectors: &
-
-嵌套编译时，默认父选择器会放在最前面且后面有空格分隔，但有时，这种组合不是我们想要的，`&` 符号提供了控制父选择器位置的途径。另外，`&` 还可以带后缀使用。
-
-```scss
-a {
-  text-decoration: none;
-  &:hover { text-decoration: underline; }    // 1 常见用法
-  body.firefox & { font-weight: normal; }    // 2 还可以出现在其他位置
-}
-
-#main {
-  color: black;
-  &-sidebar { border: 1px solid; }           // 3 还可以带后缀使用，但像 sidebar-& 这样就不行
-}
-
-// 输出
-a {
-  text-decoration: none; }
-  a:hover {
-    text-decoration: underline; }
-  body.firefox a {
-    font-weight: normal; }
-
-#main {
-  color: black; }
-  #main-sidebar {
-    border: 1px solid; }
-```
-
-### 属性名嵌套
-
-CSS 本身的一些属性如 font border 等相当于起了 “命名空间” 的作用，在 Sass 中你可以采用嵌套的写法避免逐条输入。
-
-```scss
-.funky {
-  font: {
-    family: fantasy;
-    size: 30em;
-    weight: bold;
-  }
-}
-
-.funky {
-  font: 20px/24px fantasy {
-    weight: bold;
-  }
-}
-
-// 输出
-.funky {
-  font-family: fantasy;
-  font-size: 30em;
-  font-weight: bold; }
-
-.funky {
-  font: 20px/24px fantasy;
-    font-weight: bold; }
-```
-
-
-
-### Interpolation: #{}
-
-可以使用 `#{}` 在 selectors and property names 中插入变量。
-
-虽然在 property values 中直接使用变量是最方便的，但也可以采用插值实现特殊的用法 -- 插值周边的运算符都会被当做普通文本。
-
-```scss
-$name: foo;
-$attr: border;
-$font-size: 12px;
-$line-height: 30px;
-p.#{$name} {
-  #{$attr}-color: blue;
-  font: #{$font-size}/#{$line-height};
-  font-size: $font-size / $line-height;
-}
-
-// 输出：
-p.foo {
-  border-color: blue;
-  font: 12px/30px;
-  font-size: 0.4; }
-```
 
 ### @content    Passing Content into Mixins
 
@@ -528,31 +594,11 @@ p.foo {
 }
 ```
 
-## @-Rules and Directives
 
-@import
-Partials
-Nested @import
-@media
-@extend
-How it Works
-Extending Complex Selectors
-Multiple Extends
-Chaining Extends
-Selector Sequences
-Merging Selector Sequences
-@extend-Only Selectors
-The !optional Flag
-@extend in Directives
-@at-root
-@at-root (without: ...) and @at-root (with: ...)
-@debug
-@warn
-@error
 
-## Control Directives & Expressions
+## 5 Control Directives & Expressions
 
-### if()
+### 5.1 if()
 ### @if
 
 ```scss
@@ -604,9 +650,51 @@ h3 {
 ### @while
 
 
-## 函数 Functions
 
-### 内置函数
+
+## 6 混入 Mixins
+
+```scss
+// 1 普通混入
+@mixin warning {
+  background-color: orange;
+  color: #fff;
+}
+
+.warning-button {
+  @include warning;
+  padding: 8px 12px;
+}
+
+// 2 带参混入
+@mixin rounded($radius) {
+  border-radius: $radius;
+}
+
+// 3 带参混入 - 默认值
+@mixin box($radius: 6px, $border: 1px solid #000) {
+  @include round($radius);
+  border: $border;
+}
+
+// 4 带参混入 - 扩展符号
+@mixin box-shadow($shadows...) {    // 通过附加扩展符号，可以实现多参传入
+  box-shadow: $shadows;
+  -moz-box-shadow: $shadows;
+  -webkit-box-shadow: $shadows;
+}
+
+#header {
+  @include box($border: 1px solid #fff, $radius: 12px)  // 参数顺序可以随意
+  @include box($border: 1px solid #fff)                 // 可以省略参数(前提是省略参数带默认值)
+  @include box-shadow(2px 0 4px #999, 1px 1px 6px $secondary-color);
+}
+```
+
+
+## 7 函数 Functions
+
+### 7.1 内置函数
 
 ```scss
 p {
@@ -617,7 +705,7 @@ p {
 }
 ```
 
-### 自定义函数
+### 7.2 自定义函数
 
 ```scss
 @function sum($left, $right) {
@@ -635,7 +723,7 @@ p {
 font-size: em(20px);    // 输出 font-size: 1.25em;
 ```
 
-## 输出风格 Output Style
+## 8 输出风格 Output Style
 
 Sass 提供 4 种输出风格供选择，可以通过设置 `:style` 选项或在命令行中用 `--style` flag 指定.
 
@@ -676,10 +764,4 @@ Sass 提供 4 种输出风格供选择，可以通过设置 `:style` 选项或�
 // :compressed 压缩风格，做了必要的精简优化 ######################################
 #main{color:#fff;background-color:#000}#main p{width:10em}.huge{font-size:10em;font-weight:bold;text-decoration:underline}
 ```
-
-## 问题处理
-
-#### 有中文字报错
-首行加 `@charset "utf-8";` 即可解决。
-
 

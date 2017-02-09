@@ -26,6 +26,7 @@ $ npm config ls -l  # 查看所有设置项(含默认设置)
 $ npm config get registry  # 查看源设置
 $ npm config set registry https://registry.npm.taobao.org/  # 设置淘宝源
 $ npm config set registry https://registry.npmjs.org/       # 还原默认源
+$ npm config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/ # 解决天朝 node-sass 安装报错
 
 # 直接通过 github 地址安装
 $ npm install git+https://github.com/<repo-owner>/<repo>.git[#branch]
