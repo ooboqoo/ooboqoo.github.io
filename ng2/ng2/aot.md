@@ -191,3 +191,7 @@ index.html (load bundle)
 目前，AoT 编译和摇树优化对开发来说，占用的时间太多了。这将在未来得到改变。当前的最佳实践是在开发期使用 JiT 编译，然后在发布产品前切换到 AoT 编译。
 
 幸运的是，**如果** 你处理了几个关键不同点，源代码可以在没有任何变化时，采取两种方式的任何一种都能编译。
+
+# Getting your Angular 2 library ready for AoT
+
+https://medium.com/@isaacplmann/getting-your-angular-2-library-ready-for-aot-90d1347bcad#.c1nhdr5ml
