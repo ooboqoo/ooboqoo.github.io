@@ -195,3 +195,7 @@ index.html (load bundle)
 # Getting your Angular 2 library ready for AoT
 
 https://medium.com/@isaacplmann/getting-your-angular-2-library-ready-for-aot-90d1347bcad#.c1nhdr5ml
+
+Don’t use the runtime (JiT) compiler
+Make sure your NgModule is statically analyzable.
+Include *.metadata.json files in your npm package (See this issue comment.)
