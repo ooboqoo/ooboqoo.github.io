@@ -419,7 +419,7 @@ Just like when it’s used in selectors, `&` in SassScript refers to the current
 
 If there is no parent selector, the value of & will be null. This means you can use it in a mixin to detect whether a parent selector exists.
 
-```scss
+```sass
 .foo.bar .baz.bang, .bip.qux {
   $selector: &;  // ((".foo.bar" ".baz.bang"), ".bip.qux")
 }
@@ -436,30 +436,16 @@ Sass supports all CSS3 **@-rules**, as well as some additional Sass-specific one
 
 ### 4.1 @import
 
-
-
-## 部件 Partials
-
-通过部件可以将 css 编辑工作模块化。
-
-默认使用下划线表示部件，如 _variables.scss。编译器碰到以下划线开始文件，不会单独输出 CSS 文件。
-
-```scss
-// 在其他文件中导入 _variables.scss
-@import "variables";  // 不需要前面的下划线，也不用扩展名，解析器会自动处理
-```
-
-## 导入 @import
-
 CSS 原生支持 `@import`，但其缺点是，每次 inport 都会产生一个 HTTP 请求，而 Sass 则会将这些部件编译到一个文件内。
 
 Sass 不仅支持导入自己的 scss 文件，同时也支持 CSS 的原生 `@import` 指令（这种情况下，css 文件不会被嵌入进来）：
 
-```css
-@import url()
-@import "http://"
-@import "filename.css"
-@import "style-screen" screen;
+```scss
+// 以下情况都会以 css 规则处理 --- 也就是不做处理，原样保留
+@import url(foo);               // url()
+@import "http://";              // 文件名以 http:// 开头
+@import "filename.css";         // 文件名后缀为 .css 
+@import "style-screen" screen;  // 带媒体查询
 ```
 
 Sass 还支持插值啊什么的
@@ -469,43 +455,53 @@ Sass 还支持插值啊什么的
   $font: unquote($font);
   @import url(https://fonts.googleapis.com/css?family=#{$font})  // #{$font} 
 }
-
 @include google-font("Titllium+web");
 
 // 输出
 @import url(https://fonts.googleapis.com/css?family=Titllium+web);
-h1 {
-  font-family: "Tillium Web";
+h1 { font-family: "Tillium Web"; }
+```
+
+#### 4.1.1 部件 Partials
+
+If you have a SCSS or Sass file that you want to import but don’t want to compile to a CSS file, you can add an underscore to the beginning of the filename. This will tell Sass not to compile it to a normal CSS file. You can then import these files without using the underscore.
+
+部件可以将 css 编辑工作模块化。部件默认以下划线`_`开头，如 `_variables.scss`。部件不会单独输出 CSS 文件。
+
+```scss
+// 在其他文件中导入 _variables.scss
+@import "variables";  // 不需要前面的下划线，也不用扩展名，解析器会自动处理
+```
+
+#### 4.1.2 Nested `@import`
+
+Although most of the time it’s most useful to just have `@import`s at the top level of the document, it is possible to include them within CSS rules and `@media` rules.
+
+### 4.2 `@media`
+
+@media directives in Sass behave just like they do in plain CSS, with one extra capability: they can be nested in CSS rules. If a @media directive appears within a CSS rule, it will be bubbled up to the top level of the stylesheet, putting all the selectors on the way inside the rule.
+
+```scss
+.sidebar {
+  width: 300px;
+  @media screen and (orientation: landscape) {  // @media 会自动冒泡到最外层
+    width: 500px;
+  }
+}
+
+// 输出
+.sidebar { width: 300px; }
+@media screen and (orientation: landscape) {
+  .sidebar { width: 500px; }
 }
 ```
 
 
+### 4.3 `@extend`
 
+使用 `@mixin` 会复制所有定义，而 `@extend` 只会将选择器添加到基类，可以减小 CSS 尺寸。
 
-
-
-Partials
-Nested @import
-@media
-@extend
-How it Works
-Extending Complex Selectors
-Multiple Extends
-Chaining Extends
-Selector Sequences
-Merging Selector Sequences
-@extend-Only Selectors
-The !optional Flag
-@extend in Directives
-@at-root
-@at-root (without: ...) and @at-root (with: ...)
-@debug
-@warn
-@error
-
-## 扩展 @extend
-
-使用 @mixin 会复制所有定义，而 @extend 只会将选择器添加到基类，可以减小 CSS 尺寸。
+`@extend` works by inserting the extending selector anywhere in the stylesheet that the extended selector appears.
 
 ```scss
 .message {
@@ -513,41 +509,133 @@ The !optional Flag
   padding: 10px;
   color: #333;
 }
-
 .success {
   @extend .message;
   border-color: green;
 }
-
 .error {
   @extend .message;
   border-color: red;
 }
 
-.warning {
-  @extend .message;
-  border-color: yellow;
-}
-
 // 输出
-.message, .success, .error, .warning {
+.message, .success, .error {  // 
   border: 1px solid #ccc;
   padding: 10px;
   color: #333; }
-
 .success {
   border-color: green; }
-
 .error {
   border-color: red; }
-
-.warning {
-  border-color: yellow; }
 ```
 
+#### 4.3.1 Extending Complex Selectors
 
+```scss
+.hoverlink { @extend a:hover; }
 
-### 可选继承标志 The !optional Flag
+```
+
+#### 4.3.2 Multiple Extends
+
+```scss
+.error {
+  background-color: #fdd;
+}
+.attention {
+  background-color: #ff0;
+}
+.seriousError {
+  @extend .error;
+  @extend .attention;
+  border-width: 3px;
+}
+
+// 输出
+.error, .seriousError {
+  background-color: #fdd; }
+.attention, .seriousError {
+  background-color: #ff0; }
+.seriousError {
+  border-width: 3px; }
+```
+
+#### 4.3.3 Chaining Extends
+
+```scss
+.error {
+  background-color: #fdd;
+}
+.seriousError {
+  @extend .error;
+  border-width: 3px;
+}
+.criticalError {
+  @extend .seriousError;
+  position: fixed;
+}
+
+// 输出
+.error, .seriousError, .criticalError {
+  background-color: #fdd; }
+.seriousError, .criticalError {
+  border-width: 3px; }
+.criticalError {
+  position: fixed; }
+```
+
+#### 4.3.4 Selector Sequences
+
+Selector sequences, such as `.foo .bar` or `.foo + .bar`, currently can’t be extended. However, it is possible for nested selectors themselves to use `@extend`.
+
+```scss
+.error .warning {
+  background-color: #fdd;
+}
+.seriousError {
+  @extend .error .warning;  // 报错
+}
+```
+
+Sometimes a selector sequence extends another selector that appears in another sequence. In this case, the two sequences need to be merged.
+
+这些个看不懂，还是尽量避免这种用法吧。。。
+
+```scss
+#admin .tabbar a { font-weight: bold; }
+a { height: 1em; }
+#demo .overview .fakelink { @extend a; }
+
+// 输出
+#admin .tabbar a, #admin .tabbar #demo .overview .fakelink, #demo .overview #admin .tabbar .fakelink {
+  font-weight: bold; }
+a, #demo .overview .fakelink {
+  height: 1em; }
+```
+
+#### 4.3.5 `@extend`-Only Selectors
+
+就像 `#` `.` 分别作为 id 和 class 的前缀一样，sass 定义了 `%` 来表示仅供继承的特殊类，其自身不会输出到 css。
+
+```
+a.important%forextend1 %forextend2 {
+  color: yellow;
+}
+.notice {
+  @extend %forextend2;
+  .again {
+    @extend %forextend1;
+  }
+}
+
+// 输出
+.notice a.important.again .notice {
+  color: yellow; }
+```
+
+#### 4.3.6 可选继承标志 The `!optional` Flag
+
+如果 `@extend` 执行失败，就会报错，而添加 `!optional` 可使其忽略继承失败。
 
 ```scss
 a.important {
@@ -555,51 +643,43 @@ a.important {
 }
 ```
 
+#### 4.3.6 `@extend` in Directives
 
-## 高级特性
-
-
-### @content    Passing Content into Mixins
+There are some restrictions on the use of `@extend` within directives such as `@media`. Sass is unable to make CSS rules outside of the `@media` block apply to selectors inside it without creating a huge amount of stylesheet bloat by copying styles all over the place.
 
 ```scss
-@mixin apply-to-ie6 {
-  * html {
-    @content;
-  }
+.error {
+  border: 1px #f00;
+  background-color: #fdd;
 }
 
-@include apply-to-ie6 {
-  body {
-    font-size: 125%
-  }
-}
-
-// 最终输出的效果
-* html {
-  body {
-    font-size: 125%;
+@media print {
+  .seriousError {
+    @extend .error;  // INVALID EXTEND: .error is used outside of the "@media print" directive
+    border-width: 3px;
   }
 }
 ```
-
-## Nested Media Queries
-
-```scss
-#main {
-  width: $content-width;
-  @media (max-width: 960px) {  // 最终 @media 会自动冒泡到外层
-    width: auto;
-    max-width: $content-width;
-  }
-}
-```
-
 
 
 ## 5 Control Directives & Expressions
 
+SassScript supports basic control directives and expressions for including styles only under some conditions or including the same style several times with variations.
+
+**Note**: Control directives are an advanced feature, and are uncommon in day-to-day styling. They exist mainly for use in mixins, particularly those that are part of libraries like Compass, and so require substantial flexibility.
+
 ### 5.1 if()
-### @if
+
+The built-in if() function allows you to branch on a condition and returns only one of two possible outcomes.
+
+```scss
+$check: false !default;
+div.first { border-width: if($check, 1px, 2px); }   // 2px
+$check: true;
+div.second { border-width: if($check, 1px, 2px); }  // 1px
+```
+
+### 5.2 @if
 
 ```scss
 // === THEME ===
@@ -618,41 +698,49 @@ $body-background-color: #fff;
 }
 ```
 
-### @for
+### 5.3 @for
 
 ```scss
-@for $i from 1 through 6 {
-  .col-#{$i} {
-    width: $i * 2em;
-  }
+@for $i from 1 through 3 {
+  .col-#{$i} { width: $i * 2em; }
 }
-```
 
-### @each
-
-```scss
-/*
-@each $header, $size in (h1: 2em, h2: 1.5em, h3: 1.2em) {
-  #{$header} {
-    font-size: $size;
-  }
-}
-*/
 // 输出
-h1 {
-  font-size: 2em; }
-h2 {
-  font-size: 1.5em; }
-h3 {
-  font-size: 1.2em; }
+.col-1 { width: 2em; }
+.col-2 { width: 4em; }
+.col-3 { width: 6em; }
 ```
 
-### @while
+### 5.4 @each
 
+```scss
+@each $header, $size in (h1: 2em, h2: 1.5em, h3: 1.2em) {
+  #{$header} { font-size: $size; }
+}
 
+}// 输出
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.2em; }
+```
 
+### 5.5 @while
+
+```scss
+$i: 6;
+@while $i > 0 {
+  .item-#{$i} { width: 2em * $i; }
+  $i: $i - 2;
+}                                    }
+```
 
 ## 6 混入 Mixins
+
+### 6.1 Defining a Mixin: `@mixin`
+
+### 6.2 Including a Mixin: `@include`
+
+### 6.3 Arguments
 
 ```scss
 // 1 普通混入
@@ -691,6 +779,22 @@ h3 {
 }
 ```
 
+### 6.4 Passing Content Blocks to a Mixin `@content`
+
+```scss
+@mixin apply-to-ie6 {
+  * html { @content; }
+}
+@include apply-to-ie6 {
+  body { font-size: 125% }
+}
+
+// 最终输出的效果
+* html {
+  body { font-size: 125%; }
+}
+```
+
 
 ## 7 函数 Functions
 
@@ -705,7 +809,7 @@ p {
 }
 ```
 
-### 7.2 自定义函数
+### 7.2 自定义函数 `@function`
 
 ```scss
 @function sum($left, $right) {
