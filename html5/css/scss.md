@@ -48,6 +48,11 @@ registry=https://registry.npm.taobao.org
 
 #### 1.2.2 [Command Line Interface](https://github.com/sass/node-sass#command-line-interface)
 
+```bash
+$ node-sass -v                                # 查看版本
+$ node-sass -w src/style.scss dest/style.css  # 监视编译
+```
+
 #### 1.2.3 [Binary configuration parameters](https://github.com/sass/node-sass#binary-configuration-parameters)
 
 ### 1.3 Sass 与 SCSS 的区别
