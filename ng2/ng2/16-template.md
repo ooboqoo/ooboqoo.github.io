@@ -245,7 +245,7 @@ deleteHero 方法有一个副作用：它删除了一个英雄。模板语句的
 ```html
 <input
   [ngModel]="currentHero.firstName"
-  (ngModelChange)="currentHero.firstName=$event">
+  (ngModelChange)="currentHero.firstName=$event"> <!-- 如果只用 ngModelChange 而不用 ngModel，无效，也算是个坑 -->
 ```
 
 Angular 会把 `[(x)]` 语法去掉语法糖，变成了一个供属性绑定用的输入属性 x ，和一个供事件绑定用的输出属性 xChange。Angular 通过在模板表达式的原始字符串后面追加上 =$event，来构建出供事件绑定用的模板语句。

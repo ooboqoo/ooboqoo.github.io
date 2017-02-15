@@ -249,7 +249,7 @@ $ git remote rename <原仓库名> <新仓库名>  # 修改指向远程仓库的
 # clean 清理工作目录
 $ git clean         # 从工作区中移除未跟踪的文件，.gitignore 中文件不受影响
 $ git clean -X      # 移除未跟踪的文件和目录，.gitignore 中的文件也会一并移除
-$ git clean -d      # 移除未跟踪的文件和目录
+$ git clean -df     # 移除未跟踪的文件和目录
 $ git clean <path>  # 在 path 范围内移除未跟踪的文件
 
 # ls-files 显示暂存区和工作目录内文件的信息
