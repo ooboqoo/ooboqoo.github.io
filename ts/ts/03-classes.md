@@ -36,22 +36,38 @@ class Person {
     this.age  = age;
   }
 
+  static getRace() { return 'static method' }
   getRace() { return Person.race; }
 }
 ```
 
-编译后的 js 文件：
+编译后的 js - es6 文件：
+
+```js
+class Person {
+    constructor(name, age) {
+        this.name = name;                         // es6 中没有 public private 之分
+        this.age = age;
+    }
+    static getRace() { return 'static method'; }  // es6 仅支持静态方法
+    getRace() { return Person.race; }
+}
+Person.race = 'human';                            // es6 不支持静态属性
+```
+
+编译后的 js - es5 文件：
 
 ```js
 var Person = (function () {
-  function Person(name, age) {
-    this.name = name;
-    this.age = age;
-  }
-  Person.prototype.getRace = function () { return Person.race; };
-  Person.race = 'human';
-  return Person;
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    Person.getRace = function () { return 'static method'; };
+    Person.prototype.getRace = function () { return Person.race; };
+    return Person;
 }());
+Person.race = 'human';
 ```
 
 ## 继承

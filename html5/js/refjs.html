@@ -270,6 +270,8 @@ h5 > a{text-decoration:none;}
 <h5 class="es3">RegExp.prototype.lastIndex <span>-- 下次匹配开始的字符串索引位置，只有设置了 g 标志时才有效</span></h5>
 </div>
 <div class="dl">
+<h5 class="es3">RegExp() <span>-- new RegExp(pattern[, flags])</span></h5>
+  <p>当 expression 太长时可以考虑通过向构造函数传 string 解决（注意 \ 要+1，两头 / 要去掉）如 /\]/g => new RegExp('\\]', 'g')</p>
 <h5 class="es3">RegExp.prototype.exec() <span>-- 检索字符串中指定的值。返回找到的值，并确定其位置</span></h5>
 <h5 class="es3">RegExp.prototype.test() <span>-- 检索字符串中指定的值。返回 true 或 false</span></h5>
 <h5 class="es3">RegExp.prototype.toString() <span>-- 返回一个字符串，即该正则对象的字面量。</span></h5>
