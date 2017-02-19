@@ -63,25 +63,29 @@ chkconfig --level 345 atd on // 设置后要下次启动才生效，可以先手
 
 ### CentOS 7
 
- 的 Services 使用了systemd 来代替 sysvinit 管理
+ CentOS 7 使用 systemd 代替 sysvinit 来管理 Service。
 
-1、systemd的服务管理程序：  
-systemctl是主要的工具，它融合之前service和chkconfig的功能于一体。可以使用它永久性或只在当前会话中启用/禁用服务。  
-systemctl可以列出正在运行的服务状态，systemd-cgls以树形列出正在运行的进程。
+1、systemd 的服务管理程序：
+
+`systemctl` 是主要的工具，它融合之前 service 和 chkconfig 的功能于一体。可以使用它永久性或只在当前会话中启用/禁用服务。systemctl 可以列出正在运行的服务状态，systemd-cgls 以树形列出正在运行的进程。
+
 2、如何启动/关闭、启用/禁用服务？
 
+```bash
+$ systemctl start/stop/restart/status httpd  # 服务操控命令
+$ systemctl enable/disable httpd.service     # 开机服务设置
+
+$ systemctl is-enabled httpd                 # 查看某个服务是否开机启动
+$ ls /etc/systemd/system/multi-user.target.wants/  # 查看所有开机自启动的服务列表
+$ systemctl list-unit-files | grep enabled         # 查看当前启动的服务列表
 ```
-服务控制：<code>systemctl start/stop/restart/status postfix.service</code>
-开机服务设置：<code>systemctl enable/disable postfix.service</code>
-查看服务是否开机启动：systemctl is-enabled postfix.service;echo $?
-查看已启动的服务列表：systemctl list-unit-files|grep enabled
-```
 
-说明：
+注：开机启动服务就是在当前 runlevel 的配置文件目录建立对应服务配置文件的软链接；禁用服务就是删除此链接。
 
-启用服务就是在当前runlevel的配置文件目录建立对应服务配置文件的软链接；禁用服务就是删除此链接。
+系统运行级别：systemd 使用比 sysvinit 的运行级更为自由的 target 替代：
 
-系统运行级别：systemd使用比sysvinit的运行级更为自由的target替代。第3运行级用multi-user.target替代。第5运行级用graphical.target替代。runlevel3.target和runlevel5.target分别是指向 multi-user.target和graphical.target的符号链接。
+* 第 3 运行级用 multi-user.target 替代。另有 runlevel3.target 符号链接指向 multi-user.target
+* 第 5 运行级用 graphical.target 替代。另有 runlevel5.target 符号链接指向 graphical.target
 
 
 ## 防火墙设置
