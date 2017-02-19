@@ -1,5 +1,51 @@
 # 声明文件
 
+## 要点
+
+* 使用 `declare` 来表明这是 ts 专用的声明定义
+* 使用 `tsc -d` 来编译一些 ts 文档以熟悉具体的行为
+* 全局变量形式的外部依赖库使用 `/// <reference types="somelib" />` 声明，应是借鉴 index.html 中的 `<script src="path/to/somelib.js"></script>` 来设计的
+* 模块形式的外部依赖库使用 `import * as SomeLib form 'somelib'`（整体加载） 或 `import { Parts } from 'somelib'`（加载其中部件）声明，具体采用哪种格式根据依赖库的写法及实际使用场景选择使用
+* `namespace` 对应一个全局变量声明（模块形式的库是模块内的一个变量，一般就是模块名），对于现代的库基本没有使用的必要了
+* `interface` 本来就是 ts 特有的，声明文件会照搬过去
+* `export =` 的写法对应的是 CJS 模块规范的 `module.exports =`，指定模块整体输出内容，而多个 `export` 对应的是 ES6 模块规范，现在第三方库的定义文件中一般都是两者并存，`export` 一些独立的组件，而 `export =` 的是整个 模块/类 名。正是这种情况，导致使用库时，`import * as LibName from 'libname'` 和 `import { Parts } from 'libname'` 两种写法并存，使用时应根据实际情况选用。但实际使用时，后端代码一般都是配置为 编译成 CJS 格式使用，所以到最终运行时的其实都转换成了整体依赖使用，至于前端，不清楚各模块加载器的具体实现，理论上只有 ES6 才支持静态分析，但实际使用应该也没什么区别。
+
+示例分析：
+
+```ts
+// Type definitions for Koa 2.x
+// Project: http://koajs.com
+// Definitions by: DavidCai1993 <https://github.com/DavidCai1993>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="node" />           // 依赖 node 环境，属于全局变量依赖
+import { EventEmitter } from "events";   // 只导入 events 的其中一个定义
+import * as cookies from "cookies";      // cookies 采用整体依赖导入
+
+export = Koa;            // 指定整体引用模块时的导出内容，此内容对应代码中的 `module.exports =`
+
+declare namespace Koa {  // Context Request Response 这些接口定义并不属于 Koa 类的一部分，所以单独提取出来，
+                         // 放到 Koa 命名空间下，这里的内容及后面的类定义最终会通过 声明合并 整合成单一声明
+    export interface Context extends Request, Response {
+        app: Koa;
+        req: http.IncomingMessage;
+        // .......
+        toJSON(): any;
+        inspect(): any;
+        [key: string]: any;
+    }
+    export interface Request { }
+    export interface Response { }
+    export type Middleware = (ctx: Koa.Context, next: () => Promise<any>) => any;
+}
+
+declare class Koa extends EventEmitter {
+    // 类声明，如果添加一个 `export` 的话，就可以 `import { Koa } from 'koa'` 了，
+    // 但这种方式的 Koa 只包含类定义本身，不包含其他接口定义等内容
+}
+```
+
+
 ## Library Structures
 
 ### 区分库的类型
@@ -191,7 +237,7 @@ declare namespace MyLibrary {
 If your library depends on a global library, use a `/// <reference types="..." />` directive:
 
 ```ts
-/// <reference types="someLib" />
+/// <reference types="someLib" />      // 另外还有 path="" 这种用法，用于显示指定定义文件，但应尽量避免
 
 function getThing(): someLib.thing;
 ```
@@ -208,9 +254,11 @@ function getThing(): moment;
 
 #### Dependencies on UMD libraries
 
-If your global library depends on a UMD module, use a `/// <reference types="..." />` directive:
+If your global library depends on a UMD module, use a `/// <reference types="..." />` directive;
 
-If your module or UMD library depends on a UMD library, use an import statement:
+If your module or UMD library depends on a UMD library, use `import * as someLib from 'someLib';`
+
+`reference` 对应的使用场景是全局变量库，而 `import` 则对应的是 模块式库，两者不能混用！！
 
 
 ### 补充说明
@@ -221,17 +269,17 @@ If your module or UMD library depends on a UMD library, use an import statement:
 
 #### ES6 对模块插件的影响
 
-一些插件添加或修改已存在的顶层模块的导出部分。当然这在CommonJS和其它加载器里是允许的，ES模块被当作是不可改变的因此这种模式就不可行了。因为TypeScript是能不预知加载器类型的，所以没没在编译时保证，但是开发者如果要转到ES6模块加载器上应该注意这一点。
+一些插件添加或修改已存在的顶层模块的导出部分。当然这在 CommonJS 和其它加载器里是允许的，ES6 模块被当作是不可改变的因此这种模式就不可行了。因为 TypeScript 是能不预知加载器类型的，所以没在编译时保证，但是开发者如果要转到 ES6 模块加载器上应该注意这一点。
 
 #### ES6 对模块调用签名的影响
 
-很多流行库，比如Express，暴露出自己作为可以调用的函数。比如，典型的Express使用方法如下：
+很多流行库，比如 Express，暴露出自己作为可以调用的函数。比如，典型的 Express 使用方法如下：
 
 ```ts
 import exp = require("express");
 var app = exp();
 ```
 
-在ES6模块加载器里，顶层的对象（这里以exp导入）只能具有属性；顶层的模块对象永远不能被调用。
+在 ES6 模块加载器里，顶层的对象（这里以 exp 导入）只能具有属性；顶层的模块对象永远不能被调用。
 
 十分常见的解决方法是给这些可调用的/可构造的对象添加一个 `default` 导出。

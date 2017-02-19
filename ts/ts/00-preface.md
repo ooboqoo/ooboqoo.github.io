@@ -171,7 +171,7 @@ type Easing = "ease-in" | "ease-out" | "ease-in-out";
 随着更多验证器的加入，我们需要一种手段来组织代码，以便于在记录它们类型的同时还不用担心与其它对象产生命名冲突。 因此，我们把验证器包裹到一个命名空间内，而不是把它们放在全局命名空间下。
 
 ```ts
-namespace Validation {
+namespace Validation {  // 对应了一个全局变量 Validation
   // ...
 }
 ```

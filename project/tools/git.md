@@ -219,17 +219,20 @@ $ git pull <远程仓库名> <远程分支名>:<本地分支名>
 $ git pull origin next:master
 $ git pull -p  # `-p` 告诉 pull 如果远程仓库已经删除了该分支，那么可以将本地分支删除
 
-$ git push <远程仓库名> <本地分支>:<远程分支>
+$ git push [选项] <远程仓库名> <本地分支>:<远程分支>
     # --all 推送所有分支
+    # -f | --force 如果远程仓库比本地版本新，Git 会报错，用 --force 可强制覆盖
+    # -u | --set-upstream 
+    # -d | --delete
     # --prune 如果远程仓库存在本地没有的分支，就将其删除
-    # --force 如果远程仓库比本地版本新，Git 会报错，用 --force 可强制覆盖
     # --tags  在 push 时一并更新标签（默认不会推送标签）
+$ git push -u origin master    # 将本地的 master 分支推送到 origin/master 并添加跟踪关系
+$ git push -d origin master    # 删除远程 master 分支
+$ git push origin              # 如果当前分支与远程分支之间存在追踪关系，则本地分支和远程分支都可以省略
+$ git push                     # 如果当前分支只有一个追踪分支，那么仓库名都可以省略
+
 $ git push origin HEAD:master  # 将当前分支推送到 origin/master
-$ git push origin master  # 将本地的 master 分支推送到 origin 的 master 分支，如后者不存在则会被新建
-$ git push origin :master # 推送一个空的分支到 origin/master，即相当于删除远程 master 分支
-$ git push origin --delete master  # 删除远程 master 分支，效果同上行
-$ git push origin         # 如果当前分支与远程分支之间存在追踪关系，则本地分支和远程分支都可以省略
-$ git push                # 如果当前分支只有一个追踪分支，那么仓库名都可以省略
+$ git push origin     :master  # 推送一个空的分支到 origin/master，即相当于删除远程 master 分支
 
 # 管理远程仓库
 $ git remote -v                     # 列出所有远程仓库别名，并显示网址
