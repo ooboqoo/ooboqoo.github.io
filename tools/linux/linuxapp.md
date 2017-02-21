@@ -2,6 +2,21 @@
 
 ## 应用命令
 
+### curl 文件传输
+
+`crul` 可以被用来做一些简单的 http 测试，有时还是挺方面的。
+
+```bash
+$ curl "http://www.baidu.com"      # 下载文件到本地
+$ curl -i "http://www.baidu.com"   # 显示全部信息
+$ curl -l "http://www.baidu.com"   # 只显示头部信息
+$ curl -v "http://www.baidu.com"   # 显示get请求全过程解析，查看网址对应的 IP 很方便
+
+# POST 请求
+$ curl -d "param1=value1&param2=value2" "http://www.baidu.com"
+$ curl -H "Content-Type: application/json" -X POST -d '{"username":"admin"}' http://localhost:3300/token
+```
+
 ### rsync 远程文件同步
 
 rsync - a fast, versatile, remote (and local) file-copying tool

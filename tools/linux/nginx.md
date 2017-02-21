@@ -100,7 +100,8 @@ $ cat > hooks/post-receive
   #!/bin/sh
   GIT_WORK_TREE=/var/www/koa-mongo git checkout -f
   cd /var/www/koa-mongo
-  tsc
+  tsc                                 # 下行代码是为保护服务器，毕竟源码都是开放的
+  cp ../default.json config/default.json  # 注，先手动试下，centos 默认 `alias cp='cp -i'`
   pm2 restart dist/app.js      Ctrl+D
 
 $ chmod +x hooks/post-receive
