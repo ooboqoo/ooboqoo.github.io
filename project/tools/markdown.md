@@ -196,6 +196,8 @@ function test() {
 | zebra stripes | are neat      |    $1 |
 ```
 
+注：在表格中输入 `|` 采用 `&#124;`
+
 ##### Task lists
 
 ```md
