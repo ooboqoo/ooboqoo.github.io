@@ -1,36 +1,36 @@
 # Git & Cmder & GitHub
 
-* Git for Windows: git 的 window 版本，包含 Git 版本控制工具核心、Git Bash 和 Git GUI
-* Git Bash: 在 Win10 原生 Bash 正式推出之前，这个绝对是各种命令行操作的福音。
-* Git GUI: 比较简陋的版本，没鸟用，下面的 GitHub Desktop 才是好用的 GUI。
-* GitHub Desktop: GitHub 网站出品的客户端。
-- - -
 
 ## Git
 
 主站：https://git-scm.com/  
 文档：https://git-scm.com/doc  
-官方推荐的免费教程 Pro Git（中文）：https://git-scm.com/book/zh/v2  
-git 简明指南: http://rogerdudler.github.io/git-guide/index.zh.html
+Pro Git：官方推荐免费教程中文版 https://git-scm.com/book/zh/v2  
+Git for Windows: Git 的 windows 版本，包含 Git 版本控制工具核心、Git Bash 和 Git GUI
 
 ![简明图解](/images/project/git.jpg)  
-[在线动态解析各部分之间的联系](http://ndpsoftware.com/git-cheatsheet.html)：Stash - Workspace - Index - LocalRepository - UpstreamRepository  
+[在线动态解析各部分之间的联系](http://ndpsoftware.com/git-cheatsheet.html)：Stash - Workspace - Index - LocalRepository - UpstreamRepository
+
 工作目录下的 .git 文件夹存放的就是本地 Git 仓库，可以进去琢磨琢磨：
 
-* objects 目录存储所有数据内容；
-* refs 目录存储指向数据（分支）的提交对象的指针；
-* HEAD 文件指示目前被检出的分支；
-* index 文件保存暂存区信息。
+* objects 目录 存储所有数据内容；
+* refs 目录 存储指向数据（分支）的提交对象的指针；
+* HEAD 文件 指示目前被检出的分支；
+* index 文件 保存暂存区信息。
 
 ### 命令速查表
 
 ### 最常用命令
 
 ```bash
-$ git pull   # 拉取代码
+$ git pull   # 拉取代码 或
+$ git fetch
+$ git fetch bwh
+$ git merge bwh/tabview
 $ git push   # 上传代码
 $ git add .  # 添加更改到 staged
 $ git reset  # 用最近一次 commit 的内容覆盖 index，相当于撤销 git add . 操作
+$ git reset HEAD~2 # 用最近第2次 commit 的内容覆盖 index
 $ git stash  # 临时保存还没有提交的工作(工作目录 + 暂存区)并恢复到初始状态，注意未 track 的新文件还留在工作目录
 $ git stash pop     # 恢复最近一次 stash 的内容，注意是保存的变动追加在目前状态之上，而非覆盖目前状态
 # 撤销一次远程提交
@@ -49,15 +49,6 @@ $ git apply ..\patch1023   # 在另一个地方导入这些更改
 # 图形化操作
 $ gitk  # 调用图形界面查看历史提交的详细信息 gitk - a commit viever for git
 $ git config --global gui.encoding utf-8  # 解决 gitk 中文乱码
-```
-```bash
-$ git checkout -b newbranch
-$ git add .
-$ git commit -m "update"
-$ git push
-$ git fetch bwh
-$ git merge bwh/tabview
-$ git reset HEAD~2
 ```
 
 #### 设置与帮助
@@ -316,6 +307,11 @@ doc/**/*.pdf
 #### .gitkeep
 
 这只是个空文件，貌似也不是官方的用法，而更像是一个 hack，目的就是让 git 忽略其所在目录的同时保留该空目录。
+
+## Git 流程规范化
+
+https://cattail.me/tech/2016/06/06/git-commit-message-and-branching-model.html
+
 
 ## GitHub
 

@@ -17,6 +17,8 @@ $ curl -d "param1=value1&param2=value2" "http://www.baidu.com"
 $ curl -H "Content-Type: application/json" -X POST -d '{"username":"admin"}' http://localhost:3300/token
 ```
 
+有时间整理下 https://segmentfault.com/q/1010000006798734
+
 ### rsync 远程文件同步
 
 rsync - a fast, versatile, remote (and local) file-copying tool

@@ -1,5 +1,7 @@
 # Nginx + NodeJS + MongoDB
 
+PM2 quickstart: http://pm2.keymetrics.io/docs/usage/quick-start/
+
 ## 安装
 
 ```bash
