@@ -310,9 +310,171 @@ doc/**/*.pdf
 
 ## Git 流程规范化
 
-https://cattail.me/tech/2016/06/06/git-commit-message-and-branching-model.html
+http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html   
+https://cattail.me/tech/2016/06/06/git-commit-message-and-branching-model.html   
+http://www.ruanyifeng.com/blog/2015/12/git-workflow.html   
 
-### 
+### Commit message 规范化
+
+Git 每次提交代码，都要写 Commit message（提交说明），否则就不允许提交。
+
+```bash
+$ git commit -m "hello world"  # -m 参数，就是用来指定 commit mesage 的
+$ git commit                   # 如果一行不够，可以只执行 git commit，就会跳出文本编辑器，让你写多行。
+```
+
+Commit message 内容可以随便写，但一般来说，应该清晰明地说明本次提交的目的。
+
+目前，社区有多种 Commit message 的写法规范，其中 Angular 规范是目前使用最广的写法，比较合理和系统化，并有配套的工具。
+
+#### Commit message 的作用
+
+* 提供更多的历史信息，方便快速浏览
+* 可以直接从 commit生成 Change log (见下文)
+
+```bash
+$ git log <last tag> HEAD --pretty=format:%s  # 利用 pretty 配置单行显示
+$ git log <last release> HEAD --grep feature  # 利用 grep 筛选
+```
+
+
+#### Angular 规范
+
+##### Commit Message Format
+
+```
+<type>(<scope>): <subject>     # 必填，其中的 scope 是可选的
+    // 空一行                      # 每行长度不的超过 100 个字符
+<body>                         # 可选
+    // 空一行
+<footer>                       # 可选
+```
+
+##### Type
+
+`feat` 新功能 `fix` bug 修复 `docs` 文档 `style` 格式调整 `refactor` 重构 `perf` 性能优化 `test` 测试  
+`build` 编译配置 `ci` 持续集成工具配置 `chore` 杂项
+
+##### Scope
+
+用于说明 commit 影响的范围，比如数据层、控制层、视图层等等，视项目不同而不同。
+
+##### Subject
+
+subject 是 commit 目的的简短描述，写法上须注意以下几点：
+
+* 以动词开头，使用第一人称现在时: `change` not `changed` nor `changes`
+* 首字母不要用大写
+* 末尾不要叫句号 `.`
+
+##### Body
+
+##### Footer
+
+Footer 部分只用于两种情况：不兼容变动 和 关闭 issues。
+
+不兼容变动以 `BREAKING CHANGE:` 开头，后面是对变动的描述以及变动理由和迁移方法。
+
+如果提交修复了 issue，那么以 `Closes` 开头，后面跟 Issue编号，如 `Closes #123, #321`
+
+```txt
+BREAKING CHANGE: isolate scope bindings definition has changed.
+
+    To migrate the code follow the example below:
+
+    The removed `inject` wasn't generaly useful for directives so there should be no code using it.
+
+Closes #123, #245, #992
+```
+
+
+##### Revert
+
+还有一种特殊情况，如果当前 commit 用于撤销以前的 commit，则必须以 `revert:` 开头，后面跟着被撤销 Commit 的 Header。
+
+Body 部分的格式是固定的，必须写成 `This reverts commit <hash>`，其中的 hash 是被撤销 commit 的 SHA 标识符。
+
+```txt
+revert: feat(pencil): add 'graphiteWidth' option
+
+This reverts commit 667ecc1654a317a13331b17617d973392f415f02.
+```
+
+#### Commitizen
+
+Commitizen是一个撰写合格 Commit message 的工具。安装及使用方法如下：
+
+```bash
+$ npm install -g commitizen  # 全局安装
+$ commitizen init cz-conventional-changelog --save-dev --save-exact  # 初始化项目 commitizen 相关配置
+$ git cz      # 以后，凡是用到 git commit 命令的地方一律改为使用 git cz
+```
+
+#### 生成 Change log
+
+如果所有 Commit 都符合 Angular 格式，那么发布新版本时， Change log 就可以用脚本自动生成，为了方便使用，可以将命令写入 package.json 的 scripts 字段。
+
+```bash
+$ npm install -g conventional-changelog
+$ cd my-project
+# 方式1：在 CHANGELOG.md 的头部加上自从上次发布以来的变动
+$ conventional-changelog -p angular -i CHANGELOG.md -w
+# 方式2：生成所有发布的 Change log
+$ conventional-changelog -p angular -i CHANGELOG.md -w -r 0
+```
+
+### Git flow
+
+简单说，git-flow 就是在 `git branch` `git tag` 基础上封装出来的代码分支管理模型，把实际开发模拟成 master develop feature release hotfix support 几种场景，其中 master 和 develop 是长期分支，分别对应 线上 和 开发，而其他几个则是临时分支。
+
+* master  - 永远处于即将发布状态
+* develop - 最新的开发状态
+* feature - 开发新功能的分支，基于 develop，完了 merge 回 develop 分支
+* release - 准备要发布版本的分支，用来修复 bug，完成后 merge 回 develop 和 master
+* hotfix  - 修复 master 上的 bug，基于 master，完成后 merge 回 develop 和 master
+* support - 测试版本，不建议使用
+
+```txt
+$ git flow   init    
+           | feature | strat  | NAME
+           | bugfix  | finish |
+           | release | publis |
+           | hotfix  | pull   |
+           | support 
+           | version 
+           | config  
+           | log     
+```
+
+```bash
+# 帮助
+$ git flow <subcommand> help
+
+# 初始化项目
+$ git flow init  # 先建好 master 和 develop 分支，然后输入此行命令，再一路回车完成
+
+# 特性开发
+$ git flow feature start MYFEATURE   # 开始新特性开发
+  $ git add .
+  $ git cz
+$ git flow feature finish MYFEATURE  # 完成新特性开发
+
+# 特性开发 - 协作开发补充指令
+$ git flow feature publish MYFEATURE      # 将分支推送到服务器供多人协同开发
+$ git flow feature pull origin MYFEATURE  # 获取他人建立的服务器特性分支
+$ git flow feature track MYFEATURE        # 同上行
+
+# bug 修复
+$ git flow bugfix start BUGFIX
+$ git flow bugfix finish BUGFIX
+
+# 准备发布版本
+$ git flow release start RELEASE [BASE]
+  # 可选参数 BASE，可以指定基于 develop 的某个特定提交记录 sha-1 hash 来开启动 release 分支
+$ git flow release publish RELEASE        # 创建分支后立即发布以允许其它用户向这个 release 分支提交内容
+$ git flow release track RELEASE          # 协作者拉取分支
+$ git flow release finish RELEASE         # 完成发布版本，此时会自动用分支名打 tag
+```
 
 
 ## GitHub
