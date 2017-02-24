@@ -435,15 +435,15 @@ $ conventional-changelog -p angular -i CHANGELOG.md -w -r 0
 * support - 测试版本，不建议使用
 
 ```txt
-$ git flow | init    
-           | feature | strat   | NAME
-           | bugfix  | finish  |
-           | release | publish |
-           | hotfix  | track   |
-           | support | pull    |
-           | version | delete  |
-           | config  | [list]
-           | log     
+$ git flow -| init    
+            | feature | | strat   |- NAME
+            | bugfix  | | finish  |
+            | release |-| publish |
+            | hotfix  | | track   |
+            | support | | pull    |
+            | version   | delete  |
+            | config    | [list]
+            | log     
 ```
 
 ```bash

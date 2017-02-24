@@ -25,6 +25,8 @@ http://nginx.org/en/docs/beginners_guide.html
 配置文件位置：/etc/nginx/nginx.conf
 
 ```
+http {
+    client_max_body_size 120M;                     ## 支持大文件上传
     server {
         listen       80 default_server;
         listen       [::]:80 default_server;
@@ -58,6 +60,7 @@ http://nginx.org/en/docs/beginners_guide.html
             include        fastcgi_params;
         }
     }
+}
 ```
 
 
