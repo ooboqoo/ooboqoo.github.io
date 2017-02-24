@@ -435,14 +435,14 @@ $ conventional-changelog -p angular -i CHANGELOG.md -w -r 0
 * support - 测试版本，不建议使用
 
 ```txt
-$ git flow   init    
-           | feature | strat  | NAME
-           | bugfix  | finish |
-           | release | publis |
-           | hotfix  | pull   |
-           | support 
-           | version 
-           | config  
+$ git flow | init    
+           | feature | strat   | NAME
+           | bugfix  | finish  |
+           | release | publish |
+           | hotfix  | track   |
+           | support | pull    |
+           | version | delete  |
+           | config  | [list]
            | log     
 ```
 
@@ -465,11 +465,11 @@ $ git flow feature pull origin MYFEATURE  # 获取他人建立的服务器特性
 $ git flow feature track MYFEATURE        # 同上行
 
 # bug 修复
-$ git flow bugfix start BUGFIX
+$ git flow bugfix start BUGFIX    # 如 git flow bugfix start #1123
 $ git flow bugfix finish BUGFIX
 
 # 准备发布版本
-$ git flow release start RELEASE [BASE]
+$ git flow release start RELEASE [BASE]   # 如 git flow release start 1.0.1
   # 可选参数 BASE，可以指定基于 develop 的某个特定提交记录 sha-1 hash 来开启动 release 分支
 $ git flow release publish RELEASE        # 创建分支后立即发布以允许其它用户向这个 release 分支提交内容
 $ git flow release track RELEASE          # 协作者拉取分支
