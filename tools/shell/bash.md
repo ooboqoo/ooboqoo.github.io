@@ -28,35 +28,52 @@ $ LANG=en_US.UTF-8                     # 临时设定语言以支持中文正常
 
 利用 `source` 或 `.` .bashrc 可以不用重新登录就使配置文件生效
 
+```txt
+ /bin/bash
+        The bash executable
+ /etc/profile
+        The systemwide initialization file, executed for login shells
+ /etc/bash.bash_logout
+        The systemwide login shell cleanup file, executed when a login shell exits
+ ~/.bash_profile
+        The personal initialization file, executed for login shells
+ ~/.bashrc
+        The individual per-interactive-shell startup file
+ ~/.bash_logout
+        The individual login shell cleanup file, executed when a login shell exits
+ ~/.inputrc
+        Individual readline initialization file
+```
+
 
 #### 终端机的环境设置：stty, set
 
-<table class="dataintable"><col style="color:blue" /><col />
-  <tr><td>^C</td><td>intr 终止目前的命令 interrupt</td></tr>
-  <tr><td>^D</td><td>eof 输入结束（end of file）</td></tr>
-  <tr><td>^U</td><td>kill 删除整行命令 erase the current line</td></tr>
-</table>
+| | |
+|:-----:|--------------------------------------------
+| `^C`  | intr 终止目前的命令 interrupt
+| `^D`  | eof 输入结束（end of file）
+| `^U`  | kill 删除整行命令 erase the current line
 
 #### 通配符与特殊符号
 
- 符号   |  描述
- ------ | -----------------------
- `#`    | 批注符号，这个最常用在script当中，其后的数据均不执行
- `\`    | 转义符号，用\[Space]在文件名中插入空格，用\[Enter]实现命令换行输入而不立即执行
- <code> &#124; </code> | 管道符号
- `;`    | 连续命令分隔符
- <code> ~ </code>      | 用户的主文件夹
- `$`    | 使用变量前导符
- `&`    | 命令在后台运行
- `!`    | 逻辑运算上的“非”
- `/`    | 路径分隔符
- `>` , `>>`  | 输出重定向，分别是“替换” “追加”。`>` 为标准输出，`>>` 为错误信息输出
- `<` , `<<`  | 输入重定向，`<` 由文件来替代键盘输入；而 `<<` 设定多行连续输入，遇结束符才结束
- `' '`  | 单引号，不具有变量置换的功能
- `" "`  | 双引号，具有变量置换功能
- `` ` ` ``   | 反单引号，包含的命令优先执行，执行结果加入原命令继续执行。$()效果相同，更为推荐使用
- `( )`  | 1命令替换$(cmd) 或 2命令块，重新开一个子shell执行内部命令块
- `{ }`  | 1变量原型${var} 或 2命令块，在当前shell执行，第一个命令和左括号之间必须要有一个空格
+| | |
+|:------:|---------------------------------------------------------------------------------------------
+| `#`    | 批注符号，这个最常用在 script 当中，其后的数据均不执行
+| `\`    | 转义符号，用`\[Space]`在文件名中插入空格，用`\[Enter]`实现命令换行输入而不立即执行
+| <code> &#124; </code> | 管道符号
+| `;`    | 连续命令分隔符
+| <code> ~ </code>      | 用户的主文件夹
+| `$`    | 使用变量时的前导符，使用变量的两种格式 `$varname` `${varname}`，定义变量不能加此 `$`
+| `&`    | 命令在后台运行
+| `!`    | 逻辑运算上的“非”
+| `/`    | 路径分隔符
+| `>` , `>>`  | 输出重定向，分别是“替换” “追加”。`>` 为标准输出，`>>` 为错误信息输出
+| `<` , `<<`  | 输入重定向，`<` 由文件来替代键盘输入；而 `<<` 设定多行连续输入，遇结束符才结束
+| `' '`  | 单引号，不具有变量置换的功能
+| `" "`  | 双引号，具有变量置换功能
+| `` ` ` ``   | 反单引号，包含的命令优先执行，执行结果加入原命令继续执行。`$()`效果相同，更为推荐使用
+| `( )`  | 1. 命令替换 `$(cmd)` 或<br> 2. 命令块，重新开一个子 shell 执行内部命令块
+| `{ }`  | 1. 变量原型 `${var}` 或<br> 2. 命令块，在当前 shell 执行，第一个命令和左括号之间必须要有一个空格
 
 
 #### 关于空格的问题

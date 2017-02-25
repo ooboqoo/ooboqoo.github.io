@@ -61,7 +61,7 @@ concatenate 把...连在一起，扩展命令 tac 则是最后一行到第一行
 
 应该说是 linux 正统查看文件内容的工具，功能极其强大。less 的用法比起 more 更加的有弹性。
 
-#### 文件内容查询 cat, tac, nl, more, less, head, tail, od
+#### cat, tac, nl, more, less, head, tail, od
 
 `nl` 显示带行号；`head` 只看头几行；`tail` 只看结尾几行；`od` 以二进制的方式读取文件内容
 
@@ -69,15 +69,9 @@ concatenate 把...连在一起，扩展命令 tac 则是最后一行到第一行
 
 `find ./ -type f -name "*.log"` 查找当前目录，以.log结尾的普通文件
 
-#### Which to use: find, locate or whereis
+#### find, locate or whereis
 
 `whereis` 查命令和手册；`locate` 通过数据库快速查找文件；`find` 功能强大的实时查找工具，速度较慢。
-
-#### `grep`
-
-根据字符匹配来查看文件部分内容。global regular expression print
-
-`grep -i "license" GPL-3` 在 GPL-3 文件中查找并输出 license 所在行，大小写不敏感。
 
 #### `ln` 创建链接文件
 
@@ -179,15 +173,15 @@ $ groupadd [-g gid][-r]  # -g 直接指定用户组；-r 新建系统用户组
 
 ## 进程管理 17章
 
- 命令         | 描述 
- ------------ | -------------
- &            | 这个用在一个命令的最后，可以把这个命令放到后台执行
- ^Z           | 将一个正在前台执行的命令放到后台，并且暂停
- jobs         | 查看当前有多少在后台运行的命令
- ps -ef       | 列出系统中正在运行的进程 processes snapshot
- fg [%jobnum] | 将后台中的命令调至前台继续运行
- bg [%jobnum] | 将一个在后台暂停的命令，变成继续执行
- kill         | 发送信号给一个或多个进程（经常用来杀死一个进程）
+| | |
+|:--------------:|:-----------------------------------------------------
+| `&`            | 这个用在一个命令的最后，可以把这个命令放到后台执行
+| `^Z`           | 将一个正在前台执行的命令放到后台，并且暂停
+| `jobs`         | 查看当前有多少在后台运行的命令
+| `ps -ef`       | 列出系统中正在运行的进程 processes snapshot
+| `fg [%jobnum]` | 将后台中的命令调至前台继续运行
+| `bg [%jobnum]` | 将一个在后台暂停的命令，变成继续执行
+| `kill`         | 发送信号给一个或多个进程（经常用来杀死一个进程）
 
 
 ## CentOS 安装配置中的其他命令
@@ -200,19 +194,36 @@ $ ip addr  # 查看 IP 信息，原先的 ifcongfig 将废弃
 $ top      # linux下的任务管理器 h 帮助 q 退出 k+PID 结束进程 table of process
 ```
 
-## `grep` 命令及正则表达式详解
+## `grep` 文本过滤
+
+`grep` global regular expression print，根据字符匹配来查看文件部分内容。
+
+```bash
+$ grep [OPTION]... PATTERN [FILE]...  # -n 显示行号 -i 忽略大小写
+
+$ grep -in "license" GPL-3  # 在 GPL-3 文件中查找并输出 license 所在行，大小写不敏感，显示带行号。
+$ grep 'test' d*            # 显示所有以 d 开头的文件中包含 test 的行
+$ grep 'test' aa bb cc      # 显示在 aa bb cc 文件中包含 test 的行
+$ grep '[a-z]\{5\}' aa      # 显示所有包含字符串至少有5个连续小写字母的串
+```
+
+文本处理3大命令：gerp 查找, sed 编辑, awk 根据内容分析并处理. http://www.jb51.net/article/54961.htm
+
+* grep - 文本过滤器，如果仅仅是过滤文本，使用 grep 效率要比其他的高很多
+* sed - Stream EDitor，流编辑器，默认只处理模式空间，不处理原数据，如果你处理的数据是针对行进行处理的，可以使用 sed
+* awk - 报告生成器，格式化后再显示。如果处理的数据需要生成报告之类的信息，或者数据是按列进行处理的，最好用 awk
 
 ## `less` `man` 操作
 
 main 调用的 less，所以操作都一样的。
 
- 命令    | 描述 
- ------- | -------------
- d       | 下翻半页 down
- u       | 上翻半页 up
- /text   | 在文档中查找text 按 n 跳到下一个，shift+n 上一个
- q       | 退出
- gg / 1G | 跳到文章开头
- G       | 跳到文章末尾
- h       | 帮助
+| | |
+|:-----------:|:----------------------------------------------------
+| `d`         | 下翻半页 down
+| `u`         | 上翻半页 up
+| `/text`     | 在文档中查找 text 按 n 跳到下一个，shift+n 上一个
+| `q`         | 退出
+| `gg` / `1G` | 跳到文章开头
+| `G`         | 跳到文章末尾
+| `h`         | 帮助
 

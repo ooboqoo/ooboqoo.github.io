@@ -2,9 +2,9 @@
 
 ## 应用命令
 
-### curl 文件传输
+### `curl` 调试利器
 
-`crul` 可以被用来做一些简单的 http 测试，有时还是挺方面的。
+内置的请求发送工具，一般用于模拟请求，测试 API。chrome 开发工具可以直接复制为 curl，很多 API 接口文档直接提供 curl 命令。默认输出 stdout，便于 pipe 到其他命令(常见的一句话安装 `curl xxx | bash`)。
 
 ```bash
 $ curl "http://www.baidu.com"      # 下载文件到本地
@@ -15,11 +15,22 @@ $ curl -v "http://www.baidu.com"   # 显示get请求全过程解析，查看网�
 # POST 请求
 $ curl -d "param1=value1&param2=value2" "http://www.baidu.com"
 $ curl -H "Content-Type: application/json" -X POST -d '{"username":"admin"}' http://localhost:3300/token
+
+# 下载脚本并执行
+$ bash <(curl -s http://domain/path/to/script.sh)
+$ curl http://domain/path/to/script.sh | bash -s arg1 arg2  # bash supports "-s" to read from stdin
+$ curl --silent --location https://rpm.nodesource.com/setup_7.x | bash -  # NodeJS 安装实例
 ```
 
-有时间整理下 https://segmentfault.com/q/1010000006798734
+`man bash` 摘取的一些重要注释：
+* If the `-s` option is present, or if no arguments remain after option processing, then commands are read from the standard input. 
+* A `--` signals the end of options and disables further option processing. Any arguments after the `--` are treated as filenames and arguments. An argument of `-` is equivalent to `--`.
 
-### rsync 远程文件同步
+### `wget` 下载利器
+
+内置的文件下载工具，支持简单的递归扒站，但不支持 并发、p2p、磁力链接等。
+
+### `rsync` 远程文件同步
 
 rsync - a fast, versatile, remote (and local) file-copying tool
 
@@ -33,7 +44,7 @@ rsync -iurp --chmod=Dgo+x,Fgo+r /media/sf_52web/ /var/www/html/
 # --delete 删除 SRC 中没有的文件
 ```
 
-### crond 计划任务服务
+### `crond` 计划任务服务
 
 ```bash
 systemctl enable crond.service  # 设置 cron 服务开机启动
@@ -51,7 +62,7 @@ crontab -e  # 编辑定时任务列表
 
 特殊符号: `*` 代表所有值, `/` 代表“每”, `-` 代表连续的几个值, `,` 用于组合离散的值
 
-### ssh 安全远程登录
+### `ssh` 安全远程登录
 
 ssh — OpenSSH SSH client (remote login program)
 
@@ -80,7 +91,7 @@ Port 28379
 User root
 ```
 
-#### scp 安全远程拷贝
+#### `scp` 安全远程拷贝
 
 scp — secure copy (remote file copy program), scp = ssh + rcp
 
@@ -110,12 +121,15 @@ watch src cp -uvf src des  # 每隔2秒执行一次复制，这是个简易的�
 
 ### 查看日志
 
-通过查看屏幕上面的错误信息与日志文件的错误信息，几乎可以解决大部分的Linux问题！  
-1, 解决系统方面的错误 2, 解决网络服务的问题 3, 过往事件记录簿。
+通过查看屏幕上面的错误信息与日志文件的错误信息，几乎可以解决大部分的 Linux 问题！如：
 
-日志文件大本营 /var/log/。
+1. 解决系统方面的错误
+2. 解决网络服务的问题
+3. 过往事件记录簿。
 
-nl 显示带行号；head 只看头几行；tail 只看结尾几行
+日志文件大本营位于 `/var/log/`。
+
+日志查看常用命令：`nl` 显示带行号；`head` 只看头几行；`tail` 只看结尾几行
 
 
 
