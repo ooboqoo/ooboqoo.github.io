@@ -29,6 +29,12 @@ cd $html
 # ~/.bashrc          # System wide functions and aliases
 alias cp='cp -i'
 alias ll='ls -lA'
+
+export PS1="\e[0;34m\u@\h \w> \e[m"  # 自定义提示符 `man bash` 可查看详细说明 
+  # \u – Username \h – Hostname \w – Full path of the cwd
+  # \e[  – Indicates the beginning of color prompt
+  # x;ym – Indicates color code. Use the color code values mentioned below.
+  # \e[m – indicates the end of color prompt
 ```
 
 

@@ -2,7 +2,7 @@
 
 #### bash 的主要优点
 
-命令记忆 history ；自动补全 Tab；命令别名 alias；作业控制；脚本；通配符
+命令记忆 history ；自动补全 Tab；命令别名 alias；作业控制；程序脚本；通配符
 
 #### 变量功能
 
@@ -14,39 +14,26 @@ $ work="/var/www/html/project/p2file"  # 设定变量时中间不能有空格
 $ unset work                           # 删除变量；
 $ export work                          # 导出为环境变量
 $ env                   # 查看环境变量
-$ set                   # 查看所有变量
-$ locale                # 显示语系变量
-$ LANG=en_US.UTF-8                     # 临时设定语言以支持中文正常显示
+$ set                   # 查看所有变量(环境变量+自定义变量)
 ```
 
 #### bash 环境配置
 
-用命令设置的命令别名、自定义变量在注销 bash 后都会失效，要保留设置需要写入配置文件。
+终端内用命令设置的别名、变量在注销 bash 后都会失效，想保留设置得写入配置文件。个人配置一般在 `~/.bashrc` 内修改。
 
-`/etc/profile` 系统整体的设置，会读取 `/etc/profile.d/*.sh` `/etc/sysconfig/i18n` 等
-`~/.bash_profile` 用户个人设置，另外会读取 `~/.bashrc < /etc/bashrc`  见 P323
+`/etc/profile` (仅 login shell 读取) 系统整体设置，这个文件内部又会去读取 `/etc/profile.d/*.sh` `/etc/sysconfig/i18n` 等配置文件。这个配置文件会根据用户的表示符 UID 来决定很多重要的变量数据，最好不要修改这个文件。
 
-利用 `source` 或 `.` .bashrc 可以不用重新登录就使配置文件生效
+`~/.bash_profile` (仅 login shell 读取) 用户个人设置，这个文件又会读取 `~/.bashrc` 的内容。
 
-```txt
- /bin/bash
-        The bash executable
- /etc/profile
-        The systemwide initialization file, executed for login shells
- /etc/bash.bash_logout
-        The systemwide login shell cleanup file, executed when a login shell exits
- ~/.bash_profile
-        The personal initialization file, executed for login shells
- ~/.bashrc
-        The individual per-interactive-shell startup file
- ~/.bash_logout
-        The individual login shell cleanup file, executed when a login shell exits
- ~/.inputrc
-        Individual readline initialization file
-```
+`~/.bashrc` 对于像在图形界面下调用终端这种不需要登录 non-login 的情况，系统会跳过 `/etc/profile` `~/.bash_profile` 直接来读这个文件。此文件内部又会读取 `/etc/bashrc` 的内容。
+
+利用 `source ~/.bashrc` 或 `. ~/.bashrc` 可以不用重新登录就使配置文件生效。
 
 
-#### 终端机的环境设置：stty, set
+#### 终端机的环境设置
+
+`stty` 命令用来设置终端 setting tty，一般都不用修改默认配置，但可以用 `stty -a` 来查看终端按键定义。  
+`set` 命令则是 bash 用来配置一些 bash 自己特有的终端设置值的。
 
 | | |
 |:-----:|--------------------------------------------
@@ -56,10 +43,26 @@ $ LANG=en_US.UTF-8                     # 临时设定语言以支持中文正常
 
 #### 通配符与特殊符号
 
+在 bash 的操作环境中有一个非常有用的功能，那就是通配符 wildcard，它使我们处理数据更加方便。
+
+| | |
+|:------:|----------------------------------------------------------------------------------------
+| `*`    | 代表 0个到无穷多个字符
+| `?`    | 代表单个字符
+| `[]`   | 代表一个字符，如 `[abc]` abc其中的一个字符；`[0-9]` 数字 `[^ab]` ab字符以外的任意字符
+
+```bash
+$ ll /etc/cron*    # 找出以 cron 开头的文件
+$ ll /etc/*[0-9]*  # 找出至少包含单个数字的文件
+$ ll /etc/^[a-z]*  # 找出不是小写字母开头的文件
+```
+
+bash 中常见的特殊符号汇总：
+
 | | |
 |:------:|---------------------------------------------------------------------------------------------
 | `#`    | 批注符号，这个最常用在 script 当中，其后的数据均不执行
-| `\`    | 转义符号，用`\[Space]`在文件名中插入空格，用`\[Enter]`实现命令换行输入而不立即执行
+| `\`    | 转义符号，用`\[Space]`在文件名中插入空格，用`\[Enter]`实现一次输入多行命令(换行而不立即执行)
 | <code> &#124; </code> | 管道符号
 | `;`    | 连续命令分隔符
 | <code> ~ </code>      | 用户的主文件夹
@@ -67,7 +70,7 @@ $ LANG=en_US.UTF-8                     # 临时设定语言以支持中文正常
 | `&`    | 命令在后台运行
 | `!`    | 逻辑运算上的“非”
 | `/`    | 路径分隔符
-| `>` , `>>`  | 输出重定向，分别是“替换” “追加”。`>` 为标准输出，`>>` 为错误信息输出
+| `>` , `>>`  | 输出重定向，分别是“替换” “追加”。标准输出用 `>` `>>`，标准错误输出用 `2>` `2>>`
 | `<` , `<<`  | 输入重定向，`<` 由文件来替代键盘输入；而 `<<` 设定多行连续输入，遇结束符才结束
 | `' '`  | 单引号，不具有变量置换的功能
 | `" "`  | 双引号，具有变量置换功能
@@ -75,9 +78,22 @@ $ LANG=en_US.UTF-8                     # 临时设定语言以支持中文正常
 | `( )`  | 1. 命令替换 `$(cmd)` 或<br> 2. 命令块，重新开一个子 shell 执行内部命令块
 | `{ }`  | 1. 变量原型 `${var}` 或<br> 2. 命令块，在当前 shell 执行，第一个命令和左括号之间必须要有一个空格
 
+```bash
+$ find /home -name .bashrc > list_right 2> list_error  # 将 stdout stderr 分别存到不同文件
+$ find /home -name .bashrc 2> /dev/null                # 利用垃圾桶黑洞设备将错误信息丢弃(不显示错误信息)
+$ find /home -name .bashrc > list 2> &1                # 当 stdout stderr 输出到同一个文件时应该这么写
+$ find /home -name .bashrc > list 2> list  # 这种写法不能说错误，但这样两个数据流同时往一个文件写会造成顺序错乱
+
+$ cat > catfile << "eofdd"
+> This is a test.
+> eofdd  # 由于有上面的设定，回车就会结束，而不需要输入 [Ctrl]+D，结果不含本行，注意，如果前面有空格则无效
+```
 
 #### 关于空格的问题
 
 带空格的文件夹处理：1 使用转义'\ ' 2 使用引号。
 
 命令里哪里加空格哪里不加：一般主命令 和 选项命令 以及后面的参数之间都有空格。
+
+#### 一次输入多个命令
+
