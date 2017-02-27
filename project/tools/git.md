@@ -148,7 +148,8 @@ $ git show     # 查看数据对象 blob 数对象 tree 提交对象 commit 标�
 
 ```bash
 # branch 列出/创建/删除分支
-$ git branch                    # 列出本地分支，`-r` 列出远程分支，`-a` 列出本地 + 远程分支
+$ git branch                    # 列出本地分支
+  # `-r` 列出远程分支，`-a` 列出本地 + 远程分支, `-v` 显示详细信息
 $ git branch testing            # 创建 testing 分支
 $ git branch -d testing         # 删除 testing 分支
 $ git branch -m [<oldbranch>] <newbranch>  # 重命名分支
