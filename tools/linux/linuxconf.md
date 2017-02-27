@@ -10,6 +10,16 @@ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  # 修改设置
 shutdown -r 0                                            # 重启使所有应用都使用最新时间设置
 ```
 
+颜色设置
+
+```bash
+# ~/.bashrc
+export TERM="xterm-256color"
+
+# ~/.vimrc
+set t_Co=256
+```
+
 语言设置
 
 ```bash
@@ -30,7 +40,7 @@ cd $html
 alias cp='cp -i'
 alias ll='ls -lA'
 
-export PS1="\e[0;34m\u@\h \w> \e[m"  # 自定义提示符 `man bash` 可查看详细说明 
+export PS1="\e[0;32m\u@\h \W> \e[m"  # 自定义提示符 `man bash` 可查看详细说明 
   # \u – Username \h – Hostname \w – Full path of the cwd
   # \e[  – Indicates the beginning of color prompt
   # x;ym – Indicates color code. Use the color code values mentioned below.
