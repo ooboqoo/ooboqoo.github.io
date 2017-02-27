@@ -158,3 +158,15 @@ sh里没有多行注释，只能每一行加一个#号。如果在开发过程�
 ## 常用命令
 
 shell 脚本结合系统命令便有了强大的威力，在字符处理领域，有 grep、awk、sed 三剑客，grep 负责找出特定的行，awk 能将行拆分成多个字段，sed 则可以实现更新插入删除等写操作。
+
+撷取命令： cut, grep
+
+排序命令： sort, wc, uniq
+
+双向重导向： tee
+
+字元转换命令： tr, col, join, paste, expand
+
+分割命令： split
+
+

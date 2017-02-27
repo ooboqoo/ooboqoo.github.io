@@ -410,6 +410,8 @@ $ commitizen init cz-conventional-changelog --save-dev --save-exact  # 初始化
 $ git cz      # 以后，凡是用到 git commit 命令的地方一律改为使用 git cz
 ```
 
+使用中发现输入多行 description 时，不知道怎么换行，Ctrl/Shift + Enter 试了都不行，最后发现应该用 `\n\n` 这样是能解决换行问题，但对其处理不直观，所以多行输入还是 `git commit` 调出文本编辑器来编辑比较靠谱。
+
 #### 生成 Change log
 
 如果所有 Commit 都符合 Angular 格式，那么发布新版本时， Change log 就可以用脚本自动生成，为了方便使用，可以将命令写入 package.json 的 scripts 字段。

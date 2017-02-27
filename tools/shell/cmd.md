@@ -121,6 +121,10 @@ Cmder 是 windows 下的命令行模拟器，不仅能模拟 cmd 而且还自带
 
 直接拷贝 config 文件夹没效果，需要 `settings -> export` 然后再导入才有效。
 
+#### 其他
+
+`Ctrl+Tab` 在标签中切换；`Ctrl+num` 切换到 num 数字对应的标签页。
+
 ### 终端访问外网走代理
 
 ```bash

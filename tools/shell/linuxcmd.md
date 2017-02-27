@@ -8,9 +8,7 @@
 * `-lh` print sizes in human readable format (e.g., 1K 234M 2G)
 * `-a` 列出当前目录下所有文件及目录，包括隐藏的a(all)
 
-#### `pwd` 查看当前路径
-
-查看当前所在目录的绝对路经 //print working directory
+#### `pwd` 查看当前路径 print working directory
 
 #### `mkdir` 创建目录
 
