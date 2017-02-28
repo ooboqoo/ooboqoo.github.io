@@ -62,8 +62,6 @@ Unsupported scenarios
 
 使用该插件之前需要先全局安装好 TSLint。
 
-#### TSLint
-
 使用说明：http://palantir.github.io/tslint/usage/rule-flags/
 
 创建配置文件：
@@ -105,6 +103,14 @@ tslint --init
 ### Document This
 
 自动生成文档的工具。vscode 中的智能提示支持直接显示 markdown 格式，非常方便。
+
+### Path Intellisense
+
+路径自动补齐。
+
+### Better Merge
+
+提供更好的冲突合并支持。
 
 ## 功能需求
 

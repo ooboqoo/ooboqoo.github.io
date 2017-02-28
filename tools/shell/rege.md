@@ -46,9 +46,7 @@ RE 字符 | 意义与范例
 $ dmesg | grep -n -A3 -B2 --color=auto 'eth'  # 显示行号；并显示关键字所在行前2行和后3行；关键字高亮
 $ grep -n 'the' rege.txt
   # 再用 't[ae]st' '[^g]oo' '[^a-z]oo' '[0-9]' '[^[:lower:]]oo' 等替换测试
-  # '^the' '^[[:lower:]]' '\.$' '^$' 'g..d'
-  # 'o\{2\}' 'go\{2,5\}g' 'go\{2,\}g'
-
+  # '^the' '^[[:lower:]]' '\.$' '^$' 'g..d' 'o\{2\}' 'go\{2,5\}g' 'go\{2,\}g'
 ```
 
 ### `sed` 工具
