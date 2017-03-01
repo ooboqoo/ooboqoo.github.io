@@ -73,15 +73,17 @@ In addition, CSS3 also introduces: RGBA colors, HSL colors, HSLA colors, opacity
 
 #### CSS3 Web Fonts 自定义字体
 
+The @font-face CSS at-rule allows authors to specify online fonts to display text on their web pages.
+
 ```less
 @font-face {
    font-family: myFirstFont;
-   src: url(sansation_light.woff);
+   src: url(sansation_light.woff);  // woff 是目前 2017 最佳选择字体
 }
-@font-face {
+@font-face {  // You must add another @font-face rule containing descriptors for bold text
    font-family: myFirstFont;
    src: url(sansation_bold.woff);
-   font-weight: bold;  // 指定 myFirstFont 加粗时所用的字体
+   font-weight: bold;
 }
 div { font-family: myFirstFont; }  // 使用字体
 ```

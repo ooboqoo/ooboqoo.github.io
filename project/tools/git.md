@@ -3,7 +3,6 @@
 
 ## Git
 
-主站：https://git-scm.com/  
 文档：https://git-scm.com/doc  
 Pro Git：官方推荐免费教程中文版 https://git-scm.com/book/zh/v2  
 Git for Windows: Git 的 windows 版本，包含 Git 版本控制工具核心、Git Bash 和 Git GUI
