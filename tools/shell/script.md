@@ -168,5 +168,3 @@ shell 脚本结合系统命令便有了强大的威力，在字符处理领域�
 字元转换命令： tr, col, join, paste, expand
 
 分割命令： split
-
-
