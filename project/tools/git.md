@@ -45,7 +45,7 @@ $ git diff > ..\patch1023  # 生成一个 patch 文件，文件放到父目录
 $ git apply ..\patch1023   # 在另一个地方导入这些更改
 # 修改 commit message
 $ git commit --amend       # 修改最近一次提交
-$ git rebase -i HEAD~num   # 批量修改最近 num 次提交
+$ git rebase -i HEAD~num   # 批量修改最近 num+1 次提交
 # 图形化操作
 $ gitk  # 调用图形界面查看历史提交的详细信息 gitk - a commit viever for git
 $ git config --global gui.encoding utf-8  # 解决 gitk 中文乱码
