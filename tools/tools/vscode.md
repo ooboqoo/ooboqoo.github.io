@@ -100,10 +100,6 @@ tslint --init
 
 提供 angular2 内嵌模板的语法高亮。
 
-### Document This
-
-自动生成文档的工具。vscode 中的智能提示支持直接显示 markdown 格式，非常方便。
-
 ### Path Intellisense
 
 路径自动补齐。
@@ -111,10 +107,6 @@ tslint --init
 ### Better Merge
 
 提供更好的冲突合并支持。
-
-## 功能需求
-
-文本拖拽，该功能还未实现 2016/10/11 https://github.com/Microsoft/vscode/issues/1046
 
 
 ## Editor
