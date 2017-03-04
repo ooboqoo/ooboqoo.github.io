@@ -108,4 +108,72 @@ The PCRE library is a set of functions that implement regular expression pattern
 
 ## JavaScript RegExp
 
+### Creating a regular expression
 
+```js
+var re = /ab+c/;              // 或
+var re = new RegExp('ab+c');
+```
+
+### Regular expression pattern
+
+#### Special characters
+
+|||
+|:------:|-------------------------------
+| `\`    | 1. Precedes a non-special character indicates that the next character is special <br>2. Precedes a special character indicates that the next character should be interpreted literally
+| `^`    | 1. Matches beginning of input. 2. Means 'NOT' when as the first character in a character set pattern
+| `$`    | Matches end of input 
+| `*`    | Matches the preceding expression 0 or more times. Equivalent to {0,}
+| `+`    | Matches the preceding expression 1 or more times. Equivalent to {1,}
+| `?`    | 1. Matches the preceding expression 0 or 1 time. Equivalent to {0,1} <br> 2. If used immediately after any of the quantifiers *, +, ?, or {}, makes the quantifier non-greedy <br> 3. Also used in lookahead assertions, as described in the x(?=y) and x(?!y) entries of this table.
+| `.`    | Matches any single character except the newline character.
+| `(x)`  | Matches 'x' and remembers the match. capturing parentheses. 后向引用 `\n` `\&`
+| `(?:x)`  | Matches 'x' but does not remember the match. non-capturing parentheses
+| `x(?=y)` | Matches 'x' only if 'x' is followed by 'y'. This is called a lookahead. 后置断言
+| `x(?!y)` | Matches 'x' only if 'x' is not followed by 'y'. This is called a negated lookahead.
+| <code>x&#124;y</code> | Matches either 'x' or 'y'. 选择分支
+| `{n}`    | Matches exactly n occurrences of the preceding expression. N must be a positive integer.
+| `{n,m}`  | Where n and m are positive integers and n <= m. Matches at least n and at most m occurrences of the preceding expression. When m is omitted, it's treated as ∞.
+| `[xyz]`  | Character set, matches any one of the characters in the brackets. <br> Special characters like `.` `*` are not special inside a character set, so they don't need to be escaped. <br> You can specify a range of characters by using a hyphen `-`.
+| `[^xyz]` | A negated or complemented character set
+| `[\b]`   | Matches a backspace (U+0008). You need to use square brackets if you want to match a literal backspace character. (Not to be confused with \b.)
+| `\b`     | Matches a word boundary. (Not to be confused with [\b].) e.g. `/\bm/` matches the 'm' in "moon" ;
+| `\B`     | Matches a non-word boundary. e.g. `/y\B./` matches 'ye' in "possibly yesterday."
+| `\cX`    | Where X is a character ranging from A to Z. Matches a control character in a string. e.g. `/\cM/` matches control-M 
+| `\d`     | Matches a digit character. Equivalent to [0-9].
+| `\D`     | Matches a non-digit character. Equivalent to [^0-9].
+| `\f`     | Matches a form feed (U+000C).
+| `\n`     | Matches a line feed (U+000A).
+| `\r`     | Matches a carriage return (U+000D).
+| `\s`     | Matches a single white space character, including space, tab, form feed, line feed. Equivalent to [\f\n\r\t\v\u00a0\u1680\u180e\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff].
+| `\S`     | Matches a single character other than white space. Equivalent to [^\f\n\r\t\v\u00a0\u1680\u180e\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]. e.g. `/\S*/` matches 'foo' in "foo bar."
+| `\t`     | Matches a tab (U+0009).
+| `\v`     | Matches a vertical tab (U+000B).
+| `\w`     | Matches any alphanumeric character including the underscore. Equivalent to [A-Za-z0-9_].
+| `\W`     | Matches any non-word character. Equivalent to [^A-Za-z0-9_].
+| `\n`     | Where n is a positive integer, a back reference to the last substring matching the n parenthetical in the regular expression (counting left parentheses).
+| `\0`     | Matches a NULL (U+0000) character. Do not follow this with another digit, because `\0<digits>` is an octal escape sequence.
+| `\xhh`   | Matches the character with the code hh (two hexadecimal digits)
+| `\uhhhh` | Matches the character with the code hhhh (four hexadecimal digits).
+| `\u{hhhh}` | (only when u flag is set) Matches the character with the Unicode value hhhh (hexadecimal digits).
+
+#### Regular expression flags
+
+|||
+|:---:|-------------------------------
+| `g` | Global search.
+| `i` | Case-insensitive search.
+| `m` | Multi-line search.
+| `y` | Perform a "sticky" search that matches starting at the current position in the target string.
+
+### Working with regular expressions
+
+| Method    | Description
+|-----------|----------------------------------
+| `exec`    | executes a search for a match in a string. It returns an array of information or null on a mismatch.
+| `test`    | tests for a match in a string. It returns true or false.
+| `match`   | executes a search for a match in a string. It returns an array of information or null on a mismatch.
+| `search`  | tests for a match in a string. It returns the index of the match, or -1 if the search fails.
+| `replace` | executes a search for a match in a string, and replaces the matched substring with a replacement.
+| `split`   | uses a regular expression or a fixed string to break a string into an array of substrings.
