@@ -33,6 +33,7 @@ h1, h2, h3, h4, h5 {
   margin-top: .5em;
   margin-bottom: .5em;
 }
+
 h1 a, h2 a, h3 a, h4 a, h5 a {
   font-weight: inherit;
 }
@@ -69,7 +70,6 @@ pre {
   padding: .25em .75em;
   margin: .25em 0;
   white-space: pre-wrap;
-  border: 1px dotted #999;
 }
 
 code {
@@ -115,25 +115,32 @@ main {
   text-align: left;
   border: 0;
 }
+
 main h1 {
   text-align: center;
   border-bottom: 2px solid #999;
 }
+
 main h2 {
   border-bottom: 1px solid #ccc;
 }
+
 main h2::after {
   position: absolute;
   right: 1rem;
   font-size: 1rem;
   content: "#折叠#";
 }
+
 main h2.collapse::after {
   content: "#展开#";
 }
+
 main a {
+  color: #0366d6;
   border-bottom: 1px solid #ccc;
 }
+
 main table {
   display: block;
   overflow-x: auto;
@@ -141,6 +148,7 @@ main table {
   empty-cells: show;
   border-collapse: collapse;
 }
+
 main table thead {
   color: #fff;
   text-align: center;
@@ -149,10 +157,12 @@ main table thead {
   border-color: #ccc;
   border-width: 0 2px;
 }
+
 main table th, main table td {
   padding: .15em .5em;
   border: 1px solid #ccc;
 }
+
 main table td:first-child a {
   color: #f33;
 }
@@ -160,19 +170,23 @@ main table td:first-child a {
 #md {
   padding: .5em 1em 2em;
 }
+
 #md pre {
   padding: 0;
 }
+
 #md pre > code {
   display: block;
   padding: .5em;
   color: inherit;
-  background-color: #f3f3f6;
+  background-color: #f6f6f9;
 }
+
 #md .dl {
   padding: 0 4px 4px 24px;
   border: 1px solid gray;
 }
+
 #md .dl::before {
   position: absolute;
   right: 30px;
@@ -180,17 +194,21 @@ main table td:first-child a {
   content: "方框区域内双击可折叠/展开明细";
   color: #ccc;
 }
+
 #md .dl > h4 {
   margin: 0 0 0 -14px;
 }
+
 #md .dl > h5 {
   margin: 0 0 0 -14px;
   color: red;
   font-weight: normal;
 }
+
 #md .dl > h5 > span {
   color: #333;
 }
+
 #md .dl.collapse > :not(h5):not(h4) {
   display: none;
 }
@@ -208,6 +226,7 @@ main table td:first-child a {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
   }
 }
+
 /* definition of the header / top-nav */
 #header {
   position: fixed;
@@ -215,10 +234,12 @@ main table td:first-child a {
   left: 0;
   z-index: 999;
   width: 100%;
+  overflow: hidden;
   border-bottom: 20px solid rgba(255, 255, 255, 0);
   box-sizing: content-box;
   transition: top .2s ease-out, border-bottom-width .2s ease-out, box-shadow 0s;
 }
+
 #header:hover, #header.show {
   top: 0;
   border-bottom-width: 0;
@@ -236,11 +257,12 @@ main table td:first-child a {
   height: 100%;
   background-color: #eee;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
-  transition: left .2s ease-out;
 }
+
 #sidemenu h2, #sidemenu h3 {
   font-family: "Microsoft YaHei", sans-serif;
 }
+
 #sidemenu h2 {
   margin: 2px 6px;
   font-size: 1.25rem;
@@ -248,6 +270,7 @@ main table td:first-child a {
   cursor: pointer;
   background-color: #ccc;
 }
+
 #sidemenu h2::before {
   position: absolute;
   left: 12px;
@@ -255,15 +278,18 @@ main table td:first-child a {
   color: #fff;
   content: "-";
 }
+
 #sidemenu h2.collapse::before {
   content: "+";
 }
+
 #sidemenu h3 {
   padding-left: .5em;
   margin: 2px 0;
   font-size: 1.125rem;
   color: #000;
 }
+
 #sidemenu a {
   display: block;
   padding: 0 1em;
@@ -271,6 +297,7 @@ main table td:first-child a {
   color: #555;
   text-decoration: none;
 }
+
 #sidemenu a:hover {
   background-color: #ccc;
 }
@@ -286,10 +313,12 @@ main table td:first-child a {
   border: 1px solid #ccc;
   border-radius: 0 .25em .25em 0;
 }
+
 #togglemenu:hover {
   color: #666;
   background-color: #eee;
 }
+
 #togglemenu span:last-child {
   display: none;
 }
@@ -297,9 +326,11 @@ main table td:first-child a {
 #sidemenu.show {
   left: 0;
 }
+
 #sidemenu.show #togglemenu span {
   display: none;
 }
+
 #sidemenu.show #togglemenu span:last-child {
   display: inline;
 }
@@ -312,6 +343,7 @@ main table td:first-child a {
   z-index: 999;
   opacity: .9;
 }
+
 #tools > div {
   display: inline-block;
   padding: 0 .25em;
@@ -332,30 +364,39 @@ main table td:first-child a {
   border: 1px solid #666;
   border-radius: .25em;
 }
+
 #outline:hover > div {
   display: block;
 }
+
 #outline .h1 {
   text-align: center;
 }
+
 #outline .h2 {
   padding-left: 1em;
 }
+
 #outline .h3 {
   padding-left: 2em;
 }
+
 #outline .h4 {
   padding-left: 3em;
 }
+
 #outline .h5 {
   padding-left: 4em;
 }
+
 #outline .h6 {
   padding-left: 5em;
 }
+
 #outline a {
   display: block;
 }
+
 #outline a:hover {
   color: #fff;
   background-color: #999;
@@ -378,31 +419,16 @@ p > .mark {
     width: 1210px;
     margin: auto;
   }
-
   main, #html {
     left: 115px;
   }
-
   #sidemenu {
     left: auto;
   }
-
   #togglemenu {
     display: none;
   }
-
   #tools {
     right: calc(50% - 555px);
-  }
-}
-
-/* special definition for mobilephone screen */
-@media (max-width: 800px) {
-  #outline > div {
-    left: -215px;
-  }
-
-  #header {
-    border-bottom-width: 0;
   }
 }

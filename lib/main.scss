@@ -1,15 +1,16 @@
 @charset "utf-8";
 
-// === Variables ===
+// === Variables ==============
 $color-text: #333;
 $color-text-invert: #fff;
 $color-text-lighlight: #f33;
+$color-text-link: #0366d6;
 
 $color-bg: #fff;
 
 $color-code: #c00;
 $color-code-bg: #f3f6f6;
-$color-pre-bg: #f3f3f6;
+$color-pre-bg: #f6f6f9;
 
 $color-lightgray: #ccc;
 $color-gray: #999;
@@ -81,7 +82,7 @@ pre {
   padding: .25em .75em;
   margin: .25em 0;
   white-space: pre-wrap;
-  border: 1px dotted $color-gray;
+  // border: 1px dotted $color-gray;
 }
 
 code {
@@ -150,6 +151,7 @@ main {
   }
 
   a {
+    color: $color-text-link;
     border-bottom: 1px solid $color-lightgray;
   }
 
@@ -254,7 +256,7 @@ main {
   box-sizing: content-box;
   transition: top .2s ease-out, border-bottom-width .2s ease-out, box-shadow 0s;
 
-  &:hover {
+  &:hover, &.show {
     top: 0;
     border-bottom-width: 0;
     @include box-shadow;
