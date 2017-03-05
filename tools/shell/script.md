@@ -79,7 +79,7 @@ Bash 是 Bourne shell 的替代品，属 GNU Project，二进制文件路径通�
 如果你的脚本是提供给别的用户使用，使用 sh 或者 bash，你的脚本将具有最好的环境兼容性，perl 很早就是 linux 标配了，python 这些年也成了一些 linux 发行版的标配，而 Mac OS 更是默认安装了 perl、python、ruby、php、java 等主流编程语言。
 
 
-## bash 脚本编程
+## Bash Script
 
 shell script 是利用 shell 的功能所写的程序，将一些 shell 的语法与命令(含外部命令)写在里面，搭配正则表达式、管道命令与数据流重定向等功能，已达到我们所想要的处理目的。
 
