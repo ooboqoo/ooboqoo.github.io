@@ -1,7 +1,13 @@
 # Shell 脚本编程
 
 https://github.com/qinjx/30min_guides/blob/master/shell.md   
-http://tldp.org/LDP/abs/html/
+http://tldp.org/LDP/abs/html/   
+http://linux.vbird.org/linux_basic/0340bashshell-scripts.php
+
+以下资源随便搜的，有时间再看看：   
+https://en.wikibooks.org/wiki/Bash_Shell_Scripting （应该不错）   
+http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html   
+http://arachnoid.com/linux/shell_programming.html
 
 ## 认识 Shell 脚本
 
@@ -75,6 +81,13 @@ Bash 是 Bourne shell 的替代品，属 GNU Project，二进制文件路径通�
 
 ## bash 脚本编程
 
+shell script 是利用 shell 的功能所写的程序，将一些 shell 的语法与命令(含外部命令)写在里面，搭配正则表达式、管道命令与数据流重定向等功能，已达到我们所想要的处理目的。
+
+脚本编程的应用：
+
+* 实现自动化管理：自动处理系统日常分析，实现简单入侵检测及响应
+* 连续命令处理：系统的服务启动文件都是 .sh 文件，可以批量执行一系列命令
+
 ### 变量
 
 http://linux.vbird.org/linux_basic/0320bash.php#variable_var
@@ -115,6 +128,12 @@ $ read [-pt] variableName
   -t 用于指定等待的秒数，默认一直等待
 ```
 
+```bash
+read -p "Please inout your first name: " firstname
+read -p "Please inout your last name: " lastname
+echo -e "\nYour full name is: $firstname $lastname"
+```
+
 `declare` / `typeset` 两者功能是一样的，用于声明变量的类型
 
 ```bash
@@ -144,15 +163,151 @@ echo "hello"  # Comments may also occur following the end of a command.
 sh里没有多行注释，只能每一行加一个#号。如果在开发过程中，遇到大段代码需要临时注释起来，可以把这段要注释的代码用一对花括号括起来，定义成一个函数，没有地方调用这个函数，这块代码就不会执行，达到了和注释一样的效果。
 
 
+### 数值运算
+
+```bash
+echo $((1 + 2 * 3))   # 格式：$((计算式))
+```
 
 
 
+### 执行方式的区别
+
+```bash
+$ source ./sh02.sh  # 方式1 将脚本导入到当前进程执行，脚本中修改的变量影响当前环境
+$ . ./sh02.sh
+$ ./sh02.sh         # 方式2 会新开一个子进程执行，脚本中设定的变量在当前环境不可用
+$ bash sh02.sh
+```
 
 
+### 善用判断式
+
+#### `test` 命令
+
+```bash
+$ test -e /dmtsai && echo "exist" || echo "Not exist"  # 具体用法见 man test
+```
+
+#### 利用判断符号 `[]`
+
+```bash
+$ [ -z "$HOME" ]; echo $?
+$ [ "$HOME" == "$MALL" ]
+```
+
+使用中括号必须要特别注意，因为中括号用在很多地方，包括通配符和正则表达式，所以用做判断式时有特殊的规定：
+
+* 中括号内的每个组件都需要有空格键来分隔
+* 中括号中的变量和常量，最好用双引号括起来
+
+#### shell script 中的默认变量
+
+```bash
+$ /etc/init.d/syslog restart  # 原理：syslog 是一个可执行脚本文件，restart 是其第一个参数
+```
+
+当执行一个脚本文件时，脚本文件中可用的变量：
+
+```bash
+$ /path/to/scriptname opt1 opt2 opt3 opt4  # 所执行的脚本指令
+        $0             $1   $2   $3   $4   # 脚本中相对应的变量
+```
+
+另外，脚本中还有一些可调用的特殊变量：
+
+|||
+|-------|-----------
+| `$#`  | 参数个数
+| `$@`  | 完整的参数内容，代表 `"$1" "$2" "$3" "$4"`
+| `$*`  | 完整的参数内容，代表 `"$1c$2c$3c$4"` 其中 c 为分隔符，模式为空格
+
+`shift` 用来移动参数变量：
+
+```bash
+echo "Total parameter number is ==> $#"  # 此处假设执行是输入了4个参数，则这里应该是 4
+shift 3
+echo "Total parameter number is ==> $#"  # 此处输出为 1
+```
 
 
+### 条件判断
 
+#### if...then
 
+```bash
+if [ "$1" == "hello" ]; then
+  echo "Hello, how are you ?"
+elif ["$1" == "" ]; then
+  echo "You MUST input parameters, ex> {$0 someword}"
+else
+  echo "The only parameter is 'hello', ex> {$0 hello}"
+fi
+```
+
+#### case...esac
+
+```bash
+case $1 in
+  "one")
+    echo "Your choice is ONE"
+    ;;
+  "two")
+    echo "Your choice is TWO"
+    ;;
+  *)
+    echo "Usage $0 {one|tow}"
+    ;;
+esac
+```
+
+#### function
+
+```bash
+function printit() {
+  echo "Your choice is $1"  # 这个指向的是函数的第1个参数
+}
+printit $2                  # 这个指向的是脚本的第2个参数
+```
+
+### 循环
+
+#### 不定循环
+
+```bash
+while [ "$yn" != "yes" -a "yn" != "YES" ]
+do
+  read -p "Please input yes/YES ti stop this program: " yn
+done
+
+until [ "$yn" != "yes" -o "yn" != "YES" ]
+do
+  read -p "Please input yes/YES ti stop this program: " yn
+done
+```
+
+#### 固定循环
+
+```bash
+users=$(cut -d ':' -f1 /etc/passwd)
+for username in $users
+do
+  id $username
+done
+
+for (( i=1; i<5; i++ )) do
+  echo $i
+done
+```
+
+### 调试
+
+```bash
+$ bash [-nvx] script.sh
+  # -n: 不要执行 script, 经查询语法的问题
+  # -v: 在执行 script 前先在屏幕上输出 script 内容
+  # -x: 将使用到的 script 内容显示到屏幕上，这是很有用的内容
+```
 
 
 ## 常用命令

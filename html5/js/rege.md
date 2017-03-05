@@ -3,6 +3,7 @@
 https://www.gnu.org/software/grep/manual/html_node/Regular-Expressions.html   
 https://en.wikipedia.org/wiki/Regular_expression   
 http://www.pcre.org/original/doc/html/pcresyntax.html   
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions   
 http://zytrax.com/tech/web/regex.htm   
 
 正则表达式并不是一个工具程序，而是一种字符创处理的标准依据。
