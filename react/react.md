@@ -15,7 +15,7 @@ http://www.ruanyifeng.com/blog/2016/09/react-technology-stack.html
 ### 资源站点
 
 https://github.com/facebook/react   
-https://github.com/ruanyf/react-demos   
+https://facebook.github.io/react/docs/hello-world.html   
 
 ### 社区
 
