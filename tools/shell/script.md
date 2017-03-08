@@ -191,6 +191,8 @@ $ test -e /dmtsai && echo "exist" || echo "Not exist"  # 具体用法见 man tes
 
 #### 利用判断符号 `[]`
 
+判断符号等同于 `test` 命令，只是以一种更为直观的形式展现。
+
 ```bash
 $ [ -z "$HOME" ]; echo $?
 $ [ "$HOME" == "$MALL" ]
@@ -200,6 +202,23 @@ $ [ "$HOME" == "$MALL" ]
 
 * 中括号内的每个组件都需要有空格键来分隔
 * 中括号中的变量和常量，最好用双引号括起来
+
+|||
+|--------|---------------------------------------------------------------------------------
+| `.`     | 与 `source` 命令一样，从文件中读取并执行命令。
+| `:`     | 该命令什么都不做，但执行后会返回一个正确的退出代码，即 exit 0。比如用在 if 语句中。
+| `( )`   | 在子 shell 中执行命令块（多个命令组合组成的命令组）。
+| `{ }`   | 在当前 shell 中执行命令块，<br>注意：`()` 里面两边可以不使用空格，但 `{` 后必须使用空格，且最后一个命令需要以 `;` 结尾，表示命令结束。<br> 如：`A=123;(A=abc;echo $A);echo $A` `A=123;{ A=abc;echo $A;};echo $A`
+| `[ ]`   | `[]` 比较符号与 `test` 命令一样，用于比较值以及检查文件类型。
+| `[[ ]]` | `[[]]` 可以说是 `[]` 的增强版，它能够将多个 `test` 命令支持的测试组合起来，<br>如：`[[ (-d "$HOME") && (-w "$HOME") ]]`
+| `(( ))` | 专门来做数值运算，如果表达式求值为 0，则设置退出状态为 1；如果求值为非 0 值，则设置为 0。算术只对整数进行。<br>如：`i=99;((i++));echo $i` `echo $((2**3))` <br>注意：使用 (( )) 时，不需要空格分隔各值和运算符，使用 [] 和 [[ ]] 时需要用空格分隔各值和运算符。
+
+附 Brace expansion
+
+```bash
+ls file{1,2,3,4,5}.txt    # 等效于：
+ls file1.txt file2.txt file3.txt file4.txt file5.txt
+```
 
 #### shell script 中的默认变量
 
@@ -233,7 +252,18 @@ echo "Total parameter number is ==> $#"  # 此处输出为 1
 
 ### 条件判断
 
+`(( expression ))` The arithmetic expression is evaluated. If the value of the expression is non-zero, the return status is 0; otherwise the return status is 1. 
+`[[ expression ]]` Return a status of 0 or 1 depending on the evaluation of the conditional expression expression.
+
+注意：命令执行成功返回 `0`，也就是说 `0` 对应的是 `true`，而在其他编程语言中，一般 `0` 代表 `false`，其实在 bash 的算术运算中，`0` 对应的也是 `false`，所以记牢命令返回码的特殊性就好了。
+
 #### if...then
+
+```bash
+if command1 ; then
+   command2
+fi
+```
 
 ```bash
 if [ "$1" == "hello" ]; then
