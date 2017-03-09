@@ -17,7 +17,7 @@ http://arachnoid.com/linux/shell_programming.html
 
 ```bash
 #!/bin/sh                      # 指定脚本解释器，这里用 /bin/sh 做解释器，其他常见的还有 #!/bin/bash
-cd ~                           # 常规系统命令                                          #!/usr/bin/php
+cd ~                           # 常规系统命令                                         #!/usr/bin/php
 mkdir anydir
 cd anydir
 
@@ -252,10 +252,9 @@ echo "Total parameter number is ==> $#"  # 此处输出为 1
 
 ### 条件判断
 
-`(( expression ))` The arithmetic expression is evaluated. If the value of the expression is non-zero, the return status is 0; otherwise the return status is 1. 
-`[[ expression ]]` Return a status of 0 or 1 depending on the evaluation of the conditional expression expression.
+命令执行成功返回 `0`，也就是说 `0` 对应的是 `true`，而在其他编程语言中，一般 `0` 代表 `false`，其实在 bash 的算术运算中，`0` 对应的也是 `false`，所以记牢命令返回码的特殊性就好了。
 
-注意：命令执行成功返回 `0`，也就是说 `0` 对应的是 `true`，而在其他编程语言中，一般 `0` 代表 `false`，其实在 bash 的算术运算中，`0` 对应的也是 `false`，所以记牢命令返回码的特殊性就好了。
+Bash 中的 `if` `then` 等都是单独的 *commands*，结构体是由这些命令组成的，知道这一点对理解结构体的写法会很有帮助。
 
 #### if...then
 
