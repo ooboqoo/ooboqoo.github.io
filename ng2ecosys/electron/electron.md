@@ -4,7 +4,7 @@ https://github.com/electron/electron
 https://electron.atom.io/   
 
 ```bash
-$ set ELECTRON_MIRROR="http://npm.taobao.org/mirrors/electron/"  # 配置使用淘宝镜像，linux 下用 export 命令
+$ set ELECTRON_MIRROR="http://npm.taobao.org/mirrors/electron/"  # 配置淘宝镜像，linux 下用 export 命令
 $ npm install electron -g
 ```
 
@@ -61,7 +61,7 @@ After bundling your app into Electron, you will want to rebrand Electron before 
 You can rename `electron.exe` to any name you like, and edit its icon and other information with tools like [rcedit](https://github.com/electron/rcedit/releases).
 
 ```txt
-rcedit "path-to-exe-or-dll" --set-icon "path-to-ico" --set-file-version "10.7"    # windows
+rcedit "path-to-exe-or-dll" --set-icon "path-to-ico" --set-file-version "10.7"  # 仅限 windows
 ```
 
 ### Packaging Tools

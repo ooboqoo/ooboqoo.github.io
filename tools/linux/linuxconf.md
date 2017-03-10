@@ -2,7 +2,7 @@
 
 ## 基本配置
 
-时区设置
+#### 时区设置
 
 ```bash
 date                                                     # 查看当前时间
@@ -10,7 +10,7 @@ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  # 修改设置
 shutdown -r 0                                            # 重启使所有应用都使用最新时间设置
 ```
 
-颜色设置
+#### 颜色设置
 
 ```bash
 # ~/.bashrc
@@ -20,7 +20,7 @@ export TERM="xterm-256color"
 set t_Co=256
 ```
 
-语言设置
+#### 语言设置
 
 ```bash
 locale                   # 查看地域偏好设置
@@ -29,7 +29,7 @@ export LANG=en_US.UTF-8  # 临时设置环境变量，重新登录失效
 LANG='en_US.UTF-8'
 ```
 
-其他偏好配置
+#### 其他偏好配置
 
 ```bash
 # ~/.bash_profile    # System wide environment and startup programs, for login setup
@@ -50,48 +50,31 @@ export PS1="\e[0;32m\u@\h \W> \e[m"  # 自定义提示符 `man bash` 可查看�
 
 ## 系统服务
 
-### CentOS 6
+实现某种 service 的程序称之为 daemon(守护进程)，启动 daemon 的进程通常会在服务名称之后加个 `d`。
 
-实现某种service的程序称之为 daemon(守护进程)，主要分为 stand alone 及 super daemon两种
+主要分为 stand alone 及 super daemon 两种：
 
-super daemon 由xinetd(extended Internet services daemon)统一管理，连接机制分单/多线程
+* stand alone daemon 启动脚本在 /etc/init.d/, 配置文件在 /etc/sysconfig/  
+* super daemon 的配置文件是 /etc/xinetd.conf, 子 daemon 的配置文件在 /etc/xinetd.d/
 
-daemon 根据工作形态不同可分为 signal-daemon 和 interval-control
+`systemctl` 是主要的工具，它融合之前 `service` 和 `chkconfig` 的功能于一体。可以使用它永久性或只在当前会话中启用/禁用服务。`systemctl` 可以列出正在运行的服务状态，`systemd-cgls` 以树形列出正在运行的进程。
 
-启动daemon的进程通常会在服务名称之后加个d，提示是daemon
+| 任务           | 旧指令                       | 新指令
+|----------------|------------------------------|-------------------------------------
+| 设置开机启动   | chkconfig –level 3 httpd on  | systemctl enable httpd.service
+| 取消开机启动   | chkconfig –level 3 httpd off | systemctl disable httpd.service
+| 检查服务状态   | service httpd status         | systemctl status httpd.service
+| 显示已启动服务 | chkconfig –list              | systemctl list-units –type=service
+| 启动服务       | service httpd start          | systemctl start httpd.service
+| 停止服务       | service httpd stop           | systemctl stop httpd.service
+| 重启服务       | service httpd restart        | systemctl restart httpd.service
 
-stand alone daemon 启动脚本在 /etc/init.d/, 配置文件在 /etc/sysconfig/  
-super daemon 主daemon的配置文件是/etc/xinetd.conf, 子daemon的配置文件在 /etc/xinetd.d/
-
-利用/etc/init.d/*来启动/关闭/查看stand alone daemon，也可以使用 service命令 (一个智能调用脚本)
-
-可通过chkconfig设置开机启动
-
-```
-netstat -lnp // 找出所有的有监听网络的服务
-service --status-all // 查看所有的服务状态
-/etc/init.d/rsyslog status|start|stop|restart // 直接调用脚本控制服务
-service [service name] (start|stop|restart|...)</code> // 通过service命令控制
-chkconfig --list [服务名]</code> // 显示目前的各项服务，<code>chkconfig --list | grep '3:on'</code>
-chkconfig [--level [0123456]] [服务名] [on|off]</code> // 设置某个服务在该level下启闭
-chkconfig --level 345 atd on // 设置后要下次启动才生效，可以先手动启动服务
-```
-
-### CentOS 7
-
- CentOS 7 使用 systemd 代替 sysvinit 来管理 Service。
-
-1、systemd 的服务管理程序：
-
-`systemctl` 是主要的工具，它融合之前 service 和 chkconfig 的功能于一体。可以使用它永久性或只在当前会话中启用/禁用服务。systemctl 可以列出正在运行的服务状态，systemd-cgls 以树形列出正在运行的进程。
-
-2、如何启动/关闭、启用/禁用服务？
 
 ```bash
 $ systemctl start/stop/restart/status httpd  # 服务操控命令
 $ systemctl enable/disable httpd.service     # 开机服务设置
 
-$ systemctl is-enabled httpd                 # 查看某个服务是否开机启动
+$ systemctl is-enabled httpd                       # 查看某个服务是否开机启动
 $ ls /etc/systemd/system/multi-user.target.wants/  # 查看所有开机自启动的服务列表
 $ systemctl list-unit-files | grep enabled         # 查看当前启动的服务列表
 ```
@@ -104,17 +87,27 @@ $ systemctl list-unit-files | grep enabled         # 查看当前启动的服务
 * 第 5 运行级用 graphical.target 替代。另有 runlevel5.target 符号链接指向 graphical.target
 
 
-## 防火墙设置
+## 防火墙管理
 
 官方文档：[RedHat 7 安全指南 - 中文版](https://access.redhat.com/documentation/zh-CN/Red_Hat_Enterprise_Linux/7/html/Security_Guide/sec-Using_Firewalls.html)
 
-centos 7中防火墙是一个非常的强大的功能了，但对于centos 7中在防火墙中进行了升级了，下面我们一起来详细的看看关于centos 7中防火墙使用方法。
-FirewallD 提供了支持网络/防火墙区域(zone)定义网络链接以及接口安全等级的动态防火墙管理工具。它支持 IPv4, IPv6 防火墙设置以及以太网桥接，并且拥有运行时配置和永久配置选项。它也支持允许服务或者应用程序直接添加防火墙规则的接口。 以前的 system-config-firewall/lokkit 防火墙模型是静态的，每次修改都要求防火墙完全重启。这个过程包括内核 netfilter 防火墙模块的卸载和新配置所需模块的装载等。而模块的卸载将会破坏状态防火墙和确立的连接。
-相反，firewall daemon 动态管理防火墙，不需要重启整个防火墙便可应用更改。因而也就没有必要重载所有内核防火墙模块了。不过，要使用 firewall daemon 就要求防火墙的所有变更都要通过该守护进程来实现，以确保守护进程中的状态和内核里的防火墙是一致的。另外，firewall daemon 无法解析由 ip*tables 和 ebtables 命令行工具添加的防火墙规则。
-守护进程通过 D-BUS 提供当前激活的防火墙设置信息，也通过 D-BUS 接受使用 PolicyKit 认证方式做的更改。
+FirewallD 提供了动态防火墙管理工具，不需要重启整个防火墙便可应用更改。拥有运行时配置和永久配置选项。它也支持允许服务或者应用程序直接添加防火墙规则的接口。 配置采用图形化管理工具 `firewall-config` 和命令行工具 `firewall-cmd`
 
-
-#### firewallcmd 替代 iptables
+```bash
+$ firewall-cmd --add-service=http // 允许http服务通告防火墙
+$ firewall-cmd --add-service=ftp  // 暂时开启ftp
+$ firewall-cmd --add-port=3128/tcp // 自行加入要開放的Port
+$ firewall-cmd --permanent --add-service=http // 在永久配置中添加http服务
+$ firewall-cmd --permanent --add-service=ftp // 永久开放ftp
+$ firewall-cmd --remove-service=ftp --permanent // 永久关闭ftp
+$ firewall-cmd --reload // 重新加载防火墙规则
+$ systemctl restart firewalld // 重启整个防火墙服务
+$ iptables -L -n | grep 21 //檢視設定是否生效，开启firewalld 的情况下才能查到
+$ firewall-cmd --state // 檢查防火牆狀態
+$ firewall-cmd --get-service // 在 FirewallD 的服務名稱
+$ firewall-cmd --query-service ssh //查詢服務的啟用狀態
+$ firewall-cmd --list-all // 查询开启的服务，简单明了
+```
 
 
 ## 网络管理
@@ -152,10 +145,6 @@ $ ss -tp                 # 查看所有 tcp 端口，并显示使用的进程名
 ```
 
 
-
-
-
-
-
+## SELinux 管理
 
 

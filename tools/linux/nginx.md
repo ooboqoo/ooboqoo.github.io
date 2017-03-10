@@ -63,9 +63,40 @@ http {
 }
 ```
 
-### HTTPS
+### 部署 HTTPS
 
-https://letsencrypt.org/getting-started/
+https://letsencrypt.org/getting-started/   
+https://linuxstory.org/deploy-lets-encrypt-ssl-certificate-with-certbot/ 此文章值得参考下
+
+```bash
+$ yum install certbot       # 安装 Let's Encrypt 官方证书配置工具(自动化的获取、部署和更新安全证书)
+$ certbot certonly          # 安装 ssl 证书，需要根据具体情况回答问题，也可以像下面那样提前设置答案
+$ certbot certonly --webroot -w /var/www/example -d e.com -d www.e.com -w /var/www/thing thing.cn
+$ certbot renew --dry-run   # 测试能否自动更新证书
+# 添加包含左侧命令到一个 cron or systemd job 建议每天随机运行2次
+$ certbot renew --quiet --post-hook "nginx -s reload"
+```
+
+然后更新 Nginx 配置文件，添加
+
+```
+listen 443 ssl;
+server_name ngapps.cn www.ngapps.cn;
+root  /var/www/ngapps.cn;
+
+ssl_certificate      /etc/letsencrypt/live/ngapps.cn/fullchain.pem;
+ssl_certificate_key  /etc/letsencrypt/live/ngapps.cn/privkey.pem;
+```
+
+还可以更进一步，将所有到 80 端口的普通访问进行跳转
+
+```
+server {
+    listen 80;
+    server_name ngapps.cn www.ngapps.cn;
+    return 301 https://$server_name$request_uri;
+}
+```
 
 ## NodeJS + MongoDB + PM2 安装
 
