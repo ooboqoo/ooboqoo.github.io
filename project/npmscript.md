@@ -1,8 +1,7 @@
 # NPM Script
 
-http://www.ruanyifeng.com/blog/2016/10/npm_scripts.html
-
-阮一峰博客待阅读整理
+http://www.ruanyifeng.com/blog/2016/10/npm_scripts.html  阮一峰博客待阅读整理  
+https://www.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/  这篇文章更屌
 
 ## 脚本详解
 

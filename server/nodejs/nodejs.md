@@ -1,4 +1,3 @@
-[Node.js v4.2.4 手册 &amp; 文档（中文项目）](http://nodeapi.ucdok.com/#/api/index.html)  
 [Node.js v6.x.x Documentation（官方文档）](https://nodejs.org/dist/latest-v6.x/docs/api/index.html)
 - - -
 node.js 里所有的模块是独立的，不需要命名空间隔离。

@@ -23,36 +23,8 @@
 
 <div>
 <ul>
-  <li><a href="http://nodeapi.ucdok.com/#/api/index.html">Node.js v4.2.4 手册 &amp; 文档（中文项目）</a></li>
   <li><a href="https://nodejs.org/dist/latest-v6.x/docs/api/index.html">Node.js v6.2.2 Documentation（官方文档）</a></li>
 </ul>
-</div>
-
-<h2 id="global" class="collapse"><a href="globals.html">Globals 全局对象</a></h2>
-<div style="display:none;">
-<table><tbody>
-<tr><td>global</td><td>[Object] 全局命名空间对象</td></tr>
-<tr><td>module</td><td>[Object] 当前模块的引用（实际上并非全局的而是各个模块本地的）</td></tr>
-<tr><td>exports</td><td>[Object] 指向 module.exports （实际上并非全局的而是各个模块本地的）</td></tr>
-<tr><td>require</td><td>[Function] 引入模块（实际上并非全局的而是各个模块本地的）<br>
-  require.resolve() 不加载模块，只返回模块的完整文件路径<br>
-  require.main 指向入口模块<br>
-  require.cache 模块在引入时会缓存到该对象。通过删除该对象的键值，下次调用require时会重新加载相应模块。</td></tr>
-<tr><td>process</td><td>[Object] 进程对象</td></tr>
-<tr><td>console</td><td>[Object] 控制台</td></tr>
-<tr><td>Buffer</td><td>[Function] 类，提供数据缓存相关功能</td></tr>
-<tr><td>__dirname</td><td>[String] 当前执行脚本所在目录的目录名</td></tr>
-<tr><td>__filename</td><td>[String] 当前所执行代码文件的完整绝对路径</td></tr>
-<tr><td colspan="2">setTimeout(cb, ms); clearTimeout(t); setInterval(cb, ms); clearInterval(t)</td></tr>
-</tbody></table>
-<pre class="js">
-const refm = require("./testmodule.js");  // refm: requireExportedFromModule
-console.log("require === refm: ", require === refm);         // false
-console.log("resolve: ", require.resolve === refm.resolve); // false
-console.log("main: ", require.main === refm.main);          // true
-console.log("cache: ", require.cache === refm.cache);       // true
-// 结论：每个模块实例拥有独立的 require 变量，所有模块的 require.main 和 require.cache 的引用是相同的。 
-</pre>
 </div>
 
 <h2 id="modules" class="collapse"><a href="modules.html">Modules 模块</a></h2>
@@ -145,19 +117,6 @@ Module.prototype.require = function(path) {
 </blockquote>
 </div>
 
-<h2 id="process" class="collapse"><a href="process.html">Process 进程</a></h2>
-<div style="display:none;">
-<p>process 对象是一个全局对象，可以在任何地方访问到它。它是EventEmitter的一个实例。</p>
-<table><tbody>
-<tr><td>process.argv</td><td>一个包含命令行参数的数组。<br>
-  第一个元素会是 'node'; 第二个元素将是当前执行文件的名称;<br>
-  接下来的元素依次是命令行传入的参数。</td></tr>
-<tr><td>process.stdin</td><td>标准输入</td></tr>
-<tr><td>process.stdout</td><td>标准输出</td></tr>
-<tr><td>process.nextTick()</td><td></td></tr>
-</tbody></table>
-</div>
-
 <h2 id="events" class="collapse"><a href="events.html">Events 事件</a></h2>
 <div style="display:none;">
 <p>Much of the Node.js core API is built around an idiomatic asynchronous event-driven architecture in which certain kinds of objects (called "emitters") periodically emit named events that cause Function objects ("listeners") to be called.</p>
@@ -239,187 +198,6 @@ myEmitter.emit('event');  // Prints: B \n A
 </div>
 </div>
 
-<h2 id="fs" class="collapse"><a href="fs.html">File System 文件系统</a></h2>
-<div style="display:none;">
-<p>文件系统模块是一个简单包装的 POSIX I/O 操作方法集。</p>
-<p>文件系统模块中的所有方法均有异步和同步版本。</p>
-<ul>
-  <li>异步方法采用第一个参数来接收 error，而同步方法则需要采用 try/catch 来捕获 error。</li>
-  <li>高负荷系统中，强烈推荐使用异步版函数，同步版本会阻塞进程。</li>
-</ul>
-<p>文件操作函数允许使用文件名的相对路径, 但是记住这个路径是相对于 process.cwd() 的。</p>
-<p>Most fs functions let you omit the callback argument. If you do, a default callback is used that rethrows errors. To get a trace to the original call site, set the NODE_DEBUG environment variable...</p>
-
-<h3>Class 类</h3>
-<table><tbody>
-<tr><td>fs.FSWatcher</td><td>Objects returned from fs.watch() are of this type.
-  <br>Event: 'change' ; Event: 'error' ; watcher.close()</td></tr>
-<tr><td>fs.Stats</td><td>Objects returned from fs.stat(), fs.lstat() and fs.fstat() and their synchronous counterparts are of this type.</td></tr>
-<tr><td>fs.ReadStream</td><td>Event: 'open' ; Event: 'close' ; readStream.path</td></tr>
-<tr><td>fs.WriteStream</td><td>Event: 'open' ; Event: 'close' ; writeStream.path ; writeStream.bytesWritten</td></tr>
-</tbody></table>
-
-<h3>方法摘要</h3>
-<div class="dl">
-<h5>fs.createReadStream(path, [options]) <span>-- 创建并返回一个 ReadStream 对象</span></h5>
-<h5>fs.createWriteStream(path, [options]) <span>-- 创建并返回一个 WriteStream 对象</span></h5>
-<h5>fs.open(path, flags, [mode], callback) <span>-- 打开一个文件，并提供句柄供进一步操作</span></h5>
-<p>callback(err, fd): fd 是文件指针; mode 请参考在线手册，或查看笔记PHP部分说明</p>
-<p>A call to open() creates a new open file description, an entry in the system-wide table of open files. The open file description records the file offset and the file status flags.  A file descriptor is a reference to an open file description; this reference is unaffected if pathname is subsequently removed or modified to refer to a different file.  For further details on open file descriptions, see NOTES.</p>
-<h5>fs.read(fd, buffer, offset, length, position, callback) <span>-- 从文件指针 fd 读取数据</span></h5>
-<p>
-从 <code>fd</code> 句柄指向的文件的 <code>position</code> 位置读取 <code>length</code> 字节的数据，并写入到 <code>buffer</code> 的 <code>offset</code> 位置。</p>
-<p>callback(err, bytesRead, buffer): 分别为错误对象，读取的字节数 和 缓冲区。</p>
-<h5>fs.write(fd, buffer, offset, length[, position], callback) <span>-- 从缓存中读取数据并写入文件</span></h5>
-<p>从 <code>buffer</code> 的 <code>offset</code> 位置读取 <code>length</code> 字节的 buffer, 并向 <code>fd</code> 指针指向的文件从 <code>position</code> 位置写入内容。</p>
-<p>callback(err, written, buffer): <code>written</code> specifies how many bytes were written from <code>buffer</code>.</p>
-<p>Note that it is unsafe to use fs.write multiple times on the same file without waiting for the callback. For this scenario, fs.createWriteStream is strongly recommended.</p>
-<h5>fs.write(fd, data[, position[, encoding]], callback) <span>-- 向文件中写入字符串</span></h5>
-<p>Unlike when writing buffer, the entire string must be written. No substring may be specified.</p>
-<h5>fs.close(fd, callback) <span>-- 关闭文件句柄</span></h5>
-<p>Closes a file descriptor, so that it no longer refers to any file and may be reused.</p>
-<h5>fs.readFile(filename, [options], callback) <span>-- 异步读取一个文件的全部内容</span></h5>
-<p>options: {encoding: [String] | [Null] default = null, flag: [String] default = 'r'} | [String](only encoding)</p>
-<p>callback(err, data): data 就是文件的内容（如果指定了 encoding 就是字符串，没指定就是原生buffer）</p>
-<h5>fs.writeFile(filename, data, [options], callback) <span>-- 异步地将数据写入一个文件，原内容会被覆盖</span></h5>
-<p><code>file</code> filename or file descriptor <code>data</code> [String] | [Buffer]</p>
-<h5>fs.appendFile(filename, data, [options], callback) <span>-- 异步地将数据添加到一个文件的尾部</span></h5>
-<p>如果文件不存在，会创建一个新的文件。</p>
-<pre class="js">fs.appendFile('message.txt', 'data to append', 'utf8', callback);</pre>
-<h5>fs.readdir(path, callback) <span>-- 读取 path 目录的内容，并以数组形式返回列表</span></h5>
-<p>callback(err, files): files 是数组（不包括 '.' 和 '..'）</p>
-<h5>fs.exists(path, callback) <span>-- 检查指定路径的文件或者目录是否存在</span></h5>
-<p>callback(exists): 存在true 不存在false</p>
-<h5>fs.stat(path, callback) <span>-- 读取文件状态信息</span></h5>
-<p>callback(err, stats): stats 是一个 fs.Stats 对象</p>
-<h5>fs.watch(filename, [options], [listener]) <span>-- 监控指定 路径/文件 的变化，并返回 fs.FSWatcher 对象</span></h5>
-<p>filename: 可以是目录或文件。</p>
-<p>options: [String](only encoding) |
-  <br> {persistent: [Boolean] default = true, recursive: [Boolean] default = false, encoding: [String] default = 'utf8'}</p>
-<p>listener(event, filename): event 是 'rename' 或 'change'，filename 则是触发事件的文件的文件名。</p>
-<p>该方法对系统存在严重依赖，不同系统有不同的运作细节，所以使用时务必再确认手册说明 <a href="https://nodejs.org/dist/latest-v6.x/docs/api/fs.html#fs_fs_watch_filename_options_listener">fs.watch()</a></p>
-</div>
-
-<h3>完整方法列表</h3>
-<pre class="js">
-fs.access(path[, mode], callback)
-fs.accessSync(path[, mode])
-fs.appendFile(file, data[, options], callback)
-fs.appendFileSync(file, data[, options])
-fs.chmod(path, mode, callback)
-fs.chmodSync(path, mode)
-fs.chown(path, uid, gid, callback)
-fs.chownSync(path, uid, gid)
-fs.close(fd, callback)
-fs.closeSync(fd)
-fs.createReadStream(path[, options])
-fs.createWriteStream(path[, options])
-fs.exists(path, callback)
-fs.existsSync(path)
-fs.fchmod(fd, mode, callback)
-fs.fchmodSync(fd, mode)
-fs.fchown(fd, uid, gid, callback)
-fs.fchownSync(fd, uid, gid)
-fs.fdatasync(fd, callback)
-fs.fdatasyncSync(fd)
-fs.fstat(fd, callback)
-fs.fstatSync(fd)
-fs.fsync(fd, callback)
-fs.fsyncSync(fd)
-fs.ftruncate(fd, len, callback)
-fs.ftruncateSync(fd, len)
-fs.futimes(fd, atime, mtime, callback)
-fs.futimesSync(fd, atime, mtime)
-fs.lchmod(path, mode, callback)
-fs.lchmodSync(path, mode)
-fs.lchown(path, uid, gid, callback)
-fs.lchownSync(path, uid, gid)
-fs.link(srcpath, dstpath, callback)
-fs.linkSync(srcpath, dstpath)
-fs.lstat(path, callback)
-fs.lstatSync(path)
-fs.mkdir(path[, mode], callback)
-fs.mkdirSync(path[, mode])
-fs.mkdtemp(prefix, callback)
-fs.mkdtempSync(prefix)
-fs.open(path, flags[, mode], callback)
-fs.openSync(path, flags[, mode])
-fs.read(fd, buffer, offset, length, position, callback)
-fs.readdir(path[, options], callback)
-fs.readdirSync(path[, options])
-fs.readFile(file[, options], callback)
-fs.readFileSync(file[, options])
-fs.readlink(path[, options], callback)
-fs.readlinkSync(path[, options])
-fs.readSync(fd, buffer, offset, length, position)
-fs.realpath(path[, options], callback)
-fs.realpathSync(path[, options])
-fs.rename(oldPath, newPath, callback)
-fs.renameSync(oldPath, newPath)
-fs.rmdir(path, callback)
-fs.rmdirSync(path)
-fs.stat(path, callback)
-fs.statSync(path)
-fs.symlink(target, path[, type], callback)
-fs.symlinkSync(target, path[, type])
-fs.truncate(path, len, callback)
-fs.truncateSync(path, len)
-fs.unlink(path, callback)
-fs.unlinkSync(path)
-fs.unwatchFile(filename[, listener])
-fs.utimes(path, atime, mtime, callback)
-fs.utimesSync(path, atime, mtime)
-fs.watch(filename[, options][, listener])
-fs.watchFile(filename[, options], listener)
-fs.write(fd, buffer, offset, length[, position], callback)
-fs.write(fd, data[, position[, encoding]], callback)
-fs.writeSync(fd, buffer, offset, length[, position])
-fs.writeSync(fd, data[, position[, encoding]])
-fs.writeFile(file, data[, options], callback)
-fs.writeFileSync(file, data[, options])
-</pre>
-</div>
-
-<h2 id="path" class="collapse"><a href="path.html">Path 路径</a></h2>
-<div style="display:none;">
-<p>本模块包含一套用于处理和转换文件路径的工具集。几乎所有的方法只做字符串变换，不会调用文件系统检查路径是否有效。</p>
-<p>通过 require('path') 来加载此模块。</p>
-<h3>Windows vs. POSIX</h3>
-<pre class="js">
-path.basename('C:\\temp\\myfile.html');  // On POSIX returns 'C:\temp\myfile.html'
-                                         // On Windows returns 'myfile.html'
-path.win32.basename('C:\\temp\\myfile.html');  // returns 'myfile.html'
-path.posix.basename('/tmp/myfile.html');       // returns 'myfile.html'
-</pre>
-<h3>方法摘要</h3>
-<div class="dl">
-<h5>path.basename(path[, ext]) <span>-- 返回路径的最后部分</span></h5>
-<pre class="js">
-path.basename('/foo/bar/baz/asdf/quux.html')  // returns 'quux.html'
-path.basename('/foo/bar/baz/asdf/quux.html', '.html')  // returns 'quux'
-</pre>
-<h5>path.dirname(path) <span>-- 返回目录（即去掉最后部分）</span></h5>
-<pre class="js">path.dirname('/foo/bar/baz/asdf/quux/')  // returns '/foo/bar/baz/asdf'</pre>
-<h5>path.extname(path) <span>-- 返回文件扩展名（带.）</span></h5>
-<h5>path.format(pathObject) <span>-- 根据提供的 obj 输出格式化后的路径字符串</span></h5>
-<h5>path.isAbsolute(path) <span>-- 判断是否是绝对路径</span></h5>
-<h5>path.join([path[, ...]]) <span>-- 连接路径片段</span></h5>
-<pre class="js">path.join('/foo', 'bar', 'baz/asdf', 'quux', '..')  // returns '/foo/bar/baz/asdf'</pre>
-<h5>path.normalize(path) <span>-- 规范化路径字符串</span></h5>
-<pre class="js">
-POSIX:   path.normalize('/foo/bar//baz/asdf/quux/..')  // returns '/foo/bar/baz/asdf'
-Windows: path.normalize('C:\\temp\\\\foo\\bar\\..\\');  // returns 'C:\\temp\\foo\\'
-</pre>
-<h5>path.parse(path) <span>-- 根据提供的路径字符串返回解析后的 obj</span></h5>
-<h5>path.relative(from, to) <span>-- 计算两个给定路径间的相对路径</span></h5>
-<pre class="js">path.relative('/data/orandea/test/aaa', '/data/orandea/impl/bbb')  // returns '../../impl/bbb'</pre>
-<h5>path.resolve([path[, ...]]) <span>-- 根据提供的路径或路径片段计算最终路径</span></h5>
-<pre class="js">
-path.resolve('/foo/bar', './baz')  // returns '/foo/bar/baz'
-path.resolve('/foo/bar', '/tmp/file/')  // returns '/tmp/file'
-</pre>
-</div>
-</div>
 
 <h2 id="buffer"><a href="buffer.html">Buffer 缓存</a></h2>
 <div>
@@ -753,43 +531,6 @@ module.exports = function createTransStream(func) {
 </tbody></table>
 </div>
 
-<h2 id="url"><a href="url.html">URL</a></h2>
-<div>
-<pre>
-┌──────────┬┬───────────┬─────────────────┬───────────────────────────┬───────┐
-│ protocol ││   auth    │      host       │           path            │ hash  │
-│          ││           ├──────────┬──────┼──────────┬────────────────┤       │
-│          ││           │ hostname │ port │ pathname │     search     │       │
-│          ││           │          │      │          ├─┬──────────────┤       │
-│          ││           │          │      │          │ │    query     │       │
-"  http:   // user:pass @ host.com : 8080   /p/a/t/h  ?  query=string   #hash "
-└──────────┴┴───────────┴──────────┴──────┴──────────┴─┴──────────────┴───────┘
-注：合法 url 中不能包含 &lt; &gt; " ` \r \n \t { } | \ ^ ' 以及空格，要用则必须先转义
-</pre>
-<pre class="js">
-> url.parse('http://user:pass@host.com:8080/p/a/t/h?q1=str1&q2=str2#hash')
-Url {
-  protocol: 'http:',
-  slashes: true,
-  auth: 'user:pass',
-  host: 'host.com:8080',
-  port: '8080',
-  hostname: 'host.com',
-  hash: '#hash',             // <a href="http://www.ruanyifeng.com/blog/2011/03/url_hash.html">阮一峰的 hash 详解</a>
-  search: '?q1=str1&q2=str2',
-  query: 'q1=str1&q2=str2',  // 返回 字符串 或 经解析后的 query 对象
-  pathname: '/p/a/t/h',
-  path: '/p/a/t/h?query=string',
-  href: 'http://user:pass@host.com:8080/p/a/t/h?query=string#hash' }
-</pre>
-<table><tbody>
-<tr><td>url.format(urlObject)</td><td>urlObject 可以是 Object  或 String，返回格式化后的 url 字符串。</td></tr>
-<tr><td>url.parse(urlString[, parseQueryString[,<br> slashesDenoteHost]])</td><td>根据 URL 字符串，返回相应的 Url 对象。<br>
-  第二个参数设置为 true 则会对 query 进行解析，默认为 false</td></tr>
-<tr><td>url.resolve(from, to)</td><td><pre class="js">url.resolve('/one/two/three', 'four')  //输出 '/one/two/four'
-url.resolve('http://ex.com/', '/one')  // 'http://ex.com/one'</pre></td></tr>
-</tbody></table>
-</div>
 
 <h2 id="net"><a href="net.html">Net 网络</a></h2>
 <div>
@@ -800,25 +541,6 @@ url.resolve('http://ex.com/', '/one')  // 'http://ex.com/one'</pre></td></tr>
 </tbody></table>
 </div>
 
-<h2 id="console"><a href="console.html">Console 控制台</a></h2>
-<div>
-<table><tbody>
-<tr><td></td><td></td></tr>
-<tr><td></td><td></td></tr>
-<tr><td></td><td></td></tr>
-</tbody></table>
-</div>
-
-<h2 id="util"><a href="util.html">Utilities 实用工具</a></h2>
-<div>
-<table><tbody>
-<tr><td>util.format(format[, ...])</td><td>根据第一个参数，返回一个格式化字符串，类似 printf 的格式化输出。<br>
-  %s - 字符串；%d - 数字 (整型和浮点型)
-  <pre>util.format('%s:%d', 'count', 5, 'ex');  // 'count:5 ex' 位置不能乱</pre></td></tr>
-<tr><td>util.inspect(object[, options])</td><td>返回一个对象的字符串表现形式, 在代码调试的时候非常有用。</td></tr>
-<tr><td></td><td></td></tr>
-</tbody></table>
-</div>
 
 </div>
 </body>
