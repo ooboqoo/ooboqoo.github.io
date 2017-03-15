@@ -141,6 +141,7 @@ $ git status -s            # 以简洁的形式显示当前状态，`-s` 同 `--
 $ git log                       # 显示当前分支的提交记录
 $ git log --oneline             # 显示提交记录，每条记录只占一行
 $ git log --follow <file>       # 跟踪一个文件的修改历史，包括重命名前后的情况
+$ git log --all -- path/to/file # 查找单个文件的提交历史，--all 选项可以找出已删除文件的提交历史
 $ git log -L <start>,<end>:<file>  # 跟踪 file 文件的特定部分的变更记录，参数可以是行号或者正则
 $ git log -L "/function ajax/",/}/:main.js  # 跟踪 main.js 文件中的 ajax 函数的变更记录, 正则有空格的要带引号
 
