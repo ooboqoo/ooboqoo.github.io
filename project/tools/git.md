@@ -322,8 +322,8 @@ doc/**/*.pdf
 ## Git 流程规范化
 
 http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html   
-https://cattail.me/tech/2016/06/06/git-commit-message-and-branching-model.html   
 http://www.ruanyifeng.com/blog/2015/12/git-workflow.html   
+https://cattail.me/tech/2016/06/06/git-commit-message-and-branching-model.html   
 
 ### Commit message 规范化
 
@@ -363,8 +363,17 @@ $ git log <last release> HEAD --grep feature  # 利用 grep 筛选
 
 ##### Type
 
-`feat` 新功能 `fix` bug 修复 `docs` 文档 `style` 格式调整 `refactor` 重构 `perf` 性能优化 `test` 测试  
-`build` 编译配置 `ci` 持续集成工具配置 `chore` 杂项
+|||
+|---------|------------------------------------------------------------------------------------------
+| `feat`  | 新功能 A new feature
+| `fix`   | bug 修复 A bug fix
+| `docs`  | 文档 Documentation only changes
+| `style` | 格式调整 Changes that do not affect the meaning of the code (white-space, formatting, etc)
+| `refactor` | 重构 A code change that neither fixes a bug nor adds a feature
+| `perf`  | 性能优化 A code change that improves performance
+| `test`  | 测试 Adding missing tests or correcting existing tests
+| `build` | 编译配置 Changes that affect the build system, CI configuration or external dependencies
+| `chore` | 杂项 Other changes that don't modify src or test files
 
 ##### Scope
 
