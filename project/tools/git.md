@@ -62,6 +62,13 @@ $ git config --global alias.st status               # 设定命令别名，所�
 $ git config --global credential.helper wincred     # 设定免密码登录(记住密码) [注1]
 $ git config --global https.proxy 'socks5://127.0.0.1:1080'  # git 使用 ss 代理加速
 
+# 配置使用 merge 作为 diff & merge 外部工具，注意需要添加 meld 路径到 PATH
+# 如果命令行执行不成功，则手动修改 .gitconfig 文件
+$ git config --global merge.tool meld
+$ git config --global mergetool.meld.cmd 'meld.exe \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"'
+$ git config --global diff.tool meld
+$ git config --global difftool.meld.cmd 'meld.exe \"$LOCAL\" \"$REMOTE\"'
+
 $ git config --list --global       # 查看全局设置
 
 $ git config user.name "Gavin"     # 配置单个仓库的用户名
@@ -73,6 +80,13 @@ $ git help <command>     # 通过 help 指令来获取帮助，另开网页显�
 ```
 
 注1：GitHub 自动登录介绍 https://help.github.com/articles/caching-your-github-password-in-git/
+
+```text
+[diff]
+  tool = meld
+[difftool "meld"]
+  cmd = meld.exe $LOCAL $REMOTE
+```
 
 #### 获取或新建仓库
 
@@ -127,7 +141,7 @@ $ git rebase -i HEAD~commit_count # 批量修改 commit message 很好用
 
 ```bash
 # diff 显示不同提交之间，提交与工作目录，暂存区与工作目录之间的差别
-# meld 提供了图形化显示比较信息，但 windows 下好像没法使用命令行
+# meld 提供了图形化显示比较信息，使用前须配置(见上文配置部分)
 $ git diff                 # 查看工作目录与暂存区的差异
 $ git diff --staged        # 查看暂存区与最近一次提交之间的差异
 $ git diff master branchB  # 比较两个不同提交之间的差异，此处的不同分支指向不同的提交

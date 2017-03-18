@@ -94,8 +94,8 @@ JavaScript 有四种基本的数据存取位置：字面量、本地变量、数
 ### 试验
 
 ```js
-// 简单的性能测试函数，默认执行 8M 次
-function test(fn, times = 8000000) {
+// 简单的性能测试函数，默认执行 8k 次
+function test(fn, times = 8000) {
   let start, stop;
   start = new Date().getTime();
   while (times--) { fn(); }

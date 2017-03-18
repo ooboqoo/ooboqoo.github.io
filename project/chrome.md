@@ -9,12 +9,29 @@ map 的 less 源文件时有时无，将 localhost 改为 127.0.0.1 后就正常
 
 ## Tips
 
+https://www.youtube.com/watch?v=HF1luRD4Qmk Debugging The Web (Chrome Dev Summit 2016)
+
 ### 行内添加多个断点
 
 Use Inline Breakpoints for greater debugging granularity
 
 Chrome v57 正式版暂时不支持此功能，但 Canary 版已经支持此功能，调试更加方便了。 2017/03/17
 
+### 更加智能的控制台
+
+```js
+// 智能识别 Enter 回车键盘
+function fn() {    // 此处只输 `{` 并按下回车键，chrome 能够自动识别，不会立即执行
+  console.log('')  // 此处会自动缩进
+}                  // 输入 `}` 后再回车，chrome 会识别并执行此代码
+
+// 智能提示
+  console.l        // 输入过程中会给出智能提示
+```
+
+### 巧妙利用条件断点输出信息
+
+原先代码中的 `console.log()` 可以移除，然后在 DevTool 中设置条件断点，而条件就是 `console.log()` 这样就可以在不污染代码的同时输出调试信息。
 
 ## 使工作区能保存修改  Set Up Persistence with DevTools Workspaces
 

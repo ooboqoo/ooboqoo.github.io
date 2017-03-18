@@ -47,6 +47,8 @@ export PS1="\e[0;32m\u@\h \W> \e[m"  # 自定义提示符 `man bash` 可查看�
   # \e[m – indicates the end of color prompt
 ```
 
+> 这里有详细的终端颜色配置说明 http://misc.flogisoft.com/bash/tip_colors_and_formatting
+
 
 ## 系统服务
 

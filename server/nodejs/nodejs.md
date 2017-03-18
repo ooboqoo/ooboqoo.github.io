@@ -15,6 +15,15 @@ node.js 里所有的模块是独立的，不需要命名空间隔离。
 加载模块：var teacher = require('./teacher') // .js 可以省略  
 使用模块：teacher.add('Scott')
 
+## 调试
+
+通过添加 `--inspect` 选项以支持 chrome 调试，可以同时在 Chrome 界面完成前后端调试。
+
+```bash
+
+$ node --inspect app.js
+```
+
 ### node.js 的作用域系统
 在 JavaScript 中，是以函数作为作用域划分的基础的，而 Node 在此基础上加了一层“模块作用域”。
 完全可以把“模块”看做是一个“闭包”，而 module.exports 就是模块提供给外部访问的接口，相当于在闭包内 return 了一个对象。

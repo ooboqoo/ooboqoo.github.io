@@ -132,6 +132,15 @@ url.resolve('http://ex.com/', '/one')  // returns 'http://ex.com/one'
 
 ## Console 控制台
 
+在 NodeJS 的控制台输出带颜色文字的玩法：
+
+```js
+console.info('\x1b[32m%s\x1b[0m', `Listening to http://localhost:${port}`);
+```
+
+注1：这个仅适用于系统终端，浏览器中要用 `console.log('%c一些信息', 'color: red')`   
+注2：具体终端颜色设置方法 http://misc.flogisoft.com/bash/tip_colors_and_formatting
+
 ## Utilities 实用工具
 
 |||
