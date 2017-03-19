@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/resource/lib/html-main.css">
+<script src="/resource/lib/html-main.js"></script>
+<script src="/resource/lib/html-highlight.js"></script>
+<title>HTML 快速参考</title>
+</head>
+<body>
+<div id="article">
+
+<h1>HTML 快速参考</h1>
+
+<div>
+<h2>HTML Basic Document</h2>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Document name goes here&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  Visible text goes here
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</div>
+
+<div>
+<h2>HTML &lt;meta&gt; Element</h2>
+<pre>
+&lt;meta charset="UTF-8"&gt;
+&lt;meta http-equiv="refresh" content="30"&gt;
+&lt;meta name="keywords" content="HTML,CSS,XML,JavaScript"&gt;
+&lt;meta name="description" content="Free Web tutorials"&gt;
+&lt;meta name="author" content="Hege Refsnes"&gt;
+</pre>
+</div>
+
+<div>
+<h2>Text Elements</h2>
+<pre>&lt;p&gt;This is a paragraph&lt;/p&gt;
+&lt;br&gt; (line break)
+&lt;hr&gt; (horizontal line)
+&lt;pre&gt;This text is preformatted&lt;/pre&gt;</pre>
+</div>
+
+<div>
+<h2>Logical Styles</h2>
+<pre>&lt;em&gt;This text is emphasized&lt;/em&gt;
+&lt;strong&gt;This text is strong&lt;/strong&gt;
+&lt;code&gt;This is some computer code&lt;/code&gt;</pre>
+</div>
+
+<div>
+<h2>Physical Styles</h2>
+<pre>&lt;b&gt;This text is bold&lt;/b&gt;
+&lt;i&gt;This text is italic&lt;/i&gt;</pre>
+</div>
+
+<div>
+<h2>Links &amp; Anchors</h2>
+<pre>&lt;a href="http://www.example.com/"&gt;This is a Link&lt;/a&gt;
+&lt;a href="http://www.example.com/"&gt;&lt;img src="URL" alt="Alternate Text"&gt;&lt;/a&gt;
+&lt;a href="mailto:webmaster@example.com"&gt;Send e-mail&lt;/a&gt;A named anchor:
+&lt;a id="tips"&gt;Useful Tips Section&lt;/a&gt;  // html5不再支持 a 标签的 name 属性
+&lt;a href="#tips"&gt;Jump to the Useful Tips Section&lt;/a&gt;</pre>
+</div>
+
+<div>
+<h2>Image Elements</h2>
+<pre>
+&lt;a href="default.asp"&gt;
+  &lt;img src="smiley.gif" alt="HTML tutorial" style="width:42px;height:42px;border:0;"&gt;
+&lt;/a&gt;
+&lt;img src="planets.gif" alt="Planets" usemap="#planetmap" style="width:145px;height:126px;"&gt;
+&lt;map name="planetmap"&gt;
+  &lt;area shape="rect" coords="0,0,82,126" alt="Sun" href="sun.htm"&gt;
+  &lt;area shape="circle" coords="90,58,3" alt="Mercury" href="mercur.htm"&gt;
+&lt;/map&gt;
+</pre>
+</div>
+
+<div>
+<h2>Unordered list</h2>
+<pre>&lt;ul&gt;
+  &lt;li&gt;First item&lt;/li&gt;
+  &lt;li&gt;Next item&lt;/li&gt;
+&lt;/ul&gt;</pre>
+</div>
+
+<div>
+<h2>Ordered list</h2>
+<pre>&lt;ol&gt;
+  &lt;li&gt;First item&lt;/li&gt;
+  &lt;li&gt;Next item&lt;/li&gt;
+&lt;/ol&gt;</pre>
+</div>
+
+<div>
+<h2>Definition list</h2>
+<pre>&lt;dl&gt;
+  &lt;dt&gt;First term&lt;/dt&gt;
+  &lt;dd&gt;Definition&lt;/dd&gt;
+  &lt;dt&gt;Next term&lt;/dt&gt;
+  &lt;dd&gt;Definition&lt;/dd&gt;
+&lt;/dl&gt;</pre>
+</div>
+
+<div>
+<h2>Tables</h2>
+<pre>&lt;table border="1"&gt;
+&lt;tr&gt;
+  &lt;th&gt;someheader&lt;/th&gt;
+  &lt;th&gt;someheader&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td&gt;sometext&lt;/td&gt;
+  &lt;td&gt;sometext&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</pre>
+</div>
+
+<div>
+<h2>Frames</h2>
+<pre>&lt;iframe src="page1.html"&gt;&lt;/iframe&gt;</pre>
+</div>
+
+<div>
+<h2>Forms</h2>
+<pre>&lt;form action="http://www.example.com/test.asp" method="get"&gt;
+  Last name: &lt;input type="text" name="lastname" value="Nixon" size="30" maxlength="50"&gt;
+  &lt;label for="pswd"&gt;Password: &lt;/label&gt;
+  &lt;input type="password" id="psw" name="password"&gt;
+  &lt;label&gt;&lt;input type="radio" name="sex" value="male" checked> Male&lt;/label&gt;
+  &lt;label&gt;&lt;input type="radio" name="sex" value="female"> Female&lt;/label&gt;
+  &lt;label&gt;&lt;input type="checkbox" name="vehicle1" value="Bike"&gt; I have a bike&lt;/label&gt;
+  &lt;label&gt;&lt;input type="checkbox" name="vehicle2" value="Car" checked="checked"&gt; I have a car&lt;/label&gt;
+  &lt;input type="file" name="pic" accept="image/gif"&gt;
+  &lt;input type="submit" value="Submit"&gt;
+  &lt;input type="reset" value="Clear"&gt;
+  &lt;input type="button" onclick="alert('Hello World!')" value="Click Me!"&gt;
+  &lt;input type="hidden" name="country" value="Norway"&gt;
+  &lt;select multiple&gt;
+    &lt;option&gt;Apples&lt;/option&gt;
+    &lt;option selected&gt;Bananas&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;textarea name="Comment" rows="4" cols="40"&gt; Some pre-placed words here&lt;/textarea&gt;
+  &lt;button type="button" onclick="alert('Hello World!')"&gt;Click Me!&lt;/button&gt;
+&lt;/form&gt;
+</pre>
+<p>label 中的 for 与 id 相对；而 name 跟 value 是传递给服务器的键值对。<br>
+checkbox 被选中的 name 和 value 会传给服务器，没选的忽略，name 不能重名。</p>
+</div>
+
+<div>
+<h2>Entities</h2>
+<pre>&amp;lt; is the same as &lt;
+&amp;gt; is the same as &gt;
+&amp;#169; is the same as ?</pre>
+</div>
+
+<div>
+<h2>Other Elements</h2>
+<pre>&lt;!-- This is a comment --&gt;
+&lt;blockquote&gt;
+  Text quoted from some source.
+&lt;/blockquote&gt;
+&lt;address&gt;
+  Address 1&lt;br&gt;
+  Address 2&lt;br&gt;
+  City&lt;br&gt;
+&lt;/address&gt;
+</pre>
+</div>
+
+<div><p>Source : http://www.w3school.com.cn/html/html_quick.asp 有较大改动</p></div>
+
+</div>
+</body>
+</html>

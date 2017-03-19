@@ -12,10 +12,3 @@ https://docs.mongodb.com/manual/installation/
 https://docs.mongodb.com/manual/tutorial/query-documents/  
 
 ## 杂项记录
-
-NodeJS 开发监视用 nodemon 实际部署用 PM2：
-
-```bash
-$ npm i -g nodemon
-$ nodemon app.js    # app.js 文件有更新会自动重启
-```

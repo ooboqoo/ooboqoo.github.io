@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/resource/lib/html-main.css" />
+<script src="/resource/lib/html-main.js"></script>
+<title>prototype 原型</title>
+</head>
+<body>
+<div id="article">
+
+<h1>prototype 理解原型</h1>
+
+<div>
+
+<h3>Object.prototype  -- 该属性代表对象的 prototype 对象</h3>
+<p style="color:red">注意是 Object 而不是 object，也就是说，作为实例的对象没有这个 prototype 属性。不知这样理解对不，实际测试，对于实例使用 prototype 就报错 undefined。</p>
+<p>The Object.prototype property represents the Object prototype object.</p>
+<h4>Description</h4>
+<p>JavaScript 的所有对象都是 Object 的后裔；所有对象都从 Object.prototype 继承了属性和方法（当然这些对象和方法可能被新的定义所覆盖）。</p>
+<p>All objects in JavaScript are descended from Object; all objects inherit methods and properties from Object.prototype, although they may be overridden (except an Object with a null prototype, i.e. Object.create(null)). For example, other constructors' prototypes override the constructor property and provide their own toString() methods. Changes to the Object prototype object are propagated to all objects unless the properties and methods subject to those changes are overridden further along the prototype chain.</p>
+
+<h3>Object.prototype.constructor  -- 该属性为指向构造函数的引用</h3>
+<p>Returns a reference to the Object function that created the instance's prototype. </p>
+<p>Note that the value of this property is a reference to the function itself, not a string containing the function's name. The value is only read-only for primitive values such as 1, true and "test".</p>
+
+<h4>Description</h4>
+<p>所有对象都会从他们的 prototype 继承一个 constructor 属性:</p>
+<pre>
+var o = {};
+o.constructor === Object; // true
+var a = [];
+a.constructor === Array; // true
+var n = new Number(3);
+n.constructor === Number; // true
+</pre>
+
+<h4>Examples</h4>
+Displaying the constructor of an object
+
+The following example creates a prototype, Tree, and an object of that type, theTree. The example then displays the constructor property for the object theTree.
+<p>下面的例子创建了一个名为 Tree 的 prototype，一个该类的实例 theTree。然后将输出对象 theTree 的 constructor 属性值。</p>
+<pre>
+function Tree(name) {
+  this.name = name;
+}
+var theTree = new Tree('Redwood');
+document.writeln(<code>theTree.constructor</code>);
+
+以下为输出内容：
+function Tree(name) {
+  this.name = name;\n
+}
+</pre>
+
+<h3>Object.prototype.__proto__ -- 指向当对象被实例化的时候，用作原型的对象</h3>
+<p>ES6 才正式引入，请使用 Object.getPrototypeOf() 以获得更普遍的支持。</p>
+<p>The __proto__ property of Object.prototype is an accessor property (a getter function and a setter function) that exposes the internal [[Prototype]] (either an object or null) of the object through which it is accessed.</p>
+
+一个对象的__proto__ 属性和自己的内部属性[[Prototype]]指向一个相同的值 (通常称这个值为原型),原型的值可以是一个对象值也可以是null(比如说Object.prototype.__proto__的值就是null).该属性可能会引发一些错误,因为用户可能会不知道该属性的特殊性,而给它赋值,从而改变了这个对象的原型. 如果需要访问一个对象的原型,应该使用方法Object.getPrototypeOf.
+
+语法EDIT
+var proto = obj.__proto__;
+注: 两个下划线,后跟五个字符"proto",最后又是两个下划线.
+
+描述EDIT
+当一个对象被创建时,它的 __proto__ 属性和内部属性[[Prototype]]指向了相同的对象 (也就是它的构造函数的prototype属性).改变__proto__ 属性的值同时也会改变内部属性[[Prototype]]的值,除非该对象是不可扩展的.
+
+想要知道如何使用原型来实现继承,查看MDN文章继承和原型链.
+
+<pre>
+var shape = {};
+var circle = new Circle();
+
+// Set the object prototype.
+// DEPRECATED. This is for example purposes only. DO NOT DO THIS in real code.
+shape.__proto__ = circle;
+
+// Get the object prototype
+console.log(shape.__proto__ === circle); // true
+</pre>
+
+
+
+</div>
+
+<div>
+<pre>
+document.writeln(typeof myFather.prototype);  // 输出undefined 说明 实例没有 prototype 属性
+document.writeln(Person.prototype instanceof Object);  // 输出true 说明 Person.prototype 确实被认为是对象
+document.writeln(Person instanceof Function);  // 输出true 说明 Person 是 Function 的实例，当然也是 Object 的实例
+document.writeln(myFather instanceof Person);  // 输出 true
+</pre>
+</div>
+
+</div>
+</body>
+</html>

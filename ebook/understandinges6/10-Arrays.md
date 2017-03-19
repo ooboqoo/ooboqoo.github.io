@@ -420,7 +420,7 @@ console.log(view.getInt8(1));       // -1
 
 The call to `view.getInt16(0)` reads all bytes in the view and interprets those bytes as the number 1535. To understand why this happens, take a look at Figure 10-1, which shows what each `setInt8()` line does to the array buffer.
 
-<!--![Figure 10-1: The array buffer after two method calls](images/Ch 10 Graphic.jpg)-->
+<!--![Figure 10-1: The array buffer after two method calls](resource/images/Ch 10 Graphic.jpg)-->
 
 ```
 new ArrayBuffer(2)      0000000000000000

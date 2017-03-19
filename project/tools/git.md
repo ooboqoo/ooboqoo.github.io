@@ -6,7 +6,7 @@
 Pro Git：官方推荐免费教程中文版 https://git-scm.com/book/zh/v2  
 Git for Windows: Git 的 windows 版本，包含 Git 版本控制工具核心、Git Bash 和 Git GUI
 
-![简明图解](/images/project/git.jpg)  
+![简明图解](/resource/images/project/git.jpg)  
 [在线动态解析各部分之间的联系](http://ndpsoftware.com/git-cheatsheet.html)：Stash - Workspace - Index - LocalRepository - UpstreamRepository
 
 工作目录下的 .git 文件夹存放的就是本地 Git 仓库，可以进去琢磨琢磨：

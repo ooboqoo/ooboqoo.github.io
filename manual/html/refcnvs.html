@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/resource/lib/html-main.css">
+<script src="/resource/lib/html-main.js"></script>
+<script src="/resource/lib/html-highlight.js"></script>
+<script>setBase('table', 'http://www.w3schools.com/tags/');</script>
+<title>HTML Canvas Reference</title>
+</head>
+<body>
+<div id="article">
+
+<h1>HTML Canvas Reference</h1>
+
+<div>
+<p>HTML5 &lt;canvas&gt; 标记提供了一个画板，可以通过 JavaScript 在上面绘图。注意，&lt;canvas&gt; 元素本身并不具有绘图功能，它只是提供一个容器。getContext() 方法返回一个对象，该对象提供了在画板上绘画所需要的方法和属性。IE8 以及之前版本不支持 &lt;canvas&gt; 元素。</p>
+<hr />
+
+<h2>Colors, Styles, and Shadows</h2>
+<table>
+  <tbody><tr><th>Property</th><th>Description</th></tr>
+  <tr><td><a href="canvas_fillstyle.asp">fillStyle</a></td><td>Sets or returns the color, gradient, or pattern used to fill the drawing</td></tr>
+  <tr><td><a href="canvas_strokestyle.asp">strokeStyle</a></td><td>Sets or returns the color, gradient, or pattern used for strokes</td></tr>
+  <tr><td><a href="canvas_shadowcolor.asp">shadowColor</a></td><td>Sets or returns the color to use for shadows</td></tr>
+  <tr><td><a href="canvas_shadowblur.asp">shadowBlur</a></td><td>Sets or returns the blur level for shadows</td></tr>
+  <tr><td><a href="canvas_shadowoffsetx.asp">shadowOffsetX</a></td><td>Sets or returns the horizontal distance of the shadow from the shape</td></tr>
+  <tr><td><a href="canvas_shadowoffsety.asp">shadowOffsetY</a></td><td>Sets or returns the vertical distance of the shadow from the shape</td></tr>
+</tbody></table>
+
+<table>
+  <tbody><tr><th>Method</th><th>Description</th></tr>
+  <tr><td><a href="canvas_createlineargradient.asp">createLinearGradient()</a></td><td>Creates a linear gradient (to use on canvas content)</td></tr>
+  <tr><td><a href="canvas_createradialgradient.asp">createRadialGradient()</a></td><td>Creates a radial/circular gradient (to use on canvas content)</td></tr>
+  <tr><td><a href="canvas_addcolorstop.asp">addColorStop()</a></td><td>Specifies the colors and stop positions in a gradient object</td></tr>
+  <tr><td><a href="canvas_createpattern.asp">createPattern()</a></td><td>Repeats a specified element in the specified direction</td></tr>
+</tbody></table>
+
+<h2>Line Styles</h2>
+<table>
+  <tbody><tr><th>Property</th><th>Description</th></tr>
+	<tr><td><a href="canvas_linewidth.asp">lineWidth</a></td><td>Sets or returns the current line width</td></tr>
+  <tr><td><a href="canvas_linecap.asp">lineCap</a></td><td>Sets or returns the style of the end caps for a line</td></tr>
+  <tr><td><a href="canvas_linejoin.asp">lineJoin</a></td><td>Sets or returns the type of corner created, when two lines meet</td></tr>
+	<tr><td><a href="canvas_miterlimit.asp">miterLimit</a></td><td>Sets or returns the maximum miter length</td></tr>
+</tbody></table>
+
+<h2>Rectangles</h2>
+<table>
+  <tbody><tr><th>Method</th><th>Description</th></tr>
+  <tr><td><a href="canvas_rect.asp">rect()</a></td><td>Creates a rectangle</td></tr>
+  <tr><td><a href="canvas_fillrect.asp">fillRect()</a></td><td>Draws a "filled" rectangle</td></tr>
+  <tr><td><a href="canvas_strokerect.asp">strokeRect()</a></td><td>Draws a rectangle (no fill)</td></tr>
+  <tr><td><a href="canvas_clearrect.asp">clearRect()</a></td><td>Clears the specified pixels within a given rectangle</td></tr>
+</tbody></table>
+
+<h2>Paths</h2>
+<table>
+  <tbody><tr><th>Method</th><th>Description</th></tr>
+  <tr><td><a href="canvas_beginpath.asp">beginPath()</a></td><td>Begins a path, or resets the current path</td></tr>
+  <tr><td><a href="canvas_closepath.asp">closePath()</a></td><td>Creates a path from the current point back to the starting point</td></tr>
+  <tr><td><a href="canvas_moveto.asp">moveTo()</a></td><td>Moves the path to the specified point in the canvas, without creating a line</td></tr>
+  <tr><td><a href="canvas_lineto.asp">lineTo()</a></td><td>Adds a new point and creates a line to that point from the last specified point in the canvas</td></tr>
+  <tr><td><a href="canvas_fill.asp">fill()</a></td><td>Fills the current drawing (path)</td></tr>
+  <tr><td><a href="canvas_stroke.asp">stroke()</a></td><td>Actually draws the path you have defined</td></tr>
+  <tr><td><a href="canvas_arc.asp">arc()</a></td><td>圆或圆弧 arc(centerX, centerY, radius, startingAngle, endingAngle);</td></tr>
+  <tr><td><a href="canvas_arcto.asp">arcTo()</a></td><td>Creates an arc/curve between two tangents</td></tr>
+  <tr><td><a href="canvas_quadraticcurveto.asp">quadraticCurveTo()</a></td><td>Creates a quadratic Bézier curve</td></tr>
+  <tr><td><a href="canvas_beziercurveto.asp">bezierCurveTo()</a></td><td>Creates a cubic Bézier curve</td></tr>
+  <tr><td><a href="canvas_clip.asp">clip()</a></td><td>Clips a region of any shape and size from the original canvas</td></tr>
+  <tr><td><a href="canvas_ispointinpath.asp">isPointInPath()</a></td><td>Returns true if the specified point is in the current path, otherwise false</td></tr>
+</tbody></table>
+
+<h2>Transformations</h2>
+<table>
+  <tbody><tr><th>Method</th><th>Description</th></tr>
+  <tr><td><a href="canvas_translate.asp">translate()</a></td><td>Remaps the (0,0) position on the canvas</td></tr>
+  <tr><td><a href="canvas_scale.asp">scale()</a></td><td>Scales the current drawing bigger or smaller</td></tr>
+  <tr><td><a href="canvas_rotate.asp">rotate()</a></td><td>Rotates the current drawing</td></tr>
+  <tr><td><a href="canvas_transform.asp">transform()</a></td><td>Replaces the current transformation matrix for the drawing</td></tr>
+  <tr><td><a href="canvas_settransform.asp">setTransform()</a></td><td>Resets the current transform to the identity matrix. Then runs <a href="canvas_transform.asp">transform()</a></td></tr>
+</tbody></table>
+
+<h2>Text</h2>
+<table>
+  <tbody><tr><th>Property</th><th>Description</th></tr>
+  <tr><td><a href="canvas_font.asp">font</a></td><td>Sets or returns the current font properties for text content</td></tr>
+  <tr><td><a href="canvas_textalign.asp">textAlign</a></td><td>Sets or returns the current alignment for text content</td></tr>
+  <tr><td><a href="canvas_textbaseline.asp">textBaseline</a></td><td>Sets or returns the current text baseline used when drawing text</td></tr>
+</tbody></table>
+
+<table>
+   <tbody><tr><th>Method</th><th>Description</th></tr>
+  <tr><td><a href="canvas_filltext.asp">fillText()</a></td><td>Draws "filled" text on the canvas</td></tr>
+  <tr><td><a href="canvas_stroketext.asp">strokeText()</a></td><td>Draws text on the canvas (no fill)</td></tr>
+  <tr><td><a href="canvas_measuretext.asp">measureText()</a></td><td>Returns an object that contains the width of the specified text</td></tr>
+</tbody></table>
+
+<h2>Image Drawing</h2>
+<table>
+<tbody><tr><th>Method</th><th>Description</th></tr>
+  <tr><td><a href="canvas_drawimage.asp">drawImage()</a></td><td>Draws an image, canvas, or video onto the canvas</td></tr>
+</tbody></table>
+  
+<h2>Pixel Manipulation</h2>
+<table>
+  <tbody><tr><th>Property</th><th>Description</th></tr>
+    <tr><td><a href="canvas_imagedata_width.asp">width</a></td><td>Returns the width of an ImageData object</td></tr>
+	<tr><td><a href="canvas_imagedata_height.asp">height</a></td><td>Returns the height of an ImageData object</td></tr>
+	<tr><td><a href="canvas_imagedata_data.asp">data</a></td><td>Returns an object that contains image data of a specified ImageData 
+	object</td></tr>
+</tbody></table>
+
+<table>
+   <tbody><tr><th>Method</th><th>Description</th></tr>
+  <tr><td><a href="canvas_createimagedata.asp">createImageData()</a></td><td>Creates a new, blank ImageData object</td></tr>
+  <tr><td><a href="canvas_getimagedata.asp">getImageData()</a></td><td>Returns an ImageData object that copies the pixel data for the specified rectangle on a canvas</td></tr>
+  <tr><td><a href="canvas_putimagedata.asp">putImageData()</a></td><td>Puts the image data (from a specified ImageData object) back onto the canvas</td></tr>
+</tbody></table>
+  
+<h2>Compositing</h2>
+<table>
+  <tbody><tr><th>Property</th><th>Description</th></tr>
+  <tr><td><a href="canvas_globalalpha.asp">globalAlpha</a></td><td>Sets or returns the current alpha or transparency value of the drawing</td></tr>
+  <tr><td><a href="canvas_globalcompositeoperation.asp">globalCompositeOperation</a></td><td>Sets or returns how a new image are drawn onto an existing image</td></tr>
+</tbody></table>
+
+<h2>Other</h2>
+<table>
+  <tbody><tr><th>Method</th><th>Description</th></tr>
+  <tr><td>save()</td><td>Saves the state of the current context</td></tr>
+  <tr><td>restore()</td><td>Returns previously saved path state and attributes</td></tr>
+  <tr><td>getContext()</td><td><code>var ctx = canvas.getContext("2d");</code> 3d 的还没出来，就这一种用法。</td></tr>
+  <tr><td>toDataURL()</td><td>数据URL就是一个以 <code>data:image/png;base64</code> 之类开头的 base-64 编码的字符串</td></tr>
+</tbody></table>
+</div>
+
+<h1>HTML5 Canvas Cheat Sheet <a href="http://cheatsheetworld.com/programming/html5-canvas-cheat-sheet/">#</a></h1>
+
+<div class="dl">
+
+<h4>HTML5 Canvas Element</h4>
+<h5>Html5 canvas element</h5>
+<pre>&lt;canvas id="myCanvas" width="500" height="300"&gt;</pre>
+<h5>Html5 canvas element with fallback content</h5>
+<pre>&lt;canvas id="myCanvas" width="500" height="300"&gt; your browser doesn't support canvas!&lt;/canvas&gt;</pre>
+<h5>2d context</h5>
+<pre class="js">var context = canvas.getContext('2d');</pre>
+<h5>Webgl context (3d)</h5>
+<pre class="js">var context = canvas.getContext('webgl');</pre>
+
+<h4>Shapes</h4>
+<h5>Draw rectangle</h5>
+<pre class="js">context.rect(x, y, width, height);
+context.fill();
+context.stroke();</pre>
+<h5>Fill rectangle shorthand</h5>
+<pre class="js">context.fillRect(x, y, width, height);</pre>
+<h5>Stroke rectangle shorthand</h5>
+<pre class="js">context.strokeRect(x, y, width, height);</pre>
+<h5>Draw circle</h5>
+<pre class="js">context.arc(x, y, radius, 0, Math.PI * 2);
+context.fill();
+context.stroke();</pre>
+
+<h4>Styles</h4>
+<h5>Fill</h5>
+<pre class="js">context.fillStyle = 'red';
+context.fill();</pre>
+<h5>Stroke</h5>
+<pre class="js">context.strokeStyle = 'red';
+context.stroke();</pre>
+<h5>Linear gradient</h5>
+<pre class="js">var grd = context.createLinearGradient(x1, y1, x2, y2);
+grd.addColorStop(0, 'red');
+grd.addColorStop(1, 'blue');
+context.fillStyle = grd;
+context.fill();</pre>
+<h5>Radial gradient</h5>
+<pre class="js">var grd = context.createRadialGradient(x1, y1, radius1, x2, y2, radius2);
+grd.addColorStop(0, 'red');
+grd.addColorStop(1, 'blue');
+context.fillStyle = grd;
+context.fill();</pre>
+<h5>Pattern</h5>
+<pre class="js">var imageObj = new Image();
+imageObj.onload = function() {
+  var pattern = context.createPattern(imageObj, 'repeat');
+  context.fillStyle = pattern;
+  context.fill();
+};
+imageObj.src = 'path/to/my/image.jpg';</pre>
+<h5>Line Join</h5>
+<pre class="js">context.lineJoin = 'miter|round|bevel';</pre>
+<h5>Line Cap</h5>
+<pre class="js">context.lineCap = 'butt|round|square';</pre>
+<h5>Shadow</h5>
+<pre class="js">context.shadowColor = 'black';
+context.shadowBlur = 20;
+context.shadowOffsetX = 10;
+context.shadowOffsetY = 10;</pre>
+<h5>Alpha (Opacity)</h5>
+<pre class="js">context.globalAlpha = 0.5; // between 0 and 1</pre>
+
+<h4>Color Formats</h4>
+<h5>String</h5>
+<pre class="js">context.fillStyle = 'red';</pre>
+<h5>Hex Long</h5>
+<pre class="js">context.fillStyle = '#ff0000';</pre>
+<h5>Hex Short</h5>
+<pre class="js">context.fillStyle = '#f00';</pre>
+<h5>RGB</h5>
+<pre class="js">context.fillStyle = 'rgb(255,0,0)';</pre>
+<h5>RGBA</h5>
+<pre class="js">context.fillStyle = 'rgba(255,0,0,1)';</pre>
+
+<h4>Paths</h4>
+<h5>Begin Path</h5>
+<pre class="js">context.beginPath();</pre>
+<h5>Line</h5>
+<pre class="js">context.lineTo(x, y);</pre>
+<h5>Arc</h5>
+<pre class="js">context.arc(x, y, radius, startAngle, endAngle, counterClockwise);</pre>
+<h5>Quadratic curve</h5>
+<pre class="js">context.quadraticCurveTo(cx, cy, x, y);</pre>
+<h5>Bezier curve</h5>
+<pre class="js">context.bezierCurveTo(cx1, cy1, cx2, cy2, x, y);</pre>
+<h5>Close Path</h5>
+<pre class="js">context.closePath();</pre>
+
+<h4>Images</h4>
+<h5>Draw Image with default size</h5>
+<pre class="js">var imageObj = new Image();
+imageObj.onload = function() {
+  context.drawImage(imageObj, x, y);
+};
+imageObj.src = 'path/to/my/image.jpg';</pre>
+<h5>Draw image and set size</h5>
+<pre class="js">var imageObj = new Image();
+imageObj.onload = function() {
+  context.drawImage(imageObj, x, y, width, height);
+};
+imageObj.src = 'path/to/my/image.jpg';</pre>
+<h5>Crop image</h5>
+<pre class="js">var imageObj = new Image();
+imageObj.onload = function() {
+  context.drawImage(imageObj, sx, sy, sw, sh, dx, dy, dw, dh);
+};
+imageObj.src = 'path/to/my/image.jpg';</pre>
+
+<h4>Text</h4>
+<h5>Fill Text</h5>
+<pre class="js">context.font = '40px Arial';
+context.fillStyle = 'red';
+context.fillText('Hello World!', x, y);</pre>
+<h5>Stroke Text</h5>
+<pre class="js">context.font = '40pt Arial';
+context.strokeStyle = 'red';
+context.strokeText('Hello World!', x, y);</pre>
+<h5>Bold Text</h5>
+<pre class="js">context.font = 'bold 40px Arial';</pre>
+<h5>Italic Text</h5>
+<pre class="js">context.font = 'italic 40px Arial';</pre>
+<h5>Text Align</h5>
+<pre class="js">context.textAlign = 'start|end|left|center|right';</pre>
+<h5>Text Baseline</h5>
+<pre class="js">context.textBaseline = 'top|hanging|middle|alphabetic|ideographic|bottom';</pre>
+<h5>Get Text Width</h5>
+<pre class="js">var width = context.measureText('Hello world').width;</pre>
+
+<h4>Transforms</h4>
+<h5>Translate</h5>
+<pre class="js">context.translate(x, y);</pre>
+<h5>Scale</h5>
+<pre class="js">context.scale(x, y);</pre>
+<h5>Rotate</h5>
+<pre class="js">context.rotate(radians);</pre>
+<h5>Flip Horizontally</h5>
+<pre class="js">context.scale(-1, 1);</pre>
+<h5>Flip Vertically</h5>
+<pre class="js">context.scale(1, -1);</pre>
+<h5>Custom Transform</h5>
+<pre class="js">context.transform(a, b, c, d ,e, f);</pre>
+<h5>Set Transform</h5>
+<pre class="js">context.setTransform(a, b, c, d ,e, f);</pre>
+<h5>Shear</h5>
+<pre class="js">context.transform(1, sy, sx, 1, 0, 0);</pre>
+<h5>Reset</h5>
+<pre class="js">context.setTransform(1, 0, 0, 1, 0, 0);</pre>
+
+<h4>State Stack</h4>
+<h5>Push State onto Stack</h5>
+<pre class="js">context.save();</pre>
+<h5>Pop State off of Stack</h5>
+<pre class="js">context.restore();</pre>
+
+<h4>Clipping</h4>
+<h5>Clip</h5>
+<pre class="js">// draw path here
+context.clip();</pre>
+
+<h4>Image Data</h4>
+<h5>Get Image Data</h5>
+<pre class="js">var imageData = context.getImageData(x, y, width, height);
+var data = imageData.data;</pre>
+<h5>Loop Through Image Pixels</h5>
+<pre class="js">var imageData = context.getImageData(x, y, width, height);
+var data = imageData.data;
+var len = data.length;
+var i, red, green, blue, alpha;
+for(i = 0; i &lt; len; i += 4) {
+  red = data[i];
+  green = data[i + 1];
+  blue = data[i + 2];
+  alpha = data[i + 3];
+}</pre>
+<h5>Loop Through Image Pixels With Coordinates</h5>
+<pre class="js">var imageData = context.getImageData(x, y, width, height);
+var data = imageData.data;
+var x, y, red, green, blue, alpha;
+for(y = 0; y &lt; imageHeight; y++) {
+  for(x = 0; x &lt; imageWidth; x++) {
+    red = data[((imageWidth * y) + x) * 4];
+    green = data[((imageWidth * y) + x) * 4 + 1];
+    blue = data[((imageWidth * y) + x) * 4 + 2];
+    alpha = data[((imageWidth * y) + x) * 4 + 3];
+  }
+}</pre>
+<h5>Set Image Data</h5>
+<pre class="js">context.putImageData(imageData, x, y);</pre>
+
+<h4>Data URLs</h4>
+<h5>Get Data URL</h5>
+<pre class="js">var dataURL = canvas.toDataURL();</pre>
+<h5>Render Canvas with Data URL</h5>
+<pre class="js">var imageObj = new Image();
+imageObj.onload = function() {
+  context.drawImage(imageObj, 0, 0);
+};
+imageObj.src = dataURL;</pre>
+
+<h4>Composites</h4>
+<h5>Composite Operations</h5>
+<pre class="js">context.globalCompositeOperation = 'source-atop|source-in|source-out|source-over|destination-atop|destination-in|destination-out|destination-over|lighter|xor|copy';</pre>
+</div>
+
+</div>
+</body>
+</html>

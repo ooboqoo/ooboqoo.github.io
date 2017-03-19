@@ -1,3 +1,10 @@
+# 理解 RESTful 架构
+
+http://www.ruanyifeng.com/blog/2011/09/restful
+
+
+
+
 # RESTful Web 服务四种操作 POST/DELETE/PUT/GET
 
 来源：http://www.python88.com/topic/132/

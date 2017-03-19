@@ -5,7 +5,7 @@ https://zh.wikipedia.org/wiki/ASCII
 
 ## 按键说明
 
-![](/images/tools/vim-commands.jpg)
+![](/resource/images/tools/vim-commands.jpg)
 
 #### 移动光标的方法
 

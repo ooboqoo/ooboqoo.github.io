@@ -17,11 +17,32 @@ node.js 里所有的模块是独立的，不需要命名空间隔离。
 
 ## 调试
 
-通过添加 `--inspect` 选项以支持 chrome 调试，可以同时在 Chrome 界面完成前后端调试。
+https://nodejs.org/api/debugger.html
+
+NodeJS 开发监视用 nodemon 实际部署用 PM2：
 
 ```bash
+$ npm i -g nodemon
+$ tsc -w                 # 如果是 TypeScript 项目，则开启自动编译
+$ nodemon dist/app.js    # app.js 文件有更新会自动重启
+```
 
-$ node --inspect app.js
+通过添加 `--inspect` 选项以支持 chrome 调试，可以同时在 Chrome 界面完成前后端调试。
+
+Chrome 安装一个 NIM - Node Inspector Manager，可以自动检测 node 实例并开启调试窗口，很方便。
+
+```bash
+$ node --inspect app.js       # 
+$ node --inspect=9229 app.js  # 指定端口
+$ node --inspect-brk app.js   # 启动并立即暂停在首行
+```
+
+一个 TypeScript 项目的具体调试步骤：
+
+```bash
+$ tsc -w                                 # 开启自动编译
+$ nodemon -w dist --inspect dist/app.js  # 开启自动重启
+  # 到 Chrome 界面，NIM 会自动打开调试窗口开始调试
 ```
 
 ### node.js 的作用域系统

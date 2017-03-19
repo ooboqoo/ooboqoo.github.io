@@ -624,7 +624,7 @@ The second `yield` uses the result of the first `yield` and adds two, which mean
 
 It's a bit easier to think about what's happening by considering which code is executing each time execution continues inside the generator function. Figure 8-1 uses colors to show the code being executed before yielding.
 
-![Figure 8-1: Code execution inside a generator](images/fg0601.png)
+![Figure 8-1: Code execution inside a generator](resource/images/fg0601.png)
 
 The color yellow represents the first call to `next()` and all the code executed inside of the generator as a result. The color aqua represents the call to `next(4)` and the code that is executed with that call. The color purple represents the call to `next(5)` and the code that is executed as a result. The tricky part is how the code on the right side of each expression executes and stops before the left side is executed. This makes debugging complicated generators a bit more involved than debugging regular functions.
 
@@ -650,7 +650,7 @@ console.log(iterator.throw(new Error("Boom"))); // error thrown from generator
 
 In this example, the first two `yield` expressions are evaluated as normal, but when `throw()` is called, an error is thrown before `let second` is evaluated. This effectively halts code execution similar to directly throwing an error. The only difference is the location in which the error is thrown. Figure 8-2 shows which code is executed at each step.
 
-![Figure 8-2: Throwing an error inside a generator](images/fg0602.png)
+![Figure 8-2: Throwing an error inside a generator](resource/images/fg0602.png)
 
 In this figure, the color red represents the code executed when `throw()` is called, and the red star shows approximately when the error is thrown inside the generator. The first two `yield` statements are executed, and when `throw()` is called, an error is thrown before any other code executes.
 

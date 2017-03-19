@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/resource/lib/html-main.css" />
+<script src="/resource/lib/html-main.js"></script>
+<script src="/resource/lib/html-highlight.js"></script>
+<title>注意点</title>
+</head>
+<body>
+<div id="article">
+
+<h1>JavaScript 注意点</h1>
+
+<div>
+<h3>onload 事件</h3>
+<p>网页加载完毕时会触发一个onload事件，这个事件与windows对象关联。P83</p>
+<p>亲测 document.onload=functionName 无效(后发现直接用 onload=functionName 就能用，有点搞不懂，那为什么要 document.write()呢，估计一个是事件，一个是方法)，而window.onload=functionName 有效，貌似与手册不符。</p>
+
+<h3>window.onload vs $(document).ready()</h3>
+<p>The <code>ready</code> event occurs after the HTML document has been loaded, while the <code>onload</code> event occurs later, when all content (e.g. images) also has been loaded.</p>
+<p><code>window.onload</code> is the built-in JavaScript event.</p>
+<p><code>$(document).ready</code> (note that it's not document.ready, which is undefined) is a jQuery function, wrapping and providing consistency to the following events:
+document.ondomcontentready / document.ondomcontentloaded<br />
+<a href="http://stackoverflow.com/questions/3698200/window-onload-vs-document-ready">from: stackoverflow</a></p>
+
+<h3>for/in 循环</h3>
+<p>下例中的 x 跟PHP中的效果完全不一样，x 只代表了下标而非一个成员</p>
+<pre>for (x <code>in</code> person) { document.write( <code>person[x]</code>) }</pre>
+
+<h3>in 关键字的另外一种用法</h3>
+<pre class='js'>
+var btn ={A:12,B:"ask"};
+console.log('A' <code>in</code> btn);  // 输出 true
+</pre>
+
+<h3>prototype</h3>
+<p>一篇关于原型的文章，没完全看懂 http://www.cnblogs.com/yjf512/archive/2011/06/03/2071914.html</p>
+<pre class='js'>
+function People(name){
+this.name=name;
+//对象方法
+this.Introduce=function(){
+  document.write ("My name is "+this.name);
+}
+}
+//类方法
+People.Run=function(){
+  document.write("I can run");
+}
+//原型方法
+People.prototype.IntroduceChinese=function(){
+  document.write ("我的名字是"+this.name);
+}
+//测试
+var p1=new People("Windking");
+p1.Introduce();
+People.Run();
+p1.IntroduceChinese(); 
+</pre>
+
+<h3>jQuery</h3>
+<pre class='js'>$("#ptext").innerText;  // 这句无效，但是phpStorm也没有报错
+document.getElementById("ptext").innerText;  // 这句有效
+</pre>
+<p>上面这句怎么都不来，然后百度，呵呵，原来不能这样混着用的，jQuery 用的是 $("#ptext").html()</p>
+
+<h3>函数内部的变量</h3>
+<pre class='js'>
+for(i=1;i<3;i++);
+document.write(i);  // 输出 3，说明for语句用到的 i 已经自动生成了一个全局变量
+</pre>
+
+<h3>write() 与 wirteln()</h3>
+<pre>document.writeln(exp1,exp2,exp3,....)</pre>
+<p>writeln() 方法与 write() 方法作用相同，外加写一个换行符。在编写 pre 标记的内容时，该方法很有用。</p>
+
+<h3>shim和polyfill有什么区别</h3>
+<p>在JavaScript的世界里,有两个词经常被提到,shim和polyfill.它们指的都是什么,又有什么区别?
+一个shim是一个库,它将一个新的API引入到一个旧的环境中,而且仅靠旧环境中已有的手段实现
+一个polyfill就是一个用在浏览器API上的shim.我们通常的做法是先检查当前浏览器是否支持某个API,如果不支持的话就加载对应的polyfill.然后新旧浏览器就都可以使用这个API了.术语polyfill来自于一个家装产品Polyfilla:
+
+Polyester filler 聚酯纤维填充物
+
+Polyfilla是一个英国产品,在美国称之为Spackling Paste(译者注:刮墙的,在中国称为腻子).记住这一点就行:把旧的浏览器想象成为一面有了裂缝的墙.这些[polyfills]会帮助我们把这面墙的裂缝抹平,还我们一个更好的光滑的墙壁(浏览器)
+Paul Irish发布过一个Polyfills的总结页面“HTML5 Cross Browser Polyfills”.es5-shim是一个shim(而不是polyfill)的例子,它在ECMAScript 3的引擎上实现了ECMAScript 5的新特性,而且在Node.js上和在浏览器上有完全相同的表现(译者注:因为它能在Node.js上使用,不光浏览器上,所以它不是polyfill).
+</p>
+<h3>理解 DOM 查询结果集合</h3>
+<pre>
+&lt;div id="div1"&gt;div1&lt;/div&gt;
+&lt;div id="div2"&gt;div2&lt;/div&gt;
+&lt;div id="div3"&gt;div3&lt;/div&gt;
+&lt;div id="div4"&gt;div4&lt;/div&gt;
+&lt;script&gt;
+var divs = document.getElementsByTagName("div");
+for (var i=0;i&lt;divs.length;i++){
+  if(divs[i].id=="div3") divs[i].appendChild(document.createElement("div"));
+  console.log(divs[i],divs.length);
+}
+&lt;/script&gt;
+输出结果为：
+div#div1 4
+div#div2 4
+div#div3 5
+div 5
+div#div4 5
+也就是说，结果集合是实时更新的，想必对资源的消耗也是很厉害；
+结果集合不是数组，也不能使用数组方法；
+</pre>
+
+<h3><a href="/questions/1740700/how-to-get-hex-color-value-rather-than-rgb-value" class="question-hyperlink">How to get hex color value rather than RGB value?</a></h3>
+<pre>
+function rgb2hex(rgb) {
+  if (/^#[0-9A-F]{6}$/i.test(rgb)) return rgb;  // lt IE8 默认返回十六进制值
+  rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+  function hex(x) { return ("0" + parseInt(x).toString(16)).slice(-2);}
+  return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+</pre>
+
+<h3><a href="/questions/447197/how-to-define-multiple-css-attributes-in-jquery" class="question-hyperlink">How to define multiple CSS attributes in JQuery?</a></h3>
+
+</div>
+
+
+
+
+</div>
+</body>
+</html>
