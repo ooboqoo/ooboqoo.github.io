@@ -127,3 +127,43 @@ function co(gen) {
 co(gen);
 ```
 
+
+### JavaScript支持的最大递归调用次数分析  
+
+https://www.teakki.com/p/57dfb872d3a7507f975ec73c
+
+你对JavaScript引擎能进行多少次递归调用好奇吗？
+
+多少次递归调用
+
+下面的函数可以让你找到答案： （灵感来自Ben Alman的 gist）
+
+```js
+function computeMaxCallStackSize() {
+    try {
+        return 1 + computeMaxCallStackSize();
+    } catch (e) {
+        // Call stack overflow
+        return 1;
+    }
+}
+```
+
+三个结果：
+
+Node.js: 11034
+Firefox: 50994
+Chrome: 10402
+
+这些数字代表什么？Aleph先生指出，在V8中，递归调用的数量取决于两个量：堆栈的大小和堆栈帧（保存参数的局部变量）的大小。你可以通过在  computeMaxCallStackSize() 添加局部变量进行验证 － 它会返回低位值。
+
+在ECMAScript 6中的尾部调用（Tail call）优化
+
+ES6 有尾部调用优化 ：如果一个函数中的最后一步也是一个函数调用，它会被“跳”过，而不是通过子函数调用。这就意味着在ES6（严格模式）下，你只要稍微改一下computeMaxCallStackSize函数，它就可以永远执行下去。
+
+```js
+function computeMaxCallStackSize(size) {
+    size = size || 1;
+    return computeMaxCallStackSize(size + 1);
+}
+```
