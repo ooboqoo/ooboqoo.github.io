@@ -68,10 +68,13 @@ https://example.org/api/   如果确定 API 很简单，才考虑放在主域名
 
 ### 版本
 
-应该将 API 的版本号放入 URL。
+URI vs Request Parameter vs Media Type   
+在 RESTful API 领域，关于如何做版本控制，目前业界比较主流的有 3 种做法：
 
 ```text
-https://api.example.com/v1/
+https://api.example.com/v1/foo                  直观，但版本号与资源之间并无直接关系
+https://api.example.com/foo?ver=1               上一方案的变体，相对折中的方案
+Accept: vnd.example-com.foo+json; version=1.0   把不同版本理解成资源的不同表现形式，缺点是不直观
 ```
 
 ### 路径
