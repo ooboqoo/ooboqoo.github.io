@@ -89,9 +89,8 @@ function * gen() {
 
 // co 的简化版本
 function co(gen) {
-  var ctx = this;
   return new Promise(function(resolve, reject) {
-    gen = gen.apply(ctx);
+    gen = gen.apply(this);
     if (!gen || typeof gen.next !== 'function') return resolve(gen);
 
     onFulfilled();

@@ -4,7 +4,7 @@ https://github.com/electron/electron
 https://electron.atom.io/   
 
 ```bash
-$ set ELECTRON_MIRROR="http://npm.taobao.org/mirrors/electron/"  # 配置淘宝镜像，linux 下用 export 命令
+$ set ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/  # 配置淘宝镜像，linux 下用 export 命令
 $ npm install electron -g
 ```
 
