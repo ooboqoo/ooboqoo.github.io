@@ -71,6 +71,45 @@ Apart from packaging your app manually, you can also choose to use third party p
 * [electron-builder](https://github.com/electron-userland/electron-builder)
 * [electron-packager](https://github.com/electron-userland/electron-packager)
 
+electron-packager 的配置实例：
+
+```js
+// package.json
+  "scripts": {
+    "pack-win": "node electron-packager.js"
+  },
+```
+
+```js
+// electron-packager.js
+const packager = require('electron-packager');
+
+const options = {
+  dir: './resources/app',
+  name: 'QX_Robot_Studio',
+  overwrite: true,
+  platform: 'win32',
+  arch: 'ia32',
+  icon: './src/assets/icon/app.ico',
+  out: './out',
+  appCopyright: 'Copyright(c)2017, QiXing Group. All rights reserved.',
+  win32metadata: {
+    CompanyName: 'QiXing Group',
+    FileDescription: 'QX_Robot_Studio',
+    OriginalFilename: 'QX_Robot_Studio.exe',
+    ProductName: 'QX_Robot_Studio'
+  }
+};
+
+packager(options, function done_callback (err, appPaths) {
+  if (err) {
+    console.log(err.toString());
+  } else {
+    console.log('\x1b[32m%s\x1b[92m%s\x1b[0m', 'Successfully packaging app to ', appPaths.toString());
+  }
+});
+```
+
 ### Rebranding by Rebuilding Electron from Source
 
 It is also possible to rebrand Electron by changing the product name and building it from source. To do this you need to modify the `atom.gyp` file and have a clean rebuild.

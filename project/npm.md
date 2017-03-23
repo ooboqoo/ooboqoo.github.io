@@ -5,6 +5,7 @@
 ```bash
 $ npm install npm -g  # 更新 npm 自身
 $ npm -v              # 查看 npm 版本
+$ npm root -g         # 查看全局 node_modules 文件夹位置
 
 $ npm list --depth=0        # 列出安装的软件包
 $ npm outdated              # 列出过时的包

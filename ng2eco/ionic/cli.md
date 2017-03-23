@@ -41,6 +41,8 @@ $ ionic platform add android@5.0.0
   # --nosave|-e  Do not save the platform to the package.json file
 ```
 
+清理目录后这步容易报错，请确保操作目录至少存在 `www` 和 `config.xml`
+
 ### run
 
 Run an Ionic project on a connected device
