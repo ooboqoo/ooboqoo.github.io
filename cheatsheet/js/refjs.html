@@ -106,7 +106,7 @@ h5 > a{text-decoration:none;}
 <h5 class="es3">Array.prototype <span>-- 可以通过该属性给 Array类型 添加公共属性</span></h5>
 <h5 class="es5">Array.isArray() <span>-- 确定某个值是不是数组</span></h5>
 <h5 class="es6">Array.from(arrayLike[, mapFn[, thisArg]]) <span>-- 根据 arrayLike 创建一个数组</span></h5>
-<h5 class="es6">Array.of(element0[, element1[, ...[, elementN]]]) <span>-- 创建一个新数组 - 用于替代 Array()</span></h5>
+<h5 class="es6">Array.of(element0[, e1[, ...[, eN]]]) <span>-- 创建一个新数组 - 用于替代 Array()</span></h5>
 </div>
 <div class="dl">
 <h5 class="es3">Array.prototype.constructor <span>-- 返回创建此数组的函数的引用</span></h5>
@@ -553,16 +553,17 @@ var obj = new Proxy({}, {
 //设置到 developer.mozilla.org 的查询链接
 (function(){
   var list = document.getElementsByTagName("h5"),
-      listHTML, atext, alink, reg=/^[a-zA-Z.]+/g;
-  for (var i = 0; i < list.length; i++){
+      reg=/^[a-zA-Z.]+/g,
+      listHTML, atext, alink,
+      prefix = 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/';
+  for (var i = 0, length = list.length; i < length; i++){
     reg.lastIndex = 0;
     listHTML = list[i].innerHTML;
     atext = reg.exec(listHTML);
     if (atext === null) { continue; }
     atext = atext[0];
     alink = atext.replace(/\.prototype/,'').replace(/\./,'/');
-    list[i].innerHTML = '<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/' +
-        alink + '">' + atext + '</a>' + listHTML.substr(reg.lastIndex);
+    list[i].innerHTML = '<a href="' + prefix + alink + '">' + atext + '</a>' + listHTML.substr(reg.lastIndex);
   }
 })();
 </script>

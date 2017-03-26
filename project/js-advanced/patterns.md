@@ -58,32 +58,29 @@ function func() {
 }
 ```
 
-实际上 ES 标准中并有没 "提升" 这一说法，实际涉及到执行链和变量查找，只是用 "提升" 来表述比较简洁。
+实际上 ES 标准中并没有 "提升" 这一说法，实际涉及到执行链和变量查找，只是用 "提升" 来表述比较简洁。
 
 ### for 循环
 
 ```js
 for (var i = 0; i < myarray.length; i++) { }                   // 改进前
 for (var i = 0, length = myarray.length; i < length; i++) { }  // 改进后
-
+for (var i = myarray.length; i--;) { }                         // 更进一步(细微优化)，最小变量 + 减轻计算
+  // 注：for 结构的 3个语句都是可选的，但 2个 `;` 不可省略
 ```
 
-这种模式的问题在于每次循环都要访问数据的长度，这样会时代码变慢，特别，当 myarray 不是数组而是 DOM 集合时。
+这种模式的问题在于每次循环都要访问数组的长度，这样会使代码变慢，特别，当 myarray 不是数组而是 DOM 集合时(每次都要实时去查询一遍 DOM 树，而这是极其耗费性能的)。
 
 改进后需要注意的是，当 for 循环内部会改变 `length` 数值的话，需要在循环内部更新 `length` 的值。 
 
-```js
-// 再进一步改进 (注：for 结构的 3个语句都是可选的，但 2个 ; 不可省略)
-for (var i = array.length; i--;) { }  // 最少变量且运算量也减小了
-```
 
 ### for-in 循环
 
-for-in 循环也被称为 枚举，用来遍历非数组对象。
+for-in 循环也被称为 "枚举"，用来遍历非数组对象。
 
 当然 for-in 也适用于数组，但是不推荐用于数组，ES5 中专门提供了 `forEach()` 方法。
 
-`hasOwnProperty()` 方法用于过滤原型链上的属性。ES5 中提供的 `keys()` 方法用于获取对象的自由可遍历属性名称。
+`hasOwnProperty()` 方法用于过滤原型链上的属性。ES5 中提供的 `keys()` 方法用于获取对象的自有可遍历属性名称。
 
 
 ### 不要修改内置对象原型
@@ -93,14 +90,97 @@ for-in 循环也被称为 枚举，用来遍历非数组对象。
 
 ## 字面量和构造函数
 
+避免使用构造函数，因为字面量更为直观，更少字符录入，还有就是没有作用域解析(如 `new Object()` 时需要逐层向上查找 `Object` 函数)。
+
+ Built-in constructors (avoid)   | Literals and primitives (prefer)
+ ------------------------------- | ---------------------------------
+ `var o = new Object();`         | `var o = {};`
+ `var a = new Array();`          | `var a = [];`
+ `var r = new RegExp('\\w','g')` | `var r = /\w/g;`
+ `var s = new String('str')`     | `var s = 'str';`
+ `var n = new Number();`         | `var n = 0;`
+ `var b = new Boolean();`        | `var b = false;`
+ `throw new Error('oops')`       | <s>`throw {name: 'Error', message: 'oops'}`</s>
+
+### 对象字面量
+
+对象中以逗号分隔属性和方法，在最后一个键值对后添加逗号是允许的，但老的 IE 会出错，后来 ES 标准明确允许添加逗号。
+
+当给变量赋值时，不要忘记右大括号后的分号。
+
+不使用 `new Object()` 的另外一个理由是，将数字、字符串、布尔值传递到构造函数中，结果获得了不同类型的对象：
+
+```js
+new Object().constructor === Object;
+new Object(1).constructor === Number;
+new Object('').constructor === String;
+new Object(true).constructor === Boolean;
+```
+
+当使用构造函数时，必须确保强制使用 `new` 操作符。在 ES3 中，如果忘记使用 `new` 则，构造函数内的 `this` 会指向全局的 `window`。在 ES5 中采取了一些措施来规避此问题，严格模式下，`this` 不会指向全局对象。
+
+### 数组字面量
+
+避开 `new Array()` 的另外一个理由是用于避免构造函数中可能产生的陷阱：
+
+```js
+let a = new Array(3);    // 生成 [undefined, undefined, undefined] 而不是 [3]
+let b = new Array(3.14); // 报错 RangeError: Invalid array length
+```
+
+有时利用 `Array()` 构造函数也有一些灵巧的用法，比如重复字符串：
+
+```js
+let str = new Array(256).join(' ');  // 创建一个 255 个空白字符的字符串
+```
+
+使用 `instanceof Array` 来检查是否是数组，但在某些老版本 IE 中工作不正常，ES5 增加了 `Array.isArray()` 来判定是否数组。
 
 
+### JSON
 
+JSON 并没有任何新的知识，它只是一个数组和对象字面量表示方法的组合。
 
+JSON 和对象字面量之间的语法差异在于，JSON 中属性名称需要包裹在引号内，另外 JSON 中最后一条键值对之后也不能带 `,`，还有就是，不支持注释。
 
+在 JSON 字符串中，不能使用函数或正则表达式字面量。
 
+### 正则表达式字面量
 
+```js
+// 创建一个匹配反斜杠的正则，字面量的写法更加简洁
+var re = /\\/gm;
+var re = new RegExp('\\\\', 'gm');
+```
 
+使用 `new RegExp()` 的原因之一在于，某些场景中无法实现确定模式，只能在运行时求值。
+
+调用 `RegExp()` 带或者不带 `new` 的效果是一样的。
+
+### 基本类型包装器
+
+JS 中的五个基本值类型。除了 null 和 undefined 以外，其他三个都具有基本包装对象。
+
+```js
+var primitiveStr = 'str';
+    objectiveStr = new String('str');
+typeof primitiveStr;  // string
+typeof objectiveStr;  // object
+```
+
+这3个类型的基本值，也能够调用对应对象的方法，因为在处理瞬间会被临时转换成对应对象。所以一般情况下没有必要使用对象。通常使用包装对象的原因之一是，您有扩充值以及持久保存状态的需要。
+
+```js
+var greet = 'Hello there';
+greet.smile = true;
+greet.simile;  // undefined
+```
+
+### 错误对象
+
+JS 中有一些内置错误构造函数，如 `Error()` `SyntaxError` `TypeError` 等，他们的实例都具有 `name` `message` 这两个属性。
+
+`throw` 用于抛出这些错误对象，当然，也可以抛出任何其他对象，通过 `catch` 语句来捕获这些对象。
 
 
 
