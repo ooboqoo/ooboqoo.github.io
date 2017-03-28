@@ -20,9 +20,8 @@ h2 { text-align: center; }
 构造函数定义的属性，初始化时会在每个实例中产生一份副本，每个实例都使用其自有的属性；  
 原型中的属性和方法，可以通过实例查找原型链读取到（读取而非复制）。
 
-关于浏览器兼容：ES5 的很多方法和属性 IE8 都不支持
 
-## Object 对象
+## Object
 
 <div class="dl">
   <h5 class="es6">object.\_\_proto\_\_ <span>-- 对象实例的属性，指向其原型对象</span></h5>
@@ -62,7 +61,28 @@ h2 { text-align: center; }
   <h5 class="es5">Object.isExtensible() <span>-- 确认是否可扩展（即是否能够添加属性）</span></h5>
 </div>
 
-## Array 对象
+
+## Function
+
+<div class="dl">
+<h5 class="es3">arguments <span>-- 一个 Array-like 类数组对象，保存了调用函数时的参数信息，仅在函数内部有效</span></h5>
+<h5 class="es3">arguments.length <span>-- 调用函数时实际传入的参数个数。而 Function.length 为函数定义时的形参个数</span></h5>
+<h5 class="es3">arguments.callee <span>-- 指向当前函数，严格模式下被禁用，有缺陷，但似乎又没办法完全弃用</span></h5>
+</div>
+<div class="dl">
+<h5 class="es3">function.length <span>-- 获取函数的形参个数</span></h5>
+<h5 class="es6">function.name <span>-- 获取函数的名称</span></h5>
+<h5 class="es">function.caller <span>-- 保存着对调用当前函数的函数的引用，用于替代被废弃的 arguments.caller</span></h5>
+</div>
+<div class="dl">
+<h5 class="es3">function.apply(thisArg, argsArray?) <span>-- 设定 this 值后执行，参数以数组形式传入</span></h5>
+<h5 class="es3">function.call(thisArg, arg1, arg2, ...) <span>-- 设定 this 值后执行，参数以列表形式传入</span></h5>
+<h5 class="es5">function.bind(thisArg, arg1?, ...) <span>-- 创建一个新函数(绑定函数)，原函数 this 被替换，还可预先设置部分参数</span></h5>
+<h5 class="es3">function.toString() <span>-- 获取函数源码的字符串，重写</span></h5>
+</div>
+
+
+## Array
 
 数组是类似列表的对象，在原型中提供了一些遍历以及改变其中对象的方法。
 
@@ -99,9 +119,9 @@ h2 { text-align: center; }
 <h5 class="es3">array.join(separator?) <span>-- 根据提供的分隔符字符串，返回包含所有数组项的字符串</span></h5>
 <h5 class="es3">array.toString() <span>-- 返回一个由所有数组元素组合而成的字符串，重写</span></h5>
 <h5 class="es">array.toLocaleString() <span>-- 返回一个由所有数组元素组合而成的本地化后的字符串，重写</span></h5>
-<h5 class="es6">array.entries() <span>-- returns a new Array Iterator object</span></h5>
 <h5 class="es6">array.keys() <span>-- returns a new Array Iterator object</span></h5>
 <h5 class="es6">array.values() <span>-- returns a new Array Iterator object</span></h5>
+<h5 class="es6">array.entries() <span>-- returns a new Array Iterator object</span></h5>
 
 <h4>Iteration methods -- 遍历方法，<small>为了可读性和可维护性，不要在遍历过程中对原数组进行修改</small></h4>
 <h5 class="es5">array.forEach((current, index, array) => { }, thisArg?) <span>-- 对数组中的每一项运行给定函数，没有返回值</span></h5>
@@ -123,53 +143,186 @@ ES6提供了新的数据结构Set。它类似于数组，但是成员的值都�
   <h5>set.delete(value) <span>-- 删除某个值，返回一个布尔值，表示删除是否成功</span></h5>
   <h5>set.has(value) <span>-- 返回一个布尔值，表示该值是否为Set的成员</span></h5>
   <h5>set.clear() <span>-- 清除所有成员，没有返回值</span></h5>
-
-  <h4>遍历方法 -- Set的遍历顺序就是插入顺序</h4>
-  <h5>set.values() <span>-- 返回键值的遍历器</span></h5>
+</div>
+<div class="dl">
   <h5>set.keys() <span>-- 返回键值的遍历器，可以看做是 values() 的别名</span></h5>
+  <h5>set.values() <span>-- 返回键值的遍历器</span></h5>
   <h5>set.entries() <span>-- 返回键值对的遍历器，实际为 [value, value]</span></h5>
   <h5>set.forEach() <span>-- 使用回调函数遍历每个成员</span></h5>
 </div>
 
-<div>
-<h3>WeakSet</h3>
-<p>WeakSet结构与Set类似，但它与Set有两个区别：首先，WeakSet的成员只能是对象，而不能是其他类型的值。其次，WeakSet中的对象都是弱引用，即垃圾回收机制不考虑WeakSet对该对象的引用，这也意味着WeakSet不可遍历。</p>
-</div>
+## <span class="es6">WeakSet</span>
+
+WeakSet 结构与 Set 类似，但它与 Set 有两个区别：首先，WeakSet 的成员只能是对象，而不能是其他类型的值。其次，WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用，这也意味着 WeakSet 不可遍历。
+
 <div class="dl">
-  <h5>weakset.add(value) <span>-- 向WeakSet实例添加一个新成员</span></h5>
-  <h5>weakset.delete(value) <span>-- 清除WeakSet实例的指定成员</span></h5>
-  <h5>weakset.has(value) <span>-- 返回一个布尔值，表示某个值是否在WeakSet实例之中</span></h5>
+  <h5>weakSet.add(value) <span>-- 向WeakSet实例添加一个新成员</span></h5>
+  <h5>weakSet.delete(value) <span>-- 清除WeakSet实例的指定成员</span></h5>
+  <h5>weakSet.has(value) <span>-- 返回一个布尔值，表示某个值是否在WeakSet实例之中</span></h5>
 </div>
 
 ## <span class="es6">Map</span>
 
-Object结构提供了“字符串—值”的对应，Map结构提供了“值—值”的对应，是一种更完善的Hash结构实现。
+Object 结构提供了 "字符串—值" 的对应，Map 结构提供了 "值—值" 的对应，是一种更完善的 Hash 结构实现。
 
 <div class="dl">
-  <h5>map.size <span>-- 返回Map结构的成员总数</span></h5>
-  <h5>map.delete(key) <span>-- 删除某个键，成功返回true，失败返回false</span></h5>
+  <h5>map.size <span>-- 返回 Map 结构的成员总数</span></h5>
+  <h5>map.get(key) <span>-- 读取 key 对应的值</span></h5>
+  <h5>map.set(key, value) <span>-- 设置 key 所对应的键值，然后返回整个 Map 结构</span></h5>
+  <h5>map.delete(key) <span>-- 删除某个键，成功返回 true，失败返回 false</span></h5>
   <h5>map.clear() <span>-- 清除所有成员，没有返回值</span></h5>
-  <h5>map.get(key) <span>-- 读取key对应的键值</span></h5>
-  <h5>map.set(key, value) <span>-- 设置key所对应的键值，然后返回整个Map结构</span></h5>
-  <h5>map.has(key) <span>-- 返回一个布尔值，表示某个键是否在Map数据结构中</span></h5>
-
-  <h4>遍历方法 -- Map的遍历顺序就是插入顺序</h4>
+  <h5>map.has(key) <span>-- 返回一个布尔值，表示某个键是否在 Map 数据结构中</span></h5>
+</div>
+<div class="dl">
   <h5>map.keys() <span>-- 返回键名的遍历器</span></h5>
   <h5>map.values() <span>-- 返回键值的遍历器</span></h5>
   <h5>map.entries() <span>-- 返回所有成员的遍历器</span></h5>
-  <h5>map.forEach(callbackFn[, thisArg]) <span>-- 遍历Map的所有成员</span></h5>
+  <h5>map.forEach(callbackFn[, thisArg]) <span>-- 遍历 Map 的所有成员</span></h5>
 </div>
 
-<div>
-<h3>WeakMap</h3>
-<p>WeakMap结构与Map结构基本类似，唯一的区别是它只接受对象作为键名（null除外），不接受其他类型的值作为键名，而且键名所指向的对象，不计入垃圾回收机制。</p>
-<p>典型应用是，一个对应DOM元素的WeakMap结构，当某个DOM元素被清除，其所对应的WeakMap记录就会自动被移除。WeakMap结构有助于防止内存泄漏。</p>
-<p>WeakMap没有遍历操作，也没有size属性；无法清空。WeakMap只有四个方法可用：get()、set()、has()、delete()。</p>
+
+## <span class="es6">WeakMap</span>
+
+WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象作为键名(null除外)，不接受其他类型的值作为键名，而且键名所指向的对象，不计入垃圾回收机制。WeakMap 没有遍历操作，也没有 size 属性；无法清空。
+
+<div class="dl">
+  <h5>weakMap.get(key) <span>-- 返回 key 对应的值，如果不存在则返回 undefined</span></h5>
+  <h5>weakMap.set(key, value) <span>-- 设置 key 所对应的键值，然后返回整个 WeakMap 结构</span></h5>
+  <h5>weakMap.delete(key) <span>-- 清除 WeakMap 中 key 对应的键值</span></h5>
+  <h5>weakMap.has(key) <span>-- 返回一个布尔值，表示 WeakMap 对象中是否有保存 key 对应的值</span></h5>
 </div>
 
-## Date 对象
 
-[MSDN：日期和时间字符串 (JavaScript)]("https://msdn.microsoft.com/library/ff743760(v=vs.94).aspx#ISO")
+## Boolean
+
+<div class="dl">
+<h5 class="es3">boolean.toString() <span>-- 把逻辑值转换为字符串</span></h5>
+<h5 class="es3">boolean.valueOf() <span>-- 返回 Boolean 对象的原始值</span></h5>
+</div>
+
+## Number
+
+<div class="dl">
+<h5 class="es3">Number.MAX_VALUE</h5>
+<h5 class="es3">Number.MIN_VALUE</h5>
+<h5 class="es3">Number.NaN</h5>
+<h5 class="es3">Number.NEGATIVE_INFINITY</h5>
+<h5 class="es3">Number.POSITIVE_INFINITY</h5>
+<h5 class="es6">Number.EPSILON <span>-- 极小的常量，实质是一个可以接受的误差范围</span></h5>
+<h5 class="es6">Number.MAX_SAFE_INTEGER <span>-- Number.MAX_SAFE_INTEGER === Math.pow(2, 53) - 1 // true</span></h5>
+<h5 class="es6">Number.MIN_SAFE_INTEGER <span>-- -2^53 +1</span></h5>
+</div>
+<div class="dl">
+<h5 class="es6">Number.isNaN(value) <span>-- 与全局 isNaN() 不同的是，对非数值不会先调用 Number() 进行转换，直接返回 false</span></h5>
+<h5 class="es6">Number.isFinite(value) <span>-- 检查数值是否非无穷，与全局 isFinite() 不同的是，对非数值直接返回 false</span></h5>
+<h5 class="es6">Number.isInteger(value) <span>-- 判断一个值是否为整数，注意 `3.0` 也被认为是整数，因为整数和浮点数用的同样的储存方法</span></h5>
+<h5 class="es6">Number.parseInt(string, radix?) <span>-- Number.parseInt === parseInt; // true</span></h5>
+<h5 class="es6">Number.parseFloat(string) <span>-- Number.parseFloat === parseFloat; // true</span></h5>
+<h5 class="es6">Number.isSafeInteger() <span>-- JS能准确表示的整数范围在 -2^53 到 2^53 之间(不含两个端点)</span></h5>
+</div>
+<div class="dl">
+<h5 class="es3">number.toExponential(fractionDigits?) <span>-- 把对象的值转换为指数计数法，小数点保留(0-20 含)位</span></h5>
+<h5 class="es3">number.toFixed(digits?) <span>-- 把数字转换为字符串，结果的小数点后有指定位数的数字</span></h5>
+<h5 class="es3">number.toPrecision() <span>-- 把数字格式化为指定的长度</span></h5>
+<h5 class="es3">number.toString(radix?) <span>-- 把数字转换为字符串，使用指定的基数(2-36 含)</span></h5>
+<h5 class="es3">number.toLocaleString() <span>-- 把数字转换为字符串，使用本地数字格式顺序</span></h5>
+<h5 class="es3">number.valueOf() <span>-- 返回一个 Number 对象的基本数字值</span></h5>
+</div>
+
+
+## String
+
+<div class="dl">
+<h5 class="es3">string.length <span>-- 返回字符串的长度</span></h5>
+</div>
+<div class="dl">
+<h5 class="es3">string.concat(string2, ...) <span>-- 将字符串与一个或多个字符串拼接，返回拼接后的新字符串</span></h5>
+<h5 class="es3">string.slice(beginIndex, endIndex?) <span>-- 摘取一个字符串区域，并返回此子字符串。不含 endIndex 位置的字符</span></h5>
+<h5 class="es3">string.substr(start, length?) <span>-- 从指定位置摘取指定长度的子字符串</span></h5>
+<h5 class="es3">string.substring(index1, index2?) <span>-- 返回指定的两个下标之间的子字符串。不含 index2 位置的字符</span></h5>
+</div>
+<div class="dl">
+<h5 class="es3">string.match(regexp) <span>-- 使用正则表达式对象匹配字符串并返回数组，无匹配为 null</span></h5>
+<h5 class="es3">string.replace(regexp|substr, newSubstr|function) <span>-- 返回替换后的新字符串，注意，原字符串不会变</span></h5>
+<h5 class="es3">string.search(regexp) <span>-- 返回索引位置，找不到为 -1</span></h5>
+<h5 class="es3">string.split(separator?, limit?) <span>-- 返回数组</span></h5>
+</div>
+<div class="dl">
+<h5 class="es3">string.indexOf(searchValue, fromIndex?) <span>-- 返回指定字符在字符串中首次出现的位置, 找不到为 -1</span></h5>
+<h5 class="es3">string.lastIndexOf(searchValue, fromIndex?) <span>-- 返回指定字符在字符串中最后一次出现的位置, 找不到为 -1</span></h5>
+</div>
+<div class="dl">
+<h5 class="es3">string.charAt(index) <span>-- 返回给定位置的那个字符</span></h5>
+<h5 class="es3">string.charCodeAt(index) <span>-- 返回给定位置字符的字符编码</span></h5>
+</div>
+<div class="dl">
+<h5 class="es3">string.toLowerCase() <span>-- 将字符串转换成小写并返回新字符串</span></h5>
+<h5 class="es3">string.toUpperCase() <span>-- 将字符串转换成大写并返回新字符串</span></h5>
+</div>
+<div class="dl">
+<h5 class="es5">string.trim() <span>-- 删除前置和后缀的所有空格并返回处理后的新字符串</span></h5>
+<h5 class="es">string.trimLeft() <span>-- 删除前置的所有空格并返回处理后的新字符串</span></h5>
+<h5 class="es">string.trimRight() <span>-- 删除后缀的所有空格并返回处理后的新字符串</span></h5>
+</div>
+<div class="dl">
+<h5 class="es3">string.anchor(name) <span>-- 创建一个名为 name 的锚</span></h5>
+<h5 class="es3">string.link(url) <span>-- 根据提供的url创建一个链接</span></h5>
+</div>
+
+
+## RegExp
+
+<div class="dl">
+<h5 class="es3">RegExp() <span>-- `new RegExp(pattern, flags?)` 用字面量太长时可通过构造函数传 string 解决(注意 \ 要+1，两头 / 去掉)</span></h5>
+</div>
+<div class="dl">
+<h5 class="es3">regexp.lastIndex <span>-- 下次匹配开始的字符串索引位置，只有设置了 g 标志时才有效</span></h5>
+</div>
+<div class="dl">
+<h5 class="es3">regexp.exec(str) <span>-- 检索字符串中指定的值。返回找到的值，并确定其位置</span></h5>
+<h5 class="es3">regexp.test(str) <span>-- 检索字符串中指定的值。返回 true 或 false</span></h5>
+<h5 class="es3">regexp.toString() <span>-- 返回一个字符串，即该正则对象的字面量。</span></h5>
+</div>
+
+
+## Math
+
+<div class="dl">
+<h5 class="es">Math.E Math.LN2 Math.LN10 Math.LOG2E Math.LOG10E Math.PI Math.SQRT1_2 Math.SQRT2</h5>
+</div>
+<div class="dl">
+<h5 class="es">Math.min(x, y, ...) <span>-- 确定一组数值中的最小值</span></h5>
+<h5 class="es">Math.max([x, y, ...) <span>-- 确定一组数值中的最小值</span></h5>
+<h5 class="es">Math.ceil(x) <span>-- 执行向上取整</span></h5>
+<h5 class="es">Math.floor(x) <span>-- 执行向下取整</span></h5>
+<h5 class="es">Math.round(x) <span>-- 执行四舍五入</span></h5>
+<h5 class="es">Math.random() <span>-- 返回 0 到 1 之间的随机数</span></h5>
+<h5 class="es">Math.abs(x) <span>-- 返回 x 的绝对值</span></h5>
+<h5 class="es">Math.sqrt(x) <span>-- 返回 x 的平方根</span></h5>
+<h5 class="es">Math.pow(x, y) <span>-- 返回 x 的 y 次方</span></h5>
+<h5 class="es">Math.exp(x) Math.log(x) Math.log10(x) Math.log2(x)</h5>
+<h5 class="es">Math.sin(x) Math.cos(x) Math.tan(x) Math.asin(x) Math.acos(x) Math.atan(x) Math.atan2(y, x)</h5>
+<h5 class="es6">Math.sinh(x) <span>-- 返回x的双曲正弦（hyperbolic sine）</span></h5>
+<h5 class="es6">Math.cosh(x) <span>-- 返回x的双曲余弦（hyperbolic cosine）</span></h5>
+<h5 class="es6">Math.tanh(x) <span>-- 返回x的双曲正切（hyperbolic tangent）</span></h5>
+<h5 class="es6">Math.asinh(x) <span>-- 返回x的反双曲正弦（inverse hyperbolic sine）</span></h5>
+<h5 class="es6">Math.acosh(x) <span>-- 返回x的反双曲余弦（inverse hyperbolic cosine）</span></h5>
+<h5 class="es6">Math.atanh(x) <span>-- 返回x的反双曲正切（inverse hyperbolic tangent）</span></h5>
+<h5 class="es6">Math.trunc() <span>-- </span></h5>
+<h5 class="es6">Math.sign() <span>-- 判断一个数到底是正数、负数、还是零。正数+1；负数-1；0返回0；-0返回-0;其他返回NaN</span></h5>
+<h5 class="es6">Math.cbrt() <span>-- 计算一个数的立方根</span></h5>
+<h5 class="es6">Math.clz32() <span>-- </span></h5>
+<h5 class="es6">Math.imul() <span>-- </span></h5>
+<h5 class="es6">Math.fround() <span>-- </span></h5>
+<h5 class="es6">Math.hypot() <span>-- </span></h5>
+<h5 class="es6">Math.expm1() <span>-- </span></h5>
+<h5 class="es6">Math.log1p() <span>-- </span></h5>
+<h5 class="es6">Math.log10() <span>-- </span></h5>
+<h5 class="es6">Math.log2() <span>-- </span></h5>
+</div>
+
+
+## Date
 
 <div class="dl">
 <h5 class="es3">Date.prototype <span>-- 使您有能力向对象添加公共属性和方法。</span></h5>
@@ -228,99 +381,9 @@ Object结构提供了“字符串—值”的对应，Map结构提供了“值�
 </div>
 
 
-## JavaScript RegExp 对象
-
-<div class="dl">
-<h5 class="es3">regexp.lastIndex <span>-- 下次匹配开始的字符串索引位置，只有设置了 g 标志时才有效</span></h5>
-</div>
-<div class="dl">
-<h5 class="es3">RegExp() <span>-- new RegExp(pattern[, flags])</span></h5>
-  <p>当 expression 太长时可以考虑通过向构造函数传 string 解决（注意 \ 要+1，两头 / 要去掉）如 /\]/g => new RegExp('\\]', 'g')</p>
-<h5 class="es3">regexp.exec() <span>-- 检索字符串中指定的值。返回找到的值，并确定其位置</span></h5>
-<h5 class="es3">regexp.test() <span>-- 检索字符串中指定的值。返回 true 或 false</span></h5>
-<h5 class="es3">regexp.toString() <span>-- 返回一个字符串，即该正则对象的字面量。</span></h5>
-</div>
-
-
-## Boolean 对象
-
-<div class="dl">
-<h5 class="es3">boolean.toString() <span>-- 把逻辑值转换为字符串</span></h5>
-<h5 class="es3">boolean.valueOf() <span>-- 返回 Boolean 对象的原始值</span></h5>
-</div>
-
-## Number 对象
-
-<div class="dl">
-<h5 class="es3">Number.MAX_VALUE</h5>
-<h5 class="es3">Number.MIN_VALUE</h5>
-<h5 class="es3">Number.NaN</h5>
-<h5 class="es3">Number.NEGATIVE_INFINITY</h5>
-<h5 class="es3">Number.POSITIVE_INFINITY</h5>
-<h5 class="es6">Number.EPSILON <span>-- 极小的常量，实质是一个可以接受的误差范围</span></h5>
-<h5 class="es6">Number.MAX_SAFE_INTEGER <span>-- Number.MAX_SAFE_INTEGER === Math.pow(2, 53) - 1 // true</span></h5>
-<h5 class="es6">Number.MIN_SAFE_INTEGER <span>-- -2^53 +1</span></h5>
-</div>
-<div class="dl">
-<h5 class="es6">Number.isNaN() <span>-- 确定数值是否是NaN，比全局 isNaN() 函数更健壮</span></h5>
-<h5 class="es6">Number.isFinite() <span>-- 检查一个数值是否非无穷（infinity）</span></h5>
-  <p>它们与传统的全局方法isFinite()和isNaN()的区别在于，传统方法先调用Number()将非数值的值转为数值，再进行判断，而这两个新方法只对数值有效，非数值一律返回false。</p>
-<h5 class="es6">Number.isInteger() <span>-- 判断一个值是否为整数，注意3.0也被认为是整数，因为整数和浮点数用的同样的储存方法</span></h5>
-<h5 class="es6">Number.parseInt(string[, radix]) <span>-- Number.parseInt === parseInt; // true</span></h5>
-<h5 class="es6">Number.parseFloat() <span>-- Number.parseFloat === parseFloat; // true</span></h5>
-<h5 class="es6">Number.isSafeInteger() <span>-- JS能准确表示的整数范围在-2^53到2^53之间（不含两个端点）</span></h5>
-</div>
-<div class="dl">
-<h5 class="es3">number.toExponential() <span>-- 把对象的值转换为指数计数法</span></h5>
-<h5 class="es3">number.toFixed() <span>-- 把数字转换为字符串，结果的小数点后有指定位数的数字</span></h5>
-<h5 class="es3">number.toPrecision() <span>-- 把数字格式化为指定的长度</span></h5>
-<h5 class="es3">number.toString() <span>-- 把数字转换为字符串，使用指定的基数</span></h5>
-<h5 class="es3">number.toLocaleString() <span>-- 把数字转换为字符串，使用本地数字格式顺序</span></h5>
-<h5 class="es3">number.valueOf() <span>-- 返回一个 Number 对象的基本数字值</span></h5>
-</div>
-
-
-## String 对象
-
-<div class="dl">
-<h5 class="es3">string.length <span>-- 返回了字符串的长度</span></h5>
-<h4>字符方法</h4>
-<h5 class="es3">string.charAt() <span>-- 以单字符字符串的形式返回给定位置的那个字符</span></h5>
-<h5 class="es3">string.charCodeAt() <span>-- 返回给定位置的字符的字符编码</span></h5>
-<h4>字符串操作方法</h4>
-<h5 class="es3">string.concat() <span>-- 将一个或多个字符串拼接，并返回一个新字符串</span></h5>
-<h5 class="es3">string.slice() <span>-- 摘取一个字符串区域，返回一个新的字符串 str.slice(beginIndex[, endIndex])</span></h5>
-<h5 class="es3">string.substr() <span>-- 从指定位置摘取指定长度的子字符串 str.substr(start[, length])</span></h5>
-<h5 class="es3">string.substring() <span>-- 返回指定的两个下标之间的字符串 str.substring(index1[, index2])</span></h5>
-  <p>注：slice 和 substring 方法，当指定两个index时，返回的字符个数为 abs(index2-index1)</p>
-<h4>字符串位置方法</h4>
-<h5 class="es3">string.indexOf(searchValue[, fromIndex]) <span>-- 返回指定字符在字符串中首次出现的位置, 如找不到为 -1</span></h5>
-<h5 class="es3">string.lastIndexOf() <span>-- 返回指定字符在字符串中最后一次出现的位置, 如找不到为 -1</span></h5>
-<h4>trim 方法</h4>
-<h5 class="es3">string.trim() <span>-- 删除前置和后缀的所有空格并返回处理后的新字符串</span></h5>
-<h5 class="es3">string.trimLeft()  <span>-- 删除前置的所有空格并返回处理后的新字符串</span></h5>
-<h5 class="es3">string.trimRight()  <span>-- 删除后缀的所有空格并返回处理后的新字符串</span></h5>
-<h4>大小写转换方法</h4>
-<h5 class="es3">string.toLowerCase() <span>-- 将字符串转换成小写并返回新字符串</span></h5>
-<h5 class="es3">string.toUpperCase() <span>-- 将字符串转换成大写并返回新字符串</span></h5>
-<h5 class="es3">string.toLocaleLowerCase() <span>-- 针对特定地区的 toLowerCase() 实现</span></h5>
-<h5 class="es3">string.toLocaleUpperCase() <span>-- 针对特定地区的 toUpperCase() 实现</span></h5>
-<h4>模式匹配方法</h4>
-<h5 class="es3">string.match() <span>-- 使用正则表达式对象匹配字符串并返回数组，无匹配为null</span></h5>
-<h5 class="es3">string.replace() <span>-- str.replace(regexp|substr, newSubStr|function[, flags])</span></h5>
-<h5 class="es3">string.search() <span>-- str.search(regexp)</span></h5>
-<h5 class="es3">string.split() <span>-- str.split([separator[, limit]])</span></h5>
-<h4>其他方法（不全）</h4>
-<h5 class="e3s">string.localeCompare() <span>-- 比较两个字符串并返回表示先后顺序的值（-1 / 0 / 1）</span></h5>
-<h4>HTML方法</h4>
-<h5 class="es3">string.anchor() <span>-- 创建一个名为 name 的锚 str.anchor(name)</span></h5>
-<h5 class="es3">string.link() <span>-- 根据提供的url创建一个链接 str.link(url)</span></h5>
-</div>
-
-
 ## <span class="es6">Symbol</span>
 
-除了定义自己使用的Symbol值以外，ES6还提供了11个内置的Symbol值，指向语言内部使用的方法。
+除了定义自己使用的 Symbol 值以外，ES6 还提供了11个内置的 Symbol 值，指向语言内部使用的方法。
 
 <div class="dl">
 <h5>Symbol.hasInstance <span>-- </span></h5>
@@ -343,130 +406,24 @@ Object结构提供了“字符串—值”的对应，Map结构提供了“值�
 </div>
 
 
-## 全局对象
-
-<div>
-<p>在模块化趋势下，全局属性和方法都将逐步移入各模块（全局对象），当然为了后向兼容，这些属性和方法还会保留。</p>
-<hr>
-<h3>Value properties</h3>
-<div class="dl"><h5 class="es">Infinity NaN undefined null(literal)</h5></div>
-
-<h3>Function properties</h3>
-<div class="dl">
-<h5 class="es">isNaN() <span>-- 检查某个值是否是数字</span></h5>
-<h5 class="es">isFinite() <span>-- 检查某个值是否为有穷大的数</span></h5>
-<h5 class="es">parseInt() <span>-- 解析一个字符串并返回一个整数</span></h5>
-<h5 class="es">parseFloat() <span>-- 解析一个字符串并返回一个浮点数</span></h5>
-<h5 class="es"><span>----</span></h5>
-<h5 class="es">encodeURI() <span>-- 把字符串编码为 URI</span></h5>
-<h5 class="es">encodeURIComponent() <span>-- 把字符串编码为 URI 组件</span></h5>
-<h5 class="es">decodeURI() <span>-- 解码某个编码的 URI</span></h5>
-<h5 class="es">decodeURIComponent() <span>-- 解码一个编码的 URI 组件</span></h5>
-<h5 class="es"><span>----</span></h5>
-<h5 class="es">eval() <span>-- 解析执行传入的字符串</span></h5>
-</div>
-
-<h3>Fundamental objects</h3>
-<div class="dl">
-<h5 class="es">Object Function Boolean Symbol</h5>
-<h5 class="es">Error EvalError InternalError RangeError ReferenceError SyntaxError TypeError URIError </h5>
-</div>
-
-<h3>Numbers and dates</h3>
-<div class="dl"><h5 class="es">Number Math Date</h5></div>
-
-<h3>Text processing</h3>
-<div class="dl"><h5 class="es">String RegExp</h5></div>
-
-<h3>Indexed collections</h3>
-<div class="dl"><h5 class="es">Array</h5></div>
-</div>
-
-
-## Math 对象
+## <span class="es6">Promise</span>
 
 <div class="dl">
-<h5 class="es">Math.E Math.LN2 Math.LN10 Math.LOG2E Math.LOG10E Math.PI Math.SQRT1_2 Math.SQRT2</h5>
-</div>
-<div class="dl">
-<h5 class="es">Math.min([x[, y[, …]]]) <span>-- 确定一组数值中的最小值</span></h5>
-<h5 class="es">Math.max([x[, y[, …]]]) <span>-- 确定一组数值中的最小值</span></h5>
-<h5 class="es"><span>----</span></h5>
-<h5 class="es">Math.ceil(x) <span>-- 执行向上取整</span></h5>
-<h5 class="es">Math.floor(x) <span>-- 执行向下取整</span></h5>
-<h5 class="es">Math.round(x) <span>-- 执行四舍五入</span></h5>
-<h5 class="es"><span>----</span></h5>
-<h5 class="es">Math.random() <span>-- 返回 0 到 1 之间的随机数</span></h5>
-<h5 class="es">Math.abs(x) <span>-- 返回 x 的绝对值</span></h5>
-<h5 class="es">Math.sqrt(x) <span>-- 返回 x 的平方根</span></h5>
-<h5 class="es">Math.pow(x,y)<span>-- 返回 x 的 y 次方</span></h5>
-<h5 class="es">Math.exp(x) Math.log(x) Math.log10(x) Math.log2(x)</h5>
-<h5 class="es">Math.sin(x) Math.cos(x) Math.tan(x) Math.asin(x) Math.acos(x) Math.atan(x) Math.atan2(y, x)</h5>
-<h5 class="es6">Math.sinh(x) 返回x的双曲正弦（hyperbolic sine）
-Math.cosh(x) 返回x的双曲余弦（hyperbolic cosine）
-Math.tanh(x) 返回x的双曲正切（hyperbolic tangent）
-Math.asinh(x) 返回x的反双曲正弦（inverse hyperbolic sine）
-Math.acosh(x) 返回x的反双曲余弦（inverse hyperbolic cosine）
-Math.atanh(x) 返回x的反双曲正切（inverse hyperbolic tangent） <span>-- </span></h5>
-<h4>ES6 新增了17个与数学相关的静态方法</h4>
-<h5 class="es6">Math.trunc() <span>-- </span></h5>
-<h5 class="es6">Math.sign() <span>-- 判断一个数到底是正数、负数、还是零。正数+1；负数-1；0返回0；-0返回-0;其他返回NaN</span></h5>
-<h5 class="es6">Math.cbrt() <span>-- 计算一个数的立方根</span></h5>
-<h5 class="es6">Math.clz32() <span>-- </span></h5>
-<h5 class="es6">Math.imul() <span>-- </span></h5>
-<h5 class="es6">Math.fround() <span>-- </span></h5>
-<h5 class="es6">Math.hypot() <span>-- </span></h5>
-<h4>新增的4个对数方法</h4>
-<h5 class="es6">Math.expm1() <span>-- </span></h5>
-<h5 class="es6">Math.log1p() <span>-- </span></h5>
-<h5 class="es6">Math.log10() <span>-- </span></h5>
-<h5 class="es6">Math.log2() <span>-- </span></h5>
-</div>
-
-
-## Function 对象
-
-<div class="dl">
-<h5 class="es">arguments.length <span>-- 实际传入参数的个数</span></h5>
-  <p>Function.length 指函数定义时的形参个数，而arguments.length 指实际调用时的实参个数</p>
-<h5 class="es">arguments.callee <span>-- 指向拥有这个 arguments 对象的函数</span></h5>
-  <p>ES5 严格模式下禁用，callee虽然有缺陷，但确实是有用的，所以后续版本一直保留。jQuery 默认没有开启严格模式。鉴于具有：会改this、效率低等缺陷，在应用递归时应当采用[内联]命名函数方法</p>
-<h5 class="es">Function.caller <span>-- 保存着对调用当前函数的函数的引用</span></h5>
-  <p>Function.caller replaces the obsolete arguments.caller property</p>
-</div>
-<div class="dl">
-<h5 class="es">Function.length <span>-- 获取函数的接收参数个数</span></h5>
-<h5 class="es6">Function.name <span>-- 获取函数的名称</span></h5>
-</div>
-<div class="dl">
-<h5 class="es">function.apply() <span>-- 显式设定函数内this值；参数以数组形式传入</span></h5>
-  <p>Calls a function and sets its this to the provided value, arguments can be passed as an Array object.</p>
-<h5 class="es">function.call() <span>-- 显式设定函数内this值；参数以列表形式传入</span></h5>
-  <p>Calls (executes) a function and sets its this to the provided value, arguments can be passed as they are.</p>
-<h5 class="es">function.bind() <span>-- 创建一个新函数，称为绑定函数。原函数的this将用给定值替换</span></h5>
-<h5 class="es">function.isGenerator() <span>-- 若函数对象为generator，返回true，反之返回 false</span></h5>
-<h5 class="es">function.toString() <span>-- 获取函数的实现源码的字符串，覆盖Object.prototype定义</span></h5>
+  <h5>promise.then(onFulfilled, onRejected) <span>-- 为 Promise 实例添加状态改变时的回调函数</span></h5>
+  <h5>promise.catch(onRejected) <span>-- 是 `.then(null, onRejected)` 的别名，用于指定发生错误时的回调函数</span></h5>
+  <h5>Promise.resolve(value) <span>-- 将现有对象转为 Promise 对象</span></h5>
+  <h5>Promise.reject(reason) <span>-- 返回一个新的 Promise 实例，该实例的状态为 rejected</span></h5>
+  <h5>Promise.all(iterable) <span>-- 将多个 Promise 实例包装成一个新的 Promise 实例，返回数组或首个 reject 值</span></h5>
+  <h5>Promise.race(iterable) <span>-- 将多个 Promise 实例包装成一个新的 Promise 实例，返回率先改变的 Promise 实例的返回值</span></h5>
 </div>
 
 
 ## <span class="es6">Generator</span>
 
 <div class="dl">
-  <h5>generator.next([value]) <span>-- 返回{value,done}对象，可以传递一个值作为参数</span></h5>
-  <h5>generator.return([value]) <span>-- 返回给定的值，并且终结遍历Generator函数</span></h5>
+  <h5>generator.next(value?) <span>-- 返回{value,done}对象，可以传递一个值作为参数</span></h5>
+  <h5>generator.return(value?) <span>-- 返回给定的值，并且终结遍历Generator函数</span></h5>
   <h5>generator.throw(exception) <span>-- 在函数体外向函数体内抛出一个错误</span></h5>
-</div>
-
-## <span class="es6">Promise</span>
-
-<div class="dl">
-  <h5>promise.then(onFulfilled, onRejected) <span>-- 为 Promise 实例添加状态改变时的回调函数</span></h5>
-    <p>then 和 catch 正常都应该返回一个新的 Promise 对象，以支持链式操作。</p>
-  <h5>promise.catch(onRejected) <span>-- 是<code>.then(null, onRejected)</code>的别名，用于指定发生错误时的回调函数</span></h5>
-  <h5>Promise.resolve(value) <span>-- 将现有对象转为 Promise 对象</span></h5>
-  <h5>Promise.reject(reason) <span>-- 返回一个新的 Promise 实例，该实例的状态为 rejected</span></h5>
-  <h5>Promise.all(iterable) <span>-- 将多个 Promise 实例包装成一个新的 Promise 实例，返回数组或首个 reject 值</span></h5>
-  <h5>Promise.race(iterable) <span>-- 将多个 Promise 实例包装成一个新的 Promise 实例，返回率先改变的 Promise 实例的返回值</span></h5>
 </div>
 
 
@@ -506,11 +463,49 @@ Reflect 只是一个内置对象，不是构造函数，提供了一个读取系
 </table>
 
 
+## Globals
+
+在模块化趋势下，全局属性和方法都将逐步移入各模块（全局对象），当然为了后向兼容，这些属性和方法还会保留。
+
+<div class="dl">
+  <h5 class="es3">Infinity NaN undefined null(literal)</h5>
+</div>
+<div class="dl">
+  <h5 class="es3">isNaN() <span>-- 检查某个值是否是数字</span></h5>
+  <h5 class="es3">isFinite() <span>-- 检查某个值是否为有穷大的数</span></h5>
+  <h5 class="es3">parseInt() <span>-- 解析一个字符串并返回一个整数</span></h5>
+  <h5 class="es3">parseFloat() <span>-- 解析一个字符串并返回一个浮点数</span></h5>
+  <h5 class="es3">encodeURI() <span>-- 把字符串编码为 URI</span></h5>
+  <h5 class="es3">encodeURIComponent() <span>-- 把字符串编码为 URI 组件</span></h5>
+  <h5 class="es3">decodeURI() <span>-- 解码某个编码的 URI</span></h5>
+  <h5 class="es3">decodeURIComponent() <span>-- 解码一个编码的 URI 组件</span></h5>
+  <h5 class="es3">eval() <span>-- 解析执行传入的字符串</span></h5>
+</div>
+<div class="dl">
+  <h5 class="es3">Object</h5>
+  <h5 class="es3">Function</h5>
+  <h5 class="es3">Boolean</h5>
+  <h5 class="es6">Symbol</h5>
+  <h5 class="es3">Error EvalError InternalError RangeError ReferenceError SyntaxError TypeError URIError</h5>
+</div>
+<div class="dl">
+  <h5 class="es3">Array</h5>
+</div>
+<div class="dl">
+  <h5 class="es3">String</h5>
+  <h5 class="es3">RegExp</h5>
+</div>
+<div class="dl">
+  <h5 class="es3">Number</h5>
+  <h5 class="es3">Math</h5>
+  <h5 class="es3">Date</h5>
+</div>
+
 <script>
 //设置到 developer.mozilla.org 的查询链接
 (function(){
   var list = document.querySelectorAll(".dl > h5"),
-      reg=/^[a-zA-Z._]+\(?/g,
+      reg=/^[a-zA-Z0-9._]+\(?/g,
       listHTML, atext, alink,
       prefix = 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/';
   for (var i = 0, length = list.length; i < length; i++){

@@ -79,7 +79,7 @@ JS 中的数组，相比其他语言中的数组要强大很多，提供了很�
 // 数据结构定义
 class Stack {
   constructor() {
-    this._items = Array.prototype.slice.call(arguments);
+    this._items = Array.from(arguments);
   }
 
   get size() { return this._items.length; }
@@ -116,7 +116,7 @@ function divideBy2(decNumber) {
 // 普通队列
 class Queue {
   constructor() {
-    this._items = Array.prototype.slice.call(arguments);
+    this._items = Array.from(arguments);
   }
 
   get size() { return this._items.length; }
@@ -133,7 +133,7 @@ class Queue {
 // 优先队列
 class PriorityQueue {
   constructor() {
-    this._items = Array.prototype.slice.call(arguments);
+    this._items = Array.from(arguments);
   }
 
   enqueue(element, priority) {
