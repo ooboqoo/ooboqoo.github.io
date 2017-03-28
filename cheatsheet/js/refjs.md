@@ -1,67 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/resource/lib/html-main.css" />
 <style>
-.es3::after, .es5::after, .es6::after, .es7::after { margin-left: 1em; padding: 1px 3px; font-size: .5em; color: #fff; border-radius: .25em; }
-.es3::after { content:"ES3"; background-color:#0c3; }
-.es5::after { content:"ES5"; background-color:#9c0; }
-.es6::after { content:"ES6"; background-color:#c30; }
-.es7::after { content:"ES7"; background-color:#c3c; }
+.es3::before, .es5::before, .es6::before, .es7::before, .es::before {
+  margin-right: 1em; padding: 1px 3px; font-size: .5em; color: #fff; border-radius: .25em; }
+.es3::before { content: "ES3"; background-color: #0c3; }
+.es5::before { content: "ES5"; background-color: #9c0; }
+.es6::before { content: "ES6"; background-color: #c30; }
+.es7::before { content: "ES7"; background-color: #c3c; }
+.es::before  { content: "ES?"; background-color: #ccc; }
 h2 { text-align: center; }
-h5 > a { text-decoration: none; }
-#article .dl + .dl { border-top-width: 0; }
-#article .dl::before { content: ""; }
+#md .dl { padding: 0 4px 4px 24px; border: 1px solid gray; }
+#md .dl + .dl { border-top-width: 0; }
+#md .dl::before { content: ""; }
+#md .dl h5 { color: #2824bd; }
+#md .dl h5 > a { color: red; text-decoration: none; border-bottom-width: 0; }
 </style>
-<script src="/resource/lib/html-main.js"></script>
-<title>JavaScript 内置对象参考手册</title>
-</head>
 
-<body>
-<div id="article">
+# JavaScript 内置对象参考手册
 
-<h1>JavaScript 内置对象参考手册</h1>
+内置对象(内置构造函数对象+内置单体对象)的属性和方法，通过内置对象访问；  
+构造函数定义的属性，初始化时会在每个实例中产生一份副本，每个实例都使用其自有的属性；  
+原型中的属性和方法，可以通过实例查找原型链读取到（读取而非复制）。
 
-<div id="contents">
-  <ul>
-    <li><a href="#Object">Object</a></li>
-    <li><a href="#Array">Array</a></li>
-    <li><a href="#BufferArray">BufferArray</a></li>
-    <li><a href="#Set">Set</a></li>
-    <li><a href="#Map">Map</a></li>
-    <li><a href="#Date">Date</a></li>
-    <li><a href="#RegExp">RegExp</a></li>
-    <li>( <a href="#Boolean">Boolean</a></li>
-    <li><a href="#Number">Number</a></li>
-    <li><a href="#String">String</a></li>
-    <li><a href="#Symbol">Symbol</a> )</li>
-    <li>( <a href="#Global">Global</a></li>
-    <li><a href="#Math">Math</a> )</li>
-  </ul>
-  <ul>
-    <li><a href="#Function">Function</a></li>
-    <li><a href="#Generator">Generator</a></li>
-    <li><a href="#Reflect">Reflect/Proxy</a></li>
-    <li><a href="#Iterator">Iterator</a></li>
-    <li><a href="#Promise">Promise</a></li>
-  </ul>
-</div>
+关于浏览器兼容：ES5 的很多方法和属性 IE8 都不支持
 
-<div>
-<p>内置对象(内置构造函数对象+内置单体对象)的属性和方法，通过内置对象访问；</p>
-<p>构造函数定义的属性，初始化时会在每个实例中产生一份副本，每个实例都使用其自有的属性；</p>
-<p>原型中的属性和方法，可以通过实例查找原型链读取到（读取而非复制）。</p>
-<p>关于浏览器兼容：ES5 的很多方法和属性 IE8 都不支持</p>
-<hr>
-</div>
+## Object 对象
 
-<h2 id="Object">Object 对象</h2>
-
-<div>
 <div class="dl">
-  <h5 class="es6">object.__proto__ <span>-- 对象实例的属性，指向其原型对象</span></h5>
+  <h5 class="es6">object.\_\_proto\_\_ <span>-- 对象实例的属性，指向其原型对象</span></h5>
   <h5 class="es3">object.constructor <span>-- 指向构造函数(该属性位于对象的原型上)</span></h5>
 </div>
 <div class="dl">
@@ -89,7 +53,7 @@ h5 > a { text-decoration: none; }
     <pre>props: {prop: descriptor, ...}<br>data descriptor: {configurable, enumerable[, value, writable]}<br>accessor descriptor: {configurable, enumerable[, get, set]}</pre>
   <h5 class="es5">Object.getPrototypeOf() <span>-- 返回指定对象的原型对象</span></h5>
   <h5 class="es6">Object.setPrototypeOf() <span>-- 设置对象的原型，<code>[[Prototype]]</code> property</span></h5>
-    <p>该方法是用来替代有争议的使用 object.__proto__ 修改原型的办法，但这个方法还是无法回避修改原型的执行性能，如果关心性能，更好的办法是用 Object.create 创建一个新对象。</p>
+    <p>该方法是用来替代有争议的使用 `object.__proto__` 修改原型的办法，但这个方法还是无法回避修改原型的执行性能，如果关心性能，更好的办法是用 Object.create 创建一个新对象。</p>
   <h5 class="es5">Object.freeze() <span>-- 冻结对象：不能增减属性，不能配置属性，不能修改属性值</span></h5>
   <h5 class="es5">Object.seal() <span>-- 封闭对象：不能增删或配置属性，但还能修改现有对象属性的值</span></h5>
   <h5 class="es5">Object.preventExtensions() <span>-- 禁止扩展：让一个对象变的不可扩展，也就是不能再添加新属性</span></h5>
@@ -97,12 +61,10 @@ h5 > a { text-decoration: none; }
   <h5 class="es5">Object.isSealed() <span>-- 确认是否封闭</span></h5>
   <h5 class="es5">Object.isExtensible() <span>-- 确认是否可扩展（即是否能够添加属性）</span></h5>
 </div>
-</div>
 
-<h2 id="Array">Array 对象</h2>
+## Array 对象
 
-<div>
-<p>数组是类似列表的对象，在原型中提供了一些遍历以及改变其中对象的方法。</p>
+数组是类似列表的对象，在原型中提供了一些遍历以及改变其中对象的方法。
 
 <div class="dl">
 <h5 class="es3">Array.prototype <span>-- 可以通过该属性给 Array类型 添加公共属性</span></h5>
@@ -127,7 +89,7 @@ h5 > a { text-decoration: none; }
 <h5 class="es6">array.fill(value, start?, end?) <span>-- 给指定位置填充数值，返回修改后的数组</span></h5>
 
 <h4>Accessor methods -- 只返回描述信息，不会修改数组本身</h4>
-<h5 class="es3">array.concat() <span>-- 返回一个由当前数组和其它若干个数组 and/or 若干个值组合而成的新数组</span></h5>
+<h5 class="es3">array.concat(arrayOrValue, ...) <span>-- 返回由当前数组和其它数组或值组成的新数组</span></h5>
 <h5 class="es3">array.join(separator?) <span>-- 根据提供的分隔符字符串，返回包含所有数组项的字符串</span></h5>
 <h5 class="es3">array.slice(begin?, end?) <span>-- 抽取数组中的一段元素组成一个新数组，可以利用该方法将类数组转成数组</span></h5>
 <h5 class="es5">array.indexOf(item, from?) <span>-- 返回给定元素能在数组中找到的第一个索引值，否则返回-1</span></h5>
@@ -142,7 +104,7 @@ h5 > a { text-decoration: none; }
 <h5 class="es6">array.values() <span>-- returns a new Array Iterator object</span></h5>
 
 <h4>Iteration methods -- 遍历方法，为了可读性和可维护性，不要在遍历过程中对原数组进行修改</h4>
-<h5 class="es5">array.forEach(current, index[, array]]) <span>-- 对数组中的每一项运行给定函数，没有返回值</span></h5>
+<h5 class="es5">array.forEach((current, index, array) => { }, thisArg?) <span>-- 对数组中的每一项运行给定函数，没有返回值</span></h5>
 <h5 class="es5">array.filter(cb, thisArg?) <span>-- 对数组中的每一项运行给定函数，返回由true项组成的新数组</span></h5>
 <h5 class="es5">array.map(cb, thisArg?) <span>-- 返回一个由回调函数的返回值组成的新数组</span></h5>
 <h5 class="es5">array.every(cb, thisArg?) <span>-- 对数组中的每一项运行给定函数，如果该函数对每一项都返回true则返回true</span></h5>
@@ -151,10 +113,10 @@ h5 > a { text-decoration: none; }
 <h5 class="es5">array.reduceRight(cb, initialValue?) <span>-- 从右到左...</span></h5>
 </div>
 
-<h2 id="Set" class="es6">Set</h2>
+## <span class="es6">Set</span>
 
-<div>
-<p>ES6提供了新的数据结构Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。</p>
+ES6提供了新的数据结构Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。
+
 <div class="dl">
   <h5>set.size <span>-- 返回Set实例的成员总数</span></h5>
   <h5>set.add(value) <span>-- 添加某个值，返回Set结构本身</span></h5>
@@ -178,12 +140,11 @@ h5 > a { text-decoration: none; }
   <h5>weakset.delete(value) <span>-- 清除WeakSet实例的指定成员</span></h5>
   <h5>weakset.has(value) <span>-- 返回一个布尔值，表示某个值是否在WeakSet实例之中</span></h5>
 </div>
-</div>
 
-<h2 id="Set" class="es6">Map</h2>
+## <span class="es6">Map</span>
 
-<div>
-<p>Object结构提供了“字符串—值”的对应，Map结构提供了“值—值”的对应，是一种更完善的Hash结构实现。</p>
+Object结构提供了“字符串—值”的对应，Map结构提供了“值—值”的对应，是一种更完善的Hash结构实现。
+
 <div class="dl">
   <h5>map.size <span>-- 返回Map结构的成员总数</span></h5>
   <h5>map.delete(key) <span>-- 删除某个键，成功返回true，失败返回false</span></h5>
@@ -205,16 +166,11 @@ h5 > a { text-decoration: none; }
 <p>典型应用是，一个对应DOM元素的WeakMap结构，当某个DOM元素被清除，其所对应的WeakMap记录就会自动被移除。WeakMap结构有助于防止内存泄漏。</p>
 <p>WeakMap没有遍历操作，也没有size属性；无法清空。WeakMap只有四个方法可用：get()、set()、has()、delete()。</p>
 </div>
-</div>
 
-</div>
+## Date 对象
 
-<h2 id="Date">Date 对象</h2>
-<div>
-<a href="https://msdn.microsoft.com/library/ff743760(v=vs.94).aspx#ISO">MSDN：日期和时间字符串 (JavaScript)</a>
-</div>
+[MSDN：日期和时间字符串 (JavaScript)]("https://msdn.microsoft.com/library/ff743760(v=vs.94).aspx#ISO")
 
-<div>
 <div class="dl">
 <h5 class="es3">Date.prototype <span>-- 使您有能力向对象添加公共属性和方法。</span></h5>
 <h5 class="es3">Date.length <span>-- 值是 7。这是该构造函数可接受的参数个数。</span></h5>
@@ -270,11 +226,10 @@ h5 > a { text-decoration: none; }
 <h5 class="es3">date.setUTCSeconds() <span>-- 根据世界时设置 Date 对象中的秒钟 (0 ~ 59)。</span></h5>
 <h5 class="es3">date.setUTCMilliseconds() <span>根据世界时设置 Date 对象中的毫秒 (0 ~ 999)。</span></h5>
 </div>
-</div>
 
-<h2 id="RegExp">JavaScript RegExp 对象（部分）</h2>
 
-<div>
+## JavaScript RegExp 对象
+
 <div class="dl">
 <h5 class="es3">regexp.lastIndex <span>-- 下次匹配开始的字符串索引位置，只有设置了 g 标志时才有效</span></h5>
 </div>
@@ -285,18 +240,17 @@ h5 > a { text-decoration: none; }
 <h5 class="es3">regexp.test() <span>-- 检索字符串中指定的值。返回 true 或 false</span></h5>
 <h5 class="es3">regexp.toString() <span>-- 返回一个字符串，即该正则对象的字面量。</span></h5>
 </div>
-</div>
 
-<h2 id="Boolean">Boolean 对象</h2>
+
+## Boolean 对象
 
 <div class="dl">
 <h5 class="es3">boolean.toString() <span>-- 把逻辑值转换为字符串</span></h5>
 <h5 class="es3">boolean.valueOf() <span>-- 返回 Boolean 对象的原始值</span></h5>
 </div>
 
-<h2 id="Number">Number 对象</h2>
+## Number 对象
 
-<div>
 <div class="dl">
 <h5 class="es3">Number.MAX_VALUE</h5>
 <h5 class="es3">Number.MIN_VALUE</h5>
@@ -324,9 +278,9 @@ h5 > a { text-decoration: none; }
 <h5 class="es3">number.toLocaleString() <span>-- 把数字转换为字符串，使用本地数字格式顺序</span></h5>
 <h5 class="es3">number.valueOf() <span>-- 返回一个 Number 对象的基本数字值</span></h5>
 </div>
-</div>
 
-<h2 id="String">String 对象</h2>
+
+## String 对象
 
 <div class="dl">
 <h5 class="es3">string.length <span>-- 返回了字符串的长度</span></h5>
@@ -361,18 +315,13 @@ h5 > a { text-decoration: none; }
 <h4>HTML方法</h4>
 <h5 class="es3">string.anchor() <span>-- 创建一个名为 name 的锚 str.anchor(name)</span></h5>
 <h5 class="es3">string.link() <span>-- 根据提供的url创建一个链接 str.link(url)</span></h5>
-<pre>
-var hotText = 'MDN';
-var URL = 'https://developer.mozilla.org/';
-console.log('Click to return to ' + hotText.link(URL));
-// Click to return to &lt;a href="https://developer.mozilla.org/"&gt;MDN&lt;/a&gt;
-</pre>
 </div>
 
-<h2 id="Symbol" class="es6">Symbol</h2>
 
-<div>
-<p>除了定义自己使用的Symbol值以外，ES6还提供了11个内置的Symbol值，指向语言内部使用的方法。</p>
+## <span class="es6">Symbol</span>
+
+除了定义自己使用的Symbol值以外，ES6还提供了11个内置的Symbol值，指向语言内部使用的方法。
+
 <div class="dl">
 <h5>Symbol.hasInstance <span>-- </span></h5>
 <h5>Symbol.isConcatSpreadable <span>-- </span></h5>
@@ -392,9 +341,9 @@ console.log('Click to return to ' + hotText.link(URL));
 <h5>Symbol.keyFor(symbol) <span>-- 查找并返回symbol对应的key，找不到返回 undefined</span></h5>
 <h5>symbol.toString() <span>-- 返回symbol的字符串表示，重写的方法 Symbol("desc").toString(); // "Symbol(desc)"</span></h5>
 </div>
-</div>
 
-<h2 id="Global">全局对象</h2>
+
+## 全局对象
 
 <div>
 <p>在模块化趋势下，全局属性和方法都将逐步移入各模块（全局对象），当然为了后向兼容，这些属性和方法还会保留。</p>
@@ -433,9 +382,9 @@ console.log('Click to return to ' + hotText.link(URL));
 <div class="dl"><h5 class="es">Array</h5></div>
 </div>
 
-<h2 id="Math">Math 对象</h2>
 
-<div>
+## Math 对象
+
 <div class="dl">
 <h5 class="es">Math.E Math.LN2 Math.LN10 Math.LOG2E Math.LOG10E Math.PI Math.SQRT1_2 Math.SQRT2</h5>
 </div>
@@ -473,11 +422,10 @@ Math.atanh(x) 返回x的反双曲正切（inverse hyperbolic tangent） <span>--
 <h5 class="es6">Math.log10() <span>-- </span></h5>
 <h5 class="es6">Math.log2() <span>-- </span></h5>
 </div>
-</div>
 
-<h2 id="Function">Function 对象</h2>
 
-<div>
+## Function 对象
+
 <div class="dl">
 <h5 class="es">arguments.length <span>-- 实际传入参数的个数</span></h5>
   <p>Function.length 指函数定义时的形参个数，而arguments.length 指实际调用时的实参个数</p>
@@ -499,9 +447,9 @@ Math.atanh(x) 返回x的反双曲正切（inverse hyperbolic tangent） <span>--
 <h5 class="es">function.isGenerator() <span>-- 若函数对象为generator，返回true，反之返回 false</span></h5>
 <h5 class="es">function.toString() <span>-- 获取函数的实现源码的字符串，覆盖Object.prototype定义</span></h5>
 </div>
-</div>
 
-<h2 id="Generator" class="es6">Generator</h2>
+
+## <span class="es6">Generator</span>
 
 <div class="dl">
   <h5>generator.next([value]) <span>-- 返回{value,done}对象，可以传递一个值作为参数</span></h5>
@@ -509,7 +457,7 @@ Math.atanh(x) 返回x的反双曲正切（inverse hyperbolic tangent） <span>--
   <h5>generator.throw(exception) <span>-- 在函数体外向函数体内抛出一个错误</span></h5>
 </div>
 
-<h2 id="Promise" class="es6">Promise</h2>
+## <span class="es6">Promise</span>
 
 <div class="dl">
   <h5>promise.then(onFulfilled, onRejected) <span>-- 为 Promise 实例添加状态改变时的回调函数</span></h5>
@@ -522,11 +470,11 @@ Math.atanh(x) 返回x的反双曲正切（inverse hyperbolic tangent） <span>--
 </div>
 
 
-<h2 id="Reflection" class="es6">Reflection / Proxy</h2>
+## <span class="es6">Reflection / Proxy</span>
 
-<div>
-<p>通过 Proxy 可以创建附加了功能拦截的新对象，可以通过添加拦截器来更改系统的默认行为。</p>
-<pre>
+通过 Proxy 可以创建附加了功能拦截的新对象，可以通过添加拦截器来更改系统的默认行为。
+
+```js
 var proxy = new Proxy(target, handler);
 target参数表示所要拦截的目标对象，handler参数也是一个对象，用来定制拦截行为
 var obj = new Proxy({}, {
@@ -535,10 +483,11 @@ var obj = new Proxy({}, {
     return Reflect.get(target, key, receiver);
   }
 });
-</pre>
-<p>Reflect 只是一个内置对象，不是构造函数，提供了一个读取系统默认方法的接口。同 Math 一样，所含方法都是静态方法。</p>
+```
 
-<div class="responsive"><table>
+Reflect 只是一个内置对象，不是构造函数，提供了一个读取系统默认方法的接口。同 Math 一样，所含方法都是静态方法。
+
+<table>
 <tr><th>Proxy Trap</th><th>Overrides the Behavior Of</th><th>Default Behavior</th></tr>
 <tr><td><code>get</code></td><td>Reading a property value</td><td><code>Reflect.get()</code></td></tr>
 <tr><td><code>set</code></td><td>Writing to a property</td><td><code>Reflect.set()</code></td></tr>
@@ -554,15 +503,14 @@ var obj = new Proxy({}, {
 <td><code>Reflect.ownKeys()</code></td></tr>
 <tr><td><code>apply</code></td><td>Calling a function</td><td><code>Reflect.apply()</code></td></tr>
 <tr><td><code>construct</code></td><td>Calling a function with <code>new</code></td><td><code>Reflect.construct()</code></td></tr>
-</table></div>
-</div>
+</table>
 
-</div>
+
 <script>
 //设置到 developer.mozilla.org 的查询链接
 (function(){
-  var list = document.getElementsByTagName("h5"),
-      reg=/^[a-zA-Z.]+/g,
+  var list = document.querySelectorAll(".dl > h5"),
+      reg=/^[a-zA-Z._]+\(?/g,
       listHTML, atext, alink,
       prefix = 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/';
   for (var i = 0, length = list.length; i < length; i++){
@@ -571,10 +519,9 @@ var obj = new Proxy({}, {
     atext = reg.exec(listHTML);
     if (atext === null) { continue; }
     atext = atext[0];
-    alink = atext.replace(/\.prototype/,'').replace(/\./,'/');
-    list[i].innerHTML = '<a href="' + prefix + alink + '">' + atext + '</a>' + listHTML.substr(reg.lastIndex);
+    alink = atext.replace('.prototype', '').replace('.', '/').replace('(', '');
+    list[i].innerHTML = '<a href="' + prefix + alink + '">' + atext + '</a>' +
+      listHTML.substr(reg.lastIndex).replace(') <span>', '<span style="color: red;">)</span> <span>');
   }
 })();
 </script>
-</body>
-</html>

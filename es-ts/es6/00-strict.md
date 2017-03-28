@@ -147,9 +147,10 @@ function() {
 
 禁止 `this` 关键字指向全局对象。这种限制对于构造函数尤其有用。使用构造函数时，有时忘了加 `new`，这时 `this` 不再指向全局对象，而是报错。
 
-函数内部不得使用 `fn.caller`、`fn.arguments`，否则会报错。这意味着不能在函数内部得到调用栈了。
+函数内部不得使用 `fn.caller`、`fn.arguments`，否则会报错。这意味着不能在函数内部得到调用栈了(同时，也使尾调用优化成功导入ES6)。
 
 禁止使用 `arguments.callee`、`arguments.caller`
+
 
 ### 静态绑定
 
