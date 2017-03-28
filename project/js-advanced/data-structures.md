@@ -1,6 +1,6 @@
 # 数据结构
 
-## 数组
+## 数组 Array
 
 数组存储一系列同一数据类型的值。在 JS 中也可以在数组中保存不同类型的值，但我们还是要遵守最佳实践，别这么做(大多数语言都没这能力)。
 
@@ -58,23 +58,119 @@ function printMatrix(matrix) {
 
 JS 中的数组，相比其他语言中的数组要强大很多，提供了很多好用的方法。在本书接下来的章节里，编写数据结构和算法时会大量用到这些方法。
 
-|||
-|----------|-------------------------------------------
-| `concat` | 连接 2个或更多数组，并返回这个新建的数组
+##### 数组合并
 
-#### 数组合并
+##### 迭代器函数
 
-#### 迭代器函数
+##### 搜索和排序
 
-#### 搜索和排序
-
-#### 输出数组为字符串
+##### 输出数组为字符串
 
 
-## 栈
+## 栈 Stack
+
+我们可以在数组的任意位置上删除和添加元素，然后，有时我们还需要一种在添加或删除元素是有更多控制的数据结构。栈和队列是两种类似于数组，但在添加和删除元素时更为可控的数据结构。
+
+栈是一种遵从后进后出 LIFO 原则的有序集合。
+
+栈也被用在编程语言的编译器和内存中保存变量、方法调用等。
+
+```js
+// 数据结构定义
+class Stack {
+  constructor() {
+    this._items = Array.prototype.slice.call(arguments);
+  }
+
+  get size() { return this._items.length; }
+  set size(number) { this._items.length = number; }
+
+  push(element) { return this._items.push(element); }
+  pop() { return this._items.pop(); }
+  peek() { return this._items[this._items.length - 1]; }
+  isEmpty() { return this._items.length === 0; }
+  clear() { this._items.length = 0; }
+  print() { console.log(this._items); }
+}
+
+// 应用示例 - 十进制转换为二进制 n = 8; n.toString(2);
+function divideBy2(decNumber) {
+  let remStack = new Stack(), binaryString = '';
+  while (decNumber > 0) {
+    remStack.push(decNumber % 2);
+    decNumber = Math.floor(decNumber / 2);
+  }
+  while(!remStack.isEmpty()) {
+    binaryString += remStack.pop();
+  }
+  return binaryString;
+}
+```
 
 
-## 队列
+## 队列 Queue
+
+队列与栈非常相似，但它遵循的是先进先出 FIFO 原则。队列在尾部添加新元素，并从顶部移除元素。
+
+```js
+// 普通队列
+class Queue {
+  constructor() {
+    this._items = Array.prototype.slice.call(arguments);
+  }
+
+  get size() { return this._items.length; }
+  set size(number) { this._items.length = number; }
+
+  enqueue(element) { return this._items.push(element); }
+  dequeue() { return this._items.shift(); }
+  front() { return this._items[0]; }
+  isEmpty() { return this._items.length === 0; }
+  clear() { this._items.length = 0; }
+  print() { console.log(this._items); }
+}
+
+// 优先队列
+class PriorityQueue {
+  constructor() {
+    this._items = Array.prototype.slice.call(arguments);
+  }
+
+  enqueue(element, priority) {
+    let queueElement = new QueueElement(element, priority);
+    if (!this._items.length) { return this._items.push(queueElement); }
+    for (let i = this._items.length; i--;) {
+      if (queueElement.priority < this._items[i].priority) {
+        return this._items.push(queueElement);
+      }
+    }
+    return this._items.unshift(queueElement);
+  }
+
+  // 其他方法略
+}
+class QueueElement {
+  constructor(element, priority) {
+    [this.element, this.priority] = arguments;
+  }
+}
+
+// 循环队列 - 击鼓传花游戏
+function hotPotato(nameList, num) {
+  const queue = new Queue(...nameList);
+  while (queue.size > 1) {
+    for (let i = num; i--;) {
+      queue.enqueue(queue.dequeue());
+    }
+    console.log(queue.dequeue() + ' 被淘汰。');
+  }
+  return queue.dequeue();
+}
+
+let names = ['John', 'Jack', 'Camila', 'Carl'];
+    winner = hotPotato(names, 7);
+console.log('胜利者 ', winner);
+```
 
 
 ## 链表

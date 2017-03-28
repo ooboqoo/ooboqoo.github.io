@@ -5,8 +5,6 @@ https://zh.wikipedia.org/wiki/ASCII
 
 ## 按键说明
 
-![](/resource/images/tools/vim-commands.jpg)
-
 #### 移动光标的方法
 
 | | |
@@ -139,3 +137,16 @@ hi SpecialKey ctermfg=7  " :help hi - for details of highlight
 `/etc/vimrc` 放置了整体 vim 的设置值，不建议修改此文件。
 
 `~/.vimrc` 一般是不存在的，如果你要配置，得手动创建。
+
+#### 正则替换中的大小写转换
+
+`\U` 全部转换为大写
+`\u` 仅首字母转换为大写
+`\L` 全部转换为小写
+`\l` 仅首字母转换为小写
+`\e` 停止转换工作
+
+
+```
+:s/\(.*\) \(.*\)/\U\1\e \2/  // 将第一个词转换为大写形式
+```

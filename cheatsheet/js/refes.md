@@ -79,38 +79,38 @@ h2 { text-align: center; }
 <div class="dl">
 <h4>Mutator methods -- 修改数组本身</h4>
 <h5 class="es3">array.pop() <span>-- 从数组末尾移除最后一项，然后返回移除的项</span></h5>
-<h5 class="es3">array.push(item1, item2, ...) <span>-- 在数组尾部添加1个或多个元素，并返回新数组的length</span></h5>
+<h5 class="es3">array.push(item1, item2, ...) <span>-- 在数组尾部添加1个或多个元素，并返回新数组的 length</span></h5>
 <h5 class="es3">array.shift() <span>-- 移除数组中的第一个项并返回该项</span></h5>
-<h5 class="es3">array.unshift() <span>-- 在数组前端添加1个或多个元素，并返回新数组的length</span></h5>
+<h5 class="es3">array.unshift() <span>-- 在数组前端添加1个或多个元素，并返回新数组的 length</span></h5>
 <h5 class="es3">array.splice(start, deleteCount?, item1?, ...) <span>-- 在给定位置删除若干元素并添加一些元素</span></h5>
+<h5 class="es3">array.sort((a, b) => { }?) <span>-- 按升序排列数组项(默认都当字符串比较, 故 10 在 2 前面)，提供比较函数可自定义排序</span></h5>
 <h5 class="es3">array.reverse() <span>-- 反转数组项的顺序</span></h5>
-<h5 class="es3">array.sort() <span>-- 按升序排列数组项（字符串方式比较），提供比较函数作为参数可实现自定义排序</span></h5>
 <h5 class="es6">array.copyWithin(target, start?, end?) <span>-- 在数组内部浅拷贝其中一段到另一个位置，返回修改后的数组</span></h5>
 <h5 class="es6">array.fill(value, start?, end?) <span>-- 给指定位置填充数值，返回修改后的数组</span></h5>
 
-<h4>Accessor methods -- 只返回描述信息，不会修改数组本身</h4>
+<h4>Accessor methods -- 只返回信息，不修改数组本身</h4>
 <h5 class="es3">array.concat(arrayOrValue, ...) <span>-- 返回由当前数组和其它数组或值组成的新数组</span></h5>
-<h5 class="es3">array.join(separator?) <span>-- 根据提供的分隔符字符串，返回包含所有数组项的字符串</span></h5>
 <h5 class="es3">array.slice(begin?, end?) <span>-- 抽取数组中的一段元素组成一个新数组，可以利用该方法将类数组转成数组</span></h5>
 <h5 class="es5">array.indexOf(item, from?) <span>-- 返回给定元素能在数组中找到的第一个索引值，否则返回-1</span></h5>
-<h5 class="es6">array.find(cb, thisArg?) <span>-- 返回首个匹配项的值，找不到则返回 undefined</span></h5>
-<h5 class="es6">array.findIndex(cb, thisArg?) <span>-- 返回首个匹配项的索引，找不到则返回 -1</span></h5>
-<h5 class="es6">array.includes(item, from?) <span>-- 是否存在查找项，返回 ture 或 false</span></h5>
 <h5 class="es5">array.lastIndexOf(item, from?) <span>-- 返回给定元素能在数组中找到的最后一个索引值，否则返回-1</span></h5>
+<h5 class="es6">array.includes(item, from?) <span>-- 是否存在查找项，返回 ture 或 false</span></h5>
+<h5 class="es6">array.find((element, index, array) => { }, thisArg?) <span>-- 返回首个通过测试函数检测的元素值，都失败返回 undefined</span></h5>
+<h5 class="es6">array.findIndex(cb, thisArg?) <span>-- 返回首个通过测试函数检测的元素索引，都失败返回 -1</span></h5>
+<h5 class="es3">array.join(separator?) <span>-- 根据提供的分隔符字符串，返回包含所有数组项的字符串</span></h5>
 <h5 class="es3">array.toString() <span>-- 返回一个由所有数组元素组合而成的字符串，重写</span></h5>
 <h5 class="es">array.toLocaleString() <span>-- 返回一个由所有数组元素组合而成的本地化后的字符串，重写</span></h5>
 <h5 class="es6">array.entries() <span>-- returns a new Array Iterator object</span></h5>
 <h5 class="es6">array.keys() <span>-- returns a new Array Iterator object</span></h5>
 <h5 class="es6">array.values() <span>-- returns a new Array Iterator object</span></h5>
 
-<h4>Iteration methods -- 遍历方法，为了可读性和可维护性，不要在遍历过程中对原数组进行修改</h4>
+<h4>Iteration methods -- 遍历方法，<small>为了可读性和可维护性，不要在遍历过程中对原数组进行修改</small></h4>
 <h5 class="es5">array.forEach((current, index, array) => { }, thisArg?) <span>-- 对数组中的每一项运行给定函数，没有返回值</span></h5>
-<h5 class="es5">array.filter(cb, thisArg?) <span>-- 对数组中的每一项运行给定函数，返回由true项组成的新数组</span></h5>
 <h5 class="es5">array.map(cb, thisArg?) <span>-- 返回一个由回调函数的返回值组成的新数组</span></h5>
-<h5 class="es5">array.every(cb, thisArg?) <span>-- 对数组中的每一项运行给定函数，如果该函数对每一项都返回true则返回true</span></h5>
-<h5 class="es5">array.some(cb, thisArg?) <span>-- 对数组中的每一项运行给定函数，只要有一项返回true则返回true</span></h5>
-<h5 class="es5">array.reduce((acc, val) => { return acc + val; }, initialValue?) <span>-- 从左到右为每个数组元素执行一次回调函数，并把上次回调函数的返回值放在一个暂存器中传给下次回调函数，并返回最后一次回调函数的返回值</span></h5>
-<h5 class="es5">array.reduceRight(cb, initialValue?) <span>-- 从右到左...</span></h5>
+<h5 class="es5">array.filter(cb, thisArg?) <span>-- 对每一项运行给定函数，返回由 true 项组成的新数组</span></h5>
+<h5 class="es5">array.every(cb, thisArg?) <span>-- 对每一项运行给定函数，每项都 true 才返回 true</span></h5>
+<h5 class="es5">array.some(cb, thisArg?) <span>-- 对每一项运行给定函数，只要有一项 true 就返回 true</span></h5>
+<h5 class="es5">array.reduce(cb, initialValue?) <span>-- 从左到右为每个元素执行回调函数，并将上次返回值传给下次，返回最后一次的返回值</span></h5>
+<h5 class="es5">array.reduceRight((acc, val) => { return acc + val; }, initialValue?) <span>-- 从右到左...</span></h5>
 </div>
 
 ## <span class="es6">Set</span>
