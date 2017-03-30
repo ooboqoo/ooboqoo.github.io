@@ -112,8 +112,8 @@ The PCRE library is a set of functions that implement regular expression pattern
 ### Creating a regular expression
 
 ```js
-var re = /ab+c/;              // 或
-var re = new RegExp('ab+c');
+var re = /ab+c/gi;              // 或
+var re = new RegExp('ab+c', 'gi');
 ```
 
 ### Regular expression pattern
@@ -129,8 +129,8 @@ var re = new RegExp('ab+c');
 | `+`    | Matches the preceding expression 1 or more times. Equivalent to {1,}
 | `?`    | 1. Matches the preceding expression 0 or 1 time. Equivalent to {0,1} <br> 2. If used immediately after any of the quantifiers *, +, ?, or {}, makes the quantifier non-greedy <br> 3. Also used in lookahead assertions, as described in the x(?=y) and x(?!y) entries of this table.
 | `.`    | Matches any single character except the newline character.
-| `(x)`  | Matches 'x' and remembers the match. capturing parentheses. 后向引用 `\n` `\&`
-| `(?:x)`  | Matches 'x' but does not remember the match. non-capturing parentheses
+| `(x)`  | Matches 'x' and remembers the match. capturing parentheses. 后向引用 `\n`
+| `(?:x)`  | Matches 'x' but does not remember the match. non-capturing parentheses 取消捕获
 | `x(?=y)` | Matches 'x' only if 'x' is followed by 'y'. This is called a lookahead. 后置断言
 | `x(?!y)` | Matches 'x' only if 'x' is not followed by 'y'. This is called a negated lookahead.
 | <code>x&#124;y</code> | Matches either 'x' or 'y'. 选择分支
@@ -178,3 +178,16 @@ var re = new RegExp('ab+c');
 | `search`  | tests for a match in a string. It returns the index of the match, or -1 if the search fails.
 | `replace` | executes a search for a match in a string, and replaces the matched substring with a replacement.
 | `split`   | uses a regular expression or a fixed string to break a string into an array of substrings.
+
+### 应用示例
+
+正则表达式是一个多阶段处理过程，其中两个重要阶段是编译和执行。通过对稍后要用的正则表达式进行预定义（因此也预编译），我们可以获得一些明显的速度提升。
+
+```js
+str.replace(/^\s+|\s+$/g, "");     // 修剪字符串
+let unicode = /[\u0080-\uFFFF]+/;  // 匹配代码在128（十六进制为0x80）以上的字符，中文编码范围\u4E00-\u9FA5
+```
+
+
+
+

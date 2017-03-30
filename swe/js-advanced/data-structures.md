@@ -173,8 +173,175 @@ console.log('胜利者 ', winner);
 ```
 
 
-## 链表
+## 链表 LinkedList
 
+数组可能是最常用的数据结构，但这种数据结构有一个缺点：(在大多数语言中)数组的大小是固定的，从数组的起点或中间插入或移除项的成本很高，因为需要移动元素，尽管 JS 原生提供了这些方法，但背后的成本依然很高。
+
+链表存储有序的元素集合，但不同于数组，链表中的元素在内存中并不是连续放置的，每个元素由一个存储元素本身的节点和一个指向下一个元素的引用(也称指针或链接)组成。
+
+相对于数组，链表的一个好处在于，添加或移除元素的时候不需要移动其他元素。但缺点也是明显的，要想访问链表中间的一个元素，需要从起点(表头)开始迭代列表直到找到所需的元素。
+
+```js
+class Node {
+  constructor(element) {
+    this.element = element;
+    this.next = null;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this._length = 0;   // 链表长度
+    this._head = null;  // 链表入口
+  }
+
+  get size() { return this._length; }
+
+  append(element) { }               // 在尾部添加新项目
+  insert(position, element) { }     // 在列表中间特定位置插入新项
+  removeAt(position) { }            // 移除项 - 移除某个位置的项
+  remove(element) { }               // 移除项 - 根据值来移除项
+  indexOf(element) { }              // 返回元素在链表中的索引，如找不到返回 -1
+  toString() { }
+  isEmpty() { return this._length === 0; }
+  getHead() { return this._head; }
+
+  append(element) {
+    let node = new Node(element);
+    if (this._head === null) {
+      this._head = node;
+      return ++this._length;
+    }
+    let current = this._head;
+    while(current.next) { current = current.next; }
+    current.next = node;
+    return ++this._length;
+  }
+
+  insert(position, element) {
+    if (position < 0 || position > this._length) { return false; }
+    let node = new Node(element), current = this._head, previous, index = 0;
+    if (position === 0) {
+      node.next = current;
+      this._head = node;
+    } else {
+      while (index++ < position) { previous = current; current = current.next; }
+      node.next = current;
+      previous.next = node;
+    }
+    return ++this._length;
+  }
+
+  removeAt(position) {
+    if (position < 0 || position >= this._length) { return; }
+    let current = this._head, previous, index = 0;
+    if (position === 0) {
+      head = current.next;
+    } else {
+      while (index++ < position) { previous = current; current = current.next; }
+      previous.next = current.next;  // 跳过 current 从而移除它
+    }
+    this._length--;
+    return current.element;
+  }
+
+  remove(element) {
+    return this.removeAt(this.indexOf(element));
+  }
+
+  indexOf(element) {
+    let current = this._head, index = 0;
+    while (current) {
+      if (element === current.element) { return index; }
+      index++;
+      current = current.next;
+    }
+    return -1;
+  }
+
+  toString() {
+    let string = '', current = this._head;
+    while (current) {
+      string += ',' + current.element;
+      current = current.next;
+    }
+    return string.slice(1);
+  }
+
+}
+```
+
+### 双向链表
+
+双向链表和普通链表的区别在于，在普通链表中，一个节点只有链向下一个节点的链接，而在双向链表中，链接是双向的：一个链向下一个元素，另一个链向前一个元素。
+
+双向链表提供了两种迭代列表的方法：从头到尾，或者反过来。我们也可以访问一个特定节点的下一个或前一个元素，在单向链表中，如果迭代列表时错过了要找的元素，就只能回到起点重新开始迭代了。
+
+```js
+class Node {
+  constructor(element) {
+    this.element = element;
+    this.next = null;
+    this.prev = null;
+  }
+}
+
+class DoublyLinkedList {
+  constructor() {
+    this._length = 0;   // 链表长度
+    this._head = null;  // 链表入口 - 头
+    this._tail = null;  // 链表入口 - 尾
+  }
+
+  insert(position, element) {
+    if (position < 0 || position > this._length) { return false; }
+    let node = new Node(element), current = this._head, previous, index = 0;
+    if (position === 0) {
+      if (!this._head) { this._head = this._tail = node; }
+      else { node.next = current; current.prev = this._head = node; }
+    } else if (position === this._length) {
+      current = this._tail;
+      current.next = this._tail = node;
+      node.prev = current;
+    } else {
+      while (index++ < position) { previous = current; current = current.next; }
+      node.next = current;
+      previous.next = node;
+      current.prev = node;
+      node.prev = previous;
+    }
+    return ++this._length;
+  }
+
+  removeAt(position) {
+    if (position < 0 || position >= this._length) { return; }
+    let current = this._head, previous, index = 0;
+    if (position === 0) {
+      this._head = current.next;
+      if (this._length === 1) { this._tail = null; }
+      else { this._head.prev = null; }
+    } else if (position === this._length - 1) {
+      current = this._tail;
+      this._tail = current.prev;
+      this._tail.next = null;
+    } else {
+      while (index++ < position) { previous = current; current = current.next; }
+      previous.next = current.next;  // 跳过 current 从而移除它
+      current.next.prev = previous;
+    }
+    this._length--;
+    return current.element;
+  }
+
+  // 其他方法同 LinkedList，略 ...
+}
+```
+
+### 循环列表
+
+循环链表可以像链表一样只有单向引用，也可以像双向链表一样有双向引用。
+循环链表与链表之间唯一的区别在于，最后一个元素的 next 指向链表的第一个元素。
+双向循环链表的第一个元素的 prev 指向最后一个元素，而最后一个元素的 next 指向第一个元素。
 
 ## 集合
 
