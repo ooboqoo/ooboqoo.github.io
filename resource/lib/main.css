@@ -195,8 +195,12 @@ main table td:first-child a {
   position: absolute;
   right: 30px;
   z-index: -1;
-  content: "双击折叠/展开";
+  content: "双击折叠";
   color: #ccc;
+}
+
+#md .dl.collapse::before {
+  content: "双击展开";
 }
 
 #md .dl > h4 {

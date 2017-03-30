@@ -7,7 +7,6 @@
 .es7::before { content: "ES7"; background-color: #c3c; }
 .es::before  { content: "ES?"; background-color: #ccc; }
 h2 { text-align: center; }
-#md .dl::before { content: ""; }
 #md .dl h5 { color: #2824bd; }
 #md .dl h5 > a { color: red; text-decoration: none; border-bottom-width: 0; }
 </style>
@@ -38,6 +37,7 @@ h2 { text-align: center; }
 </div>
 <div class="dl">
   <h5 class="es5">Object.create(proto[, propertiesObject]) <span>-- 通过指定原型对象和属性来创建一个新的对象</span></h5>
+  <p>通过 `var map = Object.create(null);` 创建没有附加属性和方法的纯净对象，再也不用 `hasOwnProperty()`，屌炸了！</p>
   <h5 class="es6">Object.assign(target, ...sources) <span>-- 将 sources 的自有属性复制到 target，并返回 target</span></h5>
   <h5 class="es6">Object.is() <span>-- 同值相等，与 === 全等基本相同，区别是 +0 -0 不等，NaN 自等</span></h5>
   <h5 class="es5">Object.keys() <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的名称</span></h5>
@@ -136,10 +136,10 @@ h2 { text-align: center; }
 ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。
 
 <div class="dl">
-  <h5>set.size <span>-- 返回Set实例的成员总数</span></h5>
-  <h5>set.add(value) <span>-- 添加某个值，返回Set结构本身</span></h5>
+  <h5>set.size <span>-- 返回 Set 实例的成员总数</span></h5>
+  <h5>set.add(value) <span>-- 添加某个值，返回 Set 结构本身</span></h5>
   <h5>set.delete(value) <span>-- 删除某个值，返回一个布尔值，表示删除是否成功</span></h5>
-  <h5>set.has(value) <span>-- 返回一个布尔值，表示该值是否为Set的成员</span></h5>
+  <h5>set.has(value) <span>-- 返回一个布尔值，表示该值是否为 Set 的成员</span></h5>
   <h5>set.clear() <span>-- 清除所有成员，没有返回值</span></h5>
 </div>
 <div class="dl">
@@ -154,9 +154,9 @@ ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都
 WeakSet 结构与 Set 类似，但它与 Set 有两个区别：首先，WeakSet 的成员只能是对象，而不能是其他类型的值。其次，WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用，这也意味着 WeakSet 不可遍历。
 
 <div class="dl">
-  <h5>weakSet.add(value) <span>-- 向WeakSet实例添加一个新成员</span></h5>
-  <h5>weakSet.delete(value) <span>-- 清除WeakSet实例的指定成员</span></h5>
-  <h5>weakSet.has(value) <span>-- 返回一个布尔值，表示某个值是否在WeakSet实例之中</span></h5>
+  <h5>weakSet.add(value) <span>-- 向 WeakSet 实例添加一个新成员</span></h5>
+  <h5>weakSet.delete(value) <span>-- 清除 WeakSet 实例的指定成员</span></h5>
+  <h5>weakSet.has(value) <span>-- 返回一个布尔值，表示某个值是否在 WeakSet 实例之中</span></h5>
 </div>
 
 ## <span class="es6">Map</span>

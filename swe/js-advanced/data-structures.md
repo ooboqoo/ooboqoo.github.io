@@ -345,8 +345,176 @@ class DoublyLinkedList {
 
 ## 集合
 
+集合是由一组无序且唯一(即不能重复)的项组成的，你可以把集合想象成一个既没有重复元素，也没有顺序概念的数组。
+
+注：ES6 的 Set 类遍历时是有顺序的(按添加顺序)，我们这里实现的是没有顺序的。
+
+```js
+class Set {
+  constructor() { this._items = {}; }
+
+  get size() { return Object.keys(this._items).length; }
+
+  add(value) { this._items[value] = value; return this; }
+  delete(value) {
+    if (this.has(value)) { delete this._items[value]; return true; }
+    else { return false; }
+  }
+  has(value) { return this._items.hasOwnProperty(value); }
+  clear() { this._items = {}; }
+  values() { return Object.keys(this._items); }
+
+  // 开始实现并集、交集、差集、子集 4个功能
+  union(otherSet) {
+    if (!otherSet instanceof Set) { return false; }
+    let unionSet = new Set();
+    this.values().forEach((k) => { unionSet.add(k); });
+    otherSet.values().forEach((k) => { unionSet.add(k); });
+    return unionSet;
+  }
+
+  intersection(otherSet) {
+    if (!otherSet instanceof Set) { return false; }
+    let intersectionSet = new Set();
+    this.values().forEach((k) => {
+      if (otherSet.has(k)) { intersectionSet.add(k); }
+    });
+    return intersectionSet;
+  }
+
+  difference(otherSet) {
+    if (!otherSet instanceof Set) { return false; }
+    let differenceSet = new Set();
+    this.values().forEach((k) => {
+      if (!otherSet.has(k)) { differenceSet.add(k); }
+    });
+    return differenceSet;
+  }
+
+  subset(otherSet) {
+    if (this.size > otherSet.size) { return false; }
+    for (let k of this.values()) {
+      if (!otherSet.has(k)) { return false; }
+    }
+    return true;
+  }
+}
+```
+
 
 ## 字典和散列表
+
+集合、字典和散列表都可以存储不重复的值。在集合中，我们关注的是值本身，并把它当作主要元素。在字典和散列表中，我们以键值对的形式来存储数据，但两种数据结构的实现方式又略有不同。
+
+### 字典
+
+与 Set 类相似，ES6 同样包含了一个 Map 类实现，即我们所说的字典。
+
+```js
+class Dictionary {
+  constructor() { this._items = {}; }
+
+  get size() { return this.keys().length; }
+
+  set(key, value) { this._items[key] = value; return this; }
+  delete(key) {
+    if (this.has(key)) { delete this._items[key]; return true; }
+    else { return false; }
+  }
+  has(key) { return this._items.hasOwnProperty(key); }
+  get(key) { return this._items[key]; }
+  clear() { this._items = {}; }
+  keys() { return Object.keys(this._items); }
+  values() { return this.keys().map(k => this._items[k]); }
+}
+```
+
+http://ryanmorr.com/true-hash-maps-in-javascript/
+
+这篇文章介绍了一个更牛X的方法 `var map = Object.create(null)` 这种方法可以完美摒除 `Object.prototype` 里公共方法带来的副作用，当然在 ES6 里有现成的 Map 类用。
+
+当我们使用字面量新建对象时 `var map = {};` 实际是执行了 `var map = Object.create(Object.prototype);`。
+
+### 散列表
+
+> 不管是从性能还是使用便利性，真心觉得这东西在 JS 里没鸟用，直接使用 `{}` 或者 `Object.create(null)` 反而更好吧。  
+> 看到 hashmap.js 通过包装 {} 实现了 ES6 的 "值-值" 存储功能，这对于 ES5 的码农还有点现实意义。
+
+散列算法的作用是尽可能快地在数据结构中找到一个值。普通的数据结构中，我们为了找到一个值，需要遍历整个数据结构来找到它，但如果使用散列函数，就知道值的具体位置，因此能够快速检索到该值。散列函数的作用是给定一个键值，然后返回值在表中的地址。
+
+在一些编程语言中，还有一种叫做 "散列集合" 的实现，可以通过 集合 + 散列函数 来实现，这里不作介绍。
+
+```js
+class HashMap {
+  constructor() { this._table = []; }
+
+  put(key, value) {
+    const position = this._getHashCode(key);
+    this._table[position] = value;
+    return this;
+  }
+  get(key) { return this._table[this._getHashCode(key)]; }
+  delete(key) { this._table[this._getHashCode(key)] = undefined; }
+
+  _getHashCode(key) {
+    if (!key || key === '' || typeof key === 'number') { return typeof key === 'number' ? key : 0; }
+    return key.split('').reduce((acc, key) => acc * 33 + key.charCodeAt(0), 5381) % 1013;
+  }
+}
+```
+
+#### 散列函数
+
+一个好的散列函数通常要做到两点：
+  * 均匀 - 值均匀分布在哈希表中
+  * 简单 - 以提高地址计算的速度
+
+```js
+function djb2HashCode(key) {
+  return key.split('').reduce((acc, key) => acc * 33 + key.charCodeAt(0), 5381) % 1013;
+}
+```
+
+djb2 这个函数是最被社区推荐的散列函数之一。它包括初始化一个 hash 变量，并赋值为一个质数(大多数实现都用5381)，然后迭代参数 key，将 hash 与 33 相乘(用来当做一个魔力数)，并和当前迭代到的字符的 ASCII 码值相加。
+
+最后，我们选一个随机的质数(比我们预计的散列表的大小稍大)来对结果取余数，得出最后的散列值。
+
+#### 处理冲突
+
+不同的键得到相同的散列值是难免的，当不同的键名对应相同的存储位置时，我们称其为冲突。
+
+常用的冲突解决方法有：分离链接、线性探查 和 双散列法。
+
+**分离链接法** 包括为散列表的每一个位置创建一个 "链表"，并将元素存储在里面。它是解决冲突的最简单的方法，但是它在 HashTable 实例之外还需要额外的存储空间。
+
+```js
+class ValuePair {
+  constructor(key, value) { this.key = key; this.value = value; }
+}
+
+class HashMap {
+  // ...
+  put(key, value) {
+    let position = this._getHashCode(key);
+    if (this._table[position] === undefined) { this._talbe[position] = new LinkedList(); }
+    this._table[position].append(new ValuePair(key, value));
+  }
+}
+```
+
+**线性探查法**: 当想向表中某个位置加入一个新元素的时候，如果索引为 index 的位置已经被占据了，就尝试 index+1 位置，如果 index+1 位置也被占据了，再继续尝试 index+2 以此类推。
+
+```js
+class HashMap {
+  // ...
+  put(key, value) {
+    let position = this._getHashCode(key);
+    while (this._table[position] !== undefined) { position++; }
+    this._talbe[position] = new ValuePair(key, value);
+    return this;
+  }
+}
+```
 
 
 ## 树
