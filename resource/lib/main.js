@@ -8,6 +8,10 @@
  * hljs - highlight.pak.js 语法高亮库
  */
 
+// 添加一个全局变量用于存放一些配置信息(可以在子页面进行配置)
+    // contentsRegExp - 用于定义目录生成级别
+window.ooboqoo = {};
+
 // 判断是否是移动端
 function isMobile() {
   var agents = ["Android", "iPhone", "Windows Phone", "iPad", "iPod"];
@@ -92,7 +96,7 @@ window.addEventListener("DOMContentLoaded", function() {
     var nodes = elem_md.getElementsByTagName("*");
     var headings = [];
     var index = 0;
-    var reg = /H[1234]/;
+    var reg = ooboqoo.contentsRegExp || /H[1234]/;
     
     [].forEach.call(nodes, function(node) {
       if (reg.test(node.tagName)) { headings.push(node); }

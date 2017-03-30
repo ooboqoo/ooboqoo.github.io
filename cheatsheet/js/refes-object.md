@@ -7,8 +7,10 @@
 .es7::before { content: "ES7"; background-color: #c3c; }
 .es::before  { content: "ES?"; background-color: #ccc; }
 h2 { text-align: center; }
+#md .dl::before { content: ""; }
 #md .dl h5 { color: #2824bd; }
 #md .dl h5 > a { color: red; text-decoration: none; border-bottom-width: 0; }
+#md .dl h5 > span:nth-child(4) { display: inline-block; float: right; }
 </style>
 
 # JavaScript 内置对象参考手册
@@ -21,44 +23,51 @@ h2 { text-align: center; }
 ## Object
 
 <div class="dl">
-  <h5 class="es6">object.\_\_proto\_\_ <span>-- 对象实例的属性，指向其原型对象</span></h5>
-  <h5 class="es3">object.constructor <span>-- 指向构造函数(该属性位于对象的原型上)</span></h5>
+<h5 class="es3">Object.prototype <span>-- 通过该属性为所有 Object 类型的对象添加公共属性</span></h5>
 </div>
 <div class="dl">
- <h5 class="es3">object.valueOf() <span>-- 返回指定对象的简易类型值，较少显式调用</span></h5>
- <h5 class="es3">object.toString() <span>-- 返回对象的字符串表示</span></h5>
- <h5 class="es3">object.toLocaleString() <span>-- 调用 toString()</span></h5>
- <h5 class="es3">object.hasOwnProperty() <span>-- 检测属性是自身的还是继承的</span></h5>
- <h5 class="es3">object.isPrototypeOf(object) <span>-- 检查对象是否在参数object的原型链上</span></h5>
- <h5 class="es3">object.propertyIsEnumerable(prop) <span>-- 判断对象的属性是否可枚举</span></h5>
+<h5 class="es5">Object.create(proto[, propertiesObject]) <span>-- 通过指定原型对象和属性来创建一个新的对象</span><span>[注1]</span></h5>
+<h5 class="es6">Object.assign(target, ...sources) <span>-- 将 sources 的自有属性复制到 target，并返回 target</span></h5>
+<h5 class="es6">Object.is() <span>-- 同值相等，与 === 全等基本相同，区别是 +0 -0 不等，NaN 自等</span></h5>
+<h5 class="es5">Object.keys() <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的名称</span></h5>
+<h5 class="es7">Object.values() <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的值</span></h5>
+<h5 class="es7">Object.entries() <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的键值对</span></h5>
+<h5 class="es5">Object.getOwnPropertyNames() <span>-- 返回一个数组，它包含了指定对象所有的可枚举和不可枚举的属性名</span></h5>
+<h5 class="es5">Object.getOwnPropertyDescriptor() <span>-- 返回指定对象上一个自有属性对应的属性描述符</span></h5>
+<h5 class="es5">Object.defineProperty(obj, prop, descriptor) <span>-- 给对象添加一个属性并指定该属性的配置</span><span>[注2]</span></h5>
+<h5 class="es5">Object.defineProperties(obj, props) <span>-- 给对象添加多个属性并分别指定它们的配置</span></h5>
+<h5 class="es5">Object.getPrototypeOf() <span>-- 返回指定对象的原型对象</span></h5>
+<h5 class="es6">Object.setPrototypeOf() <span>-- 设置对象的原型，即 `[[Prototype]]` 属性</span><span>[注3]</span></h5>
+<h5 class="es5">Object.freeze() <span>-- 冻结对象：不能增减属性，不能配置属性，不能修改属性值</span></h5>
+<h5 class="es5">Object.seal() <span>-- 封闭对象：不能增删或配置属性，但还能修改现有对象属性的值</span></h5>
+<h5 class="es5">Object.preventExtensions() <span>-- 禁止扩展：让一个对象变的不可扩展，也就是不能再添加新属性</span></h5>
+<h5 class="es5">Object.isFrozen() <span>-- 确认是否冻结</span></h5>
+<h5 class="es5">Object.isSealed() <span>-- 确认是否封闭</span></h5>
+<h5 class="es5">Object.isExtensible() <span>-- 确认是否可扩展（即是否能够添加属性）</span></h5>
 </div>
 <div class="dl">
-  <h5 class="es3">Object.prototype <span>-- 通过该属性为所有 Object 类型的对象添加公共属性</span></h5>
+<h5 class="es6">object.\_\_proto\_\_ <span>-- 对象实例的属性，指向其原型对象</span></h5>
+<h5 class="es3">object.constructor <span>-- 指向构造函数(该属性位于对象的原型上)</span></h5>
 </div>
 <div class="dl">
-  <h5 class="es5">Object.create(proto[, propertiesObject]) <span>-- 通过指定原型对象和属性来创建一个新的对象</span></h5>
-  <p>通过 `var map = Object.create(null);` 创建没有附加属性和方法的纯净对象，再也不用 `hasOwnProperty()`，屌炸了！</p>
-  <h5 class="es6">Object.assign(target, ...sources) <span>-- 将 sources 的自有属性复制到 target，并返回 target</span></h5>
-  <h5 class="es6">Object.is() <span>-- 同值相等，与 === 全等基本相同，区别是 +0 -0 不等，NaN 自等</span></h5>
-  <h5 class="es5">Object.keys() <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的名称</span></h5>
-  <h5 class="es7">Object.values() <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的值</span></h5>
-  <h5 class="es7">Object.entries() <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的键值对</span></h5>
-  <h5 class="es5">Object.getOwnPropertyNames() <span>-- 返回一个数组，它包含了指定对象所有的可枚举和不可枚举的属性名</span></h5>
-  <h5 class="es5">Object.getOwnPropertyDescriptor() <span>-- 返回指定对象上一个自有属性对应的属性描述符</span></h5>
-  <h5 class="es5">Object.defineProperty(obj, prop, descriptor) <span>-- 给对象添加一个属性并指定该属性的配置</span></h5>
-  <h5 class="es5">Object.defineProperties(obj, props) <span>-- 给对象添加多个属性并分别指定它们的配置</span></h5>
-    <pre>props: {prop: descriptor, ...}<br>data descriptor: {configurable, enumerable[, value, writable]}<br>accessor descriptor: {configurable, enumerable[, get, set]}</pre>
-  <h5 class="es5">Object.getPrototypeOf() <span>-- 返回指定对象的原型对象</span></h5>
-  <h5 class="es6">Object.setPrototypeOf() <span>-- 设置对象的原型，<code>[[Prototype]]</code> property</span></h5>
-    <p>该方法是用来替代有争议的使用 `object.__proto__` 修改原型的办法，但这个方法还是无法回避修改原型的执行性能，如果关心性能，更好的办法是用 Object.create 创建一个新对象。</p>
-  <h5 class="es5">Object.freeze() <span>-- 冻结对象：不能增减属性，不能配置属性，不能修改属性值</span></h5>
-  <h5 class="es5">Object.seal() <span>-- 封闭对象：不能增删或配置属性，但还能修改现有对象属性的值</span></h5>
-  <h5 class="es5">Object.preventExtensions() <span>-- 禁止扩展：让一个对象变的不可扩展，也就是不能再添加新属性</span></h5>
-  <h5 class="es5">Object.isFrozen() <span>-- 确认是否冻结</span></h5>
-  <h5 class="es5">Object.isSealed() <span>-- 确认是否封闭</span></h5>
-  <h5 class="es5">Object.isExtensible() <span>-- 确认是否可扩展（即是否能够添加属性）</span></h5>
+<h5 class="es3">object.valueOf() <span>-- 返回指定对象的简易类型值，较少显式调用</span></h5>
+<h5 class="es3">object.toString() <span>-- 返回对象的字符串表示</span></h5>
+<h5 class="es3">object.toLocaleString() <span>-- 调用 toString()</span></h5>
+<h5 class="es3">object.hasOwnProperty() <span>-- 检测属性是自身的还是继承的</span></h5>
+<h5 class="es3">object.isPrototypeOf(object) <span>-- 检查对象是否在参数object的原型链上</span></h5>
+<h5 class="es3">object.propertyIsEnumerable(prop) <span>-- 判断对象的属性是否可枚举</span></h5>
 </div>
 
+[注1]：通过 `map = Object.create(null);` 创建没有附加属性和方法的纯净对象，再也不用 `hasOwnProperty()`，屌炸了！
+
+[注2]：描述符配置格式
+```js
+props: {prop: descriptor, ...}<br>
+data descriptor: {configurable, enumerable[, value, writable]}<br>
+accessor descriptor: {configurable, enumerable[, get, set]}
+```
+
+[注3]：该方法是用来替代有争议的使用 `object.__proto__` 修改原型的办法，但这个方法还是无法回避修改原型的执行性能，如果关心性能，更好的办法是用 `Object.create` 创建一个新对象。
 
 ## Function
 
@@ -397,11 +406,12 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <h5>Symbol.unscopables <span>-- </span></h5>
 </div>
 <div class="dl">
-<h5>Symbol.for(key) <span>-- 查找并返回key对应的symbol，如找不到则新建一个symbol并返回</span></h5>
-  <p>Symbol.for()与Symbol()都会生成新的Symbol。它们的区别是，前者会被登记在全局环境中供搜索，后者不会。比如，如果你调用Symbol.for("cat")30次，每次都会返回同一个Symbol值，但是调用Symbol("cat")30次，会返回30个不同的Symbol值。</p>
+<h5>Symbol.for(key) <span>-- 查找并返回key对应的symbol，如找不到则新建一个symbol并返回</span><span>[注1]</span></h5>
 <h5>Symbol.keyFor(symbol) <span>-- 查找并返回symbol对应的key，找不到返回 undefined</span></h5>
-<h5>symbol.toString() <span>-- 返回symbol的字符串表示，重写的方法 Symbol("desc").toString(); // "Symbol(desc)"</span></h5>
+<h5>symbol.toString() <span>-- 返回symbol的字符串表示，重写的方法 `Symbol("desc").toString(); // "Symbol(desc)"`</span></h5>
 </div>
+
+[注1]：`Symbol.for()` 与 `Symbol()` 都会生成新的 Symbol。它们的区别是，前者会被登记在全局环境中供搜索，后者不会。比如，如果你调用 `Symbol.for('cat')` 30次，每次都会返回同一个 Symbol 值，但是调用 `Symbol('cat')` 30次，会返回30个不同的 Symbol值。
 
 
 ## <span class="es6">Promise</span>
@@ -500,6 +510,9 @@ Reflect 只是一个内置对象，不是构造函数，提供了一个读取系
 </div>
 
 <script>
+// 定义目录生成级别
+ooboqoo.contentsRegExp = /H[12]/;
+
 //设置到 developer.mozilla.org 的查询链接
 (function(){
   var list = document.querySelectorAll(".dl > h5"),
