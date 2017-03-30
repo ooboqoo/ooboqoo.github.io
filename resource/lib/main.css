@@ -187,11 +187,15 @@ main table td:first-child a {
   border: 1px solid gray;
 }
 
+#md .dl + .dl {
+  border-top-width: 0;
+}
+
 #md .dl::before {
   position: absolute;
   right: 30px;
   z-index: -1;
-  content: "方框区域内双击可折叠/展开明细";
+  content: "双击折叠/展开";
   color: #ccc;
 }
 

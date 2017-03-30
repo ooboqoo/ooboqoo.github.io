@@ -34,7 +34,7 @@ https://www.amazon.cn/JavaScript高级程序设计-泽卡斯/dp/B007OQQVMY
 | `try...catch`       | try...catch 语句用于捕获内部代码异常，下方有简单示例，详细使用请查文档
 |||
 | `for`        | `for ([initialization]; [condition]; [final-expression]) statement`
-| `for...in`   | `for (variable in object) { ... }` 此语句不能保证迭代顺序，故应仅被用于遍历对象的可遍历属性
+| `for...in`   | `for (variable in object) { ... }` 此语句不能保证迭代顺序，故仅可用于遍历对象的可遍历属性
 | `for...of`   | `for (variable of iterable) { statement }`，迭代按顺序执行，es6 新增
 | `while`      | `while (condition) statement` 先判断再执行
 | `do...while` | `do statement while (condition);` 先执行再判断

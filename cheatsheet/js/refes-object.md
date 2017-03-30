@@ -7,8 +7,6 @@
 .es7::before { content: "ES7"; background-color: #c3c; }
 .es::before  { content: "ES?"; background-color: #ccc; }
 h2 { text-align: center; }
-#md .dl { padding: 0 4px 4px 24px; border: 1px solid gray; }
-#md .dl + .dl { border-top-width: 0; }
 #md .dl::before { content: ""; }
 #md .dl h5 { color: #2824bd; }
 #md .dl h5 > a { color: red; text-decoration: none; border-bottom-width: 0; }
@@ -135,7 +133,7 @@ h2 { text-align: center; }
 
 ## <span class="es6">Set</span>
 
-ES6提供了新的数据结构Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。
+ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。
 
 <div class="dl">
   <h5>set.size <span>-- 返回Set实例的成员总数</span></h5>
@@ -145,10 +143,10 @@ ES6提供了新的数据结构Set。它类似于数组，但是成员的值都�
   <h5>set.clear() <span>-- 清除所有成员，没有返回值</span></h5>
 </div>
 <div class="dl">
-  <h5>set.keys() <span>-- 返回键值的遍历器，可以看做是 values() 的别名</span></h5>
+  <h5>set.keys() <span>-- 返回键名的遍历器，因为 Set 结构没有键名只有键值，所以相当于 values() 的别名</span></h5>
   <h5>set.values() <span>-- 返回键值的遍历器</span></h5>
   <h5>set.entries() <span>-- 返回键值对的遍历器，实际为 [value, value]</span></h5>
-  <h5>set.forEach() <span>-- 使用回调函数遍历每个成员</span></h5>
+  <h5>set.forEach(cb, thisArg?) <span>-- 使用回调函数遍历每个成员</span></h5>
 </div>
 
 ## <span class="es6">WeakSet</span>

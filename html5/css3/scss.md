@@ -4,23 +4,6 @@ http://sass-lang.com/documentation/file.SASS_REFERENCE.html
 
 ## 1 概述
 
-### 1.1 安装
-
-先安装 Ruby 然后再用以下命令安装，也可以安装 node-sass，可以免去安装 Ruby。
-
-```bash
-$ gem install sass
-$ sass -v
-```
-
-编译：
-
-```bash
-scss input.scss output.css                                   # 编译单个文件，scss 是 sass --scss 的别名
-sass --watch app/sass:public/style                           # 文件监视，输出前用 `:` 引导
-sass --style nested(default), compact, compressed, expanded  # 设定输出风格
-```
-
 ### 1.2 node-sass
 
 #### 1.2.1 安装
@@ -49,8 +32,7 @@ registry=https://registry.npm.taobao.org
 #### 1.2.2 [Command Line Interface](https://github.com/sass/node-sass#command-line-interface)
 
 ```bash
-$ node-sass -v                                # 查看版本
-$ node-sass -w src/style.scss dest/style.css  # 监视编译
+$ node-sass -w --output-style expanded src/style.scss dest/style.css  # 监视编译
 ```
 
 #### 1.2.3 [Binary configuration parameters](https://github.com/sass/node-sass#binary-configuration-parameters)
