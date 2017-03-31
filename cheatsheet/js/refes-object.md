@@ -277,6 +277,33 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 </div>
 
 
+## <span class="es6">Symbol</span>
+
+<div class="dl">
+<h5>Symbol(key?) <span>-- 新建一个 symbol 并返回，注意，此函数返回的是原始值类型，所以不是构造函数，前面不能有 `new`</span></h5>
+</div>
+<div class="dl">
+<h5>Symbol.for(key) <span>-- 查找并返回key对应的symbol，如找不到则新建一个symbol并返回</span><span>[注1]</span></h5>
+<h5>Symbol.keyFor(symbol) <span>-- 查找并返回symbol对应的key，找不到返回 undefined</span></h5>
+<h5>symbol.toString() <span>-- 返回symbol的字符串表示，重写的方法 `Symbol("desc").toString(); // "Symbol(desc)"`</span></h5>
+</div>
+<div class="dl">
+<h5>Symbol.hasInstance <span>-- </span></h5>
+<h5>Symbol.isConcatSpreadable <span>-- </span></h5>
+<h5>Symbol.iterator <span>-- </span></h5>
+<h5>Symbol.match <span>-- </span></h5>
+<h5>Symbol.prototype <span>-- </span></h5>
+<h5>Symbol.replace <span>-- </span></h5>
+<h5>Symbol.search <span>-- </span></h5>
+<h5>Symbol.species <span>-- </span></h5>
+<h5>Symbol.split <span>-- </span></h5>
+<h5>Symbol.toPrimitive <span>-- </span></h5>
+<h5>Symbol.unscopables <span>-- </span></h5>
+</div>
+
+[注1]：`Symbol.for()` 与 `Symbol()` 都会生成新的 Symbol。它们的区别是，前者会被登记在全局环境中供搜索，后者不会。
+
+
 ## RegExp
 
 <div class="dl">
@@ -386,32 +413,6 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <h5 class="es3">date.setUTCSeconds() <span>-- 根据世界时设置 Date 对象中的秒钟 (0 ~ 59)。</span></h5>
 <h5 class="es3">date.setUTCMilliseconds() <span>根据世界时设置 Date 对象中的毫秒 (0 ~ 999)。</span></h5>
 </div>
-
-
-## <span class="es6">Symbol</span>
-
-除了定义自己使用的 Symbol 值以外，ES6 还提供了11个内置的 Symbol 值，指向语言内部使用的方法。
-
-<div class="dl">
-<h5>Symbol.hasInstance <span>-- </span></h5>
-<h5>Symbol.isConcatSpreadable <span>-- </span></h5>
-<h5>Symbol.iterator <span>-- </span></h5>
-<h5>Symbol.match <span>-- </span></h5>
-<h5>Symbol.prototype <span>-- </span></h5>
-<h5>Symbol.replace <span>-- </span></h5>
-<h5>Symbol.search <span>-- </span></h5>
-<h5>Symbol.species <span>-- </span></h5>
-<h5>Symbol.split <span>-- </span></h5>
-<h5>Symbol.toPrimitive <span>-- </span></h5>
-<h5>Symbol.unscopables <span>-- </span></h5>
-</div>
-<div class="dl">
-<h5>Symbol.for(key) <span>-- 查找并返回key对应的symbol，如找不到则新建一个symbol并返回</span><span>[注1]</span></h5>
-<h5>Symbol.keyFor(symbol) <span>-- 查找并返回symbol对应的key，找不到返回 undefined</span></h5>
-<h5>symbol.toString() <span>-- 返回symbol的字符串表示，重写的方法 `Symbol("desc").toString(); // "Symbol(desc)"`</span></h5>
-</div>
-
-[注1]：`Symbol.for()` 与 `Symbol()` 都会生成新的 Symbol。它们的区别是，前者会被登记在全局环境中供搜索，后者不会。比如，如果你调用 `Symbol.for('cat')` 30次，每次都会返回同一个 Symbol 值，但是调用 `Symbol('cat')` 30次，会返回30个不同的 Symbol值。
 
 
 ## <span class="es6">Promise</span>

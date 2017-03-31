@@ -149,3 +149,89 @@ WeakMap 结构与 Map 结构基本类似, 唯一的区别是它只接受对象�
   <h5>weakMap.delete(key) <span>-- 清除 WeakMap 中 key 对应的键值</span></h5>
   <h5>weakMap.has(key) <span>-- 返回一个布尔值，表示 WeakMap 对象中是否有保存 key 对应的值</span></h5>
 </div>
+
+
+## 标志 Symbol
+
+ES5 的对象属性名都是字符串，这容易造成属性名的冲突。ES6 引入 Symbol 从根本上防止属性名的冲突。
+Symbol 是一种新的原始数据类型，表示独一无二的值。
+
+可以通过 `Symbol()` 或 `Symbol.for()` 创建 Symbol 类型值。新建时可以接受一个字符串作为参数，表示对 Symbol 值的描述，主要是为了在控制台显示，或者转为字符串时，比较容易区分。
+
+`Symbol.for()` 与 `Symbol()` 这两种写法，都会生成新的 Symbol。两者的区别是，前者会被登记在全局环境中供搜索，后者不会。`Symbol.for()` 不会每次调用就返回一个新的 Symbol 类型的值，而是会先检查给定的 key 是否已经存在，如果不存在才会新建一个值。
+
+需要注意的是，`Symbol.for()` 登记的名字，在全局环境内都有效的，可以在不同的 iframe 或 service worker 中取到同一个值。
+
+```js
+let s = Symbol('s');  // 不能使用 new 操作符
+typeof s;             // 'symbol'
+Symbol('s') === s     // false, 每个 symbol 值都是唯一的，'s' 只是一个描述字符
+
+Symbol.for('s') === Symbol.for('s');  // for() 方法可通过描述符抓取已有 symbol 值
+Symbol.for('s') === s;                // false，因为 s 不是通过 for() 方法新建的，所以不是同一个 symbol 值
+```
+
+Symbol值不能与其他类型的值进行运算，会报错。但是，Symbol值可以显式转为字符串或布尔值，但是不能转为数值。
+
+```js
+var sym = Symbol('My symbol');
+"your symbol is " + sym;  // TypeError: can't convert symbol to string
+`your symbol is ${sym}`;  // TypeError: can't convert symbol to string
+
+String(sym)     // 'Symbol(My symbol)'
+sym.toString()  // 'Symbol(My symbol)'
+Boolean(sym)    // true
+!sym            // false
+Number(sym)     // TypeError: Cannot convert a Symbol value to a number
+```
+
+### Symbol 用法
+
+#### 作为属性名
+
+```js
+var mySymbol = Symbol();
+var a = {};
+
+a.mySymbol = 'Hello!';  // 点运算符只能接字符串使用，所以这里的 mySymbol 是字符串而不是 Symbol 值
+a[mySymbol]             // undefined
+a['mySymbol']           // "Hello!"
+```
+
+#### 作为常量值
+
+```js
+levels = {
+  DEBUG: Symbol('debug'),
+  INFO: Symbol('info'),
+  WARN: Symbol('warn')
+};
+log(levels.DEBUG, 'debug message');
+```
+
+### 属性名的遍历
+
+Symbol 作为属性名，该属性不会出现在 `for...in`、`for...of` 循环中，也不会被 `Object.keys()` `Object.getOwnPropertyNames()` 返回。但它也不是私有属性，有专门的方法获取指定对象的所有 Symbol 属性名。
+
+`Object.getOwnPropertySymbols()` 方法返回一个数组，成员是当前对象的所有用作属性名的 Symbol 值。  
+另一个新的API，`Reflect.ownKeys()` 方法可以返回所有类型的键名，包括常规键名和 Symbol 键名。
+
+```js
+let obj = {
+  [Symbol('my_key')]: 1,
+  enum: 2,
+  nonEnum: 3
+};
+
+Object.keys(obj);                  // ["enum", "nonEnum"]
+Object.getOwnPropertyNames(obj);   // ["enum", "nonEnum"]
+Object.getOwnPropertySymbols(obj); // [Symbol(my_key)]
+Reflect.ownKeys(obj);              // ["enum", "nonEnum", Symbol(my_key)]
+```
+
+由于以 Symbol 值作为名称的属性，不会被常规方法遍历到。我们可以利用这个特性，为对象定义一些非私有的、但又希望只用于内部的方法和属性。
+
+
+### 内置的 Symbol 值
+
+除了定义自己使用的 Symbol 值以外，ES6 还提供了11个内置的 Symbol 值，指向语言内部使用的方法。
