@@ -15,7 +15,7 @@ https://www.amazon.cn/JavaScript高级程序设计-泽卡斯/dp/B007OQQVMY
 |||
 | `function`       | 声明一个函数
 | `function*`      | 声明一个 Generators 函数，es6 新增
-| `async function` | 声明一个 async 函数，es2017 新增
+| `async function` | 声明一个 async 函数，ES2017新增
 | `class`          | 声明一个类，es6 新增
 |||
 | `return`         | 指定函数返回值
@@ -83,8 +83,8 @@ try {
 | `function*` | 声明一个 Generator 函数表达式，es6新增
 | `yield`     | The yield keyword is used to pause and resume a generator function es6新增
 | `yield*`    | The yield* expression is used to delegate to another generator or iterable object. es6新增
-| `async function` | 声明一个 async 函数，es2017新增
-| `await`          | 用于 async 函数内部，表示一个异步等待，es2017新增
+| `async function` | 声明一个 async 函数，ES2017新增
+| `await`          | 用于 async 函数内部，表示一个异步等待，ES2017新增
 | `[]`             | 数组字面量
 | `{}`             | 对象字面量
 | `/ab+c/i`        | 正则字面量
@@ -139,7 +139,7 @@ let i = '5', j = '5';
 | `/`  | 除
 | `*`  | 乘
 | `%`  | 求余
-| `**` | 乘方，求幂，es2017 新加
+| `**` | 乘方，求幂，ES2016新增
 
 ### 关系操作符 Relational operators
 
@@ -171,24 +171,28 @@ let i = '5', j = '5';
 | `===` | 全等，，判断不进行类型转换
 | `!==` | 不全等，判断不进行类型转换
 
+#### 类型转换规则
 
-> `==` `!=` 两个运算符都会进行类型转换。执行类型转换的规则如下：
-> 
-> * 布尔值会转换成数值。false 为 0，true 为 1。
-> * 字符串跟数字比较，会尝试把字符串转换成数字。
-> * 对象跟非对象比较，会调用对象的 valueOf() 方法。
-> 
-> 在比较时，`==` `!=` 两个运算符还遵守下列规则：
-> 
-> * 值 null 和 undefined 相等。
-> * 不会对 null 和 undefined 进行类型转换。
-> * NaN 跟任何值都不相等，甚至 NaN 都不等于 NaN。
-> * 对象跟对象比，不会进行类型转换，如果指向的不是同一个对象，就返回 false。
-> 
-> | 表达式       | 值    | 表达式              | 值    | 表达式                   | 值
-> |--------------|-------|---------------------|-------| -------------------------|----------
-> | `false == 0` | true  | `null == undefined` | true  | `a = {}; b = {}; a == b` | false
-> | `true == 1`  | true  | `NaN == NaN`        | false | `a = [1]; a == 1`        | true
-> | `true == 2`  | false | `undefined == 0`    | false | `a = ['1']; a == 1`      | true
-> | `"5" == 5`   | true  | `null == 0`         | false | `a = {1: 1}; a == 1`     | false
+`==` 和 `!=` 两个操作符会先将被操作对象转换成同一类型后再进行全等比较。  
+`<` `<=` `>` `>=` 这四个操作符则会先将被操作对象转换成原始值类型，然后再转换成相同类型进行比较。
+
+类型转换遵循以下规则：
+  * Boolean 转成 Number，false 为 +0，true 为 1。
+  * String 跟 Number 比，String 转 Number。
+  * Object 跟原始值类型比，会调用对象 valueOf() 或 toString() 方法(先 valueOf 后 toString; 先自身定义的后原型链上的)。
+
+在比较时，`==` `!=` 两个运算符还遵守下列规则：
+  * 值 null 和 undefined 相等。
+  * 不会对 null 和 undefined 进行类型转换。
+  * NaN 跟任何值都不相等，甚至 NaN 都不等于 NaN。
+  * 对象跟对象比，不会进行类型转换，如果指向的不是同一个对象，就返回 false。
+
+| 表达式       | 值    | 表达式              | 值    | 表达式                   | 值
+|--------------|-------|---------------------|-------| -------------------------|----------
+| `false == 0` | true  | `null == undefined` | true  | `a = {}; b = {}; a == b` | false
+| `true == 1`  | true  | `NaN == NaN`        | false | `a = [1]; a == 1`        | true
+| `true == 2`  | false | `undefined == 0`    | false | `a = ['1']; a == 1`      | true
+| `"5" == 5`   | true  | `null == 0`         | false | `a = {1: 1}; a == 1`     | false
+
+
 

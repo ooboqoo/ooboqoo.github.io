@@ -96,7 +96,12 @@ window.addEventListener("DOMContentLoaded", function() {
     var nodes = elem_md.getElementsByTagName("*");
     var headings = [];
     var index = 0;
-    var reg = ooboqoo.contentsRegExp || /H[1234]/;
+    var reg = /H[1234]/;
+
+    if (ooboqoo.contentsRegExp) {
+      reg = ooboqoo.contentsRegExp;
+      delete ooboqoo.contentsRegExp;  // 清理以防影响其他页面
+    }
     
     [].forEach.call(nodes, function(node) {
       if (reg.test(node.tagName)) { headings.push(node); }

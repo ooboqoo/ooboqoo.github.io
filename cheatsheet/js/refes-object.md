@@ -50,8 +50,8 @@ h2 { text-align: center; }
 <h5 class="es3">object.constructor <span>-- 指向构造函数(该属性位于对象的原型上)</span></h5>
 </div>
 <div class="dl">
-<h5 class="es3">object.valueOf() <span>-- 返回指定对象的简易类型值，较少显式调用</span></h5>
-<h5 class="es3">object.toString() <span>-- 返回对象的字符串表示</span></h5>
+<h5 class="es3">object.valueOf() <span>-- 返回指定对象的原始值类型，很少显式调用，当期望得到原始值而提供的是对象时，系统会自动调用</span></h5>
+<h5 class="es3">object.toString() <span>-- 只会简单返回 `'[object Array]'` `'[object Number]'` 等，除了类型判断，其他情况都需重写</span></h5>
 <h5 class="es3">object.toLocaleString() <span>-- 调用 toString()</span></h5>
 <h5 class="es3">object.hasOwnProperty() <span>-- 检测属性是自身的还是继承的</span></h5>
 <h5 class="es3">object.isPrototypeOf(object) <span>-- 检查对象是否在参数object的原型链上</span></h5>
