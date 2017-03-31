@@ -4,7 +4,7 @@
 
 JS 的变量是松散类型的，可以存储 JS 支持的任何数据类型，其变量的类型可以在运行时被动态改变。  
 实际编程中，我们建议不要频繁改变变量的类型，因为这对调试没有好处。  
-正因为Javascript中变量类型具有动态性，在程序实际执行的过程中就需要用到类型转换的概念。  
+正因为 JS 中变量类型具有动态性，在程序实际执行的过程中就需要用到类型转换的概念。  
 类型转换可以分为隐式转换和显式转换，所谓隐式转换即程序在运行时进行的自动转换，显式转换则是人为的对类型进行强制转换。
 
 ```js
@@ -14,24 +14,18 @@ n = "Hello World!";
 n = {};
 ```
 
-### JS 数据类型
-
-在 JavaScript 中有(此处表述不是很严谨)：
-  * 5 种不同的数据类型：string number boolean object function
-  * 3 种对象类型：Object Date Array
-  * 2 个不包含任何值的数据类型：null undefined
 
 ### `typeof` 操作符
 
 你可以使用 typeof 操作符来查看 JavaScript 变量的数据类型。
 
-| Type      | Result
-|-----------|------------------------------------------------------------------------
-| Undefined | "undefined"
-| Null      | **"object"**
-| Boolean   | "boolean"
-| Number    | "number"
-| String    | "string"
+| Type                                                    | Result
+|---------------------------------------------------------|--------------------------
+| Undefined                                               | "undefined"
+| Null                                                    | **"object"**
+| Boolean                                                 | "boolean"
+| Number                                                  | "number"
+| String                                                  | "string"
 | Symbol (new in ECMAScript 2015)                         | "symbol"
 | Function object (implements [[Call]] in ECMA-262 terms) | **"function"**
 | Host object (provided by the JS environment)            | Implementation-dependent
@@ -69,7 +63,9 @@ arr.constructor === SubArray  // true
 
 ## 类型转换
 
-### 显示转换
+### 显式转换
+
+利用 Number() String() Boolean() 可实现显式转换。
 
 | Original Value | to Number | to String         | to Boolean
 |----------------|-----------|-------------------|-------------
@@ -102,82 +98,32 @@ arr.constructor === SubArray  // true
 `<` `<=` `>` `>=` 这四个操作符则会先将被操作对象转换成原始值类型，然后再转换成相同类型进行比较。
 
 类型转换遵循以下规则：
+  * null undefined 在比较时不会作转换。数值运算时 null 转 0，undefined 转 NaN。本文运算转字面量对应字符串。
   * Boolean 转成 Number，false 为 +0，true 为 1。
-  * String 跟 Number 比，String 转 Number。
-  * Object 跟原始值类型比，会调用 valueOf() 或 toString() 方法(先 valueOf 后 toString; 先自身定义的后原型链上的)。
-
-在比较时，`==` `!=` 两个运算符还遵守下列规则：
-  * 值 null 和 undefined 相等。
-  * 不会对 null 和 undefined 进行类型转换。
-  * NaN 跟任何值都不相等，甚至 NaN 都不等于 NaN。
-  * 对象跟对象比，不会进行类型转换，如果指向的不是同一个对象，就返回 false。
-
-再补充几条自己总结的：
-  * `+` 运算，优先认为是字符串链接操作，Null Undefined Boolean Number(含 NaN) 都能成功转换成 String 类型
-  * 与数值进行运算，`null` 为 `0`, `undefined` 为 `NaN`, `false` 为 `0`, `true` 为 `1`, String 类型转为对应 数值或`NaN`
+  * String 跟 Number 比较，String 转 Number，链接操作则是 Number 转 String。
+  * Object 跟原始值类型比较，会调用 valueOf() 或 toString() 方法(先 valueOf 后 toString; 先自身定义的后原型链上的)。  
+    另外，Object 转原始值类型时，如果确切知道需要的是 String 类型，则 toString() 方法优先于 valueOf()。
 
 ```js
+// 详见 http://www.ecma-international.org/ecma-262/5.1/#sec-8.12.8
+let conv = {valueOf() { return '123'; }, toString() { return '456'; }};
+conv + 1 === '1231'
+conv - 1 === 122
+alert(conv);         // '456'
+conv = {toString() { return '456'; }};
+conv + 1 === '4561'
+conv - 1 === 455
+conv = {valueOf() { return 123; }, toString() { return '456'; }};
+conv + 1 = 124
+
 let d = new Date();
 1 + d === "1Fri Mar 31 2017 15:38:47 GMT+0800 (中国标准时间)"  // 调用 d.toString()
 1 - d === -1490945927920                                       // 调用 d.valueOf()
-d + 1 === "Fri Mar 31 2017 15:38:47 GMT+0800 (中国标准时间)1"
-d - 1 === 1490945927920
 
 {}  + '0' === 0                   // 第一个 {} 被认为是 代码块，差点搞晕
 '0' + {}  === '0[object Object]'  // 换个顺序，这会就正常了
 {} - '0' === -0
 '0' - {} === NaN
-```
-
-
-```js
-null +  1  === 1
-null + '1' === 'null1'
-null -  1  === -1
-null - '1' === -1
-
-undefined +  1  === NaN
-undefined + '1' === 'undefined1'
-undefined -  1  === -1
-undefined - '1' === -1
-
-NaN +  1  === NaN
-NaN + '1' === 'NaN1'
-NaN - '1' === NaN 
-
-true  + 1   === 2
-false + 1   === 1
-true  - 1   === 0
-false - 1   === -1
-
-true  + '1' === 'true1'
-false + '1' === 'false1'
-true  - '1' === 0
-false - '1' === -1
-
-'1' + 1 === '11'
-'1' - 1 === 0
-
-[]     + false  ===    'false'
-[1]    + false  ===   '1false'
-[1, 2] + false  === '1,2false'
-
-[]     - false === 0
-[1]    - false === 1
-[1, 2] - false === NaN
-
-{}        + false === 0
-null      + false === 0
-{age: 32} + false === 0  // 对象行为跟数组不一样
-
-{}  + '0' === 0
-'0' + {}  === '0[object Object]'  // 换个顺序就不一样了，坑
-{} - '0' === -0
-'0' - {} === NaN
-
-{}        - false === -0
-null      - false === 0
-{age: 32} - false === -0
 ```
 
 ### `==` `!=` 中的表现
@@ -189,27 +135,6 @@ null  != 0
 false == 0
 
 [] == 0
-
-({}) != 0  // 不加括号报错
-({}) != 1
-({}) != []
-```
-
-```js
-
-let conv = {valueOf() { return '123'; }, toString() { return '456'; }};
-conv + 1 === '1231'
-conv - 1 === 122
-conv = {toString() { return '456'; }};
-conv + 1 === '4561'
-conv - 1 === 455
-conv = {valueOf() { return 123; }, toString() { return '456'; }};
-conv + 1 = 124
-
-
-
-let d = new Date();
-1 + d === "1Fri Mar 31 2017 15:36:16 GMT+0800 (中国标准时间)"
-1 - d === -1490945776127
-
+'' == 0
+({}) == '[object Object]' 
 ```
