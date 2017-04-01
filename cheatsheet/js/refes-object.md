@@ -1,16 +1,16 @@
 <style>
-.es3::before, .es5::before, .es6::before, .es7::before, .es::before {
+.es3::before, .es5::before, .es6::before, .es8::before, .es::before {
   margin-right: 1em; padding: 1px 3px; font-size: .5em; color: #fff; border-radius: .25em; }
 .es3::before { content: "ES3"; background-color: #0c3; }
 .es5::before { content: "ES5"; background-color: #9c0; }
 .es6::before { content: "ES6"; background-color: #c30; }
-.es7::before { content: "ES7"; background-color: #c3c; }
+.es8::before { content: "ES8"; background-color: #c3c; }
 .es::before  { content: "ES?"; background-color: #ccc; }
 h2 { text-align: center; }
 #md .dl::before { content: ""; }
 #md .dl h5 { color: #2824bd; }
 #md .dl h5 > a { color: red; text-decoration: none; border-bottom-width: 0; }
-#md .dl h5 > span:nth-child(4) { display: inline-block; float: right; }
+#md .dl h5 > span.mark { display: inline-block; float: right; background-color: initial; font-size: small;}
 </style>
 
 # JavaScript 内置对象参考手册
@@ -26,48 +26,58 @@ h2 { text-align: center; }
 <h5 class="es3">Object.prototype <span>-- 通过该属性为所有 Object 类型的对象添加公共属性</span></h5>
 </div>
 <div class="dl">
-<h5 class="es5">Object.create(proto[, propertiesObject]) <span>-- 通过指定原型对象和属性来创建一个新的对象</span><span>[注1]</span></h5>
-<h5 class="es6">Object.assign(target, ...sources) <span>-- 将 sources 的自有属性复制到 target，并返回 target</span></h5>
-<h5 class="es6">Object.is() <span>-- 同值相等，与 === 全等基本相同，区别是 +0 -0 不等，NaN 自等</span></h5>
-<h5 class="es5">Object.keys() <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的名称</span></h5>
-<h5 class="es7">Object.values() <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的值</span></h5>
-<h5 class="es7">Object.entries() <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的键值对</span></h5>
-<h5 class="es5">Object.getOwnPropertyNames() <span>-- 返回一个数组，它包含了指定对象所有的可枚举和不可枚举的属性名</span></h5>
-<h5 class="es5">Object.getOwnPropertyDescriptor() <span>-- 返回指定对象上一个自有属性对应的属性描述符</span></h5>
-<h5 class="es5">Object.defineProperty(obj, prop, descriptor) <span>-- 给对象添加一个属性并指定该属性的配置</span><span>[注2]</span></h5>
-<h5 class="es5">Object.defineProperties(obj, props) <span>-- 给对象添加多个属性并分别指定它们的配置</span></h5>
-<h5 class="es5">Object.getPrototypeOf() <span>-- 返回指定对象的原型对象</span></h5>
-<h5 class="es6">Object.setPrototypeOf() <span>-- 设置对象的原型，即 `[[Prototype]]` 属性</span><span>[注3]</span></h5>
-<h5 class="es5">Object.freeze() <span>-- 冻结对象：不能增减属性，不能配置属性，不能修改属性值</span></h5>
-<h5 class="es5">Object.seal() <span>-- 封闭对象：不能增删或配置属性，但还能修改现有对象属性的值</span></h5>
-<h5 class="es5">Object.preventExtensions() <span>-- 禁止扩展：让一个对象变的不可扩展，也就是不能再添加新属性</span></h5>
-<h5 class="es5">Object.isFrozen() <span>-- 确认是否冻结</span></h5>
-<h5 class="es5">Object.isSealed() <span>-- 确认是否封闭</span></h5>
-<h5 class="es5">Object.isExtensible() <span>-- 确认是否可扩展（即是否能够添加属性）</span></h5>
+<h5 class="es5">Object.create(proto[, propertiesObject]) <span>-- 新建对象，通过指定原型对象和属性来创建一个新的对象</span><span class="mark">[注1]</span></h5>
+<h5 class="es6">Object.assign(target, src1, ...) <span>-- 对象合并，将一个或多个对象的自有可遍历属性复制到 target</span></h5>
+<h5 class="es6">Object.is(value1, value2) <span>-- 同值相等，与 `===` 全等基本相同，区别是 `+0` `-0` 不等，`NaN` 自等</span></h5>
+<h5 class="es5">Object.keys(obj) <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的名称</span></h5>
+<h5 class="es8">Object.values(obj) <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的值</span></h5>
+<h5 class="es8">Object.entries(obj) <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的键值对 `[[k1,v1], ...]`</span></h5>
 </div>
 <div class="dl">
-<h5 class="es6">object.\_\_proto\_\_ <span>-- 对象实例的属性，指向其原型对象</span></h5>
+<h5 class="es6">object.\_\_proto\_\_ <span>-- 对象实例属性，指向对象的原型对象，本质上属于内部属性，应避免使用</span><span class="mark">[注2]</span></h5>
 <h5 class="es3">object.constructor <span>-- 指向构造函数(该属性位于对象的原型上)</span></h5>
 </div>
 <div class="dl">
 <h5 class="es3">object.valueOf() <span>-- 返回指定对象的原始值类型，很少显式调用，当期望得到原始值而提供的是对象时，系统会自动调用</span></h5>
 <h5 class="es3">object.toString() <span>-- 只会简单返回 `'[object Array]'` `'[object Number]'` 等，除了类型判断，其他情况都需重写</span></h5>
 <h5 class="es3">object.toLocaleString() <span>-- 调用 toString()</span></h5>
-<h5 class="es3">object.hasOwnProperty() <span>-- 检测属性是自身的还是继承的</span></h5>
-<h5 class="es3">object.isPrototypeOf(object) <span>-- 检查对象是否在参数object的原型链上</span></h5>
+<h5 class="es3">object.isPrototypeOf(obj) <span>-- 检查对象是否在 obj 的原型链上</span></h5>
+<h5 class="es3">object.hasOwnProperty(prop) <span>-- 检测属性是自身的还是继承的</span></h5>
 <h5 class="es3">object.propertyIsEnumerable(prop) <span>-- 判断对象的属性是否可枚举</span></h5>
 </div>
 
-[注1]：通过 `map = Object.create(null);` 创建没有附加属性和方法的纯净对象，再也不用 `hasOwnProperty()`，屌炸了！
+以下都属于语言内部的方法，会调用 ES6 新增的 Reflect 对象上对应方法，但调用前可能会做一定预处理。
 
-[注2]：描述符配置格式
-```js
-props: {prop: descriptor, ...}<br>
-data descriptor: {configurable, enumerable[, value, writable]}<br>
-accessor descriptor: {configurable, enumerable[, get, set]}
-```
+<div class="dl">
+<h5 class="es5">Object.getPrototypeOf(obj) <span>-- 返回指定对象的原型对象</span></h5>
+<h5 class="es6">Object.setPrototypeOf(obj) <span>-- 设置对象的原型，即 `[[Prototype]]` 属性</span><span class="mark">[注3]</span></h5>
+<h5 class="es5">Object.getOwnPropertyNames(obj) <span>-- 返回一个数组，包含对象所有自有属性(可枚举+不可枚举)</span></h5>
+<h5 class="es6">Object.getOwnPropertySymbols(obj) <span>-- 返回一个数组，包含对象的所有自有以 Symbol 类型为键名的属性</span></h5>
+<h5 class="es5">Object.defineProperty(obj, prop, descriptor) <span>-- 给对象添加一个属性并指定该属性的配置</span></h5>
+<h5 class="es5">Object.defineProperties(obj, props) <span>-- 给对象添加多个属性并分别指定它们的配置 `{prop1: descriptor1, ...}`</span></h5>
+<h5 class="es5">Object.getOwnPropertyDescriptor(obj) <span>-- 返回指定对象上一个自有属性对应的属性描述符</span></h5>
+<h5 class="es8">Object.getOwnPropertyDescriptors(obj) <span>-- 返回指定对象上所有自有属性的属性描述符</span></h5>
+<h5 class="es5">Object.freeze(obj) <span>-- 冻结对象：不能增减属性，不能配置属性，不能修改属性值</span></h5>
+<h5 class="es5">Object.seal(obj) <span>-- 封闭对象：不能增删或配置属性，但还能修改现有对象属性的值</span></h5>
+<h5 class="es5">Object.preventExtensions(obj) <span>-- 禁止扩展，即不能再添加新属性</span></h5>
+<h5 class="es5">Object.isFrozen(obj) <span>-- 确认是否冻结</span></h5>
+<h5 class="es5">Object.isSealed(obj) <span>-- 确认是否封闭</span></h5>
+<h5 class="es5">Object.isExtensible(obj) <span>-- 确认是否可扩展（即是否能够添加属性）</span></h5>
+</div>
+<div class="dl">
+<h5 class="es5">descriptor.configurable <span>-- 定义属性是否可配置，一旦设置为 false，不能重新配置，属性也不能删除，默认值 false</span></h5>
+<h5 class="es5">descriptor.enumerable <span>-- 定义属性是否可遍历，默认值 false</span></h5>
+<h5 class="es5">descriptor.value <span>-- 如果提供，会重新设置属性值，仅存在于 data descriptor</span></h5>
+<h5 class="es5">descriptor.writable <span>-- 定义属性是否可修改，默认值 false，仅存在于 data descriptor</span></h5>
+<h5 class="es5">descriptor.get <span>-- 设定 getter，默认值 undefined，仅存在于 accessor descriptor</span></h5>
+<h5 class="es5">descriptor.set <span>-- 设定 setter，默认值 undefined，仅存在于 accessor descriptor</span></h5>
+</div>
 
-[注3]：该方法是用来替代有争议的使用 `object.__proto__` 修改原型的办法，但这个方法还是无法回避修改原型的执行性能，如果关心性能，更好的办法是用 `Object.create` 创建一个新对象。
+[注1]：可以通过 `map = Object.create(null);` 创建没有附加属性和方法的纯净对象，可避免使用 `hasOwnProperty()`。
+
+[注2]：虽然 ES6 将广泛使用的 `__proto__` 引入了标准(仅在附录里提到要求浏览器都部署，对其他运行环境没要求)，只是为了不同平台间的兼容性，正常我们应该使用 `Object.getPrototypeOf()`。
+
+[注3]：该方法用来替代有争议的 `object.__proto__` 属性，但还是无法回避修改原型的执行性能问题，如非必要请新建对象。
 
 ## Function
 
@@ -203,22 +213,13 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 ## Boolean
 
 <div class="dl">
-<h5 class="es3">boolean.toString() <span>-- 把逻辑值转换为字符串</span></h5>
 <h5 class="es3">boolean.valueOf() <span>-- 返回 Boolean 对象的原始值</span></h5>
+<h5 class="es3">boolean.toString() <span>-- 把逻辑值转换为字符串</span></h5>
 </div>
+
 
 ## Number
 
-<div class="dl">
-<h5 class="es3">Number.MAX_VALUE</h5>
-<h5 class="es3">Number.MIN_VALUE</h5>
-<h5 class="es3">Number.NaN</h5>
-<h5 class="es3">Number.NEGATIVE_INFINITY</h5>
-<h5 class="es3">Number.POSITIVE_INFINITY</h5>
-<h5 class="es6">Number.EPSILON <span>-- 极小的常量，实质是一个可以接受的误差范围</span></h5>
-<h5 class="es6">Number.MAX_SAFE_INTEGER <span>-- Number.MAX_SAFE_INTEGER === Math.pow(2, 53) - 1 // true</span></h5>
-<h5 class="es6">Number.MIN_SAFE_INTEGER <span>-- -2^53 +1</span></h5>
-</div>
 <div class="dl">
 <h5 class="es6">Number.isNaN(value) <span>-- 与全局 isNaN() 不同的是，对非数值不会先调用 Number() 进行转换，直接返回 false</span></h5>
 <h5 class="es6">Number.isFinite(value) <span>-- 检查数值是否非无穷，与全局 isFinite() 不同的是，对非数值直接返回 false</span></h5>
@@ -234,6 +235,16 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <h5 class="es3">number.toString(radix?) <span>-- 把数字转换为字符串，使用指定的基数(2-36 含)</span></h5>
 <h5 class="es3">number.toLocaleString() <span>-- 把数字转换为字符串，使用本地数字格式顺序</span></h5>
 <h5 class="es3">number.valueOf() <span>-- 返回一个 Number 对象的基本数字值</span></h5>
+</div>
+<div class="dl">
+<h5 class="es3">Number.MAX_VALUE</h5>
+<h5 class="es3">Number.MIN_VALUE</h5>
+<h5 class="es3">Number.NaN</h5>
+<h5 class="es3">Number.NEGATIVE_INFINITY</h5>
+<h5 class="es3">Number.POSITIVE_INFINITY</h5>
+<h5 class="es6">Number.EPSILON <span>-- 极小的常量，实质是一个可以接受的误差范围</span></h5>
+<h5 class="es6">Number.MAX_SAFE_INTEGER <span>-- Number.MAX_SAFE_INTEGER === Math.pow(2, 53) - 1 // true</span></h5>
+<h5 class="es6">Number.MIN_SAFE_INTEGER <span>-- -2^53 +1</span></h5>
 </div>
 
 
