@@ -139,8 +139,7 @@ $ cat > hooks/post-receive
   #!/bin/sh
   GIT_WORK_TREE=/var/www/koa-mongo git checkout -f
   cd /var/www/koa-mongo
-  tsc                                 # 下行代码是为保护服务器，毕竟源码都是开放的
-  cp ../default.json config/default.json  # 注，先手动试下，centos 默认 `alias cp='cp -i'`
+  tsc
   pm2 restart dist/app.js      Ctrl+D
 
 $ chmod +x hooks/post-receive
@@ -154,3 +153,29 @@ $ pm2 startup            # 配置 pm2 开机启动
 
 至此自动部署就完成了，以后只要在本地 `git push`，服务器就会自动编译和更新了。但有一点需要注意的是，脚本里没有添加 `npm install`，所以项目有引入新包的话，还得去服务器手动操作下。
 
+
+## PM2
+
+```bash
+$ pm2 help               # 获取帮助
+
+# Listing
+$ pm2 list               # Display all processes status
+$ pm2 describe 0         # Display all informations about a specific process
+
+# Logs
+$ pm2 logs all           # Display all processes logs in streaming
+$ pm2 flush              # Empty all log file
+$ pm2 reset              # reset counters for process
+
+# Actions
+$ pm2 <stop|restart|reload> <name|id|all>
+
+# Misc
+$ pm2 delete 0           # Will remove process from pm2 list
+$ pm2 dump|save          # 这一步会保存进程的环境变量等，并把这些设置锁死，要跟新配置，须先 delete 再 save
+
+# update PM2
+$ npm update -g pm2@latest  # Install the latest pm2 version
+$ pm2 updatePM2             # Then update the in-memory PM2
+```

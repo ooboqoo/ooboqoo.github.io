@@ -10,14 +10,14 @@ http://www.ecma-international.org/ecma-262/5.1/
 
 |||
 |---------|------------------------------------------------------------------------------------
-| `var`   | 声明一个(函数级作用域)变量，声明变量时可同时对变量进行赋值，es6 下应使用 let 替代
-| `const` | 声明一个常量，声明时需立即赋值，后续无法修改，es6 新增
-| `let`   | 声明一个块级作用域的变量，声明变量时可同时赋值，es6 新增
+| `var`   | 声明一个(函数级作用域)变量，声明变量时可同时对变量进行赋值，ES6 下应使用 let 替代
+| `const` | 声明一个常量，声明时需立即赋值，后续无法修改，ES6新增
+| `let`   | 声明一个块级作用域的变量，声明变量时可同时赋值，ES6新增
 |||
 | `function`       | 声明一个函数
-| `function*`      | 声明一个 Generators 函数，es6 新增
+| `function*`      | 声明一个 Generators 函数，ES6新增
 | `async function` | 声明一个 async 函数，ES2017新增
-| `class`          | 声明一个类，es6 新增
+| `class`          | 声明一个类，ES6新增
 |||
 | `return`         | 指定函数返回值
 
@@ -36,13 +36,13 @@ http://www.ecma-international.org/ecma-262/5.1/
 |||
 | `for`        | `for ([initialization]; [condition]; [final-expression]) statement`
 | `for...in`   | `for (variable in object) { ... }` 此语句不能保证迭代顺序，故仅可用于遍历对象的可遍历属性
-| `for...of`   | `for (variable of iterable) { statement }`，迭代按顺序执行，es6 新增
+| `for...of`   | `for (variable of iterable) { statement }`，迭代按顺序执行，ES6新增
 | `while`      | `while (condition) statement` 先判断再执行
 | `do...while` | `do statement while (condition);` 先执行再判断
 |||
 | `debugger` | 用于在代码中开启调试，调试开启时会自动中断，调试未开启则沉默
-| `export`   | es6 新增，用于设定模块导出内容
-| `import`   | es6 新增，用于导入外部模块内容
+| `export`   | ES6新增，用于设定模块导出内容
+| `import`   | ES6新增，用于导入外部模块内容
 
 
 ```js
@@ -80,10 +80,10 @@ try {
 |-------------|-------------------------------------------------------------------
 | `this`      | 指向函数执行环境 execution context，具体确定很复杂，需根据环境判断
 | `function`  | 声明一个函数表达式
-| `class`     | 声明一个类表达式，es6新增
-| `function*` | 声明一个 Generator 函数表达式，es6新增
-| `yield`     | The yield keyword is used to pause and resume a generator function es6新增
-| `yield*`    | The yield* expression is used to delegate to another generator or iterable object. es6新增
+| `class`     | 声明一个类表达式，ES6新增
+| `function*` | 声明一个 Generator 函数表达式，ES6新增
+| `yield`     | The yield keyword is used to pause and resume a generator function ES6新增
+| `yield*`    | The yield* expression is used to delegate to another generator or iterable object. ES6新增
 | `async function` | 声明一个 async 函数，ES2017新增
 | `await`          | 用于 async 函数内部，表示一个异步等待，ES2017新增
 | `[]`             | 数组字面量
@@ -98,9 +98,9 @@ try {
 | `obj.prop`    | 属性操作符
 | `obj['prop']` | 属性操作符
 | `new`         | 新建一个构造函数的实例
-| `new.target`  | 用于构造函数内部，指向构造函数自身，es6 新加
-| `super`       | 在子类中调用父类构造函数，es6 新加
-| `...obj`      | 扩展符，仅适用于 iterable objects，es6 新加
+| `new.target`  | 用于构造函数内部，指向构造函数自身，ES6新增
+| `super`       | 在子类中调用父类构造函数，ES6新增
+| `...obj`      | 扩展符，仅适用于 iterable objects，ES6新增
 
 ### 一元操作符 Unary operators
 
@@ -206,7 +206,7 @@ https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Operato
 |    | Computed Member Access       | left-to-right | `obj['prop']`
 |    | new (with argument list)     | n/a           | `new Class(arg)`
 | 18 | Function Call                | left-to-right | `foo()`
-|    | new (without argument list)  | right-to-left | `new Class()`
+|    | new (without argument list)  | right-to-left | `new constructor`
 | 17 | Postfix Increment            | n/a           | `i++`
 |    | Postfix Decrement            | n/a           | `i--`
 | 16 | Logical NOT                  | right-to-left | `!exp`
