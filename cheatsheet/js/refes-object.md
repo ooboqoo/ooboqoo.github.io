@@ -55,7 +55,7 @@ h2 { text-align: center; }
 <h5 class="es6">Object.getOwnPropertySymbols(obj) <span>-- 返回一个数组，包含对象的所有自有以 Symbol 类型为键名的属性</span></h5>
 <h5 class="es5">Object.defineProperty(obj, prop, descriptor) <span>-- 给对象添加一个属性并指定该属性的配置</span></h5>
 <h5 class="es5">Object.defineProperties(obj, props) <span>-- 给对象添加多个属性并分别指定它们的配置 `{prop1: descriptor1, ...}`</span></h5>
-<h5 class="es5">Object.getOwnPropertyDescriptor(obj) <span>-- 返回指定对象上一个自有属性对应的属性描述符</span></h5>
+<h5 class="es5">Object.getOwnPropertyDescriptor(obj, prop) <span>-- 返回指定对象上一个自有属性对应的属性描述符</span></h5>
 <h5 class="es8">Object.getOwnPropertyDescriptors(obj) <span>-- 返回指定对象上所有自有属性的属性描述符</span></h5>
 <h5 class="es5">Object.freeze(obj) <span>-- 冻结对象：不能增减属性，不能配置属性，不能修改属性值</span></h5>
 <h5 class="es5">Object.seal(obj) <span>-- 封闭对象：不能增删或配置属性，但还能修改现有对象属性的值</span></h5>
@@ -441,9 +441,9 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 ## <span class="es6">Generator</span>
 
 <div class="dl">
-  <h5>generator.next(value?) <span>-- 返回{value,done}对象，可以传递一个值作为参数</span></h5>
-  <h5>generator.return(value?) <span>-- 返回给定的值，并且终结遍历Generator函数</span></h5>
-  <h5>generator.throw(exception) <span>-- 在函数体外向函数体内抛出一个错误</span></h5>
+  <h5>generator.next(value?) <span>-- 返回一个 `{value, done}` 对象，可选参数用于往生成器输入信息</span></h5>
+  <h5>generator.return(value?) <span>-- 返回给定的 value 值，并将生成器状态改成 done: true，返回值跟生成器内定义的 return 无关</span></h5>
+  <h5>generator.throw(exp?) <span>-- 向生成器内抛出一个错误，如果在生成器内被捕获，会返回一个 yield，否则生成器状态变成 closed</span></h5>
 </div>
 
 

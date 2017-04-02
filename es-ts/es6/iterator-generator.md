@@ -1,4 +1,6 @@
-# Iterator和for...of循环
+# Iterator &amp; Generator &amp; async
+
+## Iterator 和 for...of 循环
 
 ### 与其他遍历语法的比较
 
@@ -60,171 +62,144 @@ for (var n of fibonacci) {
 
 上面的例子，会输出斐波纳契数列小于等于1000的项。如果当前项大于1000，就会使用break语句跳出`for...of`循环。
 
-# Generator 函数
+## Generator 函数
 
-## 简介
+### 协程
 
-### 基本概念
+传统的编程语言，早有异步编程的解决方案(其实是多任务的解决方案)，其中有一种叫做 "协程" coroutine，意思是多个线程互相协作，完成异步任务。
 
-generator 生成器，发生器  
-yield 出产，产出
+协程有点像函数，又有点像线程。它的运行流程大致如下。
+  * 第一步，协程A开始执行。
+  * 第二步，协程A执行到一半，进入暂停，执行权转移到协程B。
+  * 第三步，（一段时间后）协程B交还执行权。
+  * 第四步，协程A恢复执行。
 
-Generator函数是ES6提供的一种异步编程解决方案，语法行为与传统函数完全不同。本章详细介绍Generator函数的语法和API，它的异步编程应用请看《异步操作》一章。
+上面流程的协程A，就是异步任务，因为它分成两段（或多段）执行。
 
-Generator函数有多种理解角度。从语法上，首先可以把它理解成，Generator函数是一个状态机，封装了多个内部状态。
+Generator 函数是协程在 ES6 的实现，最大特点就是可以交出函数的执行权，即暂停执行。
 
-执行Generator函数会返回一个遍历器对象，也就是说，Generator函数除了状态机，还是一个遍历器对象生成函数。返回的遍历器对象，可以依次遍历Generator函数内部的每一个状态。
+整个 Generator 函数就是一个封装的异步任务，或者说是异步任务的容器。异步操作需要暂停的地方，都用 yield 语句注明。
 
-形式上，Generator函数是一个普通函数，但是有两个特征。一是，`function`关键字与函数名之间有一个星号；二是，函数体内部使用`yield`语句，定义不同的内部状态（yield语句在英语里的意思就是“产出”）。
-
-```javascript
-function* helloWorldGenerator() {
-  yield 'hello';
-  yield 'world';
-  return 'ending';
+```js
+function* gen(x) {
+  let y = yield x + 2;
+  return y;
 }
 
-var hw = helloWorldGenerator();
-hw.next()  // { value: 'hello', done: false }
-hw.next()  // { value: 'ending', done: true }
-hw.next()  // { value: undefined, done: true }
+const g = gen(1);
+g.next() // { value: 3, done: false }
+g.next() // { value: undefined, done: true }
 ```
 
-调用Generator函数，返回一个遍历器对象，代表Generator函数的内部指针。以后，每次调用遍历器对象的`next`方法，就会返回一个有着`value`和`done`两个属性的对象。`value`属性表示当前的内部状态的值，是`yield`语句后面那个表达式的值；`done`属性是一个布尔值，表示是否遍历结束。
+### 数据交换和错误处理
 
-### yield语句
+Generator 函数可以暂停执行和恢复执行，这是它能封装异步任务的根本原因。除此之外，它还有两个特性，使它可以作为异步编程的完整解决方案：函数体内外的数据交换和错误处理机制。
 
-`yield`语句与`return`语句既有相似之处，也有区别。相似之处在于，都能返回紧跟在语句后面的那个表达式的值。区别在于每次遇到`yield`，函数暂停执行，下一次再从该位置继续向后执行，而`return`语句不具备位置记忆的功能。一个函数里面，只能执行一次（或者说一个）`return`语句，但是可以执行多次（或者说多个）`yield`语句。正常函数只能返回一个值，因为只能执行一次`return`；Generator函数可以返回一系列的值，因为可以有任意多个`yield`。从另一个角度看，也可以说Generator生成了一系列的值，这也就是它的名称的来历（在英语中，generator这个词是“生成器”的意思）。
+Generator 通过 `next` 方法返回值的 `value` 属性向外输出数据；通过 `next` 方法的参数接收外部输入。
 
-Generator函数可以不用`yield`语句，这时就变成了一个单纯的暂缓执行函数。
+```js
+function* gen(x){
+  var y = yield x + 2;
+  return y;
+}
 
-另外需要注意，`yield`语句不能用在普通函数中，否则会报错。
+var g = gen(1);
+g.next()  // { value: 3, done: false }
+g.next(2) // { value: 2, done: true }
+```
 
-### 与 Iterator 接口的关系
+Generator 函数内部还可以部署错误处理代码，捕获函数体外抛出的错误。
 
-任意一个对象的`Symbol.iterator`方法，等于该对象的遍历器生成函数，调用该函数会返回该对象的一个遍历器对象。
+```js
+function* gen(x){
+  try { var y = yield x + 2; }
+  catch (e) { console.log(e); }
+  return y;
+}
 
-由于Generator函数就是遍历器生成函数，因此可以把Generator赋值给对象的`Symbol.iterator`属性，从而使得该对象具有Iterator接口。
+var g = gen(1); g.next(); g.throw('出错了');            // 输出："出错了"
+var g = gen(1); g.next(); g.next(); g.throw('出错了');  // 此错误就不会被捕捉
+```
 
-```javascript
-var myIterable = {};
-myIterable[Symbol.iterator] = function* () {
-  yield 1;
-  yield 2;
-  yield 3;
+### 流程管理
+
+虽然 Generator 函数将异步操作表示得很简洁，但是流程管理却不方便（即何时执行第一阶段、何时执行第二阶段）。
+
+```js
+var fetch = require('node-fetch');
+
+function* gen(){
+  var url = 'https://api.github.com/users/github';
+  var result = yield fetch(url);
+  console.log(result.bio);
+}
+
+var g = gen();
+var result = g.next();
+result.value.then(data => g.next(data.json()));
+```
+
+co 模块是著名程序员 TJ Holowaychuk 于2013年6月发布的一个小工具，用于 Generator 函数的自动执行。
+
+```js
+var fs = require('fs');
+var co = require('co');
+
+var readFile = function (fileName){
+  return new Promise(function (resolve, reject){
+    fs.readFile(fileName, function(error, data){
+      if (error) reject(error);
+      resolve(data);
+    });
+  });
 };
 
-[...myIterable] // [1, 2, 3]
-```
-
-## next 方法的参数
-
-`yield`句本身没有返回值，或者说总是返回`undefined`。`next`方法可以带一个参数，该参数就会被当作上一个`yield`语句的返回值。
-
-这个功能有很重要的语法意义。Generator函数从暂停状态到恢复运行，它的上下文状态（context）是不变的。通过`next`方法的参数，就有办法在Generator函数开始运行之后，继续向函数体内部注入值。也就是说，可以在Generator函数运行的不同阶段，从外部向内部注入不同的值，从而调整函数行为。
-
-```javascript
-function* foo(x) {
-  var y = 2 * (yield (x + 1));
-  var z = yield (y / 3);
-  return (x + y + z);
-}
-
-var a = foo(5);
-a.next()  // Object{value:6, done:false}
-a.next()  // Object{value:NaN, done:false}
-a.next()  // Object{value:NaN, done:true}
-
-var b = foo(5);
-b.next()    // { value:6, done:false }
-b.next(12)  // { value:8, done:false }
-b.next(13)  // { value:42, done:true }
-```
-
-上面代码中，第二次运行`next`方法的时候不带参数，导致y的值等于`2 * undefined`（即`NaN`），除以3以后还是`NaN`，因此返回对象的`value`属性也等于`NaN`。第三次运行`Next`方法的时候不带参数，所以`z`等于`undefined`，返回对象的`value`属性等于`5 + NaN + undefined`，即`NaN`。
-
-如果向`next`方法提供参数，返回结果就完全不一样了。上面代码第一次调用`b`的`next`方法时，返回`x+1`的值6；第二次调用`next`方法，将上一次`yield`语句的值设为12，因此`y`等于24，返回`y / 3`的值8；第三次调用`next`方法，将上一次`yield`语句的值设为13，因此`z`等于13，这时`x`等于5，`y`等于24，所以`return`语句的值等于42。
-
-注意，由于`next`方法的参数表示上一个`yield`语句的返回值，所以第一次使用`next`方法时，不能带有参数。
-
-## for...of循环
-
-`for...of`循环可以自动遍历调用Generator函数时生成的Iterator对象，且此时不再需要调用`next`方法。
-
-```javascript
-function *foo() {
-  yield 1;
-  yield 2;
-  yield 3;
-  yield 4;
-  yield 5;
-  return 6;
-}
-
-for (let v of foo()) {
-  console.log(v);
-}
-// 1 2 3 4 5
-```
-
-上面代码使用`for...of`循环，依次显示5个`yield`语句的值。这里需要注意，一旦`next`方法的返回对象的`done`属性为`true`，`for...of`循环就会中止，且不包含该返回对象，所以上面代码的`return`语句返回的6，不包括在`for...of`循环之中。
-
-## Generator.prototype.throw()
-
-Generator函数返回的遍历器对象，都有一个`throw`方法，可以在函数体外抛出错误，然后在Generator函数体内捕获。
-
-```javascript
-var g = function* () {
-  try {
-    yield;
-  } catch (e) {
-    console.log('内部捕获', e);
-  }
+var gen = function* () {
+  var f1 = yield readFile('/etc/fstab');
+  var f2 = yield readFile('/etc/shells');
+  console.log(f1.toString());
+  console.log(f2.toString());
 };
 
-var i = g();
-i.next();
-
-try {
-  i.throw('a');
-  i.throw('b');
-} catch (e) {
-  console.log('外部捕获', e);
-}
-// 内部捕获 a
-// 外部捕获 b
+co(gen).then(function (){
+  console.log('Generator 函数执行完成');
+});
 ```
 
-上面代码中，遍历器对象`i`连续抛出两个错误。第一个错误被Generator函数体内的`catch`语句捕获。`i`第二次抛出错误，由于Generator函数内部的`catch`语句已经执行过了，不会再捕捉到这个错误了，所以这个错误就被抛出了Generator函数体，被函数体外的`catch`语句捕获。
+## async 函数
 
-注意，不要混淆遍历器对象的`throw`方法和全局的`throw`命令。上面代码的错误，是用遍历器对象的`throw`方法抛出的，而不是用`throw`命令抛出的。后者只能被函数体外的`catch`语句捕获。
+ES2017 标准引入了 async 函数，使得异步操作变得更加方便。
 
-## Generator.prototype.return()
+async 函数是什么？一句话，它就是 Generator 函数的语法糖。
 
-Generator函数返回的遍历器对象，还有一个`return`方法，可以返回给定的值，并且终结遍历Generator函数。
+```js
+const fs = require('fs');
 
-如果`return`方法调用时，不提供参数，则返回值的`value`属性为`undefined`。
-
-如果Generator函数内部有`try...finally`代码块，那么`return`方法会推迟到`finally`代码块执行完再执行。
-
-```javascript
-function* numbers () {
-  yield 1;
-  try {
-    yield 2;
-    yield 3;
-  } finally {
-    yield 4;
-    yield 5;
-  }
-  yield 6;
+function readFile(fileName) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(fileName, (error, data) => {
+      if (error) { reject(error); }
+      resolve(data);
+    });
+  });
 }
-var g = numbers()
-g.next() // { done: false, value: 1 }
-g.next() // { done: false, value: 2 }
-g.return(7) // { done: false, value: 4 }
-g.next() // { done: false, value: 5 }
-g.next() // { done: true, value: 7 }
+
+async function asyncReadFile() {
+  const f1 = await readFile('/etc/fstab'),
+        f2 = await readFile('/etc/shells');
+  console.log(f1.toString(), f2.toString());
+};
+
+const result = asyncReadFile();
+result.then(() => console.log('执行完成'));
 ```
 
-上面代码中，调用`return`方法后，就开始执行`finally`代码块，然后等到`finally`代码块执行完，再执行`return`方法。
+一比较就会发现，async 函数就是将 Generator 函数的星号 * 替换成async，将 yield 替换成 await，仅此而已。
+
+async函数对 Generator 函数的改进，体现在以下四点:
+  * 内置执行器
+  * 更好的语义: async 和 await，比起 * 和 yield，语义更清楚
+  * 更广的适用性: co 模块约定，yield 后面只能是 Thunk 函数或 Promise 对象，而 await 后面可以是 Promise 对象和原始值类型
+  * 返回值是 Promise，这比 Generator 函数的返回值是 Iterator 对象方便多了
+
+进一步说，async 函数完全可以看作多个异步操作，包装成的一个 Promise 对象，而 await 命令就是内部 then 命令的语法糖。

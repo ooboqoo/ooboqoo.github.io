@@ -195,5 +195,58 @@ let i = '5', j = '5';
 | `true == 2`  | false | `undefined == 0`    | false | `a = ['1']; a == 1`      | true
 | `"5" == 5`   | true  | `null == 0`         | false | `a = {1: 1}; a == 1`     | false
 
+### 操作符优先级与结合性
 
+https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+
+| P  | Operator type                | Associativity | Individual operators
+|----|------------------------------|---------------|---------------------
+| 20 | Grouping                     | n/a           | `( exp )`
+| 19 | Member Access                | left-to-right | `obj.prop`
+|    | Computed Member Access       | left-to-right | `obj['prop']`
+|    | new (with argument list)     | n/a           | `new Class(arg)`
+| 18 | Function Call                | left-to-right | `foo()`
+|    | new (without argument list)  | right-to-left | `new Class()`
+| 17 | Postfix Increment            | n/a           | `i++`
+|    | Postfix Decrement            | n/a           | `i--`
+| 16 | Logical NOT                  | right-to-left | `!exp`
+|    | Bitwise NOT                  | right-to-left | `~ …`
+|    | Unary Plus                   | right-to-left | `+ …`
+|    | Unary Negation               | right-to-left | `- …`
+|    | Prefix Increment             | right-to-left | `++ …`
+|    | Prefix Decrement             | right-to-left | `-- …`
+|    | typeof                       | right-to-left | `typeof …`
+|    | void                         | right-to-left | `void …`
+|    | delete                       | right-to-left | `delete …`
+| 15 | Exponentiation               | right-to-left | `… ** …`
+| 14 | Multiplication               | left-to-right | `… * …`
+|    | Division                     | left-to-right | `… / …`
+|    | Remainder                    | left-to-right | `… % …`
+| 13 | Addition                     | left-to-right | `… + …`
+|    | Subtraction                  | left-to-right | `… - …`
+| 12 | Bitwise Left Shift           | left-to-right | `… << …`
+|    | Bitwise Right Shift          | left-to-right | `… >> …`
+|    | Bitwise Unsigned Right Shift | left-to-right | `… >>> …`
+| 11 | Less Than                    | left-to-right | `… < …`
+|    | Less Than Or Equal           | left-to-right | `… <= …`
+|    | Greater Than                 | left-to-right | `… > …`
+|    | Greater Than Or Equal        | left-to-right | `… >= …`
+|    |in                            | left-to-right | `… in …`
+|    | instanceof                   | left-to-right | `… instanceof …`
+| 10 | Equality                     | left-to-right | `… == …`
+|    | Inequality                   | left-to-right | `… != …`
+|    | Strict Equality              | left-to-right | `… === …`
+|    | Strict Inequality            | left-to-right | `… !== …`
+| 9  | Bitwise AND                  | left-to-right | `… & …`
+| 8  | Bitwise XOR                  | left-to-right | `… ^ …`
+| 7  | Bitwise OR                   | left-to-right | <code>… &#124; …</code>
+| 6  | Logical AND                  | left-to-right | `… && …`
+| 5  | Logical OR                   | left-to-right | <code>… &#124;&#124; …</code>
+| 4  | Conditional                  | right-to-left | `… ? … : …`
+| 3  | Assignment                   | right-to-left | `=` `+=` `-=` `**=` `*=` `/=` `%=`
+|    |                              |               | `<<=` `>>=` `>>>=` `&=` `^=` <code>&#124;=</code>
+| 2  | yield                        | right-to-left | `yield …`
+|    | yield*                       | right-to-left | `yield* …`
+| 1  | Spread                       | n/a           | `... …`
+| 0  | Comma / Sequence             | left-to-right | `… , …` 
 

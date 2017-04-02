@@ -76,7 +76,7 @@ let foo = 'bar', baz = { [foo]: 'abc'};        // 正确
 
 ### 方法的 `name` 属性
 
-方法的 name 属性返回函数名。<del>取值函数会在方法名前加 "get"，存值函数会在方法名的前加 "set"。</del>
+方法的 name 属性返回函数名。取值函数会在方法名前加 "get"，存值函数会在方法名的前加 "set"。
 
 还有两种特殊情况：bind 方法创建的函数，会在函数名前加 "bound"，Function 构造函数创建的函数，返回 "anonymous"。
 
@@ -88,7 +88,7 @@ var person = {
   get firstName() { return "Nicholas"; }
 };
 person.sayName.name   // "sayName"
-person.firstName.name // TypeError: person.firstName is not a function
+Object.getOwnPropertyDescriptor(person, 'firstName').get.name  // "get firstName"
 
 (new Function()).name // "anonymous"
 (function doSomething() { }).bind().name // "bound doSomething"
