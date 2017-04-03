@@ -82,6 +82,9 @@ h2 { text-align: center; }
 ## Function
 
 <div class="dl">
+<h5 class="es3">Function(arg1, arg2, ..., body)<span>-- 构造函数，用于创建函数对象</span></h5>
+</div>
+<div class="dl">
 <h5 class="es3">arguments <span>-- 一个 Array-like 类数组对象，保存了调用函数时的参数信息，仅在函数内部有效</span></h5>
 <h5 class="es3">arguments.length <span>-- 调用函数时实际传入的参数个数。而 Function.length 为函数定义时的形参个数</span></h5>
 <h5 class="es3">arguments.callee <span>-- 指向当前函数，严格模式下被禁用，有缺陷，但似乎又没办法完全弃用</span></h5>
@@ -89,7 +92,7 @@ h2 { text-align: center; }
 <div class="dl">
 <h5 class="es3">function.length <span>-- 获取函数的形参个数</span></h5>
 <h5 class="es6">function.name <span>-- 获取函数的名称</span></h5>
-<h5 class="es">function.caller <span>-- 保存着对调用当前函数的函数的引用，用于替代被废弃的 arguments.caller</span></h5>
+<h5 class="es">function.caller <span>-- 保存着对调用当前函数的函数的引用，用于替代被废弃的 arguments.caller</span><span class="mark">注1</span></h5>
 </div>
 <div class="dl">
 <h5 class="es3">function.apply(thisArg, argsArray?) <span>-- 设定 this 值后执行，参数以数组形式传入</span></h5>
@@ -97,6 +100,12 @@ h2 { text-align: center; }
 <h5 class="es5">function.bind(thisArg, arg1?, ...) <span>-- 创建一个新函数(绑定函数)，原函数 this 被替换，还可预先设置部分参数</span></h5>
 <h5 class="es3">function.toString() <span>-- 获取函数源码的字符串，重写</span></h5>
 </div>
+
+[注1]：在非严格模式下可以通过 `foo.caller` `foo.arguments` 读到调用栈上其他函数的信息，出于安全性考虑，foo.arguments 已经被废弃，而 foo.caller 则是一个模糊的存在，两者在严格模式下都被禁用。
+```js
+function foo(a, b) { bar(); }
+function bar() { console.log(foo.arguments, bar.caller); }
+```
 
 
 ## Array
