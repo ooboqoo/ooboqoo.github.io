@@ -519,5 +519,218 @@ class HashMap {
 
 ## 树
 
+### 术语
+
+一个树结构包含一系列存在父子关系的节点。每个节点都有一个父节点(除了顶部的第一个节点)以及零个或多个子节点。
+
+位于树顶部的节点叫根节点。书中的每个元素都叫节点，节点分为内部节点和外部节点。至少有一个子节点的节点称为内部节点。没有子元素的节点称为外部节点或叶节点。
+
+一个节点可以有祖先和后代。
+
+子树由节点和它的后代构成。
+
+节点的一个属性是深度，节点的深度取决于它的祖先节点的数量。
+
+树的高度取决于所有节点深度的最大值。一棵树也可以被分解成层级，根节点在第0层，它的子节点在第1层，以此类推。
+
+### 二叉树和二叉搜索树
+
+二叉树中的节点最多只能有两个子节点：一个是左侧子节点，另一个是右侧子节点。这些定义有助于我们写出更高效的向/从树中插入、查找和删除节点的算法。
+
+二叉搜索树 BST 是二叉树的一种，但是它只允许你在左侧节点存储(比父节点)小的值，在右侧节点存储(比父节点)大(或相等)的值。
+
+不同于以前的称呼，我们开始称节点为键，键是树相关的术语中对节点的称呼。
+
+### 数的遍历
+
+中序遍历是一种以上行顺序访问 BST 所有节点的遍历方式，也就是以从最小到最大的顺序访问所有节点。中序遍历的一种应用就是对树进行排序操作。
+
+先序遍历是以优先于后代节点的顺序访问每个节点。先序遍历的一种应用是打印一个结构化的文档。
+
+后序遍历则是先访问节点的后代节点，再访问节点本身。后续遍历的一种应用是计算一个目录和它的子目录中所有文件所占空间的大小。
+
+### 搜索树中的值
+
+### 更多二叉树知识
+
+BST存在一个问题：取决与你添加的节点数，树的一天边可能会非常深，也就是说，树的一条分支会有很多层，而其他分支却只有几层。
+
+AVL树是一种自平衡二叉搜索树，任何一个节点左右两侧子树的高度之差最多为1。
+
+红黑树是另外一种特殊的二叉树，这种树可以进行高效的中序遍历。
+
+此外堆积树也值得学习。
+
+```js
+const root = Symbol('root');
+
+class Node {
+  constructor(key) {
+    this.key = key;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class BinarySearchTree {
+
+  constructor() { this[root] = null; }
+
+  // 插入节点
+  insert(key) {
+    const newNode = new Node(key);
+    if (this[root] === null) { this[root] = newNode; }
+    else { insertNode(this[root], newNode); }
+    return this;
+
+    function insertNode(node, newNode) {
+      if (newNode.key < node.key) {
+        if (node.left === null) { node.left = newNode; }
+        else { insertNode(node.left, newNode); }
+      } else {
+        if (node.right === null) { node.right = newNode; }
+        else { insertNode(node.right, newNode); }
+      }
+    }
+  }
+
+  // 中序遍历
+  inOrderTraverse(callback) {
+    inOrderTraverseNode(this[root], callback);
+
+    function inOrderTraverseNode(node, callback) {
+      if (node === null) { return; }
+      inOrderTraverseNode(node.left, callback);
+      callback(node.key);
+      inOrderTraverseNode(node.right, callback);
+    }
+  }
+
+  // 先序遍历
+  preOrderTraverse(callback) {
+    preOrderTraverseNode(this[root], callback);
+
+    function preOrderTraverseNode(node, callback) {
+      if (node === null) { return; }
+      callback(node.key);
+      preOrderTraverseNode(node.left, callback);
+      preOrderTraverseNode(node.right, callback);
+    }
+  }
+
+  // 后序遍历
+  postOrderTraverse(callback) {
+    postOrderTraverseNode(this[root], callback);
+
+    function postOrderTraverseNode(node, callback) {
+      if (node === null) { return; }
+      postOrderTraverseNode(node.left, callback);
+      postOrderTraverseNode(node.right, callback);
+      callback(node.key);
+    }
+  }
+
+  // 查找最小值
+  min() {
+    if (!this[root]) { return null; }
+    let node = this[root];
+    while (node && node.left !== null) { node = node.left; }
+    return node.key;
+  }
+
+  // 查找最大值
+  max() {
+    if (!this[root]) { return null; }
+    let node = this[root];
+    while (node && node.right !== null) { node = node.right; }
+    return node.key;
+  }
+
+  // 搜索特定值
+  search(key) {
+    return searchNode(this[root], key);
+
+    function searchNode(node, key) {
+      if (node === null) { return false; }
+      if (key < node.key) { return searchNode(node.left, key); }
+      else if (key > node.key) { return searchNode(node.right, key) }
+      else { return true; }
+    }
+  }
+
+  // 删除特定值
+  delete(key) {
+    this[root] = deleteNode(this[root], key);
+
+    function deleteNode(node, key) {
+      if (node === null) { return null; }
+      if (key < node.key) { node.left = deleteNode(node.left, key); return node; }
+      else if (key > node.key) { node.right = deleteNode(node.right, key); return node; }
+
+      // key === node.key && 节点为外节点
+      if (node.left === null && node.right === null) { return node = null; }
+      // key === node.key && 节点只有一个子节点
+      if (node.left === null) { return node = node.right; }
+      if (node.right === null) { return node = node.left; }
+      // key === node.key && 节点有两个子节点
+      let aux = findMinNode(node.right);
+      node.key = aux.key;
+      node.right = removeNode(node.right, aux.key);
+      return node;
+    }
+
+    function findMinNode(node){
+      while (node.left !== null) { node = node.left; }
+      return node;
+    }
+  }
+}
+
+let tree = new BinarySearchTree(), result = [];
+for (let i of [11, 7, 5, 3, 6, 9, 8, 10, 15, 13, 12, 14, 20, 18, 25]) { tree.insert(i); }
+tree.inOrderTraverse(key => result.push(key));
+console.log('inOrderTraverse', result); result = [];
+tree.preOrderTraverse(key => result.push(key));
+console.log('preOrderTraverse', result); result = [];
+tree.postOrderTraverse(key => result.push(key));
+console.log('postOrderTraverse', result); result = [];
+console.log('min ', tree.min());
+console.log('max ', tree.max());
+console.log('search ', tree.search(1) ? 'Key 1 found.' : 'Key 1 not found.');
+console.log('search ', tree.search(8) ? 'Key 8 found.' : 'Key 8 not found.');
+tree.delete(14);
+tree.inOrderTraverse(key => result.push(key));
+console.log('delete 14 & inOrderTraverse', result); result = [];
+tree.delete(1)
+tree.inOrderTraverse(key => result.push(key));
+console.log('delete 1 & inOrderTraverse', result); result = [];
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 图

@@ -1,6 +1,5 @@
 # 严格模式
 
-https://www.amazon.cn/JavaScript高级程序设计-泽卡斯/dp/B007OQQVMY  
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode  
 
 ES5 最早引入了 "严格模式" 的概念。通过严格模式，可以在函数内部选择进行较为严格的全局或局部的错误条件检测。使用严格模式的好处是可以提早知道代码中存在的错误，及时捕获一些可能导致编程错误的行为。

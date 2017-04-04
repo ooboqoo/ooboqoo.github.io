@@ -2,65 +2,37 @@
 
 ## Iterator 和 for...of 循环
 
-### 与其他遍历语法的比较
+遍历器 Iterator 是一种接口，为各种不同的数据结构提供统一的访问机制。任何数据结构只要部署 Iterator 接口，就可以完成遍历操作(即依次处理该数据结构的所有成员)。Iterator 的作用有三个：
+  * 一是为各种数据结构，提供一个统一的、简便的访问接口；
+  * 二是使得数据结构的成员能够按某种次序排列；
+  * 三是 ES6 创造了一种新的遍历命令 `for...of` 循环，Iterator 接口主要供 `for...of` 消费。
 
-以数组为例，JavaScript提供多种遍历语法。最原始的写法就是for循环。
+如果使用 TypeScript 的写法，遍历器接口 Iterable、指针对象 Iterator 和 next 方法返回值的规格可以描述如下。
 
-```javascript
-for (var index = 0; index < myArray.length; index++) {
-  console.log(myArray[index]);
+```ts
+interface Iterable { [Symbol.iterator](): Iterator; }
+interface Iterator { next(value?: any): IterationResult; }
+interface IterationResult { value: any; done: boolean; }
+```
+
+```js
+let a = [1,2,3,4];
+    b = a[Symbol.iterator]();
+b.next();                     // {value: 1, done: false}
+```
+
+Iterator 接口的目的，就是为所有数据结构，提供了一种统一的访问机制，即 `for...of` 循环。当使用 `for...of` 循环遍历某种数据结构时，该循环会自动去寻找 Iterator 接口。
+
+一种数据结构只要部署了 Iterator 接口，我们就称这种数据结构是 "可遍历的" iterable。
+
+ES6 规定，默认的 Iterator 接口部署在数据结构的 Symbol.iterator 属性，或者说，一个数据结构只要具有 Symbol.iterator 属性，就可以认为是 "可遍历的" iterable。
+
+```js
+for (let item of [1, 2, 3]) {
+  console.log(item);  // 依次输出 1 2 3 
 }
 ```
 
-这种写法比较麻烦，因此数组提供内置的forEach方法。
-
-```javascript
-myArray.forEach(function (value) {
-  console.log(value);
-});
-```
-
-这种写法的问题在于，无法中途跳出`forEach`循环，break命令或return命令都不能奏效。
-
-`for...in`循环可以遍历数组的键名。
-
-```javascript
-for (var index in myArray) {
-  console.log(myArray[index]);
-}
-```
-
-for...in循环有几个缺点。
-
-- 数组的键名是数字，但是for...in循环是以字符串作为键名“0”、“1”、“2”等等。
-- for...in循环不仅遍历数字键名，还会遍历手动添加的其他键，甚至包括原型链上的键。
-- 某些情况下，for...in循环会以任意顺序遍历键名。
-
-总之，`for...in`循环主要是为遍历对象而设计的，不适用于遍历数组。
-
-`for...of`循环相比上面几种做法，有一些显著的优点。
-
-```javascript
-for (let value of myArray) {
-  console.log(value);
-}
-```
-
-- 有着同for...in一样的简洁语法，但是没有for...in那些缺点。
-- 不同用于forEach方法，它可以与break、continue和return配合使用。
-- 提供了遍历所有数据结构的统一操作接口。
-
-下面是一个使用break语句，跳出`for...of`循环的例子。
-
-```javascript
-for (var n of fibonacci) {
-  if (n > 1000)
-    break;
-  console.log(n);
-}
-```
-
-上面的例子，会输出斐波纳契数列小于等于1000的项。如果当前项大于1000，就会使用break语句跳出`for...of`循环。
 
 ## Generator 函数
 
@@ -199,7 +171,7 @@ result.then(() => console.log('执行完成'));
 async函数对 Generator 函数的改进，体现在以下四点:
   * 内置执行器
   * 更好的语义: async 和 await，比起 * 和 yield，语义更清楚
-  * 更广的适用性: co 模块约定，yield 后面只能是 Thunk 函数或 Promise 对象，而 await 后面可以是 Promise 对象和原始值类型
+  * 更广的适用性: co 模块约定，yield 后面只能是 Thunk 函数或 Promise 对象，而 await 后面可以是 Promise 对象和原始值
   * 返回值是 Promise，这比 Generator 函数的返回值是 Iterator 对象方便多了
 
 进一步说，async 函数完全可以看作多个异步操作，包装成的一个 Promise 对象，而 await 命令就是内部 then 命令的语法糖。
