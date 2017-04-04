@@ -429,12 +429,6 @@ class Dictionary {
 }
 ```
 
-http://ryanmorr.com/true-hash-maps-in-javascript/
-
-这篇文章介绍了一个更牛X的方法 `var map = Object.create(null)` 这种方法可以完美摒除 `Object.prototype` 里公共方法带来的副作用，当然在 ES6 里有现成的 Map 类用。
-
-当我们使用字面量新建对象时 `var map = {};` 实际是执行了 `var map = Object.create(Object.prototype);`。
-
 ### 散列表
 
 > 不管是从性能还是使用便利性，真心觉得这东西在 JS 里没鸟用，直接使用 `{}` 或者 `Object.create(null)` 反而更好吧。  
@@ -707,30 +701,189 @@ console.log('delete 1 & inOrderTraverse', result); result = [];
 ```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## 图
+
+### 术语
+
+图是网络结构的抽象模型。图是一组由边连接的节点(或顶点)。学习图是重要的，因为任何二元关系都可以用图来表示。
+
+一个图 G=(V,E) 由以下元素组成：V 一组顶点；E 一组边，连接V中的顶点。
+
+由一条边连接在一起的顶点称为相邻顶点。
+
+一个顶点的度是其相邻顶点的数量。
+
+路径是一串连续的顶点，简单路径要求不包含重复的顶点。
+
+如果图中不存在环，则称改图是无环的。
+
+如果图中每两个顶点间都存在路径，则该图是连通的。
+
+图可以是无向的(边没有方向) 或是有向的 (有向图)。
+
+如果图中两个顶点间在双向上都存在路径，则这两个点是强连通的，如果图中所有顶点都是强连通的，则该图是强连通的。
+
+图还可以是未加权的或是加权的。
+
+### 图的表示
+
+#### 邻接矩阵
+
+图最常见的实现是邻接矩阵(图见 P113)。每个节点都和一个整数相关联，该整数将作为数组的索引。
+
+不是强连通的图(稀疏图)如果用邻接矩阵来表示，则矩阵中将会有很多0，这意味着我们浪费了计算机储存空间来表示根本不存在的边。邻接矩阵表示法不够好的另一个理由是，图中顶点的数量可能会改变，而2维数组不太灵活。
+
+#### 邻接表
+
+我们也可以使用一种叫做邻接表的动态数据结构来表示图(图见 P113)。邻接表由图中每个顶点的相邻顶点列表所组成。存在好几种方式来表示这种数据结构。我们可以用列表(数组)、链表，甚至是散列表或是字典来表示相邻顶点列表。
+
+尽管邻接表可能对大多数问题来说都是更好的选择，但以上两种表示法都很有用。
+
+#### 关联矩阵
+
+我们还可以用关联矩阵来表示图。在关联矩阵中，矩阵的行表示顶点，列表示边。
+
+关联矩阵通常用于边的数量比顶点多的情况下，一节省空间和内存。
+
+### 创建图类
+
+### 图的遍历
+
+和树数据结构类似，我们可以访问图的所有节点。有两种算法可以对图进行遍历：广度优先搜索 Breadth-First Search, BFS 和深度优先搜索 Depth-First Search, DFS。图的遍历可以用来寻找特定的顶点或寻找两个顶点之间的路径，检查图是否连通，检查图是否含有环等。
+
+广度优先和深度优先搜索算法基本上是相同的，只有一点不同，那就是待访问顶点列表的数据结构。
+
+| 算法 | 数据结构 | 描述
+|------|----------|---------------------------------------------------------------------
+| 深度优先 | 栈   | 通过将顶点存入栈中，顶点是沿着路径被探索的，存在新的相邻顶点就去访问
+| 广度优先 | 队列 | 通过将顶点存入队列中，最先入队列的顶点先被探索
+
+我们这里将使用广度优先搜索实现求解最短路径问题。如果要计算加权图中的最短路径(如城市和城市之间的最短路径)，广度优先未必合适。_Dijkstra's算法_ 解决了单元最短路径问题；_Bellman-Ford算法_ 解决了边权值为负的单源最短路径问题；_A*搜索算法_ 解决了求仅一对顶点间的最短路径问题；_Floyd-Warshall算法_ 解决了求所有顶点对间的最短路径问题。
+
+我们使用广度优先实现了有向无环图 DAG 的拓扑排序 topsort 问题。
+
+```js
+const vertices = Symbol('vertices'),
+      adjList = Symbol('adjList');
+
+class Graph {
+  constructor() {
+    this[vertices] = [];      // 存储所有顶点的名字
+    this[adjList] = new Map;  // 存储连接表
+  }
+
+  // 添加顶点
+  addVertex(v) {
+    this[vertices].push(v);
+    this[adjList].set(v, []);
+    return this;
+  }
+
+  // 添加边
+  addEdge(v, w) {
+    this[adjList].get(v).push(w);
+    this[adjList].get(w).push(v);
+    return this;
+  }
+
+  // 广度优先搜索
+  bfs(v, callback) {
+    let color = {},  // 记录顶点遍历过程 0 - 未访问 1 - 已访问待探索 2 - 已探索
+        queue = [];  // 这里图代码的简单，直接用数组，不再定义队列数据结构
+    this[vertices].forEach(v => color[v] = 0);
+    queue.push(v);
+    while(queue.length !== 0) {
+      const u = queue.shift(),
+            neighbors = this[adjList].get(u);
+      color[u] = 1;
+      for (let i = 0; i < neighbors.length; i++) {
+        const w = neighbors[i];
+        if (color[w] === 0) { color[w] = 1; queue.push(w); }
+      }
+      color[u] = 2;
+      if (callback) { callback(u); }
+    }
+  }
+
+  // 广度优先搜索 - 改进版
+  BFS(v, callback) {
+    let color = {},  // 记录顶点遍历过程 0 - 未访问 1 - 已访问待探索 2 - 已探索
+        queue = [],  // 这里图代码的简单，直接用数组，不再定义队列数据结构
+        d = {},      // 记录顶点v到其他顶点之间的距离
+        pred = {};   // 记录前溯点
+    this[vertices].forEach(v => { color[v] = 0; d[v] = 0; pred[v] = null; });
+    queue.push(v);
+
+    while (queue.length !== 0) {
+      const u = queue.shift(),
+            neighbors = this[adjList].get(u);
+      color[u] = 1;
+      for (let i = 0; i < neighbors.length; i++) {
+        const w = neighbors[i];
+        if (color[w] === 0) { color[w] = 1; d[w] = d[u] + 1; pred[w] = u; queue.push(w); }
+      }
+      color[u] = 2;
+      if (callback) { callback(u); }
+    }
+    return {distances: d, predecessors: pred};
+  }
+
+  // 深度优先搜索，不需要指定顶点
+  dfs(callback) {
+    let color= {},  // 记录顶点遍历过程 0 - 未访问 1 - 已访问待探索 2 - 已探索
+        dfsVisit = _dfsVisit.bind(this);
+    this[vertices].forEach(v => color[v] = 0);
+    for (let i = 0, length = this[vertices].length; i < length; i++) {
+      if (color[this[vertices][i]] === 0) { dfsVisit(this[vertices][i], callback); }
+    }
+
+    function _dfsVisit(u, callback) {
+      const neighbors = this[adjList].get(u);
+      color[u] = 1;
+      if (callback) { callback(u); }
+      for (let i = 0; i < neighbors.length; i++) {
+        const w = neighbors[i];
+        if (color[w] === 0) { dfsVisit(w, callback); }
+      }
+      color[u] = 2;
+    }
+  }
+
+  // 用于控制台输出
+  toString() {
+    let result = '';
+    for (let v of this[vertices]) { result += v + ' -> ' + this[adjList].get(v) + '\n'; }
+    return result;
+  }
+
+  // 利用广度优先求最短路径清单
+  getRoutes(v) {
+    let {distances, predecessors: pred} = this.BFS(v), result = '';
+    for (let key in distances) {
+      if (!pred[key]) { continue; }
+      let temp = [];
+      while (key) { temp.push(key); key = pred[key]; }
+      result += temp.reverse().join(' - ') + '\n';
+    }
+    return result;
+  }
+
+  // 利用深度优先对有向无环图进行拓扑排序
+  topsort() { } // 暂略
+}
+
+let graph = new Graph;
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'].forEach(v => graph.addVertex(v));
+graph.addEdge('A', 'B').addEdge('A', 'C').addEdge('A', 'D')
+     .addEdge('B', 'E').addEdge('B', 'F')
+     .addEdge('C', 'D').addEdge('C', 'G')
+     .addEdge('D', 'G').addEdge('D', 'H')
+     .addEdge('E', 'I')
+     .addEdge('F', 'G');
+console.log('Graph data: \n' + graph.toString());
+console.log('bfs traverse:');
+graph.bfs('A', v => console.log('Visited ', v));
+console.log('dfs traverse:');
+graph.dfs(v => console.log('Visited ', v))
+console.log('Shortest path from B:\n' + graph.getRoutes('B'));
+```
