@@ -40,6 +40,10 @@ http {
           proxy_pass  http://127.0.0.1:3300;
         }
 
+        location ~ \.(jpg|jpeg|png|ico|js|css)$ {  ## 配置缓存时间
+            expires 30d;
+        }
+
         error_page 404 /404.html;
             location = /40x.html {
         }
@@ -98,6 +102,43 @@ server {
 }
 ```
 
+### 启用 gzip 压缩
+
+新建 /etc/nginx/conf.d/gzip.conf 并添加以下内容：
+
+```
+gzip            on;   # 启用 gzip 压缩功能
+gzip_vary       on;   # 
+gzip_comp_level 3;    # 压缩级别1-9，1压缩比最小速度最快
+gzip_proxied    any;  # 做前端代理时启用该项，表示无论后端服务器的headers头返回什么信息，都启用压缩
+gzip_min_length 1024; # 最小压缩的页面，如果页面过于小，可能会越压越大，这里规定大于1K的页面才启用压缩
+
+# 什么类型的页面或文档启用压缩, application/octet-stream 是针对 .md 文件的
+gzip_types text/plain text/css application/json application/x-javascript text/javascript application/octet-stream;
+```
+
+测试配置是否生效：
+
+```bash
+# You should see content-encoding: gzip
+curl -H "Accept-Encoding: gzip" -I http://www.ngapps.cn/
+```
+
+### location 写法
+
+```
+location  [=|~|~*|^~] /uri/  {...}
+```
+
+location modifier
+
+* (None) 不写，匹配以指定的 pattern 开头的 URI
+* `=` 精确的URI匹配(注意 url 和 uri 的区别)
+* `~` 区分大小写的正则匹配
+* `~*` 不区分大小写的正则匹配
+* `^~` 正则匹配以指定 pattern 开头的 URI
+
+
 ## NodeJS + MongoDB + PM2 安装
 
 http://blog.danyll.com/setting-up-express-with-nginx-and-pm2/
@@ -139,6 +180,10 @@ $ cat > hooks/post-receive
   #!/bin/sh
   GIT_WORK_TREE=/var/www/koa-mongo git checkout -f
   cd /var/www/koa-mongo
+  if [ $(diff package.json ../package.json) != '' ]; then
+    copy -f package.json ..
+    npm i
+  fi
   tsc
   pm2 restart dist/app.js      Ctrl+D
 

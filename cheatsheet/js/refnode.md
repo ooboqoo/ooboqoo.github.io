@@ -141,6 +141,7 @@ console.info('\x1b[32m%s\x1b[0m', `Listening to http://localhost:${port}`);
 注1：这个仅适用于系统终端，浏览器中要用 `console.log('%c一些信息', 'color: red')`   
 注2：具体终端颜色设置方法 http://misc.flogisoft.com/bash/tip_colors_and_formatting
 
+
 ## Utilities 实用工具
 
 |||
@@ -151,3 +152,23 @@ console.info('\x1b[32m%s\x1b[0m', `Listening to http://localhost:${port}`);
 ```js
 util.format('%s:%d', 'count', 5, 'ex');  // 'count:5 ex'
 ```
+
+
+## Child Processes 子进程
+
+child_process是node一个比较重要的模块，通过它可以实现创建多线程，来利用多核CPU。
+
+这个模块提供了四个创建子进程的函数。
+
+spawn、exec、execFile、fork。
+
+spawn是最原始的创建子进程的函数，剩下的三个是对这个函数不同程度的封装。
+
+spawn不支持回调函数。
+
+fork只能执行js文件。例如fork('./child.js');
+
+总结一下：当你想要从子进程返回大量数据时使用spawn，如果只是返回简单的状态信息，那么使用exec。
+
+exec和execFile均支持回调函数。区别就是后者不用启动独立的shell，相对来说更加轻量级。我们拿execFile举例说明（打开存放在固定位置的bat文件，执行文件的命令行）（亲测通过）：
+

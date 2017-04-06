@@ -125,6 +125,10 @@ main h2 {
   border-bottom: 1px solid #ccc;
 }
 
+main h4 {
+  color: #339;
+}
+
 main h2::after {
   position: absolute;
   right: 1rem;
