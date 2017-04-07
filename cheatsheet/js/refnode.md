@@ -172,3 +172,11 @@ fork只能执行js文件。例如fork('./child.js');
 
 exec和execFile均支持回调函数。区别就是后者不用启动独立的shell，相对来说更加轻量级。我们拿execFile举例说明（打开存放在固定位置的bat文件，执行文件的命令行）（亲测通过）：
 
+```js
+const spawn = require( 'child_process' ).spawnSync;
+const ls = spawn( 'ls', [ '-lh', '/usr' ] );
+
+console.log( `stderr: ${ls.stderr.toString()}` );
+console.log( `stdout: ${ls.stdout.toString()}` );
+```
+

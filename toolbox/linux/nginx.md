@@ -180,8 +180,8 @@ $ cat > hooks/post-receive
   #!/bin/sh
   GIT_WORK_TREE=/var/www/koa-mongo git checkout -f
   cd /var/www/koa-mongo
-  if [ $(diff package.json ../package.json) != '' ]; then
-    copy -f package.json ..
+  if [[ $(diff package.json ../package.json) != '' ]]; then
+    cp -f package.json ..
     npm i
   fi
   tsc
