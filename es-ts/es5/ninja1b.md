@@ -1,17 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/resource/lib/html-main.css" />
-<style>#this li{color:blue;}</style>
-<script src="/resource/lib/html-main.js"></script>
-<script src="/resource/lib/html-highlight.js"></script>
-<title>忍者秘籍2</title>
-</head>
-<body>
-<div id="article">
-
 <h1>第9章 忍者点金术：运行时代码求值</h1>
 
 <div>
@@ -639,6 +625,3 @@ this.removeData = function (elem) {  // 定义 removeData 函数
 
 </div>
 
-</div>
-</body>
-</html>

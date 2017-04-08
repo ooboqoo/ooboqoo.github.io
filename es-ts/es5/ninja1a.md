@@ -1,4 +1,4 @@
-[忍者秘籍](https://www.manning.com/books/secrets-of-the-javascript-ninja)
+https://www.manning.com/books/secrets-of-the-javascript-ninja
 
 ## 1. 进入忍者的世界
 
@@ -236,53 +236,148 @@ console.log(5.add(3))    // 这个无法通过语法解释，因为点号被看�
 
 ## 7. 正则表达式
 
+有两种方法可以创建正则表达式：通过正则表达式字面量，或者通过构造 RegExp 对象的实例。
+
+```js
+var pattern1 = /test/i  // 正则字面量是用正斜杠进行界定的
+var pattern2 = new RegExp("test","i")  // 传入的是字符串
+```
+
+在开发过程中，如果正则是已知的，则优先选择字面量语法，而构造器方式则是用于运行时，通过动态构建字符串来构建正则表达式。
+
+### 7.1 为什么正则表达式很牛
+
+### 7.2 正则表达式进阶
+
+反向引用（后向引用）：`/^([dtn])a\1/` 它和 `/^[dtn]a[dtn]/` 不一样
+
+### 7.3 编译正则表达式
+
+正则表达式是一个多阶段处理过程，其中两个重要阶段是编译和执行。通过对稍后要用的正则表达式进行预定义（因此也预编译），我们可以获得一些明显的速度提升。
+
+```js
+function findClassInElements(className, type) {
+  var elems = document.getElementsByTagName(type || "*");
+  var regex = new RegExp("(^|\\s)" + className + "(\\s|$)");
+  var results = [];
+  for (var i = 0, length = elems.length; i &lt; length; i++)
+    if (regex.test(elems[i].className)) results.push(elems[i]);
+  return results;
+}
+assert(findClassInElements("ninja", "div").length == 2,
+             "The right amount fo div ninjas was found.");
+```
+
+### 7.4 捕获匹配的片段
+
+```js
+var html = "&lt;div class='test'&gt;&lt;b&gt;Hello&lt;/b&gt; &lt;i&gt;world!&lt;/i&gt;&lt;/div&gt;";
+var results = html.match(/&lt;(\/?)(\w+)([^&gt;]*?)&gt;/); // 简单捕获，返回单个匹配的相关数组
+var all = html.match(/&lt;(\/?)(\w+)([^&gt;]*?)&gt;/g);    // 全局匹配，返回的包含全部匹配的数组
+
+var pattern = /((?:ninja-)+)sword/;  // 通过在开始括号后添加 ?: 取消捕获
+```
+
+### 7.5 利用函数进行替换
+
+String 对象的 replace() 方法是一个强大且灵活的方法，其最强大的特性是可以接受一个函数作为替换值。
+
+```js
+// 将中横线字符串转换成驼峰拼写法
+function upper(all,letter) { return letter.toUpperCase(); }  //letter 中保存的是捕获组内容
+assert("border-bottom-width".replace(/-(\w)/g,upper) == "borderBottomWidth",
+    "Camel cased a hyphenated string.");
+```
+
+```js
+//代码清单7.10 压缩查询字符串的技术，另一种巧妙地使用函数操作，而非实际地替换
+```
+
+### 7.6 利用正则表达式解决常见问题
+
+修剪字符串
+```js
+function trim(str) {
+  return (str||"").replace(/^\s+|\s+$/g, "");
+}  // 最常用的一种方式，另外还有2种方案 P165
+```
+
+匹配换行符
+```js
+方案1(最佳方案)：/[\S\s]*/ 
+方案2： /(?:.|\s)*/
+```
+
+Unicode
+```js
+/[\u0080-\uFFFF]+/  // 匹配代码在128（十六进制为0x80）以上的字符，中文编码范围\u4E00-\u9FA5
+```
+
+转义字符
+
+
 ## 8. 驯服线程和定时器
 
-<div>
-<p>定时器并不是 JavaScript 的一项内置功能，而是由浏览器提供的。</p>
-<p>如果能在复杂应用程序中正确应用定时器的话，就会给开发人员带来非常多的好处。</p>
-<p>定时器提供了一种让一段代码在一定毫秒之后，再异步执行的能力。</p>
-<p>JavaScript 是单线程执行的，定时器提供了一种跳出这种限制的方法。</p>
-<p class="note"><span>提示：</span>HTML5 Web worker 将会对定时器作出很多改变，但目前浏览器支持还不好。</p>
+定时器并不是 JavaScript 的一项内置功能，而是由浏览器提供的。
 
-<h2>8.1 定时器和线程是如何工作的</h2>
-<h3>8.1.1 设置和清除定时器</h3>
-<table>
-<tr><th>方法</th><th>格式</th></tr>
-<tr><td>setTimeout</td><td>id=setTimeout(fn,delay)</td></tr>
-<tr><td>clearTimeout</td><td>clearTimeout(id)</td></tr>
-<tr><td>setInterval</td><td>id=setInterval(fn,delay)</td></tr>
-<tr><td>clearInterval</td><td>clearInterval(id)</td></tr>
-</table>
-<h3>8.1.2 执行线程中的定时器执行</h3>
-<p>JavaScript 引擎是单线程执行，异步事件必须要排队等待才能执行。</p>
-<p>同一个 interval 处理程序的多个实例不能同时进行排队，如果已经有一个 interval 回调的实例在排队了，那么后续的调用将被废弃。</p>
-<h3>8.1.3 timeout 与 interval 之间的区别</h3>
-<p>interval 定时器会按指定时间间隔触发一次，而 timeout 需在执行之后重新设定定时器。</p>
-<pre>
-&lt;script&gt;
+如果能在复杂应用程序中正确应用定时器的话，就会给开发人员带来非常多的好处。
+
+定时器提供了一种让一段代码在一定毫秒之后，再异步执行的能力。
+
+JavaScript 是单线程执行的，定时器提供了一种跳出这种限制的方法。
+
+提示：HTML5 Web worker 将会对定时器作出很多改变，但目前浏览器支持还不好。
+
+### 8.1 定时器和线程是如何工作的
+
+#### 8.1.1 设置和清除定时器
+
+| 方法          | 格式
+|---------------|---------------------------
+| setTimeout    | id=setTimeout(fn,delay)
+| clearTimeout  | clearTimeout(id)
+| setInterval   | id=setInterval(fn,delay)
+| clearInterval | clearInterval(id)
+
+#### 8.1.2 执行线程中的定时器执行
+
+JavaScript 引擎是单线程执行，异步事件必须要排队等待才能执行。
+
+同一个 interval 处理程序的多个实例不能同时进行排队，如果已经有一个 interval 回调的实例在排队了，那么后续的调用将被废弃。
+
+#### 8.1.3 timeout 与 interval 之间的区别
+
+interval 定时器会按指定时间间隔触发一次，而 timeout 需在执行之后重新设定定时器。
+
+```js
 setTimeout(function repeatMe() { /* Some long block of code... */ setTimeout(repeatMe, 10); }, 10);
 setInterval(function() { /* Some long block of code... */ }, 10);
-&lt;/script&gt;
-</pre>
+```
 
-<h2>8.2 定时器延迟的最小化及其可靠性</h2>
+### 8.2 定时器延迟的最小化及其可靠性
 
-<h2>8.3 处理昂贵的计算过程</h2>
-<p>JavaScript 的单线程本质可能是 JavaScript 复杂应用程序开发中的最大“陷阱”。在 JavaScript 执行繁忙的时候，浏览器中的用户交互会减缓，甚至反应迟钝，最坏的情况是直接挂掉。因此，如果要保持界面有良好的响应能力，减少运行时间超过几百毫秒的复杂操作，将其控制在可管理状态是非常必要的。</p>
-<p>通过将运算分成多个小操作，并设定定时器依次调用，从而使浏览器在执行间隙有机会处理用户响应。</p>
-<p>该技术显示了，使用定时器解决浏览器环境的单线程限制是多么容易的事情，而且还提供了很好的用户体验。</p>
+### 8.3 处理昂贵的计算过程
 
-<h2>8.4 中央定时器控制</h2>
-<p>同时创建大量的定时器，将会给管理和执行效率带来很大的干扰，减少同时使用定时器的数量，将大大有助于解决这种问题，这就是为什么所有现代动画引擎都使用一种称为中央定时器控制的技术（central timer control）。</p>
-<p>在多个定时器中使用中央定时器控制，可以带来很大的威力和灵活性。</p>
-<ul>
-<li>每个页面在同一时间只需要运行一个定时器</li>
-<li>可以根据需要暂停和恢复定时器</li>
-<li>删除回调函数的过程变得简单</li>
-</ul>
-<pre>
-&lt;script&gt; //在原例子上有改动，调试正常
+JavaScript 的单线程本质可能是 JavaScript 复杂应用程序开发中的最大“陷阱”。在 JavaScript 执行繁忙的时候，浏览器中的用户交
+互会减缓，甚至反应迟钝，最坏的情况是直接挂掉。因此，如果要保持界面有良好的响应能力，减少运行时间超过几百毫秒的复杂操作，将其控制在可管理状态是非常必要的。
+
+通过将运算分成多个小操作，并设定定时器依次调用，从而使浏览器在执行间隙有机会处理用户响应。
+
+该技术显示了，使用定时器解决浏览器环境的单线程限制是多么容易的事情，而且还提供了很好的用户体验。
+
+### 8.4 中央定时器控制
+
+同时创建大量的定时器，将会给管理和执行效率带来很大的干扰，减少同时使用定时器的数量，将大大有助于解决这种问题，这就是为什么所有现代动画引擎都使用一种称为中央
+定时器控制的技术（central timer control）。
+
+在多个定时器中使用中央定时器控制，可以带来很大的威力和灵活性。
+
+  * 每个页面在同一时间只需要运行一个定时器
+  * 可以根据需要暂停和恢复定时器
+  * 删除回调函数的过程变得简单
+
+```js
+//在原例子上有改动，调试正常
 var timers = {
   timerID: 0,
   timers: [],
@@ -299,12 +394,11 @@ var timers = {
   },
   stop: function(){ clearTimeout(this.timerID); this.timerID = 0; }
 };
-&lt;/script&gt;
-</pre>
+```
 
-<h2>8.5 异步测试</h2>
-<pre>
-&lt;script&gt;
+### 8.5 异步测试
+
+```js
 (function() {  // 向 window 添加了 test pause resume 三个方法
   var queue = [], paused = false;
   this.test = function(fn) { queue.push(fn); runTest(); };
@@ -324,6 +418,4 @@ test(function() {
   /* 异步任务结束 */
   resume();  // 异步任务完成后重启测试队列
 });
-&lt;/script&gt;
-</pre>
-</div>
+```
