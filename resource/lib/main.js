@@ -155,7 +155,7 @@ function isMobile() {
     
     function process(text) {
       // 首次加载时，如果 marked 和 hljs 没准备好就延时执行
-      if (!marked || !hljs) {
+      if (!window.marked || !window.hljs) {
         return setTimeout(function () { process(text); }, 100);
       }
 
