@@ -5,10 +5,11 @@
  * 依赖两个全局变量:
  * marked - marked.js Markdown 语言解析库
  * hljs - highlight.pak.js 语法高亮库
+ *
+ * 自定义的一个全局变量 ooboqoo
+ *   - contentsRegExp - 用于定义目录生成级别
  */
 
-// 添加一个全局变量用于存放一些配置信息(可以在子页面进行配置)
-    // contentsRegExp - 用于定义目录生成级别
 window.ooboqoo = {};
 
 // 判断是否是移动端
@@ -21,7 +22,8 @@ function isMobile() {
   return false;
 }
 
-window.addEventListener("DOMContentLoaded", function () {
+// 开始页面初始化工作
+(function () {
   "use strict";
 
   // 统一列出对 index.html DOM元素的依赖
@@ -47,7 +49,7 @@ window.addEventListener("DOMContentLoaded", function () {
     if (nocache) { xmlhttp.setRequestHeader("Cache-Control", "no-cache"); }
     xmlhttp.send();
     xmlhttp.onreadystatechange = function() {
-      if (xmlhttp.readyState==4 && xmlhttp.status==200)
+      if (xmlhttp.readyState === 4 && xmlhttp.status === 200)
         cb(xmlhttp.responseText);
     };
   }
@@ -152,6 +154,11 @@ window.addEventListener("DOMContentLoaded", function () {
     ajax(src, process, nocache);
     
     function process(text) {
+      // 首次加载时，如果 marked 和 hljs 没准备好就延时执行
+      if (!marked || !hljs) {
+        return setTimeout(function () { process(text); }, 100);
+      }
+
       // 解析 md 并插入文档，并对 md 功能进行了扩展
       elem_md.innerHTML = marked(text).replace(/<tag>/g, "<").replace(/<\/tag>/g, ">");
         // 替换 <tag></tag>，用法示例 <tag>div class="dl"</tag> 会生成 <div class="dl">
@@ -192,17 +199,14 @@ window.addEventListener("DOMContentLoaded", function () {
    * @param {boolean} [nocache]  是否下载最新资源，true 表示强制跳过本地缓存
    */
   function loadPage(src, nocache) {
-    if (src.indexOf(".htm") !== -1) {
-      loadHTML(src);
-    } else {
-     loadMD(src, nocache);
-    }
+    if (src.indexOf(".htm") !== -1) { loadHTML(src); }
+    else { loadMD(src, nocache); }
   }
 
   // 开始初始化页面  ##############################################################################
   var currentPath = location.pathname;
   var src = location.hash ? location.hash.slice(2) : (localStorage.getItem(currentPath) ||
-      elem_sidemenu.getElementsByTagName("a")[0].getAttribute("href"));
+      elem_sidemenu.querySelector("a").getAttribute("href"));
 
   loadPage(src);
   if (!localStorage.getItem(currentPath)) { localStorage.setItem(currentPath, src); }
@@ -214,13 +218,15 @@ window.addEventListener("DOMContentLoaded", function () {
     setContentsHTML();
   };
 
-  // 设置顶部导航栏---------------------------------------------------------------------------------
+  // 设置顶部导航栏
   ajax('/header.html', function (text) {
     elem_header.innerHTML = text;
     var links = elem_header.getElementsByTagName("a");
-    [].forEach.call(links, function (a) {
-      if (window.location.href.indexOf(a.href) !== -1) { a.className = "active"; }
-    });
+    for (var i = 0, length = links.length; i < length; i++) {
+      if (window.location.href.indexOf(links[i].href) !== -1) {
+        return links[i].className = "active";
+      }
+    }
   });
 
   elem_header.onclick = function (e) {
@@ -282,10 +288,10 @@ window.addEventListener("DOMContentLoaded", function () {
       localStorage.setItem(currentPath, src);
     }
   };
-});
+})();
 
 // 提供一些额外功能增强 ###########################################################################
-window.addEventListener("DOMContentLoaded", function () {
+(function () {
   "use strict";
 
   var elem_md = document.getElementById("md");
@@ -349,14 +355,13 @@ window.addEventListener("DOMContentLoaded", function () {
     document.body.appendChild(elem_prompt);
     localStorage.setItem("prompted", Date.now());
   }
-});
+})();
 
 
 // 定义在页面上添加或删除标记(用淡紫色底色高亮显示)的功能，作为试验功能提供 #######################
-
-// 移动端不开启笔记标注功能
-if (!isMobile()) window.addEventListener("DOMContentLoaded", function () {
+(function () {
   "use strict";
+  if (isMobile()) { return; } // 移动端不开启笔记标注功能
 
   var elem_markbutton = document.getElementById("mark");           // 右上角按钮 - 增/删标记
   var elem_md         = document.getElementById("md");             // markdown 文档容器
@@ -434,4 +439,4 @@ if (!isMobile()) window.addEventListener("DOMContentLoaded", function () {
     elem_md.style.cursor = "help";
     elem_md.addEventListener("mouseup", setMark);
   };
-});
+})();
