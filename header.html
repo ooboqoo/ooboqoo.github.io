@@ -1,48 +1,15 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <title>header</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { overflow: hidden; width: 100%; height: 36px; background-color: #666; font-family: "Microsoft YaHei", sans-serif; }
-    @media (min-width:  993px) { #ul { width:  980px; margin:auto;} }
-    @media (min-width: 1210px) { #ul { width: 1210px; margin:auto;} }
-    a { display: inline-block; height: 100%; padding: 8px 12px; text-decoration: none; color: #fff; }
-    a:hover  { background-color: #ccc; color: #000; }
-    a.active { background-color: #eee; color: #000; }
-    @media (max-width: 800px) {
-      body { overflow-x: scroll; }
-      #ul { white-space: nowrap; }
-      a { padding-left: 5px; padding-right: 5px; }
-    }
-  </style>
-  <script>
-  window.onload = function() {
-    document.body.onclick = function(e){
-      if (e.target.tagName !== "A") { return; }
-      window.parent.location.href = e.target.href;
-    };
-    var links = document.getElementsByTagName("a");
-    [].forEach.call(links, function(a) {
-      if (window.parent.location.href.indexOf(a.href) !== -1) { a.className = "active"; }
-    });
-  };
-  </script>
-</head>
-<body>
-  <div id="ul">
-       <a href="/html5/">HTML5</a><!--
-    --><a href="/cheatsheet/">Cheatsheet</a><!--
-    --><a href="/ebook/">eBooks</a><!--
-    --><a href="/es-ts/">ES &amp; TS</a><!--
-    --><a href="/angular/">Angular</a><!--
-    --><a href="/react/">React</a><!--
-    --><a href="/hybrid/">Hybrid</a><!--
-    --><a href="/swe/">Engineering</a><!--
-    --><a href="/server/">Server</a><!--
-    --><a href="/goodies/">Goodies</a><!--
-    --><a href="/toolbox/">Toolbox</a>
+<div>
+  <div class="ul">
+     <a href="/html5/">HTML5</a><!--
+  --><a href="/cheatsheet/">Cheatsheet</a><!--
+  --><a href="/ebook/">eBooks</a><!--
+  --><a href="/es-ts/">ES &amp; TS</a><!--
+  --><a href="/angular/">Angular</a><!--
+  --><a href="/react/">React</a><!--
+  --><a href="/hybrid/">Hybrid</a><!--
+  --><a href="/swe/">Engineering</a><!--
+  --><a href="/server/">Server</a><!--
+  --><a href="/goodies/">Goodies</a><!--
+  --><a href="/toolbox/">Toolbox</a>
   </div>
-</body>
-</html>
+</div>

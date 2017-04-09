@@ -1,7 +1,6 @@
 /*!
- * mdreader 的核心 js 代码，负责页面的加载和功能定义
- * version 1.0.3
- * last update：2016/8/16
+ * 页面核心 js 代码，负责页面的加载和功能定义
+ * last update：2017/4/9
  * 
  * 依赖两个全局变量:
  * marked - marked.js Markdown 语言解析库
@@ -17,14 +16,12 @@ function isMobile() {
   var agents = ["Android", "iPhone", "Windows Phone", "iPad", "iPod"];
   var agent = navigator.userAgent;
   for (var i = 0; i < agents.length; i++) {  
-    if (agent.indexOf(agents[i]) > -1) {
-      return true;
-    }
+    if (agent.indexOf(agents[i]) > -1) { return true; }
   }
   return false;
 }
 
-window.addEventListener("DOMContentLoaded", function() {
+window.addEventListener("DOMContentLoaded", function () {
   "use strict";
 
   // 统一列出对 index.html DOM元素的依赖
@@ -33,7 +30,7 @@ window.addEventListener("DOMContentLoaded", function() {
   var elem_tools      = document.getElementById("tools");          // 右上角按钮区
   var elem_outline    = document.getElementById("outline");        // 右上角按钮 - 页内标题导航
   var elem_html       = document.getElementById("html");           // html 文档容器 iframe#html
-  var elem_header     = document.getElementById("header");         // 顶部导航条 iframe#header
+  var elem_header     = document.getElementById("header");         // 顶部导航条 #header
   var elem_sidemenu   = document.getElementById("sidemenu");       // 左侧菜单
   var elem_togglemenu = document.getElementById("togglemenu");     // 显示/关闭左侧菜单的按钮
 
@@ -43,13 +40,16 @@ window.addEventListener("DOMContentLoaded", function() {
    * @param {boolean} [nocache] 是否下载最新资源，true 表示强制跳过本地缓存
    * @returns {string}
    */
-  function ajax(src, nocache) {
+  function ajax(src, cb, nocache) {
     var xmlhttp;
     xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", src, false);
+    xmlhttp.open("GET", src);
     if (nocache) { xmlhttp.setRequestHeader("Cache-Control", "no-cache"); }
     xmlhttp.send();
-    return xmlhttp.responseText;
+    xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        cb(xmlhttp.responseText);
+    };
   }
 
   /**
@@ -103,10 +103,10 @@ window.addEventListener("DOMContentLoaded", function() {
       delete ooboqoo.contentsRegExp;  // 清理以防影响其他页面
     }
     
-    [].forEach.call(nodes, function(node) {
+    [].forEach.call(nodes, function (node) {
       if (reg.test(node.tagName)) { headings.push(node); }
     });
-    headings.forEach(function(heading) {
+    headings.forEach(function (heading) {
       var id = "h-" + index;
       var a = document.createElement("a");
       heading.id = id;
@@ -131,7 +131,7 @@ window.addEventListener("DOMContentLoaded", function() {
 
     if (!innerContents) { return; }
     links = innerContents.getElementsByTagName("a");
-    [].forEach.call(links, function(link) {
+    [].forEach.call(links, function (link) {
       link = link.cloneNode(true);
       link.className = "h2";
       contents.appendChild(link);
@@ -149,29 +149,31 @@ window.addEventListener("DOMContentLoaded", function() {
    */
   function loadMD(src, nocache) {
     toggleDisplay(src);
+    ajax(src, process, nocache);
+    
+    function process(text) {
+      // 解析 md 并插入文档，并对 md 功能进行了扩展
+      elem_md.innerHTML = marked(text).replace(/<tag>/g, "<").replace(/<\/tag>/g, ">");
+        // 替换 <tag></tag>，用法示例 <tag>div class="dl"</tag> 会生成 <div class="dl">
 
-    // 解析 md 并插入文档，并对 md 功能进行了扩展
-    elem_md.innerHTML = marked(ajax(src, nocache))
-      // 替换 <tag></tag>，用法示例 <tag>div class="dl"</tag> 会生成 <div class="dl">
-      .replace(/<tag>/g, "<").replace(/<\/tag>/g, ">");
+      // 给文档代码设置高亮
+      [].forEach.call(elem_md.querySelectorAll("pre > code"), hljs.highlightBlock);
 
-    // 给文档代码设置高亮
-    [].forEach.call(elem_md.querySelectorAll("pre > code"), hljs.highlightBlock);
+      // 通过重新生成 script 标签来执行 script 标签内容
+      [].forEach.call(elem_md.getElementsByTagName("script"), function (script) {
+        var newScript = document.createElement("script");
+        if (script.src) {
+          newScript.src = script.src;
+        } else {
+          newScript.innerHTML = script.innerHTML;
+        }
+        elem_md.appendChild(newScript);
+      });
 
-    // 通过重新生成 script 标签来执行 script 标签内容
-    [].forEach.call(elem_md.getElementsByTagName("script"), function(script){
-      var newScript = document.createElement("script");
-      if (script.src) {
-        newScript.src = script.src;
-      } else {
-        newScript.innerHTML = script.innerHTML;
-      }
-      elem_md.appendChild(newScript);
-    });
-
-    setContents();              // 加载文档大纲
-    if (elem_md.onload) { elem_md.onload(); }  // 设置标记功能挂载在 onlaod
-    location.hash = "!" + src;  // 更新地址
+      setContents();              // 加载文档大纲
+      if (elem_md.onload) { elem_md.onload(); }  // 设置标记功能挂载在 onlaod
+      location.hash = "!" + src;  // 更新地址
+    }
   }
 
   /**
@@ -207,25 +209,33 @@ window.addEventListener("DOMContentLoaded", function() {
 
   // 当加载 html 文件时，自动调整 iframe#html 高度并设置目录导航
   window.addEventListener("resize", adjustIframeHeight);
-  elem_html.onload = function() {
+  elem_html.onload = function () {
     adjustIframeHeight();
     setContentsHTML();
   };
 
-  // 如果没有顶端导航栏内容，就不显示
-  elem_header.onload = function() {
-    if (this.contentDocument.getElementsByTagName("a").length < 2) {
-      this.style.display = "none";
-    }
+  // 设置顶部导航栏---------------------------------------------------------------------------------
+  ajax('/header.html', function (text) {
+    elem_header.innerHTML = text;
+    var links = elem_header.getElementsByTagName("a");
+    [].forEach.call(links, function (a) {
+      if (window.location.href.indexOf(a.href) !== -1) { a.className = "active"; }
+    });
+  });
+
+  elem_header.onclick = function (e) {
+    if (e.target.tagName !== "A") { return; }
+    window.location.href = e.target.href;
+    e.target.className = "active";
   };
 
   // 定义菜单开关按钮
-  elem_togglemenu.addEventListener("click", function() {
+  elem_togglemenu.addEventListener("click", function () {
     elem_sidemenu.classList.toggle("show");
   });
 
   // 定义页面切换及菜单栏折叠功能
-  elem_sidemenu.addEventListener("click", function(e) {
+  elem_sidemenu.addEventListener("click", function (e) {
     var nextStyle;
 
     // 定义页面切换功能
@@ -254,7 +264,7 @@ window.addEventListener("DOMContentLoaded", function() {
   });
 
   // 当加载的是 html 文件时，拦截标签跳转操作
-  elem_outline.addEventListener("click", function(e) {
+  elem_outline.addEventListener("click", function (e) {
     if (src.indexOf(".htm") !== -1 && e.target.tagName === "A") {
       elem_html.src = src + e.target.getAttribute("href");
       console.log(elem_html.src);
@@ -263,7 +273,7 @@ window.addEventListener("DOMContentLoaded", function() {
   });
 
   // 对 hash 变化做出响应
-  window.onhashchange = function(event) {
+  window.onhashchange = function (event) {
     if (event.newURL.indexOf("!") === -1) {  // 防止点击页内导航时修改网址
       location.href = event.oldURL;
     } else {                                 // 如果带 ! 而 hash 变化了就是点击了回退或前进按钮
@@ -275,7 +285,7 @@ window.addEventListener("DOMContentLoaded", function() {
 });
 
 // 提供一些额外功能增强 ###########################################################################
-window.addEventListener("DOMContentLoaded", function() {
+window.addEventListener("DOMContentLoaded", function () {
   "use strict";
 
   var elem_md = document.getElementById("md");
@@ -293,7 +303,7 @@ window.addEventListener("DOMContentLoaded", function() {
   }
 
   // 给笔记正文添加折叠功能 -- #md > h2 区块
-  elem_md.addEventListener("click", function(e) {
+  elem_md.addEventListener("click", function (e) {
     if (e.target.tagName === "H2") {
       var next = e.target.nextElementSibling;
       var reg = /h2|h1/i;
@@ -308,7 +318,7 @@ window.addEventListener("DOMContentLoaded", function() {
   });
 
   // 给笔记正文添加折叠功能 -- #md .dl 区块
-  elem_md.addEventListener("dblclick", function(e) {
+  elem_md.addEventListener("dblclick", function (e) {
     var elem = e.target;
     while (elem.parentElement) {
       elem = elem.parentElement;
@@ -335,7 +345,7 @@ window.addEventListener("DOMContentLoaded", function() {
     elem_prompt.setAttribute("style", 'position: fixed; bottom: 0; right: 0; z-index: 999;' +
         'padding: 0.5em; text-align: left;' +
         'background-color: #ff9; border: 1px solid #999; border-top-left-radius: 0.5em;');
-    elem_prompt.onclick = function() {this.style.display = "none";};
+    elem_prompt.onclick = function () {this.style.display = "none";};
     document.body.appendChild(elem_prompt);
     localStorage.setItem("prompted", Date.now());
   }
@@ -345,7 +355,7 @@ window.addEventListener("DOMContentLoaded", function() {
 // 定义在页面上添加或删除标记(用淡紫色底色高亮显示)的功能，作为试验功能提供 #######################
 
 // 移动端不开启笔记标注功能
-if (!isMobile()) window.addEventListener("DOMContentLoaded", function() {
+if (!isMobile()) window.addEventListener("DOMContentLoaded", function () {
   "use strict";
 
   var elem_markbutton = document.getElementById("mark");           // 右上角按钮 - 增/删标记
@@ -360,16 +370,16 @@ if (!isMobile()) window.addEventListener("DOMContentLoaded", function() {
     marks = JSON.parse( localStorage.getItem(page) || "[]" );
     html = elem_md.innerHTML;
 
-    marks.forEach(function(mark) {
+    marks.forEach(function (mark) {
       html = html.replace(mark, '<del class="mark">$&</del>');
     });
     elem_md.innerHTML = html;
   }
 
   /** 去掉无效的标记内容 */
-  function clean(){
+  function clean() {
     var changed = false;
-    marks.forEach(function(mark, index){
+    marks.forEach(function (mark, index) {
       if (html.indexOf(mark) === -1){
         marks.splice(index, 1);
         changed = true;
@@ -379,7 +389,7 @@ if (!isMobile()) window.addEventListener("DOMContentLoaded", function() {
   }
 
   /** 负责添加或删除标记 */
-  function setMark(){
+  function setMark() {
     var range = window.getSelection().getRangeAt(0);
     var container = document.createElement('div');
     var selection, markToRemove, i;
@@ -420,7 +430,7 @@ if (!isMobile()) window.addEventListener("DOMContentLoaded", function() {
   };
 
   // 单击 “增/删标记” 按钮，鼠标会变成带问号箭头，选中文本即添加一个标记，如选择已有标记内容，则删除该标记
-  elem_markbutton.onclick = function(){
+  elem_markbutton.onclick = function () {
     elem_md.style.cursor = "help";
     elem_md.addEventListener("mouseup", setMark);
   };

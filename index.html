@@ -16,6 +16,7 @@
       border-bottom-width: 0;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
     }
+    #header a::before { content: ""; }
     main {
       left: 0;
       width: 100%;
@@ -39,7 +40,7 @@
 </head>
 
 <body>
-  <iframe id="header" src="/header.html" frameborder="0" width="100%" height="36px"></iframe>
+  <div id="header"></div>
   <main>
     <blockquote>
       <p>本前端笔记源码托管于 <a href="https://github.com/ooboqoo/ooboqoo.github.io" class="initial">https://github.com/ooboqoo/ooboqoo.github.io</a></p>
@@ -75,6 +76,34 @@
     <img src="http://jpn.ngapps.cn/visit.php?id=/" alt="访问统计">
   </div>
 -->
+  <script>
+    function ajax(src, cb, nocache) {
+      var xmlhttp;
+      xmlhttp = new XMLHttpRequest();
+      xmlhttp.open("GET", src);
+      if (nocache) { xmlhttp.setRequestHeader("Cache-Control", "no-cache"); }
+      xmlhttp.send();
+      xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+          cb(xmlhttp.responseText);
+      };
+    }
+
+    ajax('/header.html', function (text) {
+      var elem_header = document.getElementById("header");
+      elem_header.innerHTML = text;
+      var links = elem_header.getElementsByTagName("a");
+      [].forEach.call(links, function (a) {
+        if (window.location.href.indexOf(a.href) !== -1) { a.className = "active"; }
+      });
+
+      elem_header.onclick = function (e) {
+        if (e.target.tagName !== "A") { return; }
+        window.location.href = e.target.href;
+        e.target.className = "active";
+      };
+    });
+  </script>
 </body>
 
 </html>

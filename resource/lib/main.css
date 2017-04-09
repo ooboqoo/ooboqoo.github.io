@@ -248,7 +248,6 @@ main table td:first-child a {
   width: 100%;
   overflow: hidden;
   border-bottom: 20px solid rgba(255, 255, 255, 0);
-  box-sizing: content-box;
   transition: top .2s ease-out, border-bottom-width .2s ease-out, box-shadow 0s;
 }
 
@@ -257,6 +256,56 @@ main table td:first-child a {
   border-bottom-width: 0;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
   transition: top .2s ease-out, border-bottom-width .2s ease-out, box-shadow 0s .2s;
+}
+
+#header > div {
+  background-color: #666;
+}
+
+#header a {
+  display: inline-block;
+  height: 100%;
+  padding: 6px 12px;
+  font-family: "Microsoft YaHei", sans-serif;
+  text-decoration: none;
+  color: #fff;
+}
+
+#header a:hover {
+  background-color: #ccc;
+  color: #000;
+}
+
+#header a.active {
+  background-color: #eee;
+  color: #000;
+}
+
+@media (min-width: 993px) {
+  #header .ul {
+    width: 980px;
+    margin: auto;
+  }
+}
+
+@media (min-width: 1210px) {
+  #header .ul {
+    width: 1210px;
+    margin: auto;
+  }
+}
+
+@media (max-width: 800px) {
+  #header {
+    overflow-x: scroll;
+  }
+  #header .ul {
+    white-space: nowrap;
+  }
+  #header a {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }
 
 /* definition of the sidemenu */
