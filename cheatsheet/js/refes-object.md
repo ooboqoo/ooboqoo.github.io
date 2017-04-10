@@ -385,7 +385,7 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <div class="dl">
 <h5 class="es3">Date() <span>-- 以 <b>字符串</b> 形式返回当前的日期和时间。</span></h5>
 <h5 class="es3">Date.now() <span>-- 返回调用这个方法时的日期和时间的 <b>毫秒数</b>。</span></h5>
-<h5 class="es3">Date.parse(dateString)<span>-- 返回 1970年1月1日午夜 到指定日期（字符串）的 <b>毫秒数</b>。</span></h5>
+<h5 class="es3">Date.parse(dateString) <span>-- 返回 1970年1月1日午夜 到指定日期（字符串）的 <b>毫秒数</b>。</span></h5>
 <h5 class="es3">Date.UTC(year, month[, ...]) <span>-- 根据世界时返回 1970年1月1日 到指定日期的 <b>毫秒数</b>。</span></h5>
 </div>
 <div class="dl">
@@ -548,7 +548,7 @@ ooboqoo.contentsRegExp = /H[12]/;
     atext = atext[0];
     alink = atext.replace('.prototype', '').replace('.', '/').replace('(', '');
     list[i].innerHTML = '<a href="' + prefix + alink + '">' + atext + '</a>' +
-      listHTML.substr(reg.lastIndex).replace(') <span>', '<span style="color: red;">)</span> <span>');
+      listHTML.substr(reg.lastIndex).replace(/\) *\<span/, '<span style="color: red;">)</span> <span');
   }
 })();
 </script>

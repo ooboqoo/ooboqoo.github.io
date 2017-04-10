@@ -113,8 +113,8 @@ gzip_comp_level 3;    # 压缩级别1-9，1压缩比最小速度最快
 gzip_proxied    any;  # 做前端代理时启用该项，表示无论后端服务器的headers头返回什么信息，都启用压缩
 gzip_min_length 1024; # 最小压缩的页面，如果页面过于小，可能会越压越大，这里规定大于1K的页面才启用压缩
 
-# 什么类型的页面或文档启用压缩, application/octet-stream 是针对 .md 文件的
-gzip_types text/plain text/css application/json application/x-javascript text/javascript application/octet-stream;
+# 需压缩的 MIME 类型, application/octet-stream 是针对 .md 文件的，另外 text/html 是默认添加的，加了反而报重
+gzip_types text/plain text/css application/json application/javascript application/octet-stream;
 ```
 
 测试配置是否生效：

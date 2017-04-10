@@ -48,6 +48,7 @@ An ECMAScript Script syntactic unit may be processed using either unrestricted o
 ### 报错 Converting mistakes into errors
 
 1. 严格模式下不会意外创建全局变量，所有变量必须显式声明后才能使用，否则报错;
+    * 发现使用 `typeof notexitvar` 不会报错，而 `!notexistvar` 报错，而 `!window.notexitvar` 正常
 2. 严格模式下任何在正常模式下引起静默失败的赋值操作都会抛出异常，如修改只读属性;
 3. 在严格模式下, 试图删除不可删除的属性时会抛出异常(之前这种操作不会产生任何效果);
 4. 在严格模式下使用字面量定义对象时，属性名不能重复，重名属性被认为是语法错误;

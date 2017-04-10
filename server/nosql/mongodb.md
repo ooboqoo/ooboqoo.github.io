@@ -1,41 +1,18 @@
 # MongoDB 教程
 
-http://javascript.ruanyifeng.com/nodejs/mongodb.html
+http://mongodb.github.io/node-mongodb-native/2.2/tutorials/main/
 
-
-## Install MongoDB Community Edition on Windows
-
-从 2.2 开始不支持 XP，Win7 需要安装一个 hotfix。
-
-安装包下载地址：http://www.mongodb.org/downloads。
+## 安装
 
 MongoDB 是自包含的，没有系统依赖，你可以随意移动 MongoDB 安装目录。
 
+MongoDB 需要有个目录来保存数据，默认为当前所在磁盘的 `\data\db` 位置，当然也可以通过 `--dbpath` 或配置文件指定。
 
-## Run MongoDB Community Edition
+如果希望输入命令直接启动 MongoDB，须先添加环境变量。
 
-### Set up the MongoDB environment.
-
-MongoDB requires a data directory to store all data. MongoDB’s default data directory path is the absolute path \data\db on the drive from which you start MongoDB. You can specify an alternate path for data files using the --dbpath option to mongod.exe, You may also specify the dbpath in a configuration file.
-
-```txt
-$ md \data\db
-
-"C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe" --dbpath d:\test\mongodb\data
-```
-
-### Start MongoDB.
-
-添加环境变量并启动
-
-```txt
-mongod
-```
-
-### Connect to MongoDB.
-
-```txt
-mongo
+```bash
+$ mongod   # 开启 MongoDB Server
+$ mongo    # 打开 shell 连接 server 并进行操作
 ```
 
 
