@@ -32,15 +32,12 @@ h5 {
 h1, h2, h3, h4, h5 {
   margin-top: .5em;
   margin-bottom: .5em;
+  font-family: "Microsoft YaHei", serif;
+  font-weight: normal;
 }
 
 h1 a, h2 a, h3 a, h4 a, h5 a {
   font-weight: inherit;
-}
-
-h1, h2, h3, h4 {
-  font-family: "Microsoft YaHei", serif;
-  font-weight: normal;
 }
 
 p {
@@ -260,6 +257,7 @@ main table td:first-child a {
 
 #header > div {
   background-color: #666;
+  overflow: overlay;
 }
 
 #header a {

@@ -45,14 +45,9 @@ body {
 h1, h2, h3, h4, h5 {
   margin-top: .5em;
   margin-bottom: .5em;
-  a {
-    font-weight: inherit;
-  }
-}
-
-h1, h2, h3, h4 {
   font-family: "Microsoft YaHei", serif;
   font-weight: normal;
+  a { font-weight: inherit; }
 }
 
 p {
@@ -276,6 +271,7 @@ main {
 
   & > div {
     background-color: #666;
+    overflow: overlay;
   }
 
   a {
