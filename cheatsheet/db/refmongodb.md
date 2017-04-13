@@ -115,6 +115,8 @@ db.inventory.find( {
 
 ## `mongo` Shell Methods
 
+https://docs.mongodb.com/manual/reference/method/
+
 ### Collection
 
 |||
@@ -263,3 +265,31 @@ db.inventory.find( {
 | db.setProfilingLevel() | Modifies the current level of database profiling.
 | db.upgradeCheck() | Performs a preliminary check for upgrade preparedness for a specific database or collection.
 | db.upgradeCheckAllDBs() | Performs a preliminary check for upgrade preparedness for all databases and collections.
+
+### Constructors
+
+|||
+|---------------|-----------------------------------------------------------------------------
+| UUID()        | Converts a 32-byte hexadecimal string to the UUID BSON subtype.
+| ObjectId()    | Returns an ObjectId.
+| ObjectId.getTimestamp() | Returns the timestamp portion of an ObjectId.
+| ObjectId.toString()     | Displays the string representation of an ObjectId.
+
+### Connection
+
+|||
+|---------------|-----------------------------------------------------------------------------
+| connect()     | Connects to a MongoDB instance and to a specified database on that instance.
+| mongo.getDB() | Returns a database object.
+
+
+### Native
+
+|||
+|---------------|----------------------------------------------------------
+| version()     | Returns the current version of the mongo shell instance.
+| hostname()    | Returns the hostname of the system running the shell.
+| load()        | Loads and runs a JavaScript file in the shell.
+| ls()          | Returns a list of the files in the current directory.
+| pwd()         | Returns the current directory.
+| quit()        | Exits the current shell session.
