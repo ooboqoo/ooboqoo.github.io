@@ -46,7 +46,7 @@ versionKey: string - defaults to "__v"
 | model.model(name) | Returns another Model instance
 | model.remove(fn?) | Removes this document from the db
 | model.save(opts?, opts.safe?, opts.validateBeforeSave?, fn?) | Saves this document
-| model.create(doc(s), fn? | `MyModel.create(docs)` does `new MyModel(doc).save()` for every doc in docs
+| model.create(doc(s), fn?) | `MyModel.create(docs)` does `new MyModel(doc).save()` for every doc in docs
 | model.find(conditions?, projection?, opts?, fn?) | Finds documents
 | model.findById(id, [projection], [options], [callback])
 | model.findOne([conditions], [projection], [options], [callback])

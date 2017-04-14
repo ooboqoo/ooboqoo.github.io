@@ -1,7 +1,5 @@
 # MongoDB 权威指南 P1
 
-https://docs.mongodb.com/manual/reference/method/
-
 ## 1. 简介
 
 ### 安装

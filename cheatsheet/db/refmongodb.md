@@ -1,63 +1,25 @@
-<style>
-  td:first-child { color: red; }
-</style>
-
 # MongoDB 速查表
 
-## CRUD Operations
-
-|||
-|--------------|--------------------------------------------------------------------------------------------
-| insert()     | 插入单条或多条文档记录
-| insertOne()  | v3.2
-| insertMany() | v3.2 参数为一个包含需插入文档的数组
-| find()       | 
-| update()     | updates a single document by default, to update multiple documents, use the `multi` option.
-| updateOne()  | v3.2 
-| updateMany() | v3.2 
-| replaceOne() | v3.2 
-| remove()     | 
-| deleteOne()  | v3.2 
-| deleteMany() | v3.2 
-
-```js
-db.users.insert({
-  name: "sue",     // field: value
-  age: 26          // 字段: 值
-})
-```
-
-`insertOne()` will return a document that includes the newly inserted document’s *_id* field.
-
-```js
-db.users.find(             // collection 集合
-  { age: { $gt: 18 } },    // query criteria 查询规则
-  { name: 1, address: 1 }  // projection 投射
-).limit(5)                 // cursor modifier 指针调整
-```
-
-```js
-db.users.remove({ status: "D" })
-```
+https://docs.mongodb.com/manual/reference/
 
 ## Operators
 
-### Query and Projection Operators 查询和映射操作符
+### 查询和映射操作符 Query and Projection Operators
 
-#### Comparison Query Selectors 比较
+#### 比较 Comparison Query Selectors
 
 |||
 |------|---------------------------------------------------------------------
-| $eq  | Matches values that are equal to a specified value.
-| $gt  | Matches values that are greater than a specified value.
-| $gte | Matches values that are greater than or equal to a specified value.
-| $lt  | Matches values that are less than a specified value.
-| $lte | Matches values that are less than or equal to a specified value.
-| $ne  | Matches all values that are not equal to a specified value.
-| $in  | Matches any of the values specified in an array.
-| $nin | Matches none of the values specified in an array.
+| $eq  | equal to
+| $gt  | greater than
+| $gte | greater than or equal to
+| $lt  | less than
+| $lte | less than or equal to
+| $ne  | not equal to
+| $in  | in an array
+| $nin | not in an array
 
-#### Logical Query Selectors 逻辑
+#### 逻辑 Logical Query Selectors
 
 |||
 |------| -------------------------------------------------------------------------------------------------------
@@ -112,6 +74,52 @@ db.inventory.find( {
 | $meta      | Projects the document’s score assigned during $text operation.
 | $slice     | Limits the number of elements projected from an array. Supports skip and limit slices.
 
+#### Comments
+
+|||
+|------------|---------------------------------------------------------------------------------------
+| $comment   | Adds a comment to a query predicate.
+
+### 更新操作符 Update Operators
+
+#### Fields
+
+|||
+|--------------|---------------------------------------------------------------------------------------
+| $inc         | Increments the value of the field by the specified amount.
+| $mul         | Multiplies the value of the field by the specified amount.
+| $rename      | Renames a field.
+| $setOnInsert | Sets the value of a field if an update results in an insert of a document. Has no effect on update operations that modify existing documents.
+| $set         | Sets the value of a field in a document.
+| $unset       | Removes the specified field from a document.
+| $min         | Only updates the field if the specified value is less than the existing field value.
+| $max         | Only updates the field if the specified value is greater than the existing field value.
+| $currentDate | Sets the value of a field to current date, either as a Date or a Timestamp.
+
+#### Array
+
+|||
+|-----------|---------------------------------------------------------------------------------------
+| $         | Acts as a placeholder to update the first element that matches the query condition in an update.
+| $addToSet | Adds elements to an array only if they do not already exist in the set.
+| $pop      | Removes the first or last item of an array.
+| $pullAll  | Removes all matching values from an array.
+| $pull     | Removes all array elements that match a specified query.
+| $pushAll  | Deprecated. Adds several items to an array.
+| $push     | Adds an item to an array.
+
+#### Modifiers
+
+|||
+|-----------|---------------------------------------------------------------------------------------
+| $each     | Modifies the $push and $addToSet operators to append multiple items for array updates.
+| $slice    | Modifies the $push operator to limit the size of updated arrays.
+| $sort     | Modifies the $push operator to reorder documents stored in an array.
+| $position | Modifies the $push operator to specify the position in the array to add elements.
+
+### 聚合操作符 Aggregation Pipeline Operators
+
+太多了，先忽略
 
 ## `mongo` Shell Methods
 
@@ -293,3 +301,24 @@ https://docs.mongodb.com/manual/reference/method/
 | ls()          | Returns a list of the files in the current directory.
 | pwd()         | Returns the current directory.
 | quit()        | Exits the current shell session.
+
+
+
+
+
+
+
+
+<style>
+  td:first-child { color: red; }
+  i { color: gray; }
+</style>
+<script>
+(function() {
+  var list = document.querySelectorAll('td:first-child');
+  var reg=/\((.*?)\)/;
+  for (var i = list.length; i--;) {
+    list[i].innerHTML = list[i].innerHTML.replace(reg, '(<i>$1</i>)');
+  }
+})();
+</script>
