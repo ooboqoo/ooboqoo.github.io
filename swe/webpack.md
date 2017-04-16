@@ -1,5 +1,7 @@
 # Webpack
 
+不错的参考书 https://survivejs.com/webpack/optimizing/tree-shaking/
+
 ## 什么是 Webpack ？
 
 Webpack 是一个强力的模块打包器。所谓 包 (bundle) 就是一个 JavaScript 文件，它把一堆 资源 (assets) 合并在一起，以便它们可以在同一个文件请求中发回给客户端。包中可以包含 JavaScript CSS HTML 以及很多其它类型的文件。
@@ -200,7 +202,7 @@ module.exports = webpackMerge(commonConfig, {
 
 #### 产品环境配置
 
-```ts
+```js
 // config/webpack.prod.js
 var webpack = require('webpack');
 var webpackMerge = require('webpack-merge');
