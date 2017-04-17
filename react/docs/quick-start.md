@@ -42,7 +42,7 @@ const user = {firstName: 'Harper', lastName: 'Perez'};
 
 const element = (
   <h1>
-    Hello, {formatName(user)}!
+    Hello, { formatName(user) }!
   </h1>
 );
 
@@ -63,7 +63,7 @@ You may use quotes to specify string literals as attributes, you may also use cu
 
 ```
 const element = <div tabIndex="0"></div>;
-const element = <img src={user.avatarUrl}></img>;
+const element = <img src={ user.avatarUrl }></img>;
 ```
 
 > Since JSX is closer to JavaScript than HTML, React DOM uses camelCase property naming convention instead of HTML attribute names. For example, class becomes `className` in JSX, and tabindex becomes `tabIndex`.
@@ -205,10 +205,7 @@ class Clock extends React.Component {
   }
 
   componentDidMount() {
-    this.timerID = setInterval(
-      () => this.tick(),
-      1000
-    );
+    this.timerID = setInterval(() => this.tick(), 1000);
   }
 
   componentWillUnmount() {
@@ -229,10 +226,7 @@ class Clock extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <Clock />,
-  document.getElementById('root')
-);
+ReactDOM.render(<Clock />, document.getElementById('root'));
 ```
 
 Let's quickly recap what's going on and the order in which the methods are called:
@@ -323,7 +317,7 @@ Another difference is that you cannot return `false` to prevent default behavior
 
 When using React you should generally not need to call `addEventListener` to add listeners to a DOM element after it is created. Instead, just provide a listener when the element is initially rendered.
 
-When you define a component using an ES6 class, a common pattern is for an event handler to be a method on the class. You have to be careful about the meaning of this in JSX callbacks. In JavaScript, class methods are not bound by default. If you forget to bind this.handleClick and pass it to onClick, this will be undefined when the function is actually called.
+When you define a component using an ES6 class, a common pattern is for an event handler to be a method on the class. You have to be careful about the meaning of `this` in JSX callbacks. In JavaScript, class methods are not bound by default. If you forget to bind this.handleClick and pass it to onClick, this will be undefined when the function is actually called.
 
 ```
 class Toggle extends React.Component {
@@ -331,7 +325,7 @@ class Toggle extends React.Component {
     super(props);
     this.state = {isToggleOn: true};
 
-    // This binding is necessary to make `this` work in the callback
+    // This binding is necessary to make `this` work in the callback 绑定绑定
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -343,8 +337,8 @@ class Toggle extends React.Component {
 
   render() {
     return (
-      <button onClick={this.handleClick}>
-        {this.state.isToggleOn ? 'ON' : 'OFF'}
+      <button onClick={ this.handleClick }>
+        { this.state.isToggleOn ? 'ON' : 'OFF' }
       </button>
     );
   }
@@ -413,7 +407,7 @@ class LoginControl extends React.Component {
     return (
       <div>
         <Greeting isLoggedIn={isLoggedIn} />
-        {button /* 这里是重点 */}
+        { button /* 这里是重点 */ }
       </div>
     );
   }
@@ -433,9 +427,9 @@ function Mailbox(props) {
   return (
     <div>
       <h1>Hello!</h1>
-      {unreadMessages.length > 0 &&
+      { unreadMessages.length > 0 &&
         <h2>
-          You have {unreadMessages.length} unread messages.
+          You have { unreadMessages.length } unread messages.
         </h2>
       }
     </div>
@@ -444,7 +438,7 @@ function Mailbox(props) {
 
 const messages = ['React', 'Re: React', 'Re:Re: React'];
 ReactDOM.render(
-  <Mailbox unreadMessages={messages} />,
+  <Mailbox unreadMessages={ messages } />,
   document.getElementById('root')
 );
 ```
@@ -456,11 +450,11 @@ render() {
   const isLoggedIn = this.state.isLoggedIn;
   return (
     <div>
-      {isLoggedIn ? (
+      { isLoggedIn ? (
         <LogoutButton onClick={this.handleLogoutClick} />
       ) : (
         <LoginButton onClick={this.handleLoginClick} />
-      )}
+      ) }
     </div>
   );
 }
@@ -492,11 +486,11 @@ Returning `null` from a component's `render` method does not affect the firing o
 ```
 const numbers = [1, 2, 3, 4, 5];
 const listItems = numbers.map((number) =>
-  <li>{number}</li>
+  <li>{ number }</li>
 );
 
 ReactDOM.render(
-  <ul>{listItems}</ul>,
+  <ul>{ listItems }</ul>,
   document.getElementById('root')
 );
 ```
@@ -507,18 +501,18 @@ ReactDOM.render(
 function NumberList(props) {
   const numbers = props.numbers;
   const listItems = numbers.map((number) =>
-    <li key={number.toString()}>  { /* 注意这里的 key */ }
-      {number}
+    <li key={ number.toString() }>  { /* 注意这里的 key */ }
+      { number }
     </li>
   );
   return (
-    <ul>{listItems}</ul>
+    <ul>{ listItems }</ul>
   );
 }
 
 const numbers = [1, 2, 3, 4, 5];
 ReactDOM.render(
-  <NumberList numbers={numbers} />,
+  <NumberList numbers={ numbers } />,
   document.getElementById('root')
 );
 ```
@@ -538,8 +532,8 @@ function ListItem(props) {
   const value = props.value;
   return (
     // Wrong! There is no need to specify the key here:
-    <li key={value.toString()}>
-      {value}
+    <li key={ value.toString() }>
+      { value }
     </li>
   );
 }
@@ -548,18 +542,18 @@ function NumberList(props) {
   const numbers = props.numbers;
   const listItems = numbers.map((number) =>
     // Wrong! The key should have been specified here:
-    <ListItem value={number} />
+    <ListItem value={ number } />
   );
   return (
     <ul>
-      {listItems}
+      { listItems }
     </ul>
   );
 }
 
 const numbers = [1, 2, 3, 4, 5];
 ReactDOM.render(
-  <NumberList numbers={numbers} />,
+  <NumberList numbers={ numbers } />,
   document.getElementById('root')
 );
 ```
@@ -577,10 +571,10 @@ function NumberList(props) {
   const numbers = props.numbers;
   return (
     <ul>
-      {numbers.map((number) =>
-        <ListItem key={number.toString()}
-                  value={number} />
-      )}
+      { numbers.map((number) =>
+        <ListItem key={ number.toString() }
+                  value={ number } />
+      ) }
     </ul>
   );
 }
@@ -640,18 +634,18 @@ class EssayForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={ this.handleSubmit }>
         <label>
           Name:
-          <input name="input" type="text" value={this.state.inputValue} onChange={this.handleChange} />
+          <input name="input" type="text" value={ this.state.inputValue } onChange={ this.handleChange } />
         </label>
         <label>
           Name:                                  { /* 表单双向绑定 */ }
-          <textarea name="text" value={this.state.textValue} onChange={this.handleChange} />
+          <textarea name="text" value={ this.state.textValue } onChange={ this.handleChange } />
         </label>
         <label>
           Pick your favorite La Croix flavor:
-          <select name="select" value={this.state.selectValue} onChange={this.handleChange}>
+          <select name="select" value={ this.state.selectValue } onChange={ this.handleChange }>
             <option value="grapefruit">Grapefruit</option>
             <option value="lime">Lime</option>
             <option value="coconut">Coconut</option>
@@ -686,18 +680,14 @@ function toFahrenheit(celsius) {
 
 function tryConvert(temperature, convert) {
   const input = parseFloat(temperature);
-  if (Number.isNaN(input)) {
-    return '';
-  }
+  if (Number.isNaN(input)) { return ''; }
   const output = convert(input);
   const rounded = Math.round(output * 1000) / 1000;
   return rounded.toString();
 }
 
 function BoilingVerdict(props) {
-  if (props.celsius >= 100) {
-    return <p>The water would boil.</p>;
-  }
+  if (props.celsius >= 100) { return <p>The water would boil.</p>; }
   return <p>The water would not boil.</p>;
 }
 

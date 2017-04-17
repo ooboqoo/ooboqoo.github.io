@@ -33,6 +33,8 @@ JDK (Java Development Kit) 是 Java 语言的软件开发工具包 (SDK)。
 
 ## 安装 Android SDK
 
+https://developer.android.com/studio/index.html 1.8G
+
 下载并安装 `Android Stand-alone SDK Tools` 或 `Android Studio`，如果没特殊需求，安装前者就足够了。
 
 > 如果安装到 C 盘，在下载包和使用过程中会频繁出现权限问题，所以应该安装到其他盘，如 D 盘。
