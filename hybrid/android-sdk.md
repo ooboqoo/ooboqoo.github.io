@@ -1,6 +1,5 @@
 # Android 开发环境配置
 
-指南：https://cordova.apache.org/docs/en/6.x/guide/platforms/android/
 
 ## 安装 JDK - Java Development Kit
 
@@ -30,6 +29,7 @@ JDK (Java Development Kit) 是 Java 语言的软件开发工具包 (SDK)。
 
 * `JAVA_HOME` 设置为安装路径，如 `C:\Program Files\Java\jdk1.8.0_112`
 * 然后在 `Path` 变量添加 `%JAVA_HOME%\bin`
+
 
 ## 安装 Android SDK
 

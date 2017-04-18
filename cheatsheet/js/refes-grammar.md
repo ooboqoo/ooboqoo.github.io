@@ -32,7 +32,7 @@ http://www.ecma-international.org/ecma-262/5.1/
 | `if...else`         | if 语句，详见示例
 | `switch`            | switch 语句，详见示例
 | `throw`             | 抛出一个用户自定义异常，会被调用栈中最近的一层 catch 捕获，如果没有进行捕获处理，程序就会终止
-| `try...catch`       | try...catch 语句用于捕获内部代码异常，下方有简单示例，详细使用请查文档
+| `try...catch`       | try...catch...finally 语句用于捕获内部代码异常，下方有简单示例，详细使用请查文档
 |||
 | `for`        | `for ([initialization]; [condition]; [final-expression]) statement`
 | `for...in`   | `for (variable in object) { ... }` 此语句不能保证迭代顺序，故仅可用于遍历对象的可遍历属性
@@ -68,6 +68,8 @@ try {
    throw 'myException'; // generates an exception
 } catch (e) {
    console.error(e);    // 输出 myException
+} finally {
+   console.log('end')   // 不管 try 块内代码是否成功，都会执行此代码
 }
 ```
 
