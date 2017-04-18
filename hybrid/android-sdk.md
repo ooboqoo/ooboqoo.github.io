@@ -43,9 +43,9 @@ https://developer.android.com/studio/index.html 1.8G
 
 安装完 Android SDK 后需要通过 Android SDK Manager 来下载所需的开发包：
 
-* Android Platform SDK for your targeted version of Android (版本选 5.1，我 MX4 也就 5.1)
-* Android SDK build-tools version 19.1.0 or higher (要装 24 版本，25 还不认)
-* Android Support Repository (found under "Extras")
+  * Platform SDK，目前选 Android 6.0 (API 23) -> SDK Platform 23
+  * 构建工具，目前选 Tools -> Android SDK Build-tools 23.0.1
+  * Extras -> Android Support Repository
 
 > 如果下载太慢，可以设置通过代理下载 `Tools > Options > Proxy Settings`
 
