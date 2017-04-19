@@ -156,7 +156,7 @@ function isMobile() {
     function process(text) {
       // 首次加载时，如果 marked 和 hljs 没准备好就延时执行
       if (!window.marked || !window.hljs) {
-        window.addEventListener("DOMContentLoaded", function () { process(text); });
+        return window.addEventListener("DOMContentLoaded", function () { process(text); });
       }
 
       // 解析 md 并插入文档，并对 md 功能进行了扩展
