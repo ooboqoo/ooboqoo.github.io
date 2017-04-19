@@ -100,7 +100,7 @@ internal debugging:
 
 https://www.visualstudio.com/zh-hans/vs/msft-android-emulator/
 
-微软的东东，免费，试用下感觉还不错啊
+微软的东东，免费，试用下感觉还不错啊，选 1G RAM 的虚拟机，速度、内存占用都 OK，但 CPU 占用 40% 左右，害得风扇噪声很大，还是不给力。连真机吧...
 
 ##### `adb devices` 无法找到虚拟设备
 
