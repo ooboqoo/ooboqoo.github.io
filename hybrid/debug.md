@@ -102,6 +102,8 @@ https://www.visualstudio.com/zh-hans/vs/msft-android-emulator/
 
 微软的东东，免费，试用下感觉还不错啊，选 1G RAM 的虚拟机，速度、内存占用都 OK，但 CPU 占用 40% 左右，害得风扇噪声很大，还是不给力。连真机吧...
 
+PS. 后面又发现，没开虚拟机，有个 WMI Provider Host 进程还是在狂用 CPU，然后卸载虚拟机，重启就好了，原来不用你也吃 CPU 啊，我说风扇咋又响了呢。
+
 ##### `adb devices` 无法找到虚拟设备
 
 找到 `HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Android SDK Tools` 项，添加条目 `Path  /  REG_SZ / D:\Program Files\Android\android-sdk` (根据实际安装目录填写) 再 `adb kill-server` 即可解决。

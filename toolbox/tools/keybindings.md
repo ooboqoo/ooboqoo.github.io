@@ -8,7 +8,7 @@
 删除当前行   | Ctrl+Shift+K  |     same      |     same     |    Ctrl+Y
 上移一行     | Ctrl+Shift+Up |     same      |    Alt+Up    | Alt+Shift+Up
 下移一行     | Ctrl+Shift+Dn |     same      |    Alt+Dn    | Alt+Shift+Dn
-合并行       | Ctrl+Shift+J  |    Ctrl+J     |     N/S      |     same
+合并行       | Ctrl+Shift+J  |    Ctrl+J     |     N/A      |     same
 添加光标     |     Alt+BL    |    Ctrl+BL    |     same     |     same
 向上添加光标 |     Alt+Up    |   Shift+BR    | Ctrl+Shift+Alt+Up |     N/A
 向下添加光标 |     Alt+Dn    |   Shift+BR    | Ctrl+Shift+Alt+Dn |     N/A

@@ -194,6 +194,26 @@ React is pretty flexible but it has a single strict rule:
 
 Of course, application UIs are dynamic and change over time. In the next section, we will introduce a new concept of "state". State allows React components to change their output over time in response to user actions, network responses, and anything else, without violating this rule.
 
+### Default Prop Values
+
+这部分从 typechecking-with-proptypes.html 找出来的，
+
+You can define default values for your props by assigning to the special `defaultProps` property:
+
+```
+class Greeting extends React.Component {
+  render() {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
+}
+
+Greeting.defaultProps = {name: 'Stranger'}; // Specifies the default values for props:
+
+ReactDOM.render(<Greeting />, document.getElementById('example'));
+```
+
+The `defaultProps` will be used to ensure that `this.props.name` will have a value if it was not specified by the parent component. The `propTypes` typechecking happens after `defaultProps` are resolved, so typechecking will also apply to the `defaultProps`.
+
 
 ## State and Lifecycle
 

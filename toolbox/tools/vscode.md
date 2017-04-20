@@ -235,6 +235,7 @@ If no debugging is available, the debugger statement has no effect.
 `Ctrl+]`           | Indent Line       | editor.action.indentLines
 `Ctrl+[`           | Outdent Line      | editor.action.outdentLines
 `Ctrl+/`           | Toggle Line Comment | editor.action.commentLine
+`Ctrl+Delete`      | 删除一个单词        | 。
 
 #### Rich Languages Editing
 

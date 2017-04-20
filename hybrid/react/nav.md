@@ -71,6 +71,66 @@ AppRegistry.registerComponent('NativeApp', () => NativeApp);
 
 ## Nesting Navigators
 
+### Introducing Tab Navigator
+
+```
+import {TabNavigator} from "react-navigation";
+
+class RecentChatsScreen extends Component {
+  render() { return <Text>List of recent chats</Text>; }
+}
+
+class AllContactsScreen extends React.Component {
+  render() { return <Text>List of all contacts</Text>; }
+}
+
+const MainScreenNavigator = TabNavigator({
+  Recent: { screen: RecentChatsScreen },
+  All: { screen: AllContactsScreen },
+});
+```
+
+### Nesting a Navigator in a screen
+
+```
+// StackNavigator 套 TabNavigator
+const NativeApp = StackNavigator({
+  Home: {screen: MainScreenNavigator},
+  Chat: {screen: ChatScreen}
+});
+
+// MainScreenNavigator 实际也是一个页面，这里我们把标题显示去掉
+MainScreenNavigator.navigationOptions = {
+  headerVisible: false
+};
+```
+
 
 ## Configuring Headers
+
+Header is only available for StackNavigator.
+
+```
+// 对象形式
+static navigationOptions = {
+  headerRight: <Button title="Info" />,
+}
+
+// 函数形式
+static navigationOptions = ({ navigation }) => {
+  const {state, setParams} = navigation;
+  const isInfo = state.params.mode === 'info';
+  const {user} = state.params;
+  return {
+    title: isInfo ? `${user}'s Contact Info` : `Chat with ${state.params.user}`,
+    headerRight: (
+      <Button
+        title={isInfo ? 'Done' : `${user}'s info`}
+        onPress={() => setParams({ mode: isInfo ? 'none' : 'info'})}
+      />
+    ),
+  };
+};
+```
+
 
