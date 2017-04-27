@@ -241,10 +241,6 @@ function isMobile() {
     elem_sidemenu.classList.toggle("show");
   });
 
-  // 移动端环境下开启菜单滚动(浏览器端不支持滚动)
-  if (isMobile()) {
-    elem_sidemenu.style.overflowY = "auto";
-  }
 
   // 定义页面切换及菜单栏折叠功能
   elem_sidemenu.addEventListener("click", function (e) {

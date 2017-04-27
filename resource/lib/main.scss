@@ -299,7 +299,6 @@ main {
 /* definition of the sidemenu */
 
 #sidemenu {
-
   position: fixed;
   top: 4px;
   left: -230px;
@@ -308,6 +307,11 @@ main {
   height: 100%;
   background-color: $color-menu-bg;
   @include box-shadow;
+
+  & > div:last-child {
+    overflow-y: auto;
+    height: 100%;
+  }
 
   h2, h3 {
     font-family: "Microsoft YaHei", sans-serif;

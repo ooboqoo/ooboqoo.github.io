@@ -318,6 +318,11 @@ main table td:first-child a {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
 }
 
+#sidemenu > div:last-child {
+  overflow-y: auto;
+  height: 100%;
+}
+
 #sidemenu h2, #sidemenu h3 {
   font-family: "Microsoft YaHei", sans-serif;
 }
