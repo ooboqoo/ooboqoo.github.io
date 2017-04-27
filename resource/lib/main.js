@@ -14,12 +14,13 @@ window.ooboqoo = {};
 
 // 判断是否是移动端
 function isMobile() {
+  if (isMobile.cache) { return isMobile.cahce }
   var agents = ["Android", "iPhone", "Windows Phone", "iPad", "iPod"];
   var agent = navigator.userAgent;
   for (var i = 0; i < agents.length; i++) {  
-    if (agent.indexOf(agents[i]) > -1) { return true; }
+    if (agent.indexOf(agents[i]) > -1) { return isMobile.cache = true; }
   }
-  return false;
+  return isMobile.cache = false;
 }
 
 // 开始页面初始化工作
@@ -239,6 +240,11 @@ function isMobile() {
   elem_togglemenu.addEventListener("click", function () {
     elem_sidemenu.classList.toggle("show");
   });
+
+  // 移动端环境下开启菜单滚动(浏览器端不支持滚动)
+  if (isMobile()) {
+    elem_sidemenu.style.overflowY = "auto";
+  }
 
   // 定义页面切换及菜单栏折叠功能
   elem_sidemenu.addEventListener("click", function (e) {
