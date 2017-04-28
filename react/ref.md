@@ -26,10 +26,10 @@
 | componentDidMount()  | is invoked immediately after a component is mounted.
 |||
 | componentWillReceiveProps() | invoked before a mounted component receives new props. 
-| shouldComponentUpdate()     | invoked before rendering when new props or state are being received.
-| componentWillUpdate()       | invoked immediately before rendering when new props or state are being received.
+| shouldComponentUpdate(newProps, newState) | invoked before rendering when new props or state are being received.
+| componentWillUpdate(nextProps, nextState) | invoked immediately before rendering when new props or state are being received.
 | render()                    | |
-| componentDidUpdate()        | invoked immediately after updating occurs.
+| componentDidUpdate(oldProps, oldState)        | invoked immediately after updating occurs.
 |||
 | componentWillUnmount() | invoked immediately before a component is unmounted and destroyed.
 |||

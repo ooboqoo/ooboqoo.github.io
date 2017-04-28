@@ -151,6 +151,15 @@ $ yarn
 $ yarn install
 ```
 
+#### 解决进度条显示 bug
+
+https://www.zhihu.com/question/54238202/answer/150468100
+
+```bash
+CHCP 65001   # 修改代码页编码改为 utf-8
+```
+
+
 ### NPM 及 Yarn 命令
 
 https://yarnpkg.com/en/docs/migrating-from-npm

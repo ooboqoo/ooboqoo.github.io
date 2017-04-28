@@ -34,7 +34,7 @@ React / React Native 使用了 "virtual DOM" 技术来避免非不要的 DOM 更
 
 每当一个组件的 `props` 或 `state` 更新，React 就需要去检查 virtual DOM 以决定是否需要更新 actual DOM。
 
-此时你可以在生命周期钩子 `shouldComponentUpdate` 中返回 `false` 来告诉 React 不要更新来避免不必要的对比工作。默认都是 `true`，另外，禁用更新后，其隶属组件也不会被更新。
+此时你可以在生命周期钩子 `shouldComponentUpdate` 中返回 `false` 来告诉 React 不要更新，以避免不必要的对比工作。默认都是 `true`，另外，禁用更新后，其子组件也不会被更新。
 
 ```
 // 手动控制那些属性变更后需要更新组件

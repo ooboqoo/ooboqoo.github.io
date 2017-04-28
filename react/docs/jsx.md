@@ -28,6 +28,8 @@ JSX 标记的开头部分指明了 React 元素类型。首字母大写的类型
 
 当一个模块中定义了多个 React 组件时，可以直接使用 `.` 运算符，即，可以像 `<MyComponents.DatePicker />` 这样直接用。
 
+使用 `.` 运算符时，不管字母是否大写，都没有问题，如 `Comps.Comp` `Comps.comp` `comps.Comp` `comps.comp`
+
 ```
 const MyComponents = {
   DatePicker: function DatePicker(props) {
@@ -109,7 +111,7 @@ const props = {firstName: 'Gavin', lastName: 'Wang'};
 function Item(props) { return <li>{props.message}</li>; }
 function TodoList() {
   const todos = ['finish doc', 'submit pr', 'nag dan to review'];
-  return <ul> {todos.map((message) => <Item key={message} message={message} />)} </ul>;
+  return <ul>{todos.map((message) => <Item key={message} message={message} />)}</ul>;
 }
 
 // 函数 (见下面说明)

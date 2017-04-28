@@ -1,6 +1,6 @@
 # React 快速入门
 
-## Hello World
+## 1. Hello World
 
 ```html
 <!DOCTYPE html>
@@ -85,6 +85,8 @@ React.DOM.h1(
 
 ### 2.1 基础
 
+Warning: A Component: React.createClass is deprecated and will be removed in version 16. Use plain JavaScript classes instead. If you're not yet ready to migrate, create-react-class is available on npm as a drop-in replacement
+
 创建新组件的 API 如下：
 
 ```js
@@ -125,7 +127,7 @@ ReactDOM.render(
 
 ### 2.2 属性
 
-你的组件可以接收属性，并根据属性值进行相对应的渲染或表现。所有属性都可以通过 `this.props`对象获取。
+你的组件可以接收属性，并根据属性值进行相对应的渲染或表现。所有属性都可以通过 `this.props` 对象获取。
 
 ```js
 var Component = React.createClass({
@@ -142,13 +144,11 @@ ReactDOM.render(
 );
 ```
 
-> 请把 this.props 视作只读属性。`Object.isFrozen(this.props) === true; // true`
+> 请把 `this.props` 视作只读属性。`Object.isFrozen(this.props) === true; // true`
 
 ### 2.3 propTypes
 
 Warning: Accessing PropTypes via the main React package is deprecated. Use the prop-types package from npm instead.
-
-Warning: A Component: React.createClass is deprecated and will be removed in version 16. Use plain JavaScript classes instead. If you're not yet ready to migrate, create-react-class is available on npm as a drop-in replacement
 
 在你的组件中，可以添加一个名为 `propTypes` 的属性，以声明组件需要接收的属性列表及其对应类型。
 
@@ -173,7 +173,7 @@ var Component = React.createClass({
 
 #### 默认属性
 
-```js
+```
 var Component = React.createClass({
     propTypes: {
         firstName: React.PropTypes.string.isRequired,
@@ -184,50 +184,97 @@ var Component = React.createClass({
     getDefaultProps: function() { return {middleName: '', address: 'n/a'}; },
     render: function() {/* ... */}
 });
+
+// 以上写法以过时，用下面这种写法
+class Demo extends Component {
+  props: {
+    firstName: string,
+    lastName: string,
+    address: string,
+  };
+  static defaultProps = {address: 'n/a'}
+  render() { return <p>{this.props.firstName + this.props.lastName + this.props.address}</p>; }
+}
 ```
 
 ### 2.4 state
 
-前面的例子都是纯静态/无状态的，旨在给你一种使用组件块组合界面的思路。不过 React 真正的闪光点出现在应用数据发生改变的时候(也是传统的浏览器 DOM 操作和维护变得复杂的地方)。React 有一个称为 state 的概念，也就是组件渲染自身时用到的数据。当 state 发生改变时，React 会自动重建用户界面。因此，在 render() 初始化构造界面后，不需要再关心界面变化，而只需要关心数据的变化即可。
+前面的例子都是纯静态/无状态的，旨在给你一种使用组件块组合界面的思路。不过 React 正的闪光点出现在应用数据发生改变的时候(也是传统的浏览器 DOM 操作和维护变得复杂的地方)。React 有一个称为 state 的概念，也就是组件渲染自身时用到的数据。当 state 发生改变时，React 会自动重建用户界面。因此，在 `render()` 初始化构造界面后，不需要再关心界面变化，而只需要关心数据的变化即可。
 
-和 this.props 的取值方式类似，你可以通过 `this.state` 对象取得 state。在更新 state 时，可以使用 `this.setState()` 方法。当 this.setState() 被调用时，React 会调用你的 render() 方法并更新界面。
+和 `this.props` 的取值方式类似，你可以通过 `this.state` 对象取得 state。在更新 state 时，可以使用 `this.setState()` 方法。当 `this.setState()` 被调用时，React 会调用你的 `render()` 方法并更新界面。
 
-调用 setState() 后的界面更新是通过一个队列机制高效地进行批量修改的，直接改变 this.state 会导致意外行为的发生，因此你不应该这么做。和前面的 this.props 类似，可以把 this.state 当作只读属性。类似地，永远不要自行调用this.render() 方法——而是将其留给 React 进行批处理，计算最小的变化数量，并在合适的时机调用 render() 。
+调用 `setState()` 后的界面更新是通过一个队列机制高效地进行批量修改的，直接改变 `this.state` 会导致意外行为的发生，因此你不应该这么做。和前面的 `this.props` 类似，可以把 `this.state` 当作只读属性。类似地，永远不要自行调用 `this.render()` 方法——而是将其留给 React 进行批处理，计算最小的变化数量，并在合适的时机调用 `render()`。
 
 ### 2.6 事件处理
 
 出于性能、便捷性与合理性考虑，React 使用了自身的合成事件系统。
 
-为了包裹并规范浏览器事件，React 使用了合成事件来消除浏览器之间的不一致情况。有了 React 的帮助，现在你可以依靠 event.target 在所有浏览器中取得想要的值了。这就是在 TextAreaCounter 代码片段中，你只需要使用 ev.target.value 就可以正常工作的原因。与此同时，取消事件的 API 在所有浏览器中都通用了； event.stopPropagation() 和 event.
-preventDefault() 甚至在老版本 IE 浏览器中也可以生效。
+为了包裹并规范浏览器事件，React 使用了合成事件来消除浏览器之间的不一致情况。有了 React 的帮助，现在你可以依靠 `event.target` 在所有浏览器中取得想要的值了。这就是在 TextAreaCounter 代码片段中，你只需要使用 `ev.target.value` 就可以正常工作的原因。与此同时，取消事件的 API 在所有浏览器中都通用了； `event.stopPropagation()` 和 `event.preventDefault()` 甚至在老版本 IE 浏览器中也可以生效。
 
 这种语法轻松地把视图和事件监听绑定在一起。虽然其语法看起来就像传统的内联事件处理器一样，但背后的实现原理并非如此。事实上，React 基于性能考虑，使用了事件委托。
 
-此外，React 在事件处理中使用驼峰法命名，因此你需要使用 onClick 代替 onclick。
+此外，React 在事件处理中使用驼峰法命名，因此你需要使用 `onClick` 代替 `onclick`。
 
-如果你出于某种原因需要使用原生的浏览器事件，可以使用 event.nativeEvent ，但估计你不太可能会用得上。
+如果你出于某种原因需要使用原生的浏览器事件，可以使用 `event.nativeEvent`，但估计你不太可能会用得上。
 
-还有一件事情需要注意。 onChange 事件（在文本框例子中已经用到）的行为和你预期中是一样的：当用户输入时触发，而不是像原生 DOM 事件那样，在用户结束输入并把焦点从输入框移走时才触发。
+还有一件事情需要注意。`onChange` 事件（在文本框例子中已经用到）的行为和你预期中是一样的：当用户输入时触发，而不是像原生 DOM 事件那样，在用户结束输入并把焦点从输入框移走时才触发。
 
 ### 2.7 props 与 state
 
-属性是一种给外部世界设置组件的机制，而状态则负责组件内部数据的维护。因此，如果与面向对象编程进行类比的话， this.props 就像是传递给类构造函数的参数，而 this.state 则包含了你的私有属性。
+属性是一种给外部世界设置组件的机制，而状态则负责组件内部数据的维护。因此，如果与面向对象编程进行类比的话，`this.props` 就像是传递给类构造函数的参数，而 `this.state` 则包含了你的私有属性。
 
 ### 2.9 从外部访问组件
 
+让你的 React 应用和外界进行通信的一种方法，是在使用 `ReactDOM.render()` 方法进行渲染时，把引用赋值给一个变量，然后在外部通过该变量访问组件：
+
+```
+var myTextAreaCounter = ReactDOM.render(
+    React.createElement(TextAreaCounter, {defaultValue: "Bob",}),
+    document.getElementById("app")
+);
+
+myTextAreaCounter.setState({text: "Hello outside world!"});  // 正常应避免这种用法
+var reactAppNode = ReactDOM.findDOMNode(myTextAreaCounter);
+reactAppNode.parentNode === document.getElementById('app');  // true
+```
+
+现在你可以通过 `myTextAreaCounter` 访问组件的方法和属性，就像在组件内部使用 `this` 访问一样。你甚至可以在 JavaScript 控制台中操控这个组件。
+
+### 2.11 生命周期方法
+
+`componentWillMount()` 在新节点插入 DOM 结构之前触发。
+
+`componentDidMount()` 在新节点插入 DOM 结构之后触发。
+
+`componentWillReceiveProps()` 组件接收到新的 props 变更时触发，提供一种拦截机制。
+
+`shouldComponentUpdate(newProps, newState)` 在 `componentWillUpdate()` 之前触发，给你一个机会返回 false 以取消更新组件，这意味着 `render()` 方法将不会被调用。这在性能关键型的应用场景中非常有用。
+
+`componentWillUpdate(nextProps, nextState)` 当你的组件再次渲染时，在 `render()` 方法前调用。
+
+`componentDidUpdate(oldProps, oldState)` 在 `render()` 函数执行完毕，且更新的组件已被同步到 DOM 后立即调用。初始化渲染时不会触发。
+
+`componentWillUnmount()` 在组件从 DOM 中移除时立刻触发。
+
+### 2.16 PureRenderMixin
+
+React 的最新版本提供了 `React.PureComponent` 基础类，因此无需引入该插件(现在插件全部被干掉了...)。
 
 
+## 4. JSX
 
+### 4.6 在 JSX 中使用 JavaScript
 
+在构建界面时经常会使用变量、条件判断和循环。JSX 允许你在标记语言中使用 JavaScript 语法，因此不必引入额外的模板语法。在使用时，只需要在 JavaScript 代码外部包裹一层花括号就可以了。
 
+### 4.12 JSX 和 HTML 的区别
 
+* 在 HTML 中，有一些标签不需要闭合；但在 JSX（XML）中，所有标签都要闭合
+* 你不能在 JSX 中使用 class 和 for 属性（它们都是 ECMAScript 中的保留字），需要使用 className 和 htmlFor 作为代替
+* style 属性接收一个对象值，而不是用分号分隔的字符串。CSS 属性名字使用驼峰命名法，而不是使用破折号分隔。
+* 在 JSX 中，所有属性都需要使用驼峰法命名。但所有以 `data-` 和 `aria-` 开头的属性都是例外，其命名方式和 HTML 相同。
 
-
-
-
-
-
-
+### 4.13 JSX 和表单
 
 
 
