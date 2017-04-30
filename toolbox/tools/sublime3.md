@@ -167,6 +167,23 @@ SyncedSideBar   | 可以在侧边栏同步展开编辑文件所在目录的插�
 **IMESupport**      | 输入中文时，输入框总是在最下面，装了这个插件不用设置，一切就会正常工作了。
 HTML2Text       | HTML 转 Markdown 插件
 
+### Markdown Editing
+
+重装或者改 theme 时要注意，这个主题是要在其配置文件中单独设定的，如原主题找不到就会一直报错，怎么改主题都不行，好大一个坑。
+
+Markdown.sublime-settings--User
+
+```
+{
+  "color_scheme": "Packages/Garden.tmTheme",
+  "tab_size": 2,
+  "draw_centered": false,
+  "wrap_width": 120,
+  "rulers": [120],
+  "line_numbers": true,
+}
+```
+
 ### SublimeLinter
 
 SublimeLinter 是比较好用的一款 linter frame，但是使用过程中发现有2点需要注意：
@@ -190,6 +207,3 @@ https://github.com/palantir/tslint
 }
 ```
 
-### Markdown Editing
-
-重装或者改 theme 时要注意，这个主题是要在其配置文件中单独设定的，如原主题找不到就会一直报错，怎么改主题都不行，好大一个坑。
