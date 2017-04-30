@@ -17,6 +17,8 @@ puttygen.exe 可以生成密匙对，但服务器不一定认，所以推荐直�
 ##### 第三步、客户端配置密钥
 使用 puttygen.exe 载入密钥并保存为 putty 格式的私钥。
 
+注：使用 puttygen.exe -> Conversions -> Export OpenSSH key 可以将 .ppk 格式的私钥转换回 id_rsa
+
 ##### 第四步、设置 putty 认证链接并登录
 在 `Setting->Connection->SSH->Auth->Authentication parameters` 下选择秘钥文件。
 
