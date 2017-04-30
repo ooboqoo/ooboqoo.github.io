@@ -23,7 +23,7 @@ $ npm init
 https://babeljs.io/docs/setup/#installation
 
 ```bash
-$ yarn add --dev babel-core babel-preset-env babel-preset-react babel-preset-flow
+$ yarn add --dev babel-core babel-preset-env babel-preset-react babel-preset-stage-2 babel-preset-flow
 ```
 
 * babel-preset-react 让 Babel 支持 JSX 以及其他 React 语法；
@@ -33,7 +33,7 @@ $ yarn add --dev babel-core babel-preset-env babel-preset-react babel-preset-flo
 
 ```
 "babel": {
-  "presets": [ "env", "react", "flow" ]
+  "presets": [ "env", "react", "stage-2", "flow" ]
 },
 ```
 
@@ -75,29 +75,23 @@ module.exports = {
         filename: "dist/bundle.js",
         path: __dirname
     },
-
     devtool: "source-map",
-
     devServer: {
       historyApiFallback: true,
       stats: {chunks: false,}
     },
-
     resolve: {
         extensions: [".js"]
     },
-
     module: {
         rules: [
             {test: /\.jsx?$/, use: 'babel-loader', exclude: /node_modules/ },
             {test: /\.scss$/, use: ExtractTextPlugin.extract({use: ['css-loader', 'sass-loader']})}
         ],
     },
-
     plugins: [
         new ExtractTextPlugin('dist/style.css')
     ],
-
     // When importing a module whose path matches one of the following, just
     // assume a corresponding global variable exists and use that instead.
     // This is important because it allows us to avoid bundling all of our

@@ -59,7 +59,7 @@ $ git config --global alias.st status               # 设定命令别名，所�
 $ git config --global credential.helper wincred     # 设定免密码登录(记住密码) [注1]
 $ git config --global https.proxy 'socks5://127.0.0.1:1080'  # git 使用 ss 代理加速
 
-# 配置使用 merge 作为 diff & merge 外部工具，注意需要添加 meld 路径到 PATH
+# 配置使用 meld 作为 diff & merge 外部工具，注意需要添加 meld 路径到 PATH
 # 如果命令行执行不成功，则手动修改 .gitconfig 文件
 $ git config --global merge.tool meld
 $ git config --global mergetool.meld.cmd 'meld.exe \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"'

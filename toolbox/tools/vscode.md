@@ -201,14 +201,18 @@ If no debugging is available, the debugger statement has no effect.
 
 ```json
 {
-  "editor.rulers": [ 100 ],
-  "editor.tabSize": 2,
-  "editor.wrappingIndent": "indent",
-  "editor.renderWhitespace": "boundary",
-  "editor.detectIndentation": false,
-  "editor.renderIndentGuides": true,
-  "git.autorefresh": false,                          // 这个开着的话，每次刷新会触发 webpack-dev-server 编译
-  "typescript.tsdk": "node_modules/typescript/lib"   // 这行还是放到项目 .vscode/settings.json 下面吧
+    "workbench.activityBar.visible": false,  // 关闭左侧导航条
+    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\usr\\bin\\bash.exe",  // 终端用 bash
+    "editor.rulers": [ 100 ],
+    "editor.tabSize": 2,
+    "editor.wrappingIndent": "indent",      // 换行后是否缩进显示
+    "editor.renderWhitespace": "boundary",  // 显示空白--两边显示，中间不显示
+    "editor.detectIndentation": false,      // 是否自动根据打开文件调整缩进设置
+    "editor.renderIndentGuides": true,      // 显示缩进指示
+    "editor.minimap.enabled": true,         // 显示右侧缩略图
+    "workbench.iconTheme": "vs-seti",       // 文件导航栏显示文件图标
+    "git.autorefresh": false,               // 这个开着的话，每次刷新会触发 webpack-dev-server 编译
+    "flow.runOnEdit": false                 // 安装 flow 插件后，如果开启输入检测，会很卡
 }
 ```
 
