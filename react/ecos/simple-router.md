@@ -19,7 +19,7 @@ function pathToRegexp(path: string, keys: Array<{name: string}>) {
   return new RegExp(str);
 }
 
-// https://github.com/ReactTraining/history 类似的简化实现，主要就是解决没有 pushstate 事件的问题
+// https://github.com/ReactTraining/history 的类似实现，主要就是解决没有 onpushstate 事件可监听的问题
 class BrowserHistory {
   listen(cb) {
     this.listener = cb;
@@ -42,12 +42,10 @@ class BrowserHistory {
   }
 }
 
-/**
- * Route renders some UI when the URL matches a location you specify in the Route’s path prop
- */
+// Route renders some UI when the URL matches a location you specify in the Route’s path prop
 export class Route extends Component {
   props: {
-    exact?: boolean,       // When true, will only match if the path matches the location.pathname exactly.
+    exact?: boolean,       // When true, path has to matche the location.pathname exactly
     path?: string,         // 支持普通字符串 或 字符串表示的正则表达式
     component?: Function,  // component 与 render 二选一
     render?: Function,
@@ -81,7 +79,7 @@ export class Route extends Component {
 
     const [url, ...values] = match;
     const isExact = pathname === url;
-    const params = keys.reduce((acc, value, index) => { acc[value.name] = values[index]; return acc; }, {});
+    const params = keys.reduce((acc, key, index) => { acc[key.name] = values[index]; return acc; }, {});
 
     if (exact && !isExact) { return null; }
 
@@ -93,7 +91,6 @@ export class Route extends Component {
     const match = this.state.match;
 
     if (!match) { return null; }
-    // If the current location matches the path prop, create a new element passing in match as the prop.
     if (component) { return React.createElement(component, {match}); }
     if (render) { return render({match}); }
     return null;
@@ -103,8 +100,8 @@ export class Route extends Component {
 export class Link extends Component {
   props: {
     to: string,
-    replace?: boolean,  // When true, clicking the link will replace the current entry in the history stack instead of adding a new one.
-    children: Element,
+    replace?: boolean,
+    children: Node,
   }
 
   static contextTypes = {
@@ -130,6 +127,12 @@ export class Link extends Component {
 }
 
 export class Router extends Component {
+  static childContextTypes = {
+    history: PropTypes.object,
+    pathname: PropTypes.string,
+  }
+  getChildContext() { return {history: this.history, pathname: this.state.pathname}; }
+
   constructor(props) {
     super(props);
     this.history = new BrowserHistory;
@@ -137,15 +140,9 @@ export class Router extends Component {
     this.handleHistoryChange = this.handleHistoryChange.bind(this);
   }
 
-  static childContextTypes = {
-    history: PropTypes.object,
-    pathname: PropTypes.string,
-  }
-
-  getChildContext() { return {history: this.history, pathname: this.state.pathname}; }
-
   componentWillMount() { this.history.listen(this.handleHistoryChange); }
   componentWillUnmount() { this.history.unlisten(); }
+
   handleHistoryChange() { this.setState({pathname: window.location.pathname}); }
 
   render() {
