@@ -1,37 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/resource/lib/html-main.css" />
-<script src="/resource/lib/html-main.js"></script>
-<script>setBase('table','http://www.w3schools.com/jsref/');</script>
-<title>Browser Objects Reference</title>
-</head>
-<body>
-<div id="article">
+# Browser Objects Reference
 
-<h1>Browser Objects Reference</h1>
-
-<div id="contents">
-<ul>
-    <li><a href="#window">Window</a></li>
-    <li><a href="#location">Location</a></li>
-    <li><a href="#navigator">Navigator</a></li>
-    <li><a href="#screen">Screen</a></li>
-    <li><a href="#history">History</a></li>
-</ul>
-</div>
-
-<div>
-<h2 id="window">Window Object</h2>
+## Window Object
 <p>The window object represents an open window in a browser.</p>
 <p>If a document contain frames (&lt;iframe&gt; tags), the browser creates one window object for the HTML document, and one additional window object for each frame.</p>
 <p><b>Note:</b> There is no public standard that applies to the Window object, but all major browsers support it.</p>
 <hr>
 
-<h2>Window Object Properties</h2>
-<table class="w3-table-all notranslate">
+Window Object Properties
+<table>
   <tbody><tr><th>Property</th><th>Description</th></tr>
   <tr><td><a href="prop_win_closed.asp">closed</a></td><td>Returns a Boolean value indicating whether a window has been closed or not</td></tr>
   <tr><td><a href="prop_win_defaultstatus.asp">defaultStatus</a></td><td>Sets or returns the default text in the statusbar of a window</td></tr>
@@ -65,8 +41,8 @@
   <tr><td><a href="prop_win_top.asp">top</a></td><td>Returns the topmost browser window</td></tr>
 </tbody></table>
 
-<h2>Window Object Methods</h2>
-<table class="w3-table-all notranslate">
+Window Object Methods
+<table>
   <tbody><tr><th>Method</th><th>Description</th></tr>
   <tr><td><a href="met_win_settimeout.asp">setTimeout()</a></td><td>Calls a function or evaluates an expression after a specified number of milliseconds</td></tr>
   <tr><td><a href="met_win_cleartimeout.asp">clearTimeout()</a></td><td>Clears a timer set with setTimeout()</td></tr>
@@ -94,16 +70,16 @@
   <tr><td>scroll()</td><td><span class="deprecated">Deprecated.</span> This method has been replaced by the <a href="met_win_scrollto.asp">scrollTo()</a> method.</td></tr>
   <tr><td><a href="met_win_stop.asp">stop()</a></td><td>Stops the window from loading</td></tr>
 </tbody></table>
-</div>
 
-<div>
-<h2 id="navigator">Navigator Object</h2>
+
+## Navigator Object
+
 <p>The navigator object contains information about the browser.</p>
 <p><b>Note:</b> There is no public standard that applies to the navigator object, but all major browsers support it.</p>
 <hr>
 
-<h2>Navigator Object Properties</h2>
-<table class="w3-table-all notranslate">
+Navigator Object Properties
+<table>
   <tbody><tr><th>Property</th><th>Description</th></tr>
   <tr><td><a href="prop_nav_appcodename.asp">appCodeName</a></td><td>Returns the code name of the browser</td></tr>
   <tr><td><a href="prop_nav_appname.asp">appName</a></td><td>Returns the name of the browser</td></tr>
@@ -117,22 +93,22 @@
   <tr><td><a href="prop_nav_useragent.asp">userAgent</a></td><td>Returns the user-agent header sent by the browser to the server</td></tr>
 </tbody></table>
 
-<h2>Navigator Object Methods</h2>
-<table class="w3-table-all notranslate">
+Navigator Object Methods
+<table>
   <tbody><tr><th align="left">Method</th><th>Description</th></tr>
   <tr><td><a href="met_nav_javaenabled.asp">javaEnabled()</a></td><td>Specifies whether or not the browser has Java enabled</td></tr>
   <tr><td><a href="met_nav_taintenabled.asp">taintEnabled()</a></td><td><span class="deprecated">Removed in JavaScript version 1.2.</span> Specifies whether the browser has data tainting enabled</td></tr>
 </tbody></table>
-</div>
 
-<div>
-<h2 id="screen">Screen Object</h2>
+
+## Screen Object
+
 <p>The screen object contains information about the visitor's screen.</p>
 <p><b>Note:</b> There is no public standard that applies to the screen object, but all major browsers support it.</p>
 <hr>
 
-<h2>Screen Object Properties</h2>
-<table class="w3-table-all notranslate">
+Screen Object Properties
+<table>
   <tbody><tr><th>Property</th><th>Description</th></tr>
   <tr><td><a href="prop_screen_availheight.asp">availHeight</a></td><td>Returns the height of the screen (excluding the Windows Taskbar)</td></tr>
   <tr><td><a href="prop_screen_availwidth.asp">availWidth</a></td><td>Returns the width of the screen (excluding the Windows Taskbar)</td></tr>
@@ -140,44 +116,33 @@
   <tr><td><a href="prop_screen_height.asp">height</a></td><td>Returns the total height of the screen</td></tr>
   <tr><td><a href="prop_screen_pixeldepth.asp">pixelDepth</a></td><td>Returns the color resolution (in bits per pixel) of the screen</td></tr>
   <tr><td><a href="prop_screen_width.asp">width</a></td><td>Returns the total width of the screen</td></tr>
-</tbody></table>
-</div>
+</tbody>
+</table>
 
-<div>
-<h2 id="history">History Object</h2>
-<p>The history object contains the URLs visited by the user (within a browser window).</p>
-<p>The history object is part of the window object and is accessed through the window.history property.</p>
-<p><b>Note:</b> There is no public standard that applies to the history object, but all major browsers support it.</p>
-<hr>
+## History Object
 
-<h2>History Object Properties</h2>
-<table class="w3-table-all notranslate">
-  <tbody><tr><th>Property</th><th>Description</th></tr>
-  <tr><td><a href="prop_his_length.asp">length</a></td><td>Returns the number of URLs in the history list</td></tr>
-  <tr><td class="html5badge"><a href="https://msdn.microsoft.com/en-us/library/hh771934(v=vs.85).aspx">state</a></td><td>Returns the current state object</td></tr>
-</tbody></table>
+The History interface allows to manipulate the browser session history 会话历史。
 
-<h2>History Object Methods</h2>
-<table class="w3-table-all notranslate">
-  <tbody><tr><th>Method</th><th>Description</th></tr>
-  <tr><td><a href="met_his_back.asp">back()</a></td><td>Loads the previous URL in the history list</td></tr>
-  <tr><td><a href="met_his_forward.asp">forward()</a></td><td>Loads the next URL in the history list</td></tr>
-  <tr><td><a href="met_his_go.asp">go()</a></td><td>Loads a specific URL from the history list</td></tr>
-  <tr><td class="html5badge"><a href="https://msdn.microsoft.com/en-us/library/hh771929(v=vs.85).aspx">pushState()</a></td><td>Pushes the given data with the title, and URL, if provided, onto the session history</td></tr>
-  <tr><td class="html5badge"><a href="https://msdn.microsoft.com/en-us/library/hh771932(v=vs.85).aspx">replaceState()</a></td><td>Updates the session history by the given data, title, and if provided, URL</td></tr>
-</tbody></table>
-<br>
-</div>
+|||
+|--------|----------------
+| length | The number of URLs in the history list
+| state  | The current state object
+|||
+| back()    | 相当于点击后退按钮，会导致页面更新，会在 `window` 上触发 `popstate` 事件
+| forward() | 相当于点击前进按钮，会导致页面更新，会在 `window` 上触发 `popstate` 事件
+| go(num)   | 更灵活的前进后退，如 退一 `go(-1)` 进二 `go(2)`
+| pushState(stateObj, title, url?) | Pushes the given data with the title and URL onto the session history. <br>不会导致页面更新，不会触发事件，提供了 url 会更新 url，title 目前浏览器都忽略
+| replaceState(stateObj, title, url?) | Updates the session history by the given data, title, and if provided, URL.
 
-<div>
-<h2 id="location">Location Object</h2>
+
+## Location Object
 <p>The location object contains information about the current URL.</p>
 <p>The location object is part of the window object and is accessed through the window.location property.</p>
 <p><b>Note:</b> There is no public standard that applies to the location object, but all major browsers support it.</p>
 <hr>
 
-<h2>Location Object Properties</h2>
-<table class="w3-table-all notranslate">
+Location Object Properties
+<table>
   <tbody><tr><th>Property</th><th>Description</th></tr>
   <tr><td><a href="prop_loc_hash.asp">hash</a></td><td>Sets or returns the anchor part (#) of a URL</td></tr>
   <tr><td><a href="prop_loc_host.asp">host</a></td><td>Sets or returns the hostname and port number of a URL</td></tr>
@@ -190,15 +155,12 @@
   <tr><td><a href="prop_loc_search.asp">search</a></td><td>Sets or returns the querystring part of a URL</td></tr>
 </tbody></table>
 
-<h2>Location Object Methods</h2>
-<table class="w3-table-all notranslate">
+Location Object Methods
+<table>
   <tbody><tr><th>Method</th><th>Description</th></tr>
   <tr><td><a href="met_loc_assign.asp">assign()</a></td><td>Loads a new document</td></tr>
   <tr><td><a href="met_loc_reload.asp">reload()</a></td><td>Reloads the current document</td></tr>
   <tr><td><a href="met_loc_replace.asp">replace()</a></td><td>Replaces the current document with a new one</td></tr>
 </tbody></table>
-</div>
 
-</div>
-</body>
-</html>
+<style>#article em {color:#333} td:first-child{color:red;}</style>

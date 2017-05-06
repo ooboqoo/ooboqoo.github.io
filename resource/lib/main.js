@@ -14,13 +14,7 @@ window.ooboqoo = {};
 
 // 判断是否是移动端
 function isMobile() {
-  if (isMobile.cache) { return isMobile.cahce }
-  var agents = ["Android", "iPhone", "Windows Phone", "iPad", "iPod"];
-  var agent = navigator.userAgent;
-  for (var i = 0; i < agents.length; i++) {  
-    if (agent.indexOf(agents[i]) > -1) { return isMobile.cache = true; }
-  }
-  return isMobile.cache = false;
+  return !!navigator.userAgent.match(/Android|iPhone|Windows\ Phone|iPad|iPod/i);
 }
 
 // 开始页面初始化工作
