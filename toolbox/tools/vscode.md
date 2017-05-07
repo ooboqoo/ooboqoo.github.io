@@ -35,6 +35,17 @@ ng2-ngStyle
 ng2-ngSwitch
 ```
 
+### Reactjs code snippets
+
+这个插件用的人比较多，但是 snippet prefix 前缀设置有问题(太短)，想使用需要关闭智能提示:
+
+```
+  "editor.tabCompletion": true,
+  "editor.quickSuggestions": {"other": false, "comments": false, "strings": false },
+```
+
+觉得需要改造一下，或者自己定义 https://code.visualstudio.com/docs/editor/userdefinedsnippets
+
 ### Debugger for Chrome
 
 Supported features
@@ -57,6 +68,10 @@ Unsupported scenarios
 感觉直接在编辑器下断点、查看调用堆栈、以及查看变量都比较方便；`watch` 项用于监控变量，需要手动输入变量名，调试过程会实时监控该变量。
 
 > 其实这里的功能，Chrome 都有，在浏览器调试，需要先找到代码再调试，但不用切换；在编辑器调试，不用找代码，但调试过程中需要在浏览器与编辑器之间切换，总体感觉还不如直接在浏览器中调试。
+
+### Beautify
+
+vscode 虽然内置了 js-beautify，但功能被缩减很多，像 scss 文件就不支持，所以还得装这个。
 
 ### vscode-tslint
 
