@@ -259,6 +259,8 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 
 ## String
 
+估计不全，待整理
+
 <div class="dl">
 <h5 class="es3">string.length <span>-- 返回字符串的长度</span></h5>
 </div>
@@ -277,14 +279,15 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <div class="dl">
 <h5 class="es3">string.indexOf(searchValue, fromIndex?) <span>-- 返回指定字符在字符串中首次出现的位置, 找不到为 -1</span></h5>
 <h5 class="es3">string.lastIndexOf(searchValue, fromIndex?) <span>-- 返回指定字符在字符串中最后一次出现的位置, 找不到为 -1</span></h5>
+<h5 class="es6">string.includes(searchString, position?) <span>-- 是否包含子字符串</span></h5>
 </div>
 <div class="dl">
 <h5 class="es3">string.charAt(index) <span>-- 返回给定位置的那个字符</span></h5>
 <h5 class="es3">string.charCodeAt(index) <span>-- 返回给定位置字符的字符编码</span></h5>
 </div>
 <div class="dl">
-<h5 class="es3">string.toLowerCase() <span>-- 将字符串转换成小写并返回新字符串</span></h5>
 <h5 class="es3">string.toUpperCase() <span>-- 将字符串转换成大写并返回新字符串</span></h5>
+<h5 class="es3">string.toLowerCase() <span>-- 将字符串转换成小写并返回新字符串</span></h5>
 </div>
 <div class="dl">
 <h5 class="es5">string.trim() <span>-- 删除前置和后缀的所有空格并返回处理后的新字符串</span></h5>

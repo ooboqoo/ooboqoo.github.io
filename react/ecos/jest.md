@@ -42,8 +42,9 @@ $ npm i --save-dev babel-jest react-test-renderer enzyme
 运行测试
 
 ```bash
-$ jest testname.js     # 测试单个文件，不用输入路径，jest 会自己去搜索(搜索方式见默认配置)
+$ jest testname.js      # 测试单个文件，不用输入路径，jest 会自己去搜索(搜索方式见默认配置)
 $ npm test testname.js
+$ jest --coverage       # 生成代码覆盖率报告
 ```
 
 ### 问题处理
@@ -81,7 +82,13 @@ module.exports = {};
 
 Jest 是基于流行的测试框架 Jasmine 构建的，而 Jasmine 的 API 命名比较口语化，简洁易懂。
 
-Jest 会在名为 __tests__ 的文件夹中寻找测试用例，因此我们在 js/__tests__ 目录中编写测试。
+Jest 搜索测试用例策略(`__tests__` 文件夹下 `js` `jsx` 文件 或 任意文件夹下 `.test.js` `.spec.js` 文件)：
+
+```
+testMatch [array<string>]
+available in Jest 19.0.0+
+(default: [ '**/__tests__/**/*.js?(x)', '**/?(*.)(spec|test).js?(x)' ])
+```
 
 ```js
 describe('A suite', () => {
