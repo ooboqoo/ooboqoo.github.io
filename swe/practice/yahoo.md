@@ -10,41 +10,41 @@ http://www.cnblogs.com/smjack/archive/2009/02/24/1396895.html
 
 共 35 条，分 7 个类别：Content Server Cookie CSS JavaScript Images Mobile
 
-* [1 减少 HTTP 请求数量 -- Minimize HTTP Requests](#h-1)
-* [2 使用内容分布式网络 -- Use a Content Delivery Network](#h-2)
-* [3 响应头部添加 `Expires` 或 `Cache-Control` -- Add an Expires or a Cache-Control Header](#h-3)
-* [4 Gzip 压缩组件 -- Gzip Components](#h-4)
-* [5 样式表放顶部 -- Put Stylesheets at the Top](#h-5)
-* [6 脚本放最后 -- Put Scripts at the Bottom](#h-6)
-* [7 避免使用 CSS 表达式  -- Avoid CSS Expressions](#h-7)
-* [8 使用外联 JS 和 CSS -- Make JavaScript and CSS External](#h-8)
-* [9 减少 DNS 查询 -- Reduce DNS Lookups](#h-9)
-* [10 压缩 JS 和 CSS -- Minify JavaScript and CSS](#h-10)
-* [11 避免重定向 -- Avoid Redirects](#h-11)
-* [12 移除重复的脚本 -- Remove Duplicate Scripts](#h-12)
-* [13 设定 `ETag`s -- Configure `ETag`s](#h-13)
-* [14 让 Ajax 可以缓存 -- Make Ajax Cacheable](#h-14)
-* [15 尽早向客户端推送已处理内容 -- Flush the Buffer Early](#h-15)
-* [16 在 Ajax 请求中使用 GET 方法 -- Use GET for AJAX Requests](#h-16)
-* [17 延后加载组件 -- Post-load Components](#h-17)
-* [18 预先加载组件 -- Preload Components](#h-18)
-* [19 减小 DOM 元素的数量 -- Reduce the Number of DOM Elements](#h-19)
-* [20 分域部署资源 -- Split Components Across Domains](#h-20)
-* [21 减少 iframe 的数量 -- Minimize the Number of iframes](#h-21)
-* [22 避免 404 错误 -- No 404s](#h-22)
-* [23 减少 Cookie 的大小 -- Reduce Cookie Size](#h-23)
-* [24 使用没有 cookie 的域名存取资源 -- Use Cookie-free Domains for Components](#h-24)
-* [25 合并 DOM 操作 -- Minimize DOM Access](#h-25)
-* [26 开发灵巧的事件处理程序 -- Develop Smart Event Handlers](#h-26)
-* [27 选择 `<link>` 而不是 `@import` -- Choose `<link>` over `@import`](#h-27)
-* [28 避免使用过滤器(IE 特有，略) -- Avoid Filters](#h-28)
-* [29 优化图片 -- Optimize Images](#h-28)
-* [30 优化雪碧图 -- Optimize CSS Sprites](#h-29)
-* [31 不要在 HTML 中缩放图片 -- Don't Scale Images in HTML](#h-30)
-* [32 使用小的可缓存的 Favicon.ico -- Make favicon.ico Small and Cacheable](#h-31)
-* [33 保证组件大小小于 25K -- Keep Components under 25K](#h-32)
-* [34 把组件打包进多部分文档中 -- Pack Components into a Multipart Document](#h-33)
-* [35 避免 `img` 标签的 `src` 属性为空 -- Avoid Empty Image src](#h-34)
+* [01 [Content] 减少 HTTP 请求数量 -- Minimize HTTP Requests](#h-1)
+* [02 [Server] 使用内容分发网络 -- Use a Content Delivery Network](#h-2)
+* [03 [Server] 响应头添加 `Expires` 或 `Cache-Control` -- Add an Expires or a Cache-Control Header](#h-3)
+* [04 [Server] 使用 gzip 压缩组件 -- Gzip Components](#h-4)
+* [05 [CSS] 样式表放顶部 -- Put Stylesheets at the Top](#h-5)
+* [06 [JS] 脚本放最后 -- Put Scripts at the Bottom](#h-6)
+* [07 [CSS] 避免使用 CSS 表达式(已弃用，略)  -- Avoid CSS Expressions](#h-7)
+* [08 [CSS, JS] 使用外联 JS 和 CSS -- Make JavaScript and CSS External](#h-8)
+* [09 [Content] 减少 DNS 查询 -- Reduce DNS Lookups](#h-9)
+* [10 [CSS, JS] 压缩 JS 和 CSS -- Minify JavaScript and CSS](#h-10)
+* [11 [Content] 避免重定向 -- Avoid Redirects](#h-11)
+* [12 [JS] 移除重复的脚本 -- Remove Duplicate Scripts](#h-12)
+* [13 [Server] 设定 `ETag`s -- Configure `ETag`s](#h-13)
+* [14 [Content] 尽量让通过 Ajax 获取的动态内容也可以缓存 -- Make Ajax Cacheable](#h-14)
+* [15 [Server] 尽早向客户端推送已处理内容(PHP 后台解析模板时有用) -- Flush the Buffer Early](#h-15)
+* [16 [Server] 在 Ajax 请求中使用 GET 方法 -- Use GET for AJAX Requests](#h-16)
+* [17 [Content] 延后加载组件 -- Post-load Components](#h-17)
+* [18 [Content] 预先加载组件 -- Preload Components](#h-18)
+* [19 [Content] 减小 DOM 元素的数量 -- Reduce the Number of DOM Elements](#h-19)
+* [20 [Content] 分域部署资源 -- Split Components Across Domains](#h-20)
+* [21 [Content] 减少 iframe 的数量 -- Minimize the Number of iframes](#h-21)
+* [22 [Content] 避免 404 错误 -- No 404s](#h-22)
+* [23 [Cookie] 尽量减小 Cookie 的体积 -- Reduce Cookie Size](#h-23)
+* [24 [Cookie] 使用没有 cookie 的域名存取静态资源 -- Use Cookie-free Domains for Components](#h-24)
+* [25 [JS] 合并 DOM 操作 -- Minimize DOM Access](#h-25)
+* [26 [JS] 事件监听优化 -- Develop Smart Event Handlers](#h-26)
+* [27 [CSS] 选择 `<link>` 而不是 `@import` -- Choose `<link>` over `@import`](#h-27)
+* [28 [CSS] 避免使用过滤器(IE 特有，略) -- Avoid Filters](#h-28)
+* [29 [Images] 优化(压缩)图片 -- Optimize Images](#h-28)
+* [30 [Images] 优化雪碧图 -- Optimize CSS Sprites](#h-29)
+* [31 [Images] 不要在 HTML 中缩放图片 -- Don't Scale Images in HTML](#h-30)
+* [32 [Images] 使用小的可缓存的 Favicon.ico -- Make favicon.ico Small and Cacheable](#h-31)
+* [33 [Mobile] 确保组件大小小于 25K -- Keep Components under 25K](#h-32)
+* [34 [Mobile] 把组件打包进 multipart 文档中 -- Pack Components into a Multipart Document](#h-33)
+* [35 [Server] 避免标签的 `src` 属性为空 -- Avoid Empty Image src](#h-34)
 
 
 ### 1. Minimize HTTP Requests  <sub>content</sub>
@@ -199,6 +199,8 @@ Domain Name System (DNS) 能够使网址和 IP 相对应。浏览器拿到网址
 
 如果只是在一台服务器部署，那么 `Etag` 可以很好的验证资源是否需要更新。但如果网站部署在多台服务器，那么对于同一个文件，每台服务器默认生成的 `Etag` 是不同的，这样就失效了，所以不如直接在服务器配置中移除 `Etag` 来减小请求和响应头部(此时只能靠 `Last-Modified` 验证了)。
 
+当然，可以通过服务器配置解决这个问题，这样，`ETag`s 还是优于 `Last-Modified`。
+
 ### 14. Make Ajax Cacheable  <sub>content</sub>
 
 尽管 Ajax 请求是动态创建的，而且只适用于一个用户，但它们依然可以被缓存，这样做会让你的 Web2.0 应用程序更快。
@@ -269,7 +271,7 @@ JS 操作 DOM 是很慢的，所以应尽量减少 DOM 操作：
 
 ### 27. Choose `<link>` over `@import`  <sub>css</sub>
 
-在 IE 中 `@import` 的资源会放到最后加载，所以最好不要用它。另外提醒下，使用 `@import` 必须放在容器头部否则无效。
+`@import` 的样式表在页面其他内容加载完后才开始加载，所以最好不要用它。另外提醒下，`@import` 必须放在容器头部否则无效。
 
 ### 29. Optimize Images  <sub>images</sub>
 
@@ -299,11 +301,11 @@ iPhone 不会缓存 25K 以上的内容，而且这还是解压后的尺寸，�
 
 ### 34. Pack Components into a Multipart Document  <sub>mobile</sub>
 
-把组件打包进多部分文档类似一封包含有附件的邮件，它能让你通过一个HTTP请求获取多个组件（记住HTTP请求是很昂贵的）。当你使用这一技术，请先检查客户端是否支持它(iPone不支持)。
+跟通过表单同时提交多个组件类似，`Content-Type: multipart` 请求能让你通过一个 HTTP 请求同时获取多个组件。
 
 ### 35. Avoid Empty Image src  <sub>server</sub>
 
-空的 `src` 属性还是会导致一次 HTTP 请求，所以请避免此类情况。
+对于老的浏览器，空的 `src` 属性还是会导致一次 HTTP 请求，所以请避免此类情况。
 
 ```text
 // HTML
