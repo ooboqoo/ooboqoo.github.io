@@ -59,3 +59,39 @@ Different browsers use different rendering engines: Internet Explorer uses Tride
 
 It's important to understand that this is a gradual process. For better user experience, the rendering engine will try to display contents on the screen as soon as possible. It will not wait until all HTML is parsed before starting to build and layout the render tree. Parts of the content will be parsed and displayed, while the process continues with the rest of the contents that keeps coming from the network.
 
+## 渲染引擎详解
+
+### 主流程
+
+### 解析综述
+
+### HTML 解析
+
+### CSS 解析
+
+### 处理脚本和样式表的顺序
+
+#### 脚本
+
+#### 预解析
+
+WebKit 和 Gecko 都进行了这项优化。在执行脚本时，其他线程会解析文档的其余部分，找出并加载需要通过网络加载的其他资源。通过这种方式，资源可以在并行连接上加载，从而提高总体速度。请注意，预解析器不会修改 DOM 树，而是将这项工作交由主解析器处理；预解析器只会解析外部资源（例如外部脚本、样式表和图片）的引用。
+
+#### 样式表
+
+### 渲染树构建
+
+### 布局
+
+### 绘制
+
+### 动态变化
+
+### 渲染引擎的线程
+
+### CSS2 可视化模型
+
+### 定位
+
+### 分层展示
+

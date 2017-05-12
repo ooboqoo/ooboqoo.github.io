@@ -1,4 +1,4 @@
-# HTML5 &lt;audio&gt; &amp; &lt;video&gt;
+# HTML5 `<audio>` &amp; `<video>`
 
 ## HTML Media
 
