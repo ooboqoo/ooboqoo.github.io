@@ -18,14 +18,16 @@ $ android sdk
 
 其他配置项参见 Android-SDK 配置笔记。
 
-### XCode
+### Xcode
 
 安装很简单，直接在苹果商店下，4.5G，下载中途暂停了就得从头开始，安装后占用 10G，装好后，开发所需的东东都在了。
 
 
 ## 调试
 
-### 编译并下载到手机
+### Android
+
+#### 编译并下载到手机
 
 ```bash
 $ react-native init xxxproject  # 这一步奇慢，百度后换下淘宝源就很快了
@@ -35,7 +37,7 @@ $ react-native run-android      # 这一步，编译完成后会报 "无法安�
 $ adb install ./android/app/build/outputs/apk/app-debug.apk  # 只要连好手机开启 debug 就安装到手机了
 ```
 
-### 调试步骤
+#### 调试步骤
 
 1. 你的设备通过USB数据线连接到电脑上，并开启USB调试
 2. `react-native start` 启动开发服务器(即时编译器)
@@ -48,6 +50,14 @@ $ adb install ./android/app/build/outputs/apk/app-debug.apk  # 只要连好手�
 
 1. 调出开发者菜单，选 Dev Settings -> Debug server host for device.
 2. 输入开发服务器的 IP 和端口，如 `192.168.1.101:8081`
+
+### iOS
+
+```bash
+$ react-native run-ios  # 会自动启动虚拟机开始开发，这一点比安卓开发的体验好
+```
+
+### APP 内操作
 
 #### 自动刷新
 
