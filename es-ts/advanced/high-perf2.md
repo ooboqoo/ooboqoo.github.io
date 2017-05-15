@@ -68,7 +68,7 @@ function run () {
 * 所有 ECMAScript 对象
 * XMLHttpRequest 构造器
 * setTimeout() 和 setInterval() 方法
-* 一个 close() 方法，用于停止 Worker 自身运行
+* 一个 close() 方法，用于停止 Worker 自身运行 (外部关闭用 `myWorker.terminate();`)
 
 由于Web Worker 有着不同的全局运行环境，因此你需要创建一个完全独立的 JS 文件，来包含 Worker 中运行的代码。创建工人线程，需要传入这个 JS 文件的 URL，`var worker = new Worker('path/to/code.js');` 此代码一旦执行，将为这个文件创建一个新的线程和一个新的 Worker 运行环境。该文件会被异步下载，直到文件下载并执行完成后才会启动此 Worker。
 
@@ -235,7 +235,7 @@ var addHandler = document.body.addEventListener ?
 
 ##### 位操作
 
-位操作是 JS 中最容易被误解的方面之一。普遍认为，开发者们不知道如何使用这些操作符，而且经常被吴用在布尔表达式中，于是就导致开发中很少使用位操作符，尽管它们具有优势。(具体还是略了吧，普通人写代码不可能玩到这么高深的优化)
+位操作是 JS 中最容易被误解的方面之一。普遍认为，开发者们不知道如何使用这些操作符，而且经常被误用在布尔表达式中，于是就导致开发中很少使用位操作符，尽管它们具有优势。(具体还是略了吧，普通人写代码不可能玩到这么高深的优化)
 
 ##### 原生方法
 

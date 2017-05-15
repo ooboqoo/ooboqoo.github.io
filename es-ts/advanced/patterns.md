@@ -13,7 +13,7 @@
 * switch 模式
 * 避免使用隐式类型转换，比较语句使用 `===` `!==` 操作符
 * 避免使用 `eval()`，会带来安全隐患，并可能影响当前执行环境。如无法避免，那么用 `new Function()` 比 `eval()` 会好点，不会引入额外变量。另外，`setInterval()` `setTimeout()`  也存在类似隐患。
-* 使用 parseInt() 的数值约定，在现代代码中，应该使用 ES6 的 `Number.parseInt()` 避免解析歧义。
+* 不要省略 `parseInt(str, radix)` 的数值约定，碰到 0 开头的字符，因为规范变更原因存在歧义。
 * 编码约定，确定编码约定往往会引发激烈讨论，但确定并一致遵循约定比约定内容本身更为重要。
 * 命名约定
 * 编写注释
@@ -36,10 +36,20 @@ for (var i = myarray.length; i--;) { }                         // 更进一步(�
   // 注：for 结构的 3个语句都是可选的，但 2个 `;` 不可省略
 ```
 
-这种模式的问题在于每次循环都要访问数组的长度，这样会使代码变慢，特别，当 myarray 不是数组而是 DOM 集合时(每次都要实时去查询一遍 DOM 树，而这是极其耗费性能的)。
+改进前每次循环都要访问数组的长度，这样会使代码变慢，特别，当 myarray 不是数组而是 DOM 集合时(每次都要实时去查询一遍 DOM 树，而这是极其耗费性能的)。
 
 改进后需要注意的是，当 for 循环内部会改变 `length` 数值的话，需要在循环内部更新 `length` 的值。 
 
+#### parseInt
+
+```js
+parseInt(021, 8)   // 15，系统会先将 021 转换成 17，然后再进行 parseInt(17, 8)
+parseInt(21, 8)     // 17
+parseInt('45', 2)  // NaN
+parseInt(4.7 * 1e22, 10);       // Very large number becomes 4
+parseInt(0.00000000000434, 10); // Very small number becomes 4
+parseInt === Number.parseInt    // true
+```
 
 ## 字面量和构造函数
 
@@ -54,6 +64,8 @@ for (var i = myarray.length; i--;) { }                         // 更进一步(�
  `var n = new Number();`         | `var n = 0;`
  `var b = new Boolean();`        | `var b = false;`
  `throw new Error('oops')`       | <s>`throw {name: 'Error', message: 'oops'}`</s>
+
+[注] `new String('str')` 和 `String('str')` 的返回值是不一样的，前者为对象，后者为原始值
 
 ### 对象字面量
 
@@ -434,7 +446,7 @@ function createCar(color, doors) {
 策略模式支持您在运行时选择算法。代码的客户端可以使用同一个接口来工作，但是它却根据客户正在试图执行的上下文，从多个算法中选择用于处理特定任务的算法。
 
 ```js
-// 配置保单验证策略
+// 配置保单验证策略，validator 的其他行为始终保持不变，只要根据实际应用场景配置验证方法就行
 validator.config = {
   firstName: 'isNonEmpty',
   age: 'isNumber',
@@ -475,7 +487,7 @@ validator.config = {
 
 ## DOM 和浏览器模式
 
-前面章节中我们主要集中关注与核心 JS 而并没有太多关注在浏览器中使用 JS 的模式。
+前面章节中我们主要集中关注于核心 JS，而并没有太多关注在浏览器中使用 JS 的模式。
 
 ### 关注分离
 
@@ -555,7 +567,7 @@ new Image().src = "http://example.org/some/page.php";  // 服务器端推荐返�
 
 ### 配置 JS
 
-在采用 JS 是，还有一些性能上需要考虑的因素。更为详细的内容，请参阅 "高性能网站" 等书籍。
+在采用 JS 时，还有一些性能上需要考虑的因素。更为详细的内容，请参阅 "高性能网站" 等书籍。
 
 #### 合并脚本文件
 
