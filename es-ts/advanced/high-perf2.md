@@ -61,14 +61,14 @@ function run () {
 由于 Web Workers 没有绑定 UI 线程，这也意味着它们不能访问浏览器的许多资源。JS 和 UI 共享同一进程的部分原因是它们之间互相访问频繁。
 
 每个 Web Worker 都有自己的全局运行环境，其功能只是 JS 特性的一个子集。Worker 运行环境由如下部分组成：
-* 一个 navigator 对象，只包括四个属性：appName appVersion userAgent 和 platform
-* 一个 location 对象，与 window.lcation 相同，但所有属性都是只读的
-* 一个 self 对象，指向全局 worker 对象
-* 一个 importScripts() 方法，用来加载 Worker 所用到的外部 JS 文件
+* 一个 `navigator` 对象，只包括四个属性：`appName` `appVersion` `userAgent` 和 `platform`
+* 一个 `location` 对象，与 `window.lcation` 相同，但所有属性都是只读的
+* 一个 `self` 对象，指向全局 worker 对象
+* 一个 `importScripts()` 方法，用来加载 Worker 所用到的外部 JS 文件
 * 所有 ECMAScript 对象
-* XMLHttpRequest 构造器
-* setTimeout() 和 setInterval() 方法
-* 一个 close() 方法，用于停止 Worker 自身运行 (外部关闭用 `myWorker.terminate();`)
+* `XMLHttpRequest` 构造器
+* `setTimeout()` 和 `setInterval()` 方法
+* 一个 `close()` 方法，用于停止 Worker 自身运行 (外部关闭用 `myWorker.terminate();`)
 
 由于Web Worker 有着不同的全局运行环境，因此你需要创建一个完全独立的 JS 文件，来包含 Worker 中运行的代码。创建工人线程，需要传入这个 JS 文件的 URL，`var worker = new Worker('path/to/code.js');` 此代码一旦执行，将为这个文件创建一个新的线程和一个新的 Worker 运行环境。该文件会被异步下载，直到文件下载并执行完成后才会启动此 Worker。
 
@@ -100,7 +100,7 @@ Ajax，从最基本的层面来说，是一种与服务器通信而无须重载�
 
 #### 请求数据
 
-有五种常用技术用于向服务器请求数据：XMLHttpRequest(XHR); Dynamic script tag insertion; iframes; Comet; Multipart XHR。XHR 动态脚本注入 multipart XHR 是常用的三种技术，Comet 和 iframes 往往用在极端情况下，暂不讨论。
+有五种常用技术用于向服务器请求数据：XMLHttpRequest(XHR); Dynamic script tag insertion; iframes; Comet; Multipart XHR。XHR、动态脚本注入、multipart XHR 是常用的三种技术，Comet 和 iframes 往往用在极端情况下，暂不讨论。
 
 XHR 是最常用也最强大的数据请求技术，它允许异步发送和接收数据。由于 XHR 提供了高级的控制，跨域请求默认被阻止。
 
@@ -163,7 +163,7 @@ new Image().src = url + '?' + params.joint('&');  // 无须添加到页面中，
 
 通常来说，数据格式越轻量级越好，JSON 和字符串分隔的自定义格式是最好的。如果数据集很大并且对解析时间有要求，那么就从如下两种格式中作出选择：
   * JSON-P 数据，使用动态脚本注入获取，它把数据当做可执行 JS 而不是字符串，解析速度极快。它能跨域使用，但涉及敏感数据时不应该使用它。
-  * 字符分隔的自定义格式，使用 XHR 或动态脚本注入获取，用 split() 解析。这项技术解析大数据集比 JSON-P 略快，而且通常文件尺寸更小。
+  * 字符分隔的自定义格式，使用 XHR 或动态脚本注入获取，用 `split()` 解析。这项技术解析大数据集比 JSON-P 略快，而且通常文件尺寸更小。
 
 ### 7.3 Ajax 性能指南
 
@@ -175,13 +175,13 @@ new Image().src = url + '?' + params.joint('&');  // 无须添加到页面中，
   * 在服务端，设置 HTTP 头信息以确保你的响应会被浏览器缓存。这种技术简单且好维护
   * 在客户端，把获取的信息存储到本地，从而避免再次请求。这种技术给你最大的控制权
 
-服务器端设置 Expires 头信息，可以在 Nginx 服务器中配置，还可以对个别资源通过脚本手动设置 Expires 头实现精确控制。
+服务器端设置 `Expires` 头信息，可以在 Nginx 服务器中配置，还可以对个别资源通过脚本手动设置 `Expires` 头实现精确控制。
 
 本地数据存储，除了依赖浏览器处理缓存外，你还可以用更手工的方式来实现，及直接把从服务器中接收到的数据存储起来。
 
 #### 了解 Ajax 类库的局限
 
-所有的 JS 类库都允许你访问一个 Ajax 对象，它屏蔽了浏览器之间的差异，给你一个统一的接口。大多数情况下这是好事，然而，为了给你一个统一的接口，这些类库必须简化接口，这使得你不能访问 XHR 的完整功能，譬如前面提到的 MXHR 技术，多数类库都不允许你直接访问 readystatechange 事件，也就无法使用。
+所有的 JS 类库都允许你访问一个 Ajax 对象，它屏蔽了浏览器之间的差异，给你一个统一的接口。大多数情况下这是好事，然而，为了给你一个统一的接口，这些类库必须简化接口，这使得你不能访问 XHR 的完整功能，譬如前面提到的 MXHR 技术，多数类库都不允许你直接访问 `readystatechange` 事件，也就无法使用。
 
 直接操作 XHR 对象减少了函数开销，进一步提升了性能。需要注意的是，如果放弃使用 Ajax 类库，你可能在一些古怪的浏览器上遇到一些问题。
 
@@ -190,7 +190,7 @@ new Image().src = url + '?' + params.joint('&');  // 无须添加到页面中，
 
 #### 避免双重求值
 
-JS 像其他很多脚本语言一样，允许你在程序中提取一个包含代码的字符串，然后动态执行它。有4种标准方法可以实现：eval()、Function() 构造函数、setTimeout() 和 setInterval()。
+JS 像其他很多脚本语言一样，允许你在程序中提取一个包含代码的字符串，然后动态执行它。有4种标准方法可以实现：`eval()`、`Function()` 构造函数、`setTimeout()` 和 `setInterval()`。
 
 当你在 JS 代码中执行另一段 JS 代码时，都会导致双重求值的性能消耗。双重求值是一项代价昂贵的操作，每次都要创建一个新的解析器/编译器实例，这必然使得代码执行的速度变慢。
 
@@ -239,7 +239,7 @@ var addHandler = document.body.addEventListener ?
 
 ##### 原生方法
 
-无论你的 JS 代码如何优化，都永远比不上 JS 引擎提供的原生方法快。当原生方法可用时，尽量使用它们，特别是数学运算(Math 对象下各种方法) 和 DOM操作(如 querySelectorAll)。
+无论你的 JS 代码如何优化，都永远比不上 JS 引擎提供的原生方法快。当原生方法可用时，尽量使用它们，特别是数学运算(`Math` 对象下各种方法) 和 DOM 操作(如 `querySelectorAll`)。
 
 
 ## 9. 构建并部署高性能 JS 应用
@@ -260,9 +260,9 @@ JS 压缩指的是把 JS 文件中所有与运行无关的部分进行剥离的�
 
 #### JS 的 HTTP 压缩
 
-当 Web 浏览器请求一个资源时，它通常会发送一个 Accept-Encoding HTTP 头来告诉 Web 服务器它支持哪种编码转换类型。这个信息主要用来压缩文档以获得更快的下载，从而改善用户体验。Accept-Encoding 可用的值包括：gzip compress deflate 和 identity。
+当 Web 浏览器请求一个资源时，它通常会发送一个 `Accept-Encoding` HTTP 头来告诉 Web 服务器它支持哪种编码转换类型。这个信息主要用来压缩文档以获得更快的下载，从而改善用户体验。`Accept-Encoding` 可用的值包括：gzip compress deflate 和 identity。
 
-如果 Web 服务器在请求中看到这些信息头，它会选择最适合的编码方法，并通过 Content-Encoding HTTP 头通知 Web 浏览器它的决定。
+如果 Web 服务器在请求中看到这些信息头，它会选择最适合的编码方法，并通过 `Content-Encoding` HTTP 头通知 Web 浏览器它的决定。
 
 gzip 是目前最流行的编码方式。它通常能减少 70% 的下载量，成为提升 Web 应用性能的首选武器。记住 Gzip 压缩主要适用于文本，包括 JS 文件。其他类型，诸如图片和 PDF 文件，不应该使用 Gzip 压缩，因为它们本身已经被压缩过，试图重复压缩只会浪费服务器资源。
 
@@ -270,7 +270,7 @@ gzip 是目前最流行的编码方式。它通常能减少 70% 的下载量，�
 
 缓存 HTTP 组件能极大提高网站回访用户的体验。
 
-Web 服务器通过 Expires HTTP 响应头 来告诉客户端一个资源应当缓存多长时间。它的值是一个遵循 RFC 1123 标准的绝对时间戳，如 `Expires: Thu, 01 Dec 1994 16:00:00 GMT`。按照标准，服务器发送的 Expires 日期不应超过 1 年。
+Web 服务器通过 `Expires` HTTP 响应头 来告诉客户端一个资源应当缓存多长时间。它的值是一个遵循 RFC 1123 标准的绝对时间戳，如 `Expires: Thu, 01 Dec 1994 16:00:00 GMT`。按照标准，服务器发送的 `Expires` 日期不应超过 1 年。
 
 某些 Web 浏览器，特别是移动设备里的浏览器，可能会有缓存限制，如 Safari 不会缓存解压后超过 25KB 的文件。这种情况下，应该权衡 HTTP 组件数量和它们的可缓存性，考虑将它们分解成更小的块。
 

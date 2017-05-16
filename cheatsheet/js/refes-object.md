@@ -129,14 +129,14 @@ function bar() { console.log(foo.arguments, bar.caller); }
 <h5 class="es3">array.shift() <span>-- 移除数组中的第一个项并返回该项</span></h5>
 <h5 class="es3">array.unshift() <span>-- 在数组前端添加1个或多个元素，并返回新数组的 length</span></h5>
 <h5 class="es3">array.splice(start, deleteCount?, item1?, ...) <span>-- 在给定位置删除若干元素并添加一些元素</span></h5>
-<h5 class="es3">array.sort((a, b) => { }?) <span>-- 按升序排列数组项(默认都当字符串比较, 故 10 在 2 前面)，提供比较函数可自定义排序</span></h5>
+<h5 class="es3">array.sort((a, b) => { }?) <span>-- 按升序排列数组项(默认都当<span style="color: blue;">字符串</span>比较, 故 10 在 2 前面)，提供比较函数可自定义排序</span></h5>
 <h5 class="es3">array.reverse() <span>-- 反转数组项的顺序</span></h5>
 <h5 class="es6">array.copyWithin(target, start?, end?) <span>-- 在数组内部浅拷贝其中一段到另一个位置，返回修改后的数组</span></h5>
 <h5 class="es6">array.fill(value, start?, end?) <span>-- 给指定位置填充数值，返回修改后的数组</span></h5>
 
 <h4>Accessor methods -- 只返回信息，不修改数组本身</h4>
 <h5 class="es3">array.concat(arrayOrValue, ...) <span>-- 返回由当前数组和其它数组或值组成的新数组</span></h5>
-<h5 class="es3">array.slice(begin?, end?) <span>-- 抽取数组中的一段元素组成一个新数组，可以利用该方法将类数组转成数组</span></h5>
+<h5 class="es3">array.slice(begin?, end?) <span>-- 抽取数组中的一段元素组成一个新数组(不含 end 位置的值)，方法可将类数组转成数组</span></h5>
 <h5 class="es5">array.indexOf(item, from?) <span>-- 返回给定元素能在数组中找到的第一个索引值，否则返回-1</span></h5>
 <h5 class="es5">array.lastIndexOf(item, from?) <span>-- 返回给定元素能在数组中找到的最后一个索引值，否则返回-1</span></h5>
 <h5 class="es6">array.includes(item, from?) <span>-- 是否存在查找项，返回 ture 或 false</span></h5>
@@ -156,7 +156,7 @@ function bar() { console.log(foo.arguments, bar.caller); }
 <h5 class="es5">array.every(cb, thisArg?) <span>-- 对每一项运行给定函数，每项都 true 才返回 true</span></h5>
 <h5 class="es5">array.some(cb, thisArg?) <span>-- 对每一项运行给定函数，只要有一项 true 就返回 true</span></h5>
 <h5 class="es5">array.reduce(cb, initialValue?) <span>-- 从左到右为每个元素执行回调函数，并将上次返回值传给下次，返回最后一次的返回值</span></h5>
-<h5 class="es5">array.reduceRight((acc, val) => { return acc + val; }, initialValue?) <span>-- 从右到左...</span></h5>
+<h5 class="es5">array.reduceRight((acc, val, idx, arr) => { return acc + val; }, initialValue?) <span>-- 从右到左...</span></h5>
 </div>
 
 ## <span class="es6">Set</span>
@@ -266,8 +266,8 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 </div>
 <div class="dl">
 <h5 class="es3">string.concat(string2, ...) <span>-- 将字符串与一个或多个字符串拼接，返回拼接后的新字符串</span></h5>
-<h5 class="es3">string.slice(beginIndex, endIndex?) <span>-- 摘取一个字符串区域，并返回此子字符串。不含 endIndex 位置的字符</span></h5>
 <h5 class="es3">string.substr(start, length?) <span>-- 从指定位置摘取指定长度的子字符串</span></h5>
+<h5 class="es3">string.slice(begin, end?) <span>-- 返回指定小标间的子字符串，不含 end 位置的字符，与 substring 效果一样</span></h5>
 <h5 class="es3">string.substring(index1, index2?) <span>-- 返回指定的两个下标之间的子字符串。不含 index2 位置的字符</span></h5>
 </div>
 <div class="dl">

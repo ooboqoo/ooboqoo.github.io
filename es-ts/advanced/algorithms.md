@@ -89,7 +89,9 @@ function insertionSort2(arr) {
 
 ### 归并排序
 
-前三个排序算法性能都不行，归并排序是第一个可以被实际使用的排序算法(实测还不如插入排序...)，其复杂度为 O(nlog<sup>2</sup>)
+前三个排序算法性能都不行，归并排序是第一个可以被实际使用的排序算法(实测 JS 实现的归并排序还不如插入排序，应该是 JS 的数组操作拖后腿了)，其复杂度为 O(nlog(n))。
+
+归并排序是一种分治算法，其思想是将原始数组切分成较小的数组，直到每个小数组只包含一个元素，接着再将小数组归并成较大的数组，直到最后只有一个排序完毕的大数组。(详见P137图解)
 
 > `Array.prototype.sort()` 方法，Firefox 使用归并排序作为其实现方式，而 Chrome 则使用了一个快速排序法的变体。
 
@@ -127,8 +129,7 @@ function mergeSort(arr) {
 
 ### 快速排序
 
-快速排序也许是最常用的排序算法了。它的复杂度为 O(nlog<sup>n</sup>, 且它的性能通常比其他的复杂度相同的排序算法要好。
-
+快速排序也许是最常用的排序算法了。它的复杂度为 O(nlog(n)), 且它的性能通常比其他的复杂度相同的排序算法要好。
 和归并排序一样，快速排序也使用分治的方法，但它没有像归并排序那样将它们分割开。
 
 ```js
@@ -137,14 +138,14 @@ function quickSort(arr) {
   quick(arr, 0, arr.length - 1);
 
   function quick(arr, left, right) {
-    let index = partition(arr, left, right);
+    const index = partition(arr, left, right);  // 分组后，0 到 index-1 的值都比 index 到 length-1 的值小
     if (left < index - 1) { quick(arr, left, index -1); }
     if (index < right) { quick(arr, index, right); }
   }
 
   // 分组操作，完成后左边组中的值都比右边组中的值小
   function partition(arr, left, right) {
-    let pivot = arr[Math.floor((left + right) / 2)];
+    const pivot = arr[Math.floor((left + right) / 2)];  // 选择主元，可随机选
     while (left <= right) {
       while (arr[left] < pivot) { left++; }
       while (arr[right] > pivot) { right--; }
@@ -209,6 +210,7 @@ runTest('选择排序', function() { selectionSort(getRandomArray()); });  //  1
 runTest('插入排序', function() { insertionSort(getRandomArray()); });  //   286 ms
 runTest('归并排序', function() { mergeSort(getRandomArray()); });      //   444 ms
 runTest('快速排序', function() { quickSort(getRandomArray()); });      //   364 ms
+runTest('二叉树排序', function() { BSTSort(getRandomArray()); });      //   234 ms
 runTest('.sort()', function() { getRandomArray().sort(); });           //   238 ms
 
 // 15次 以下用顺序搜索直接搜，15次 以上先排序后二分搜索
@@ -273,8 +275,8 @@ http://www.ruanyifeng.com/blog/2015/04/tail-call.html
 注：V8 尾调用测试没反应，结果一查，V8 默认没有开启(2017-03-27)，见 https://kangax.github.io/compat-table/es6/
 
 ```js
-function f(x){ return y = g(x); }  // 不是尾调用
-function f(x){ return g(x) + 1; }  // 不是尾调用
+function f(x) { return y = g(x); }  // 不是尾调用
+function f(x) { return g(x) + 1; }  // 不是尾调用
 
 function f(x) {
   if (x > 0) { return m(x) }       // 是尾调用
@@ -413,3 +415,13 @@ function bubbleSort(array) { for(;;) { for(;;) { } } }  // 多一层循环，复
 | 二分搜索         | 排好序的数组或二分搜索树 | O(log(n))     |
 | 深度优先搜索 DPS | \V\ 为顶点 \E\ 为边的图  | O(\V\ + \E\ ) |
 | 广度优先搜索 BFS | \V\ 为顶点 \E\ 为边的图  | O(\V\ + \E\ ) |
+
+##### 附：关于时间复杂度 log 的说明
+
+关于算法的时间复杂度很多都用包含 O(logN) 这样的描述，但是却没有明确说 logN 的底数究竟是多少。
+
+算法中 log 级别的时间复杂度都是由于使用了分治思想，这个底数直接由分治的复杂度决定。如果采用二分法,那么以 2 为底数，三分法以 3 为底数，其他亦然。不过无论底数是什么，log 级别的渐进意义是一样的。也就是说该算法的时间复杂度的增长与处理数据多少的增长的关系是一样的。
+
+我们先考虑 O(logx(n)) 和 O(logy(n))，x!=y，我们看下 n 趋于无穷的情况。求当 n 趋于无穷大时 logx(n)/logy(n)的极限可以发现，极限等于 ln(y)/ln(x)，也就是一个常数。也就是说，在 n 趋于无穷大的时候，这两个东西仅差一个常数。所以从研究算法的角度 log 的底数不重要。
+
+最后，结合上面，我也说一下关于大 O 的定义（算法导论28页的定义），注意把这个定义和高等数学中的极限部分做比较，显然可以发现，这里的定义正是体现了一个极限的思想，假设我们将 n0 取一个非常大的数字，显然，当 n 大于 n0 的时候，我们可以发现任意底数的一个对数函数其实都相差一个常数倍而已。所以书上说写的 O(logN) 已经可以表达所有底数的对数了，就像 O(n^2) 一样。

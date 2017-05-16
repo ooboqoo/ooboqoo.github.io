@@ -336,6 +336,10 @@ In the W3C DOM Core, the Attr (attribute) object inherits all properties and met
 
 **DOM:** Indicates in which DOM Level the property was introduced.
 
+这里需要注意的是，所有的事件名，都没有使用小驼峰格式，这是比较特殊的地方。但是还有另外的一些事件，如 `DOMContentLoaded` 却用的驼峰式写法。区别是，DOM 规范的，也是最常用的事件都没有用驼峰格式，而一些 HTML5 规范或者其他规范可能采用的是驼峰格式，像 `DOMContentLoaded` 就是在 HTML5 中 定义的。
+
+https://developer.mozilla.org/en-US/docs/Web/Events
+
 ### Mouse Events
 
 <table>
