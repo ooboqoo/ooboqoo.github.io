@@ -375,7 +375,7 @@ for (let i = 20; i--;) {
 function increment(num) { return ++num; }
 
 // 顺序搜索函数，最好情况下1次找到，最坏情况须遍历完整数组，复杂度为 O(n)
-function (array, tiem) {
+function (array, item) {
   for (let i = 0; i < array.length; i++) { if (array[i] === item) return i; }
   return -1;
 }
