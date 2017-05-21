@@ -68,6 +68,8 @@ An Angular component with a `RouterOutlet` that displays views based on router n
 
 ### `<base href>`
 
+大多数带路由的应用都要在 index.html 的 `<head>` 标签下先添加一个 `<base>` 元素，来告诉路由器该如何合成导航用的 URL。
+
 ```html
 <base href="/">
 ```

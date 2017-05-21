@@ -1,8 +1,5 @@
 # Angular CLI
 
-> 该项目处于 beta 快速开发阶段，不要过于频繁更新版本，以避免碰到不必要的报错
-
-官网：https://github.com/angular/angular-cli   
 文档：https://cli.angular.io/
 
 在 ng-conf 2016 的一场演讲中，Mike Brocchi 向开发者详细展示了 Angular CLI（Command Line Interface）及其功能。他说，在自己采访过的开发者中，有26%的人称 Angular 2 环境设置是一大入门门槛，有22%的人说环境设置太过复杂。Angular CLI 的诞生，正是为了解决这个问题。
@@ -32,3 +29,7 @@ $ ng g class my-class         # 生成一个简易的模型类
 ```
 
 对于每个生成命令，所产生的文件会根据官方 Angular 样式指南的规定，放置在正确的位置。
+
+```
+$ ng set --global packageManager=yarn  # 更改默认包管理器，在多人协作工作环境中还是有必要的
+```
