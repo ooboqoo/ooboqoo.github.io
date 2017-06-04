@@ -32,7 +32,7 @@ ES6: http://www.ecma-international.org/ecma-262/6.0/#sec-modules
 
 备注：RequireJS 和 Browserify 相对已经过时了，现在流行的是 SystemJS 和 Webpack。  
 可以把 Webpack 看做是 Browserify 的升级版，而 SystemJS 对应 RequireJS。  
-本文有 RequireJS 和 Browserify 的相关介绍，而 SystemJS 会单独介绍，因为选择好一款加载/打包工具后，需要精通才能发挥其最大的效能。
+本文有 Browserify 的相关介绍，而 RequireJS SystemJS Webpack 都分别单独介绍，因为选择好一款加载/打包工具后，需要精通才能发挥其最大的效能。
 
 - - -
 
@@ -257,111 +257,6 @@ incCounter();
 console.log(counter); // 4
 ```
 
-## Require.js 的用法
-
-### 一、为什么要用 require.js？
-最早的时候，所有Javascript代码都写在一个文件里面，只要加载这一个文件就够了。后来，代码越来越多，一个文件不够了，必须分成多个文件，依次加载。下面的网页代码，相信很多人都见过。
-```html
-<script src="1.js"></script>
-<script src="2.js"></script>
-<script src="3.js"></script>
-<script src="4.js"></script>
-```
-
-这段代码依次加载多个js文件。这样的写法有很大的缺点。首先，加载的时候，浏览器会停止网页渲染，加载文件越多，网页失去响应的时间就会越长；其次，由于js文件之间存在依赖关系，因此必须严格保证加载顺序（比如上例的1.js要在2.js的前面），依赖性最大的模块一定要放到最后加载，当依赖关系很复杂的时候，代码的编写和维护都会变得困难。
-
-require.js的诞生，就是为了解决这两个问题：
-　
-1. 实现js文件的异步加载，避免网页失去响应；
-2. 管理模块之间的依赖性，便于代码的编写和维护。
-
-### 二、require.js的加载
-使用require.js的第一步，是先去官方网站下载最新版本。下载后，假定把它放在js子目录下面，就可以加载了。
-```html
-<script src="js/require.js"></script>
-```
-有人可能会想到，加载这个文件，也可能造成网页失去响应。解决办法有两个，一个是把它放在网页底部加载，另一个是写成下面这样：
-```html
-<script src="js/require.js" defer async="true" ></script>
-// async属性表明这个文件需要异步加载，避免网页失去响应。IE不支持这个属性，只支持defer，所以把defer也写上。
-```
-
-加载require.js以后，下一步就要加载我们自己的代码了。假定我们自己的代码文件是main.js，也放在js目录下面。那么，只需要写成下面这样就行了：
-```html
-<script src="js/require.js" data-main="js/main"></script>
-// data-main属性的作用是，指定网页程序的主模块。在上例中，就是js目录下面的main.js，这个文件会第一个被require.js加载。由于require.js默认的文件后缀名是js，所以可以把main.js简写成main。
-```
-
-### 三、模块的加载
-
-上一节最后的示例中，主模块的依赖模块是['jquery', 'underscore', 'backbone']。默认情况下，require.js假定这三个模块与main.js在同一个目录，文件名分别为jquery.js，underscore.js和backbone.js，然后自动加载。
-使用require.config()方法，我们可以对模块的加载行为进行自定义。require.config()就写在主模块（main.js）的头部。参数就是一个对象，这个对象的paths属性指定各个模块的加载路径。
-```js
-require.config({
-  paths: {
-    "jquery":     "jquery.min",
-    "underscore": "underscore.min",
-    "backbone":   "backbone.min"
-  }
-});
-```
-上面的代码给出了三个模块的文件名，路径默认与main.js在同一个目录（js子目录）。如果这些模块在其他目录，比如js/lib目录，则有两种写法。一种是逐一指定路径。另一种则是直接改变基目录（baseUrl）。
-```js
-require.config({
-  baseUrl: "js/lib",
-  paths: {
-    "jquery":     "jquery.min",
-    "underscore": "underscore.min",
-    "backbone":   "backbone.min"
-  }
-});
-```
-如果某个模块在另一台主机上，也可以直接指定它的网址，比如：
-```js
-require.config({
-  paths: {
-    "jquery": "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min"
-  }
-});
-```
-require.js要求，每个模块是一个单独的js文件。这样的话，如果加载多个模块，就会发出多次HTTP请求，会影响网页的加载速度。因此，require.js提供了一个优化工具，当模块部署完毕以后，可以用这个工具将多个模块合并在一个文件中，减少HTTP请求数。
-
-### 四、加载非规范的模块
-
-理论上，require.js加载的模块，必须是按照AMD规范、用define()函数定义的模块。但是实际上，虽然已经有一部分流行的函数库（比如jQuery）符合AMD规范，更多的库并不符合。那么，require.js是否能够加载非规范的模块呢？回答是可以的。
-
-这样的模块在用require()加载之前，要先用require.config()方法，定义它们的一些特征。
-举例来说，underscore和backbone这两个库，都没有采用AMD规范编写。如果要加载它们的话，必须先定义它们的特征。
-```js
-require.config({
-  shim: {
-    'underscore':{ exports: '_' },
-    'backbone': { deps: ['underscore', 'jquery'], exports: 'Backbone' }
-  }
-});
-```
-
-require.config()接受一个配置对象，这个对象除了有前面说过的paths属性之外，还有一个shim属性，专门用来配置不兼容的模块。具体来说，每个模块要定义（1）exports值（输出的变量名），表明这个模块外部调用时的名称；（2）deps数组，表明该模块的依赖性。
-比如，jQuery的插件可以这样定义：
-```js
-shim: {
-  'jquery.scroll': { deps: ['jquery'], exports: 'jQuery.fn.scroll' }
-}
-```
-
-### 五、require.js插件
-
-require.js还提供一系列插件，实现一些特定的功能。
-domready插件，可以让回调函数在页面DOM结构加载完成后再运行。
-```js
-require(['domready!'], function (doc){
-  // called once the DOM is ready
-});
-```
-
-text和image插件，则是允许require.js加载文本和图片文件。  
-类似的插件还有json和mdown，用于加载json文件和markdown文件。
-
 ## Browserify 的用法
 
 Stop worrying and use a build tool. Pick whatever module definition you like. Then transform the modules as you build.
@@ -410,4 +305,49 @@ browserify -t deamdify -t es6ify -t deglobalify main.js -o bundle.js
 
 * 书写格式：采用 TypeScript 按照 ES6 的语法编写模块，哦，不管用什么工具，用 ES6 格式编写是王道。
 * 发布格式：将编译器的模块输出格式设为 UMD，但兼容其实没那么完美。Node's CommonJS/ES5 则是另外一个选项。
-* 最终用户：作为最终用户其实不用过于关心模块格式，现在流行的模块加载器可以通吃各种格式，推荐将自己编写的模块输出格式设为CommonJS，最终产品上线前再使用构建工具对模块进行打包。
+* 最终用户：作为最终用户其实不用过于关心模块格式，现在流行的模块加载器可以通吃各种格式，推荐将自己编写的模块输出格式设为 CommonJS 格式，最终产品上线前再使用构建工具对模块进行打包。
+
+
+
+模块化
+
+* 前端模块管理器： Bower
+* 在线编译方案(加载器)： seajs / requirejs
+* 预编译方案(打包工具)： browserify / webpack
+
+- - -
+
+
+### 前端模块管理器简介
+http://www.ruanyifeng.com/blog/2014/09/package-management.html
+作者： 阮一峰
+日期： 2014年9月14日
+模块化结构已经成为网站开发的主流。
+制作网站的主要工作，不再是自己编写各种功能，而是如何将各种不同的模块组合在一起。
+
+浏览器本身并不提供模块管理的机制，为了调用各个模块，有时不得不在网页中，加入一大堆script标签。这样就使得网页体积臃肿，难以维护，还产生大量的HTTP请求，拖慢显示速度，影响用户体验。
+为了解决这个问题，前端的模块管理器（package management）应运而生。它可以轻松管理各种JavaScript脚本的依赖关系，自动加载各个模块，使得网页结构清晰合理。不夸张地说，将来所有的前端JavaScript项目，应该都会采用这种方式开发。
+最早也是最有名的前端模块管理器，非RequireJS莫属。它采用AMD格式，异步加载各种模块。具体的用法，可以参考我写的教程。Require.js的问题在于各种参数设置过于繁琐，不容易学习，很难完全掌握。而且，实际应用中，往往还需要在服务器端，将所有模块合并后，再统一加载，这多出了很多工作量。
+
+今天，我介绍另外四种前端模块管理器：Bower，Browserify，Component和Duo。它们各自都有鲜明的特点，很好地弥补了Require.js的缺陷，是前端开发的利器。
+
+### Webpack，Browserify和Gulp三者之间到底是怎样的关系
+2016-03-05
+
+怎么解释呢？因为 Gulp 和 browserify / webpack 不是一回事
+
+Gulp应该和Grunt比较，他们的区别我就不说了，说说用处吧。Gulp / Grunt 是一种工具，能够优化前端工作流程。比如自动刷新页面、comb、压缩css、js、编译less等等。简单来说，就是使用Gulp/Grunt，然后配置你需要的插件，就可以把以前需要手工做的事情让它帮你做了。
+
+说到 browserify / webpack ，那还要说到 seajs / requirejs 。这四个都是JS模块化的方案。其中seajs / require 是一种类型，browserify / webpack 是另一种类型。
+
+seajs / require : 是一种在线"编译" 模块的方案，相当于在页面上加载一个 CMD/AMD 解释器。这样浏览器就认识了 define、exports、module 这些东西。也就实现了模块化。
+
+browserify / webpack : 是一个预编译模块的方案，相比于上面 ，这个方案更加智能。没用过browserify，这里以webpack为例。首先，它是预编译的，不需要在浏览器中加载解释器。另外，你在本地直接写JS，不管是 AMD / CMD / ES6 风格的模块化，它都能认识，并且编译成浏览器认识的JS。
+这样就知道，Gulp是一个工具，而webpack等等是模块化方案。Gulp也可以配置seajs、requirejs甚至webpack的插件。
+
+不知道这样够清楚了么
+
+### NodeJS 将支持 ES6 模块
+
+https://blog.othree.net/log/2017/01/14/nodejs-es-module/
+
