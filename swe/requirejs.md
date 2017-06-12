@@ -81,7 +81,9 @@ require.config({
 
 ### 四、加载非规范的模块
 
-理论上，require.js 加载的模块，必须是按照 AMD 规范、用 `define()` 函数定义的模块。但是实际上，虽然已经有一部分流行的函数库，如jQuery 符合 AMD 规范，更多的库并不符合。那么，require.js 是否能够加载非规范的模块呢？回答是可以的。
+> 简单说，shim 只是告诉 require.js 应该把哪个 "全局变量" 作为 "模块输出对象" 传递给回调函数而已。
+
+理论上，require.js 加载的模块，必须是按照 AMD 规范、用 `define()` 函数定义的模块。但是实际上，虽然已经有一部分流行的函数库，如 jQuery 符合 AMD 规范，更多的库并不符合。那么，require.js 是否能够加载非规范的模块呢？回答是可以的。
 
 这样的模块在用 `require()` 加载之前，要先用 `require.config()` 方法，定义它们的一些特征。
 举例来说，underscore 和 backbone 这两个库，都没有采用 AMD 规范编写。如果要加载它们的话，必须先定义它们的特征。
@@ -95,7 +97,9 @@ require.config({
 });
 ```
 
-`require.config()` 接受一个配置对象，这个对象除了有前面说过的 `paths` 属性之外，还有一个 `shim` 属性，专门用来配置不兼容的模块。具体来说，每个模块要定义（1）exports值（输出的变量名），表明这个模块外部调用时的名称；（2）deps数组，表明该模块的依赖性。比如，jQuery的插件可以这样定义：
+`require.config()` 接受一个配置对象，这个对象除了有前面说过的 `paths` 属性之外，还有一个 `shim` 属性，专门用来配置不兼容的模块。具体来说，每个模块要定义:
+  * exports 值输出的变量名，表明这个模块外部调用时的名称；
+  * deps 数组，表明该模块的依赖性。
 
 ```js
 shim: {
@@ -103,7 +107,11 @@ shim: {
 }
 ```
 
-### 五、require.js插件
+### 五、CommonJS 格式代码的复用
+
+http://requirejs.org/docs/api.html#cjsmodule
+
+### 六、require.js 插件
 
 require.js 还提供一系列插件，实现一些特定的功能。
 
@@ -119,7 +127,7 @@ text 和 image 插件，则是允许 require.js 加载文本和图片文件。
 
 类似的插件还有 json 和 mdown，用于加载 json 文件和 markdown 文件。
 
-### 六、优化工具
+### 七、优化工具
 
 require.js 要求，每个模块是一个单独的 js 文件。这样的话，如果加载多个模块，就会发出多次 HTTP 请求，会影响网页的加载速度。因此，require.js 提供了一个优化工具，当模块部署完毕以后，可以用这个工具将多个模块合并在一个文件中，减少 HTTP 请求数。
 

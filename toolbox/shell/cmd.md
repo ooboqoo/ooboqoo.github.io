@@ -136,6 +136,10 @@ Cmder 是 windows 下的命令行模拟器，不仅能模拟 cmd 而且还自带
 
 `Ctrl+Tab` 在标签中切换；`Ctrl+num` 切换到 num 数字对应的标签页。
 
+### 问题解决
+
+[Aliases do not work under Win10 1703](https://github.com/cmderdev/cmder/issues/1325)
+
 ### 终端访问外网走代理
 
 ```bash

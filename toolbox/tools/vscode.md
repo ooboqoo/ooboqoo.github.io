@@ -2,6 +2,18 @@
 
 > 相关资源： https://github.com/Microsoft/vscode-tips-and-tricks Youtube 有带 1 小时视频
 
+## 类型检查
+
+#### vscode 类型检测报错
+
+只要安装 `@types` 下的包就不会再有报错，如果只是个别全局变量啥的，可以建个 temp 文件夹，里面放个 typings.d.ts
+
+```js
+declare interface Window {
+    FileReader: any
+}
+```
+
 ## 插件使用
 
 ### Angular 2 TypeScript Snippets
@@ -35,7 +47,7 @@ ng2-ngStyle
 ng2-ngSwitch
 ```
 
-### Reactjs code snippets
+### React code snippets
 
 这个插件用的人比较多，但是 snippet prefix 前缀设置有问题(太短)，想使用需要关闭智能提示:
 
