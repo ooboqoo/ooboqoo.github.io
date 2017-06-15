@@ -132,6 +132,13 @@
 <tr><td>s (PCRE_DOTALL)</td><td>模式中的点号匹配所有字符，包含换行符</td></tr>
 <tr><td>x (PCRE_EXTENDED)</td><td>没有经过转义的或不在字符类中的空白数据字符总会被忽略</td></tr>
 <tr><td></td><td>其他先省略</td></tr></table>
+
+<h4>理解正则的多行匹配</h4>
+<pre>
+"1\n2\n3".replace(/^/mg, "s")  // "s1\ns2\ns3"
+"1\n2\n3".replace(/^/g, "s")   // "s1\n2\n3"
+</pre>
+<p>设置多行匹配后，^ 会与"\n"或"\r"之后的位置匹配。</p>
 </div>
 
 </div>
