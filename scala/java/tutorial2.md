@@ -50,7 +50,7 @@ class SubClass extends SuperClass implements A, B {
 如果父类有无参构造器，则在子类的构造器中用 `super` 调用父类构造器不是必须的，如果没有使用 `super` 关键字，系统会自动调用父类的无参构造器。
 
 
-## 重写 Override 与 重载 Overload
+## 重写与重载
 
 ### 重写 Override
 
@@ -88,7 +88,7 @@ class SubClass extends SuperClass implements A, B {
 * 方法能够在同一个类中或者在一个子类中被重载。
 * 无法以返回值类型作为重载函数的区分标准。
 
-### 重写与重载之间的区别
+### 重写与重载的区别
 
 | 区别点   | 重载方法 | 重写方法
 |----------|----------|-----------------------------------------------

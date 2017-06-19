@@ -555,7 +555,7 @@ System.out.println("总和为： " + total);
 ```java
 double[] myList = {1.9, 2.9, 3.4, 3.5};
 // 打印所有数组元素
-for (double element: myList) {
+for (double element : myList) {
    System.out.println(element);
 }
 ```
