@@ -60,12 +60,15 @@ require.config({
 
 ```js
 require.config({
-  baseUrl: "js/lib",
+  baseUrl: "js/lib",  // 会影响所有依赖包的搜寻路径
   paths: {
     "jquery":     "jquery.min",
     "underscore": "underscore.min",
     "backbone":   "backbone.min"
   }
+  deps: ['app.js']   // 带 `.js` 后缀，会根据文件路径规则去 `./app.js` 抓文件，不受 baseUrl 影响
+                     // 如果不设置 baseURL，也就是 baseUrl 采用 `./` 则这里可以有4种写法
+                     // `app` `app.js` `./app` `./app.js`
 });
 ```
 
@@ -78,6 +81,11 @@ require.config({
   }
 });
 ```
+
+> 以下3种情况下，Require.js 会把 module ID 作为文件而非包名处理：
+>   * Ends in `.js`
+>   * Starts with a `/`
+>   * Contains an URL protocol, like `http:` or `https:`
 
 ### 四、加载非规范的模块
 
@@ -110,6 +118,31 @@ shim: {
 ### 五、CommonJS 格式代码的复用
 
 http://requirejs.org/docs/api.html#cjsmodule
+
+大多数 CommonJS 格式的代码可以通过简单的转换在 RequireJS 中复用，可能出现问题的模块是一些包含 conditional require 和 circular dependencies 特性的代码。
+
+#### 转换
+
+如果文件不多，可以手动转换，过程非常简单，如果文件很多，则可以通过 `r.js` 工具来转换。
+
+```js
+define(function(require, exports, module) {  // 三者的顺序是固定的，如果不用，后面两项可以省略
+    // 原先 CommonJS 格式的代码放这里
+    var foo = require('foo');  // 这里使用 require 方法的依赖，也可以提到外面(见下方示例)
+    ...
+
+    // 对于原先使用 module.exports 导出的对象，RequireJS 里可以用一个跟方便的方法，直接 return 该对象即可
+    module.exports = outputObj;  // 修改之前(注意这种方法还是有效的)
+    return outputObj;            // 修改之后，更加简单，通过这种方式，上面参数中只要写 require 即可，后两者可省略
+});
+```
+
+```js
+// 将 CommonJS 中的 require 语句声明的依赖提出来的效果
+define(['foo'], function (foo) {
+    ...
+});
+```
 
 ### 六、require.js 插件
 
@@ -193,7 +226,8 @@ window.m55 = {name: 'm5'};
 
 ## AngularJS & ACE
 
-https://coderwall.com/p/edwd4g/angular-using-requirejs-amd
+https://coderwall.com/p/edwd4g/angular-using-requirejs-amd  
+https://www.sitepoint.com/using-requirejs-angularjs-applications/
 
 AngularJS 没有遵循 AMD 模块化规范，因此使用 RequireJS 加载 AngularJS 时需要一些额外的配置。
 
@@ -217,7 +251,7 @@ AngularJS 没有遵循 AMD 模块化规范，因此使用 RequireJS 加载 Angul
 `main.js`
 
 ```js
-requirejs.config({
+require.config({
     shim: {
         angular: {exports: 'angular'},
         ace: {exports: "ace"},
@@ -230,7 +264,7 @@ requirejs.config({
     }
 });
 
-requirejs(['angular', './editor.js'], function (angular, editor) {
+require(['angular', './editor.js'], function (angular, editor) {
     var app = angular.module('editor', []);
 
     app.controller('myCtrl', function ($scope) {
@@ -252,3 +286,9 @@ define(['ace', 'language_tools'], function(ace) {
     return editor;
 });
 ```
+
+### Angular’s Dependency Injection vs RequireJS Dependency Management
+
+One of the common questions that I hear from Angular developers regards the difference between Angular’s dependency management and that of RequireJS. It is important to remember that the purpose of both the libraries is totally different. The dependency injection system built into AngularJS deals with the objects needed in a component; while dependency management in RequireJS deals with the modules or, JavaScript files.
+
+When RequireJS attempts to load a module, it checks for all dependent modules and loads them first. Objects of loaded modules are cached and they are served when same modules are requested again. On the other hand, AngularJS maintains an injector with a list of names and corresponding objects. An entry is added to the injector when a component is created and the object is served whenever it is referenced using the registered name. 
