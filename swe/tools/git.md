@@ -458,12 +458,12 @@ $ git cz      # 以后，凡是用到 git commit 命令的地方一律改为使�
 如果所有 Commit 都符合 Angular 格式，那么发布新版本时， Change log 就可以用脚本自动生成，为了方便使用，可以将命令写入 package.json 的 scripts 字段。
 
 ```bash
-$ npm install -g conventional-changelog
+$ npm install -g conventional-changelog-cli
 $ cd my-project
 # 方式1：在 CHANGELOG.md 的头部加上自从上次发布以来的变动
-$ conventional-changelog -p angular -i CHANGELOG.md -w
+$ conventional-changelog -p angular -i CHANGELOG.md -s
 # 方式2：生成所有发布的 Change log
-$ conventional-changelog -p angular -i CHANGELOG.md -w -r 0
+$ conventional-changelog -p angular -i CHANGELOG.md -s -r 0
 ```
 
 ### Git flow

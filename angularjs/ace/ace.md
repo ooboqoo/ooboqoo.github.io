@@ -78,3 +78,7 @@ Workers are linters for their languages like jshint, csslint, coffeescript compl
 自定义状态栏行列号
 https://groups.google.com/forum/#!topic/ace-discuss/l1-JC9bcRyE
 
+## 其他项
+
+ace 是默认开启 tab 转空格的
+

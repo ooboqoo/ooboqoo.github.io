@@ -24,6 +24,21 @@ Java ME 移动版
   * 变量名：`CLASSPATH` 变量值：`.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;` //记得前面有个"."
   * 变量名：`Path` 变量值：`%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;`
 
+```bash
+$ javac -version  # 验证配置是否正确
+```
+
+### 安装库源文件和文档
+
+库源文件在 JDK 中以一个压缩 src.zip 的形式发布，须解压后才能访问：
+
+```bash
+$ mkdir javasrc && cd javasrc
+$ jar xvf jdk/src.zip          # 也可以采用其他解压工具 
+```
+
+文档包含在一个压缩文件中，它是一个独立于 JDK 的压缩文件，可以从 oracle 网站下载。
+
 
 ## HelloWorld
 
@@ -41,8 +56,13 @@ public class HelloWorld {
 
 ```bash
 $ javac HelloWorld.java  # 必须带后缀
-$ java HelloWorld        # 不能带后缀
+$ java HelloWorld        # 不能带后缀，否则报错：找不到或无法加载主类 Welcome.class
 ```
+
+### 使用集成开发环境 IDEA
+
+新建项目：File -> New -> Project from Existing Sources...  
+运行调试：Run -> Run As -> Java Application
 
 
 ## 基础语法
