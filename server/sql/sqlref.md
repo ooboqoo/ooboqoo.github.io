@@ -6,8 +6,8 @@
 
 ```sql
 SELECT [options] items [INTO file_details] FROM tables [WHERE conditions]
-[GROUP BY group_type] [HAVING where_definition] [ORDER BY order_type]
-[LIMIT limit_criteria] [PROCEDURE pro_name(arguments)] [lock_options];
+  [GROUP BY group_type] [HAVING where_definition] [ORDER BY order_type]
+  [LIMIT limit_criteria] [PROCEDURE pro_name(arguments)] [lock_options];
 ```
 
 ```sql
@@ -19,7 +19,7 @@ SELECT CustomerName, City FROM Customers;
 
 ```sql
 UPDATE [LOW_PRIORITY] [IGNORE] tablename SET column1=new_value [, column2=new_value...]  
-[WHERE column_name=some_value]
+  [WHERE column_name=some_value];
 ```
 
 ```sql
@@ -31,8 +31,8 @@ UPDATE Customers SET ContactName='Alfred', City='Hamburg' WHERE CustomerName='Al
 ### INSERT INTO
 
 ```sql
-INSERT INTO table_name VALUES (value1, value2,...)
-INSERT INTO table_name (column_name1, column_name2,...) VALUES (value1, value2,...)
+INSERT INTO table_name VALUES (value1, value2,...);
+INSERT INTO table_name (column_name1, column_name2,...) VALUES (value1, value2,...);
 ```
 
 ```sql
@@ -42,17 +42,17 @@ INSERT INTO Customers (CustomerName, City, Country) VALUES ('Cardinal', 'Stavang
 ### DELETE FROM
 
 ```sql
-DELETE FROM table_name (_Note: _Deletes the entire table!!)
+DELETE FROM table_name (_Note: _Deletes the entire table!!);
 ```
 
 ```sql
-DELETE FROM table_name WHERE condition
+DELETE FROM table_name WHERE condition;
 ```
 
 ### DISTINCT
 
 ```sql
-SELECT DISTINCT column_name(s) FROM table_name
+SELECT DISTINCT column_name(s) FROM table_name;
 ```
 
 ```sql
@@ -62,7 +62,7 @@ SELECT DISTINCT City FROM Customers;
 ### WHERE
 
 ```sql
-SELECT column_name(s) FROM table_name WHERE condition(column_name operator value)
+SELECT column_name(s) FROM table_name WHERE condition(column_name operator value);
 ```
 
 ```sql
@@ -74,7 +74,7 @@ Operators: `=` `>` `<` `>=` `<=` `<> 或 !=` `IS NULL` `IS NOT NULL` `BETWEEN` `
 ### AND / OR
 
 ```sql
-SELECT column_name(s) FROM table_name WHERE condition1 AND|OR condition2
+SELECT column_name(s) FROM table_name WHERE condition1 AND|OR condition2;
 ```
 
 ```sql
@@ -85,24 +85,24 @@ SELECT * FROM Customers WHERE Country='Germany' AND (City='Berlin' OR City='Munc
 
 ### TOP / LIMIT / WHERE ROWNUM
 
-SQLServer SELECT TOP number|percent column_name(s) FROM table_name
-
-MySQL SELECT column_name(s) FROM table_name LIMIT number
-
-Oracle SELECT column_name(s) FROM table_name WHERE ROWNUM <= number
+```sql
+SELECT column_name(s) FROM table_name LIMIT number;  -- MySQL
+```
 
 ```sql
-SELECT TOP 2 * FROM Customers;<br>SELECT TOP 50 PERCENT * FROM Customers;
+SELECT TOP 2 * FROM Customers;
+SELECT TOP 50 PERCENT * FROM Customers;
 ```
 
 ### LIKE
 
 ```sql
-SELECT column_name(s) FROM table_name WHERE column_name (NOT) LIKE pattern
+SELECT column_name(s) FROM table_name WHERE column_name (NOT) LIKE pattern;
 ```
 
 ```sql
-SELECT * FROM Customers WHERE City LIKE 's%';<br>SELECT * FROM Customers WHERE Country NOT LIKE '%land%';
+SELECT * FROM Customers WHERE City LIKE 's%';
+SELECT * FROM Customers WHERE Country NOT LIKE '%land%';
 ```
 
 Wildcards:
@@ -115,7 +115,7 @@ Wildcards:
 ### IN
 
 ```sql
-SELECT column_name(s) FROM table_nameWHERE column_name IN (value1,value2,..)
+SELECT column_name(s) FROM table_nameWHERE column_name IN (value1,value2,..);
 ```
 
 ```sql
@@ -126,7 +126,7 @@ SELECT * FROM Customers WHERE City IN ('Paris','London');
 
 ```sql
 SELECT column_name(s) FROM table_name  
-WHERE column_name (NOT) BETWEEN value1 AND value2
+  WHERE column_name (NOT) BETWEEN value1 AND value2;
 ```
 
 ```sql
@@ -145,8 +145,8 @@ SELECT CustomerName AS Customer, ContactName AS [Contact Person] FROM Customers;
 Tips: It requires quotation marks or square brackets if the column name contains spaces
 
 ```sql
-SELECT column_name + ... AS column_alias FROM table_name     // SQLServer 
-SELECT CONCAT(column_names) AS column_alias FROM table_name  // MySQL 
+SELECT column_name + ... AS column_alias FROM table_name     -- SQLServer 
+SELECT CONCAT(column_names) AS column_alias FROM table_name  -- MySQL 
 ```
 
 ```sql
@@ -264,7 +264,7 @@ INSERT INTO Customers (CustomerName, Country) SELECT SupplierName, Country FROM 
 ### 命令行批处理
 
 ```bash
-# mysql -u root -p &lt; filename.sql
+# mysql -u root -p < filename.sql
 ```
 
 ```sql
@@ -292,7 +292,7 @@ DESCRIBE table [column]
 
 ```sql
 GRANT privileges [columns] ON item TO user_name [IDENTIFIED BY 'password']  
-[REQUIRE ssl_options] [WITH [GRANT OPTION | limit_options] ]
+  [REQUIRE ssl_options] [WITH [GRANT OPTION | limit_options] ]
 ```
 
 ### REVOKE
@@ -362,7 +362,7 @@ CREATE INDEX PIndex ON Persons (LastName, FirstName)
 ### DROP INDEX
 
 ```sql
-MySQL: ALTER TABLE table_name DROP INDEX index_name
+ALTER TABLE table_name DROP INDEX index_name  -- MySQL
 ```
 
 ### VIEW
@@ -381,17 +381,15 @@ NOT NULL, UNIQUE, PRIMARY, FOREIGN, CHECK, DEFAULT
 ### UNIQUE
 
 ```sql
-SQLServer / Oracle / Access: CREATE TABLE Persons (P_Id int NOT NULL
-UNIQUE,...)
-
-MySQL: CREATE TABLE Persons(P_Id int NOT NULL,...,UNIQUE (P_Id))
+CREATE TABLE Persons (P_Id int NOT NULL UNIQUE,...)        -- SQLServer / Oracle / Access
+CREATE TABLE Persons(P_Id int NOT NULL,...,UNIQUE (P_Id))  -- MySQL
 ```
 
 ```sql
 ALTER TABLE Persons ADD UNIQUE (P_Id)
 ALTER TABLE Persons ADD CONSTRAINT uc_PersonID UNIQUE (P_Id,LastName)
-<span>SQLServer / Oracle / Access:</span> ALTER TABLE Persons DROP CONSTRAINT uc_PersonID
-<span>MySQL:</span> ALTER TABLE Persons DROP INDEX uc_PersonID
+ALTER TABLE Persons DROP CONSTRAINT uc_PersonID  -- SQLServer / Oracle / Access
+ALTER TABLE Persons DROP INDEX uc_PersonID       -- MySQL
 ```
 
 ### PRIMARY KEY
@@ -417,12 +415,12 @@ MySQL: ALTER TABLE Persons DROP PRIMARY KEY
 MySQL: CREATE TABLE Orders (...,FOREIGN KEY (P_Id) REFERENCES Persons(P_Id))
 
 ALTER TABLE Orders ADD FOREIGN KEY (P_Id) REFERENCES Persons(P_Id)
+```
 
-To allow naming of a FOREIGN KEY constraint, and for defining constraint on
-multiple columns:
+To allow naming of a FOREIGN KEY constraint, and for defining constraint on multiple columns:
 
-ALTER TABLE Orders ADD CONSTRAINT fk_PerOrders FOREIGN KEY (P_Id) REFERENCES
-Persons(P_Id)
+```sql
+ALTER TABLE Orders ADD CONSTRAINT fk_PerOrders FOREIGN KEY (P_Id) REFERENCES Persons(P_Id)
 
 MySQL: ALTER TABLE Orders DROP FOREIGN KEY fk_PerOrders
 ```
@@ -455,9 +453,11 @@ MySQL: ALTER TABLE Persons ALTER City DROP DEFAULT
 ### AUTO_INCREMENT
 
 ```sql
-MySQL: CREATE TABLE Persons(ID int NOT NULL AUTO_INCREMENT,...)
+CREATE TABLE Persons(ID int NOT NULL AUTO_INCREMENT,...);  -- MySQL
+```
 
-MySQL: ALTER TABLE Persons AUTO_INCREMENT=100
+```sql
+ALTER TABLE Persons AUTO_INCREMENT=100;  -- MySQL
 ```
 
 ### NULL / NOT NULL
@@ -538,9 +538,10 @@ SELECT SUM(Quantity) AS TotalItemsOrdered FROM OrderDetails;
 
 ```sql
 SELECT UCASE(column_name) FROM table_name;
+SELECT UPPER(column_name) FROM table_name;  -- SQLServer UPPER() / LOWER() 
+```
 
-SQLServer: SELECT UPPER(column_name) FROM table_name; // UPPER() /LOWER()
-
+```sql
 SELECT UCASE(CustomerName) AS Customer, City FROM Customers;
 ```
 
@@ -548,9 +549,7 @@ SELECT UCASE(CustomerName) AS Customer, City FROM Customers;
 
 ```sql
 SELECT MID(column_name,start,[length]) AS some_name FROM table_name;
-
-SQLServer: SELECT SUBSTRING(column_name,start,length) AS some_name FROM
-table_name;
+SELECT SUBSTRING(column_name,start,length) AS some_name FROM table_name;  -- SQLServer
 ```
 
 ```sql
@@ -583,7 +582,9 @@ SELECT ProductName, ROUND(Price,0) AS RoundedPrice FROM Products;
 
 ```sql
 SELECT NOW() FROM table_name;
+```
 
+```sql
 SELECT ProductName, Price, Now() AS PerDate FROM Products;
 ```
 
@@ -591,7 +592,8 @@ SELECT ProductName, Price, Now() AS PerDate FROM Products;
 
 ```sql
 SELECT FORMAT(column_name,format) FROM table_name;
-
-SELECT ProductName, Price, FORMAT(Now(),'YYYY-MM-DD') AS PerDate FROM Products;
 ```
 
+```sql
+SELECT ProductName, Price, FORMAT(Now(),'YYYY-MM-DD') AS PerDate FROM Products;
+```
