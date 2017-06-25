@@ -529,6 +529,19 @@ String fs = String.format("浮点型变量的的值为 " +
 ```
 
 
+### 字符串比较
+
+```java
+"Hello".equals(greeting);
+"Hello".equalsIgnoreCase("hello");
+
+// 空串与null串
+if (str != null && str.length() != 0);  // `str != null` 不可省略，否则报错
+if (str != null && str.equals(""));
+```
+
+一定不要使用 `==` 运算符比较两个字符串是否相等！这个运算符只能够确定两个字符串是否放置在同一个位置上。
+
 ## StringBuffer 和 StringBuilder 类
 
 当对字符串进行修改的时候，需要使用 StringBuffer 和 StringBuilder 类。
@@ -543,6 +556,30 @@ sBuffer.append(".runoob");
 sBuffer.append(".com");
 System.out.println(sBuffer);  
 ```
+
+### 3.7 输入输出
+
+```java
+import java.util.*;
+
+public class InputTest {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        // get first input
+        System.out.print("What is your name? ");
+        String name = in.nextLine();
+
+        // get second input
+        System.out.print("How old are you? ");
+        int age = in.nextInt();
+
+        // display output on console
+        System.out.println("Hello, " + name + ". Next year, you'll be " + (age + 1));
+    }
+}
+```
+
 
 
 ## 数组

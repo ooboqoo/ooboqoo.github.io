@@ -84,6 +84,19 @@ https://docs.oracle.com/javase/8/docs/api/
 | String | trim() |  返回字符串的副本，忽略前导空白和尾部空白。
 
 
+### java.lang.StringBuilder / StringBuffer
 
+StringBuilder 在 JDK5.0 中引入，其前身是 StringBuffer (效率稍低，但多线程安全)，这两个类的 API 是相同的。
 
-
+||||
+|---------------|--------------------------|--------------------------------------------
+|               | StringBuilder()          | 构造一个空的字符串构建器 
+| int           | length()                 | 返回构建器或缓冲器中的代码单元数量
+| StringBuilder | append(String str)       | 追加一个字符串并返回 this
+| StringBuilder | append(char c)           | 
+| StringBuilder | appendCodePoint(int cp)  | 
+| void          | setCharAt(int i, char c) | 
+| StringBuilder | insert(int offset, String str)       | 
+| StringBuilder | insert(int offset, char c)           | 
+| StringBuilder | delete(int startIndex, int endIndex) | 删除偏移量从 startIndex 到 endIndex-1 的代码单元并返回 this
+| String        | toString()                           | 返回一个与构建器或缓冲器内容相同的字符串
