@@ -1,5 +1,7 @@
 # SQL
 
+如何学习 SQL https://www.zhihu.com/question/19552975
+
 ## SQL 语法
 
 SQL 关键字不区分大小写。

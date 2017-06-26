@@ -82,3 +82,27 @@ https://groups.google.com/forum/#!topic/ace-discuss/l1-JC9bcRyE
 
 ace 是默认开启 tab 转空格的
 
+##### marker 与 annotation 的区别
+
+marker 占了整个一层，覆盖在代码上面，而 annotation 只是位于 gutter 上的标记
+https://ace.c9.io/api/edit_session.html
+
+##### 自定义错误显示
+
+核心代码在这里 https://github.com/ajaxorg/ace/issues/2130
+
+很不错的示例 https://codepen.io/oatssss/pen/oYxJQV
+又一个示例 http://fiddle.jshell.net/tzmartin/hwzjjah2/
+
+自定义红色下划线效果 http://www.phpied.com/curly-underline/
+
+##### 待整理
+
+根据不同关键字类型来区别高亮显示
+http://blog.rymo.io/2014/07/integrating-the-ace-editor-into-your-project/ 文章里提到 keywordMapper 是用于定义自动填充的
+
+https://ace.c9.io/tool/mode_creator.html 在线调试
+
+自己改显示样式，完全不按默认的来
+
+https://github.com/ajaxorg/ace/wiki/Creating-or-Extending-an-Edit-Mode

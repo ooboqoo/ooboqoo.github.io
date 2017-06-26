@@ -8,6 +8,8 @@ ooboqoo.contentsRegExp = /H[12]/;  // 定义目录生成级别
 
 # Java 教程 - 基础
 
+Java 语言规范是描述 Java 语言的官方文档，可以从网站 http://docs.oracle.com/javase/specs 上阅读或下载。
+
 ## 概述
 
 ### 简介
@@ -580,7 +582,8 @@ public class InputTest {
 }
 ```
 
-
+System.out.print() 输出之后不换行  
+System.out.println() 输出之后换行
 
 ## 数组
 
