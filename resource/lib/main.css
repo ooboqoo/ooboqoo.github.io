@@ -51,6 +51,11 @@ a {
   text-decoration: none;
 }
 
+strong, b {
+  font-weight: inherit;
+  color: #c00;
+}
+
 table {
   width: 100%;
 }

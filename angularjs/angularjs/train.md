@@ -28,6 +28,38 @@
 
 附：如何找源码 ng-if 就搜索 ngIfDirective
 
+```html
+<body>
+  <div ng-controller="SomeController">
+    裸值绑定：{{ someBareValue }} <br> 属性绑定：{{someObject.value}}
+    <button ng-click="someAction()">从父scope改值</button>
+    <div ng-controller="ChildController">
+      {{ someBareValue }} <br> 属性绑定：{{someObject.value}}
+      <button ng-click="childAction()">从子scope改值</button>
+    </div>
+  </div>
+</body>
+
+<script>
+  // 结论：通过对象属性进行的绑定，在父子 scope 中操作行为一致，但原始值在父子 scope 中的行为不一致
+  angular.module('myApp', [])
+    .controller('SomeController', function ($scope) {
+      $scope.someBareValue = 'someBareValue';
+      $scope.someObject = {value: 'objectProp'}
+      $scope.someAction = function () {
+        $scope.someBareValue = 'bareValue changed from parent';
+        $scope.someObject.value = 'objectValue changed from parent';
+      };
+    })
+    .controller('ChildController', function ($scope) {
+      $scope.childAction = function () {
+        $scope.someBareValue = 'bareValue changed from child';
+        $scope.someObject.value = 'objectValue changed from child';
+      };
+    });
+</script>
+```
+
 #### 3. 多个控制器之间的通信尽量使用 service 去实现，不要使用全局变量或者 `$rootScope`
 
 避免污染全局作用域，导致重名冲突。
