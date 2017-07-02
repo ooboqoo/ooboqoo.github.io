@@ -450,7 +450,7 @@ AngularJS 提供了一系列内置指令。其中一些指令重载了原生的 
 **ng-include**
 
 使用 `ng-include` 可以加载、编译并包含外部 HTML 片段到当前的应用中。可突破跨域限制？？  
-要记住，使用 `ng-include` 时 AngularJS 会自动创建一个子作用域。如果你想使用某个特定的作用域，例如 ControllerA 的作用域，必须在同一个 DOM 元素上添加 `ng-controller ="ControllerA"` 指令。
+要记住，使用 `ng-include` 时 AngularJS 会自动创建一个子作用域。如果你想使用某个特定的作用域，例如 ControllerA 的作用域，必须在同一个 DOM 元素上添加 `ng-controller="ControllerA"` 指令。
 
 **ng-switch**
 
@@ -527,9 +527,11 @@ HTML 加载含有 `{{ }}` 语法的元素后并不会立刻渲染它们，导致
 
 `ng-form` 用来在一个表单内部嵌套另一个表单。普通的 HTML `<form>` 标签不允许嵌套，但 `ng-form` 可以。
 
-**ng-select**
+**ng-options**
 
-`ng-select` 用来将数据同 HTML 的 `<select>` 元素进行绑定。这个指令可以和 `ng-model` 以及 `ng-options` 指令一同使用，构建精细且表现优良的动态表单。
+```html
+<select ng-model="city" ng-options="city.name for city in cities"></select>
+```
 
 **ng-submit**
 
@@ -653,11 +655,11 @@ replace 是一个可选参数，如果设置了这个参数，值必须为 true 
 
 #### 10.2.2 隔离作用域
 
-隔离作用域可能是 scope 属性三个选项中最难理解的一个，但也是最强大的。
+scope 属性设置为一个对象 `{key: value, ...}` 时就创建了一个隔离作用域，如果这样做了，指令的模板就无法访问外部作用域了。
+
+隔离作用域(没有继承其他作用域的单独作用域)可能是 scope 属性三个选项中最难理解的一个，但也是最强大的。
 
 具有隔离作用域的指令最主要的使用场景是创建可复用的组件，组件可以在未知上下文中使用，并且可以避免污染所处的外部作用域或不经意地污染内部作用域。
-
-创建具有隔离作用域的指令需要将 scope 属性设置为一个空对象 `{}`。如果这样做了，指令的模板就无法访问外部作用域了：
 
 ### 10.3 绑定策略
 
@@ -667,9 +669,48 @@ replace 是一个可选参数，如果设置了这个参数，值必须为 true 
 * **双向绑定**：通过 `=` 可以将本地作用域上的属性同父级作用域上的属性进行双向的数据绑定。
 * **父级作用域绑定**：通过 `&` 符号可以对父级作用域进行绑定，以便在其中运行函数。
 
+```html
+<input type="text" ng-model="to"/>
+<div scope-example ng-model="to" on-send="sendMail(email)" from-name="ari@fullstack.io" />
+```
+
+```js
+scope: {
+    ngModel: '=', // 将ngModel同指定对象绑定
+    onSend: '&',  // 将引用传递给这个方法
+    fromName: '@' // 储存与fromName相关联的字符串
+}
+```
+
 #### 10.3.1 transclude
 
 嵌入通常用来创建可复用的组件，典型的例子是模态对话框或导航栏。
+
+假设我们想创建一个包括标题和少量HTML内容的侧边栏，如下所示：
+
+```html
+<div sidebox title="Links">
+    <ul><li>First link</li><li>Second link</li></ul> <!-- 这部分内容会提取并下方备注处 -->
+</div>
+```
+
+为这个侧边栏创建一个简单的指令，并将 transclude 参数设置为 true ：
+
+```js
+angular.module('myApp', [])
+  .directive('sidebox', function () {
+    return {
+      restrict: 'EA',
+      scope: {  title: '@' },
+      transclude: true,
+      template: 
+        '<div class="sidebox"><div class="content">' + 
+        '  <h2 class="header">{{ title }}</h2>' +
+        '  <span class="content" ng-transclude></span>' +  // 嵌入此处
+        '</div></div>'
+    };
+  });
+```
 
 #### 10.3.2 controller （字符串或函数）
 
@@ -686,16 +727,48 @@ angular.module('myApp', []).directive('myDirective', function() {
 });
 ```
 
-我们可以将任意可以被注入的 AngularJS 服务传递给控制器。控制器中也有一些特殊的服务可以被注入到指令当中。这些服务有：
+我们可以将任意可以被注入的 AngularJS 服务传递给控制器。控制器中还有一些特殊的服务可以被注入到指令当中：
 
-1. $scope 与指令元素相关联的当前作用域。
+1. $scope 与指令元素相关联的当前作用域。（是内联控制器创建的新scope还是外面的？）
 2. $element 当前指令对应的元素。
 3. $attrs 由当前元素的属性组成的对象。
 4. $transclude 嵌入链接函数会与对应的嵌入作用域进行预绑定。
 
 #### 10.3.3 controllerAs （字符串）
 
+controllerAs 参数用来设置控制器的别名，可以以此为名来发布控制器，并且作用域可以访问 controllerAs 。这样就可以在视图中引用控制器，甚至无需注入 $scope 。例如，创建一个 MainController ，然后不要注入 $scope ，如下所示：
+
+```js
+angular.module('myApp').controller('MainController', function() { this.name = "Ari"; });
+```
+
+现在，在HTML中无需引用作用域就可以使用 MainController 。
+
+```html
+<div ng-appng-controller="MainController as main">
+    <input type="text" ng-model="main.name" />
+    <span>{{ main.name }}</span>
+</div>
+```
+
+这个参数看起来好像没什么大用，但它给了我们可以在路由和指令中创建匿名控制器的强大能力。这种能力可以将动态的对象创建成为控制器，并且这个对象是隔离的、易于测试的。
+
+例如，可以在指令中创建匿名控制器，如下所示：
+
+```js
+angular.module('myApp').directive('myDirective', function() {
+    return {
+        restrict: 'A',
+        template: '<h4>{{ myController.msg }}</h4>',
+        controllerAs: 'myController',
+        controller: function() { this.msg = "Hello World"; }
+    };
+});
+```
+
 #### 10.3.4 require （字符串或数组）
+
+require 参数可以被设置为字符串或数组，字符串代表另外一个指令的名字。 require 会将控制器注入到其值所指定的指令中，并作为当前指令的链接函数的第四个参数。
 
 ### 10.4 AngularJS 的生命周期
 
