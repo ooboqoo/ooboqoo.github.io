@@ -200,7 +200,7 @@ app.controller('DemoController', ['$scope', '$filter', function($scope, $filter)
 {{ ['Ari','Lerner','Likes','To','Eat','Pizza'] | filter:'e' }} <!-- ["Lerner","Likes","Eat"] -->
 
 // json 过滤器可以将一个JSON或JavaScript对象转换成字符串。
-{{.{'name': 'Ari', 'City': 'SanFrancisco'} | json }}
+// {{ {'name': 'Ari', 'City': 'SanFrancisco'} | json }}
 
 // limitTo 过滤器会根据传入的参数生成一个新的数组或字符串
 {{ San Francisco is very cloudy | limitTo:-6 }} <!-- cloudy -->
@@ -408,13 +408,11 @@ angular.module('myApp', []).directive('myDirective', function () {
 scope: { someProperty: '@' }
 ```
 
-注意，默认情况下 someProperty 在 DOM中 的映射是 some-property 属性。如果我们想显式指定绑定的属性名，可以用如下方式：
+注意，默认情况下 someProperty 在 DOM 中的映射是 some-property 属性。可用如下方式显式地指定绑定的属性名：
 
 ```js
 scope: { someProperty: '@someAttr' }
 ```
-
-在这个例子中，被绑定的属性名是 some-attr 而不是 some-property。
 
 ```html
 <div my-directive some-attr="someProperty with @ binding"></div>
@@ -423,7 +421,7 @@ scope: { someProperty: '@someAttr' }
 
 ## 9. 内置指令
 
-AngularJS 提供了一系列内置指令。其中一些指令重载了原生的 HTML 元素，比如 `<form>` 和 `<a>` 标签，当在 HTML 中使用标签时，并不一定能明确看出是否在使用指令。其他内置指令通常以 `ng` 为前缀，很容易识别。最后，某些内置指令并不会有对应的 HTML 标签，比如 `ng-controller`，这个指令可以在标签的属性中使用，通常在包含很多子元素并且需要共享作用域时使用。
+AngularJS 提供了一系列内置指令。其中一些指令重载了原生的 HTML 元素，比如 `<form>` 和 `<a>` 标签，当在 HTML 中使用标签时，并不一定能明确看出是否在使用指令。其他内置指令通常以 `ng` 为前缀，很容易识别。
 
 ### 9.1 基础 `ng` 属性指令
 
@@ -493,7 +491,7 @@ AngularJS 提供了一系列内置指令。其中一些指令重载了原生的 
 
 **ng-bind**
 
-HTML加载含有 `{{ }}` 语法的元素后并不会立刻渲染它们，导致未渲染内容闪烁(Flash of Unrendered Content，FOUC)。我可以用 `ng-bind` 将内容同元素绑定在一起避免 FOUC。
+HTML 加载含有 `{{ }}` 语法的元素后并不会立刻渲染它们，导致未渲染内容闪烁(Flash of Unrendered Content，FOUC)。我可以用 `ng-bind` 将内容同元素绑定在一起避免 FOUC。
 
 **ng-cloak**
 
@@ -511,23 +509,23 @@ HTML加载含有 `{{ }}` 语法的元素后并不会立刻渲染它们，导致�
 
 `ng-model` 指令用来将 input select textarea 或自定义表单控件同包含它们的作用域中的属性进行 **双向** 绑定。
 
-它将当前作用域中运算表达式的值同给定的元素进行绑定。如果属性并不存在，它会隐式创建并将其添加到当前作用域中。我们应该始终用 ngModel 来绑定 $scope 上一个数据模型内的属性，而不是 $scope 上的属性，这可以避免在作用域或后代作用域中发生 **属性覆盖**。
+它将当前作用域中运算表达式的值同给定的元素进行绑定。如果属性并不存在，它会隐式创建并将其添加到当前作用域中。我们应该始终用 `ngModel` 来绑定 `$scope` 上一个数据模型内的属性，而不是 `$scope` 上的属性，这可以避免在后代作用域中发生 **属性覆盖**。
 
 **ng-show/ng-hide**
 
-`ng-show` 和 `ng-hide` 根据所给表达式的值来显示或隐藏HTML元素。
+`ng-show` 和 `ng-hide` 根据所给表达式的值来显示或隐藏 HTML 元素。
 
 **ng-change**
 
 这个指令会在表单输入发生变化时计算给定表达式的值。
 
-**ng-form**
-
-`ng-form` 用来在一个表单内部嵌套另一个表单。普通的HTML `<form>` 标签不允许嵌套，但 `ng-form` 可以。
-
 **ng-click**
 
 `ng-click` 用来指定一个元素被点击时调用的方法或表达式。
+
+**ng-form**
+
+`ng-form` 用来在一个表单内部嵌套另一个表单。普通的 HTML `<form>` 标签不允许嵌套，但 `ng-form` 可以。
 
 **ng-select**
 
@@ -539,7 +537,7 @@ HTML加载含有 `{{ }}` 语法的元素后并不会立刻渲染它们，导致�
 
 **ng-class**
 
-使用 `ng-class` 动态设置元素的类，方法是绑定一个代表所有需要添加的类的表达式。重复的类不会添加。当表达式发生变化，先前添加的类会被移除，新类会被添加。
+使用 `ng-class` 动态设置元素的类。重复的类不会添加。当表达式发生变化，先前添加的类会被移除，新类会被添加。
 
 **ng-attr-(suffix)**
 
@@ -559,7 +557,7 @@ HTML加载含有 `{{ }}` 语法的元素后并不会立刻渲染它们，导致�
 
 例如，`ng-click` 可以让一个元素能够监听 `click` 事件，并在接收到事件的时候执行 AngularJS 表达式。正是指令使得 AngularJS 这个框架变得强大，并且正如所见，我们可以自己创造新的指令。
 
-AngularJS 应用的模块中有很多方法可以使用，其中 `directive()` 这个方法是用来定义指令的，directive() 方法可以接受两个参数：
+AngularJS 应用的模块中有很多方法可以使用，其中 `directive()` 这个方法是用来定义指令的，接受两个参数：
   1. name 指令的名字，用来在视图中引用特定的指令。
   2. factory_function 这个函数返回一个对象，其中定义了指令的全部行为。`$compile` 服务利用这个方法返回的对象，在 DOM 调用指令时来构造指令的行为。
 
@@ -607,19 +605,20 @@ angular.module('myApp', []).directive('myDirective', function() {
 
 #### 10.1.1 restrict （字符串）
 
-E（元素）`<my-directive></my-directive>`
-A（属性，默认值）`<div my-directive="expression"></div>`
-C（类名）`<div class="my-directive:expression;"></div>`
-M（注释）`<--directive:my-directive expression-->`
+- E（元素）`<my-directive></my-directive>`
+- A（属性，默认值）`<div my-directive="expression"></div>`
+- C（类名）`<div class="my-directive:expression;"></div>`
+- M（注释）`<--directive:my-directive expression-->`
+
 这些选项可以单独使用，也可以混合在一起使用
 
-**元素方式还是属性方式**
+##### 元素方式还是属性方式
 
 在页面中通过元素方式创建新的指令可以将一些功能封装在元素内部。这样做可以告诉指令的使用者，这里会完整包含应用的某一部分内容。用属性形式来给一个已经存在的元素添加数据或行为。如何进行选择，通常取决于定义的指令是否包含某个组件的核心行为，或者用额外的行为、状态或者其他内容（比如模拟时钟）对某个核心组件进行修饰或扩展。使用何种指令声明格式的指导原则是能够准确表达每一段代码的意图，创造易于理解和分享的清晰代码。
 
 #### 10.1.2 优先级（数值型）
 
-优先级参数可以被设置为一个数值。大多数指令会忽略这个参数，使用默认值0，但也有些场景设置高优先级是非常重要甚至是必须的。例如， ngRepeat 将这个参数设置为1000，这样就可以保证在同一元素上，它总是在其他指令之前被调用。
+优先级参数可以被设置为一个数值。大多数指令会忽略这个参数，使用默认值 0，但也有些场景设置高优先级是非常重要甚至是必须的。例如，`ngRepeat` 将这个参数设置为 1000，这样就可以保证在同一元素上，它总是在其他指令之前被调用。
 
 #### 10.1.3 terminal （布尔型）
 
@@ -681,8 +680,7 @@ replace 是一个可选参数，如果设置了这个参数，值必须为 true 
 ```js
 angular.module('myApp', []).directive('myDirective', function() {
     restrict: 'A',
-    controller:
-    function($scope, $element, $attrs, $transclude) {
+    controller: function($scope, $element, $attrs, $transclude) {
         // 控制器逻辑放在这里
     }
 });
