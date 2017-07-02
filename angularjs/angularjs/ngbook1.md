@@ -200,7 +200,7 @@ app.controller('DemoController', ['$scope', '$filter', function($scope, $filter)
 {{ ['Ari','Lerner','Likes','To','Eat','Pizza'] | filter:'e' }} <!-- ["Lerner","Likes","Eat"] -->
 
 // json 过滤器可以将一个JSON或JavaScript对象转换成字符串。
-{{ {'name': 'Ari', 'City': 'SanFrancisco'} | json }}
+{{ {'name': 'Ari', 'City': 'SanFrancisco'} l json }}
 
 // limitTo 过滤器会根据传入的参数生成一个新的数组或字符串
 {{ San Francisco is very cloudy | limitTo:-6 }} <!-- cloudy -->
@@ -228,11 +228,11 @@ angular.module('myApp.filters', []).filter('capitalize', function() {
 
 ### 7.3 表单验证
 
-表单验证不仅能给用户提供有用的反馈，同时也能保护我们的应用不会被恶意或者错误的输入所破坏。我们要在Web前端尽力保护后端。
+表单验证不仅能给用户提供有用的反馈，同时也能保护我们的应用不会被恶意或者错误的输入所破坏。我们要在 Web 前端尽力保护后端。
 
 AngularJS 能够将 HTML5 表单验证功能同它自己的验证指令结合起来使用，并且非常方便。
 
-AngularJS提供了很多表单验证指令，我们会介绍其中一些核心的验证功能，然后介绍如何创建自己的验证器。
+AngularJS 提供了很多表单验证指令，我们会介绍其中一些核心的验证功能，然后介绍如何创建自己的验证器。
 
 所有输入字段都可以进行基本的验证，比如最大、最小长度等。这些功能是由新的 HTML5 表单属性提供的。如果想要屏蔽浏览器对表单的默认验证行为，可以在表单元素上添加 `novalidate` 标记。
 
@@ -258,6 +258,27 @@ AngularJS提供了很多表单验证指令，我们会介绍其中一些核心�
 #### 7.3.8. 自定义验证
 
 在第10章介绍
+
+```js
+angular.module('validationExample', []).directive('ensureUnique', function ($http) {
+  return {
+    require: 'ngModel',
+    link: function (scope, ele, attrs, c) {
+      scope.$watch(attrs.ngModel, function () {
+        $http({
+          method: 'POST',
+          url: '/api/check/' + attrs.ensureUnique,
+          data: { field: attrs.ensureUnique, valud: scope.ngModel }
+        }).success(function (data, status, headers, cfg) {
+          c.$setValidity('unique', data.isUnique);
+        }).error(function (data, status, headers, cfg) {
+          c.$setValidity('unique', false);
+        });
+      });
+    }
+  };
+});
+```
 
 #### 7.3.9 在表单中控制变量
 
@@ -692,26 +713,6 @@ angular.module('myApp', []).directive('myDirective', function() {
 
 ### 10.6 自定义验证
 
-```js
-angular.module('validationExample', []).directive('ensureUnique', function ($http) {
-  return {
-    require: 'ngModel',
-    link: function (scope, ele, attrs, c) {
-      scope.$watch(attrs.ngModel, function () {
-        $http({
-          method: 'POST',
-          url: '/api/check/' + attrs.ensureUnique,
-          data: { field: attrs.ensureUnique, valud: scope.ngModel }
-          }).success(function (data, status, headers, cfg) {
-            c.$setValidity('unique', data.isUnique);
-          }).error(function (data, status, headers, cfg) {
-            c.$setValidity('unique', false);
-          });
-      });
-    }
-  };
-});
-```
 
 
 
