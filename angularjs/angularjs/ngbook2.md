@@ -264,6 +264,54 @@ angular.module('myApp').config(function ($provide) {
 
 ## 15-18. 服务器通信
 
+## 24. 揭秘 AngularJS
+
+注意，`bootstrap()` 方法只允许我们启动 Angular 应用一次。
+
+Angular 会使用 `ng-app` 指令的值配置 `$injector` 服务（第13章深入讨论了这个服务）。一旦应用程序加载完成，`$injector` 就会在应用程序的 `$rootScope` 旁边创建 `$compile` 服务。`$rootScope` 创建后，`$compile` 服务就会接管它。它会将 `$rootScope` 与现有的 DOM 连接起来，然后从将 `ng-app` 指令设置为祖先的地方开始编译 DOM。
+
+### 24.1 视图的工作原理
+
+当 angular.js 被取回时，浏览器会执行它，Angular 会设置一个事件监听器来监听浏览器的 `DOMContentLoaded` 事件。检测到这个事件时，Angular 会查找 `ng-app` 指令，然后创建运行需要的一系列必要的组件，即 `$injector` `$compile` 服务以及 `$rootScope`，然后开始解析 DOM 树。
+
+#### 24.1.1 编译阶段
+
+`$compile` 服务会遍历 DOM 树并搜集它找到的所有指令，然后将所有这些指令的链接函数合并为一个单一的链接函数。然后这个链接函数会将编译好的模板链接到 `$rootScope` 中。它会通过检查 DOM 属性、注释、类以及 DOM 元素名称的方式查找指令。
+
+$compile 服务通过遍历 DOM 树的方式查找有声明指令的 DOM 元素。当碰到带有一个或多个指令的 DOM 元素时，它会排序这些指令（基于指令的 priority 优先级），然后使用 $injector 服务查找和收集指令的 compile 函数并执行它。
+
+指令中的 compile 函数会在适当的时候处理所有 DOM 转换或者内联模板，如同创建模板的副本。
+
+```js
+// 返回一个链接函数
+var linkFunction = $compile(appElement);
+// 调用链接函数，将 $rootScope 附加给 DOM 元素
+linkFunction($rootScope);
+```
+
+每个节点的编译方法运行之后，`$compile` 服务就会调用链接函数。这个链接函数为绑定了封闭作用域的指令设置监控。这一行为会创建实时视图。最后，在 `$compile` 服务完成后，AngularJS 运行时就准备好了。
+
+#### 24.1.2 运行时
+
+在标准的浏览器流程中，事件循环会等待事件执行(比点击、按键等)。当这些事件发生时，它们会被放到浏览器的事件队列中。如果有函数处理程序对事件作出响应，浏览器就会将 event 对象作为参数来调用这些事件处理程序。
+
+```js
+ele.addEventListener('click', function(event) { });
+```
+
+Angular 中对事件循环做了一点增强，并且 Angular 还提供了自己的事件循环。指令自身会注册事件监听器，因此当事件被触发时，指令函数就会运行在 AngularJS 的 `$digest` 循环中。
+
+Angular 的事件循环被称作 `$digest` 循环，它由两个小型的循环组成，分别是 evalAsync 循环和 $watch 列表。
+
+当事件被触发时，事件处理程序就会在指令的上下文中进行调用，也就是 AngularJS 的上下文中。从功能上讲，AngularJS 会在包含作用域的 `$apply()` 方法内调用指令。Angular 是在 `$rootScope` 上启动 `$digest` 循环时开始整个过程的，并且还会传播到所有子作用域中。
+
+Angular 进入 `$digest` 循环时，会等待 `$evalAsync` 队列清空，然后再将回调执行上下文交还给浏览器。这个 `$evalAsync` 用于在浏览器进行渲染之前，调度需要运行在当前桢栈（stack frame）之外的所有任务。
+
+此外，`$digest` 循环还会等待 `$watch` 表达式列表，它是一个可能在上一次迭代过程中被改变的潜在的表达式数组。如果检测到变化，就调用 `$watch` 函数，然后再次查看 `$watch` 列表以确保没有东西被改变。注意，对于 `$watch` 列表中检测到的任何变化，AngularJS 都会再次查看这个列表以确保没有东西被改变。
+
+一旦 `$digest` 循环稳定下来，并且检测到没有潜在的变化了，执行过程就会离开 Angular 上下文并且通常会回到浏览器中，DOM 将会被渲染到这里。
+
+整个流程在每个浏览器事件之间都会发生，这也是 Angular 如此强大的原因。它还可以将来自浏览器的事件注入到 Angular 流程中。
 
 
 ## 33. 调试
