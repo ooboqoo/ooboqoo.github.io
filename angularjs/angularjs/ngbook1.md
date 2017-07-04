@@ -369,7 +369,26 @@ angular.module('myApp', []).directive('myDirective', function () {
 
 为了让 AngularJS 能够调用我们的指令，需要修改指令定义中的 `restrict` 设置。这个设置告诉 AngularJS 在编译 HTML 时用哪种声明格式来匹配指令定义。我们可以指定一个或多个格式 元素E、属性A、类C 或注释M 的格式来调用指令。
 
-#### 8.1.3 表达式
+#### 8.1.3 指令的命名与使用规则
+
+AngularJS 要求 Directive 的命名使用 **驼峰式** 语法，而在HTML代码中，使用的是 **连接符** 的形式。
+
+##### 为什么会有这种差异
+
+命名和用法不同的核心原因，是因为 HTML 对大小写不敏感，而 JavaScript 对大小写敏感。为了保证 HTM L和 JavaScript 都能按原有模式正常工作，AngularJS 提出了这套解决方法。
+
+##### 怎么实现的？
+
+AngularJS 在解析 HTML 时，会将名称取出(如people-list-array)，并进行一下两个方面的处理：
+  1. 去除字段的 `x-` 或 `data-` 头。
+  2. 将字段中的连接符号去除，并将第二个单词开始改为首字母大写，其他字母小写。([people,List,Array])
+  3. 然后合并起来。（peopleListArray)
+
+##### 为什么要先去除 `data-/x-` 部分
+
+`data-` 存在的原因是 HTML5 的验证工具对自定义的属性会报错，而添加了 `data-` 前缀就可通过验证。而 `x-` 的存在，可能是针对 XHTML 的支持。
+
+#### 8.1.4 表达式
 
 由于指令可以用属性的形式调用，我们可能会好奇如果给属性赋值会发生什么：
 
@@ -417,6 +436,10 @@ scope: { someProperty: '@someAttr' }
 ```html
 <div my-directive some-attr="someProperty with @ binding"></div>
 ```
+
+#### 8.2.1 三种不同的绑定策略 `@` `=` `&`
+
+
 
 
 ## 9. 内置指令
@@ -670,16 +693,42 @@ scope 属性设置为一个对象 `{key: value, ...}` 时就创建了一个隔�
 * **父级作用域绑定**：通过 `&` 符号可以对父级作用域进行绑定，以便在其中运行函数。
 
 ```html
-<input type="text" ng-model="to"/>
-<div scope-example ng-model="to" on-send="sendMail(email)" from-name="ari@fullstack.io" />
-```
+<div ng-controller="FirstCtrl">
+  {{ people | json}}
+  <div ng-repeat="person in people">
+    <!-- 注意此处的数据传入方法 -->
+    <div people name="{{person.name}}" sex="person.sex" age="person.age" btn-click="clickBtnCallback(name)"></div>
+  </div>
+</div>
 
-```js
-scope: {
-    ngModel: '=', // 将ngModel同指定对象绑定
-    onSend: '&',  // 将引用传递给这个方法
-    fromName: '@' // 储存与fromName相关联的字符串
-}
+<script>
+  angular.module('myApp', [])
+    .controller("FirstCtrl", function ($scope) {
+      $scope.people = [
+        { name: "Harry", sex: "男", age: "15" },
+        { name: "张三", sex: "男", age: "30" }
+      ];
+      $scope.clickBtnCallback = function (msg) { alert("名字是：" + msg); }
+    })
+    .directive("people", function () {
+      return {
+        restrict: "A",
+        scope: {
+          name: "@",
+          sex: "=",
+          age: "@",
+          btnClick: "&"
+        },
+        template: 
+          "姓名：<input type='text' ng-model='name'>" +
+          "性别：<input type=text ng-model='sex'> 年龄：<input type=text ng-model='age'>" +
+          " <input type='button' value='提交' ng-click='btnClick({name: name})'>"
+          // 注意 btnClick({name: name}) 这种调用格式 btnClick 函数打印出来变这样了
+          // function (locals) { return parentGet(scope, locals); }
+      }
+    });
+
+</script>
 ```
 
 #### 10.3.1 transclude
@@ -704,7 +753,7 @@ angular.module('myApp', [])
       scope: {  title: '@' },
       transclude: true,
       template: 
-        '<div class="sidebox"><div class="content">' + 
+        '<div class="sidebox"><div class="content">' +
         '  <h2 class="header">{{ title }}</h2>' +
         '  <span class="content" ng-transclude></span>' +  // 嵌入此处
         '</div></div>'
