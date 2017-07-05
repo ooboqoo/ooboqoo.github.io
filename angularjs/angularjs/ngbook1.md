@@ -743,20 +743,20 @@ scope 属性设置为一个对象 `{key: value, ...}` 时就创建了一个隔�
 </div>
 ```
 
-为这个侧边栏创建一个简单的指令，并将 transclude 参数设置为 true ：
-
 ```js
 angular.module('myApp', [])
   .directive('sidebox', function () {
     return {
       restrict: 'EA',
       scope: {  title: '@' },
-      transclude: true,
+      transclude: true,                                    // transclude 设置为 true
       template: 
-        '<div class="sidebox"><div class="content">' +
-        '  <h2 class="header">{{ title }}</h2>' +
-        '  <span class="content" ng-transclude></span>' +  // 嵌入此处
-        '</div></div>'
+        '<div class="sidebox">' +
+        '  <div class="content">' +
+        '    <h2 class="header">{{ title }}</h2>' +
+        '    <div class="content" ng-transclude></div>' +  // 在此处嵌入
+        '  </div>' +
+        '</div>'
     };
   });
 ```

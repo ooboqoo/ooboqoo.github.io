@@ -15,6 +15,7 @@
 增加缩进     |     Ctrl+]    |     same      |     same     |     Tab
 减少缩进     |     Ctrl+[    |     same      |     same     |   Shift+Tab
 行注释切换   |     Ctrl+/    |     same      |     same     |     same
+跳到匹配括号 |               |               | Ctrl+Shift+\ |
 命令面板     | Ctrl+Shift+P  |     same      |     same     | Ctrl+Shift+A
 快速搜索     |     Ctrl+P    |     same      |     same     | Navigate Menu
 切换终端     |     Ctrl+`    |     same      |     same     |   Alt+F12
