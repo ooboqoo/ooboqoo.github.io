@@ -507,8 +507,8 @@ Reflect 只是一个内置对象，不是构造函数，提供了一个读取系
   <h5 class="es3">isFinite() <span>-- 检查某个值是否为有穷大的数</span></h5>
   <h5 class="es3">parseInt() <span>-- 解析一个字符串并返回一个整数</span></h5>
   <h5 class="es3">parseFloat() <span>-- 解析一个字符串并返回一个浮点数</span></h5>
-  <h5 class="es3">encodeURI() <span>-- 把字符串编码为 URI</span></h5>
-  <h5 class="es3">encodeURIComponent() <span>-- 把字符串编码为 URI 组件</span></h5>
+  <h5 class="es3">encodeURI() <span>-- 把字符串编码为 URI，针对整个 URI 设计的，故不会处理 `;` `,` `/` `?` `:` `@` `&` `=` `+` `$` 这些字符</span></h5>
+  <h5 class="es3">encodeURIComponent() <span>-- 把字符串编码为 URI 组件，会处理 `?` `=` 等 encodeURI 不处理的特殊字符</span></h5>
   <h5 class="es3">decodeURI() <span>-- 解码某个编码的 URI</span></h5>
   <h5 class="es3">decodeURIComponent() <span>-- 解码一个编码的 URI 组件</span></h5>
   <h5 class="es3">eval() <span>-- 解析执行传入的字符串</span></h5>
