@@ -6,9 +6,12 @@
 
 #### vscode 类型检测报错
 
+https://code.visualstudio.com/docs/languages/javascript#_type-checking-and-quick-fixes-for-javascript-files
+
 只要安装 `@types` 下的包就不会再有报错，如果只是个别全局变量啥的，可以建个 temp 文件夹，里面放个 typings.d.ts
 
 ```js
+declare var anyGlobalVar: any;
 declare interface Window {
     FileReader: any
 }
