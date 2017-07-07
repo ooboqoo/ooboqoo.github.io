@@ -5,6 +5,14 @@
 * WinXP 下 IE 最高只能升级到 IE8
 * 2017 年 IE8 的市场份额在逐步下降，但仍占 10% 左右 (来源：[百度统计](http://tongji.baidu.com/data/browser))
 
+## 兼容性知识点积累
+
+IE10 及其更低版本 `navigator.appName` 值是 "Microsoft Internet Explorer" ，其它是 "Netscape"
+
+IE10 及其更低版本是通过 `browserLanguage` 属性获取浏览器语言类型，其它是通过 `language` 属性
+
+`localStorage` 从 IE8 开始支持
+
 
 ## IE8+ 兼容经验小结
 

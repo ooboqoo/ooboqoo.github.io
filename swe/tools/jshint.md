@@ -14,7 +14,8 @@
 {
   "undef": true,
   "unused": true,
-  "predef": [ "MY_GLOBAL" ]
+  "predef": [ "MY_GLOBAL" ],    // 这种全局变量设定方式貌似 deprecated 了，不同环境下 jshint 行为不一致
+  "globals": {"window": true, "angular": true }  // 用这种方式替换一切工作正常
 }
 ```
 

@@ -1,0 +1,38 @@
+<html>
+<head>
+	<title>获取 VS Code 插件离线安装包</title>
+	<style>
+		label { line-height: 40px; }
+		input { width: 600px; }
+	</style>
+</head>
+
+<body>
+	<h2>离线安装 vscode 插件方法介绍</h2>
+
+	<p>使用说明</p>
+	<ul>
+		<li>先在下方填入插件的介绍页网址和版本号(介绍页右侧位置 "Version" 处的值)</li>
+		<li>将下载好的文件后缀修改为 ".vsix"</li>
+		<li>"Ctrl+Shift+x" 打开插件安装页面，点击右上角 "..." 图标，然后选择 "从 VSIX 安装"</li>
+	</ul>
+
+	<hr>
+
+	<label>请输入插件网址： <input type="text" required placeholder="如 https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint"></label><br>
+	<label>请输入插件版本： <input type="text" required placeholder="如 1.2.11，在插件介绍页左侧找"></label><br><br>
+	<button onclick="download()">下载离线安装包</button>
+	
+	<script>
+	function download() {
+		var inputs = [].map.call(document.querySelectorAll('input'), function(input) { return input.value });
+		var parsed = /\=(\w+)\.(.+)/.exec(inputs[0]);
+		var publisher = parsed[1], name = parsed[2], version = inputs[1];
+		window.location.href = 
+			"https://" + publisher + ".gallery.vsassets.io/_apis/public/gallery/publisher/" +
+			publisher + "/extension/" + name + "/" + version +
+			"/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+	}
+	</script>
+</body>
+</html>
