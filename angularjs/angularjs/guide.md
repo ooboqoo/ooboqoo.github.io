@@ -5,6 +5,8 @@ V1.5 开始往 Angular2 靠了，所以还是学习 V1.4 吧。
 英文 https://code.angularjs.org/1.4.11/docs/guide/  
 中文 http://www.angularjs.net.cn/tutorial/1.html  
 
+挺好的一个中文教程：https://www.gitbook.com/book/hairui219/learning_angular/details
+
 ## 简介
 
 Angular 尝试通过扩展 HTML 来弥合 "静态HTML" 与 "Web应用" 之间的鸿沟，这种扩展是通过 **指令 directive** 这种结构实现的。

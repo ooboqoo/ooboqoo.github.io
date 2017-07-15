@@ -151,3 +151,22 @@ module.exports = function(grunt) {
 
 
 ```
+
+
+## 插件笔记
+
+```js
+{
+  "grunt-contrib-clean": "~0.5.0",
+  "grunt-contrib-copy": "~0.4.1",
+  "grunt-contrib-concat": "~0.5.1",
+  "grunt-contrib-cssmin": "0.13.0",
+  "grunt-contrib-jshint": "~0.7.1",
+  "grunt-contrib-uglify": "~0.9.1",
+  "grunt-marsrev": "~1.2.0",
+  "grunt-safety": "~0.1.2",
+  "grunt-replace": "~0.9.2",
+  "grunt-replace-url": "~0.1.1",
+  "grunt-contrib-htmlmin": "2.3.0"
+}
+```

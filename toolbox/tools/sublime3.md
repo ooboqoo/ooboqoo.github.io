@@ -166,6 +166,7 @@ AutoFileName    | 自动添加引用文件名。
 SyncedSideBar   | 可以在侧边栏同步展开编辑文件所在目录的插件。后来发现 右键->Reveal in Side Bar 是个更好的选择
 **IMESupport**      | 输入中文时，输入框总是在最下面，装了这个插件不用设置，一切就会正常工作了。
 HTML2Text       | HTML 转 Markdown 插件
+ConvertToUTF8   | 提供 GBK GB2312 编码支持
 
 ### Markdown Editing
 
