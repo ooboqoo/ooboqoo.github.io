@@ -437,9 +437,7 @@ scope: { someProperty: '@someAttr' }
 <div my-directive some-attr="someProperty with @ binding"></div>
 ```
 
-#### 8.2.1 三种不同的绑定策略 `@` `=` `&`
-
-
+有三种不同的绑定策略 `@` `=` `&`，具体参阅 10.3 小节。
 
 
 ## 9. 内置指令

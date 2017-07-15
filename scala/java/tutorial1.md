@@ -14,21 +14,25 @@ Java 语言规范是描述 Java 语言的官方文档，可以从网站 http://d
 
 ### 简介
 
-Java SE 标准版
-Java EE 企业版
-Java ME 移动版
+Java SE 标准版，入门都从这一版本开始  
+Java EE 企业版，Java Web 开发必备  
+Java ME 移动版，已经没什么市场了
 
 ### 开发环境配置
 
-* 下载 [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* 下载并安装 [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) &nbsp; // 便携版，就是一文件夹，所以要进行下一步配置
 * 配置环境变量：
-  * 变量名：`JAVA_HOME` 变量值：`D:\Program Files\Java\jdk1.8.0_131`  //根据实际安装目录配置
-  * 变量名：`CLASSPATH` 变量值：`.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;` //记得前面有个"."
+  * 变量名：`JAVA_HOME` 变量值：`D:\Program Files\Java\jdk1.8.0_131` &nbsp; // 根据实际安装目录配置
+  * 变量名：`CLASSPATH` 变量值：`.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;` &nbsp; // 记得前面有个 `.`
   * 变量名：`Path` 变量值：`%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;`
 
 ```bash
-$ javac -version  # 验证配置是否正确
+# 验证配置是否正确
+$ java            # 输出命令帮助
+$ javac -version  # 输出版本号
 ```
+
+注：`CLASSPATH` 可配可不配，没多大关系，因为默认会使用 `.`
 
 ### 安装库源文件和文档
 
@@ -44,11 +48,11 @@ $ jar xvf jdk/src.zip          # 也可以采用其他解压工具
 
 ## HelloWorld
 
-创建 HelloWorld.java(**文件名需与类名一致**), 代码如下：
+创建 HelloWorld.java(**文件名需与类名一致**，包括大小写也要一样，否则编译时报错), 代码如下：
 
 ```java
 public class HelloWorld {
-    public static void main(String []args) {
+    public static void main(String[] args) {
         System.out.println("Hello World");
     }
 }
@@ -58,8 +62,11 @@ public class HelloWorld {
 
 ```bash
 $ javac HelloWorld.java  # 必须带后缀
-$ java HelloWorld        # 不能带后缀，否则报错：找不到或无法加载主类 Welcome.class
+$ java HelloWorld        # 不能带后缀，否则报错：找不到或无法加载主类 HelloWorld.class
+
+$ javac -encoding UTF-8 XX.java  # 如果碰到编码问题报错，就使用参数解决
 ```
+
 
 ### 使用集成开发环境 IDEA
 
@@ -142,7 +149,13 @@ goto const
 
 ### 注释
 
-Java 支持单行以及多行注释。
+Java 支持单行以及多行注释(多行注释不支持嵌套)。
+
+```java
+/** 文档注释 */
+/* 多行注释 */
+// 单行注释
+```
 
 ### 继承
 
@@ -238,7 +251,9 @@ public class Puppy {
 
 ### 包
 
-包主要用来对类和接口进行分类。当开发Java程序时，可能编写成百上千的类，因此很有必要对类和接口进行分类。
+包主要用来对类和接口进行分类。当开发 Java 程序时，可能编写成百上千的类，因此很有必要对类和接口进行分类。
+
+包，其实就是文件夹，用于解决相同类名问题。包名要求全部小写，一般都是公司的名倒着写。
 
 ### `import` 语句
 
