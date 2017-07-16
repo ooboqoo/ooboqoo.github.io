@@ -182,6 +182,15 @@ $ groupadd [-g gid][-r]  # -g 直接指定用户组；-r 新建系统用户组
 | `kill`         | 发送信号给一个或多个进程（经常用来杀死一个进程）
 
 
+## 磁盘管理
+
+#### `df -h` 查看磁盘空间占用
+
+df (disk free) is a standard Unix command used to display the amount of available disk space for file systems.
+  * `-h` 以人类易读的格式展现 K M G
+  * `-T` 打印磁盘格式
+
+
 ## CentOS 安装配置中的其他命令
 
 ```
