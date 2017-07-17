@@ -47,26 +47,23 @@ d3.selectAll(divs);
 |||
 |--------------------------------------------|-------------------------------------------------
 | `selection.attr(name, value?)`             | 设置或获取选择集的属性
+| `selection.property(name, value?)` | 设置或获取选择集的属性，像 input 的 value 属性 attr() 搞不定就用它
 | `selection.classed(name, value?)`          | 设置或获取选择集的类，name 为类名 value 为布尔值
 | `selection.style(name, value?, priority?)` | 设置或获取选择集的样式
-| `selection.property(name, value?)` | 设置或获取选择集的属性，像 input 的 value 属性无法用 attr() 获取，就得用这个
 | `selection.text(value?)`           | 设置或获取选择集的文本内容，相当于 DOM 的 innerText
 | `selection.html(value?)`           | 设置或获取选择集的HTML 内容，相当于 DOM 的 innerHTML
 
 ```js
-d3.select('p')
-  .attr('id', 'para')
-  .classed({'red': true, 'bigsize': false})
-  .style('font-size', '24px')
+d3.select('p').attr('id', 'para').classed({'red': true, 'bigsize': false}).style('font-size', '24px');
 ```
 
 ### 4.3 添加、插入和删除
 
 |||
 |------------------------------------|---------------------------------------------------------
-| `selection.append(name)`           | 在选择集的末尾添加一个元素，name 为元素名称
-| `selection.insert(name, before?)`  | 在选择集中指定元素之前插入元素，before 是 CSS 选择器名称
-| `selection.remove()`               | 删除选择集中的元素
+| `selection.append(name)`           | 给选择集的每个成员追加子元素，返回更新后的选择集
+| `selection.insert(name, before?)`  | 给选择集的每个成员添加子元素(插入到 before 元素前)，before 是 CSS 选择器名称
+| `selection.remove()`               | 删除选择集中的成员元素
 
 ### 4.4 数据绑定
 
@@ -74,8 +71,8 @@ d3.select('p')
 
 |||
 |----------------------------------|----------------------------------------------------------------------
-| `selection.datum(value?)`        | 选择集中的每个元素都绑定相同的数据 value
-| `selection.data(values?, key?)`  | 选择集中的每一个元素分别绑定数组的一项，可以通过 key 函数改变默认的 by-index 绑定行为
+| `selection.datum(value?)`        | 选择集中的每个成员都绑定相同的数据 value
+| `selection.data(values?, key?)`  | 选择集与数组绑定，可以通过 key 函数改变默认的 by-index 绑定行为
 
 绑定的数据，是通过元素的 `__data__` 属性添加的。
 
@@ -84,14 +81,11 @@ d3.select('p')
 在被绑定数据的选择集中添加元素后，新元素也会获得该数据。
 
 ```html
-<p>Para1</p>
-<p>Para2</p>
-<p>Para3</p>
-
+<p>Para1</p><p>Para2</p><p>Para3</p>
 <script>
   var p = d3.selectAll('p');
-  p.datum('Changed').text(function(d,i) { return d + ' ' + i; });
-  p.append('span').style('color', 'red').text(function (d,i) { return d; });
+  p.datum('Changed').text(function (d, i) { return d + ' ' + i; });
+  p.append('span').style('color', 'red').text(function (d, i) { return d; });
 </script>
 ```
 
@@ -100,11 +94,11 @@ d3.select('p')
 `data()` 能将数组各项分别绑定到选择集的各元素上，当数组长度与元素数量不一致时，`data()` 也能处理。当数组长度大于元素数量时，为多余数据预留元素位置，以便将来插入新元素；当数组长度小于元素数量时，能获取多余元素的位置，以便将来删除。
 
 根据数组长度和元素数量的关系，分别把各种情况归纳如下：
-  * update - 数组长度 = 元素数量
-  * enter - 数组长度 > 元素数量
-  * exit - 数组长度 < 元素数量
+  * update - 数组长度 = 选择集 length
+  * enter - 数组长度 > 选择集 length
+  * exit - 数组长度 < 选择集 length
 
-`data()` 返回一个对象，对象里包含 update 部分，对象还包含两个方法 `enter()` 和 `exit()`，分别可以返回 enter 和 exit 部分。
+`data()` 返回一个对象，对象里包含 update 部分和两个方法 `enter()` `exit()`，分别可以返回 enter 和 exit 部分。
 
 update enter exit 是非常重要的概念，在 D3 中会大量出现。
 
@@ -146,7 +140,7 @@ update enter exit 是非常重要的概念，在 D3 中会大量出现。
 
 #### enter 的处理方法
 
-通常，从服务器获取数据后，网页中是没有与之对应的元素的，因此，一个常见的用法是：**选择一个空集，然后使用 `enter().append()` 的形式来添加足够数量的元素。
+通常，从服务器获取数据后，网页中是没有与之对应的元素的，因此，一个常见的用法是：选择一个空集，然后使用 `enter().append()` 的形式来添加足够数量的元素。
 
 ```js
 var dataset = [10, 20, 30, 10, 50];
@@ -166,7 +160,7 @@ update.exit().remove();
 
 #### 处理模板
 
-从上面两例，可以总结出一个通用的处理模板，而不用关心数组长度和元素数量的差异：
+从上面两例，可以总结出一个通用的处理模板，而不用关心数组长度和元素数量之间的差异：
 
 ```js
 function update(selection, dataset) {
@@ -218,48 +212,28 @@ d3.extent(arr);  // 返回最小值和最大值 [min, max]
   .chart div { font: 10px sans-serif; background-color: steelblue; text-align: right;
                padding: 3px; margin: 1px; color: white; }
 </style>
-
 <div class="chart"></div>
 <script>
 (function drawBar() {
   if (typeof(d3) === 'undefined') { return setTimeout(drawBar, 100); }
   var data = [30, 86, 168, 281, 303, 365];
-  d3.select(".chart")
-    .selectAll("div")
-    .data(data)
-    .enter()
-    .append("div")
+  d3.select(".chart").selectAll("div").data(data).enter().append("div")
     .style("width", function(d) { return d + "px"; })
     .text(function(d) { return d; });
 })();
 </script>
 
 ```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>D3.js DEMO - BarChart</title>
-    <style>
-      .chart div { font: 10px sans-serif; background-color: steelblue; text-align: right;
-                   padding: 3px; margin: 1px; color: white; }
-    </style>
-  </head>
-  <body>
-    <div class="chart"></div>
-    <script src="https://d3js.org/d3.v3.min.js"></script>
-    <script>
-      var data = [30, 86, 168, 281, 303, 365];
-      d3.select(".chart")
-        .selectAll("div")
-        .data(data)
-        .enter()
-        .append("div")
-        .style("width", function(d) { return d + "px"; })
-        .text(function(d) { return d; });
-    </script>
-  </body>
-</html>
+<style>
+  .chart div { font: 10px sans-serif; background-color: steelblue; text-align: right;
+               padding: 3px; margin: 1px; color: white; }
+</style>
+<div class="chart"></div>
+<script>
+  var data = [30, 86, 168, 281, 303, 365];
+  d3.select(".chart").selectAll("div").data(data).enter().append("div")
+    .style("width", function(d) { return d + "px"; }).text(function (d) { return d; });
+</script>
 ```
 
 ## 比例尺和坐标轴
@@ -278,7 +252,7 @@ d3.extent(arr);  // 返回最小值和最大值 [min, max]
 // 线性比例尺
 var linear = d3.scale.linear()    // 创建一个线性比例尺
                .domain([0, 500])  // 定义域
-               .range([0,100]);   // 值域
+               .range([0, 100]);  // 值域
 console.log(linear(50), linear(250), linear(450));  // 10 50 90
 
 // 指数比例尺
@@ -286,40 +260,39 @@ var pow = d3.scale.pow().exponent(3);  // 创建指数为3的指数比例尺
 console.log(pow(2), pow(3));  // 8 27
 pow.exponent(0.5);
 console.log(pow(2), pow(3));  // 1.414 1.732
-pow.exponent(3).domain([0,3]).range([0,90]);  // 指数比例尺可以叠加线性比例尺 [注]
+pow.exponent(3).domain([0, 3]).range([0, 90]);  // 指数比例尺可以叠加线性比例尺 [注]
 console.log(pow(1.5), pow(2)); // 11.25 26.6667
 // 注：实际效果相当于
-linear.domain([0, Math.pow(3,3)]).range([0,90]);
-console.log(linear(Math.pow(1.5,3)));  // 11.25
+linear.domain([0, Math.pow(3, 3)]).range([0, 90]);
+console.log(linear(Math.pow(1.5, 3)));  // 11.25
 
 // 量子比例尺
 var quantize = d3.scale.quantize()
-    .domain([0, 10])
-    .range(['red','green','blue','yellow','black']);
+    .domain([0, 10]).range(['red', 'green', 'blue', 'yellow', 'black']);
 console.log(quantize(3),quantize(5.99),quantize(6));  // green blue yellow
 ```
 
 比例尺应用示例
 
 ```js
-var quantize = d3.scale.quantize().domain([50,0]).range(['#888','#666','#444','#222','#000']);
-var r = [45,35,25,15,5];
+var quantize = d3.scale.quantize().domain([50, 0]).range(['#888', '#666', '#444', '#222', '#000']);
+var r = [45, 35, 25, 15, 5];
 var svg = d3.select('#quantize').append('svg').attr('width', 200).attr('height', 100);
 svg.selectAll('circle').data(r).enter().append('circle')
-  .attr('cx', function(d,i){ return 50 + i * 40; }).attr('cy', 50)
-  .attr('r', function(d,i) { return d; }).attr('fill', function(d) { return quantize(d); });
+  .attr('cx', function (d, i){ return 50 + i * 40; }).attr('cy', 50)
+  .attr('r', function (d, i) { return d; }).attr('fill', function (d) { return quantize(d); });
 ```
 
 <div id='quantize'></div>
 <script>
 (function drawCicle() {
   if (typeof(d3) === 'undefined') { return setTimeout(drawCicle, 120); }
-  var quantize = d3.scale.quantize().domain([50,0]).range(['#ff6f69','#ffcc5c','#ffeead','#96ceb4','#f00']);
-  var r = [45,35,25,15,5];
+  var quantize = d3.scale.quantize().domain([50, 0]).range(['#ff6f69', '#ffcc5c', '#ffeead', '#96ceb4', '#f00']);
+  var r = [45, 35, 25, 15, 5];
   var svg = d3.select('#quantize').append('svg').attr('width', 300).attr('height', 100);
   svg.selectAll('circle').data(r).enter().append('circle')
-    .attr('cx', function(d,i){ return 50 + i * 40; }).attr('cy', 50)
-    .attr('r', function(d,i) { return d; }).attr('fill', function(d) { return quantize(d); })
+    .attr('cx', function (d, i){ return 50 + i * 40; }).attr('cy', 50)
+    .attr('r', function (d, i) { return d; }).attr('fill', function(d) { return quantize(d); })
     .attr('opacity', 0.8);
 })();
 </script>
@@ -336,12 +309,19 @@ svg.selectAll('circle').data(r).enter().append('circle')
 | `axis(selection)`                | 将坐标轴应用到指定的选择集上
 | `axis.scale(scale?)`             | 设定或获取坐标轴的比例尺
 | `axis.orient(orientation?)`      | 设定或获取坐标轴的方向，有4个值 top bottom left right
-| `axis.ticks(num?)`               | 设定或获取坐标轴的分数，默认为 10
-| `axis.tickValues(values?)`       | 设定或获取坐标轴的指定刻度
+| `axis.ticks(num?)`               | 设定或获取坐标轴的刻度的分段数，默认为 10
+| `axis.tickValues(values?)`       | 设定或获取坐标轴的指定刻度，具体用法见下方示例
 | `axis.tickSize(inner?,outer?)`   | 设定或获取坐标轴的内外刻度的长度，默认都为 6
 | `axis.innerTickSize(size?)`      | 设定或获取坐标轴的内刻度的长度，内刻度指不是两端的刻度
-| `axis.outerTickSize(size?)`      | 设定或获取坐标轴的外刻度的长度，内刻度指两端的刻度
-| `axis.outerFormat(format?)`      | 设定或获取刻度的格式
+| `axis.outerTickSize(size?)`      | 设定或获取坐标轴的外刻度的长度，外刻度指两端的刻度
+| `axis.outerFormat(format?)`      | 设定或获取刻度文本的格式
+| `axis.tickPadding(format?)`      | 设定或获取刻度的刻度标记和刻度文本之间的间距
+
+
+```js
+axis.tickPadding(-1);    // 设定刻度文本与刻度标记之间的间距为 -1px
+axis.outerTickSize(50)   // 设定(首尾)刻度标记长度为 50px
+```
 
 坐标轴的主直线是由 `<path>` 绘制的，刻度是由 `<line>` 绘制的，刻度文字是由 `<text>` 绘制的。
 
@@ -349,18 +329,18 @@ svg.selectAll('circle').data(r).enter().append('circle')
 
 ```html
 <style>
-  .axis path, .axis line {fill: none; stroke: black; shape-rendering: crispEdges; }
-  .axis text {font-size: 11px; }
+  .axis path, .axis line { fill: none; stroke: black; shape-rendering: crispEdges; }
+  .axis text { font-size: 11px; }
 </style>
 <script>
-  var svg = d3.select('body').append('svg').attr('width', 600).attr('height', 600);
+  var svg = d3.select('body').append('svg').attr('width', 800).attr('height', 600);
 
-  var xScale = d3.scale.linear().domain([0,10]).range([0,300]);
-  var axis = d3.svg.axis().scale(xScale).orient('bottom');  // 刻度方向向下
+  var xScale = d3.scale.linear().domain([0, 10]).range([0, 300]);
+  var axis = d3.svg.axis().scale(xScale).orient('bottom').tickValues([0, 1, 3, 9, 12, 15]);
 
-  var gAxis = svg.append('g').attr('class', 'axis').attr('transform','translate(80,80)');  // 平移到 (80,80)
+  var gAxis = svg.append('g').attr('class', 'axis').attr('transform', 'translate(10, 10)'); //移到(10,10)
   axis(gAxis);     // 方式1
-  gAxis.call(axis) // 方式2
+  gAxis.call(axis) // 方式2，这种用法更常见
 </script>
 ```
 
@@ -374,10 +354,10 @@ svg.selectAll('circle').data(r).enter().append('circle')
   if (typeof(d3) === 'undefined') { return setTimeout(drawAxis, 150); }
   var svg = d3.select('.axisDemo').append('svg').attr('width', 600).attr('height', 30);
 
-  var xScale = d3.scale.linear().domain([0,10]).range([0,300]);
-  var axis = d3.svg.axis().scale(xScale).orient('bottom');  // 底部坐标
+  var xScale = d3.scale.linear().domain([0, 10]).range([0, 300]);
+  var axis = d3.svg.axis().scale(xScale).orient('bottom').tickValues([0, 1, 3, 9, 12, 15]);
 
-  var gAxis = svg.append('g').attr('class', 'axis').attr('transform','translate(10,10)');
+  var gAxis = svg.append('g').attr('class', 'axis').attr('transform', 'translate(10,10)');
   gAxis.call(axis);
 })();
 </script>
@@ -390,9 +370,9 @@ var width = 500, height = 500, xAxisWidth = 300, yAxisWidth = 300, padding = {t:
 var svg = d3.select("body").append("svg").attr("width", width).attr("height", height);
 
 var xScale = d3.scale.linear()
-  .domain([0, 1.2 * d3.max(center, function(d){ return d[0]; })]).range([0, xAxisWidth]);
+  .domain([0, 1.2 * d3.max(center, function (d) { return d[0]; })]).range([0, xAxisWidth]);
 var yScale = d3.scale.linear()
-  .domain([0, 1.2 * d3.max(center, function(d){ return d[1]; })]).range([0, yAxisWidth]);
+  .domain([0, 1.2 * d3.max(center, function (d) { return d[1]; })]).range([0, yAxisWidth]);
 
 var cirlce = svg.selectAll("circle").data(center).enter().append("circle")
   .attr("fill", "black").attr("r", 5 )
