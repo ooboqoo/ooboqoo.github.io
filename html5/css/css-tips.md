@@ -38,6 +38,7 @@ The percentage is calculated with respect to the height of the generated box's c
 </div>
 ```
 
+CSS3 中引入了 `vh` 单位，表示视窗 viewport 的百分之一高度，所以任何元素定义了 `styles="height: 100vh"` 就能撑满屏幕。IE9 开始才支持 `vh` `vw` `rem` 这几个单位。
 
 #### 设定固定宽高比
 
@@ -75,3 +76,13 @@ The percentage is calculated with respect to the height of the generated box's c
 
 ### `box-sizing` 讲解
 
+
+### 表格中 `min-width` `max-width` 无效
+
+For table cells the 'width' property should be used, as the 'min-width' and 'max-width' is undefined for table cells.
+
+See the specification:
+
+"In CSS 2.1, the effect of 'min-width' and 'max-width' on tables, inline tables, table cells, table columns, and column groups is undefined."
+
+To enforce the width, you may try to change the table-layout property to "fixed". The [specification](https://www.w3.org/TR/CSS21/tables.html#propdef-table-layout) describes the algorithm pretty clearly.

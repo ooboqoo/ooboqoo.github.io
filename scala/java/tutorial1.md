@@ -45,6 +45,18 @@ $ jar xvf jdk/src.zip          # 也可以采用其他解压工具
 
 文档包含在一个压缩文件中，它是一个独立于 JDK 的压缩文件，可以从 oracle 网站下载。
 
+### Java API 使用方法
+
+* __谷歌搜索__
+  可以通过谷歌搜索快速查找，如搜索 String java 8 出来第一条就是 https://docs.oracle.com/javase/8/docs/api/java/lang/String.html
+
+* __逐级导航查找__
+  逐级导航进入文档，步骤：左上选择包，左下选择类，最后在右侧查看具体文档。
+
+* __网址直达__
+  如知道查询类的位置，也可以直接修改网址进入，如想查询 Scanner 类的文档，修改上面 URL 后面的部分为 java/uitl/Scanner.html 即可。
+
+应该慢慢熟悉最常用的包 java.lang java.util java.io java.awt java.swing 有个大概印象之后查询起来会更加得心应手。
 
 ## HelloWorld
 

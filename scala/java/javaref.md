@@ -12,7 +12,7 @@
 })();
 </script>
 
-# Java 速查手册
+# Java API 精选
 
 https://docs.oracle.com/javase/8/docs/api/
 
