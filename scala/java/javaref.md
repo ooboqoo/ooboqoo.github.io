@@ -16,6 +16,19 @@
 
 https://docs.oracle.com/javase/8/docs/api/
 
+### Java 关键字
+
+```text
+基本类型 boolean byte char short int long float double
+结构 if else  for do while break continue  switch case default  try catch finally
+修饰 abstract static final public protected private   
+类级 class extends implements interface throws
+方法级 super this new throw void return native
+包级 package import      
+待确定 assert enum instanceof null strictfp synchronized transient volatile
+保留字 const goto
+```
+
 ### java.lang.Character
 
 ||||

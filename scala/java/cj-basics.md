@@ -2,91 +2,10 @@
   td:first-child { color: red; }
 </style>
 <script>
-ooboqoo.contentsRegExp = /H[12]/;  // 定义目录生成级别
+ooboqoo.contentsRegExp = /H[123]/;  // 定义目录生成级别
 </script>
 
-
-# Java 教程 - 基础
-
-Java 语言规范是描述 Java 语言的官方文档，可以从网站 http://docs.oracle.com/javase/specs 上阅读或下载。
-
-## 概述
-
-### 简介
-
-Java SE 标准版，入门都从这一版本开始  
-Java EE 企业版，Java Web 开发必备  
-Java ME 移动版，已经没什么市场了
-
-### 开发环境配置
-
-* 下载并安装 [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) &nbsp; // 便携版，就是一文件夹，所以要进行下一步配置
-* 配置环境变量：
-  * 变量名：`JAVA_HOME` 变量值：`D:\Program Files\Java\jdk1.8.0_131` &nbsp; // 根据实际安装目录配置
-  * 变量名：`CLASSPATH` 变量值：`.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;` &nbsp; // 记得前面有个 `.`
-  * 变量名：`Path` 变量值：`%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;`
-
-```bash
-# 验证配置是否正确
-$ java            # 输出命令帮助
-$ javac -version  # 输出版本号
-```
-
-注：`CLASSPATH` 可配可不配，没多大关系，因为默认会使用 `.`
-
-### 安装库源文件和文档
-
-库源文件在 JDK 中以一个压缩 src.zip 的形式发布，须解压后才能访问：
-
-```bash
-$ mkdir javasrc && cd javasrc
-$ jar xvf jdk/src.zip          # 也可以采用其他解压工具 
-```
-
-文档包含在一个压缩文件中，它是一个独立于 JDK 的压缩文件，可以从 oracle 网站下载。
-
-### Java API 使用方法
-
-* __谷歌搜索__
-  可以通过谷歌搜索快速查找，如搜索 String java 8 出来第一条就是 https://docs.oracle.com/javase/8/docs/api/java/lang/String.html
-
-* __逐级导航查找__
-  逐级导航进入文档，步骤：左上选择包，左下选择类，最后在右侧查看具体文档。
-
-* __网址直达__
-  如知道查询类的位置，也可以直接修改网址进入，如想查询 Scanner 类的文档，修改上面 URL 后面的部分为 java/uitl/Scanner.html 即可。
-
-应该慢慢熟悉最常用的包 java.lang java.util java.io java.awt java.swing 有个大概印象之后查询起来会更加得心应手。
-
-## HelloWorld
-
-创建 HelloWorld.java(**文件名需与类名一致**，包括大小写也要一样，否则编译时报错), 代码如下：
-
-```java
-public class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello World");
-    }
-}
-```
-
-执行命令
-
-```bash
-$ javac HelloWorld.java  # 必须带后缀
-$ java HelloWorld        # 不能带后缀，否则报错：找不到或无法加载主类 HelloWorld.class
-
-$ javac -encoding UTF-8 XX.java  # 如果碰到编码问题报错，就使用参数解决
-```
-
-
-### 使用集成开发环境 IDEA
-
-新建项目：File -> New -> Project from Existing Sources...  
-运行调试：Run -> Run As -> Java Application
-
-
-## 基础语法
+# 基础语法
 
 一个 Java 程序可以认为是一系列对象的集合，这些对象通过调用彼此的方法来协同工作。相关概念有：类、对象、方法、实例变量。
 
