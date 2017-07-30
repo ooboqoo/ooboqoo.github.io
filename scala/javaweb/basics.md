@@ -1,5 +1,21 @@
 # 基础知识
 
+## 杂项知识点
+
+#### Maven 与 Gradle
+
+虽然两者都是项目工具，但是 Maven 现在已经是行业标准，Gradle是后起之秀，很多人对他的了解都是从 android studio 中得到的，Gradle 抛弃了 Maven 的基于 XML 的繁琐配置，取而代之的采用了领域特定语言 Groovy 的配置，大大简化了构建代码的行数。
+
+#### Jar 与 War
+
+Java Archive file 通常是开发时要引用通用(JAVA)类，打成包便于存放管理；
+
+Web Archive file 是做好一个(web)应用后，通常是网站，打成包部署到容器中。
+将 web 项目以 war 的方式导出后，直接放在 tomcat 容器的 webapps下启动服务，即可运行该项目。
+
+
+
+
 ## HTTP 服务器
 
 本人比较喜欢 nginx 跑静态和做负载反向代理，动态 php 还是交给 apache 处理比较稳定，jsp 就交给 tomcat、resin 或 jboss。nginx 跑静态的能力是无与伦比的，是目前 web 服务器里最强的。nginx 和 apache、tomcat、resin 的动静分离配置其实很简单，就几句配置，稳定性也非常好。
