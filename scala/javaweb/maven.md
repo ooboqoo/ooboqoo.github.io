@@ -2,7 +2,7 @@
 
 https://maven.apache.org/
 
-Maven = 包依赖管理工具 + 构建工具
+Maven = 包依赖管理工具 + 构建工具；通过约定(默认配置)来减小使用的复杂度。
 
 ### 安装及配置
 
@@ -15,7 +15,7 @@ $ mvn package
 $ mvn clean deploy site-deploy 
 ```
 
-USER_HOME/.m2 目录下的 `settings.xml` 可用于跨项目配置，而每个项目下的 `.mvn` 目录则用于存放特定与项目的配置文件。
+USER_HOME/.m2 目录下的 `settings.xml` 可用于跨项目配置，而每个项目下的 `.mvn` 目录则用于存放特定于项目的配置文件。
 
 ```xml
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
@@ -27,13 +27,6 @@ USER_HOME/.m2 目录下的 `settings.xml` 可用于跨项目配置，而每个�
   <usePluginRegistry/>
   <offline/>
   <pluginGroups/>
-  <servers>
-    <server>
-      <id>Tomcat8.5</id>
-      <username>tomcat</username>
-      <password>tomcat</password>
-    </server>
-  </servers>
   <mirrors>
     <mirror>
       <id>alimaven</id>
@@ -52,9 +45,9 @@ USER_HOME/.m2 目录下的 `settings.xml` 可用于跨项目配置，而每个�
 
 #### 插件和目标 Plugins and Goals
 
-一个 Maven 插件是一个单个或者多个目标的集合。
+一个 Maven 插件是单个或者多个目标的集合。
 
-Maven插件的例子有一些简单但核心的插件，像 **Jar 插件**，它包含了一组创建 JAR 文件的目标，**Compiler 插件**，它包含了一组编译源代码和测试代码的目标，或者 **Surefire 插件**，它包含一组运行单元测试和生成测试报告的目标。
+Maven 插件的例子有一些简单但核心的插件，像 **Jar 插件**，它包含了一组创建 JAR 文件的目标，**Compiler 插件**，它包含了一组编译源代码和测试代码的目标，或者 **Surefire 插件**，它包含一组运行单元测试和生成测试报告的目标。
 
 一个目标是一个明确的任务，它可以作为单独的目标运行，或者作为一个大的构建的一部分和其它目标一起运行。
 
@@ -62,7 +55,7 @@ Maven插件的例子有一些简单但核心的插件，像 **Jar 插件**，它
 
 目标的例子包括 Compiler 插件中的 compile 目标，它用来编译项目中的所有源文件，或者 Surefire 插件中的 test 目标，用来运行单元测试。
 
-目标通过配置属性进行配置，以用来定制行为。在之前的例子中，我们通过命令行参数 -DgroupId=org.sonatype.mavenbook.ch03 和 -DartifactId=simple 向 Archetype 插件的 create 目标传入了 groupId 和 artifactId 配置参数。
+目标通过配置属性进行配置，以用来定制行为。在之前的例子中，我们通过命令行参数 `-DgroupId=org.sonatype.mavenbook.ch03` 和 `-DartifactId=simple` 向 Archetype 插件的 create 目标传入了 groupId 和 artifactId 配置参数。
 
 
 #### 生命周期 Lifecycle
@@ -73,11 +66,53 @@ Maven插件的例子有一些简单但核心的插件，像 **Jar 插件**，它
 
 #### 坐标 Coordinates
 
+项目对象模型 POM 是一个项目的声明性描述。当 Maven 运行一个目标的时候，每个目标都会访问定义在项目 POM 里的信息。
+
+POM 为项目命名，提供了项目的一组唯一标识符(坐标)，他们可以用来唯一标识一个项目，一个依赖，或者一个插件。
+
+```text
+groupId:artifactId:packaging:version
+groupId:artifactId:version             # 默认 packaging 为 jar
+```
+
+```xml
+<groupId>org.apache.tomcat.maven</groupId>
+<artifactId>tomcat7-maven-plugin</artifactId>
+<packaging>jar</packaging>
+<version>2.2</version>
+```
+
+* groupId - 团体标识，约定采用创建这个项目的组织域名的倒序形式
+* artifactId - 项目标识
+* packaging - 项目的打包格式，4个里面仅这一项是可省略的，默认为 jar
+* version - 项目的某个版本，后缀带 SNAPSHOT 标记的意思是处于开发中
+
 #### 仓库 Repositories
+
+Maven 仓库的标准是按照下面的目录格式来存储构件，相对于仓库的根目录：http://repo1.maven.org/maven2/
+
+```text
+/<groupId>/<artifactId>/<version>/<artifactId>-<version>.<packaging>
+```
+
+Maven 从远程仓库下载构件和插件到你本机上，存储在你的本地 Maven 仓库里，以后就不用再下载了，因为 Maven 会首先在本地仓库查找插件。
 
 #### 依赖管理 Dependency Management
 
+Maven 支持了传递性依赖(transitive dependencies)，你只需要在 pom.xml
+ 中加上你直接依赖的那些库，Maven 会隐式地把这些库间接依赖的库也加入到你的项目中。
+
+如 JUnit 插件，Maven 不只是下载 JUnit 的 JAR 文件，它同时为这个 JUnit 依赖下载了一个 POM 文件。Maven 同时下载构件和 POM 文件的这种行为，对 Maven 支持传递性依赖来说非常重要。
+
+当你把项目的构件安装到本地仓库时，你会发现在和 JAR 文件同一目录下，Maven 发布了一个稍微修改过的 pom.xml 的版本。
+
 #### 站点生成和报告 Site Generation and Reporting
+
+```bash
+$ mvn site
+```
+
+会在 target/site 目录下生成一个项目 web 站点，载入其中的 index.html 就能看到项目站点的基本情况。
 
 
 ## Maven 实战
@@ -144,24 +179,106 @@ $ mvn help:effective-pom
 
 一旦你运行了此命令，你应该能看到一个大得多的 POM，它暴露了 Maven 的默认设置。
 
+## Jetty + Maven 开发标准 WebApp
 
+http://blog.csdn.net/tomato__/article/details/37927813
 
+### 使用 archetype 创建项目
 
+### 创建一个 Servlet
 
+创建文件 src/main/java/org/example/HelloServlet.java
 
+```java
+package org.example;
 
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+public class HelloServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html");
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().println("<h1>Hello Servlet</h1>");
+        response.getWriter().println("session=" + request.getSession(true).getId());
+    }
+}
+```
 
+在 src/main/webapp/WEB-INF/web.xml 中注册 Servlet
 
+```xml
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app
+   xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+   metadata-complete="false"
+   version="3.0">
 
+  <servlet>
+    <servlet-name>Hello</servlet-name>
+    <servlet-class>org.example.HelloServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Hello</servlet-name>
+    <url-pattern>/hello/*</url-pattern>
+  </servlet-mapping>
+</web-app>
+```
 
+### 配置 POM
 
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.example</groupId>
+  <artifactId>hello-world</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>Jetty HelloWorld WebApp</name>
 
+  <properties>
+      <jettyVersion>9.4.6.v20170531</jettyVersion>
+  </properties>
 
+  <dependencies>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-server</artifactId>
+      <version>${jettyVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+   
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>${jettyVersion}</version>
+      </plugin>
+    </plugins>
+  </build>
 
+</project>
+```
 
+### 构建和运行 Web 应用
 
+```bash
+$ mvn jetty:run
+```
 
+### 构建一个 WAR 文件
 
-
+```bash
+$ mvn package
+```
