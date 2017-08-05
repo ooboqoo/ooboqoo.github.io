@@ -28,30 +28,33 @@
 
 ### IntelliJ 专有快键键
 
- 功能          |  快捷键     | 备注
- ------------- | ----------- | -------------------------
-开关左侧文件树 |  Alt+1      | 
-开关导航条     |  Alt+Home   | 用这个打开文件会比较快捷
-切换到左侧Tab  |  Alt+Left   | 
-切换到右侧Tab  |  Alt+Right  | 
-
-#### IDEA
+https://www.jetbrains.com/help/idea/keyboard-shortcuts-you-cannot-miss.html
 
 |||
-|--------|--------------------------------------
+|-----------|----------------
+| Alt+Enter | 
+| Ctrl+J    | 
+
+|||
+|----------------|------------
+| 开关左侧文件树 |  Alt+1
+| 跳到导航条     |  Alt+Home
+| 切换到左侧Tab  |  Alt+Left
+| 切换到右侧Tab  |  Alt+Right
+
+|||
+|--------|---------------------------------------------
 | Ctrl+P | 查询方法的参数类型，快速查看重载列表
 | Ctrl+B | 跳转到声明处，感觉比 Ctrl+Q 快速文档好用
 | Ctrl+U | 跳转到父类
-| Alt+Insert  | 快速插入，常用
-| Shift+Shift | 
-| Shift+F10   | Run
-| Shift+F9    | Debug
+| Ctrl+Q | 快速查看文档
+| Ctrl+Shift+I  | 快速查看定义
+| Alt+Insert    | 快速插入，常用
+| Shift+Shift   | 
+| Shift+F10     | Run
+| Shift+F9      | Debug
 | Ctrl+N        | 快速查找类
 | Ctrl+Shift+N  | 快速查找文件
-
-
-
-
 
 ### VS Code 专有快捷键
 
