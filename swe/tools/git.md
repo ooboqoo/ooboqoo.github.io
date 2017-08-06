@@ -362,7 +362,7 @@ Commit message 内容可以随便写，但一般来说，应该清晰明地说�
 #### Commit message 的作用
 
 * 提供更多的历史信息，方便快速浏览
-* 可以直接从 commit生成 Change log (见下文)
+* 可以直接从 commit 生成 changelog (见下文)
 
 ```bash
 $ git log <last tag> HEAD --pretty=format:%s  # 利用 pretty 配置单行显示
@@ -453,9 +453,15 @@ $ git cz      # 以后，凡是用到 git commit 命令的地方一律改为使�
 
 使用中发现输入多行 description 时，不知道怎么换行，Ctrl/Shift + Enter 试了都不行，最后发现应该用 `\n\n` 这样是能解决换行问题，但对其处理不直观，所以多行输入还是 `git commit` 调出文本编辑器来编辑比较靠谱。
 
-#### 生成 Change log
+#### 生成 changelog
 
-如果所有 Commit 都符合 Angular 格式，那么发布新版本时， Change log 就可以用脚本自动生成，为了方便使用，可以将命令写入 package.json 的 scripts 字段。
+如果所有 Commit 都符合 Angular 格式，那么发布新版本时，changelog 就可以用脚本自动生成，为了方便使用，可以将命令写入 package.json 的 scripts 字段。
+
+特别注意，CLI 需要 tag 来区分不同阶段，而且 tag 的格式一定要对，要是把 v0.1.0 写成 v0.1 就不认。所以完整步骤是：
+  * conventional-changelog 生成 CHANGELOG.md
+  * 更新 package.json 中版本号
+  * commit 更改内容
+  * 给 commit 打上版本号，如 `git tag -a v0.1.0 -m "Initial testing release."`
 
 ```bash
 $ npm install -g conventional-changelog-cli

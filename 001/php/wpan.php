@@ -12,6 +12,7 @@ $passport = $_COOKIE["passport"];
 $cookie = file_get_contents("$DOCUMENT_ROOT/../cookie.txt");
 
 if ($passport !== $cookie) {
+  header("Content-type:text/html;charset=utf-8");
   echo "您没有获得访问授权，请先联系管理员开通权限。";
   exit;
 }

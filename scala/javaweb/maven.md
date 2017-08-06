@@ -115,6 +115,52 @@ $ mvn site
 会在 target/site 目录下生成一个项目 web 站点，载入其中的 index.html 就能看到项目站点的基本情况。
 
 
+## 构建工具发展史
+
+我们要写一个 Java 程序，一般的步骤也就是编译，测试，打包。这个构建的过程，如果文件比较少，我们可以手动使用 java, javac, jar 命令去做这些事情。但当工程越来越大，文件越来越多，这个事情就不是那么地令人开心了。我们需要把机械的东西交给机器去做。
+
+在 Linux 上，有一个工具叫 make。我们可以通过编写 Makefile 来执行工程的构建。Windows 上相应的工具是 nmake。这个工具写起来比较罗嗦，所以从早期，Java 的构建就没有选择它，而是新建了一个叫做 ant 的工具。ant 的思想和 makefile 比较像。定义一个任务，规定它的依赖，然后就可以通过 ant 来执行这个任务了。下面列出一个 ant 工具所使用的 build.xml:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="HelloWorld" default="run" basedir=".">
+  <property name="src" value="src"/>
+  <property name="dest" value="classes"/>
+  <property name="jarfile" value="hello.jar"/>
+  <target name="init">
+     <mkdir dir="${dest}"/>
+  </target>
+  <target name="compile" depends="init">
+     <javac srcdir="${src}" destdir="${dest}"/>
+  </target>
+  <target name="build" depends="compile">
+     <jar jarfile="${jarfile}" basedir="${dest}"/>
+  </target>
+  <target name="test" depends="build">
+     <java classname="test.ant.HelloWorld" classpath="${hello_jar}"/>
+  </target>
+  <target name="clean">
+     <delete dir="${dest}" />
+     <delete file="${hello_jar}" />
+  </target>
+</project>
+```
+
+可以看到 ant 的构建脚本还是比较清楚的。ant 定义了五个任务，init, compile, build, test, clean。每个任务做什么都定义清楚了。打包之前要先编译，所以通过 depends 来指定依赖的路径。如果在命令行里执行 ant build，那就会先执行 compile，而 compile 又依赖于 init，所以就会先执行 init。看起来很合理，对吧？有了这个东西以后，我们只要一条命令就可以执行编程，打包，测试了。为开发者带来了很大的便利。
+
+```bash
+$ ant test
+```
+
+但是 ant 有一个很致命的缺陷，那就是没办法管理依赖。我们一个工程，要使用很多第三方工具，不同的工具，不同的版本。每次打包都要自己手动去把正确的版本拷到 lib 下面去，不用说，这个工作既枯燥还特别容易出错。为了解决这个问题，maven 闪亮登场。
+
+（Maven 介绍略）
+
+Maven 已经很好了，可以满足绝大多数工程的构建。那为什么我们还需要新的构建工具呢？第一，Maven是使用 xml 进行配置的，语法不简洁。第二，最关键的，Maven 在约定优于配置这条路上走太远了。就是说，Maven 不鼓励你自己定义任务，它要求用户在 maven 的生命周期中使用插件的方式去工作。使用 Maven 想灵活地定义自己的任务是不行的。基于这个原因，Gradle 做了很多改进。
+
+Gradle 并不是另起炉灶，它充分地使用了 Maven 的现有资源。继承了 Maven 中仓库，坐标，依赖这些核心概念。文件的布局也和 Maven 相同。但同时，它又继承了 ant 中 target 的概念，我们又可以重新定义自己的任务(gradle 中叫做 task)了。
+
+
 ## Maven 实战
 
 ### 创建一个简单的项目

@@ -1,5 +1,7 @@
 # Gradle Build Tool
 
+https://dongchuan.gitbooks.io/gradle-user-guide-/introduction.html
+
 ### gradle 安装
 
 https://gradle.org/install#manually

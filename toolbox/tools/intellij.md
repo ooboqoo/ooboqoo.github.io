@@ -29,6 +29,8 @@ config\colors  字体颜色等设置文件目录
 
 ## IDEA
 
+https://www.gitbook.com/book/youmeek/intellij-idea-tutorial/details
+
 IDEA 的几大特性：
   * Intelligent coding assistance（智能编码辅助）
   * Smart code navigation（智能代码导航）
@@ -39,9 +41,33 @@ IDEA 的几大特性：
   * More than just code editor（不仅仅只是代码编辑器）
   * Smart in every way（高智能）
 
-### 功能和使用技巧
+##### 缓存与索引
 
-#### Live Templates
+IDEA 首次加载项目时，都会创建索引，主要是用来加快文件查询，从而加快各种查找、代码提示等操作的速度。但有时也会因为索引损坏而出现莫名其妙的问题，这时需要清除索引：方法1，直接删除用户目录下 IDEA 配置目录下的 system 文件夹；方法2 File -> Invalidate Caches / Restart...
+
+#### 编译方式
+
+IDEA 也支持像 Eclipse 一样自动编译，但不推荐，太占资源。IDEA 默认配置在容器运行之前进行自动编译。Run -> Edit Configurations...
+
+#### Project 和 Module
+
+IDEA 中 Project 是根级结构，其下可以包含多个 Module。
+
+A project is an organizational unit that represents a complete software solution. It serves as a basis for coding assistance, bulk refactoring, coding style consistency, etc.
+
+Modules contain everything that is required for their specific tasks: source code, build scripts, unit tests, deployment descriptors, and documentation. However, modules exist and are functional only in the context of a project.
+
+#### 项目配置文件
+
+`.dea` 为 Project 的配置文件目录。`.iml` 为 Module 的配置文件。
+
+IDEA 是一个没有 `Ctrl+S` 的 IDE，所以每次修改完代码你只要管着运行或者调试即可。
+
+#### 版本控制
+
+直接点击右上角相关按钮，具体使用细节后面再看。
+
+#### 实时代码模板 Live Templates
 
 通过 `Ctrl+J` 调出，也可以先输入相应简写再 `Tab` 展开。以下是比较常用的模板：
 
@@ -56,8 +82,15 @@ IDEA 的几大特性：
 | ifn   | `if ($var == null) {}`
 | inn   | `if ($var != null) {}`
 
+#### 文件代码模板
 
-#### Postfix Completion
+Settings > Editor > File and Code Templates
+
+#### 前端代码模板 Emmet
+
+#### 特殊代码模板 Postfix Completion
+
+Postfix Completion 功能本质上也是代码模板，只是它比 Live Templates 来得更加便捷一点点而已。
 
 具体在 Settings -> Editor -> General -> Postfix Completion
 
@@ -72,11 +105,9 @@ External Documentation - 浏览器查看完整的外部文档
   * 设置：项目名 -> 右键选 Open Module Settings -> SDKs -> Documentation Paths -> 选择离线zip包或填写在线文档地址
   * 使用：`Shift+F1`
 
-### 其他注意点
+#### 插件相关
 
-##### 缓存与索引
-
-IDEA 首次加载项目时，都会创建索引，主要是用来加快文件查询，从而加快各种查找、代码提示等操作的速度。但有时也会因为索引损坏而出现莫名其妙的问题，这时需要清除索引：方法1，直接删除用户目录下 IDEA 配置目录下的 system 文件夹；方法2 File -> Invalidate Caches / Restart...
+IntelliJ IDEA 本身很多功能也都是通过插件的方式来实现的，只是 IntelliJ IDEA 本身就是它自己的插件平台最大的开发者而已，开发了很多优秀的插件。
 
 
 ## WebStorm

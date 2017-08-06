@@ -17,14 +17,19 @@
 折叠代码块   | Ctrl+Shift+{  |     same      |     same     | same 前选到代码块开始处
 展开代码块   | Ctrl+Shift+}  |     same      |     same     | same 前选到代码块结尾处
 行注释切换   |     Ctrl+/    |     same      |     same     |     same
-跳到匹配括号 |               |               | Ctrl+Shift+\ | 
-跳到上次光标 |               |               |   Alt+Left   | Ctrl+Shift+BackSpace
+格式化代码   |               |               | Shift+Alt+F  | Ctrl+Alt+L
 命令面板     | Ctrl+Shift+P  |     same      |     same     | Ctrl+Shift+A
 快速搜索     |     Ctrl+P    |     same      |     same     | Navigate Menu
 切换终端     |     Ctrl+`    |     same      |     same     |   Alt+F12
 重命名       |       F2      |               |     same     | Shift+F6
 
-注：更多的跳转等操作请查询 "转到" 或 "Navigate" 目录
+快速跳转、选择类快键键可减少鼠标操作，更多操作请查询 "转到" 或 "Navigate" 目录
+
+ 功能        |  现用快捷键   |    Sublime3   |    VS Code   |   IntelliJ
+------------ | ------------- | ------------- | ------------ | ---------------
+跳到匹配括号 |               |               | Ctrl+Shift+\ | 
+跳到上次光标 |               |               |   Alt+Left   | Ctrl+Shift+BackSpace
+
 
 ### IntelliJ 专有快键键
 
@@ -45,8 +50,9 @@ https://www.jetbrains.com/help/idea/keyboard-shortcuts-you-cannot-miss.html
 |||
 |--------|---------------------------------------------
 | Ctrl+P | 查询方法的参数类型，快速查看重载列表
-| Ctrl+B | 跳转到声明处，感觉比 Ctrl+Q 快速文档好用
+| Ctrl+B | 跳转到声明处，等效于 Ctrl + 左键单击
 | Ctrl+U | 跳转到父类
+| Ctrl+W | 递进式选择代码块
 | Ctrl+Q | 快速查看文档
 | Ctrl+Shift+I  | 快速查看定义
 | Alt+Insert    | 快速插入，常用
