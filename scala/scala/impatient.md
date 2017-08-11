@@ -152,7 +152,7 @@ import scala.io
 val name = StdIn.readLine("Your name:")
 print("Your age:")
 val age = StdIn.readInt()
-println(s"Hello, ${name}! Next year, you will be ${age + 1}.")
+println(s"Hello, $name! Next year, you will be ${age + 1}.")
 ```
 
 #### 2.5 循环
@@ -243,6 +243,103 @@ try {
 
 
 ## 3. 数组相关操作
+
+本章要点：
+  * 若长度固定则使用 Array，若长度可能变化则使用 ArrayBuffer
+  * 提供初始值时不要使用 `new`
+  * 用 `()` 来访问元素
+  * 用 `for (elem <- arr)` 来遍历元素
+  * 用 `for (elem <- arr if ...) yield ...` 来将原数组转型为新数组
+
+#### 3.1 定长数组
+
+```scala
+val nums = new Array[Int](10)
+val s = Array("Hello", "World")  // 当已提供初始值时，就不需要 new 了
+```
+
+在 JVM 中，Scala 的 Array 以 Java 数组方式实现。
+
+#### 3.2 变长数组
+
+```scala
+import scala.collection.mutable.ArrayBuffer
+val a = ArrayBuffer[Int]()    //
+val b = new ArrayBuffer[Int]  // 两种写法都行
+b += 1                  // 添加单个元素
+b += (1, 2, 3)          // 添加多个元素
+b ++= Array(8, 13, 21)  // 追加任何集合
+b.trimEnd(5)            // 移除最后5个元素
+b.insert(2, 6, 8)       // 在下标2之前插入2个元素
+b.remove(2, 3)          // 从下标2开始移除3个元素
+b.toArray               // 转换成数组
+```
+
+在数组缓冲的尾端添加或移除元素是一个高效的操作，当然也可以在任意位置插入或移除元素，但这样的操作并不那么高效--所有在那个位置之后的元素都必须被平移。
+
+#### 3.3 遍历数组和数组缓冲
+
+```scala
+for (i <- 0 until a.length) println(s"$i: ${a(i)}")  // unitl 方法跟 to 很像，只不过它排除了最后一个元素
+    0 unitl a.length by 2    // 每2个元素一跳
+    0 until a.length by -1   // 从数组尾端开始
+
+for (elem <- a) println(elem)
+```
+
+#### 3.4 数组转换
+
+数组转换不会修改原始数组，而是返回新的数组。
+
+```scala
+val a = Array(2, 3, 7)
+val result = for (elem <- a) yield 2 * elem      // result: Array[Int] = Array(4, 6, 14)
+for (elem <- a if elem % 2 == 1) yield 2 * elem  // res5: Array[Int] = Array(6, 14)
+```
+
+假定我们想从一个整数的数组缓冲移除所有的负元素，传统的顺序(递增)执行方案性能底下，采用逆向(递减)方案会高效很多，而采用 for/yield 生成一个新的数组是更好的选择。如果非要修改原数组，则通过记住索引，再一次性对数组元素进行移动操作会好些。
+
+#### 3.5 常见算法
+
+```scala
+Array(1, 7, 2, 9).sum
+ArrayBuffer("Mary", "had", "a", "little").max  // res10: String = little
+
+val b = ArrayBuffer(1, 2, 7, 9)
+val bSorted = b.sorted  //  ArrayBuffer(1, 2, 7, 9)
+val bDescending = b.sortWith(_ > _)  // 提供比较函数进行降序排序 ArrayBuffer(9, 7, 2, 1)
+
+val a = Array(1, 7, 2, 9)
+scala.util.Sorting.quickSort(a)  // 只能对数组排序(修改数组本身)，不能对数组缓冲排序
+a.mkString("<", ", ", ">")  // res7: String = <1, 2, 7, 9>
+a.toString                  // res8: String = [I@ead7db3          ]
+```
+
+#### 3.7 多维数组
+
+多维数组是通过数组的数组来实现的，多维数组中的数组可以是不规则的(长度可以不同)。
+
+```scala
+val matrix = Array.ofDim[Double](3, 4)  // 三行四列
+matrix(row)(column)  // 访问其中元素 row column 用下标替换
+
+```
+
+#### 3.8 与 Java 互操作
+
+
+## 映射和元组
+
+
+
+
+
+
+
+
+
+
+
 
 
 

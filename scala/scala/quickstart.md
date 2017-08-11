@@ -1,5 +1,7 @@
 # Scala 快速起步
 
+## SBT
+
 ### 安装 sbt
 
 #### 下载并安装 sbt
@@ -30,4 +32,10 @@ aliyun-ivy: http://maven.aliyun.com/nexus/content/groups/public/, [organization]
 IDEA 可以使用内置 SBT，但这样调整配置不方便，所以配置用刚才装好的
 Settings > Build, Execution, Deployment > Build Tools > SBT > Launcher > Custom
 
+### sbt 常用命令
+
+```bash
+$ sbt console  # 调出 Scala REPL
+$ sbt update   # 更新项目依赖
+```
 
