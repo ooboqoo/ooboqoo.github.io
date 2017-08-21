@@ -240,7 +240,7 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <div class="dl">
 <h5 class="es3">number.toExponential(fractionDigits?) <span>-- 把对象的值转换为指数计数法，小数点保留(0-20 含)位</span></h5>
 <h5 class="es3">number.toFixed(digits?) <span>-- 把数字转换为字符串，结果的小数点后有指定位数的数字</span></h5>
-<h5 class="es3">number.toPrecision() <span>-- 把数字格式化为指定的长度</span></h5>
+<h5 class="es3">number.toPrecision(length?) <span>-- 把数字格式化为指定的长度</span></h5>
 <h5 class="es3">number.toString(radix?) <span>-- 把数字转换为字符串，使用指定的基数(2-36 含)</span></h5>
 <h5 class="es3">number.toLocaleString() <span>-- 把数字转换为字符串，使用本地数字格式顺序</span></h5>
 <h5 class="es3">number.valueOf() <span>-- 返回一个 Number 对象的基本数字值</span></h5>

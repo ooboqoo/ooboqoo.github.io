@@ -330,27 +330,102 @@ matrix(row)(column)  // 访问其中元素 row column 用下标替换
 
 ## 映射和元组
 
+本章要点包括：
+  * Scala 有十分易用的语法来创建、查询和遍历映射
+  * 你需要从可变的和不可变的映射中做出选择
+  * 默认情况下，你得到的是一个哈希映射，不过你也可以指明要树形映射
+  * 元组可以用来聚集值
 
+#### 4.1 构造映射
 
+```scala
+// 不可变映射
+val scores = Map("Alice" -> 10, "Bob" -> 3, "Cindy" -> 8)  // 常见形式
+val scores = Map(("Alice", 10), ("Bob", 3), ("Cindy", 8))  // 等效形式
 
+// 可变映射
+val scores = scala.collection.mutable.Map("Alice" -> 10, "Bob" -> 3, "Cindy" -> 8)
+val scores = scala.collection.mutable.Map[String, Int]()  // 创建空的可变映射时，需要选定一个映射实现并给出类型参数
+```
 
+在 Scala 中，映射是对偶的集合。对偶简单的说就是两个值构成的组。`->` 操作符用来创建对偶，如 `"Alice" -> 10` 创建的值是 `("Alice", 10)`。
 
+#### 4.2 获取映射中的值
 
+在 Scala 中，函数和映射之间的相似性尤为明显，映射使用 `()` 表示法来查找某个键对应的值。
 
+```scala
+val bobsScore = scores("Bob")  // 类似于 Java 中的 scores.get("Bob")
+```
 
+如果映射并不包含请求中使用的键，则会抛出异常。要检查映射中是否有某个指定的键，可以用 `contains` 方法：
 
+```scala
+val bobsScore = if (scores.contains("Bob")) scores("Bob") else 0
+val bobsScore = scores.getOrElse("Bob", 0)  // 快捷写法
+```
 
+另外，再介绍几个重要的映射方法：
 
+```scala
+scores.get("Bob")  // 返回一个 option 对象(键对应的值，或者 None)
+scores.withDefaultValue(0)    // 当键不存在时，会给出一个默认值
+scores.withDefault(_.length)  // 对不存在的键应用 length 函数得到的结果
+```
 
+#### 4.3 更新映射中的值
 
+只能更新可变映射的值。对于不可变映射，你可以不停地创建新映射来实现，老的和新的映射会共享大部分结构，所以效率一样很高。
 
+```scala
+scores("Bob") = 10                       // 更新值
+scores += ("Bob" -> 10, "Fred" -> 7)     // 添加对个关系
+scores -= "Bob"                          // 移除键值对
 
+val scores = Map("Gavin" -> 16)                         // 新建不可变映射
+val newScores = scores + ("Gavin" -> 32, "Ivan" -> 28)  // 更新 Gavin 添加 Ivan
+    newScores -= "Gavin"                                // 删除 Gavin
+```
 
+#### 4.4 迭代映射
 
+```scala
+for ((k, v) <- 映射) 处理 k 和 v           // 常规迭代格式
+for (k <- scores.keySet) printf(s"${k} ")  // keySet 方法
+for (k <- scores.values) printf(v + " ")   // values 方法
+for ((k, v) <- 映射) yield (v, k)          // 交换键和值的位置
+```
 
+#### 4.5 已排序映射
 
+映射有两种常见的实现策略：哈希表和平衡树。默认 Scala 给你的是基于哈希表的映射，因为它通常更高效。基于哈希表的映射，遍历会以一种不可预期的顺序交出元素，如果需要按照顺序依次访问映射中的键，可以使用 SortedMap，如果要按插入顺序访问所有键，则使用 LinkedHashMap。
 
+#### 4.6 与 Java 互操作
 
+```scala
+import scala.collection.JavaConversions.mapAsScalaMap
+val scores: scala.collection.mutable.Map[String, Int] = new java.util.TreeMap[String, Int]
+```
 
+#### 4.7 元组
 
+元组是不同类型的值的聚集。
 
+```scala
+val t = (1, 3.14, "Fred")  // 新建元组，值可以包含不同类型
+val second = t._2          // 访问元组的第二个值， `t _2` 这种写法效果相同
+val (first, _, third) = t  // 通常，使用模式匹配来获取元组的组成部件，不需要的位置使用 `_` 占位
+"New York".partition(_.isUpper)  // 输出 ("NY", "ew ork")
+```
+
+#### 4.8 拉链操作
+
+使用元组的原因之一是把多个值绑在一起，以便他们能够被一起处理，这通常可以用 `zip` 方法来完成。
+
+```scala
+val symbols = Array("<", "-", ">")
+val counts = Array(2, 10, 2)
+val pairs = symbols.zip(counts)
+
+keys.zip(values).toMap  // 用 toMap 方法可以将对偶的集合转换成映射
+```
