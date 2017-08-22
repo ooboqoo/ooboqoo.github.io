@@ -1,5 +1,10 @@
 # 杂碎知识点
 
+#### 缓存机制选择和实现
+
+http://code.huawei.com/cloud-service-dev-team-devops/console-framework/wikis/randomcode
+文件名加 hash，请求链接加参数字段
+
 #### sessionStorage
 
 每个 tab 页的 sessionStorage 都是独立的，无法通过 sessionStorage 实现标签页之间的通信。可以利用 `localStorage` 以及监听 `window` 上 `storage` 事件来解决。
