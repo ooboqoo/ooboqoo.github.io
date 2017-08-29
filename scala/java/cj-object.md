@@ -2,6 +2,8 @@
 
 ## 继承
 
+在 Java 中，一个类可以由其他类派生。如果你要创建一个类，而且已经存在一个类具有你所需要的属性或方法，那么你可以将新创建的类继承该类。利用继承的方法，可以重用已存在类的方法和属性，而不用重写这些代码。被继承的类称为超类 super class，派生类称为子类 subclass。
+
 ### 继承的特性
 
 * 子类拥有父类非 private 的属性，方法。
@@ -260,4 +262,158 @@ public interface Football extends Sports {
 如果在一个包中，一个类想要使用本包中的另一个类，那么该包名可以省略。
 
 ### package 的目录结构
+
+
+
+
+## 对象和类
+
+Java 作为一种面向对象语言。支持以下基本概念：多态、继承、封装、抽象、类、对象、实例、方法、重载，本节重点讲对象和类。
+
+### 类定义
+
+类是 Java 中的基本组成元素，所有的 Java 程序一定要被类管理。
+
+类的定义有两种形式：
+  * `public class` 定义：类名称必须和文件名称保持一致，否则程序无法编译。一个 .java 文件只能有一个 public calss
+  * `class` 定义：类名称可以和文件名不一致，但是生成的 class 文件的名称同类名。一个 .java 文件可以存在多个 calss 定义，编译后会生成多个 class 文件。
+
+实际开发中，一般都是一个 java 文件基本上只包含一个 public class，不会有其他 class 单独定义。
+
+```java
+public class Dog {
+  String breed;
+  int age;
+  String color;
+  void barking() { }
+  void hungry() { }
+  void sleeping() { }
+}
+```
+
+### 构造方法
+
+每个类都有构造方法。如果没有显式地为类定义构造方法，Java 编译器将会为该类提供一个默认构造方法。
+
+在创建一个对象的时候，至少要调用一个构造方法。构造方法的名称必须与类同名，一个类可以有多个构造方法。
+
+```java
+public class Puppy {
+    public Puppy() { }
+    public Puppy(String name) { /* 这个构造器仅有一个参数：name */ }
+}
+```
+
+### 创建对象
+
+使用关键字 `new` 来创建一个新的对象。创建对象需要以下三步：
+  * 声明：声明一个对象，包括对象名称和对象类型。
+  * 实例化：使用关键字 new 来创建一个对象。
+  * 初始化：使用 new 创建对象时，会调用构造方法初始化对象。
+
+```java
+public class Puppy {
+   int puppyAge;
+   public Puppy(String name) {
+      System.out.println("小狗的名字是 : " + name); 
+   }
+ 
+   public void setAge(int age) {
+       puppyAge = age;
+   }
+ 
+   public int getAge( ) {
+       System.out.println("小狗的年龄为 : " + puppyAge); 
+       return puppyAge;
+   }
+ 
+   public static void main(String []args) {
+      /* 创建对象 */
+      Puppy myPuppy = new Puppy("tommy");
+      /* 通过方法来设定age */
+      myPuppy.setAge(2);
+      /* 调用另一个方法获取age */
+      myPuppy.getAge();
+      /*你也可以像下面这样访问成员变量 */
+      System.out.println("变量值 : " + myPuppy.puppyAge); 
+   }
+}
+```
+
+### 源文件声明规则
+
+当在一个源文件中定义多个类，并且还有 `import` 语句和 `package` 语句时，要特别注意这些规则。
+  * 一个源文件中只能有一个 public 类
+  * 一个源文件可以有多个非 public 类
+  * 源文件的名称应该和 public 类的类名保持一致。
+  * 如果一个类定义在某个包中，那么 `package` 语句应该在源文件的首行。
+  * 如果源文件包含 `import` 语句，那么应该放在 `package` 语句（如果存在 package 语句）和类定义之间。
+  * `import` 语句和 `package` 语句对源文件中定义的所有类都有效。在同一源文件中，不能给不同的类不同的包声明。
+
+### 包
+
+包主要用来对类和接口进行分类。当开发 Java 程序时，可能编写成百上千的类，因此很有必要对类和接口进行分类。
+
+包，其实就是文件夹，用于解决相同类名问题。包名要求全部小写，一般都是公司的名倒着写。
+
+### `import` 语句
+
+在 Java 中，如果给出一个完整的限定名，包括包名、类名，那么 Java 编译器就可以很容易地定位到源代码或者类。Import 语句就是用来提供一个合理的路径，使得编译器可以找到某个类。
+
+```java
+import java.io.*;  // 载入 java_installation/java/io 路径下的所有类
+```
+
+
+## 数组
+
+```text
+// 声明数组
+dataType[] arrayRefVar;
+
+// 创建数组
+arrayRefVar = new dataType[arraySize];
+
+// 声明 + 创建(字面量法)
+dataType[] arrayRefVar = {value0, value1, ..., valuek};
+```
+
+```java
+double[] myList = new double[2];
+myList[0] = 5.6;
+myList[1] = 4.5;
+// 计算所有元素的总和
+double total = 0;
+for (int i = 0; i < size; i++) {
+   total += myList[i];
+}
+System.out.println("总和为： " + total);
+```
+
+### 遍历
+
+```java
+double[] myList = {1.9, 2.9, 3.4, 3.5};
+// 打印所有数组元素
+for (double element : myList) {
+   System.out.println(element);
+}
+```
+
+### 多维数组
+
+多维数组可以看成是数组的数组，比如二维数组就是一个特殊的一维数组，其每一个元素都是一个一维数组。
+
+```java
+String str[][] = new String[3][4];
+str[0][0] = "00";
+```
+
+### Arrays 类
+
+java.util.Arrays 类能方便地操作数组，它提供的所有方法都是静态的。具有以下功能：
+  * 给数组赋值：通过 `fill` 方法。
+  * 对数组排序：通过 `sort` 方法,按升序。
+  * 比较数组：通过 `equals` 方法比较数组中元素值是否相等。
+  * 查找数组元素：通过 `binarySearch` 方法能对排序好的数组进行二分查找法操作。
 
