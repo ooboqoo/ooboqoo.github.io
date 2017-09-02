@@ -117,7 +117,7 @@ $ jar xvf jdk/src.zip          # 也可以采用其他解压工具
 
 ```java
 public class HelloWorld {
-    public static void main(String[] args) {
+    public static void main(String[] args) {  // 也可以写成 String args[]，但不常见
         System.out.println("Hello World");
     }
 }
