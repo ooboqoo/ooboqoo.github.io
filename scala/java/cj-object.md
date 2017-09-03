@@ -53,7 +53,7 @@ class 类名称 {
 
 每个对象在刚刚实例化后，里面所有属性的内容都是其对应数据类型的默认值，只是设置了属性内容之后，属性才可以保存内容。
 
-对象使用前都必须实例化，如果只是声明了对象但并没有实例化，就会出现 NullPointerException 空指向异常。
+对象使用前都必须实例化，如果只是声明了对象但并没有实例化，就会出现空指向异常 NullPointerException。
 
 > **堆内存与栈内存**  
 > * 堆内存 heap - 保存每一个对象的属性内容，堆内存用关键字 new 开辟  
@@ -156,11 +156,11 @@ System.out.println(data[4]);  // java.lang.ArrayIndexOutOfBoundsException
 
 ```java
 数据类型[][] 数组名称 = new 数据类型[行数][列数];
-数据类型[][] 数组名称 = new 数据类型[][] {{值, ...}, {值,值,值}, {}};
+数据类型[][] 数组名称 = new 数据类型[][] { {值, ...}, {值,值,值}, {} };
 ```
 
 ```java
-int[][] data = new int[][] {{1,2,3}, {9,8,7,6}};
+int[][] data = new int[][] { {1,2,3}, {9,8,7,6} };
 System.out.println(data[1][3]);
 ```
 
@@ -274,6 +274,223 @@ String 对象的 `equals()` 方法专门负责进行字符串内容的比较，�
 
 ## `this` 关键字
 
+在 Java 中 `this` 可以完成3件事情：调用本类属性、调用本类方法、表示当前对象。
 
-## 引用传递
+### 调用本类属性
+
+在一个类的定义的方法中可以直接访问类中的属性，但是很多时候有可能会出现方法参数名称与属性名称重复的情况，所以此时就需要利用 `this.属性` 的形式明确指出要调用的是类中的属性而不是方法的参数。为了减少不必要的麻烦，在类中访问属性是不管是否有重名的变量，统一加上 `this`。
+
+### 调用本类方法
+
+`this` 除了访问类中的属性，也可以进行类中方法的调用。除了调用普通方法，还可以利用 `this()` 的形式实现一个类中多个构造方法的互相调用。
+
+通过 `this()` 语法，可以很好地解决构造方法中代码重复的问题，但使用中须注意两点限制：
+
+* 使用 `this();` 时，必须是构造方法的首行。
+* 构造方法互相调用时，一定要保留调用的出口，即，不允许出现循环调用的情况。
+
+## 对象比较
+
+对象比较的操作有如下4个特点：
+* 本类接收自己的引用，再与本类当前对象(this)进行比较
+* 为了避免产生 NullPointerException，应该增加一个 null 的判断
+* 为了防止浪费性能的情况出现(要判断的属性会多)，可以增加地址数值的判断
+* 进行属性的依次比较，如果属性全部相同，这返回 true 否则 false
+
+```java
+class Book {
+  private String title;
+  private double price;
+  public Book(String title, double price) {
+    this.title = title;
+    this.price = price;
+  }
+  public boolean compare(Book book) {
+    if (book == null) { return false; }
+    if (book == this) { return true; }
+    if (this.title.equals(book.title) && this.price == book.price) { return true; }
+    else { return false; }
+  }
+}
+```
+
+
+## `static` 关键字
+
+### 定义属性
+
+一个类的主要组成就是属性和方法，而每一个对象都分别拥有各自的属性内容，如果类中的某个属性希望定义为公共属性，则可以在声明属性前加上 `static` 关键字。
+
+> **常用内存区域**  
+> 在 Java 中主要存在4块内存空间，这些内存空间的名称及作用如下
+>   * 栈内存空间，保存所有的对象名称(更准确的说是保存引用的堆内存空间的地址)
+>   * 堆内存空间，保存每个对象的具体属性内容
+>   * 全局数据区，保存 static 类型的属性
+>   * 全局代码区，保存所有的方法定义
+
+通过 `static` 属性定义的属性将成为公共属性，也就是说，任何一个对象修改了此属性的内容都将影响其他对象。
+
+非 `static` 属性必须产生示例化对象才可以访问，但 `static` 属性不受实例化对象的控制，可以通过类名直接调用。
+
+### 定义方法
+
+使用 `static` 定义的方法也可以在没有实例化对象产生的情况下通过类名进行调用。
+
+`static` 方法不能直接访问非 `static` 属性或方法，只能调用 `static` 属性或方法。
+
+### 主方法
+
+Java 中主方法的组成单元介绍：
+  * `public` 主方法是程序的开始，所以这个方法对任何操作都一定是可见的，所以必须使用 public
+  * `static` 证明此方法由类名称调用
+  * `void` 主方法是一切执行的开始点，一直存在直到执行完毕
+  * `main` 系统规定的方法名称，不能修改
+  * `String args[]` 指的程序运行时传递的参数，格式为 `java 类名 参数1 参数2 参数3`
+
+## 代码块
+
+在程序编写中可以直接使用 `{}` 定义一段语句，根据此部分定义的位置以及声明的关键字的不同，代码块一共可以分为4种：普通代码块、构造块、静态块、同步代码块(等待多线程时)。
+
+代码块本身有许多破坏程序结构的操作，所以在编写实际代码的过程中，并不建议使用代码块。
+
+```java
+public class Test {
+    public static void main(String[] args) {
+        {                                      // 普通代码块
+            int num = 10;  // 局部变量
+        }
+        int num = 100;     // 全局变量
+        new Book();
+        new Book();
+    }
+    static {
+        System.out.println("静态块会先于主方法执行");  // [分析1]
+    }
+}
+
+class Book {
+    public Book() {
+        System.out.println("构造方法");
+    }
+    {                                          // 构造块
+        System.out.println("类中的构造块，每次实例化对象时都会执行，且先于构造方法执行");
+    }
+    static {                                   // 静态块
+        System.out.println("类中的静态块会先于构造块执行，且只执行一次");
+    }
+}
+```
+
+分析1：因为静态块会先于主方法执行，所以在 JDK1.7 之前，可以使用静态块来代替主方法，但 JDK1.7 开始要求必须定义主方法。
+
+
+## 内部类
+
+### 基本概念
+
+所谓内部类指的就是在一个类的内部继续定义其他内部结构类的情况。
+
+内部类就是将类的定义放到另外一个类定义的内部，也就是说，类中除了属性和方法外，也可以定义属于自己内部的结构体。这样做的最大缺点在于：破坏了类的结构性。但这样做最大好处是可以轻松地访问外部类中的私有属性。
+
+#### 在外部直接产生内部类实例
+
+内部类编译生成的 class 文件名的形式为 `Outer$Inner.class`，内部类实例化语法如下：
+
+```java
+外部类.内部类 对象 = new 外部类().new 内部类();
+```
+
+由于内部类需要使用外部类中的属性，而所有属性只有在对象实例化之后才会分配空间，所以在实例化内部类对象时首先要实例化外部类对象。
+
+```java
+class Outer {
+  private String msg = "Hello World!";
+  class Inner {
+    public void print() {
+      System.out.println(Outer.this.msg);  // 可以直接通过 msg 访问外部类私有属性，但这样写更规范
+    }
+  }
+}
+
+public TestDemo {
+  public static void main(String[] args) {
+    Outer.Inner in = new Outer().new Inner();
+    in.print();
+  }
+}
+```
+
+### 使用 `static` 定义内部类
+
+如果一个内部类使用 `static` 定义，那么它只能访问外部类中的 `static` 操作，相当于定义了一个外部类。
+
+### 在方法中定义内部类
+
+内部类理论上可以在类的任意位置上进行定义，包括在代码块中，或在普通方法中。而在开发过程中，在普通方法里面定义内部类的情况是最多的。
+
+在 JDK1.7 以及之前的版本中，方法中定义的内部类如果想要访问方法的参数或方法定义的变量，在参数或变量前一定要加上 `final` 标记，但从 JDK1.8 开始取消了这一限制，主要是为 Lambda 编写方便。
+
+```java
+class Outer {
+  private String msg = "Hello World!";
+  public void foo(final int num) {
+    final double score = 99.9;
+    class Inner {
+      public void print() {
+        System.out.println(Outer.this.msg);
+        System.out.println(num);
+        System.out.println(score);
+      }
+    }
+    new Inner().print();
+  }
+}
+```
+
+### 匿名内部类
+
+匿名类因为没有名字，所以只能使用一次，它通常用来简化代码编写。
+
+使用匿名内部类还有个前提条件：必须继承一个父类或实现一个接口。
+
+使用匿名内部类的目的，是在某个地方想对某个类有特殊的实现。
+
+JDK1.8 开始匿名类的用法可以用 Lambda 写法替换。
+
+```java
+class Outer {
+  private String msg = "Hello World!";
+  public void foo(final int num) {
+    final double score = 99.9;
+    // 匿名内部类写法
+    new Inner() {
+      public void print() {
+        System.out.println(Outer.this.msg);
+        System.out.println(num);
+        System.out.println(score);
+      }
+    }.print();
+    // Lambda 写法
+    ((Inner) () -> {
+        System.out.println(Outer.this.msg);
+        System.out.println(num);
+        System.out.println(score);
+    }).print();
+  }
+};
+
+Interface Inner {
+  public void print();
+}
+```
+
+
+## 链表
+
+> 程序开发的三大基本功：程序逻辑 + 数据结构 + SQL语言
+
+保存数据首选数组，但数组有一个缺点——长度固定不可改变，当保存的内容长度不确定时，就可以利用链表结构来代替数组的使用。
+
+
+
 
