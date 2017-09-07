@@ -1,10 +1,103 @@
-# Java 教程 - 继承与接口
+# 继承与接口
 
-一个 Java 程序可以认为是一系列对象的集合，这些对象通过调用彼此的方法来协同工作。相关概念有：类、对象、方法、实例变量。
+## 继承
 
+### 继承性
 
+作用：继承性解决的是代码重用的问题。
 
-## 修饰符
+实现：
+
+```java
+class 子类 extends 父类 { }   // 子类又被称为派生类；父类又被称为超类 Super Class
+```
+
+限制：
+  * Java 不允许多重继承，但是允许多层继承
+  * 子类构造方法中必须先调用父类构造方法，如果父类有无参构造，编码时可省略，编译时会自动添加
+
+```java
+class B extends A {
+  public B() {
+    super();  // 父类中有无参构造时此句可省略，但如果编写，此句必须是构造函数首行
+    System.out.println("B 类构造方法");
+  }
+
+  public B(int num) {
+    this();   // 出现 this() 时，无法再使用 super()，但出口构造方法肯定会显式或隐式调用 super()
+  }
+}
+```
+
+### 覆写
+
+当子类定义了和父类的方法名称、返回值类型、参数类型及个数完全相同的方法时，就称为方法的覆写。
+
+#### 方法的覆写
+
+一个类可能会产生多个子类，每个子类都可能会覆写父类中的方法，这样一个方法就会根据不同的子类有不同的实现效果。
+
+访问控制权限问题：被子类所覆写的方法不能拥有比父类更严格的访问控制权限。实际开发中，多数情况下都用 public 定义方法。
+
+父类 `private` 的方法能被覆写吗 —— `private` 方法是私有的，外部根本看不到，所以也就不存在覆写这个概念了。
+
+当子类中存在被覆写过的方法，子类中直接使用方法名访问的是子类覆写的方法，如需调用父类方法，可以使用 `super.method()` 的形式来访问。
+
+### 属性的覆盖
+
+如果子类定义了和父类完全相同的属性名称时，就称为属性的覆盖。
+
+实际开发中，类中的属性必须使用 private 封装，那么一旦封装后属性覆盖是没有任何意义的。
+
+### `final` 关键字
+
+final 修饰的类不能被继承，修饰的方法不能被覆写，修饰的变量就成了常亮。
+
+常量必须在定义的时候设置好内容，并且不能修改，Java 命名规范要求常亮名称使用全大写的形式，开发中必须遵守。
+
+### 对象多态性
+
+多态性在开发中可以体现在以下两个方面：
+  * 方法的多态性：重载与覆写
+      * 重载：同一个方法名称，根据不同的参数类型及个数可以完成不同的功能
+      * 覆写：同一个方法，根据实例化的子类对象不同，所完成的功能不同
+  * 对象的多态性：父子类对象的转换
+      * 向上转型：子类对象变为父类对象，格式 `父类 父类对象 = 子类实例;`，自动转换
+      * 向下转型：父类对象变为子类对象，格式 `子类 子类对象 = (子类) 父类实例;`，强制转换
+
+对象多态性和方法覆写是紧密联系在一起的。
+
+对象向上转型，对象的声明类型决定了能够调用哪些方法，而实例化新对象时所调用的子类的构造方法决定了调用方法时的具体行为。
+
+向下转型是强制转换操作，操作本身是有前提条件的，即必须发生向上转型后才可以发生向下转型。如果是两个没哟关系的类对象发生强制转换，就会出现 ClassCastException 异常。所以向下转型是会存在安全隐患的，开发中应该尽量避免此类操作。`instanceof` 关键字可以准确地判断出实例化对象与类的关系，可以用来在强制转换前进行判断，以保证安全可靠的向下转型操作。
+
+在实际开发中，对象向上转型的主要意义在于参数的统一，也是最为主要的用法，而对象的向下转型指的是调用子类的(特有)方法。
+
+```java
+class A {
+  void print() {
+    System.out.println("A.print()");
+  }
+}
+class B extends A {
+  void print() {
+    System.out.println("B.print()");
+  }
+}
+public class TestDemo {
+  public static void main(String[] args) {
+    A a = new B();
+    foo(a);
+  }
+  public static foo(A a) {
+    a.print();
+    if (a instanceof B) {
+      B b = (B) a;
+      b.print();
+    }
+  }
+}
+```
 
 ### 访问控制修饰符
 
@@ -33,35 +126,6 @@
 
 继承可以使用 `extends` 和 `implements` 这两个关键字来实现继承，而且所有的类都继承于 java.lang.Object。
 
-#### extends
-
-#### implements
-
-#### super 与 this
-
-#### final
-
-```java
-public interface A {
-    public void eat();
-    public void sleep();
-}
- 
-public interface B {
-    public void show();
-}
- 
-class SuperClass {
-    int i = 50;
-}
- 
-class SubClass extends SuperClass implements A, B {
-    int i = 100;
-    public void showMessage() {
-        System.out.printf("super.i = %d, this.i = %d\n", super.i, this.i);
-    }
-}
-```
 
 ### 构造器
 
@@ -142,7 +206,7 @@ class Dog extends Animal {
 ```
 
 多态的实现方式
-  * 重写：
+  * 重写
   * 接口
   * 抽象类和抽象方法
 
@@ -214,6 +278,129 @@ class Cat extends Animal {
 2. 对每个值属性提供对外的公共方法访问，用于对私有属性的访问，通常这些方法被称为 getter 和 setter 方法。
 
 
+
+## 抽象类
+
+抽象类跟普通类的唯一不同之处在于，抽象类中含有抽象方法。
+
+```java
+abstract class A {
+  public void foo() { /*方法体*/ }  // 普通方法定义
+  public static void print();       // 抽象方法定义
+}
+```
+
+### 抽象类的特性
+
+抽象类不能直接实例化对象，使用时必须定义子类(普通类)后再实例化子类对象。
+抽象类的子类可以是抽象类。
+如果抽象类的子类是普通类，则改子类必须覆写抽象类中的全部抽象方法。
+
+#### 开发中是继承一个普通类还是抽象类
+
+相比较开发的约定，开发者更愿意相信语法程度上给予的限定。很明显，强制子类去覆写父类的方法可以更好地进行操作的统一。
+  * 抽象类继承子类里面会有明确的方法覆写要求，而普通类没有
+  * 抽象类只比普通类多了一些抽象方法的定义，其他的组成部分与普通类无异
+  * 普通类对象可以直接实例化，但抽象类必须经过向上转型后才可以得到实例化对象
+
+### 抽象类应用
+
+#### 模板设计模式
+
+关键点：抽象类中的普通方法可以调用抽象类中的抽象方法。
+
+短期内读者不会见到模板设计模式的应用，而如果学习到 Servlet 开发，就会接触到此知识的应用。所有的 Servlet 一定要继承 HttpServlet 类，而HttpServlet 类会根据用户发出的不同请求调用不同的方式进行处理，如，发出的请求是 get 请求，就调用 doGet() 方法，发出的是 post 请求，就调用 doPost() 方法。
+
+#### 借助抽象类观察属性的赋值过程
+
+```java
+public class Test {
+    public static void main(String[] args) {
+        A a = new B(100);
+    }
+}
+
+abstract class A {
+    public A() {print(); }
+    public abstract void print();
+}
+
+class B extends A {
+    private int num = 10;
+    public B() { print(); }
+    public B(int num) {
+        this();
+        this.num = num;
+        print();
+    }
+    public void print() {
+        System.out.println(num);
+    }
+}
+```
+
+
+## 接口
+
+使用抽象类可以实现对子类覆写方法的控制，但是抽象类的子类存在一个很大的问题——单继承，为了打破这个限制，就需要用 Java 接口来解决，同时在开发中为了将具体代码的实现细节对调用处进行隐藏，也可以利用接口来进行方法视图的描述。
+
+在 Java 中使用 `interface` 关键字来实现接口的定义。接口只能包含抽象方法和全局常亮。
+
+一个接口可以使用 `extends` 同时继承多个父接口。
+
+类通过 `implements` 关键字来实现多个接口，该类必须覆写接口中的全部抽象方法。
+
+接口的简化定义：接口中只有抽象方法和全局常量，所以 `public` `abstract` `static final` 都可以省略，但建议必要省略。
+
+```java
+interface A {                                // 接口
+  public static final String MSG = "HELLO";  // 全局常量
+  public abstract void foo();                // 抽象方法
+}
+```
+
+```java
+public interface A {
+    public void eat();
+    public void sleep();
+}
+ 
+public interface B {
+    public void show();
+}
+ 
+class SuperClass {
+    int i = 50;
+}
+ 
+class SubClass extends SuperClass implements A, B {
+    int i = 100;
+    public void showMessage() {
+        System.out.printf("super.i = %d, this.i = %d\n", super.i, this.i);
+    }
+}
+```
+
+#### 抽象类与接口的区别
+
+|    区别    |    抽象类                                     |  接口
+|------------|-----------------------------------------------|--------------------------------------------
+| 关键字     | `abstract` `class`                            | `interface`
+| 组成       | 构造方法 普通方法 抽象方法 静态方法 常亮 变量 | 抽象方法 全局常量
+| 子类使用   | `class 子类 extends 抽象类;`                  | `class 子类 implements 接口, 接口 ...`
+| 关系       | 抽象类可以实现多个接口                        | 接口可以继承多个父接口
+| 权限       | 可以使用各种权限                              | 只能使用 public 权限
+| 限制       | 单继承局限                                    | 没有单继承局限
+| 子类       | 抽象类和接口都必须有子类，子类必须覆写全部的抽象方法
+| 实例化对象 | 依靠子类对象的向上转型进行对象的实例化
+
+### 接口的应用
+
+#### 工厂设计模式
+
+#### 代理设计模式
+
+
 ## 接口
 
 接口 Interface，在 JAVA 中是一个抽象类型，是抽象方法的集合。一个类通过继承接口的方式，从而来继承接口的抽象方法。
@@ -259,6 +446,10 @@ public interface Football extends Sports {
 
 为了更好地组织类，Java 提供了包机制，用于区别类名的命名空间。
 
+包主要用来对类和接口进行分类。当开发 Java 程序时，可能编写成百上千的类，因此很有必要对类和接口进行分类。
+
+包，其实就是文件夹，用于解决相同类名问题。包名要求全部小写，一般都是公司的名倒着写。
+
 **包的作用**
 
 1. 把功能相似或相关的类或接口组织在同一个包中，方便类的查找和使用。
@@ -273,89 +464,19 @@ public interface Football extends Sports {
 
 通常使用小写的字母来命名避免与类、接口名字的冲突。
 
-### `import` 关键字
+### `import` 语句
 
 为了能够使用某一个包的成员，我们需要在 Java 程序中明确导入该包。使用 `import` 语句可完成此功能。
 如果在一个包中，一个类想要使用本包中的另一个类，那么该包名可以省略。
 
+在 Java 中，如果给出一个完整的限定名，包括包名、类名，那么 Java 编译器就可以很容易地定位到源代码或者类。Import 语句就是用来提供一个合理的路径，使得编译器可以找到某个类。
+
+```java
+import java.io.*;  // 载入 java_installation/java/io 路径下的所有类
+```
+
+
 ### package 的目录结构
-
-
-
-
-## 对象和类
-
-Java 作为一种面向对象语言。支持以下基本概念：多态、继承、封装、抽象、类、对象、实例、方法、重载，本节重点讲对象和类。
-
-### 类定义
-
-类是 Java 中的基本组成元素，所有的 Java 程序一定要被类管理。
-
-类的定义有两种形式：
-  * `public class` 定义：类名称必须和文件名称保持一致，否则程序无法编译。一个 .java 文件只能有一个 public calss
-  * `class` 定义：类名称可以和文件名不一致，但是生成的 class 文件的名称同类名。一个 .java 文件可以存在多个 calss 定义，编译后会生成多个 class 文件。
-
-实际开发中，一般都是一个 java 文件基本上只包含一个 public class，不会有其他 class 单独定义。
-
-```java
-public class Dog {
-  String breed;
-  int age;
-  String color;
-  void barking() { }
-  void hungry() { }
-  void sleeping() { }
-}
-```
-
-### 构造方法
-
-每个类都有构造方法。如果没有显式地为类定义构造方法，Java 编译器将会为该类提供一个默认构造方法。
-
-在创建一个对象的时候，至少要调用一个构造方法。构造方法的名称必须与类同名，一个类可以有多个构造方法。
-
-```java
-public class Puppy {
-    public Puppy() { }
-    public Puppy(String name) { /* 这个构造器仅有一个参数：name */ }
-}
-```
-
-### 创建对象
-
-使用关键字 `new` 来创建一个新的对象。创建对象需要以下三步：
-  * 声明：声明一个对象，包括对象名称和对象类型。
-  * 实例化：使用关键字 new 来创建一个对象。
-  * 初始化：使用 new 创建对象时，会调用构造方法初始化对象。
-
-```java
-public class Puppy {
-   int puppyAge;
-   public Puppy(String name) {
-      System.out.println("小狗的名字是 : " + name); 
-   }
- 
-   public void setAge(int age) {
-       puppyAge = age;
-   }
- 
-   public int getAge( ) {
-       System.out.println("小狗的年龄为 : " + puppyAge); 
-       return puppyAge;
-   }
- 
-   public static void main(String []args) {
-      /* 创建对象 */
-      Puppy myPuppy = new Puppy("tommy");
-      /* 通过方法来设定age */
-      myPuppy.setAge(2);
-      /* 调用另一个方法获取age */
-      myPuppy.getAge();
-      /*你也可以像下面这样访问成员变量 */
-      System.out.println("变量值 : " + myPuppy.puppyAge); 
-   }
-}
-```
 
 ### 源文件声明规则
 
@@ -366,18 +487,3 @@ public class Puppy {
   * 如果一个类定义在某个包中，那么 `package` 语句应该在源文件的首行。
   * 如果源文件包含 `import` 语句，那么应该放在 `package` 语句（如果存在 package 语句）和类定义之间。
   * `import` 语句和 `package` 语句对源文件中定义的所有类都有效。在同一源文件中，不能给不同的类不同的包声明。
-
-### 包
-
-包主要用来对类和接口进行分类。当开发 Java 程序时，可能编写成百上千的类，因此很有必要对类和接口进行分类。
-
-包，其实就是文件夹，用于解决相同类名问题。包名要求全部小写，一般都是公司的名倒着写。
-
-### `import` 语句
-
-在 Java 中，如果给出一个完整的限定名，包括包名、类名，那么 Java 编译器就可以很容易地定位到源代码或者类。Import 语句就是用来提供一个合理的路径，使得编译器可以找到某个类。
-
-```java
-import java.io.*;  // 载入 java_installation/java/io 路径下的所有类
-```
-
