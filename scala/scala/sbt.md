@@ -39,6 +39,11 @@ maven-central
 sonatype-oss-snapshots
 ```
 
+> 虽然做了以上配置，碰到 typesafe 这些国外源，就会下载失败(墙很高)，但光阿里的肯定跑不起来，所以首次跑项目还是得：  
+> ```bash
+> $ sbt -DsocksProxyHost=127.0.0.1 -DsocksProxyPort=1080
+> ```
+
 #### 配置 IDEA
 
 IDEA 可以使用内置 SBT，但这样调整配置不方便，所以配置用刚才装好的
