@@ -111,6 +111,20 @@ $ jar xvf jdk/src.zip          # 也可以采用其他解压工具
 
 应该慢慢熟悉最常用的包 java.lang java.util java.io java.awt java.swing 有个大概印象之后查询起来会更加得心应手。
 
+### 使用集成开发环境 IDEA
+
+新建项目：File -> New -> Project from Existing Sources...  
+运行调试：Run -> Run As -> Java Application
+
+修改 JVM 配置：Run -> Edit Configurations... -> Defaults -> Application -> VM options
+
+### 其他设置项
+
+修改 JVM 默认语言和国家：-Duser.language=en -Duser.region=US
+
+解决终端中文乱码: -Dfile-encoding=UTF-8
+
+
 ## HelloWorld
 
 创建 HelloWorld.java(**文件名需与类名一致**，包括大小写也要一样，否则编译时报错), 代码如下：
@@ -131,10 +145,3 @@ $ java HelloWorld        # 不能带后缀，否则报错：找不到或无法�
 
 $ javac -encoding UTF-8 XX.java  # 如果碰到编码问题报错，就使用参数解决
 ```
-
-
-### 使用集成开发环境 IDEA
-
-新建项目：File -> New -> Project from Existing Sources...  
-运行调试：Run -> Run As -> Java Application
-
