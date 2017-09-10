@@ -179,9 +179,17 @@ var re = new RegExp('ab+c', 'gi');
 | `replace` | executes a search for a match in a string, and replaces the matched substring with a replacement.
 | `split`   | uses a regular expression or a fixed string to break a string into an array of substrings.
 
-### 应用示例
+
+## 性能优化
+
+> 使用都比较难，性能优化更加高深，后续有服务端开发时再深入学习吧
 
 正则表达式是一个多阶段处理过程，其中两个重要阶段是编译和执行。通过对稍后要用的正则表达式进行预定义（因此也预编译），我们可以获得一些明显的速度提升。
+
+
+## 应用示例
+
+http://blog.csdn.net/jungle_hello/article/details/51648056
 
 ```js
 str.replace(/^\s+|\s+$/g, "");     // 修剪字符串

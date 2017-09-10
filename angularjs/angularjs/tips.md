@@ -18,6 +18,14 @@ $stateProvider.state({
 });
 ```
 
+#### watchOnce 效果
+
+```js
+var unbind = $scope.$watch("tag", function () {
+    // ...
+    unbind();
+});
+```
 
 angularjs 程序的组织框架，可以参考下 flink
 
