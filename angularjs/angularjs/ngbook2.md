@@ -318,11 +318,33 @@ Angular 进入 `$digest` 循环时，会等待 `$evalAsync` 队列清空，然�
 
 ### 33.1 从 DOM 中调试
 
+> 永远都不应该依靠还在应用程序生命周期内的DOM元素来获取该元素的属性。这项技术一般都是出于调试的目的才使用的。
+
+我们可以访问附加给任意 DOM 元素的 Angular 属性。
+
+```js
+// 获取DOM元素
+$('selector')             // jQuery方式
+document.querySelector()  // 原生DOM方式
+$0                        // 浏览器调试提供的简便方式
+
+// 转换成 AngularJS 元素
+var ele = angular.element($0);
+
+// 获取
+ele.scope();          // 从元素或者父元素上提取 $scope 对象
+ele.controller();     // 从元素或者父元素上提取控制器
+ele.injector();       // 从元素或者父元素上提取注入器
+ele.inheritedData();  // 从元素或者父元素上提取与 $scope 对象相关联数据
+```
+
 ### 33.2 调试器
 
 借助 `debugger` 语句 或 `console.log()` 进行调试。
 
 ### 33.3 Angular Batarang
 
-终端输入 `$scope` 可以获取当前的完整 scope 对象。
+现在貌似基本用不了，介绍的功能都看不到了。
+
+终端输入 `$scope` 可以获取当前对象的完整 scope 对象。
 
