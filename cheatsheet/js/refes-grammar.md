@@ -180,7 +180,8 @@ let i = '5', j = '5';
 `<` `<=` `>` `>=` 这四个操作符则会先将被操作对象转换成原始值类型，然后再转换成相同类型进行比较。
 
 类型转换遵循以下规则：
-  * Boolean 转成 Number，false 为 +0，true 为 1。
+  * 转布尔值 `false` 的几种情况 `0`, `-0`, `NaN`, `undefined`, `null`, `""`, `document.all`
+  * Boolean 转成 Number，`false` 为 `+0`，`true` 为 `1`。
   * String 跟 Number 比，String 转 Number。
   * Object 跟原始值类型比，会调用对象 valueOf() 或 toString() 方法(先 valueOf 后 toString; 先自身定义的后原型链上的)。
 
