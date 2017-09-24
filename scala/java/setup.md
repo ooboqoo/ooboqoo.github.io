@@ -120,9 +120,15 @@ $ jar xvf jdk/src.zip          # 也可以采用其他解压工具
 
 ### 其他设置项
 
-修改 JVM 默认语言和国家：-Duser.language=en -Duser.region=US
+```bash
+$ java -help        # 查看帮助信息
+$ java -D<名>=<值>  # 设置系统属性
+       -Duser.language=en -Duser.region=US  # 修改JVM默认语言和国家
+       -Dfile-encoding=UTF-8                # 解决终端中文乱码
+$ java -X           # 查看或设置非标准选项
 
-解决终端中文乱码: -Dfile-encoding=UTF-8
+$ java -Duser.language=en -Xmx1024M com.demo.TestDemo
+```
 
 
 ## HelloWorld

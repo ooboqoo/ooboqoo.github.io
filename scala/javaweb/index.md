@@ -1,9 +1,11 @@
-### Maven
+## 资源索引
 
-`<scope>provided</scope>`- provided 表明该包只在编译和测试的时候用
 
-### Java Web 该怎么学
+## 学习指南
 
+### JavaWeb 该怎么学
+
+https://www.oschina.net/question/12_52027 初学 JavaWeb 开发，请远离各种框架，从 Servlet 开发  
 https://www.zhihu.com/question/21142149 看完这个就知道该学啥该怎么学了。
 
 #### 学什么框架：Spring MVC / Spring Boot + Mybatis
@@ -17,6 +19,13 @@ Spring MVC 基本可以帮你屏蔽 Servlet 的 API，ORM 则可以帮你屏蔽 
 1、Java 基础
 2、Servlet + JSP + JDBC
 3、Spring + Mybatis
+
+
+## 细节知识点
+
+### Maven
+
+`<scope>provided</scope>`- provided 表明该包只在编译和测试的时候用
 
 ### Java vs JavaScript
 

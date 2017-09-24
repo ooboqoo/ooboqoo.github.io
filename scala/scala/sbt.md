@@ -1,15 +1,15 @@
 # SBT
 
-### sbt 常用命令
+## sbt 常用命令
 
 ```bash
 $ sbt console  # 调出 Scala REPL
 $ sbt update   # 更新项目依赖
 ```
 
-### 安装 sbt
+## 安装 sbt
 
-#### 下载并安装 sbt
+### 下载并安装 sbt
 
 http://www.scala-sbt.org/0.13/docs/Installing-sbt-on-Windows.html
 
@@ -17,6 +17,21 @@ http://www.scala-sbt.org/0.13/docs/Installing-sbt-on-Windows.html
 
 ```bash
 $ sbt console  # 调出 Scala REPL
+```
+
+### 让 sbt 正常跑起来
+
+> 关于配置文件位置  
+> https://stackoverflow.com/questions/20613713/what-are-sbtconfig-txt-and-sbtopts-used-for  
+> 位于 sbt 安装目录的 conf 文件夹，windows 用 sbtconfig.txt，linux 用 sbtopts
+
+C:\Program Files (x86)\sbt\conf\sbtconfig.txt
+
+```text
+# 使用HTTP而非HTTPS更新和下载artifacts，这样碰到的问题会少一些，天朝环境复杂，能跑起来就不错了，安全性就算了
+-Dsbt.repository.secure=false
+# 默认使用 sbt-launch.jar 中 sbt.boot.properties 文件，此设置可使自定义设置生效
+-Dsbt.override.build.repos=true
 ```
 
 #### 修改 repository 配置
@@ -44,12 +59,12 @@ sonatype-oss-snapshots
 > $ sbt -DsocksProxyHost=127.0.0.1 -DsocksProxyPort=1080
 > ```
 
-#### 配置 IDEA
+### 配置 IDEA
 
-IDEA 可以使用内置 SBT，但这样调整配置不方便，所以配置用刚才装好的
+IDEA 可以使用内置 SBT，但这样调整配置不方便，所以配置用刚才装好的  
 Settings > Build, Execution, Deployment > Build Tools > SBT > Launcher > Custom
 
-### Hello World 项目
+## Hello World 项目
 
 ```bash
 $ sbt new sbt/scala-seed.g8  # 根据模板新建项目，中间提示让输入项目名，这里用 hello
@@ -59,7 +74,7 @@ $ sbt      # 启动 sbt shell
 > exit     # 退出
 ```
 
-#### 目录结构介绍
+### 目录结构介绍
 
 ```text
 | src/
@@ -89,7 +104,7 @@ target/
 
 .gitignore 文件添加一行 `target/`，尾部带 `/` 意为只排除目录，开头没带 `/` 以便适配 project/target/ 目录
 
-### sbt shell
+## sbt shell
 
 To leave sbt shell, type exit or use Ctrl+D (Unix) or Ctrl+Z (Windows).
 
@@ -124,7 +139,7 @@ $ sbt clean compile "testOnly TestA TestB"
 | reload  | Reloads the build definition (build.sbt, project/*.scala, project/*.sbt files). Needed if you change the build definition.
 
 
-### 定义 build.sbt
+## 定义 build.sbt
 
 明确限定 sbt 版本，可确保构建输出的一致性。
 

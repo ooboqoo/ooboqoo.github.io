@@ -1,36 +1,9 @@
 # 常用类库
 
 
-## Number & Math 类
-
-Java 语言为每一个内置数据类型提供了对应的包装类。所有的包装类（Integer、Long、Byte、Double、Float、Short）都是抽象类 Number 的子类。
-
-当内置数据类型被当作对象使用的时候，编译器会把内置类型装箱为包装类。相似的，编译器也可以把一个对象拆箱为内置类型。Number 类属于 java.lang 包。
-
-```java
-Integer x = 5;
-x =  x + 10;
-System.out.println(x); 
-```
-
-Java 的 Math 包含了用于执行基本数学运算的属性和方法，如初等指数、对数、平方根和三角函数。Math 的方法都被定义为 static 形式，通过 Math 类可以在主函数中直接调用。
-
-
-## Character 类
-
-Java 语言为内置数据类型 char 提供了包装类 Character 类。Character 类提供了一系列方法来操纵字符。
-
-```java
-Character ch = new Character('a');
-Character ch = 'a';
-```
-
-
-## String 类
+## java.lang.String
 
 Java 提供了 String 类来创建和操作字符串。
-
-String 类有 11 种构造方法，这些方法提供不同的参数来初始化字符串。
 
 ```java
 // 获取字符串长度
@@ -41,12 +14,9 @@ int len = "www.runoob.com".length();
 "我的名字是 " + "Runoob";
 
 // 创建格式化字符串
-String fs = String.format("浮点型变量的的值为 " +
-                          "%f, 整型变量的值为 " +
-                          " %d, 字符串变量的值为 " +
-                          " %s", floatVar, intVar, stringVar);
+String fs = String.format("浮点型变量的值为 %f, 整型变量的值为 %d, 字符串变量的值为 %s",
+                          floatVar, intVar, stringVar);
 ```
-
 
 ### 字符串比较
 
@@ -59,48 +29,133 @@ if (str != null && str.length() != 0);  // `str != null` 不可省略，否则�
 if (str != null && str.equals(""));
 ```
 
-一定不要使用 `==` 运算符比较两个字符串是否相等！这个运算符只能够确定两个字符串是否放置在同一个位置上。
+注：一定不要使用 `==` 运算符比较两个字符串是否相等！这个运算符只能够确定两个字符串是否放置在同一个位置上。
 
-## StringBuffer 和 StringBuilder 类
+
+## java.lang.StringBuffer & StringBuilder
 
 当对字符串进行修改的时候，需要使用 StringBuffer 和 StringBuilder 类。
-和 String 类不同的是，StringBuffer 和 StringBuilder 类的对象能够被多次的修改，并且不产生新的未使用对象。
-StringBuilder 类在 Java5 中被提出，它和 StringBuffer 之间的最大不同在于 StringBuilder 的方法不是线程安全的（不能同步访问）。
-由于 StringBuilder 相较于 StringBuffer 有速度优势，所以多数情况下建议使用 StringBuilder 类。然而在应用程序要求线程安全的情况下，则必须使用 StringBuffer 类。
+
+和 String 类不同的是，StringBuffer 和 StringBuilder 类的对象能够被多次修改，并且不产生新的未使用对象。
+
+StringBuilder 类在 Java5 中被提出，它和 StringBuffer 之间的最大不同在于 StringBuilder 的方法不是线程安全的。
+
+由于 StringBuilder 相较于 StringBuffer 有速度优势，所以多数情况下建议使用 StringBuilder 类。
 
 ```java
 StringBuffer sBuffer = new StringBuffer("菜鸟教程官网：");
-sBuffer.append("www");
-sBuffer.append(".runoob");
-sBuffer.append(".com");
-System.out.println(sBuffer);  
+sBuffer.append("www").append(".runoob").append(".com");
+System.out.println(sBuffer);
 ```
 
-### 3.7 输入输出
+
+## java.lang.Runtime & java.lang.System
+
+### 垃圾回收
+
+`Runtime.getRuntime().gc()` 或 `System.gc()` 可手动触发垃圾回收。
+
+当 JVM 剩余内存空间不足时会触发 GC，如果 Eden 内存空间不足就要进行从回收(Minro Collection)，旧生代空间不足时要进行主回收(Major Collection)，永久代空间不足时会进行完全垃圾回收(Full Collection)。
+
+如果希望在一个对象收尾时执行一些收尾工作，则对象所在的类可以通过 `finalize()` 方法实现，此方法由 Object 类定义。
 
 ```java
-import java.util.*;
-
-public class InputTest {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-
-        // get first input
-        System.out.print("What is your name? ");
-        String name = in.nextLine();
-
-        // get second input
-        System.out.print("How old are you? ");
-        int age = in.nextInt();
-
-        // display output on console
-        System.out.println("Hello, " + name + ". Next year, you'll be " + (age + 1));
-    }
+class Human {
+  public Human() {
+    System.out.println("呱呱坠地");
+  }
+  @Override
+  protected void finalize() throws Throwable {  // 为什么用 Thrwoable，见注1
+    System.out.println("生命终结");
+    throw new Exception("此处即使抛出异常也不会打断程序继续执行");
+  }
 }
 ```
 
-System.out.print() 输出之后不换行  
-System.out.println() 输出之后换行
+注1：`finalize()` 方法出现异常或错误都不会导致程序中断，为了强调方法的完善性，这里使用了 Throwable。
+
+
+### 运行本机可执行程序
+
+```java
+Runtime run = Runtime.getRuntime();
+Process pro = run.exec("mspaint.exe");
+Thread.sleep(2000);
+pro.destroy();
+```
+
+
+## java.lang.Object
+
+```java
+protected Object clone() throws CloneNotSupportedException { }
+```
+
+clone() 是实现克隆的唯一方法，所有类的对象只有调用此方法才可以进行克隆，但是此方法本身使用了 protected 访问权限，这样当在不同的包中产生对象时将无法调用 Object 类中的 clone 方法，因此就需要子类来覆写 clone 方法(但依然调用的是父类中的clone方法)，才可以正常完成克隆操作。
+
+在 Java 中为了区分出哪些类可以被克隆，专门提供了一个 Cloneable 接口，也就是说要克隆对象的类必须实现 Cloneable 接口。但是 `Cloneable` 接口没有任何方法，所以这个接口属于标识接口，用于表示一种能力。
+
+```java
+// 定义可克隆对象操作要点
+// 1. 定义类时实现 Cloneable 接口
+// 2. 在类中覆写 clone() 方法
+class Book implements Cloneable {
+  private String title;
+  private double price;
+  public Book(String title, double price) {
+    this.title = title;
+    this.price = price;
+  }
+  @Override
+  public Object clone() throws CloneNotSupportedException {
+    return super.clone();
+  }
+}
+public class TestDemo {
+  public static void main(String[] args) throws Exception {
+    Book bookA = new Book("Java开发", 99);
+    Book bookB = bookA.clone();
+  }
+}
+```
+
+## Math & Random & Number
+
+### java.lang.Math
+
+Java 的 Math 包含了用于执行基本数学运算的属性和方法，如初等指数、对数、平方根和三角函数。Math 的方法都被定义为 static 形式，通过 Math 类可以在主函数中直接调用。
+
+在整个 Math 类中有一个方法需要为读者特别说明，那就是四舍五入的操作：
+
+```java
+// 注意 0.5 和 -0.5 的处理结果
+Math.round(0.5);  // 0.51 -> 1; 0.5 -> 1; 0.49 -> 0; -0.49 -> -0; -0.5 -> -0; -0.51 -> -1;
+```
+
+### java.util.Random
+
+在 Java 中，随机数的产生取决于种子，随机数和种子之间的关系遵循以下两个规则：
+    1. 种子不同，产生不同的随机数。
+    2. 种子相同，即使实例不同也产生相同的随机数。
+
+Random 类的默认种子(无参构造)是 System.nanoTime() 的返回值(JDK1.5版本以前默认种子是 System.currentTimeMillis() 的返回值)，这个值是距离某一个固定时间点的纳秒数，不同操作系统和硬件有不同的固定时间点，也就是不同的操作系统纳秒值是不同的，而同一操作系统的纳秒值也会不同，随机数自然也就不同了。
+
+### java.lang.Number
+
+Java 语言为每一个内置数据类型提供了对应的包装类。所有的包装类(Byte、Short、Integer、Long、Float、Double)都是抽象类 Number 的子类。
+
+当内置数据类型被当作对象使用的时候，编译器会把内置类型装箱为包装类。相似的，编译器也可以把一个对象拆箱为内置类型。
+
+```java
+Integer x = 5;
+x =  x + 10;
+System.out.println(x);
+```
+
+#### 大整数操作类 BigInteger
+
+
+#### 大小数操作类 BigDecimal
 
 
 
@@ -216,3 +271,20 @@ public class RegexMatches {
     }
 }
 ```
+
+
+## 反射机制
+
+
+
+
+## 国际化
+
+
+
+
+
+
+
+
+

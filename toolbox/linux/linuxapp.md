@@ -26,6 +26,12 @@ $ curl --silent --location https://rpm.nodesource.com/setup_7.x | bash -  # Node
 * If the `-s` option is present, or if no arguments remain after option processing, then commands are read from the standard input. 
 * A `--` signals the end of options and disables further option processing. Any arguments after the `--` are treated as filenames and arguments. An argument of `-` is equivalent to `--`.
 
+#### HTTPie
+
+https://github.com/jakubroztocil/httpie
+
+HTTPie: a CLI, cURL-like tool for humans. 极好的 curl 替代工具，就是需要单独安装。
+
 ### `wget` 下载利器
 
 内置的文件下载工具，支持简单的递归扒站，但不支持 并发、p2p、磁力链接等。
