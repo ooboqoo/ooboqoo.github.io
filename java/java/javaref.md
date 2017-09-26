@@ -44,11 +44,11 @@ public boolean equals(Object obj) { }
 public int hashCode() { }
 public String toString() { }
 public final Class<?> getClass() { }
-public final void notify() { }
-public final void notifyAll() { }
-public final void wait(long timeout) throws InterruptedException { }
+public final void notify() { }     // 唤醒等待队列中的第一个进程
+public final void notifyAll() { }  // 唤醒所有等待队列中进程，大家开始正常竞争锁资源
+public final void wait() throws InterruptedException { }  // 使当前线程进入 WAITING 状态，进入等待(锁)队列
+public final void wait(long timeout) throws InterruptedException { }  // 进入 TIMED_WAITING 状态
 public final void wait(long timeout, int nanos) throws InterruptedException { }
-public final void wait() throws InterruptedException { }
 protected Object clone() throws CloneNotSupportedException { }
 protected void finalize() throws Throwable { }
 ```
@@ -198,7 +198,9 @@ public class BigDecimal extends Number implements Comparable<BigDecimal> { }
 ```java
 public class Thread implements Runnable { }
 
-public static void sleep(long millis) throws InterruptedException { }
+public static native void sleep(long millis) throws InterruptedException { } // 使当前线程进入 BLOCKED 状态
+
+public enum State {NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING, TERMINATED}
 
 public void start() { }
 public final void setPriority(int newPriority) { }
@@ -225,30 +227,78 @@ public int nextInt(int bound) { }  // 产生一个不大于指定边界的随机
 
 ### java.util.Date
 
+Date 下原有格式转换等功能已经移到 SimpleDateFormat。
+
+```java
+public class Date implements java.io.Serializable, Cloneable, Comparable<Date> { }
+
+public Date() { this(System.currentTimeMillis()); }
+public Date(long date) { fastTime = date; }
+
+public long getTime() { }
+```
 
 ### java.util.Calendar
 
+Calendar 类可以将取得的时间精确到毫秒，并且其可以分别取得日期时间数字，这样就可以直接进行各种日期时间的计算操作。
+
+```java
+public abstract class Calendar implements Serializable, Cloneable, Comparable<Calendar> { }  // 抽象类
+
+public final static int YEAR = 1;
+public final static int MONTH = 2;
+public final static int DAY_OF_MONTH = 5;
+public final static int DAY_OF_WEEK = 7;
+public final static int HOUR = 10;
+public final static int HOUR_OF_DAY = 11;  // (24小时制)小时
+public final static int MINUTE = 12;
+public final static int SECOND = 13;
+public final static int MILLISECOND = 14;  // 10:04:15.250 PM -> 250
+
+public static Calendar getInstance() { }
+public int get(int field) { }
+public boolean before(Object when) { }
+public boolean after(Object when) { }
+```
+
+```java
+Calendar.getInstance().get(Calendar.MONTH) + 1;  // 获取当前月份
+```
 
 ### java.util.regex
 
+```java
 
-
-## java.io
-
+```
 
 
 ## java.text
 
 ### java.text.SimpleDateFormat
 
+```java
+public abstract class DateFormat extends Format { }
+
+public final String format(Date date) { }
+public Date parse(String source) throws ParseException { }
+
+public class SimpleDateFormat extends DateFormat { }
+
+public SimpleDateFormat(String pattern) { }
+```
+
+```java
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+sdf.format(sdf.parse("2017-9-31 00:11:22"));  // "2017-10-01 00:11:22"
+```
 
 ### java.text.MessageFormat
 
 
+## java.io
+
+
 ## java.net
-
-
-
 
 
 

@@ -46,6 +46,7 @@ $ git apply ..\patch1023   # 在另一个地方导入这些更改
 # 修改 commit message
 $ git commit --amend       # 修改最近一次提交
 $ git rebase -i HEAD~num   # 批量修改最近 num+1 次提交
+$ git fetch & git rebase origin/master & git push  # 避免合并冲突时产生冗余提交记录
 ```
 
 #### 设置与帮助
