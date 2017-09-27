@@ -5,8 +5,8 @@
   document.querySelectorAll('#md h3, #md h4').forEach(function(header) {
     var text = header.innerText;
     if (/java\./.test(text)) {
-      var arr = text.split(" ")[0].split(".");
-      header.innerHTML = "<a href='" + api + arr[0] + "/" + arr[1] + "/" + arr[2] + ".html'>" + text + "</a>";
+      var arr = text.split(" ", 1)[0].split(".");
+      header.innerHTML = "<a href='" + api + arr.join('/') + ".html'>" + text + "</a>";
     }
   });
 </script>
@@ -46,12 +46,27 @@ public String toString() { }
 public final Class<?> getClass() { }
 public final void notify() { }     // 唤醒等待队列中的第一个进程
 public final void notifyAll() { }  // 唤醒所有等待队列中进程，大家开始正常竞争锁资源
-public final void wait() throws InterruptedException { }  // 使当前线程进入 WAITING 状态，进入等待(锁)队列
-public final void wait(long timeout) throws InterruptedException { }  // 进入 TIMED_WAITING 状态
+public final void wait() throws InterruptedException { }  // 使当前线程进入WAITING状态，进入等待(锁)队列
+public final void wait(long timeout) throws InterruptedException { }  // 进入TIMED_WAITING状态
 public final void wait(long timeout, int nanos) throws InterruptedException { }
 protected Object clone() throws CloneNotSupportedException { }
 protected void finalize() throws Throwable { }
 ```
+
+### java.lang.Class
+
+```java
+public final class Class<T> implements java.io.Serializable, GenericDeclaration, Type, AnnotatedElement{}
+
+public static Class<?> forName(String className) throws ClassNotFoundException { }
+  // Class.forName("java.util.Date") ==> class java.util.Date
+
+public String getName() { }        // String.class.getName(); ==> "java.lang.String"
+public String getSimpleName() { }  // String.class.getSimpleName(); ==> "String"
+```
+
+注：获取 Class 对象 https://docs.oracle.com/javase/tutorial/reflect/class/classNew.html  
+注：关于 `a.getClass()` 和 `A.class`: `A.class` 在编译期处理，效率更高。注意 `Class` 类没有 `class` 的属性。
 
 ### java.lang.Character
 
@@ -89,13 +104,16 @@ public int codePointAt(int index) { }
 public int compareTo(String anotherString) { }
 public int compareToIgnoreCase(String str) { }
 public String concat(String str) { }
-public String replace(char oldChar, char newChar) { }
+public String replace(char oldChar, char newChar) { }  // replace 没有正则的用法，对应正则的 replaceAll
 public String replace(CharSequence target, CharSequence replacement) { }
-public String replaceAll(String regex, String replacement) { }
-public String replaceFirst(String regex, String replacement) { }
+public String trim() { }
 public String toLowerCase() { }
 public String toUpperCase() { }
-public String trim() { }
+
+public boolean matches(String regex) { } // 判断字符串是否符合正则表达式结构 "12y".matches("\\d+") ==> false
+public String replaceAll(String regex, String replacement) { }    // 将满足正则的内容全部替换为新内容
+public String replaceFirst(String regex, String replacement) { }  // 将满足正则的首个内容替换为新内容
+public String[] split(String regex, int limit) { }
 ```
 
 ```java
@@ -127,6 +145,7 @@ public String substring(int start, int end) { }  // 含 start 不含 end
 public class Runtime { }
 
 public static Runtime getRuntime() { }  // Runtime 采用了单例设计模式，通过此方法取得本类实例化对象
+
 public Process exec(String command) throws IOException { }
 public void gc() { }           // 执行垃圾回收
 public long maxMemory() { }    // 最大可用内存
@@ -156,19 +175,19 @@ public final class Math { }
 public static final double E
 public static final double PI
 
+public static int round(float a) { }               // 0.5 -> 1; -0.5 -> 0
+public static double ceil(double a) { }
+public static double floor(double a) { }
+public static double pow(double a, double b) { }
+public static double sqrt(double a) { }
+public static long max(long a, long b) { }
+public static float min(float a, float b) { }
+public static int abs(int a) { }
+public static double random() { }                  // 0 ~ 1 之间的随机数
 public static double toRadians(double angdeg) { }
 public static double toDegrees(double angrad) { }
 public static double log(double a) { }             // ln(x)
 public static double log10(double a) { }
-public static double sqrt(double a) { }
-public static double ceil(double a) { }
-public static double floor(double a) { }
-public static double pow(double a, double b) { }
-public static int round(float a) { }               // 0.5 -> 1; -0.5 -> 0
-public static double random() { }                  // 0 ~ 1 之间的随机数
-public static int abs(int a) { }
-public static long max(long a, long b) { }
-public static float min(float a, float b) { }
 ```
 
 ### java.lang.Number
@@ -198,7 +217,7 @@ public class BigDecimal extends Number implements Comparable<BigDecimal> { }
 ```java
 public class Thread implements Runnable { }
 
-public static native void sleep(long millis) throws InterruptedException { } // 使当前线程进入 BLOCKED 状态
+public static native void sleep(long millis) throws InterruptedException { } // 使当前线程进入BLOCKED状态
 
 public enum State {NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING, TERMINATED}
 
@@ -218,12 +237,13 @@ public StackTraceElement[] getStackTrace() { }
 ```java
 public class Random implements Serializable { }
 
-Random() { }           // 无参构造，使用 System.nanoTime() 的返回值
+Random() { }           // 无参构造，使用 System.nanoTime() 的返回值作为种子
 Random(long seed) { }  // 种子相同，即使实例不同也产生相同的随机数，这样在安全性方面就会存在隐患
 
 public int nextInt() { }
 public int nextInt(int bound) { }  // 产生一个不大于指定边界的随机整数
 ```
+
 
 ### java.util.Date
 
@@ -256,19 +276,56 @@ public final static int SECOND = 13;
 public final static int MILLISECOND = 14;  // 10:04:15.250 PM -> 250
 
 public static Calendar getInstance() { }
+
 public int get(int field) { }
 public boolean before(Object when) { }
 public boolean after(Object when) { }
 ```
 
 ```java
+Calendar c = Calendar.getInstance();
+c.set(Calendar.YEAR, 2012);
+c.get(Calendar.YEAR);              // 2012
+c.before(Calendar.getInstance());  // true
 Calendar.getInstance().get(Calendar.MONTH) + 1;  // 获取当前月份
 ```
 
-### java.util.regex
+### java.util.regex.Pattern & Matcher
+
+实际使用情况来讲，只有很少情况才会利用 java.util.regex 包中的 Pattern 或 Matcher 类操作正则，大部分情况下都会考虑使用 java.lang.String 类中提供的方法来简化正则的操作。
 
 ```java
+public final class Pattern implements java.io.Serializable { }  // 定义要使用的表达式对象
 
+public static final int CASE_INSENSITIVE, MULTILINE, COMMENTS, ...
+
+public static Pattern compile(String regex, int flags) { }  // 该类构造方法为private，必须用此方法取得实例
+public static boolean matches(String regex, CharSequence input) { }
+
+public Matcher matcher(CharSequence input) { }
+public String[] split(CharSequence input, int limit) { }
+public String toString() { return pattern; }
+```
+
+```java
+public final class Matcher implements MatchResult { }  // 进行正则与指定内容的匹配操作
+
+public boolean matches() { }  // 是否(完整)匹配
+public boolean find() { }     // 执行单次(部分)匹配
+public String replaceAll(String replacement) { }
+public String replaceFirst(String replacement) { }
+
+public Matcher reset() { }
+public Matcher reset(CharSequence input) { text = input; return reset(); }  // 替换待匹配内容并重置
+public int start() { }  // 上次匹配的起始位置，如未进行过匹配抛 IllegalStateException("No match available")
+public int end() { }    // 上次匹配的结束位置
+```
+
+```java
+Pattern pattern = Pattern.compile("\\d+", Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
+Matcher matcher = pattern.matcher("A12bc\nde345f");
+boolean matchFound = matcher.find();  // 执行3次结果：true (lastmatch=12); true (lastmatch=345); false
+matcher.reset("46").matches();  // true
 ```
 
 
@@ -293,6 +350,14 @@ sdf.format(sdf.parse("2017-9-31 00:11:22"));  // "2017-10-01 00:11:22"
 ```
 
 ### java.text.MessageFormat
+
+```java
+public class MessageFormat extends Format { }
+
+public static String format(String pattern, Object... arguments) { }
+
+public Object[] parse(String source) throws ParseException { }
+```
 
 
 ## java.io
