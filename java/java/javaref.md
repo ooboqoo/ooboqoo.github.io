@@ -328,6 +328,47 @@ boolean matchFound = matcher.find();  // 执行3次结果：true (lastmatch=12);
 matcher.reset("46").matches();  // true
 ```
 
+### java.util.Arrays
+
+```java
+public class Arrays { }
+
+public static boolean equals(int[] a, int[] a2) { }  // boolean char byte short long float double Object
+public static void fill(float[] a, float val) { }
+public static void sort(short[] a, int fromIndex, int toIndex) { }  // 注1
+public static <T> void sort(T[] a, Comparator<? super T> c) { }  // 自定义排序，或对非 Comparable 排序
+public static int binarySearch(double[] a, int fromIndex, int toIndex, double key) { }  // 二分法查找
+public static String toString(char[] a) { }
+```
+
+注1：数组实际上分为普通数组和对象数组两类使用情况，普通数组可以直接根据数据的大小关系进行排序，而对象数组，要使用 `sort()` 实现排序就必须实现 Comparable 接口：
+
+#### java.lang.Comparable
+
+```java
+public interface Comparable<T> {
+    public int compareTo(T o);  // 覆写此方法时只需返回3种结果1(>0) -1(<0) 0
+}
+```
+
+#### java.util.Comparator
+
+Comparable 接口必须在类定义时实现，如果类定义中没有实现 Comparable，那么还有一个补救的比较器接口 Comparator。
+
+```java
+@FunctionalInterface
+public interface Comparator<T> {
+    int compare(T o1, T o2);
+    boolean equals(Object obj);
+}
+```
+
+```java
+class Book { public float price; public Book(float price) { this.price = price; } }
+Book[] books = new Book[] { new Book(12.5f), new Book(62), new Book(25) };
+java.util.Arrays.sort(books, (a, b) -> a.price > b.price ? 1 : -1);  // [12.5, 25, 62]
+```
+
 
 ## java.text
 

@@ -1,5 +1,7 @@
 # SQL 速查表
 
+https://www.w3schools.com/sql/sql_insert.asp
+
 ## Most Common
 
 ### SELECT
