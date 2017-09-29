@@ -53,20 +53,45 @@ protected Object clone() throws CloneNotSupportedException { }
 protected void finalize() throws Throwable { }
 ```
 
+
 ### java.lang.Class
 
 ```java
 public final class Class<T> implements java.io.Serializable, GenericDeclaration, Type, AnnotatedElement{}
 
 public static Class<?> forName(String className) throws ClassNotFoundException { }
-  // Class.forName("java.util.Date") ==> class java.util.Date
 
 public String getName() { }        // String.class.getName(); ==> "java.lang.String"
 public String getSimpleName() { }  // String.class.getSimpleName(); ==> "String"
+public Package getPackage() { return Package.getPackage(this); }
+public native Class<? super T> getSuperclass();
+public Class<?>[] getInterfaces() { }  // 取得类实现的所有接口
+
+public boolean isEnum() { }
+public native boolean isInterface();
+public native boolean isArray();
+
+@CallerSensitive  // 反射实例化对象
+public T newInstance() throws InstantiationException, IllegalAccessException { }
+@CallerSensitive  // 取得全部构造方法
+public Constructor<?>[] getConstructors() throws SecurityException { }
+@CallerSensitive  // 取得指定参数类型的构造方法
+public Constructor<T> getConstructor(Class<?>... parameterTypes) throws NoSuchMethodException, SecurityException { }
+@CallerSensitive
+public Method[] getMethods() throws SecurityException { }
+@CallerSensitive
+public Method getMethod(String name, Class<?>... parameterTypes) throws NoSuchMethodException, SecurityException { }
+@CallerSensitive  // 取得本类自有成员(变量+常量)
+public Field[] getDeclaredFields() throws SecurityException { }
+@CallerSensitive  // 取得本类指定名称的成员
+public Field getDeclaredField(String name) throws NoSuchFieldException, SecurityException { }
+@CallerSensitive  // 取得全部成员(含继承)
+public Field[] getFields() throws SecurityException { }
+@CallerSensitive  // 
+public Field getField(String name) throws NoSuchFieldException, SecurityException { }
 ```
 
-注：获取 Class 对象 https://docs.oracle.com/javase/tutorial/reflect/class/classNew.html  
-注：关于 `a.getClass()` 和 `A.class`: `A.class` 在编译期处理，效率更高。注意 `Class` 类没有 `class` 的属性。
+注：Class 类中最为重要的一个方法就是 `newInstance()`，通过此方法可以利用反射实现 Class 类包装类型的对象实例化操作，也就是说即使不使用 `new` 也能新建对象。但此方法只能调用无参构造方法，如果类中不存在无参构造方法就会报错。
 
 ### java.lang.Character
 
@@ -229,6 +254,46 @@ public final String getName() { }
 public StackTraceElement[] getStackTrace() { }
 ```
 
+### java.lang.reflect.Constructor
+
+```java
+public final class Constructor<T> extends Executable { }
+public Class<?>[] getExceptionTypes() { return exceptionTypes.clone(); }
+public int getModifiers() { return modifiers; }  // 修饰符本质上都是数字的加法操作，如 public static = 1 + 8
+public String getName() { return getDeclaringClass().getName(); }
+public Class<?>[] getParameterTypes() { return parameterTypes.clone(); }
+public int getParameterCount() { return parameterTypes.length; }
+@CallerSensitive
+public T newInstance(Object ... initargs) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException { }
+```
+
+```java
+String className = "Book";  // 动态类名
+Class.forName(className).getConstructor(float.class).newInstance(12.5f);  // 调用有参构造创建实例
+```
+
+### java.lang.reflect.Method
+
+```java
+public final class Method extends Executable { }
+public Class<?> getReturnType() { return returnType; }
+public int getParameterCount() { return parameterTypes.length; }
+public Class<?>[] getParameterTypes() { return parameterTypes.clone(); }
+public Class<?>[] getExceptionTypes() { return exceptionTypes.clone(); }
+@CallerSensitive  // 此方法是实现方法反射调用的核心操作
+public Object invoke(Object obj, Object... args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException { }
+```
+
+### java.lang.reflect.Field
+
+```java
+public final class Field extends AccessibleObject implements Member { }
+@CallerSensitive  // 取得指定对象中的成员内容，相当于直接调用成员
+public Object get(Object obj) throws IllegalArgumentException, IllegalAccessException { }
+@CallerSensitive  // 设置指定对象中的成员内容，相当于直接设置成员内容
+public void set(Object obj, Object value) throws IllegalArgumentException, IllegalAccessException { }
+```
+
 
 ## java.util
 
@@ -243,7 +308,6 @@ Random(long seed) { }  // 种子相同，即使实例不同也产生相同的随
 public int nextInt() { }
 public int nextInt(int bound) { }  // 产生一个不大于指定边界的随机整数
 ```
-
 
 ### java.util.Date
 
@@ -278,6 +342,8 @@ public final static int MILLISECOND = 14;  // 10:04:15.250 PM -> 250
 public static Calendar getInstance() { }
 
 public int get(int field) { }
+public void set(int field, int value) { }
+public final void set(int year, int month, int date, [int hourOfDay, int minute, [int second]]) { }
 public boolean before(Object when) { }
 public boolean after(Object when) { }
 ```
@@ -359,9 +425,11 @@ Comparable 接口必须在类定义时实现，如果类定义中没有实现 Co
 @FunctionalInterface
 public interface Comparator<T> {
     int compare(T o1, T o2);
-    boolean equals(Object obj);
+    boolean equals(Object obj);  // 注
 }
 ```
+
+注：正常 `@FunctionalInterface` 只能包含一个抽象方法，但这里定义了两个抽象方法，这样不会有问题的原因在于，所有匿名类都继承自 java.lang.Object，而 Object 类中已经有了 equals() 方法实现，所以实际使用时，只需要覆写 compare() 方法即可。
 
 ```java
 class Book { public float price; public Book(float price) { this.price = price; } }

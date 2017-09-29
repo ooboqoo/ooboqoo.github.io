@@ -115,7 +115,7 @@ foreach ($fname[1] as &$value) {
 <table>
   <tr><th>文件名</th><th>文件大小</th><th>修改日期</th><th>操作</th></tr>
 <?php
-for ($i = 2; $i < count($out)-1; $i += 8){
+for ($i = 2; $i < count($out)-1; $i += 8) {
   $ii = ($i-2) / 8;
   echo '<tr><td>'.$fname[1][$ii].'</td><td>'.$out[$i+4].'</td><td>'.$out[$i+5].
   '</td><td><a href="wpan.php?downfile='.urlencode($fname[1][$ii]).
@@ -123,5 +123,10 @@ for ($i = 2; $i < count($out)-1; $i += 8){
 }
 ?>
 </table>
+<script>
+  var href = location.href;
+  var pos = href.indexOf('?');
+  if (pos > -1) { window.history.pushState({}, 0, href.substring(0, pos)); }
+</script>
 </body>
 </html>
