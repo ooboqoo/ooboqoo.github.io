@@ -437,6 +437,25 @@ Book[] books = new Book[] { new Book(12.5f), new Book(62), new Book(25) };
 java.util.Arrays.sort(books, (a, b) -> a.price > b.price ? 1 : -1);  // [12.5, 25, 62]
 ```
 
+### java.util.Locale
+
+```java
+public final class Locale implements Cloneable, Serializable { }
+public Locale(String language, String country) { this(language, country, ""); }
+public static Locale getDefault() { return defaultLocale; }
+```
+
+### java.util.ResourceBundle
+
+```java
+public abstract class ResourceBundle { }
+@CallerSensitive  // 根据当前默认语言环境取得资源对象
+public static final ResourceBundle getBundle(String baseName) { }
+@CallerSensitive  // 根据指定的语言环境取得资源对象
+public static final ResourceBundle getBundle(String baseName, Locale locale) { }
+public final String getString(String key) { return (String) getObject(key); }
+```
+
 
 ## java.text
 
@@ -466,6 +485,10 @@ public class MessageFormat extends Format { }
 public static String format(String pattern, Object... arguments) { }
 
 public Object[] parse(String source) throws ParseException { }
+```
+
+```java
+java.text.MessageFormat.format("params = {0}", 12)  // "params = 12"
 ```
 
 

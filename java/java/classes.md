@@ -346,11 +346,41 @@ Class.forName(className).getConstructor(float.class).newInstance(12.5f);  // 调
 
 ## 国际化
 
+### 使用 Locale 类定义语言环境
 
+### 利用 ResourceBundle 读取资源文件
 
+#### 资源文件
 
+* 资源文件一般都是以 `key=value` 的形式保存文本信息
+* 资源文件必须以 `.properties` 作为文件后缀
+* 资源文件的命名规范应该与类名相同，即每个单词的首字母必须大写(貌似没有此限制啊)
+* 资源文件必须保存在 CLASSPATH 目录下，也就是说资源文件可以保存在包中
+* 读取资源文件时，规则同类文件，需要加上包名，但不能带后缀 `.properties`
+* 资源文件中的中文内容必须转换为 UNICODE 编码
 
+```text
+# 注释内容 Messages.properties
+demo.info = "\u8BFE\u7A0B"kechengzhongwen
+withParam = params1 = {0}, params2 = {1}
+```
 
+#### 资源读取
 
+```java
+import java.util.ResourceBundle;
+public class Test {
+    public static void main(String[] args) throws Exception {
+        ResourceBundle rb = ResourceBundle.getBundle("Messages");
+        System.out.println(rb.getString("demo.info"));  // 输出："课程"kechengzhongwen
+        System.out.println(MessageFormat.format(rb.getString("withParam"), 12, "str")); // 占位符使用
+    }
+}
+```
 
+#### 多资源读取
+
+* 多语言资源文件命名格式：文件名_语言编码_国家编码.properties
+* 使用 ResourceBundle 类读取时只输入文件名称，具体的语言编码和国家编码都由程序自己分辨
+* 当同时存在公共资源(没有设置语言和国家编码)和具体语言资源文件(设置了语言和国家编码)，会优先读取具体语言资源文件内容，对于具体资源文件中不存在的属性，则还是会读取公共资源文件内容。
 
