@@ -1,8 +1,69 @@
-# Nginx + NodeJS + MongoDB
+# LAMP/LEMP 服务器部署
 
-PM2 quickstart: http://pm2.keymetrics.io/docs/usage/quick-start/
+LAMP = Linux + Apache + MySQL + PHP, LEMP = Linux + Nginx + MySQL + PHP
 
-## 安装
+
+## Apache
+
+### 多站点配置
+
+正常是要单独建立 httpd-vhosts.conf 配置文件的，这里图省事，直接全部放 /etc/httpd/conf/httpd.conf
+
+```text
+# 先修改原配置，修改前为 "/var/www/html"
+DocumentRoot "/var/www"
+
+# 然后添加以下配置
+<VirtualHost *:80>
+    ServerName www.ngapps.cn
+    DocumentRoot "/var/www/ooboqoo.github.io"
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName jpn.ngapps.cn
+    DocumentRoot "/var/www/html"
+</VirtualHost>
+
+<Directory "/var/www/ooboqoo.github.io">
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require all granted
+</Directory>
+```
+
+
+### 安装 phpMyAdmin
+
+```bash
+$ yum -y install phpmyadmin
+```
+
+/etc/httpd/conf.d/phpMyAdmin.conf
+
+```text
+# Apache 2.4 // 需要改两处
+  <RequireAny>
+    # Require ip 127.0.0.1
+    # Require ip ::1
+    Require all granted
+  </RequireAny>
+```
+
+```bash
+$ systemctl restart httpd.service    # 重启 httpd
+```
+
+Now open http://serverIP/phpmyadmin in your browser. You can login using root as username and mysql root password.
+
+```php
+// 修改 /etc/phpMyAdmin/config.inc.php
+$cfg['Servers'][$i]['AllowNoPassword'] = TRUE;  // 允许 phpMyAdmin 无密码登录
+```
+
+
+## Nginx
+
+### 安装
 
 ```bash
 $ yum install nginx 
@@ -18,7 +79,7 @@ $ nginx -s [stop | quit | reload | reopen]  # 启动后就可以通过 -s 执行
 ```
 
 
-## 配置
+### 配置
 
 http://nginx.org/en/docs/beginners_guide.html
 
@@ -66,6 +127,7 @@ http {
     }
 }
 ```
+
 
 ### 部署 HTTPS
 
@@ -139,7 +201,107 @@ location modifier
 * `^~` 正则匹配以指定 pattern 开头的 URI
 
 
-## NodeJS + MongoDB + PM2 安装
+## Tomcat
+
+
+## MySQL
+
+http://cnzhx.net/blog/centos-rhel-install-lamp-phpmyadmin/
+
+### 安装及启动
+
+```bash
+# 安装
+$ yum install mariadb-server mariadb  # MariaDB 数据库管理系统替代原 MySQL
+
+# 配置编码
+$ vim /etc/my.cnf　 # 编辑MySQL的配置文件，添加：
+    # [mysqld] default-character-set = utf8　// 设置默认编码 MySQL 用
+    # [mysqld] character_set_server=utf8     // 设置默认编码 MariaDB 用
+
+# 启动服务
+$ systemctl start/stop/restart mariadb  // 启动/停止/重启 MariaDB
+$ systemctl enable mariadb   // 设置开机启动
+$ systemctl status mariadb   // 查看服务状态信息
+```
+
+#### 忘记 root 密码解救方法
+
+/etc/my.cnf
+
+```text
+[mysqld] skip-grant-tables  # 添加这个设置就可以直接登录，改密码后再注释掉这句
+```
+
+```sql
+update mysql.user set password=password('newpassword') where user='root'
+```
+
+### 初始环境设定
+
+#### 设置根账户密码
+
+为 root 用户设置密码，root 用户默认是没有密码的。
+
+```
+[root@sample ~]# mysql -u root　 ← 用root用户登录MySQL服务器
+mysql> select user,host,password from mysql.user;　 ← 查看用户信息
+mysql> set password for root@localhost=password('在这里填入root密码');　 ← 设置root密码
+mysql> set password for root@'sample.centospub.com'=password('在这里填入root密码');　 ← 设置root密码
+mysql> select user,host,password from mysql.user;　 ← 查看用户信息
+mysql> exit　 ← 退出MySQL服务器
+```
+
+#### 删除匿名用户
+
+MySQL 初始安装存在用户名、密码为空的用户。这使得数据库服务器有无需密码被登录的可能性。为消除隐患，将匿名用户删除。
+
+```sql
+select user,host from mysql.user;　     -- 查看用户信息
+delete from mysql.user where user='';　 -- 删除匿名用户
+```
+
+### 测试 MySQL
+
+```sql
+mysql> grant all privileges on test.* to centospub@localhost identified by '密码';　 ← 建立对test数据库有完全操作权限的名为centospub的用户
+mysql> select user from mysql.user where user='centospub';　 ← 确认centospub用户的存在与否
+mysql> quit;
+
+[root@sample ~]# mysql -u centospub -p　 ← 用新建立的centospub用户登录MySQL服务器
+mysql> create database test;　 ← 建立名为test的数据库
+mysql> show databases;　 ← 查看系统已存在的数据库
+
+mysql> use test　 ← 连接到数据库
+mysql> create table test(num int, name varchar(50));　 ← 在数据库中建立表
+mysql> show tables;　 ← 查看数据库中已存在的表
+
+mysql> insert into test values(1,'Hello World!');　 ← 插入一个值到表中
+mysql> select * from test;　 ← 查看数据库中的表的信息
+
+mysql> update test set name='Hello Everyone!';　 ← 更新表的信息，赋予新的值
+mysql> select * from test;　 ← 查看数据库中的表的信息
+mysql> delete from test where num=1;　 ← 删除表内的值
+mysql> select * from test;　 ← 确认删除结果
+
+mysql> drop table test;　 ← 删除表
+mysql> show tables;　 ← 查看表信息
+
+mysql> drop database test;　 ← 删除名为test的数据库
+mysql> show databases;　 ← 查看已存在的数据库
+
+mysql> exit　 ← 退出MySQL服务器
+
+mysql> revoke all privileges on *.* from centospub@localhost;　 ← 取消centospub用户对数据库的操作权限
+mysql> delete from mysql.user where user='centospub' and host='localhost';　 ← 删除centospub用户
+mysql> select user from mysql.user where user='centospub';　 ← 查找用户centospub，确认已删除与否
+mysql> exit　 ← 退出MySQL服务器
+
+[root@sample ~]# /etc/rc.d/init.d/httpd restart　 ← 重新启动HTTP服务，让php-mysql反映到HTTP服务中。
+```
+
+
+## NodeJS + MongoDB + PM2
 
 http://blog.danyll.com/setting-up-express-with-nginx-and-pm2/
 
@@ -169,7 +331,7 @@ $ npm install pm2 typescript -g
 ```
 
 
-## Koa 自动部署
+### Koa 自动部署
 
 ```bash
 $ mkdir koa-mongo.git
@@ -199,7 +361,7 @@ $ pm2 startup            # 配置 pm2 开机启动
 至此自动部署就完成了，以后只要在本地 `git push`，服务器就会自动编译和更新了。但有一点需要注意的是，脚本里没有添加 `npm install`，所以项目有引入新包的话，还得去服务器手动操作下。
 
 
-## PM2
+### PM2 常用命令
 
 ```bash
 $ pm2 help               # 获取帮助
@@ -224,3 +386,50 @@ $ pm2 dump|save          # 这一步会保存进程的环境变量等，并把�
 $ npm update -g pm2@latest  # Install the latest pm2 version
 $ pm2 updatePM2             # Then update the in-memory PM2
 ```
+
+
+## 搭建 Discuz 论坛
+
+### Nginx + PHP + MySQL
+
+/etc/nginx/nginx.conf
+
+```text
+    server {
+        listen         80;
+        server_name    *.hjsc.ren;
+        root           /var/www/hjsc.ren;
+    }
+
+    server {
+        listen         80;
+        server_name    bbs.hjsc.ren;
+        root           /var/www/hjsc.ren/bbs;
+        location ~ \.php$ {
+            fastcgi_pass     127.0.0.1:9000;
+            fastcgi_index    index.php;
+            fastcgi_param    SCRIPT_FILENAME   $document_root$fastcgi_script_name;
+            include          fastcgi_params;
+        }
+    }
+```
+
+数据库配置
+
+```bash
+$ 
+```
+
+### Discuz
+
+```bash
+# 安装包下载并解压
+$ cd hsjc.ren
+$ wget http://download.comsenz.com/DiscuzX/3.4/Discuz_X3.4_SC_GBK.zip
+$ unzip Discuz_X3.4_SC_GBK.zip
+$ mv upload bbs
+$ cd bbs; chmod -R 777 data config uc_client uc_server
+
+# 通过浏览器登录设置 http://bbs.hsjc.ren/install/index.php
+```
+
