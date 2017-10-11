@@ -494,6 +494,253 @@ java.text.MessageFormat.format("params = {0}", 12)  // "params = 12"
 
 ## java.io
 
+整个 java.io 实际上就是五个类(File InputStream OutputStream Reader Wirter)和一个接口(Serializable)。
+
+### java.io.File
+
+File 类中提供的方法并不涉及文件的具体内容，只是针对文件本身的操作。
+
+```java
+public class File implements Serializable, Comparable<File> { }
+public File(String pathname) { }
+public File(String parent, String child) { }
+
+public static final String separator = "" + separatorChar;  // 分隔符 "/" 或 "\\", 注意因历史原因为小写
+
+public boolean createNewFile() throws IOException { }
+public boolean exists() { }
+public boolean isFile() { }
+public boolean isDirectory() { }
+public boolean delete() { }
+public boolean mkdirs() { }
+
+public long length() { }  // 文件或目录的字节长度，file.length()/1024 + 1 可转为 kb
+public String[] list() { }
+public File[] listFiles() { }
+public File getParentFile() { }
+public long lastModified() { }
+```
+
+```java
+File file = new File("d:\\demo\\test.txt");
+file.getParentFile().exists();  // false
+file.getParentFile().mkdirs();  // true, 直接 file.mkdirs() 会生成名为 test.txt 的文件夹
+file.getParentFile().getParentFile().list();  // ["demo", ...]
+file.isFile();         // false
+file.createNewFile();  // true
+file.isFile();         // true
+new SimpleDateFormat("yy-MM-dd HH:mm:ss").format(new Date(file.lastModified()));  // 17-10-08 20:07:01
+file.toString();       // "d:\\demo\\test.txt"
+```
+
+### java.io.OutputStream
+
+```java
+public abstract class OutputStream implements Closeable, Flushable { }
+
+public void close() throws IOException { }
+public void flush() throws IOException { }
+public abstract void write(int b) throws IOException { }
+public void write(byte b[]) throws IOException { }
+public void write(byte b[], int off, int len) throws IOException { }
+```
+
+#### java.io.FileOutputStream
+
+```java
+public class FileOutputStream extends OutputStream { }
+public FileOutputStream(File file) throws FileNotFoundException { this(file, false); }
+public FileOutputStream(String name, boolean append) throws FileNotFoundException {
+    this(name != null ? new File(name) : null, append);
+}
+```
+
+```java
+OutputStream output = new FileOutputStream("d:\\demo\\test.txt");
+output.write("Hello World!\r\n".getBytes());
+output.close();
+```
+
+### java.io.InputStream
+
+```java
+public abstract class InputStream implements Closeable { }
+public void close() throws IOException { }
+// 读取单个字节，读取到文件末尾返回 -1
+public abstract int read() throws IOException;
+// 将数据读取到字节数组中，返回读取长度
+public int read(byte b[]) throws IOException { return read(b, 0, b.length); }
+public int read(byte b[], int off, int len) throws IOException { }
+```
+
+#### java.io.FileInputStream
+
+```java
+public class FileInputStream extends InputStream { }
+public FileInputStream(File file) throws FileNotFoundException { }
+public FileInputStream(String name) throws FileNotFoundException { }
+```
+
+```java
+InputStream input = new FileInputStream("d:\\demo\\test.txt");
+StringBuffer str = new StringBuffer();
+// 逐个读取
+int i = 0;
+while((i = input.read()) != -1) { str.append(Character.toChars(i)); }
+// 批量读取
+byte[] data = new byte[4];
+int count = 0;
+while((count = input.read(data)) != -1) {
+    if (count < 4) { str.append(new String(data), 0, count); } else { str.append(new String(data)); }
+}
+input.close();
+```
+
+### java.io.Writer
+
+Writer 类中直接提供了输出字符串数据的方法，这样就不用将字符转成字节数组了。
+
+```java
+public abstract class Writer implements Appendable, Closeable, Flushable { }
+abstract public void flush() throws IOException;
+abstract public void close() throws IOException;
+public Writer append(char c) throws IOException { write(c); return this; }
+public Writer append(CharSequence csq) throws IOException { }
+abstract public void write(char cbuf[], int off, int len) throws IOException {}
+public void write(String str) throws IOException { }
+```
+
+Writer 是一个抽象类，要针对文件内容进行输出，可以使用 FileWriter 类实现实例化操作。
+
+#### java.io.FileWriter
+
+```java
+public class FileWriter extends OutputStreamWriter { }
+public FileWriter(File file) throws IOException { }
+public FileWriter(String fileName, boolean append) throws IOException { }
+```
+
+```java
+Writer output = new FileWriter("d:\\demo\\test.txt", true);
+output.write("中文输出");
+output.close();
+```
+
+### java.io.Reader
+
+```java
+public abstract class Reader implements Readable, Closeable { }
+abstract public void close() throws IOException;
+public int read() throws IOException { }
+public int read(char cbuf[]) throws IOException { return read(cbuf, 0, cbuf.length); }
+public long skip(long n) throws IOException { }  // 跳过指定长度的字符
+```
+
+#### java.io.FileReader
+
+```java
+public class FileReader extends InputStreamReader { }
+public FileReader(File file) throws FileNotFoundException { }
+public FileReader(String fileName) throws FileNotFoundException { }
+```
+
+读取一个中文字符，InputStream 需读两次，而 Reader 只需读一次。
+
+```java
+InputStream input = new FileInputStream("d:\\demo\\test.txt");  // 文件内容：abc中文
+input.read();   // 读7次结果：97,98,99,214,208,206,196
+Reader reader = new FileReader("d:\\demo\\test.txt");
+reader.read();  // 读5次结果：97,98,99,20013,25991
+```
+
+### java.io.ByteArrayInputStream & ByteArrayOutputStream
+
+```java
+public class ByteArrayInputStream extends InputStream { }
+public ByteArrayInputStream(byte buf[], int offset, int length) { }
+
+public class ByteArrayOutputStream extends OutputStream { }
+public ByteArrayOutputStream(int size) { }  // 指定数组长度，默认32，数组可根据需要自动增长
+public synchronized byte toByteArray()[] { return Arrays.copyOf(buf, count); }
+public synchronized int size() { return count; }
+public synchronized String toString() { return new String(buf, 0, count); }
+```
+
+### java.io.PrintStream & PrintWriter
+
+```java
+public class PrintStream extends FilterOutputStream implements Appendable, Closeable { }
+private void write(String s) { }  // private
+public void print(boolean b) { write(b ? "true" : "false"); }
+public void print(char c) { write(String.valueOf(c)); }
+public void print(int i) { write(String.valueOf(i)); }  // long float double 同
+public void print(char s[]) { write(s); }
+public void print(Object obj) { write(String.valueOf(obj)); }
+public void println() { newLine(); }
+```
+
+### java.io.BufferedReader
+
+```java
+public class BufferedReader extends Reader { }
+public BufferedReader(Reader in) { this(in, defaultCharBufferSize); }
+public String readLine() throws IOException { return readLine(false); }
+```
+
+### java.util.Scanner
+
+实际开发中，只要操作的是文本数据，输出时使用打印流，输入时使用扫描流(也可用缓冲字符输入流)。
+
+```java
+public final class Scanner implements Iterator<String>, Closeable { }
+public Scanner(InputStream source) { }
+public Scanner(Readable source) { }
+public Scanner(File source) throws FileNotFoundException { }
+public Scanner(Path source) throws IOException { }
+public Scanner(String source) { }
+
+public boolean hasNext() { }
+public boolean hasNext(Pattern pattern) { }  // 支持使用正则表达式来进行格式验证
+public boolean hasNext(String pattern)  { return hasNext(patternCache.forName(pattern)); }
+public String next() { }
+public boolean hasNextLine() { }  // Byte Short Int Long Float Double Boolean BigInteger BigDecimal
+public String nextLine() { }  // Byte Short Int Long Float Double Boolean BigInteger BigDecimal
+public Scanner useDelimiter(String pattern) { }  // 设置读取的分隔符
+```
+
+```java
+Scanner scan = new Scanner(System.in);
+System.out.print("请输入内容：");
+if (scan.hasNext()) { System.out.println("输入内容：" + scan.next()); }
+scan.close();
+```
+
+### java.io.ObjectOutputStream & java.io.ObjectInputStream
+
+```java
+public class ObjectOutputStream extends OutputStream implements ObjectOutput, ObjectStreamConstants { }
+public ObjectOutputStream(OutputStream out) throws IOException { }  // 指定输出流
+public final void writeObject(Object obj) throws IOException { }    // 序列化对象
+```
+
+```java
+public class ObjectInputStream extends InputStream implements ObjectInput, ObjectStreamConstants { }
+public final Object readObject() throws IOException, ClassNotFoundException { }
+```
+
+```java
+// 序列化对象并保存到文件中
+ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("d:\\demo\\test.ser"));
+oos.writeObject(new Date());
+oos.close();
+
+// 从外部文件读入内容并反序列化成对象
+ObjectInputStream ois = new ObjectInputStream(new FileInputStream("d:\\demo\\test.ser"));
+Object obj = ois.readObject();
+Date d = (Date) obj;  // 强制向下转型存在隐患，最好利用反射机制来进行操作
+ois.close();
+```
+
 
 ## java.net
 

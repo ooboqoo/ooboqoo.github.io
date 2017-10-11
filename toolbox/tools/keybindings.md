@@ -61,6 +61,7 @@ https://www.jetbrains.com/help/idea/keyboard-shortcuts-you-cannot-miss.html
 | Shift+F9      | Debug
 | Ctrl+N        | 快速查找类
 | Ctrl+Shift+N  | 快速查找文件
+| Ctrl+H        | 查看继承关系(Navigate -> Type Hierarchy)
 
 ### VS Code 专有快捷键
 

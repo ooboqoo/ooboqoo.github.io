@@ -397,7 +397,7 @@ $ pm2 updatePM2             # Then update the in-memory PM2
 ```text
     server {
         listen         80;
-        server_name    *.hjsc.ren;
+        server_name    www.hjsc.ren hjsc.ren;
         root           /var/www/hjsc.ren;
     }
 
@@ -430,6 +430,6 @@ $ unzip Discuz_X3.4_SC_GBK.zip
 $ mv upload bbs
 $ cd bbs; chmod -R 777 data config uc_client uc_server
 
-# 通过浏览器登录设置 http://bbs.hsjc.ren/install/index.php
+# 通过浏览器登录设置 http://bbs.hjsc.ren/install/index.php
 ```
 
