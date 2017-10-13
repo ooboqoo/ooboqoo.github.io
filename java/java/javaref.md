@@ -138,7 +138,7 @@ public String toUpperCase() { }
 public boolean matches(String regex) { } // 判断字符串是否符合正则表达式结构 "12y".matches("\\d+") ==> false
 public String replaceAll(String regex, String replacement) { }    // 将满足正则的内容全部替换为新内容
 public String replaceFirst(String regex, String replacement) { }  // 将满足正则的首个内容替换为新内容
-public String[] split(String regex, int limit) { }
+public String[] split(String regex, int limit) { }  // "(?i:matcher)" 忽略大小写的写法，详见 Pattern.html
 ```
 
 ```java
@@ -699,7 +699,7 @@ public Scanner(File source) throws FileNotFoundException { }
 public Scanner(Path source) throws IOException { }
 public Scanner(String source) { }
 
-public boolean hasNext() { }
+public boolean hasNext() { }  // This method may block while waiting for input to scan.
 public boolean hasNext(Pattern pattern) { }  // 支持使用正则表达式来进行格式验证
 public boolean hasNext(String pattern)  { return hasNext(patternCache.forName(pattern)); }
 public String next() { }
@@ -743,6 +743,24 @@ ois.close();
 
 
 ## java.net
+
+### java.net.ServerSocket
+
+```java
+public class ServerSocket implements java.io.Closeable { }
+public ServerSocket(int port) throws IOException { this(port, 50, null); }  // 开辟一个监听端口
+public Socket accept() throws IOException { }  // 接收客户端连接，等待时会阻塞代码执行
+public void close() throws IOException { }
+```
+
+### java.net.Socket
+
+```java
+public class Socket implements java.io.Closeable { }
+public Socket(String host, int port) throws UnknownHostException, IOException { }
+public OutputStream getOutputStream() throws IOException { }
+public InputStream getInputStream() throws IOException { }
+```
 
 
 
