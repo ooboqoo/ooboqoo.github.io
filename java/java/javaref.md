@@ -456,6 +456,10 @@ public static final ResourceBundle getBundle(String baseName, Locale locale) { }
 public final String getString(String key) { return (String) getObject(key); }
 ```
 
+### java.util.Collection & Map & Stack & Stream
+
+见类集框架笔记
+
 
 ## java.text
 
