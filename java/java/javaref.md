@@ -458,7 +458,7 @@ public final String getString(String key) { return (String) getObject(key); }
 
 ### java.util.Collection & Map & Stack & Stream
 
-见类集框架笔记
+见集合类型笔记
 
 
 ## java.text
