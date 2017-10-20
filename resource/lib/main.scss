@@ -279,6 +279,8 @@ main {
     overflow: overlay;
   }
 
+  .ul { white-space: nowrap; }
+
   a {
     display: inline-block;
     height: 100%;
@@ -291,12 +293,10 @@ main {
   a:hover  { background-color: #ccc; color: #000; }
   a.active { background-color: #eee; color: #000; }
 
-  @media (min-width:  993px) { .ul { width:  980px; margin:auto;} }
   @media (min-width: 1210px) { .ul { width: 1210px; margin:auto;} }
 
-  @media (max-width: 800px) {
+  @media (max-width: 960px) {
     & { overflow-x: scroll; }
-    .ul { white-space: nowrap; }
     a { padding-left: 5px; padding-right: 5px; }
   }
 }
