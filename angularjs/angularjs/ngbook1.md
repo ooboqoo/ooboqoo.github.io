@@ -1,5 +1,12 @@
 # AngularJS 权威教程笔记 - 1
 
+AngularJS 五个特性：
+  - MVC: 好处：职责清晰，代码模块化。MVC只是手段，目的是为了模块化和复用！
+  - 依赖注入: 依赖注入(DI)是一个经典的设计模式, 主要是用来处理组件如何获得依赖的问题。
+  - 模块化
+  - 双向绑定: 双向绑定的核心思想是，视图和数据模型是对应的，自动同步更新。
+  - 语义化标签: 语义化标签也叫作AngularJS指令，这个是AngularJS最独特，最吸引开发者的一个功能。
+
 
 ## 2. 数据绑定
 
@@ -16,6 +23,15 @@
 
 开发大型应用时，我们会创建多个模块来承载业务逻辑。将复杂的功能分割成不同的模块，有助于单独为它们编写测试。
 
+```text
+Module    // Modules are Containers
+  |- Config -> Routes
+  |- Filter
+  |- Directive
+  |- Factory Service Provider Value
+  \-Controller
+```
+
 ```js
 // 创建模块(提供2个参数) 或 获取模块(只提供一个参数)
 angular.module(name: string, requires: string[])
@@ -23,10 +39,14 @@ angular.module(name: string, requires: string[])
   // requires 包含了一个字符串变量组成的列表，每个元素都是一个模块名称，本模块依赖于这些模块，依赖需要在本模块加载之前由注入器进行预加载。
 ```
 
+```js
+var ngModule = angular.module('ng');  // 获取内置模块 ng，框架功能都定义在此模块
+```
+
 
 ## 4. 作用域 
 
-作用域 scope 是构成 AngularJS 应用的核心基础。应用的作用域是和应用的数据模型相关联的，同时作用域也是表达式执行的上下文。 `$scope` 对象是定义应用业务逻辑、控制器方法和视图属性的地方。
+作用域 scope 是构成 AngularJS 应用的核心基础。应用的作用域是和应用的数据模型相关联的，同时作用域也是表达式执行的上下文。 `$scope` 对象是定义应用业务逻辑、控制器方法和视图属性的地方。注：$scope 是一个普通的 JS 对象。
 
 作用域是视图和控制器之间的胶水。在应用将视图渲染并呈献给用户之前，视图中的模板会和作用域进行连接，然后应用会对 DOM 进行设置以便将属性变化通知给 AngularJS。这个功能让 XHR 请求等 promise 对象的实现变得非常容易。
 
@@ -65,6 +85,30 @@ AngularJS 不会对不包含 AngularJS 特殊声明的元素进行任何处理�
 </div>
 ```
 
+### 4.2 $scope有什么作用？ 
+
+* $scope 是一个作用域，是AngularJS表达式的执行环境，表达式中的变量值都是从表达式所在作用域的$scope对象上获取到的。
+* $scope 是视图和控制器之间的胶水，是AngularJS实现MVC和双向绑定的基础。
+* $scope 提供了 `$watch()` 方法，用来监控数据模型变化。
+* $scope 提供了 `$apply()` 方法，该方法将任何数据模型的变化更新到视图上去。
+
+### 4.3 $rootScope 
+
+* $rootScope是一个特殊的$scope，它是整个AngularJs应用的根作用域。
+* $rootScope是在应用启动时生成的。
+* $rootScope的作用域范围是ng-app指令所在标签内部。
+* 一个AngularJS应用只有一个$rootScope。
+
+### 4.4 $scope 的树形结构
+
+scope的继承就是用原型链实现的。
+
+```js
+$scope.$parent === $scope.__proto__;  // true
+```
+
+一个应用可以有很多个作用域$scope，各个作用域对应一部分DOM。$scope作用域可以嵌套的。当新作用域被创建的时候，他们会被当成子作用域添加到父作用域下，这使得作用域会变成一个和相应DOM结构一致的树状结构。
+
 ### 4.4 `$scope` 的生命周期 
 
 `$scope` 对象的生命周期处理有四个不同阶段。
@@ -81,9 +125,18 @@ AngularJS 不会对不包含 AngularJS 特殊声明的元素进行任何处理�
 **销毁**
 当一个 `$scope` 在视图中不再需要时，这个作用域将会清理和销毁自己。尽管永远不需要清理作用域(会自动处理)，但知道是谁创建了这个作用域还是有用的，因为你可以使用这个 `$scope` 上的 `$destory()` 方法来手动清理。
 
-### 4.5 指令和作用域
+### 4.5 哪些指令会创建$scope(子作用域)
 
-指令通常不会创建自己的 `$scope`，但也有例外，如 `ng-controller` 和 `ng-repeat` 指令会创建自己的子作用域。
+指令通常不会创建自己的 `$scope`，但也有例外，如 `ng-controller`、`ng-repeat`、`ng-switch`、`ng-view` 和 `ng-include` 都会创建自己的子作用域，并继承父作用域的属性和方法。
+
+通过directive()方法定义的指令，如果返回对象中配置了 `scope` 属性为对象时，创建了一个孤立 scope。
+
+### 4.6 如何获取DOM上的$scope?
+
+```js
+angular.element('#idName').scope();  // angular.element() 方法调用的 $()
+```
+
 
 ## 5. 控制器
 
@@ -144,6 +197,16 @@ angular.module('myApp', []).controller('MyController', function($scope, UserServ
 
 对表达式进行的任何操作，都会在其所属的作用域内部执行，因此可以在表达式内部调用那些限制在此作用域内的变量，并进行循环、函数调用、将变量应用到数学表达式中等操作。
 
+
+2）AngularJS表达式与JavaScript表达式的不同之处？
+AngularJS表达式与JavaScript表达式不完全相同，因为AngularJS不会用Javascript的eval()函数去执行AngularJS表达式。 不过除了以下几个需要区别的地方以外，你可以把AngularJS表达式看成是Javascript表达式： 
+属性表达式：属性表达式是对应于当前的作用域的，不像Javascript对应的是window对象。
+允许未定义值：执行表达式时，AngularJS能够允许undefined或者null，不像Javascript会抛出一个异常。
+没有控制结构： 你不能在AngularJS表达式中使用“条件判断”、“循环”、“抛出异常”等控制结构。
+过滤器： 你可以通过过滤器链来传递表达式的结果。例如将日期对象转变成指定的阅读友好的格式。
+
+`$eval()` 的用法
+
 ### 6.1 解析 AngularJS 表达式
 
 尽管 AngularJS 会在运行 `$digest` 循环的过程中自动解析表达式，但有时手动解析表达式也是非常有用的。
@@ -177,15 +240,19 @@ Angular 中，我们的确有手动运行模板编译的能力。要在字符串
 可以在模板表达式或JS代码中使用过滤器。
 
 ```
+{{ expression | filter:参数1:参数2 }}  <!-- 多个参数分别用 `:` 引导 -->
+{{ expression | filter1 | filter2 }}   <!-- 多个过滤器之间用 `|` 分隔 -->
+
 {{ 123.456789 | number:2 }}  <!-- 显示：123.46 -->
+{{'abcdefg' | limitTo:2:1 | uppercase}}
 ```
 
 ```js
 app.controller('DemoController', ['$scope', '$filter', function($scope, $filter) {
     $scope.name = $filter('lowercase')('Ari');
+    $filter('date')(new Date(), 'yyyy-MM-dd');  // 格式: $filter(过滤器名)(表达式, 参数1, 参数2)
 }]);
 ```
-
 
 ### 7.1 内置过滤器
 
@@ -443,6 +510,14 @@ scope: { someProperty: '@someAttr' }
 ## 9. 内置指令
 
 AngularJS 提供了一系列内置指令。其中一些指令重载了原生的 HTML 元素，比如 `<form>` 和 `<a>` 标签，当在 HTML 中使用标签时，并不一定能明确看出是否在使用指令。其他内置指令通常以 `ng` 为前缀，很容易识别。
+
+* 元素类指令：a、form、input。
+* 属性类：
+* 功能类：ngApp、ngController、ng-model、ngBind
+* 事件类：ngClick、ngKeyup、ngMouseover、ng-focus、ng-blur
+* 样式类：ngClass、ngStyle、
+* 显示类：ngShow、ngHide、ngIf
+* 其它：ng-repeat 等
 
 ### 9.1 基础 `ng` 属性指令
 
