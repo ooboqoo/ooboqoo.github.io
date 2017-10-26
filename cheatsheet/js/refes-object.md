@@ -53,7 +53,7 @@ h2 { text-align: center; }
 <h5 class="es6">Object.setPrototypeOf(obj) <span>-- 设置对象的原型，即 `[[Prototype]]` 属性</span><span class="mark">[注3]</span></h5>
 <h5 class="es5">Object.getOwnPropertyNames(obj) <span>-- 返回一个数组，包含对象所有自有属性(可枚举+不可枚举)</span></h5>
 <h5 class="es6">Object.getOwnPropertySymbols(obj) <span>-- 返回一个数组，包含对象的所有自有以 Symbol 类型为键名的属性</span></h5>
-<h5 class="es5">Object.defineProperty(obj, prop, descriptor) <span>-- 给对象添加一个属性并指定该属性的配置</span></h5>
+<h5 class="es5">Object.defineProperty(obj, prop, descriptor) <span>-- 给对象添加一个属性并指定该属性的配置</span><span class="mark">[注4]</span></h5>
 <h5 class="es5">Object.defineProperties(obj, props) <span>-- 给对象添加多个属性并分别指定它们的配置 `{prop1: descriptor1, ...}`</span></h5>
 <h5 class="es5">Object.getOwnPropertyDescriptor(obj, prop) <span>-- 返回指定对象上一个自有属性对应的属性描述符</span></h5>
 <h5 class="es8">Object.getOwnPropertyDescriptors(obj) <span>-- 返回指定对象上所有自有属性的属性描述符</span></h5>
@@ -78,6 +78,14 @@ h2 { text-align: center; }
 [注2]：虽然 ES6 将广泛使用的 `__proto__` 引入了标准(仅在附录里提到要求浏览器都部署，对其他运行环境没要求)，只是为了不同平台间的兼容性，正常我们应该使用 `Object.getPrototypeOf()`。
 
 [注3]：该方法用来替代有争议的 `object.__proto__` 属性，但还是无法回避修改原型的执行性能问题，如非必要请新建对象。
+
+[注4]：ES5 中 getter 和 setter 的用法：
+
+```js
+var a = {get foo () { return this.name; }, set foo (str) { this.name = str; } };
+Object.defineProperty(a,'bar',{get:function() { return this.foo; },set:function(str) { this.foo=str; }});
+```
+
 
 ## Function
 
