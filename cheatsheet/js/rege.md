@@ -168,6 +168,13 @@ var re = new RegExp('ab+c', 'gi');
 | `m` | Multi-line search.
 | `y` | Perform a "sticky" search that matches starting at the current position in the target string.
 
+注：多行匹配会影响到边界符号 `^` `$` 的匹配结果。
+
+```js
+"abc123\nabc456".match(/^abc.{1,}/g);   // ["abc123"]
+"abc123\nabc456".match(/^abc.{1,}/mg);  // ["abc123", "abc456"]
+```
+
 ### Working with regular expressions
 
 | Method    | Description

@@ -92,17 +92,7 @@
 
     ajax('/header.html', function (text) {
       var elem_header = document.getElementById("header");
-      elem_header.innerHTML = text;
-      var links = elem_header.getElementsByTagName("a");
-      [].forEach.call(links, function (a) {
-        if (window.location.href.indexOf(a.href) !== -1) { a.className = "active"; }
-      });
-
-      elem_header.onclick = function (e) {
-        if (e.target.tagName !== "A") { return; }
-        window.location.href = e.target.href;
-        e.target.className = "active";
-      };
+      elem_header.innerHTML = /<div[\s\S]*?<\/div>/.exec(text)[0] + '</div>';
     });
   </script>
 </body>

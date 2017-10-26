@@ -217,9 +217,18 @@ function isMobile() {
   ajax('/header.html', function (text) {
     elem_header.innerHTML = text;
     var links = elem_header.getElementsByTagName("a");
+    var a, p, temp;
     for (var i = 0, length = links.length; i < length; i++) {
-      if (window.location.href.indexOf(links[i].href) !== -1) {
-        return links[i].className = "active";
+      a = links[i]
+      if (window.location.href.indexOf(a.href) !== -1 && a.className.indexOf('btn') === -1) {
+        a.className = "active";
+        p = a.parentElement.parentElement;
+        delete p.style.display;
+        temp = p;
+        while (temp = temp.previousElementSibling) { temp.style.display = 'none'; }
+        temp = p;
+        while (temp = temp.nextElementSibling) { temp.style.display = 'none'; }
+        return;
       }
     }
   });
