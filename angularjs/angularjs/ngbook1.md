@@ -29,7 +29,7 @@ Module    // Modules are Containers
   |- Filter
   |- Directive
   |- Factory Service Provider Value
-  \-Controller
+  \- Controller
 ```
 
 ```js
@@ -192,18 +192,18 @@ angular.module('myApp', []).controller('MyController', function($scope, UserServ
 表达式和 `eval` 非常相似，但是由于表达式由 AngularJS 来处理，它们有以下显著不同的特性：
   * 所有的表达式都在其所属的作用域内部执行，并有访问本地 $scope 的权限；
   * 如果表达式发生了 TypeError 和 ReferenceError 并不会抛出异常；
-  * 不允许使用任何流程控制功能，如 if/eles；
+  * 不允许使用任何流程控制功能，如 if/else；
   * 可以接受过滤器和过滤器链。
 
 对表达式进行的任何操作，都会在其所属的作用域内部执行，因此可以在表达式内部调用那些限制在此作用域内的变量，并进行循环、函数调用、将变量应用到数学表达式中等操作。
 
 
 2）AngularJS表达式与JavaScript表达式的不同之处？
-AngularJS表达式与JavaScript表达式不完全相同，因为AngularJS不会用Javascript的eval()函数去执行AngularJS表达式。 不过除了以下几个需要区别的地方以外，你可以把AngularJS表达式看成是Javascript表达式： 
-属性表达式：属性表达式是对应于当前的作用域的，不像Javascript对应的是window对象。
-允许未定义值：执行表达式时，AngularJS能够允许undefined或者null，不像Javascript会抛出一个异常。
-没有控制结构： 你不能在AngularJS表达式中使用“条件判断”、“循环”、“抛出异常”等控制结构。
-过滤器： 你可以通过过滤器链来传递表达式的结果。例如将日期对象转变成指定的阅读友好的格式。
+AngularJS表达式与JavaScript表达式不完全相同，因为AngularJS不会用Javascript的eval()函数去执行AngularJS表达式。 不过除了以下几个需要区别的地方以外，你可以把AngularJS表达式看成是Javascript表达式：
+  * 属性表达式：属性表达式是对应于当前的作用域的，不像Javascript对应的是window对象。
+  * 允许未定义值：执行表达式时，AngularJS能够允许undefined或者null，不像Javascript会抛出一个异常。
+  * 没有控制结构： 你不能在AngularJS表达式中使用“条件判断”、“循环”、“抛出异常”等控制结构。
+  * 过滤器： 你可以通过过滤器链来传递表达式的结果。例如将日期对象转变成指定的阅读友好的格式。
 
 `$eval()` 的用法
 
