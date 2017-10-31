@@ -98,6 +98,7 @@ Object.defineProperty(a,'bar',{get:function() { return this.foo; },set:function(
 <h5 class="es3">arguments.callee <span>-- 指向当前函数，严格模式下被禁用，有缺陷，但似乎又没办法完全弃用</span></h5>
 </div>
 <div class="dl">
+<h5 class="es3">function.prototype <span>-- 构造函数的原型对象 `{constructor, __proto__}`</span></h5>
 <h5 class="es3">function.length <span>-- 获取函数的形参个数</span></h5>
 <h5 class="es6">function.name <span>-- 获取函数的名称</span></h5>
 <h5 class="es">function.caller <span>-- 保存着对调用当前函数的函数的引用，用于替代被废弃的 arguments.caller</span><span class="mark">注1</span></h5>

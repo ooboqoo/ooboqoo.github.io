@@ -1,10 +1,5 @@
 # 杂碎知识点
 
-#### 缓存机制选择和实现
-
-http://code.huawei.com/cloud-service-dev-team-devops/console-framework/wikis/randomcode
-文件名加 hash，请求链接加参数字段
-
 #### sessionStorage
 
 每个 tab 页的 sessionStorage 都是独立的，无法通过 sessionStorage 实现标签页之间的通信。可以利用 `localStorage` 以及监听 `window` 上 `storage` 事件来解决。
@@ -15,13 +10,18 @@ http://stackoverflow.com/questions/118884/how-to-force-browser-to-reload-cached-
 
 ```
 <link href="/css/main.css?v=20110526" rel="Stylesheet">
+<script src="/js/app.js?md5=a5b5c45f45f87f5458"></script>
 <script src="/js/app.js?20110526"></script>
 ```
 
 问：上面链接外部的css或js文件名后跟了一个“?”，并带上一个参数，作用是什么呢？  
-答：js或css带参数,是为了避免旧的浏览器缓存继续生效；特别是在大型站中随时可能会更改局部css文件，为了避免浏览器刷新而继续使用旧的CSS缓存文件，在使用时往往会带上一个动态参数。
+答：js或css带参数，是为了避免旧的浏览器缓存继续生效；特别是在大型站中随时可能会更改局部css文件，为了避免浏览器刷新而继续使用旧的CSS缓存文件，在使用时往往会带上一个动态参数。
 
-[注] 如链接内所讨论的，对于这种带参数的文件，很多浏览器并不会缓存，每次都需要重新下载，这种用法其实并不妥当。
+[注] 如链接内所讨论的，对于这种带参数的文件，很多浏览器并不会缓存，每次都需要重新下载，而且[HTTP/1.1规范](https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.9)是禁止对带查询的请求进行缓存的。
+
+其他方案修改文件名，也就是文件名中带hash值或随机码，如 `name.123.js`。这种方案可解决浏览器行为不统一的痛点，但通过此方案来控制缓存，但对大的项目来说维护难度较大，因为修改一个文件，会导致依赖此文件的一系列文件名的更新，所以很多站点没有采用此方案。
+
+如果版本发布控制合理，其实临时替换缓存内容的情形不多。且以后采用 HTTP/2 之后，可以通过服务器推送来完美解决缓冲控制的问题。
 
 #### webpack 自动生成雪碧图
 

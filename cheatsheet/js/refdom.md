@@ -1,3 +1,7 @@
+<style>
+  #md span.mark { display: inline-block; float: right; background-color: initial; font-size: small;}
+</style>
+
 # HTML DOM 手册
 
 ### Finding HTML Elements
@@ -147,12 +151,14 @@ The following properties and methods can be used on HTML documents:
 <tr><td>document.createAttribute()</td><td>Creates an attribute node</td></tr>
 <tr><td>document.createTextNode()</td><td>Creates a Text node</td></tr>
 <tr><td>document.createComment()</td><td>Creates a Comment node with the specified text</td></tr>
-<tr><td>document.createDocumentFragment()</td><td>Creates an empty DocumentFragment node</td></tr>
+<tr><td>document.createDocumentFragment()</td><td>Creates an empty DocumentFragment node<span class="mark">[注1]</span></td></tr>
 <tr class="separator"><td>&nbsp;</td><td></td></tr>
 <tr><td>document.hasFocus()</td><td>Returns a Boolean value indicating whether the document has focus</td></tr>
 <tr><td>document.normalize()</td><td>Removes empty Text nodes, and joins adjacent nodes</td></tr>
 <tr><td>document.normalizeDocument()</td><td>Removes empty Text nodes, and joins adjacent nodes</td></tr>
 </table>
+
+注1：[DocumentFragment](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment) 的关键点: 片段是轻量级的Document; append时从片段内移出
 
 ### Warning !!!
 

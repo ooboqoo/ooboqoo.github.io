@@ -4,6 +4,15 @@ http://usejsdoc.org/
 
 ## 常用标签
 
+### 最常用标签速查
+
+```tag
+@param {string} [somebody=John Doe] - Somebody's name.
+ 参数  参数类型   可选参数=默认值        参数描述
+```
+
+### jsdox
+
 jsdox 是 jsdoc 的一个子集，以下就是 jsdox 支持的标签清单，估计够用了。
 
 ```tag
