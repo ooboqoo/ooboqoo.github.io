@@ -161,7 +161,7 @@ function isMobile() {
       // 给文档代码设置高亮
       [].forEach.call(elem_md.querySelectorAll("pre > code"), hljs.highlightBlock);
 
-      // 通过重新生成 script 标签来执行 script 标签内容
+      // 通过重新生成 script 标签来执行 script 标签内容，注：不能用 script.cloneNode(true)
       [].forEach.call(elem_md.getElementsByTagName("script"), function (script) {
         var newScript = document.createElement("script");
         if (script.src) {
@@ -169,7 +169,7 @@ function isMobile() {
         } else {
           newScript.innerHTML = script.innerHTML;
         }
-        elem_md.appendChild(newScript);
+        elem_md.appendChild(newScript).parentNode.removeChild(newScript);
       });
 
       setContents();              // 加载文档大纲
