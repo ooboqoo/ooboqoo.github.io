@@ -1,9 +1,6 @@
 <style>
-
   strong { color:#C00; }
-
   i, em { font-style: normal; font-family:"lucida sans unicode", arial, sans-serif; color: #0aa; }
-
 </style>
 
 
@@ -25,13 +22,13 @@ __syntax__  _/ˈsɪntæks/_  n. 句法规则, 句法
 
 ## HTML
 
-__HTML__  Hyper Text Markup Language  
+__HTML__  超文本标记语言 Hyper Text Markup Language  
 
 __consortium__  _/kənˈsɔːtiəm/_  n. 财团, 联合企业  The World Wide Web Consortium
 
-__url__  n. 统一资源定位器  Uniform Resource Locator
+__URL__  n. 统一资源定位器  Uniform Resource Locator
 
-__URI__  统一资源标识符  Uniform Resource Identifier
+__URI__  n. 统一资源标识符  Uniform Resource Identifier
 
 __domain__  _/dəˈmeɪn/_  n. 领土, 势力范围; (因特网上的)域  
 
@@ -43,27 +40,23 @@ __end tag / closing tag__  n. 结束/关闭标签
 
 __Chrome__  _/krəʊm $ kroʊm/_  n. 镀铬的金属; 浏览器名称  
 
-__Safari__  _/səˈfɑːri/_  n. 观兽游猎的履行; 浏览器名称  
+__Safari__  _/səˈfɑːri/_  n. (尤指在东非的)观兽旅行, 游猎; 浏览器名称  
 
 __declaration__  _/ˌdekləˈreɪʃən/_  n. 宣布, 宣告; 声明  
 
 __element__  _/ˈeləmənt, ˈelɪmənt/_  n. 成分; 要素  
 
-__validation__  
+__validation__  n. 验证  __validate__  v. 证实, 确认, 认可  
 
-__parse__  _/pɑːz $ pɑːrs/_  v. 对句子作语法分析 __paser__ 语法分析器
+__parse__  _/pɑːz $ pɑːrs/_  v. 对句子作语法分析 __paser__ 语法分析器  
 
-__dialect__  n. 方言  
+__dialect__  _/ˈdaɪəlekt/_  n. 方言  
 
-__ommitting__  忽略  
+__omit__  _/əˈmɪt/_  n. 省略, 遗漏  
 
 __horizontal line__  _/ˌhɔːrəˈzɑːntl/_  分割线  
 
-__pre__  
-
-__syntax__  _/ˈsɪntæks/_  n. 句法规则,句法  
-
-__semantic__  _/sɪˈmæntɪk/_  a. 语义的  
+__pre__  pre-formatted text  
 
 __quotation__  n. 引文, 引语  
 
@@ -71,13 +64,13 @@ __citation__  _/saɪˈteɪʃən/_  n. 引述, 引文
 
 __abbr__  _/əˌbriːviˈeɪʃən/_  n. 缩写词; 缩略形式  
 
-__acronym__  _/ˈækrənɪm/_  n.首字母缩略词  
+__acronym__  _/ˈækrənɪm/_  n. 首字母缩略词  
 
-__bdo__  `<bdo dir="rtl">该段落文字从右到左显示。</bdo>` __rtl__: right to left
+__bdo__  `<bdo dir="rtl">该段落文字从右到左显示。</bdo>` __rtl__: right to left  
 
-__var__  _/ˈveəriəbəl/_  n. 变量 __variable__ a. 易变的 n. 变量
+__var__  _/ˈveəriəbəl/_  __variable__ a. 易变的 n. 变量  
 
-__anchor__  _/ˈæŋkə/_  n.锚, 超链接hypertext的标准叫法
+__anchor__  _/ˈæŋkə/_  n. 锚, 超链接hypertext的标准叫法
 
 __attribute__  _/ˈætrəbjuːt/_  n. 特性 v. 把…归因于
 
@@ -87,40 +80,32 @@ __stumble upon__  v. 绊脚, 步履蹒跚
 
 __hexadecimal__  _/ˌheksəˈdesɪməl◂/_  a. 十六进制的  
 
-__fliceker__  _/ˈflɪkə/_  v. 抖动  
-
-__validate__  
-
 __diacritic__  _/ˌdaɪəˈkrɪtɪk/_  n. 音标符号  
 
 __scheme__  _/skiːm/_  n. 计划, 方案.  -- 定义因特网服务的类型, 最常见的类型是http
 
-__extensible__  _/ɪk'stensəbl/_  a.可扩展的  -- EXtensible HyperText Markup Language
+__extensible__  _/ɪk'stensəbl/_  a. 可扩展的  -- EXtensible HyperText Markup Language
 
-__parameter__  _/pəˈræmətə/_  n.参数;界限  
+__parameter__  _/pəˈræmətə/_  n. 参数; 界限  
 
-__module__  _/ˈmɒdjuːl/_  n.模块,组件  
+__prefix__  _/ˈpriːfɪks/_  n. 前缀  
 
-__prefixes__  
+__specification__  _/ˌspesɪfɪˈkeɪʃn/_  n. 规格, 具体要求  
 
-__specification__  
+__implement__  _/ˈɪmpləment, ˈɪmplɪment/_  v. 履行, 实施 n. 工具, 器具  
 
-__implement__  _/ˈɪmpləment, ˈɪmplɪment/_  v.履行,实施 n.工具,器具  
+__implementer__  n. 实施者  
 
-__implementer__  n.实施者  
+__hover__  _/ˈhɒvə, ˈhʌvər/_  v. 悬浮; 昆虫等振翅悬停  
 
-__hover__  _/ˈhɒvə $ ˈhʌvər/_  v.悬浮;昆虫等振翅悬停  
+__flicker__  _/ˈflɪkə/_  v. 闪烁, 抖动  
 
-__flicker__  _/ˈflɪkə/_  v.闪烁,抖动  
-
-__cache__  _/kæʃ/_  高速缓冲存储器  
-
-__manifest__  _/ˈmænɪfest/_  v.表明,显露a.明白的  
-
-__fallback__  _/ˈfɔːlbæk/_  a.退守的,备选的  
+__cache__  _/kæʃ/_  n. 隐匿物(如军火), 高速缓存  
 
 
 ## HTML Head
+
+__manifest__  _/ˈmænɪfest/_  v. 表明, 显露 a. 明白的  
 
 __namespaces__  命名空间  
 
@@ -141,26 +126,24 @@ __DTD__  n.文档类型声明 Document Type Definition
 
 ## HTML Form
 
-__radio__  _/ˈreɪdiəʊ $ -dioʊ/_  n. 收音机, 表单中意思为单选框
+__radio__  _/ˈreɪdiəʊ $ -dioʊ/_  n. 收音机, 表单中意思为单选框  
 
-__bullet__  
+__bullet__  _/ˈbʊlət, ˈbʊlɪt/_  n. 子弹  
 
 
 ## CSS
 
-__CSS__  n.层叠样式表 Cascading Style Sheets
+__CSS__  n. 层叠样式表 Cascading Style Sheets
 
 __rendering__  _/ˈrendərɪŋ/_  n. 演绎, 表演; 翻译; [计] 渲染  __render__ v. 致使; 翻译
 
-__module__  _/ˈmɑːdʒuːl/_  n. 模块, 单元  
+__module__  _/ˈmɑːdʒuːl/_  n. 模块, 组件, 单元  
 
 __model__  _/ˈmɑːdl/_  n. 模型  
 
-__modal__  模态框; n. 情态助动词  
+__modal__  _/ˈməʊdl/_  模态框; n. 情态助动词, 莫代尔纤维  
 
 __mode__  _/moʊd/_  n. 方式; 模式  
-
-__hexadecimal__  _/ˌheksəˈdesɪməl◂/_  
 
 __opacity__  _/əʊˈpæsəti/_  n. 模糊; 不透明  
 
@@ -171,8 +154,6 @@ __transparent__  _/trænˈspærənt/_  a. 透明的; 清澈的
 __gradient__  _/ˈɡreɪdiənt/_  n. 斜坡; 坡度; 变化率  
 
 __transition__  _/trænˈzɪʃən/_  n. 转变; 过渡  
-
-__ellipsis__  _/ɪˈlɪpsəs/_  n. 语言学中的省略  
 
 __skew__  _/skjuː/_  v. 扭曲  
 
@@ -194,7 +175,7 @@ __clip__  _/klɪp/_  n. 回形针 v. 修剪
 
 __ripple__  _/ˈrɪpəl/_  n. 波纹; 起伏  
 
-__dip / dp__  device-independent pixel
+__dip / dp__  设备独立像素, 密度无关像素 device-independent pixel
 
 __pixel__  _/ˈpɪksəl/_  n. 像素  
 
@@ -221,9 +202,13 @@ __punctuation mark__  _/ˌpʌŋktʃuˈeɪʃən/_  n. 标点符号
 
 __apostrophe__  _/əˈpɒstrəfi/_  n. 撇号, 省字号 `'`  
 
-__brackets__  `BrE` / __parentheses__ `AmE + BrE formal`  _/ˈbrækɪts/_ _/pəˈrenθəsiːz/_  pl. 括号 `()` `[]` `{}`
+__ellipsis__  _/ɪˈlɪpsəs/_  n. 语言学中的省略, 省略号  `...`
 
-__curly braces__  pl. 大括号 `{` `}`  a pair of curly braces
+__parentheses__ `AmE`  _/pəˈrenθəsiːz/_  pl. (圆)括号 `()` `[]` `{}`
+
+__angle brackets__  `BrE` pl. 尖括号 `<` `>`
+
+__curly braces__  pl. 大括号 `{` `}`  a pair of curly braces  -- __brace__ _/breɪs/_ v. 支撑 n. 托架  
 
 __colon__  _/ˈkəʊlən/_  n. 冒号 `:`
 
@@ -231,19 +216,17 @@ __semicolon__  _/ˌsemiˈkəʊlən/_  n. 分号 `;`
 
 __comma__  _/ˈkɑːmə/_  n. 逗号 `,`
 
+__full stop__ _BrE_ / __period__ _AmE_  n. 句号 `.`
+
 __hyphen__  _/ˈhaɪfən/_  n. 连字符 `-`
 
 __dash__  n. 破折号 `–`
-
-__full stop__ _BrE_ / __period__ _AmE_  n. 句号 `.`
 
 __exclamation mark__ `BrE` / __exclamation point__ `AmE`  _/ˌekskləˈmeɪʃən/_  n. 感叹号 `!`
 
 __question mark__  n. 问号 `?`
 
 __quotation marks / inverted commas__  `BrE` n. 引号 `'` `"`
-
-__angle brackets__  `BrE` pl. 尖括号 `<` `>`
 
 __slash__  n. 斜线号 `/`
 
@@ -257,6 +240,10 @@ __ampersand__  _/ˈæmpəsænd/_  `&`
 
 
 ## Programming
+
+__syntax__  _/ˈsɪntæks/_  n. 句法规则, 句法  
+
+__semantic__  _/sɪˈmæntɪk/_  a. 语义的  
 
 __literal__  _/ˈlɪtərəl/_  原义的, 字面上的, 直译的  -- 编程翻译为 "字面量"
 
@@ -285,6 +272,53 @@ __clause__  分句, 从句, 子句
 __disruptive statement__  中断语句  
 
 __variable__  _/ˈveəriəbəl/_  n. 变量 a. 多变的  
+
+
+### Classes and Objects
+
+__object__  n. 对象  
+
+__class__  n. 类  
+
+__definition__  n. 定义  
+
+__property__  n. 属性  
+
+__method__  n. 方法  
+
+__variable__  n. 变量  
+
+__function__  n. 函数  
+
+__provide__  v. 规定; 提供
+
+__underscore__  n. 下划线  
+
+__expression__  n. 表达式  
+
+__thus__  ad. 这样; 因此  
+
+__constant__  n. 常量  
+
+__context__  n. 环境, 语境; 上下文, 来龙去脉  
+
+__pseudo-__  a. 假的  -- pseudo-variable 伪变量
+
+__instance__  n. 情况; 例子  -- 译为实例
+
+__constructor__  n. 构造器  
+
+__exception__  n. 例外  
+
+__namespace__  n. 命名空间  
+
+__clone__  v. 克隆, 复制  
+
+__reference__  n. 引用, 即建立一个符号链接, 非复制  
+
+__notation__  n. 符号, 标记  
+
+__facilitate__  _/fəˈsɪlɪteɪt/_  v. 促进, 使便利  
 
 
 ## JavaScript
@@ -358,26 +392,26 @@ __emit__  _/ɪˈmɪt/_  vt. 发出, 放射; 发表, 发行
 
 ## QUnit
 
-__author__  _/ˈɔːθə $ ˈɒːθər/_  n.作者,作家; v.创作,撰写  
+__author__  _/ˈɔːθə $ ˈɒːθər/_  n. 作者, 作家; v. 创作, 撰写  
 
-__comparison__  _/kəmˈpærəsən, kəmˈpærɪsən/_  n.比较;对照  
+__comparison__  _/kəmˈpærəsən, kəmˈpærɪsən/_  n. 比较; 对照  
 
-__suppress__  _/səˈpres/_  v. 制止,阻止  
+__suppress__  _/səˈpres/_  v. 制止, 阻止  
 
-__approach__  v.靠近,与...接洽; n.途径,道路;方法,手段  
+__approach__  v. 靠近, 与...接洽; n. 途径, 道路; 方法, 手段  
 
 
 ## Bootstrap
 
-__responsive__  _/rɪˈspɒnsɪv/_  a.反应迅速的;回应的  
+__responsive__  _/rɪˈspɒnsɪv/_  a. 反应迅速的; 回应的  
 
-__grid__  _/ɡrɪd/_  n.网格  
+__grid__  _/ɡrɪd/_  n. 网格  
 
-__jumbo__  _/ˈdʒʌmbəʊ/_  a.巨大的  
+__jumbo__  _/ˈdʒʌmbəʊ/_  a. 巨大的  
 
-__typography__  _/taɪˈpɒɡrəfi/_  n.排版式样;印刷格式  
+__typography__  _/taɪˈpɒɡrəfi/_  n. 排版式样; 印刷格式  
 
-__modal window__  子窗口  -- __modal__ 情态动词  
+__modal window__  子窗口, 模态框  
 
 __carousel__  _/ˌkærəˈsel/_  n. 行李传送带, 旋转木马  
 
@@ -385,23 +419,23 @@ __framework__  _/ˈfreɪmwɜːk/_  n. 体系; 架构
 
 __compatible__  _/kəmˈpætəbəl/_  a. 兼容的  
 
-__CDN (Content Delivery Network)__  
+__CDN__   Content Delivery Network  
 
-__well__  n.油井,水井  
+__well__  n. 油井, 水井  
 
-__aria__  _/ˈɑːriə/_  n.咏叹调  -- aria-label 特性用于控制屏幕阅读器
+__aria__  _/ˈɑːriə/_  n. 咏叹调  -- aria-label 特性用于控制屏幕阅读器
 
-__caret__  _/ˈkærət/_  n.补字符号  
+__caret__  _/ˈkærət/_  n. 补字符号  
 
-__glyph__  _/ɡlɪf/_  n.刻在石头上的符号  
+__glyph__  _/ɡlɪf/_  n. 刻在石头上的符号  
 
-__badge__  _/bædʒ/_  n.徽章;标记  
+__badge__  _/bædʒ/_  n. 徽章; 标记  
 
-__pagination__  _/ˌpædʒɪˈneɪʃən/_  n.编页码  
+__pagination__  _/ˌpædʒɪˈneɪʃən/_  n. 编页码  
 
 __breadcrumb__  _/krʌm/_  n. 面包屑  
 
-__orientation__  _/ˌɔːriənˈteɪʃən/_  n.朝向  
+__orientation__  _/ˌɔːriənˈteɪʃən/_  n. 朝向  
 
 __collapse__  _/kəˈlæps/_  v. 倒塌  -- BootStrap 里意为折叠
 
@@ -422,9 +456,9 @@ __addendum [pl.] addenda__  _/əˈdendəm/_  n. 附录
 
 __caveat__  _/ˈkæviæt/_  n. 警告; 注意事项  -- 记忆：cave + at 洞穴内的警告
 
-__idiomatic__  _/ˌɪdiəˈmætɪk◂/_  a.惯用的;地道的  -- __idiom__ n. 习语; 方言; 特色
+__idiomatic__  _/ˌɪdiəˈmætɪk◂/_  a. 惯用的; 地道的  -- __idiom__ n. 习语; 方言; 特色
 
-__heap__  _/hiːp/_  v.堆放 [计] 堆  -- JS中用于存放引用类型主体
+__heap__  _/hiːp/_  v. 堆放 [计] 堆  -- JS中用于存放引用类型主体
 
 __stack__  _/stæk/_  n. 堆, 一堆 v. 堆积, 堆起 [计] 栈  -- JS中用于存放基本数据类型以及引用类型的指针
 
@@ -445,15 +479,15 @@ __alias__  _/ˈeɪliəs/_  n. 化名, 别名
 
 __statement__  n. 陈述, 说明  -- 数据库里翻译为"语句"
 
-__Aggregate__  _/ˈæɡrɪɡət/_  a. 合计的  
+__aggregate__  _/ˈæɡrɪɡət, ˈæɡrɪɡɪt/_  a. 合计的  -- 译为"聚合"
 
-__Scalar__  _/ˈskeɪlər/_  a. 分等级的 n. 数量, 标量  
+__scalar__  _/ˈskeɪlər/_  a. 分等级的 n. 数量, 标量  
 
 __truncate__  _/trʌŋˈkeɪt/_  v. 缩短 SYN shorten  
 
-__ascending__  a. 上升的, 向上的  
+__ascending__  a. 上升的, 向上的  __ascend__ _/əˈsend/_ v. 攀登, 升职  
 
-__descending__  a. 秩序下降的, 递减的  
+__descending__  a. 秩序下降的, 递减的  __descend__ _/dɪˈsend/- v. 下来, 下降, 走下; 堕落; 陷入(糟糕境地)
 
 __revoke__  _/rɪˈvəʊk/_  v. 取消, 撤回  
 
@@ -466,53 +500,6 @@ __delimiter__  _/dɪˈlɪmɪtə/_  n. 分隔符
 __delimit__  _/dɪˈlɪmət, dɪˈlɪmɪt/_  v. 限定; 划定…的边界  
 
 
-## PHP - Classes and Objects
-
-__object__  n.对象  
-
-__class__  n.类  
-
-__definition__  n.定义  
-
-__property__  n.属性  
-
-__method__  n.方法  
-
-__variable__  n.变量  
-
-__function__  n.函数  
-
-__provide__  v.规定  <span class="br">v.提供</span>
-
-__underscore__  n.下划线  
-
-__expression__  n.表达式  
-
-__thus__  ad.这样;因此  
-
-__constant__  n.常量  
-
-__context__  n.环境,语境;上下文,来龙去脉  
-
-__pseudo-__  a.假的  <span class="br">pseudo-variable 伪变量</span>
-
-__instance__  n.实例  <span class="br">n.情况;例子</span>
-
-__constructor__  n.构造器  
-
-__exception__  n.例外  
-
-__namespace__  n.命名空间  
-
-__clone__  v.克隆,复制  
-
-__reference__  n.引用,即建立一个符号链接,非复制  
-
-__notation__  n.符号,标记  
-
-__facilitate__  _/fəˈsɪlɪteɪt/_  v.促进,使便利  
-
-
 ## Editor
 
 __snippet__  _/ˈsnɪpət, ˈsnɪpɪt/_  n. 小片; 小部分; 零星片段  
@@ -520,13 +507,18 @@ __snippet__  _/ˈsnɪpət, ˈsnɪpɪt/_  n. 小片; 小部分; 零星片段
 
 ## Linux
 
-__locale__  _/ləʊˈkɑːl/_  n.场所;地点  
+__locale__  _/ləʊˈkɑːl/_  n. 场所; 地点  
+
+__guid__  全局唯一标识符 globally unique identifier
+
+__grep__  _/'grep/_  Unix工具程序, 可做文件内的字符串查找 -- g/re/p globally search a regular expression and print
 
 
 ## 其他
 
 __w/__  with;  __w/o__ without
 
-__expando__  扩展属性，附加属性，可能源于 expandable object property  <span class="br">[计] A property added to an object at run-time.</span>
+__expando__  [计] 扩展属性, 附加属性, 可能源于 expandable object property
 
+__noop__  [计] 空操作 no operation
 

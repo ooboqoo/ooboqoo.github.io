@@ -5,13 +5,23 @@
 
 ## 颜色主题设置
 
-[Garden 主题文件](./Garden.tmTheme)
+[Garden 主题文件](/001/Garden.tmTheme)
 
 ### How to install a Sublime Text theme
 
 `Preferences -> Browse Packages` 进入"Packages"文件夹，并创建"Colorsublime-Themes"，再将下载的主题文件放入该文件夹。
 
 `Preferences -> Color Scheme -> Colorsublime-Themes` 选择相应的主题即可。
+
+或者在配置文件里直接设置 `Preferences -> Settings`
+
+```json
+{
+  "color_scheme": "Packages/Colorsublime-Themes/Garden.tmTheme",
+  "draw_white_space": "all",
+  "font_size": 12
+}
+```
 
 ### 自定义主题的相关文档和资料
 

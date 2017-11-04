@@ -1,115 +1,117 @@
-# jQuery References
-
 <style>
   td:first-child { color: red; }
   td[colspan] { color: initial; font-weight: 600; }
   em { color: gray; }
 </style>
 
+# jQuery References
+
+
 ## jQuery 选择器
 
-jQuery 选择器是 CSS 选择器的超集，像“匹配元素间定位”、属性选择器中的“!=” 以及“其他选择符”中的一些选择符 CSS 中没有。
+jQuery 选择器是 CSS 选择器的超集。
 
 ### 简单选择器
 
- 选择器         |     示 例     | 描 述
- -------------- | ------------- | -------
- $('#_id_')     | $('#article') | 根据给定的 id 匹配一个元素
- $('._class_')  | $('.intro')   | 根据给定的类目匹配元素
- $('_element_') | $('p')        | 根据给定的元素名匹配元素
- $('*')         | $('*')        | 匹配所有元素
- $('_selector1_, _selector2_, ...') | $('h1, div, p') | 将每一个选择器匹配到的元素合并后一起返回
+|     选择器     |     示 例     |                 描 述
+|----------------|---------------|--------------------------------------
+| $('#_id_')     | $('#article') | id 匹配
+| $('._class_')  | $('.intro')   | 类名匹配
+| $('_element_') | $('p')        | 元素名匹配
+| $('*')         | $('*')        | 匹配所有元素
+| $('_selector1_, _selector2_, ...') | $('h1, div, p') | 多个匹配项合并
 
 ### 层次选择器
 
- 选择器                       |     示 例      | 描 述
- ---------------------------- | -------------- | -------
- $('_ancestor_ _descendant_') | $('div .demo') | 后代元素，注意区别 $("div .demo") 与 $("div.demo")
- $('_parent_>_child_')        | $('div>p')     | 子代元素
- $('_prev_+_next_')           | $('div+p')     | 紧邻元素
- $('_prev_~_siblings_')       | $('div~p')     | 兄弟元素
+|            选择器            |     示 例      | 描 述
+|------------------------------|----------------|----------------------------------------------------
+| $('_ancestor_ _descendant_') | $('div .demo') | 后代元素，注意区别 $("div .demo") 与 $("div.demo")
+| $('_parent_>_child_')        | $('div>p')     | 子代元素
+| $('_prev_+_next_')           | $('div+p')     | 紧邻元素
+| $('_prev_~_siblings_')       | $('div~p')     | 兄弟元素
 
-### 过滤选择器 - 匹配元素间定位
+### 过滤选择器 - Basic Filter
 
- 选择器 |    示 例     | 描 述
- ------ | ------------ | -------
- :first | $('p:first') | 选取第一个元素
- :last  | $('p:last')  | 选取最后一个元素
- :even  | $('tr:even') | 选取索引是偶数的所有元素，索引从0开始
- :odd   | $('tr:odd')  | 选取索引是奇数的所有元素，索引从0开始
- :eq(_index_)     | $('ul li:eq(3)')       | 选取索引等于 index 的元素，索引从0开始
- :gt(_no_)        | $('ul li:gt(3)')       | 选取索引大于 no 的元素，索引从0开始
- :lt(_no_)        | $('ul li:lt(3)')       | 选取索引小于 no 的元素，索引从0开始
- :not(_selector_) | $('input:not(:empty)') | 去除所有与给定选择器匹配的元素
+| 选择器 |    示 例     | 描 述
+|--------|--------------|------------------------
+| :first | $('p:first') | 选取第一个元素   | Ext
+| :last  | $('p:last')  | 选取最后一个元素 | Ext
+| :even  | $('tr:even') | 选取索引是偶数的所有元素，索引从0开始 | Ext
+| :odd   | $('tr:odd')  | 选取索引是奇数的所有元素，索引从0开始 | Ext
+| :eq(_index_)     | $('ul li:eq(3)')       | 选取索引等于 index 的元素，索引从0开始 | Ext
+| :gt(_no_)        | $('ul li:gt(3)')       | 选取索引大于 no 的元素，索引从0开始    | Ext
+| :lt(_no_)        | $('ul li:lt(3)')       | 选取索引小于 no 的元素，索引从0开始    | Ext
+| :not(_selector_) | $('input:not(:empty)') | 去除所有与给定选择器匹配的元素         | CSS
+| :target           | $('p:target')           | 当前激活标签元素       | CSS
+| :lang(_language_) | $('p:lang(de)')         | 包含特定语言定义的元素 | CSS
 
-### 过滤选择器 - 同辈元素间定位
+### 过滤选择器 - Child Filter
 
-   选择器    |     示 例      | 描 述
- -------------------- | -------------- | -------
- :first-child         | $('p:first-child')    | 选取每个父元素的第一个子元素
- :last-child          | $('p:last-child')     | 选取每个父元素的最后一个子元素
- :only-child          | $('p:only-child')     | 如果某个元素是其父元素中的唯一元素，则匹配
- :nth-child(_n_)      | $('p:nth-child(2)')   | <span style="color: #00f;">从1开始计数</span>
- :nth-last-child(_n_) | $('p:nth-last-child(2)') | 从后往前数；取值：index even odd 或公式
- :first-of-type       | $('p:first-of-type')  | 
- :last-of-type        | $('p:last-of-type')   | 
- :only-of-type        | $('p:only-of-type')   | 
- :nth-of-type(_n_)    | $('p:nth-of-type(2)') | 
- :nth-last-of-type(_n_) | $('p:nth-last-of-type(2)') | 
+|          选择器        |             示 例          | 描 述
+|------------------------|----------------------------|--------------------------------------
+| :first-child           | $('p:first-child')         | 要求是父元素中第一个子元素
+| :last-child            | $('p:last-child')          | 要求是父元素中最后一个子元素
+| :only-child            | $('p:only-child')          | 要求在父元素中唯一
+| :nth-child(_n_)        | $('p:nth-child(2)')        | __从1开始计数__
+| :nth-last-child(_n_)   | $('p:nth-last-child(2)')   | 从后往前数；取值：index even odd 或公式
+| :first-of-type         | $('p:first-of-type')       ||
+| :last-of-type          | $('p:last-of-type')        ||
+| :only-of-type          | $('p:only-of-type')        ||
+| :nth-of-type(_n_)      | $('p:nth-of-type(2)')      ||
+| :nth-last-of-type(_n_) | $('p:nth-last-of-type(2)') |||
 
 特别注意 :nth-child() 是唯一一个从1开始计数的，另外，括号内可以是公式，如 2n 2n+1 3n 等
 
 ### 过滤选择器 - 其他
 
-   选择器    |     示 例      | 描 述
- ----------- | -------------- | -------
- :root       | $(':root')     | 选取根元素，即 html
- :header     | $(':header')   | 选取所有标题元素，如 h1, h2 ...
- :contains(_text_) | $(':contains("Hello")') | 选取含有特定文本内容的元素
- :empty      | $(':empty')    | 选取不包含子元素或者文本的元素
- :has(_selector_)  | $('div:has(p)')         | 选取含有选择器所匹配元素的元素
- :parent     | $(':parent')   | 选取所有包含子元素或文本元素的元素
- :focus      | $(':focus')    | 选取当前获取焦点的元素
- :animated   | $(':animated') | 选取当前正在执行动画的元素
- :hidden     | $('p:hidden')  | 选取所有不可见的元素
- :visible    | $('p:visible') | 选取所有可见元素
- :target     | $('p:target')  | 当前激活标签元素
- :lang(_language_) | $('p:lang(de)')         | 包含特定语言定义的元素
+|       选择器      |           示 例         | 描 述
+|-------------------|-------------------------|------------------------------------|-------
+| :root             | $(':root')              | 选取根元素，即 html                | CSS
+| :header           | $(':header')            | 选取所有标题元素，如 h1, h2 ...    | CSS
+| :contains(_text_) | $(':contains("Hello")') | 选取含有特定文本内容的元素         | CSS
+| :empty            | $(':empty')             | 选取不包含子元素或者文本的元素     | CSS
+| :has(_selector_)  | $('div:has(p)')         | 选取含有选择器所匹配元素的元素     | Ext
+| :parent           | $(':parent')            | 选取所有包含子元素或文本元素的元素 | Ext
+| :focus            | $(':focus')             | 选取当前获取焦点的元素             | CSS
+| :hidden           | $('p:hidden')           | 选取所有不可见的元素 | Ext
+| :visible          | $('p:visible')          | 选取所有可见元素     | Ext
+| :animated         | $(':animated')          | 选取当前正在执行动画的元素 | Ext
 
-### 属性选择器 
+### 属性选择器
 
-   选择器    |     示 例      | 描 述
- -------------------- | -------------- | -------
- [_attribute_] | $('[href]') | 选取拥有此属性的元素
- [_attribute_="_value_"] | $('[href="default.htm"]') | 严相等
- [_attribute_!="_value_"] | $('[href!="default.htm"]') | 不等
- [_attribute_^=_"value"_] | $('[title^="Tom"]') | 开头
- [_attribute_$=_"value"_] | $('[href$=".jpg"]') | 结尾
- [_attribute_&#124;=_"value"_] | $('[title&#124;="Tomorrow"]') | 宽相等，可接连字符 `-`
- [_attribute_~=_"value"_] | $('[title~="hello"]') | 独立单词
- [_attribute_*=_"value"_] | $('[title*="hello"]') | 片段
- [_attribute1_][_attribute2_] | $('[title][href]') | 组合属性选择器
+|             选择器            |     示 例      | 描 述
+|-------------------------------| -------------- | -------
+| [_attribute_]                 | $('[href]')                   | 带某属性
+| [_attribute_="_value_"]       | $('[href="default.htm"]')     | 严相等
+| [_attribute_&#124;=_"value"_] | $('[title&#124;="Tomorrow"]') | 宽相等，可接连字符 `-`
+| [_attribute_!="_value_"]      | $('[href!="default.htm"]')    | 不等 | Ext
+| [_attribute_^=_"value"_]      | $('[title^="Tom"]')           | 开头
+| [_attribute_$=_"value"_]      | $('[href$=".jpg"]')           | 结尾
+| [_attribute_~=_"value"_]      | $('[title~="hello"]')         | 独立单词
+| [_attribute_*=_"value"_]      | $('[title*="hello"]')         | 片段
+| [_attribute1_][_attribute2_]  | $('[title][href]')            | 组合属性选择器
 
 ### 表单选择器
 
-   选择器  |     示 例      | 描 述
- --------- | -------------- | -------
- :input    | $(':input')    | 选取所有 `<input> <textarea> <select> <button>` 元素
- :text     | $(':text')     | 选取所有的单行文本框 type="text"
- :password | $(':password') | 选取所有的密码框 type="password"
- :radio    | $(':radio')    | 选取所有的单选框 type="radio"
- :checkbox | $(':checkbox') | 选取所有的复选框 type="checkbox"
- :submit   | $(':submit')   | 选取所有的提交按钮 type="submit"
- :reset    | $(':reset')    | 选取所有的重置按钮 type="reset"
- :button   | $(':button')   | 选取所有的按钮 type="button"
- :image    | $(':image')    | 选取所有的图像按钮 type="image"
- :file     | $(':file')     | 选取所有的上传域 type="file"
- :enabled  | $(':enabled')  | 选取所有可用元素
- :disabled | $(':disabled') | 选取所有不可用元素
- :checked  | $(':checked')  | 选取所有被选中元素（单选 复选）
- :selected | $(':selected') | 选取所有被选中的选项元素（下拉列表）
+|   选择器  |     示 例      | 描 述
+|-----------|----------------|------------------------------------------------------|-------
+| :enabled  | $(':enabled')  | 选取所有可用元素                 | CSS
+| :disabled | $(':disabled') | 选取所有不可用元素               | CSS
+| :checked  | $(':checked')  | 选取所有被选中元素（单选 复选）  | CSS
+| :selected | $(':selected') | 选取所有被选中的选项元素（下拉列表） | Ext
+| :input    | $(':input')    | 选取所有 `<input> <textarea> <select> <button>` 元素 | Ext
+| :text     | $(':text')     | 选取所有的单行文本框 type="text" | Ext
+| :password | $(':password') | 选取所有的密码框 type="password" | Ext
+| :radio    | $(':radio')    | 选取所有的单选框 type="radio"    | Ext
+| :checkbox | $(':checkbox') | 选取所有的复选框 type="checkbox" | Ext
+| :button   | $(':button')   | 选取所有的按钮 type="button"     | Ext
+| :submit   | $(':submit')   | 选取所有的提交按钮 type="submit" | Ext
+| :reset    | $(':reset')    | 选取所有的重置按钮 type="reset"  | Ext
+| :file     | $(':file')     | 选取所有的上传域 type="file"     | Ext
+| :image    | $(':image')    | 选取所有的图像按钮 type="image"  | Ext
 
 :enabled :disabled :selected :checked 这4项属于属性过滤选择器，另外请注意 `:input` 与 `input` 的区别。
+
 
 ## jQuery DOM 遍历
 
