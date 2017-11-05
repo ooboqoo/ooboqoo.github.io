@@ -276,7 +276,7 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <div class="dl">
 <h5 class="es3">string.concat(string2, ...) <span>-- 将字符串与一个或多个字符串拼接，返回拼接后的新字符串</span></h5>
 <h5 class="es3">string.substr(start, length?) <span>-- 从指定位置摘取指定长度的子字符串</span></h5>
-<h5 class="es3">string.slice(begin, end?) <span>-- 返回指定小标间的子字符串，不含 end 位置的字符，与 substring 效果一样</span></h5>
+<h5 class="es3">string.slice(begin, end?) <span>-- 返回指定下标间的子字符串，不含 end 位置的字符，与 substring 效果一样</span></h5>
 <h5 class="es3">string.substring(index1, index2?) <span>-- 返回指定的两个下标之间的子字符串。不含 index2 位置的字符</span></h5>
 </div>
 <div class="dl">

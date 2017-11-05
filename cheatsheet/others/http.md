@@ -58,7 +58,7 @@ HTTP 状态码 HTTP Status Code 是用以表示网页服务器 HTTP 响应状态
 301 Moved Permanently
 302 Found
 303 See Other
-304 Not Modified
+304 Not Modified       // 304 时 XMLHttpRequest.responseText 仍然可以读到内容
 305 Use Proxy
 306 Unused
 307 Temporary Redirect

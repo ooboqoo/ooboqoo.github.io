@@ -522,3 +522,4 @@ __expando__  [计] 扩展属性, 附加属性, 可能源于 expandable object pr
 
 __noop__  [计] 空操作 no operation
 
+__nonce__ [计] Number used once 或 Number once 的缩写，密码学中 nonce 是一个只被使用一次随机数值
