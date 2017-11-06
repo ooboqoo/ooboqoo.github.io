@@ -331,16 +331,12 @@ Data 数据功能
 ### Ajax Shorthand Methods
 
 |||
-|-------------------------------------------------|-------------------------------
-| $.get(_url, [data], [callback], [returnType]_)  | 通过 GET 请求加载远程页面
-| $.post(_url, [data], [callback], [returnType]_) | 通过 POST 请求加载远程页面
-| $.getJSON(_url, [data], [callback]_)            | 载入并解析 JSON 数据，该方式同时支持 JSONP 协议
-| $.getScript(_url, [callback]_)                  | 载入并执行 JavaScript 文件
-| .load(_url, [data], [callback]_)                | 载入远程html内容并替换每个选择集项目中的内容 [注2]
-
-注：参数 data 可以是 PlainObject 或 String，对象会自动转成查询字符串，GET 会添加到 URL 而 POST 则放到请求体中发送。
-
-注2: 选择集内容为空时, 调用会被忽略; url 支持 `test.html #part1` 格式截取部分内容; 如果使用截取格式，script 标签内容不会执行，否则会执行一次(跟选择项数目无关)。callback 在完成内容插入后才会执行，选择集有几项就执行几次(this 会变化)。
+|------------------------------------------------|-------------------------------
+| $.get(_url, [data], [success], [returnType]_)  | 通过 GET 请求加载远程页面
+| $.post(_url, [data], [success], [returnType]_) | 通过 POST 请求加载远程页面
+| $.getJSON(_url, [data], [success]_)            | 载入并解析 JSON 数据，该方式同时支持 JSONP 协议
+| $.getScript(_url, [success]_)                  | 载入并执行 JavaScript 文件
+| .load(_url, [data], [callback]_)               | 载入远程html内容并替换每个选择集项目中的内容
 
 ### Ajax Low-Level Interface
 
@@ -392,20 +388,7 @@ Data 数据功能
 
 ### Ajax Global Event Handlers
 
-通过 jQuery 的 Ajax 请求都会调用这些全局钩子，自己通过 XMLHttpRequest 发的请求不会触发。
-
-全局钩子必须挂到 `document` 上，如 `$(document).ajaxComplete(function () {  })`，否则无效。
-
-如 `$.ajax()` or `$.ajaxSetup()` 设置了 `global` 选项为 `false`，或者是跨域请求都不会触发全局钩子。
-
-|||
-|--------------------------|----------------------------------------------------------------------------
-| .ajaxComplete(_handler_) | Binds handler to be called when any Ajax transaction completes.
-| .ajaxError(_handler_)    | Binds handler to be called when any Ajax transaction completes with an error.
-| .ajaxSend(_handler_)     | Binds handler to be called when any Ajax transaction begins.
-| .ajaxStart(_handler_)    | Binds handler to be called when any Ajax transaction begins, and no others are active.
-| .ajaxStop(_handler_)     | Binds handler to be called when any Ajax transaction ends, and no others are still active.
-| .ajaxSuccess(_handler_)  | Binds handler to be called when any Ajax transaction completes successfully.
+`.ajaxStart()` `.ajaxSend()` `.ajaxSuccess()` `.ajaxError()` `.ajaxStop()` `.ajaxComplete()`
 
 ### Ajax Helper Functions
 
@@ -418,6 +401,31 @@ Data 数据功能
 | $.parseHTML(_html_)  | Converts the given HTML string into a set of DOM elements.
 | .serialize()         | Encodes the values of a set of form controls into a query string.
 | .serializeArray()    | Encodes the values of a set of form controls into a JavaScript data structure.
+
+
+## jQuery Deferred
+
+|||
+|-------------------|-----------------------------------------------------------------------------------
+| jQuery.Deferred() | A factory function that returns a
+| jQuery.when()     | Provides a way to execute callback function
+|||
+| d.resolve()     | Resolve a Deferred object and call any doneCallbacks with the given args.
+| d.resolveWith() | Resolve a Deferred object and call any doneCallbacks with the given context and args.
+| d.reject()      | Reject a Deferred object and call any failCallbacks with the given args.
+| d.rejectWith()  | Reject a Deferred object and call any failCallbacks with the given context and args.
+|||
+| d.always()     | Add handlers to be called when the Deferred object is either resolved or rejected.
+| d.catch()      | Add handlers to be called when the Deferred object is rejected.
+| d.done()       | Add handlers to be called when the Deferred object is resolved.
+| d.fail()       | Add handlers to be called when the Deferred object is rejected.
+| d.notify()     | Call the progressCallbacks on a Deferred object with the given args.
+| d.notifyWith() | Call the progressCallbacks on a Deferred object with the given context and args.
+| d.progress()   | Add handlers to be called when the Deferred object generates progress notifications.
+| d.promise()    | Return a Deferred’s Promise object.
+| d.state()  | Determine the current state of a Deferred object.
+| d.then()   | Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+| .promise() | Return a Promise object to observe when all actions of a certain type bound to the collection, queued or not, have finished.
 
 
 ## jQuery 动画

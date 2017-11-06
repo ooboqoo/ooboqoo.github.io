@@ -1,5 +1,6 @@
 # jQuery 事件
 
+
 ## .on()
 
 * `.on( events [, selector ] [, data ], handler )`
@@ -59,8 +60,40 @@
 
 对常用事件的触发和添加监听函数提供了简写形式，如 `.click()`
 
+
 ## .trigger()
 
 `$('div').trigger('click!')` 最后的感叹号的作用是，匹配所有不包含在命名空间中的 click 方法。
 
 
+## $(handler)
+
+`$().ready(handler)` `$(document).ready(handler)` 等用法3.0已弃用，请用 `$(handler)` 这种形式。
+
+`$(document).on('ready', handler)` 与 `$(handler)` 的差异：后者一定会执行，即使 `DOMContentLoaded` 已触发。
+
+`DOMContentLoaded` 与 `load` 的差异：后者会等待 img script 等资源完整加载后才触发，而前者在 DOM 构建完毕后即触发。当然直接将代码写在 `</body>` 前面，执行时间要早于 `DOMContentLoaded`。
+
+`$(handler)` 中 handler 的首个参数为 jQuery 本身，所以在 `$` 冲突时可以这样用 `jQuery(function ($) { /* ... */ })`
+
+注意与 `jQuery.ready` 的区分，这是个显示文档是否已ready的只读属性。
+
+```html
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script>
+    document.addEventListener('DOMContentLoaded', function () { console.log('DOMContentLoaded'); })
+  </script>
+</head>
+<body>
+  <img src="path/to/img.jpg">
+  <script src="jquery.3.2.1.js"></script>
+  <script>
+    $(function ($) { console.log('jQuery ready'); });
+    document.onload = function () { console.log('loaded'); }
+  </script>>
+</body>
+</html>
+```
