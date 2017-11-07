@@ -86,3 +86,11 @@ See the specification:
 "In CSS 2.1, the effect of 'min-width' and 'max-width' on tables, inline tables, table cells, table columns, and column groups is undefined."
 
 To enforce the width, you may try to change the table-layout property to "fixed". The [specification](https://www.w3.org/TR/CSS21/tables.html#propdef-table-layout) describes the algorithm pretty clearly.
+
+### 超出部分显示省略号…
+
+```
+white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+```
+
+

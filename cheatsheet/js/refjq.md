@@ -388,7 +388,7 @@ Data 数据功能
 
 ### Ajax Global Event Handlers
 
-`.ajaxStart()` `.ajaxSend()` `.ajaxSuccess()` `.ajaxError()` `.ajaxStop()` `.ajaxComplete()`
+`.ajaxStart()` -> `.ajaxSend()` -> `.ajaxSuccess()` / `.ajaxError()` -> `.ajaxComplete()` -> `.ajaxStop()`
 
 ### Ajax Helper Functions
 
