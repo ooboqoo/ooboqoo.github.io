@@ -4,9 +4,20 @@
 
 # AngularJS 速查手册
 
+## Module
+
+```js
+angular.module(name: string, requires: string[]);  // 创建模块(提供2个参数)
+angular.module(name: string);                      // 获取模块(提供1个参数)
+
+// run()
+angular.module('myApp', []).run(function ($rootScope) {
+    $rootScope.name = "World";
+});
+```
+
+
 ## Directive / 模板语法
-
-
 
 ||||
 |----------------|--------------------------------|----------------------------------
@@ -15,23 +26,6 @@
 | ng-model       | `ng-model="name"`              | 双向绑定
 | ng-controller  | `ng-controller="myController"` | 声明所有被它包含的元素都属于某个控制器
 | ng-click       | `ng-click="add(1)"`            | 绑定事件
-
-
-angular.module('myApp', []);  传递2个参数，创建一个模块
-angular.module('myApp'); 传递1个参数，获取模块
-
-
-```js
-// 创建模块(提供2个参数) 或 获取模块(只提供一个参数)
-angular.module(name: string, requires: string[]);
-
-// run()
-angular.module('myApp', [])
-.run(function($rootScope) {
-$rootScope.name = "World";
-});
-```
-
 
 
 ## Service 内置服务
