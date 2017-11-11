@@ -41,18 +41,24 @@ angular.module('myApp', []).directive('myDirective', function () {
 
 #### 8.1.3 指令的命名与使用规则
 
-AngularJS 要求 Directive 的命名使用 **驼峰式** 语法，而在HTML代码中，使用的是 **连接符** 的形式。
+AngularJS 要求 Directive 的命名使用 **驼峰式** 语法，而在 HTML 代码中，使用的是 **连接符** 的形式。
 
 ##### 为什么会有这种差异
 
-命名和用法不同的核心原因，是因为 HTML 对大小写不敏感，而 JavaScript 对大小写敏感。为了保证 HTM L和 JavaScript 都能按原有模式正常工作，AngularJS 提出了这套解决方法。
+命名和用法不同的核心原因，是因为 HTML 对大小写不敏感，而 JavaScript 对大小写敏感。为了保证 HTML 和 JavaScript 都能按原有模式正常工作，AngularJS 提出了这套解决方法。
 
 ##### 怎么实现的？
 
-AngularJS 在解析 HTML 时，会将名称取出(如people-list-array)，并进行一下两个方面的处理：
+AngularJS 在解析 HTML 时，会将名称取出，并进行以下处理：
   1. 去除字段的 `x-` 或 `data-` 头。
-  2. 将字段中的连接符号去除，并将第二个单词开始改为首字母大写，其他字母小写。([people,List,Array])
-  3. 然后合并起来。（peopleListArray)
+  2. 将字段中的连接符号去除，并将第二个单词开始改为首字母大写，然后连起来。
+
+```js
+var PREFIX_REGEXP = /^((?:x|data)[\:\-_])/i;
+function directiveNormalize(name) {
+  return camelCase(name.replace(PREFIX_REGEXP, ''));
+}
+```
 
 ##### 为什么要先去除 `data-/x-` 部分
 
@@ -66,13 +72,13 @@ AngularJS 在解析 HTML 时，会将名称取出(如people-list-array)，并进
 <h1 ng-init="greeting='HelloWorld'">The greeting is: {{ greeting }}</h1>
 ```
 
-这里有一个值得注意的问题，赋值给指令的表达式的运行环境是在当前作用域。
+这里有一个值得注意的问题，赋值给指令的表达式的运行环境是在当前作用域 Scope。
 
 ### 8.2 向指令中传递数据
 
 有好几种途径可以设置指令内部作用域中属性的值。最简单的方法就是使用由所属控制器提供的已经存在的作用域。尽管简单，共享状态会导致很多其他问题。AngularJS 允许通过创建新的子作用域或者隔离作用域来解决这个常见问题。
 
-同之前在当前作用域介绍中介绍的继承作用域（子作用域）不同，隔离作用域同当前 DOM 的作用域是完全分隔开的。为了给这个新的对象设置属性，我们需要显式地通过属性传递数据。
+同之前在当前作用域介绍中介绍的继承作用域(子作用域)不同，**隔离作用域**同当前 DOM 的作用域是完全分隔开的。为了给这个新的对象设置属性，我们需要显式地通过属性传递数据。
 
 ```html
 <div my-directive my-url="http://google.com" my-link-text="Click me to go to Google"></div>
@@ -82,29 +88,13 @@ angular.module('myApp', []).directive('myDirective', function () {
     restrict: 'A',
     replace: true,
     scope: {
-      myUrl: '@',     // 绑定策略
-      myLinkText: '@' // 绑定策略
+      myUrl: '@',             // 只绑定
+      linkText: '@myLinkText' // 绑定 + 重命名
     },
     template: '<a href="{{myUrl}}">{{myLinkText}}</a>'
   };
 });
 </script>
-```
-
-`@` 绑定策略告诉 Angular 将 DOM 中 some-property 属性的值复制给新作用域对象中的 someProperty 属性：
-
-```js
-scope: { someProperty: '@' }
-```
-
-注意，默认情况下 someProperty 在 DOM 中的映射是 some-property 属性。可用如下方式显式地指定绑定的属性名：
-
-```js
-scope: { someProperty: '@someAttr' }
-```
-
-```html
-<div my-directive some-attr="someProperty with @ binding"></div>
 ```
 
 有三种不同的绑定策略 `@` `=` `&`，具体参阅 10.3 小节。
@@ -114,19 +104,19 @@ scope: { someProperty: '@someAttr' }
 
 AngularJS 提供了一系列内置指令。其中一些指令重载了原生的 HTML 元素，比如 `<form>` 和 `<a>` 标签，当在 HTML 中使用标签时，并不一定能明确看出是否在使用指令。其他内置指令通常以 `ng` 为前缀，很容易识别。
 
-* 元素类指令：a、form、input。
+* 元素类指令：`a` `form` `input`
 * 属性类：
-* 功能类：ngApp、ngController、ng-model、ngBind
-* 事件类：ngClick、ngKeyup、ngMouseover、ng-focus、ng-blur
-* 样式类：ngClass、ngStyle、
-* 显示类：ngShow、ngHide、ngIf
-* 其它：ng-repeat 等
+* 功能类：`ngApp` `ngController` `ngModel` `ngBind`
+* 事件类：`ngClick` `ngKeyup` `ngMouseover` `ngFocus` `ngBlur`
+* 样式类：`ngClass` `ngStyle`
+* 显示类：`ngShow` `ngHide` `ngIf`
+* 其它：`ngRepeat` 等
 
 ### 9.1 基础 `ng` 属性指令
 
 首先来看看和原生 HTML 标签名称相似的一组内置指令，这组指令非常容易记忆，仅仅是在原生标签名前加上了 `ng` 前缀，包括：
   * `ng-href` - 当使用当前作用域中的属性动态创建 URL 时，应用 `ng-href` 代替 `href`(用户点击时可能插值尚未生效)
-  * `ng-src` - Angular 会告诉浏览器在 `ng-src` 对应的表达式生效之前不要加载资源
+  * `ng-src` - 在 `ng-src` 对应的表达式生效之前不会尝试加载资源
   * `ng-disabled` - 通过运算表达式的值来决定在目标元素上是插入还是移除对应的属性
   * `ng-checked` - 布尔属性，同上
   * `ng-readonly` - 布尔属性，同上
@@ -148,7 +138,7 @@ AngularJS 提供了一系列内置指令。其中一些指令重载了原生的 
 
 **ng-include**
 
-使用 `ng-include` 可以加载、编译并包含外部 HTML 片段到当前的应用中。可突破跨域限制？？  
+使用 `ng-include` 可以加载、编译并包含外部 HTML 片段到当前的应用中。
 要记住，使用 `ng-include` 时 AngularJS 会自动创建一个子作用域。如果你想使用某个特定的作用域，例如 ControllerA 的作用域，必须在同一个 DOM 元素上添加 `ng-controller="ControllerA"` 指令。
 
 **ng-switch**
@@ -172,13 +162,13 @@ AngularJS 提供了一系列内置指令。其中一些指令重载了原生的 
 
 **ng-repeat**
 
-`ng-repeat` 用来遍历一个集合或为集合中的每个元素生成一个模板实例。集合中的每个元素都会被赋予自己的模板和作用域。同时每个模板实例的作用域中都会暴露一些特殊的属性。
-  * $index ：遍历的进度（0... length-1 ）。
-  * $first ：当元素是遍历的第一个时值为 true 。
-  * $middle ：当元素处于第一个和最后元素之间时值为 true 。
-  * $last ：当元素是遍历的最后一个时值为 true 。
-  * $even ：当 $index 值是偶数时值为 true 。
-  * $odd ：当 $index 值是奇数时值为 true 。
+`ng-repeat` 用来遍历一个集合或为集合中的每个元素生成一个模板实例。集合中的每个元素都会被赋予自己的模板和作用域。同时每个模板实例的作用域中都会暴露一些特殊的属性:
+  * `$index` ：元素的索引 / 遍历的进度, 0... length-1
+  * `$first` ：元素索引是否为 0
+  * `$middle` ：元素索引是否介于 0 到 length-1 之间
+  * `$last` ：元素索引是否为 length-1
+  * `$even` ：元素索引是否为偶数
+  * `$odd` ：元素索引是否为奇数
 
 **ng-init**
 
@@ -190,7 +180,7 @@ AngularJS 提供了一系列内置指令。其中一些指令重载了原生的 
 
 **ng-bind**
 
-HTML 加载含有 `{{ }}` 语法的元素后并不会立刻渲染它们，导致未渲染内容闪烁(Flash of Unrendered Content，FOUC)。我可以用 `ng-bind` 将内容同元素绑定在一起避免 FOUC。
+HTML 加载含有 `{{ }}` 语法的元素后并不会立刻渲染它们，导致未渲染内容闪烁(Flash of Unrendered Content，FOUC)。我可以用 `ng-bind` 将内容同元素绑定在一起以避免 FOUC。
 
 **ng-cloak**
 
@@ -263,11 +253,13 @@ AngularJS 应用的模块中有很多方法可以使用，其中 `directive()` �
   2. factory_function 这个函数返回一个对象，其中定义了指令的全部行为。`$compile` 服务利用这个方法返回的对象，在 DOM 调用指令时来构造指令的行为。
 
 ```js
-angular.module('myApp', []).directive('myDirective', function ($timeout, UserDefinedService) {
+angular.module('myApp').directive('myDirective', myDirective);
+myDirective.$inject = [dep1, dep2];
+function myDirective(dep1, dep2) {
     return {
         // 通过设置项来定义指令，在这里进行覆写
     };
-});
+}
 ```
 
 当 AngularJS 启动应用时，它会把第一个参数当作一个字符串，并以此字符串为名来注册第二个参数返回的对象。
@@ -282,24 +274,32 @@ angular.module('myApp', []).directive('myDirective', function() {
         restrict: String,
         priority: Number,
         terminal: Boolean,
-        template: String or Template Function: function(tElement, tAttrs) {...},
-        templateUrl: String,
-        replace: Boolean or String,
-        scope: Boolean or Object,
+        template: String | function(tElement, tAttrs) { ... },
+        templateUrl: String | function(tElement, tAttrs) { ... },
+        templateNamespace: 'html' | 'svg' | 'math',
+        replace: Boolean | String,
+        scope: Boolean | Object,
         transclude: Boolean,
-        controller: String or function(scope, element, attrs, transclude, otherInjectables) { ... },
+        controller: String | function($scope, $element, $attrs, $transclude, otherInjectables) { ... },
         controllerAs: String,
+        bindToController: Boolean,
         require: String,
         link: function(scope, iElement, iAttrs) { ... },
-        compile: // 返回一个对象或连接函数，如下所示：
-            function(tElement, tAttrs, transclude) {
-                return {
-                    pre: function(scope, iElement, iAttrs, controller) { ... },
-                    post: function(scope, iElement, iAttrs, controller) { ... }
-                }
-                // 或者
-                return function postLink(...) { ... }
+        compile: function(tElement, tAttrs, transclude) {
+            // 返回一个对象或连接函数，如下所示：
+            return {
+                pre: function(scope, iElement, iAttrs, controller) { ... },
+                post: function(scope, iElement, iAttrs, controller) { ... }
             }
+            // or
+            return function postLink(...) { ... }
+        },
+        link: {
+            pre: function preLink(scope, iElement, iAttrs, controller) { ... },
+            post: function postLink(scope, iElement, iAttrs, controller) { ... }
+        },
+        // or
+        link: function postLink( ... ) { ... }
     };
 });
 ```

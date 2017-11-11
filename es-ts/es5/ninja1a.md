@@ -27,6 +27,8 @@ https://www.manning.com/books/secrets-of-the-javascript-ninja
 
 ### 1.4 测试和性能分析
 
+掌握 JavaScript 语言和跨浏览器编码问题是成为 Web 引用程序开发专家的重要条件，另外还需要掌握编写高质量代码的技能：测试、性能分析、调试技巧。
+
 ```js
 // 测试
 assert(condition, message);  // Node.js 自带，浏览器需要自己实现
@@ -51,15 +53,86 @@ assert(true, "Measured time: " + elapsed);
 
 ### 2.2 测试用例生成
 
-良好测试的特性：可重用性、简单性、独立性。
+优秀的测试用例具有三个重要特征：
+  * 可重用性 - 测试结果应该是高度可再生的，多次运行测试应该产生相同的结果。
+  * 简单性 - 在不影响测试用例目的的情况下，应尽量简单。
+  * 独立性 - 测试用例应该独立执行，必须避免一个测试结果依赖于另外一个测试结果。
 
-两个主要测试类型：解构型测试 和 构建型测试。
+构建测试有两种主要的方法：
+  * 解构型测试 - 从整个网站开始消除额外代码，直到一个能重现问题的小用例场景
+  * 构建型测试 - 从一个良好的精简场景开始，构建用例，知道能够重现 bug 为止
+
+### 2.3 测试框架
+
+一个 JavaScript 测试套件应该满足一个唯一需求：显示测试的结果，以便很容易地确定哪些测试通过，哪些失败。
+
+测试框架一般都提供以下功能：
+  * 能够模拟浏览器行为，如单击按键等
+  * 测试的交互式控制，即暂停和恢复测试
+  * 处理异步测试超时问题
+  * 能够过滤部分测试用例
 
 ### 2.4 测试套件基础
+
+测试套件的主要目的是聚合代码中的所有单个测试，将其组合成为一个单位，这样它们可以批量运行，提供一个可以轻松反复运行的单一资源。
 
 断言：单元测试框架的核心是断言方法，通常叫 `assert()`
 
 测试组：简单的断言是很有用的，但真正发力却是在测试上下文中将它们组合在一起形成测试组的时候。
+
+```html
+<head>
+  <title>Test Suite</title>
+  <style>
+    #results li.pass { color: green; }
+    #results li.fail { color: red; }
+  </style>
+</head>
+<body>
+  <ul id="results"></ul>
+  <script>
+    (function (ts) {
+      var queue = [], paused = false, results;
+      ts.test = function (name, fn) {
+        queue.push(function() {
+          results = document.getElementById('results');
+          results = ts.assert(true, name).appendChild(document.createElement('ul'));
+          fn();
+        });
+        runTest();
+      }
+      ts.pause = function () { paused = true; }
+      ts.resume = function () { paused = false; setTimeout(runTest, 1); }
+      ts.assert = function assert(value, desc) {
+        var li = document.createElement('li');
+        li.className = value ? 'pass' : 'fail';
+        li.appendChild(document.createTextNode(desc));
+        results.appendChild(li);
+        if (!value) { li.parentNode.parentNode.className = 'fail'; }
+        return li;
+      };
+      function runTest() {
+        if (!paused && queue.length) {
+          queue.shift()();
+          if (!paused) { ts.resume(); }
+        }
+      }
+    })(window.ts = {});
+
+    window.onload = function () {
+      ts.test('Async Test #1', function () {
+        ts.pause();
+        setTimeout(function () { ts.assert(true, 'First test completed'); ts.resume(); }, 1000);
+      });
+      ts.test('Test #2', function () {
+        ts.assert(true, 'sucess');
+        ts.assert(false, 'fail');
+      });
+    };
+  </script>
+</body>
+</html>
+```
 
 
 ## 3. 函数是根基
@@ -311,7 +384,17 @@ assert("border-bottom-width".replace(/-(\w)/g, upper) == "borderBottomWidth",
 ```
 
 ```js
-//代码清单7.10 压缩查询字符串的技术，另一种巧妙地使用函数操作，而非实际地替换
+// 压缩查询字符串的技术，此处并不是想替换，而是利用其遍历特性
+function compress(source) {
+  var key = {};
+  source.replace(/([^=&]+)=([^&]*)/g, function (all, key, value) {
+    keys[key] = (keys[key] ? keys[key] + ',' : '') + value;
+  });
+  var result = [];
+  for (var key in keys) { reslut.push(key + '=' + keys[key]); }
+  return reslut.join('&');
+}
+assert(compress('foo=1&bar=a&bar=b&foo=2') === 'foo=1,2&bar=a,b', 'Compression is OK!');
 ```
 
 ### 7.6 利用正则表达式解决常见问题
