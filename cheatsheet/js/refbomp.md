@@ -20,7 +20,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
 | xhr.status             | 未发送或出错为 0, 否则为服务器返回状态码, 如 200
 | xhr.statusText         | 状态说明，如 `"OK"`
 | xhr.timeout            | 自定义请求超时毫秒数
-| xhr.upload             | 上传文件时读取上传进度
+| xhr.upload             | 上传文件时读取上传进度 IE10+支持文件上传
 | xhr.withCredentials    | 设置跨域请求 IE10+支持，IE8+用 XDomainRequest 代替 XMLHttpRequest
 |||
 | xhr.open()                   | `XMLHttpRequest.open(method, url[, async, user, password])`
@@ -45,7 +45,37 @@ function showHint(str) {
 }
 ```
 
+### FormData
 
+https://xhr.spec.whatwg.org/#dom-formdata
 
+```
+typedef (File or USVString) FormDataEntryValue;
 
+[Constructor(optional HTMLFormElement form), Exposed=(Window,Worker)]
+interface FormData {
+  void append(USVString name, USVString value);
+  void append(USVString name, Blob blobValue, optional USVString filename);
+  void delete(USVString name);
+  FormDataEntryValue? get(USVString name);
+  sequence<FormDataEntryValue> getAll(USVString name);
+  boolean has(USVString name);
+  void set(USVString name, USVString value);
+  void set(USVString name, Blob blobValue, optional USVString filename);
+  iterable<USVString, FormDataEntryValue>;
+};
+```
 
+```js
+// Ajax 实现文件上传，IE10+ 支持，IE9 需借助 iframe + multipart/form-data 实现(此实现无法获取上传进度)
+var formData = new FormData();
+formData.append("myFile", document.getElementById("myFileField").files[0]);
+
+var xhr = new XMLHttpRequest();
+xhr.open("POST", "myServletUrl");
+xhr.send(formData);
+```
+
+```html
+<input type="file" id="myFileField" name="myFile" />
+```
