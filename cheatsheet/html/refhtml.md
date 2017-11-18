@@ -7,11 +7,12 @@ http://www.w3school.com.cn/html/html_quick.asp
 <html>
 <head>
     <!-- meta Elements -->
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="refresh" content="30">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="HTML,CSS,XML,JavaScript">
     <meta name="description" content="Free Web tutorials">
-    <meta name="author" content="Hege Refsnes">
     <link rel="stylesheet" type="text/css" href="theme.css">
     <script type="text/javascript" src="main.js"></script>
     <title>Document name goes here</title>
