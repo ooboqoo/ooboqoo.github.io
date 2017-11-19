@@ -409,23 +409,23 @@ Data 数据功能
 |-------------------|-----------------------------------------------------------------------------------
 | jQuery.Deferred() | A factory function that returns a
 | jQuery.when()     | Provides a way to execute callback function
+| .promise() | Return a Promise object to observe when all actions of a certain type bound to the collection, queued or not, have finished.
 |||
+| d.notify()     | Call the progressCallbacks on a Deferred object with the given args.
+| d.notifyWith() | Call the progressCallbacks on a Deferred object with the given context and args.
 | d.resolve()     | Resolve a Deferred object and call any doneCallbacks with the given args.
 | d.resolveWith() | Resolve a Deferred object and call any doneCallbacks with the given context and args.
 | d.reject()      | Reject a Deferred object and call any failCallbacks with the given args.
 | d.rejectWith()  | Reject a Deferred object and call any failCallbacks with the given context and args.
 |||
-| d.always()     | Add handlers to be called when the Deferred object is either resolved or rejected.
-| d.catch()      | Add handlers to be called when the Deferred object is rejected.
-| d.done()       | Add handlers to be called when the Deferred object is resolved.
-| d.fail()       | Add handlers to be called when the Deferred object is rejected.
-| d.notify()     | Call the progressCallbacks on a Deferred object with the given args.
-| d.notifyWith() | Call the progressCallbacks on a Deferred object with the given context and args.
-| d.progress()   | Add handlers to be called when the Deferred object generates progress notifications.
-| d.promise()    | Return a Deferred’s Promise object.
-| d.state()  | Determine the current state of a Deferred object.
-| d.then()   | Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-| .promise() | Return a Promise object to observe when all actions of a certain type bound to the collection, queued or not, have finished.
+| p.state()  | Determine the current state of a Deferred object.
+| p.progress()   | Add handlers to be called when the Deferred object generates progress notifications.
+| p.done()       | Add handlers to be called when the Deferred object is resolved.
+| p.fail()       | Add handlers to be called when the Deferred object is rejected.
+| p.always()     | Add handlers to be called when the Deferred object is either resolved or rejected.
+| p.then()   | Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+| p.catch()      | Add handlers to be called when the Deferred object is rejected.
+| p.promise()    | Return a Deferred’s Promise object.
 
 
 ## jQuery 动画

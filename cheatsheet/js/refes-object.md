@@ -280,7 +280,7 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <h5 class="es3">string.substring(index1, index2?) <span>-- 返回指定的两个下标之间的子字符串。不含 index2 位置的字符</span></h5>
 </div>
 <div class="dl">
-<h5 class="es3">string.match(regexp) <span>-- 使用正则表达式对象匹配字符串并返回数组，无匹配为 null</span></h5>
+<h5 class="es3">string.match(regexp) <span>-- 使用正则表达式对象匹配字符串并返回数组，无匹配为 null</span><span class="mark">注1</span></h5>
 <h5 class="es3">string.replace(regexp|substr, newSubstr|function) <span>-- 返回替换后的新字符串，注意，原字符串不会变</span></h5>
 <h5 class="es3">string.search(regexp) <span>-- 返回索引位置，找不到为 -1</span></h5>
 <h5 class="es3">string.split(separator?, limit?) <span>-- 返回数组</span></h5>
@@ -308,6 +308,7 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <h5 class="es3">string.link(url) <span>-- 根据提供的url创建一个链接</span></h5>
 </div>
 
+注1: `string.match()` 的三种用法 `string.match(/regexp/)` `string.match(/regexp/g)` `string.match() /*无参*/`
 
 ## <span class="es6">Symbol</span>
 

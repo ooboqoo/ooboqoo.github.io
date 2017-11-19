@@ -73,10 +73,30 @@ true      // success 和 done 中的 jqXHR 是同一个，而他们的返回值�
 
 ### $.ajax()
 
+#### beforSend
+
+xhr.setRequestHeader 设置多次时，会将对此设置值合并
+$.ajax() 中的 beforeSend 中无法删除已经设置过的头部项目内容，只能添加
+
 
 ### jqXHR
 
 http://api.jquery.com/jQuery.ajax/#jqXHR
+
+jqXHR 是 Promise 和 XMLHttpRequest 的超集：
+
+```js
+    // Fake xhr
+    jqXHR = {
+      readyState: 0,
+      // ...
+    };
+
+    // Attach deferreds
+    deferred = jQuery.Deferred();
+    deferred.promise(jqXHR);
+```
+
 
 ### jQuery.ajaxPrefilter()
 
