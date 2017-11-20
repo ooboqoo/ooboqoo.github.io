@@ -42,7 +42,16 @@ declare global {
 export {}
 ```
 
+
 ## 插件使用
+
+### Git Lens
+
+极大地增强了 git 的功能，强！
+
+### Beautify
+
+vscode 虽然内置了 js-beautify，但功能被缩减很多，像 scss 文件就不支持，所以还得装这个。
 
 ### Angular 2 TypeScript Snippets
 
@@ -109,10 +118,6 @@ Unsupported scenarios
 
 > 其实这里的功能，Chrome 都有，在浏览器调试，需要先找到代码再调试，但不用切换；在编辑器调试，不用找代码，但调试过程中需要在浏览器与编辑器之间切换，总体感觉还不如直接在浏览器中调试。
 
-### Beautify
-
-vscode 虽然内置了 js-beautify，但功能被缩减很多，像 scss 文件就不支持，所以还得装这个。
-
 ### vscode-tslint
 
 使用该插件之前需要先全局安装好 TSLint。
@@ -147,21 +152,9 @@ tslint --init
 }
 ```
 
-### Git Blame
-
-安装之后，会在左下角状态栏处实时显示当前行的最后更改人员。
-
 ### angular2-inline
 
 提供 angular2 内嵌模板的语法高亮。
-
-### Path Intellisense
-
-路径自动补齐。
-
-### Better Merge
-
-提供更好的冲突合并支持。
 
 
 ## Editor
@@ -249,6 +242,7 @@ If no debugging is available, the debugger statement has no effect.
 > let a = 1;  // 计算结果 a = undefined, 这与代码表面期望结果不符，令人费解
 > // some other code, 调试器指针处于这一行，而实际运行连上一行都还没执行
 > ```
+
 
 ## Customization
 
@@ -363,6 +357,7 @@ File > Preferences > Keyboard Shortcuts.
 `Ctrl+Shift+P` > config 设置语言并重启生效。`en` 英文 `zh-cn` 简体中文。
 
 ### Color Themes
+
 
 ## LANGUAGES
 

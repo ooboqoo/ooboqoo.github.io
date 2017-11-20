@@ -280,6 +280,8 @@ The following properties and methods can be used on all HTML elements:
 <tr><td><em>nodelist</em>.item()</td><td>Returns the node at the specified index in a NodeList</td></tr>
 </table>
 
+注: `textContent` 源于 FF，而 `innerText` 源于 IE，现代浏览器中两种并存，但实现稍有[不同](http://www.jb51.net/article/25082.htm)，`innerText` 包含换行等信息，更接近于网页上看到的样子，而 `textContent` 是更纯粹的文本。
+
 
 ## Attribute 对象
 

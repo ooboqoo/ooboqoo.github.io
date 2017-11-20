@@ -396,4 +396,41 @@ some words
 `Content-Type` 由浏览器自动生成，`boundary` 由每个浏览器自由设定，Chrome 每次请求都会变化。  
 使用 `FormData` 的请求，不管是否有传递文件，`Content-Type` 始终为 `multipart/form-data`。
 
+#### IE9 下模拟 FormData
+
+https://github.com/francois2metz/html5-formdata/blob/master/formdata.js
+
+IE9 下不支持 `FormData` 但可以模拟实现，当然，这种方式传不了文件，传文件还是得 iframe。
+
+```js
+function translateJsonToBody(json, boundary) {
+    var body = '';
+    Object.keys(json).forEach(function(field) {
+        body += '--' + boundary + '\r\n';
+        body += 'Content-Disposition: form-data; name="'+ field + '";\r\n\r\n';
+        body += json[field] + '\r\n';
+    });
+    body += '--' + boundary + '--';
+    return body;
+}
+
+function sendWithFormData(settings, params) {
+    // 上传数据组装, 有 FormData 时支持文件上传，否则不支持
+    var formData;
+    if (window.FormData) {
+        formData = new window.FormData();
+        for (var key in params) { formData.append(key, params[key]); }
+    } else {
+        formData = translateJsonToBody(params, '----myBoundary');
+    }
+
+    return $.ajax($.extend(settings, {
+        data: formData,
+        processData: false,
+        contentType: window.FormData ? false : 'multipart/form-data; boundary=----myBoundary'
+    }));
+}
+```
+
+
 <script>ooboqoo.contentsRegExp = /H[123]/</script>
