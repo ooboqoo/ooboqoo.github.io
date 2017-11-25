@@ -1,6 +1,7 @@
 # Gradle Build Tool
 
-https://dongchuan.gitbooks.io/gradle-user-guide-/introduction.html
+https://dongchuan.gitbooks.io/gradle-user-guide-/introduction.html  
+https://docs.gradle.org/current/userguide/userguide.html
 
 ## 概述
 
