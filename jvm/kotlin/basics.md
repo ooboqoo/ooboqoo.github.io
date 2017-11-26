@@ -8,14 +8,24 @@ Kotlin 中一切皆对象，Kotlin 中的任何变量都可以直接调用其属
 
 ### Numbers
 
-| Type   |  Bit width | Literal Constants            | 
-|--------|------------|------------------------------|-------------------------------------
-| Double | 64         | `123.5` `123.5e10`           | 
-| Float  | 32         | `123.5f`                     | 
-| Long   | 64         | `123L` `1_000_000` `0xFF_EC` | 
-| Int    | 32         | `123` `0x0f` `0b00001011`    | 支持10 16 2进制，不支持8进制表示法
-| Short  | 16         | `0b11010010_01101001`        | 
-| Byte   | 8          | `0b11010010`                 ||
+| 分类 | Type   | 装箱类型 |  Bit width | Literal Constants            | 
+|------|--------|----------|------------|------------------------------|-------------------------------------
+| 浮点 | Double |          | 64         | `123.5` `123.5e10`           | 
+| 浮点 | Float  |          | 32         | `123.5f`                     | 
+| 整型 | Long   |          | 64         | `123L` `1_000_000` `0xFF_EC` | 
+| 整型 | Int    |  Integer | 32         | `123` `0x0f` `0b00001011`    | 支持10 16 2进制，不支持8进制表示法
+| 整型 | Short  |          | 16         | `0b11010010_01101001`        | 
+| 字节 | Byte   |          | 8          | `0b11010010`                 ||
+
+```kt
+val anInt: Int = 8
+val maxInt: Int = Int.MAX_VALUE
+val minInt = Int.MIN_VALUE
+val aFloat = 1E3F
+val aDouble = 1E3
+println(Float.MIN_VALUE)         // 1.4E-45 正数，非常小的小数
+println(Float.NaN == Float.NaN)  // false
+```
 
 #### Underscores in numeric literals
 
@@ -38,7 +48,7 @@ print(boxedA == anotherBoxedA)  // Prints 'true'
 #### 显式转换 Explicit Conversions
 
 ```kt
-val a: Int? = 1
+val a: Int? = 1   // 类型后带 ? 表示 nullable
 val b: Long? = a  // 编译错误，与 Java 不同，Kotlin 不会自动向上转换
 val b: Long? = a?.toLong()  // 显式转换，编译通过
 ```
@@ -63,7 +73,7 @@ Kotlin 支持常规的算术运算符，但是不支持位运算符。`Int` 和 
 * `xor(bits)` – bitwise xor
 * `inv()` – bitwise inversion
 
-#### Floating Point Numbers Comparison
+#### 浮点型数值比较 Floating Point Numbers Comparison
 
 (待补)
 
@@ -71,19 +81,48 @@ Kotlin 支持常规的算术运算符，但是不支持位运算符。`Int` 和 
 * `NaN` is considered greater than any other element including `POSITIVE_INFINITY`
 * `-0.0` is considered less than `0.0`
 
+```kt
+println(Float.NaN == Float.NaN)       // false
+println(Float.NaN.equals(Float.NaN))  // true
+```
+
 ### Characters
 
 Kotlin 中 `Char` 不会被当成数值，`fun check(c: Char){ if (c == 1) { } }` 报错。转数字需使用 `c.toInt()`。
 
-Char 字面量用单引号，如 `'1'`。
+`Char` 字面量用单引号，如 `'1'`。装箱类型为 `Character`。
 
 特殊字符加反斜杠，但仅支持 `\t` `\b` `\n` `\r` `\'` `\"` `\\` `\$`，其他特殊字符须使用 UNICode 表示法 `'\uFF00'`
+
+```kt
+val c1 = '0'; val c2 = 'a'; val c3 = '中'; val c4 = '\u2154'
+```
 
 ### Booleans
 
 `Boolean` 支持3种运算符 `||` lazy disjunction, `&&` lazy conjunction, `!` negation
 
 ### Arrays
+
+基本写法：
+  - `val array: Array<String> = arrayOf(...)`
+
+基本操作：
+  - `print array[i]` 输出第 i 个成员
+  - `array[i] = "Hello"` 给第 i 个成员赋值
+  - `array.size` 数组的长度
+
+基本类型的数组:
+为了避免不必要的装箱和拆箱，基本类型的数组是定制的
+
+|   Java   | Kotlin
+|----------|------------
+| int[]    | IntArray
+| short[]  | ShortArray
+| long[]   | LongArray
+| float[]  | FloatArray
+| double[] | DoubleArray
+| char[]   | CharArray
 
 ```kt
 class Array<T> private constructor() {
@@ -97,16 +136,17 @@ class Array<T> private constructor() {
 ```
 
 ```kt
-val arrayOfNulls() 
+val arrayOfString: Array<String> = arrayOf("我", "是", "码农")
+val arr = arrayOfNulls<String>(5); arr[1] = "1"  // [null, "1", null, null, null]
 val asc = Array(5, { i -> (i * i).toString() })  // [0, 1, 4, 9, 16]
 
-val arrayOfInt: IntArray = intArrayOf(1,3,5,7)
-val arrayOfChar: CharArray = charArrayOf('H', 'e','l','l','o','W','o','r','l','d')
-val arrayOfString: Array<String> = arrayOf("我", "是", "码农")
+val arrayOfInt: IntArray = intArrayOf(1,3,5,7)  // 基本数据类型都有专用的经过优化的方法
+val arrayOfChar: CharArray = charArrayOf('H','e','l','l','o','W','o','r','l','d')
+
 val arrayOf书记: Array<市委书记> = arrayOf(市委书记("章"), 市委书记("赵"), 市委书记("黄"))
 
 println(arrayOfInt.size)
-for(int in arrayOfInt){ println(int) }
+for (int in arrayOfInt) { println(int) }
 
 println(arrayOf书记[1])
 arrayOf书记[1] = 市委书记("方")
@@ -118,7 +158,7 @@ println(arrayOfInt.slice(1..2))
 
 ### Strings
 
-`String` 类型是不可变的 immutable，字符串字面量采用 `"` 包裹。
+`String` 类型是不可变的 immutable，字符串字面量采用一对 `"` 包裹。
 
 ##### 原始字符串 Raw String
 
@@ -133,7 +173,7 @@ val text = """
 
 原始字符串采用一对 `"""` 包裹，可以使用 `trimMargin()` 方法去除前缀的空白，默认用 `|` 标示 margin，也可自定义，如 `.trimMargin(">")`。
 
-原始字符串不支持 `\` 转义，`\` 被认为是不同的字符，没有转义功能。
+原始字符串不支持 `\` 转义，`\` 被认为是普通字符，没有转义功能。
 
 ##### 字符串模板 String Templates
 
@@ -149,12 +189,20 @@ val str = "$s.length is ${s.length}" // evaluates to "abc.length is 3"
 
 ### Packages
 
+包即命名空间，可以在首行声明，声明之后，文件内的所有内容都处于该命名空间下，如果一个文件没有指定包，则所有内容都属于 default 包，默认包没有名字。
+
 ```kt
-package foo.bar
-fun baz() { }  // 完整名称 foo.bar.baz
+package com.demo.市委书记.北京
+import com.demo.市委书记.上海.市委书记 as 茶水大王
+
+fun main(args: Array<String>) {
+    val 北京市市委书记: 市委书记 = 市委书记("张")
+    val 上海市市委书记: 茶水大王 = 茶水大王("李")
+    val 天津市市委书记 = com.demo.市委书记.天津.市委书记("赵")
+}
 ```
 
-包即命名空间，可以在首行声明，声明之后，文件内的所有内容都处于该命名空间下，如果一个文件没有指定包，则所有内容都属于 default 包，默认包没有名字。
+注：命名空间一般都与路径对应，虽然不是强制的，但命名空间与实际路径不一致容易导致混乱。
 
 ### Default Imports
 
@@ -248,24 +296,19 @@ when {
 
 ### For Loops
 
-(待补充)
-
 ```kt
 for (item in collection) print(item)
-
 for (i in array.indices) { print(array[i]) }
-
-for ((index, value) in array.withIndex()) { println("the element at $index is $value") }
+for ((index, value) in array.withIndex()) { println("the element at $index is $value") }  // 用到了解构赋值
+  // for (entity in array.withIndex()) { println("the element at ${entity.index} is ${entity.value}") }
 ```
 
 ### While Loops
 
-`while` 和 `do...while` 还是老用法，没啥变化。
+`while` 和 `do...while` 跟Java的用法完全一样。
 
 ```kt
-while (x > 0) {
-    x--
-}
+while (i > 0) println(i--)
 
 do {
     val y = retrieveData()
@@ -293,18 +336,12 @@ lambda 表达式
 
 ```kt
 fun foo() {
-    ints.forEach lit@ {
-        if (it == 0) return@lit
-        print(it)
-    }
+    ints.forEach lit@ { if (it == 0) return@lit; print(it) }
 }
 
 // 也可以是使用 implicit label 的形式
 fun foo() {
-    ints.forEach {
-        if (it == 0) return@forEach
-        print(it)
-    }
+    ints.forEach { if (it == 0) return@forEach; print(it) }
 }
 ```
 

@@ -50,11 +50,12 @@ https://www.jetbrains.com/help/idea/keyboard-shortcuts-you-cannot-miss.html
 |||
 |--------|---------------------------------------------
 | Ctrl+P | 查询方法的参数类型，快速查看重载列表
-| Ctrl+B | 跳转到声明处，等效于 Ctrl + 左键单击
-| Ctrl+U | 跳转到父类
-| Ctrl+W | 递进式选择代码块
-| Ctrl+Q | 快速查看文档
-| Ctrl+Shift+I  | 快速查看定义
+| Ctrl+B / Ctrl+Click | 跳转到声明处 GoTo
+| Ctrl+U | 跳转到父类 Super Method
+| Ctrl+W | 递进式选择代码块 Extend Selection
+| Ctrl+Q | 快速查看文档 Quick Documentation
+| F4     | 跳到源码 Jump to Source
+| Ctrl+Shift+I  | 快速查看定义 Quick Definition
 | Alt+Insert    | 快速插入，常用
 | Shift+Shift   | 
 | Shift+F10     | Run
