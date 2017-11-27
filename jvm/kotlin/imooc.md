@@ -123,8 +123,8 @@ val child: Child? = parent as? Child  // 安全类型转换，如果转换失败
 ### 2.8 区间
 
 * 一个数学上的概念，表示范围
-* Java 中没有区间
-* `ClosedRange` 接口的子类，`IntRange` 最常用
+* Java中没有区间
+* 都是 `ClosedRange` 接口的子类，`IntRange` 最常用
 * 基本写法：
   - `0..100` 表示闭区间 `[0, 100]`
   - `0 until 100` 表示半开区间 `[0, 100)`
@@ -145,15 +145,135 @@ for (i in range_exclusive) { print("$i, ") }
 
 ### 常量与变量
 
+* 运行时常量 `val = x = getX()` 编译时不知道实际值，所以常量名保留，在运行时只能赋值一次
+* 编译期常量 `const val x=2` 编译时就知道常量的值，所以编译后常量会被实际值替换
+* 变量 `var x = "Hello"; x = "Hi"` 变量可以被再次赋值
+
+注：Kotlin 不支持用 `,` 来同时声明多个变量。
+
+```java
+public class javaMain {
+  public final String FINAL_HELLO_WORLD = "HelloWorld";  // 编译期常量
+  public String helloWorld = "HelloWorld";               // 可变属性
+}
+```
+
+```kt
+const val HELLO_WORLD_FINAL = "HelloWorldFinal"  // 编译期常量，本地变量不支持，所以必须写在外面
+
+fun main(args: Array<String>) {
+    val HELLO_WORLD = "HelloWorld"  // 普通常量 value
+    var hello = "Hello"             // 变量 variable
+    println(HELLO_WORLD_FINAL); println(HELLO_WORLD); println(hello)
+}
+```
+
+注：可通过查看字节码加深理解，需要安装插件，然后 Ctrl+Shift+A -> show Bytecode
+
+#### Kotlin 中的类型推导
+
+只要编译器能够推导出类型，就可以不写。
+
 ### 函数
+
+函数是以特定功能组织起来的代码块
+  * `fun [函数名]([参数列表]): [返回值类型] { [函数体] }`
+  * `fun [函数名]([参数列表]) = [表达式]`
+
+编写函数的注意事项
+  * 功能要单一
+  * 函数名要做到见名知义
+  * 参数个数不要太多
+
+```kt
+fun sum(arg1: Int, arg2: Int): Int {  // 返回类型 Int 也不能省，只有当返回类型时 Unit 是才允许省略
+    return arg1 + arg2  // 函数内还是得用 return 返回值，return 不能省
+}
+
+// 简写方式
+fun sum(arg1: Int, arg2: Int) = arg1 + arg2
+
+// 匿名函数
+val int2Long = fun(x: Int) = x.toLong()
+```
+
+函数无返回时，返回值类型为 `Unit` 即Java中的 `void`
+
+#### 函数的类型
+
+```kt
+fun sum(arg1: Int, arg2: Int) = arg1 + arg2
+fun main(args: Array<String>) {
+    val minus = fun(arg1: Int, arg2: Int) = arg1 - arg2
+    println(::sum)  // fun sum(kotlin.Int, kotlin.Int): kotlin.Int
+    println(minus)  // (kotlin.Int, kotlin.Int) -> kotlin.Int
+    println(::sum is (Int, Int) -> Int)  // ture
+}
+```
 
 ### Lambda 表达式
 
+* Lambda 表达式其实就是匿名函数。
+* 格式 `{[参数列表] -> [函数体, 最后一行是返回值]}`
+* Lambda 表达式的调用：用 `()` 调用，等价于 `invoke()`
+
+```kt
+// 常见写法
+val sum = {arg1: Int, arg2: Int -> arg1 + arg2}
+
+// 无参写法
+val printHello = { print("Hello") }
+
+// 可以有多行
+val sum = {
+  arg1: Int, arg2: Int ->
+  println("$arg1 + $arg2 = ${arg1 + arg2}")
+  arg1 + arg2  // 最后一行的值就是表达式的值
+}
+```
+
+Lambda 表达式的简化
+  * 函数调用时最后一个 Lambda 可以移出
+  * 函数参数只有一个 Lambda，调用时小括号可省略
+  * Lambda 只有一个参数可默认为 `it`
+  * 入参、返回值与形参一致的函数可以用函数引用的方式作为实参传入
+
+```kt
+fun main(args: Array<String>) {
+  args.forEach({ println(it) })   // 标准写法
+  args.forEach() { println(it) }  // 表达式移到 () 外
+  args.forEach { println(it) }    // 省略 ()
+  args.forEach(::println)               // 函数引用
+  args.forEach { arg -> println(arg) }  // 自定义迭代变量名
+}
+```
+
+Lambda 表达式 是 表达式，在其中 return 会退出外层 fun 执行
+
+```kt
+fun myprint(vararg args: String) {
+  args.forEach { if (it == "q") return; println(it) }
+  println("The End")
+}
+
+myprint("s", "q", "5")  // 输出 "s" 没有 "The End"
+```
+
 ### 类成员
+
+
 
 ### 基本运算符
 
+
 ### 表达式
+
+https://msdn.microsoft.com/en-us/library/1t054cy7.aspx
+
+A **statement** is an instruction that the Python interpreter can execute: while statements, for statements, if statements, and import statements etc.
+
+An **expression** is a combination of values, variables, operators, and calls to functions. Expressions need to be evaluated. If you ask Python to print an expression, the interpreter evaluates the expression and displays the result.
+
 
 ### 循环语句
 
@@ -246,3 +366,4 @@ fun hi(vararg args: String, count: Int = 3)
 
 
 
+<script>ooboqoo.contentsRegExp = /H[123]/;</script>

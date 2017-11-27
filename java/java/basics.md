@@ -48,10 +48,10 @@ static abstract final strictfp    // 非访问控制修饰符
 byte short int long float double char boolean enum
 
 // 面向对象
-class extends implements interface super new this
+class extends implements interface super new this instanceof
 
-// 
-package import instanceof assert return
+// 其他
+package import  assert  return  // 没有 function 关键字
 
 // 未使用
 goto const
@@ -107,7 +107,7 @@ Java 中使用 `final` 关键字来修饰常量，为了便于识别，通常使
 final double PI = 3.1415927;
 ```
 
-byte、int、long、和 short 都可以用十进制、16进制以及8进制的方式来表示。
+byte、int、long、和 short 都可以用十进制、16进制、二进制以及8进制的方式来表示。
 
 ```java
 int decimal = 100;
