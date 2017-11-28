@@ -261,10 +261,96 @@ myprint("s", "q", "5")  // 输出 "s" 没有 "The End"
 
 ### 类成员
 
+* 属性：或者说成员变量，类范围内的变量
+* 方法：或者说成员函数，类范围内的函数
 
+```java
+// Java 中只存在方法而不叫函数，还真没办法弄个纯粹的函数出来。
+public class JavaA {
+    private int b = 0;
+    public int getB() {
+        System.out.println("b getter");
+        return b;
+    }
+    public void setB(int value) {
+        System.out.println("b setter");
+        this.b = value;
+    }
+
+    public void mymethod(Object a) { System.out.println(a); }
+}
+```
+
+```kt
+class KotlinA {
+    var b = 0
+        get() { println("b getter"); return field }
+        set(value) { println("b setter"); field = value }
+    var c = 0
+        private set  // 外部可读不可写，默认为 public
+    lateinit var s: String  // 延迟初始化
+    val a: JavaA by lazy { JavaA() }  // 使用到才进行初始化
+
+    fun mymethod(a: Any) = println(a)
+}
+```
+
+函数和方法的区别
+  * 函数强调功能本身，不考虑从属
+  * 方法的称呼通常是从类的角度出发
+  * 多数情况下只是叫法不同，不用深究
+
+定义属性
+  * 构造方法参数中 `var` `val` 修饰的都是属性
+  * 类内部也可以定义属性
+
+```kt
+class Hello(val aField: Int, notField: Int) {  // aField 是一个属性，而 notField 只是一个参数不是属性
+    var anotherField: Float = 3f
+}
+```
+
+属性的访问控制：使用 getter 和 setter
+
+属性的初始化
+  * 属性的初始化尽量在构造方法中完成
+  * 无法在构造方法中初始化，尝试降级为局部变量
+  * `var` 用 `lateinit` 延迟初始化，`val` 用 `lazy`
+  * 可空类型谨慎用 `null` 直接初始化
 
 ### 基本运算符
 
+https://kotlinlang.org/docs/reference/operator-overloading.html
+
+* 任何类可以定义或重载父类的基本运算符
+* 通过运算符对应的具名函数来定义
+* 对参数个数作要求，对参数和返回值类型不作要求
+* 不能像 Scala 一样定义任意运算符
+
+```kt
+// 运算符的覆写和重载
+class Complex(var real: Double, var imaginary: Double) {
+    operator fun plus(other: Complex): Complex {
+        return Complex(real + other.real, imaginary + other.imaginary)
+    }
+    operator fun plus(other: Int): Complex = Complex(real + other, imaginary)
+
+    operator fun invoke(): Double = Math.hypot(real, imaginary)
+    override fun toString(): String = "$real + ${imaginary}i"
+}
+
+val c1 = Complex(3.0, 4.0)
+val c2 = Complex(2.0, 7.5)
+println(c1 + c2)  // 5.0 + 11.5i
+println(c1())     // 5
+```
+
+```kt
+fun main(args: Array<String>) {
+  // 读取参数的用法，挺好留作参考
+  if ("-name" in args) { println(args[args.indexOf("-name") + 1]) }  // -name <Name>
+}
+```
 
 ### 表达式
 
@@ -274,8 +360,29 @@ A **statement** is an instruction that the Python interpreter can execute: while
 
 An **expression** is a combination of values, variables, operators, and calls to functions. Expressions need to be evaluated. If you ask Python to print an expression, the interpreter evaluates the expression and displays the result.
 
+中缀表达式
+  * 只有一个参数，且用 `infix` 修饰的函数
+
+```kt
+calss Book { infix fun on (place: String) { /* ... */ } }
+Book() on "My Desk"
+```
+
+分支表达式(非分支语句)
+
+```kt
+val mode = if (args.isNotEmpty() && args[0] == "1") DEBUG else USER
+val mode = when {args.isNotEmpty() && args[0] == "1" -> DEBUG else -> USER}
+```
 
 ### 循环语句
+
+```kt
+public interface Iterator<out T> {
+    public operator fun next(): T
+    public operator fun hasNext(): Boolean
+}
+```
 
 ### 异常捕获
 
@@ -337,8 +444,42 @@ fun hi(vararg args: String, count: Int = 3)
 计算器案例
 
 ```kt
+fun main(args: Array<String>) {
+    while (true) {
+        try {
+            println("请输入算式例如： 3 + 4")
+            val input = readLine() ?: break
+            val splits = input.trim().split(" ")
+            if (splits.size < 3) { throw IllegalArgumentException("参数个数不对") }
+            val arg1 = splits[0].toDouble()
+            val op = splits[1]
+            val arg2 = splits[2].toDouble()
+            println("$arg1 $op $arg2 = ${Operator(op)(arg1, arg2)}")
+        } catch (e: NumberFormatException) {
+            println("您确定输入的是数字吗？")
+        } catch (e: IllegalArgumentException) {
+            println("您确定输入的是三个参数吗？或者您确定您的输入是用空格分隔的吗？")
+        } catch (e: Exception) {
+            println("程序遇到了未知的异常，${e.message}")
+        }
+        println("再来一发?[Y]")
+        val cmd = readLine()
+        if (cmd == null || cmd.toLowerCase() != "y") break
+    }
+    println("感谢您的使用，再见")
+}
 
-
+class Operator(op: String) {
+    private val opFun: (left: Double, right: Double) -> Double
+    init {
+        opFun = when (op) {
+            "+" -> { l, r -> l + r }
+            "-" -> { l, r -> l - r }
+            else -> { throw UnsupportedOperationException(op) }
+        }
+    }
+    operator fun invoke(left: Double, right: Double): Double = opFun(left, right)
+}
 ```
 
 导出可执行程序
