@@ -485,26 +485,243 @@ class Operator(op: String) {
 导出可执行程序
 
 
-
-
 ## 4.面向对象
 
+### 面向对象的基本概念
 
-## 5.高阶函数
+* 本质上就是解决如何用程序描述世界的问题
+* 讨论如何把实际存在的东西映射成程序的类和对象
+* 一种程序设计的思路、思想、方法
+* 程序设计层面的概念
+* 设计模式：前人的程序设计经验
+
+### 抽象类与接口
+
+接口
+  * 直观理解就是一种约定
+  * 接口不能有状态
+  * 必须由类对它实现之后才能使用
+
+抽象类
+  * 实现了一部分协议的半成品
+  * 可以有状态，可以有方法实现
+  * 必须由子类继承后使用
+
+抽象类和接口的区别
+  * 抽象类有状态，接口没有状态
+  * 抽象类有方法实现，接口只能有无状态的默认实现
+  * 抽象类只能单继承，接口可以多实现
+  * 抽象类反应本质，接口体现能力
+
+```kt
+interface InputDevice {
+    fun input(event: Any)
+}
+
+interface USBInputDevice: InputDevice
+
+abstract class USBMouse(val name: String): USBInputDevice, OpticalMouse {
+    override fun input(event: Any) { }
+    override fun toString(): String { return name }
+}
+
+class LogitechMouse: USBMouse("罗技鼠标") { }
+
+class Computer {
+    fun addUSBInputDevice(inputDevice: USBInputDevice) {
+        println("add usb input device: $inputDevice")
+    }
+}
+
+fun main(args: Array<String>) {
+    val computer = Computer()
+    val mouse = LogitechMouse()
+    computer.addInputDevice(mouse)
+}
+```
+
+### 继承
+
+继承/实现 的语法要点
+  * 父类需要 `open` 才可以被继承
+  * 父类方法、属性需要 `open` 才可以被覆写
+  * 接口、接口方法、抽象类默认为 `open`
+  * 覆写父类/接口成员需要 `override` 关键字
+  * `class D: A(), B, C`
+  * 注意继承类时实际上调用了父类构造方法
+  * 类只能单继承，接口可以多实现
+
+#### 接口代理
+
+接口方法实现交给代理类实现
+
+```kt
+class Manager(driver: Driver): Driver by driver
+```
+
+#### 接口方法冲突
 
 
-## 6.领域特定语言 DSL
+### 类及其成员的可见性
 
+|    Kotlin   |    Java       ||
+|-------------|---------------|--------------
+| private     | private       | 
+| protected   | protected     | 
+| -           | default       | 包内可见
+| internal    | -             | 模块内可见
+| public      | public        ||
 
-## 7.协程 Coroutline
+### object
 
+* 只有一个实例的类
+* 不能自定义构造方法
+* 可以实现接口、继承父类
+* 本质上就是单例模式最基本的实现
 
+```kt
+object MusicPlayer {
+    val state: Int = 0
+    fun play(url: String) {  }
+    fun stop() {  }
+}
+```
 
-## 8.Kotlin与Java混合开发
+```java
+public calss MusicPlayer {
+    public static MusciPlayer INSTANCE = new MusicPlayer();
+    private MusicPlayer() { }
+}
+```
 
+### 伴生对象与静态成员
 
-## 9.案例展示
+每个类对应一个伴生对象，伴生对象的成员全局独一份
 
+伴生对象与静态成员
+  * 静态成员考虑用包级函数、变量替代
+  * `@JvmField` 和 `@JvmStatic` 的使用
+
+```kt
+class Latitude private constructor(val value: Double) {
+    companion object {
+        @JvmStatic    // 添加此注解，在 Java 中就可以跟普通静态方法一样使用
+        fun ofDouble(double: Double): Latitude = Latitude(double)
+        fun ofLatitude(latitude: Latitude): Latitude = Latitude(latitude.value)
+        @JvmField
+        val TAG = "Latitude"
+    }
+}
+```
+
+### 方法重载与默认参数
+
+* 重载 overload，覆写 override
+* 名称相同、参数不同的方法
+* Jvm 函数签名的概念：函数名、参数列表，跟返回值没有关系
+
+```kt
+class Overloads {
+    @JvmOverloads  // Kotlin 中能用默认参数就不用重载，添加此注解方便 Java 中调用
+    fun a(int: Int = 0): Int = int
+}
+```
+
+JDK 中不好的设计：`List.remove(int)` `List.remove(Object)` 碰到数值时存在歧义。
+
+### 扩展成员
+
+为现有类添加方法、属性
+  * `fun X.y(): Z {  }`
+  * `val X.m` 注意扩展属性不能初始化，类似接口属性
+
+```kt
+// Extends.kt
+operator fun String.times(int: Int): String {
+    val stringBuilder = StringBuilder()
+    for (i in 0 unitl int) stringBuilder.append(this)
+    return stringBuilder.toString()
+}
+println("abc" * 3)  // "abcabcabc"
+```
+
+```java
+ExtendsKt.times("abc", 16);
+```
+
+### 属性代理
+
+定义方法 `val/var <property name>: <Type> by <expression>`  
+代理者需要实现相应的 `setValue` / `getValue` 方法
+
+```kt
+class X {  // 常用的实际示例为 Lazy
+    private var value: String? = null
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): String { return value?: "h" }
+//  operator fun setValue(thisRef: Any?, property: KProperty<*>, value: String) { this.value = value }
+}
+
+val hello by X()
+var world by X()
+```
+
+### 数据类
+
+* 与 JavaBean 的差异以及 allOpen 和 noArg 插件的使用
+* 默认实现了 `copy` `toString` 等方法
+* `componentN` 方法
+
+```kt
+data class Country(val id: Int, val name: String)
+
+val china = Country(0, "中国")
+println(china)
+```
+
+### 内部类
+
+* 内部类是定义在类内部的类
+* 与类成员有相似的访问控制
+* Java 中默认是非静态内部类，而 Kotlin 中默认是静态内部类。
+* `this@Outter` 和 `this@Inner` 的用法
+
+匿名内部类
+  * 没有定义名字的内部类
+  * 类名编译时生成，类似 `Outter$1.class`
+  * 可继承父类、实现多个接口，注意与 Java 的区别
+
+```kt
+class Outter {
+  val a: Int = 0
+    inner class InnerNotStatic {
+        val a: Int = 5
+        fun myprint() { println(this@Outter.a) }
+    }
+    class InnerStatic {  }
+}
+```
+
+### 枚举
+
+* 实例可数的类，注意枚举也是类
+* 可以修改构造，添加成员
+* 可以提升代码的表现力，也有一定的性能开销
+
+```kt
+enum class LogLevel { VERBOSE, DEBUG, INFO, WARN, ERROR, ASSERT }
+```
+
+### 密封类
+
+枚举类是实例可数，而密封类是子类固定。
+
+```kt
+sealed class PlayerCmd {
+    class Play(val url: String, val position: Long = 0): PlayerCmd()
+    calss Seek(val position: Long): PlayerCmd
+    object Pause: PlayCmd()
+}
+```
 
 
 <script>ooboqoo.contentsRegExp = /H[123]/;</script>
