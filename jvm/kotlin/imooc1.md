@@ -556,7 +556,26 @@ fun main(args: Array<String>) {
 接口方法实现交给代理类实现
 
 ```kt
-class Manager(driver: Driver): Driver by driver
+interface Drive {
+    fun start()
+    fun beep() { println("di--di--") }
+}
+
+class Driver: Drive {
+    override fun start() { println("start") }
+}
+
+class Manager(driver: Driver): Drive by driver {      // 经理把开车的所有事务交给司机处理
+    override fun start() { println("manager start") }
+}
+
+fun main(args: Array<String>) {
+    val driver = Driver()
+    val manager = Manager(driver)
+    driver.start()   // start
+    manager.start()  // manager start
+    manager.beep()   // di--di--
+}
 ```
 
 #### 接口方法冲突
@@ -566,11 +585,11 @@ class Manager(driver: Driver): Driver by driver
 
 |    Kotlin   |    Java       ||
 |-------------|---------------|--------------
-| private     | private       | 
-| protected   | protected     | 
+| private     | private       ||
+| protected   | protected     ||
 | -           | default       | 包内可见
 | internal    | -             | 模块内可见
-| public      | public        ||
+| public      | public        | Kotlin 默认 public
 
 ### object
 
@@ -618,7 +637,7 @@ class Latitude private constructor(val value: Double) {
 
 * 重载 overload，覆写 override
 * 名称相同、参数不同的方法
-* Jvm 函数签名的概念：函数名、参数列表，跟返回值没有关系
+* Jvm 函数签名的概念：只跟函数名、参数列表有关，跟返回值没有关系
 
 ```kt
 class Overloads {
