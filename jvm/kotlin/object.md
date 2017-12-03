@@ -1,5 +1,8 @@
 # Classes and Objects
 
+* modifier 修饰符 - 用于添加 **限定** 的场合
+* annotation 注解，批注 - 用于添加 **元信息** 的场合
+* decorator 装饰器 - 用于添加 **新功能** 的场合
 
 ## Classes and Inheritance
 
@@ -372,44 +375,252 @@ class Child : MyInterface {
 
 ## Visibility Modifiers
 
-Classes, objects, interfaces, constructors, functions, properties and their setters can have visibility modifiers. (Getters always have the same visibility as the property.) There are four visibility modifiers in Kotlin: `private`, `protected`, `internal` and `public`. The default visibility, used if there is no explicit modifier, is `public`.
+Classes, objects, interfaces, constructors, functions, properties and their setters can have visibility modifiers. (Getters 的可见性始终同属性) Kotlin 中有4类访问控制符: `private` `protected` `internal` `public`，默认为 `public`.
 
 ### Packages
+
+|||
+|-------------|------------------------------
+| `private`   | 当前文件内可见
+| `protected` | top-level 声明不支持此修饰符
+| `internal`  | 同 module 内可见
+| `public`    | 默认
+
+### Classes and Interfaces
+
+|||
+|-------------|-------------------
+| `private`   | 当前类内可见
+| `protected` | 当前类及其子类可见
+| `internal`  |当前 module 内可见
+| `public`    | 默认
+
+注：跟Java不同的是，在Kotlin中外部类无法看到其内部类中的 `private` 成员。
+
+当覆写一个 `protected` 成员时，新的成员也是 `protected` 的。
+
+#### 本地声明
+
+本地 变量、函数、类 不适用可见性修饰符。
+
+### Modules
+
+`internal` 修饰符修饰的成员在模块内可见。一个模块就是编译到一起的特定Kotlin文件集合：
+  * an IntelliJ IDEA module;
+  * a Maven project;
+  * a Gradle source set;
+  * a set of files compiled with one invocation of the Ant task.
 
 
 ## Extensions
 
-Kotlin 提供了一种直接给某个类扩展功能的能力，支持扩充函数和属性。
+当我们想要扩充一个类时，在继承类或者使用装饰者模式之外，Kotlin 提供了一种直接扩充类功能的能力，称之为扩展。Kotlin支持给类扩充函数和属性。
 
+扩展类时，其实没有给类添加成员，而只是给所有类实例添加了可通过 `.` 语法调用的函数而已。
+
+### 扩展方法
+
+```kt
+class A {
+    var id = 12
+    fun foo() { println("A") }
+}
+
+val A.name        // 
+    get() = "me"
+
+fun main(args: Array<String>) {
+    var a = A()
+    a.foo(12)    // 报错，不应该传参
+    fun A.foo(int: Int) { println(this.id + int) }  // this 工作正常
+    val A.age    // 报错，Local extension properties are not allowed
+    a.foo(45)    // 57
+    println(a.name)  // me
+}
+```
+
+### 扩展属性
+
+扩展属性时，因为属性并不是作为成员实际插入到类中的，所以没办法生成 backing field，因此扩展属性不能初始化，只能显式提供 getter 和 setter。
 
 ### 扩展伴生对象
 
+```kt
+class MyClass {
+    companion object { }  // will be called "Companion"
+}
+fun MyClass.Companion.foo() { /* ... */ }  // 扩展
+MyClass.foo()  // 调用
+```
 
+### 其他
+
+其他主题待补充
 
 
 ## Data Classes
 
+我们会经常创建一些主要是用来存储数据的类，Kotlin专门提供了 数据类 来方便此类使用场景。
+
+```kt
+data class User(val name: String, val age: Int)
+```
+
+数据类都将获得以下方法：
+  * `equals()` `hashCode()`
+  * `toString()`
+  * `componentN()` 系列方法
+  * `copy()`
+
+```kt
+data class User(val name: String, val age: Int)
+
+fun main(args: Array<String>) {
+    var gavin = User("gavin", 32)
+    var ivan = User("ivan", 18)
+    println(gavin.component1())    // gavin
+    println(ivan.name.hashCode())  // 3244570
+    println(gavin.copy(age = 23))  // user(name=gavin, age=23)
+}
+```
+
+为确保一致性和有意义，数据类必须满足以下条件：
+  * 主构造函数至少要有一个参数
+  * 主构造中的所有参数都应该是属性
+  * 数据类不能是 `abstract` `open` `sealed` `inner`
+
+从 1.1 开始，数据类可继承其他类。
 
 
 ## Sealed Classes
 
+密封类用于限定子类，主要用在 when expression 中。
+
+```kt
+sealed class Expr
+data class Const(val number: Double) : Expr()
+data class Sum(val e1: Expr, val e2: Expr) : Expr()
+object NotANumber : Expr()
+
+fun eval(expr: Expr): Double = when(expr) {
+    is Const -> expr.number
+    is Sum -> eval(expr.e1) + eval(expr.e2)
+    NotANumber -> Double.NaN
+    // the `else` clause is not required because we've covered all the cases
+}
+```
+
 
 ## Generics
 
+```kt
+class Box<T>(t: T) {
+    var value = t
+}
+val box: Box<Int> = Box<Int>(1)
+val box = Box(1)  // 如果类型可以自动推断出来，可不写
+```
+
+### Variance
+
+Java的类型系统中存在诡异的通配符，而Kotlin中没有采用通配符，而是使用了 declaration-site variance 和 type projections
+
+### Type projections
+
+### Generic functions
+
+### Generic constraints
 
 
 ## Nested Classes
 
+```kt
+class Outer {
+    private val bar: Int = 1
+    class Nested {
+        fun foo() = 2
+        fun bar() = bar  // 报错，普通内嵌类无法读取外部类的成员
+    }
+    inner class Inner {  // 添加 inner 关键字将普通内嵌类转为内部类
+        fun foo() = bar
+    }
+}
+fun main(args: Array<String>) {
+    val demo1 = Outer.Nested().foo()  // == 2
+    val demo2 = Outer().Inner().foo() // == 1
+}
+```
 
 
 ## Enum Classes
 
-
+```kt
+enum class Color(val rgb: Int) {
+        RED(0xFF0000),
+        GREEN(0x00FF00),
+        BLUE(0x0000FF)
+}
+```
 
 
 ## Objects
 
+有时我们需要创建某个类的对象，但希望稍做修改但又不想声明一个新的子类。Java使用匿名内部类来处理这种情况。Kotlin用为解决此类问题引入了对象表达式和对象声明这两个概念。
 
+### Object expressions
+
+```kt
+open class A(x: Int) {
+    public open val y: Int = x
+}
+interface B {...}
+val ab: A = object : A(1), B {  // 继承+实现或多实现时用逗号分隔
+    override val y = 15
+}
+
+fun foo() {
+    val adHoc = object {        // 不需要继承任何超类
+        var x: Int = 0
+        var y: Int = 0
+    }
+    print(adHoc.x + adHoc.y)
+}
+```
+
+Note that anonymous objects can be used as types only in local and private declarations. 
+
+```kt
+class C {
+    // Private function, so the return type is the anonymous object type
+    private fun foo() = object { val x: String = "x"}
+    // Public function, so the return type is Any
+    fun publicFoo() = object { val x: String = "x" }
+
+    fun bar() {
+        val x1 = foo().x        // Works
+        val x2 = publicFoo().x  // ERROR: Unresolved reference 'x'
+    }
+}
+```
+
+### Object declarations
+
+对象声明时需要指定对象名，而对象表达式则不允许出现对象名。所以Kotlin文档说对象声明不能当成对象表达式使用。
+
+类的伴生对象用的是对象声明，而不是对象表达式。
+
+```kt
+object obj { }
+val obj2 = object obj3 {  }  // 报错对象表达式不能绑定名字
+```
+
+对象声明和对象表达式在语义上的区别
+  * 对象表达式在代码处立即初始化
+  * 对象声明是延迟初始化的，首次使用时才初始化
+
+因此对象声明和对象表达式在使用上也有所不同
+  * 对象声明不能是 local 的，如出现在函数内
+  * 对象表达式只是出现在 local 场景，或是 private 声明中
 
 
 ## Delegation
@@ -418,8 +629,22 @@ http://www.runoob.com/kotlin/kotlin-delegated.html
 
 委托模式是软件设计模式中的一项基本技巧。在委托模式中，有两个对象参与处理同一个请求，接受请求的对象将请求委托给另一个对象来处理。Kotlin 直接支持委托模式，更加优雅，简洁。Kotlin 通过关键字 `by` 实现委托。
 
+```kt
+interface Base {
+    fun print()
+}
 
+class BaseImpl(val x: Int) : Base {
+    override fun print() { print(x) }
+}
 
+class Derived(b: Base) : Base by b
+
+fun main(args: Array<String>) {
+    val b = BaseImpl(10)
+    Derived(b).print()  // prints 10
+}
+```
 
 
 ## Delegated Properties
@@ -428,11 +653,14 @@ http://www.runoob.com/kotlin/kotlin-delegated.html
 
 当我们使用属性的get或者set的时候，属性委托的getValue和setValue就会被调用。
 
+```kt
+val lazyValue: String by lazy {
+    println("computed!")
+    "Hello"
+}
 
-
-
-
-
-
-
-
+fun main(args: Array<String>) {
+    println(lazyValue)  // computed!\nHello
+    println(lazyValue)  // Hello
+}
+```
