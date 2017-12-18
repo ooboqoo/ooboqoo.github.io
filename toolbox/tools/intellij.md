@@ -4,7 +4,7 @@
 
 ### 安装
 
-到[IntelliJ IDEA 注册码](http://idea.qinxi1992.cn/) 查找最新可用 License server 来在线激活软件。
+到[IntelliJ IDEA 注册码](http://idea.lanyus.com/) 查找最新可用 License server 来在线激活软件。
 
 ### 设置
 
