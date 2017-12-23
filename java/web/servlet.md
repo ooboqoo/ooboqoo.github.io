@@ -44,11 +44,7 @@ public class HelloServlet extends HttpServlet {
 </web-app>
 ```
 
-注：下面 Kotlin 示例中的那个 WebServlet 也适用于 JavaServlet。
-
 ### Kotlin
-
-Kotlin 写 Servlet 会方便很多：
 
 ```kt
 package demo.servlet.hello
@@ -61,7 +57,7 @@ import javax.servlet.http.HttpServletResponse
 @WebServlet(name = "Home", value = "/home")
 class HomeController : HttpServlet() {
     override fun doGet(req: HttpServletRequest, res: HttpServletResponse) {
-        res.contentType = "text/html; charset=utf-8"
+        res.contentType = "text/html; charset=utf-8"  // 直接操作属性
         res.writer.println("<h1>你好 Kotlin</h1>")
     }
 }
@@ -125,27 +121,6 @@ public class TestServlet extends HttpServlet {
 ```
 
 
-## Servlet API
-
-### Servlet 接口
-
-
-### ServletConfig 接口
-
-
-### HttpServletRequest 接口
-
-
-### HttpServletResponse 接口
-
-
-### GenericServlet 类
-
-
-### HttpServlet 类
-
-
-
 ## Servlet 开发
 
 ### Servlet 创建
@@ -163,4 +138,24 @@ public class TestServlet extends HttpServlet {
 #### 映射 Servlet
 
 在 web.xml 中声明了 Servlet 对象后，需要映射访问 Servlet 的 URL。改操作使用 `<servlet-mapping>` 标签进行配置。`<servlet-mapping>` 标签包含两个子元素 `<servlet-name>` `<url-pattern>`。其中 `<servlet-name>` 元素与 `<servlet>` 标签中的 `<servlet-name>` 元素相对应；`<url-pattern>` 元素用于映射访问 URL。
+
+
+## 过滤器和监听器
+
+
+
+
+## Servlet 3.0 新特性
+
+### 新增注解
+
+
+
+### 对文件上传的支持
+
+
+
+### 异步处理
+
+
 
