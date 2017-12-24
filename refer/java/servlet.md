@@ -72,6 +72,42 @@ GenericServlet 类是一个抽象类，分别实现了 Servlet 和 ServletConfig
 public abstract class GenericServlet implements Servlet, ServletConfig, java.io.Serializable { }
 ```
 
+### javax.servlet.Filter
+
+```java
+public interface Filter { }
+
+public void init(FilterConfig filterConfig) throws ServletException;
+// doFilter 方法用于处理过滤的业务逻辑，处理后需要调用 chan.doFilter(req, resp) 将请求向后传递
+public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+        throws IOException, ServletException;
+public void destroy();
+```
+
+### javax.servlet.FilterConfig
+
+FilterConfig 接口由容器实现，主要用于获取过滤器中的配置信息。
+
+```java
+public interface FilterConfig { }
+
+public String getFilterName();
+public ServletContext getServletContext();
+public String getInitParameter(String name);
+public Enumeration<String> getInitParameterNames();
+```
+
+### javax.servlet.FilterChain
+
+FilterChain 接口由容器实现。
+
+```java
+public interface FilterChain { }
+
+public void doFilter(ServletRequest request, ServletResponse response)
+        throws IOException, ServletException;
+```
+
 
 ## javax.servlet.http
 

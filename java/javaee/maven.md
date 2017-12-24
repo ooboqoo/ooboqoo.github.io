@@ -66,6 +66,8 @@ Maven 插件的例子有一些简单但核心的插件，像 **Jar 插件**，�
 
 #### 坐标 Coordinates
 
+https://maven.apache.org/guides/mini/guide-naming-conventions.html
+
 项目对象模型 POM 是一个项目的声明性描述。当 Maven 运行一个目标的时候，每个目标都会访问定义在项目 POM 里的信息。
 
 POM 为项目命名，提供了项目的一组唯一标识符(坐标)，他们可以用来唯一标识一个项目，一个依赖，或者一个插件。
@@ -224,107 +226,3 @@ $ mvn help:effective-pom
 ```
 
 一旦你运行了此命令，你应该能看到一个大得多的 POM，它暴露了 Maven 的默认设置。
-
-## Jetty + Maven 开发标准 WebApp
-
-http://blog.csdn.net/tomato__/article/details/37927813
-
-### 使用 archetype 创建项目
-
-### 创建一个 Servlet
-
-创建文件 src/main/java/org/example/HelloServlet.java
-
-```java
-package org.example;
-
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-public class HelloServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().println("<h1>Hello Servlet</h1>");
-        response.getWriter().println("session=" + request.getSession(true).getId());
-    }
-}
-```
-
-在 src/main/webapp/WEB-INF/web.xml 中注册 Servlet
-
-```xml
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<web-app
-   xmlns="http://java.sun.com/xml/ns/javaee"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-   metadata-complete="false"
-   version="3.0">
-
-  <servlet>
-    <servlet-name>Hello</servlet-name>
-    <servlet-class>org.example.HelloServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Hello</servlet-name>
-    <url-pattern>/hello/*</url-pattern>
-  </servlet-mapping>
-</web-app>
-```
-
-### 配置 POM
-
-```xml
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.example</groupId>
-  <artifactId>hello-world</artifactId>
-  <version>0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
-  <name>Jetty HelloWorld WebApp</name>
-
-  <properties>
-      <jettyVersion>9.4.6.v20170531</jettyVersion>
-  </properties>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-server</artifactId>
-      <version>${jettyVersion}</version>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
-   
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>${jettyVersion}</version>
-      </plugin>
-    </plugins>
-  </build>
-
-</project>
-```
-
-### 构建和运行 Web 应用
-
-```bash
-$ mvn jetty:run
-```
-
-### 构建一个 WAR 文件
-
-```bash
-$ mvn package
-```
