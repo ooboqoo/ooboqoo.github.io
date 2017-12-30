@@ -1,144 +1,33 @@
 # 开发环境搭建
 
-## IDEA 开发环境搭建
-
-### 创建 JavaWeb 工程
-
-Create New Project -> Java Enterprise -> √ Web Application -> JavaWebDemo
-
-建好后项目目录结构如下：
-
-```text
-JavaWebDemo       经过后续步骤最终变成：  JavaWebDemo
-    |- src                                    |- resources
-    |- web                                    |    \- config
-    |    \- index.jsp                         |         \- main.properties
-    \- JavaWebDemo.iml                        |- src
-                                              |    \- com.demo
-                                              |         |- HelloServlet
-                                              |         \- CountFilter
-                                              |- web
-                                              |    \- index.jsp
-                                              \- JavaWebDemo.iml
-```
-
-### 配置 Tomcat
-
-Run -> Edit Configurations -> + -> Tomcat Server -> Local -> Name: Tomcat8.5
-
-注1：要确保勾选了 Plugins -> Tomcat and TomEE Integration，不然看不到 Tomcat Server 设置项。  
-注2：JDK 和 Tomcat 需要先提前安装好。
-
-#### 4种配置热部署的方法
-
-https://www.cnblogs.com/a8457013/p/7866536.html
-
-热部署可以使得修改代码后，无须重启服务器，就可以加载更改的代码。
-
-第1种：修改服务器配置，使得IDEA窗口失去焦点时，更新类和资源
-
-Run -> Edit Configuration -> Tomcat Server -> Tomcat8.5 对以下两个Tab页进行配置：
-  * Deployment 确保是 "XXX.war exploded"
-  * Server 将 "On 'Update' action" "On frame deactivation" 两项都设为 "update classes and resources"
-
-优点：简单
-
-缺点：
-  * 基于JVM提供的热加载仅支持方法块内代码修改
-  * 只在 Debug 模式下有效
-  * 只在IDEA失去焦点时才会触发热加载，相对加载速度缓慢
-
-第2种：使用 springloaded jar 包，对 Spring 系列框架支持好(不含Spring Boot)  
-第3种：使用 spring-boot-devtools 提供的开发者工具，只支持 Spring Boot 项目，支持成员级别的修改热部署。  
-第4种：使用 Jrebel 插件实现热部署，强大，对各类框架支持，收费。
+* IDEA 采用社区版，插件少了更清爽，缺失的支持用 Maven 弥补
+* Maven 成熟的构建工具，没有采用 Gradle，会 Maven 了迁移到 Gradle 也很方便
 
 
-### 添加示例内容
+## 搭建项目框架
 
-#### 添加一个 Servlet
-
-```java
-package com.demo;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-@WebServlet(name = "HelloServlet", urlPatterns = "/hello")
-public class HelloServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().println("<h1>Hello Servlet</h1>");
-        response.getWriter().println("session=" + request.getSession(true).getId());
-    }
-}
-```
-
-#### 添加一个 Filter
-
-创建一个过滤器，实现网站访问计数器功能。
-
-scr -右键-> New -> Package -> com.demo -右键-> New -> Filter -> CountFilter
-
-```java
-package com.demo;
-
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.ResourceBundle;
-
-@WebFilter(filterName = "CountFilter", urlPatterns = {"/index.jsp"})
-public class CountFilter implements Filter {
-    ResourceBundle rb = ResourceBundle.getBundle("config/main");
-    private int count = new Integer(rb.getString("count"));
-
-    public void destroy() { }
-
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
-            throws ServletException, IOException {
-        count++;
-        ServletContext context = ((HttpServletRequest)req).getSession().getServletContext();
-        context.setAttribute("count", count);
-        chain.doFilter(req, resp);
-    }
-
-    public void init(FilterConfig config) throws ServletException { }
-}
-```
-
-resources/config/main.properties &nbsp; // resources 为 "Resources Root"
-
-```txt
-count=6000
-```
-
-index.jsp
-
-```html
-<%@ page contentType="text/html;charset=UTF-8" %>
-<body>
-  欢迎光临，您是本站的第[ <%=application.getAttribute("count")%> ]位访客。
-</body>
-```
-
-
-## Maven 开发环境搭建
-
-### 搭建项目框架
-
-#### IDEA 创建 Maven 项目
+### IDEA 创建 Maven 项目
 
 File -> New -> Project... -> Maven -> Create from archetype -> maven-archetype-webapp
 
-这个模板比较老了，目录结构也不太理想，放这里过一遍便于理解一些老的项目。
+这个结构不好，重新调整下目录：
 
-#### 添加 Maven 依赖和插件
+```text
+JavaWebDemo
+    |- lib
+    |- resources      // 右键 Mark Directory as Resources Root
+    |- src            // 右键 Mark Directory as Sources Root
+    |    \- com.demo
+    |         \- HelloWorld.java
+    |- webapp         // pom.xml 下 tomcat7 插件下加配置项 <warSourceDirectory>
+    |    |- WEB-INF
+    |    |    \- web.xml
+    |    \- index.jsp
+    |- JavaWebDemo.iml
+    \- pom.xml
+```
+
+### 添加 Maven 依赖和插件
 
 http://tomcat.apache.org/maven-plugin-2.0/tomcat7-maven-plugin/usage.html
 
@@ -150,11 +39,10 @@ http://tomcat.apache.org/maven-plugin-2.0/tomcat7-maven-plugin/usage.html
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.demo</groupId>
-    <artifactId>java-web-maven</artifactId>
+    <artifactId>java-web-demo</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>java-web-maven Maven Webapp</name>
-    <url>http://maven.apache.org</url>
+    <name>java-web-demo Maven Webapp</name>
     <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -162,15 +50,9 @@ http://tomcat.apache.org/maven-plugin-2.0/tomcat7-maven-plugin/usage.html
             <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
     <build>
-        <finalName>java-web-maven</finalName>
+        <finalName>java-web-demo</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
@@ -178,6 +60,7 @@ http://tomcat.apache.org/maven-plugin-2.0/tomcat7-maven-plugin/usage.html
                 <version>2.2</version>
                 <configuration>
                     <port>9090</port>
+                    <warSourceDirectory>webapp</warSourceDirectory> <!-- 默认值 src/main/webapp -->
                 </configuration>
             </plugin>
         </plugins>
@@ -194,11 +77,11 @@ http://tomcat.apache.org/maven-plugin-2.0/tomcat7-maven-plugin/usage.html
 > * `tomcat:deploy` 则会连接指定 Tomcat 实例进行部署，此时要求服务器是启动的，且要配置好 url 以及管理账号和密码，否则无法完成部署。
 
 
-### 添加示例内容
+## 添加示例内容
 
-#### 创建一个 Servlet
+### 创建一个 Servlet
 
-创建文件 src/main/java/com/demo/HelloServlet.java
+创建文件 src/com/demo/HelloServlet.java
 
 ```java
 package com.demo;
@@ -220,7 +103,7 @@ public class HelloServlet extends HttpServlet {
 }
 ```
 
-在 src/main/webapp/WEB-INF/web.xml 中注册 Servlet
+在 webapp/WEB-INF/web.xml 中注册 Servlet
 
 ```xml
 <servlet>
@@ -233,11 +116,9 @@ public class HelloServlet extends HttpServlet {
 </servlet-mapping>
 ```
 
-#### 添加一个 Filter
+### 添加一个 Filter
 
 创建一个过滤器，实现网站访问计数器功能。
-
-src/main/java/com/demo/CountFilter.java
 
 ```java
 package com.demo;
@@ -266,7 +147,7 @@ public class CountFilter implements Filter {
 }
 ```
 
-src/main/webapp/WEB-INF/web.xml
+web.xml
 
 ```xml
 <filter>
@@ -283,18 +164,17 @@ src/main/webapp/WEB-INF/web.xml
 </filter-mapping>
 ```
 
-src/main/webapp/index.jsp
+index.jsp
 
 ```html
-<%@ page contentType="text/html;charset=UTF-8" %>
 <body>
   欢迎光临，您是本站的第[ <%=application.getAttribute("count")%> ]位访客。
 </body>
 ```
 
-### 自动部署设置
+## 自动部署设置
 
-#### Tomcat 设定
+### Tomcat 设定
 
 安装 tomcat7-maven-plugin 后，虽然可以启动插件自带的 tomcat7 进行调试，但若想部署到目标环境测试，还需作以下配置：
   * 如果端口有冲突，在 server.xml 中修改端口号
@@ -318,7 +198,7 @@ apache-tomcat-8.5.16/conf/tomcat-users.xml
 </tomcat-users>
 ```
 
-#### Maven 设置
+### Maven 设置
 
 在项目 Maven 配置文件 pom.xml 中添加部署相关信息：
 
