@@ -127,6 +127,10 @@ index.jsp
 </body>
 ```
 
+### 调试+打包
+
+https://www.jetbrains.com/help/idea/developing-a-java-ee-application.html#d123323e460
+
 
 ## Maven 开发环境搭建
 

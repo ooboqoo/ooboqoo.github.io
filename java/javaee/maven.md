@@ -213,11 +213,13 @@ $ mvn install
 
 一般来说一个 POM 文件会复杂得多：定义多个依赖，自定义插件行为。
 
-最开始的几个元素 groupId, artifactId, packaging, version 是 Maven 的坐标(coordinates)，它们唯一标识了一个项目。
+最开始的几个元素 `groupId`, `artifactId`, `packaging`, `version` 是 Maven 的坐标(coordinates)，它们唯一标识了一个项目。
 
-name 和 url 是 POM 提供的描述性元素，它们给人提供了可阅读的名字，将一个项目关联到了项目 web 站点。
+`name` 和 `url` 是 POM 提供的描述性元素，它们给人提供了可阅读的名字，将一个项目关联到了项目 web 站点。
 
-最后，dependencies 元素定义了一个单独的，测试范围(test-scoped)依赖，依赖于称为 JUnit 的单元测试框架。
+最后，`dependencies` 元素定义了一个单独的，测试范围(test-scoped)依赖，依赖于称为 JUnit 的单元测试框架。
+
+注：`<scope>provided</scope>`- provided 表明该包只在编译和测试的时候用
 
 当 Maven 运行的时候，它是根据项目的 pom.xml 里设置的组合来运行的，最上级的 POM 在 Maven 的安装目录，它定义了全局的默认值。可以在项目中输入命令查看实际使用的所有设置项。
 
@@ -226,3 +228,4 @@ $ mvn help:effective-pom
 ```
 
 一旦你运行了此命令，你应该能看到一个大得多的 POM，它暴露了 Maven 的默认设置。
+

@@ -134,7 +134,7 @@ task printTaskProperties {
 
 ### 调用 Ant 任务
 
-Ant 任务是 Gradle 的一等公民。Gradle 通过 Groovy 出色的集成了 Ant 任务。Groovy 自带了一个 AntBuilder。相比于从一个 build.xml 文件中使用 Ant 任务，在 Gradle 里使用 Ant 任务更为方便和强大。
+Ant 任务是 Gradle 的一等公民。Gradle 通过 Groovy 出色地集成了 Ant 任务。Groovy 自带了一个 AntBuilder。相比于从一个 build.xml 文件中使用 Ant 任务，在 Gradle 里使用 Ant 任务更为方便和强大。
 
 ```text
 task loadfile {
