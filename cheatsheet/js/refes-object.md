@@ -364,7 +364,7 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <h5 class="es">Math.ceil(x) <span>-- 执行向上取整</span></h5>
 <h5 class="es">Math.floor(x) <span>-- 执行向下取整</span></h5>
 <h5 class="es">Math.round(x) <span>-- 执行四舍五入</span></h5>
-<h5 class="es">Math.random() <span>-- 返回 0 到 1 之间的随机数</span></h5>
+<h5 class="es">Math.random() <span>-- 返回 0 到 1 之间的随机数 `[0, 1)`</span></h5>
 <h5 class="es">Math.abs(x) <span>-- 返回 x 的绝对值</span></h5>
 <h5 class="es">Math.sqrt(x) <span>-- 返回 x 的平方根</span></h5>
 <h5 class="es">Math.pow(x, y) <span>-- 返回 x 的 y 次方</span></h5>
