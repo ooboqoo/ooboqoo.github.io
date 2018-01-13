@@ -1,3 +1,4 @@
+# JS 小专题
 
 ### 计算字符串所占字节数
 
@@ -47,7 +48,23 @@ function getBytes(str, charset) {
 }
 ```
 
+### 统计字符串长度
 
+中文以2个字符长度计算。
+
+```js
+function checksum(text) {
+    return text.length + text.match(/[\u4e00-\u9fa5]/g).length;
+}
+
+function checksum(chars) {
+    var sum = len = chars.length, c;
+    while(len--) {
+        c = chars.charCodeAt(i);
+        if (c >= );
+    }
+}
+```
 
 
 

@@ -12,6 +12,8 @@ https://kotlinlang.org/docs/tutorials/
 4. 运行 点击代码左侧图标 -> Run "HelloKotlinKt"
 
 
+## 待整理
 
+null 与 kotlin.Unit 与 java.lang.Void
 
 

@@ -344,7 +344,7 @@ In the W3C DOM Core, the Attr (attribute) object inherits all properties and met
 
 **DOM:** Indicates in which DOM Level the property was introduced.
 
-这里需要注意的是，所有的事件名，都没有使用小驼峰格式，这是比较特殊的地方。但是还有另外的一些事件，如 `DOMContentLoaded` 却用的驼峰式写法。区别是，DOM 规范的，也是最常用的事件都没有用驼峰格式，而一些 HTML5 规范或者其他规范可能采用的是驼峰格式，像 `DOMContentLoaded` 就是在 HTML5 中 定义的。
+这里需要注意的是，所有的事件名，都没有使用小驼峰格式，这是比较特殊的地方。但是还有另外的一些事件，如 `DOMContentLoaded` 却用的驼峰式写法。区别是，DOM 规范的，也是最常用的事件都没有用驼峰格式，而一些 HTML5 规范或者其他规范可能采用的是驼峰格式，像 `DOMContentLoaded` 就是在 HTML5 中定义的。
 
 https://developer.mozilla.org/en-US/docs/Web/Events
 
@@ -607,6 +607,14 @@ https://developer.mozilla.org/en-US/docs/Web/Events
   <tr><td>deltaY</td><td>Returns the vertical scroll amount of a mouse wheel (y-axis)</td><td>3</td></tr>
   <tr><td>deltaZ</td><td>Returns the scroll amount of a mouse wheel for the z-axis</td><td>3</td></tr>
   <tr><td>deltaMode</td><td>Returns a number that represents the unit of measurements for delta values (pixels, lines or pages)</td><td>3</td></tr>
+</table>
+
+### EventTarget Object
+
+<table>
+  <tr><td>addEventListener()</td><td></td><td>2</td></tr>
+  <tr><td>removeEventListener()</td><td></td><td>2</td></tr>
+  <tr><td>dispatchEvent()</td><td>Dispatches an Event, invoking the affected EventListeners in the appropriate order. </td><td>2</td></tr>
 </table>
 
 

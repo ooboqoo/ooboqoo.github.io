@@ -24,7 +24,7 @@ The percentage is calculated with respect to the height of the generated box's c
 
 <!-- 祖父元素明确指定高度，父元素无高度，子元素高度百分比  无效 -->
 <div style="width: 300px; height: 500px; background-color: #600;">
-  <div>
+  <div>  <!-- 添加 style="height: 100%;" 即可修复 -->
     <div style="width: 50%; height: 10%; background-color: #00f;"></div>
   </div>
 </div>
@@ -73,6 +73,49 @@ CSS3 中引入了 `vh` 单位，表示视窗 viewport 的百分之一高度，�
 #### 设定强制包含元素内容(容器会被内容撑大)
 
 父元素添加 `overflow: hidden;` 即可。上面的那个示例中，去掉 `overflow: hidden;` 即可看到效果。
+
+#### 垂直居中
+
+table-cell 方案
+
+```html
+<style>
+.demo-item {
+    display: table-cell;
+    vertical-align: middle;
+    width: 50px; height: 100px; border: 1px solid red;
+}
+.demo-item-top { vertical-align: top; }
+.demo-item-bottom { vertical-align: bottom; }
+</style>
+<div class="demo">
+    <div class="demo-item demo-item-top">default</div>
+    <div class="demo-item">default</div>
+    <div class="demo-item demo-item-bottom">default</div>
+</div>
+```
+
+Flex 布局方案：
+
+```html
+<style>
+.demo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px; height: 200px; border: 1px solid gray;
+}
+.demo-item { width: 50px; border: 1px solid red; }
+.demo-item-top { align-self: flex-start; }
+.demo-item-bottom { align-self: flex-end; }
+</style>
+<div class="demo">
+  <div class="demo-item demo-item-top">demo-item-top</div>
+  <div class="demo-item">default</div>
+  <div class="demo-item demo-item-bottom">demo-item-bottom</div>
+</div>
+```
+
 
 ### `box-sizing` 讲解
 

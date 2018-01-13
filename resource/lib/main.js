@@ -445,3 +445,20 @@ function isMobile() {
     elem_md.addEventListener("mouseup", setMark);
   };
 })();
+
+
+/* 
+ * 输出了一个全局变量 setBase 作为 base 标签的替代方案
+ * 调用示例：<script>setBase('table', 'http://www.w3schools.com/');</script>
+ */
+window.setBase = function(where, base) {
+  var superNode = document.getElementsByTagName(where),
+      i, j, anchors;
+  for (i = 0; i < superNode.length; i++) {
+    anchors = superNode[i].getElementsByTagName("a");
+    for (j = 0; j < anchors.length; j++) {
+      if (anchors[j].href.search(location.hostname) === -1) continue;
+      anchors[j].href = base + anchors[j].getAttribute('href');
+    }
+  }
+};

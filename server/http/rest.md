@@ -1,6 +1,7 @@
 # REST API
 
-http://www.ruanyifeng.com/blog/2014/05/restful_api.html
+http://www.ruanyifeng.com/blog/2014/05/restful_api.html  
+https://blog.philipphauer.de/restful-api-design-best-practices/
 
 越来越多的人开始意识到，网站即软件，而且是一种新型的软件。这种 "互联网软件" 采用客户端/服务器模式，建立在分布式体系上，通过互联网通信，具有高延时、高并发等特点。
 

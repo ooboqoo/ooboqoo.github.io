@@ -274,6 +274,14 @@ __disruptive statement__  中断语句
 __variable__  _/ˈveəriəbəl/_  n. 变量 a. 多变的  
 
 
+### 编译原理
+
+__JIT__  运行时动态编译  
+__AOT__  预编译(静态编译)  
+__AST__  Abstract Syntax Tree 抽象语法树  
+__DSL__  领域专用语言
+
+
 ### Classes and Objects
 
 __object__  n. 对象  
