@@ -80,6 +80,10 @@ window.addEventListener('storage', function(e) {
 
 ## Cookies
 
+在 HTML5 之前，Web应用程序通用的数据存储方案一般通过 Cookie 实现。不过，将数据存储在 Cookie 中有如下弊端：
+  * 大小受限，标准浏览器下单个 Cookie 允许的大小是 **4KB**
+  * 消耗性能，当前域下的所有 HTTP 请求都会携带这些Cookie数据
+
 ```js
 // 设置 cookies
 function setCookie(name, value, expiredays) {

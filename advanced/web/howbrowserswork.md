@@ -3,6 +3,9 @@
 https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/  
 http://taligarsiel.com/Projects/howbrowserswork1.htm
 
+
+## 概述
+
 ### 浏览器加载过程
 
 - 在接收到用户输入的网址后，浏览器会开启一个线程来处理这个请求
@@ -17,7 +20,7 @@ http://taligarsiel.com/Projects/howbrowserswork1.htm
 - JS 操作 DOM、读取浏览器缓存、执行时间绑定等
 
 [注1] JS 代码会阻塞浏览器引擎的解析过程  
-[注2] 渲染引擎在解析 HTML时，会根据当前已有资源实时刷新显示(第一时间呈现)
+[注2] 渲染引擎在解析 HTML 时，会根据当前已有资源实时刷新显示(第一时间呈现)
 
 ```html
 <!DOCTYPE html>
@@ -58,6 +61,20 @@ http://taligarsiel.com/Projects/howbrowserswork1.htm
 Different browsers use different rendering engines: Internet Explorer uses Trident, Firefox uses Gecko, Safari uses WebKit. Chrome and Opera use Blink, a fork of WebKit.
 
 It's important to understand that this is a gradual process. For better user experience, the rendering engine will try to display contents on the screen as soon as possible. It will not wait until all HTML is parsed before starting to build and layout the render tree. Parts of the content will be parsed and displayed, while the process continues with the rest of the contents that keeps coming from the network.
+
+#### 主流浏览器引擎
+
+https://en.wikipedia.org/wiki/Comparison_of_web_browser_engines  
+https://kangax.github.io/compat-table/es6/
+
+* 常见渲染引擎 Blink/CH(谷歌fork自WebKit)  WebKit/SF  Gecko/FF  EdgeHTML/Edge(微软fork自IE的Trident)
+* 常见JS引擎: V8/Ch  SpiderMonkey/FF  JavaScriptCore/SF  Chakra/Edge
+
+页面的绘制，只有一半轮子是 Chrome 自己做的，还有一部分来自于 WebKit，这个 Apple 打造的 Web 渲染器。
+之所以说是一半轮子来源于 WebKit，是因为 WebKit 本身包含两部分主要内容，一部分是做 HTML 渲染的，另一部分是做 JavaScript 解析的。在 Chrome 中，只有 HTML 的渲染采用了 WebKit 的代码，而在 JavaScript 上，重新搭建了一个NB哄哄的 V8 引擎。目标是，用 WebKit+V8 的强强联手，打造一款上网冲浪的法拉利，从效果来看，还着实做的不错。。。
+
+不过，虽说 Chrome 和 WebKit 都是开源的，并联手工作。但是，Chrome 还是刻意的和 WebKit 保持了距离，为其始乱终弃埋下了伏笔。Chrome 在 WebKit 上封装了一层，称为 WebKit Glue。Glue 层中，大部分类型的结构和接口都和 WebKit 类似，Chrome 中依托 WebKit 的组件，都只是调用 WebKit Glue 层的接口，而不是直接调用 WebKit 中的类型。按照 Chrome 自己文档中的话来说，就是，虽然我们在用 WebKit 实现页面的渲染，但通过这个设计(加一个间接层...)已经从某种程度大大降低了与 WebKit 的耦合，使得可以很容易将 WebKit 换成某个未来可能出现的更好的渲染引擎。。。
+
 
 ## 渲染引擎详解
 

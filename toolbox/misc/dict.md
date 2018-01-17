@@ -328,12 +328,16 @@ __notation__  n. 符号, 标记
 
 __facilitate__  _/fəˈsɪlɪteɪt/_  v. 促进, 使便利  
 
+### 软件工程
+
+__Agile Manifesto__  _/ˈædʒəl ˌmænɪˈfestəʊ/_  敏捷宣言  
+
 
 ## JavaScript
 
-__state__  _/steɪt/_  n. 状况, 状态; 国家 v.陈述  -- status是具体某个时刻的state
+__state__  _/steɪt/_  n. 状况, 状态; 国家 v.陈述  -- status是具体某个时刻的state  
 
-__status__  _/ˈsteɪtəs/_  n. 状况; 情况  -- The status of something is its state of affairs at a particular time.
+__status__  _/ˈsteɪtəs/_  n. 状况; 情况  -- The status of something is its state of affairs at a particular time.  
 
 __finite__  _/ˈfaɪnaɪt/_  a. 有限的; 有尽的  
 

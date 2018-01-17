@@ -161,6 +161,9 @@ $ git log -L "/function ajax/",/}/:main.js  # 跟踪 main.js 文件中的 ajax �
 $ git blame -L 12,22 sth.cs     # 查看 sth.cs 的 12-22行 都有谁在什么时候做了哪些修改
 
 $ git show     # 查看数据对象 blob 数对象 tree 提交对象 commit 标签对象 tag 等的内容
+
+# 周工作量统计
+$ git log --author="gavin" --since=2018-1-1 --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }' -
 ```
 
 阮一峰的 diff 讲解：http://www.ruanyifeng.com/blog/2012/08/how_to_read_diff.html

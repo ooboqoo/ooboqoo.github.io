@@ -16,7 +16,7 @@ HTML5 的 AppCache 技术被用来实现离线应用，但现在又被更新更�
 
 #### 浏览器缓存与离线应用缓存的区别
 
-触发浏览器中传统缓存的机制是 Web 服务器发送额外的信息，即 cache-control 头部，这个信息随同浏览器请求的文件一块发给浏览器。头部信息告诉浏览器是否应该缓存该文件，缓存多长时间再询问服务器该文件是否更新过。一般来说，缓存网页的时间比较短，而缓存网页资源（如样式表、图片和脚本）的时间比较长。
+触发浏览器中传统缓存的机制是 Web 服务器发送额外的信息，即 `cache-control` 头部，这个信息随同浏览器请求的文件一块发给浏览器。头部信息告诉浏览器是否应该缓存该文件，缓存多长时间再询问服务器该文件是否更新过。一般来说，缓存网页的时间比较短，而缓存网页资源（如样式表、图片和脚本）的时间比较长。
 
 相对而言，离线应用由一个单独的文件（即描述文件）控制，也不限定时间。大致来说，它的规则是“如果网页是离线应用的一部分，如果浏览器已经缓存了该应用，如果应用的定义没有改变，那么就使用缓存的网页”。作为Web开发人员，可以声明一些例外，告诉浏览器不缓存某些文件，或者不用某个文件替代另一个文件。但是，不用考虑过期时间和其他一些烦琐的细节。
 
@@ -25,9 +25,10 @@ HTML5 的 AppCache 技术被用来实现离线应用，但现在又被更新更�
 manifest.appcache 文件示例：
 
 ```
-CACHE MANIFEST
-# version 1.00.001  #// 添加版本注释，在文件名都没改变的情况下修改该注释以实现更新
+CACHE MANIFEST        # 首行是固定的
+# version 1.00.001    # 添加版本注释，在文件名都没改变的情况下修改该注释以实现更新
 
+CACHE:                # 定义需要被浏览器离线存储的资源
 # pages
 PersonalityTest.html
 PersonalityTest_Score.html
@@ -43,8 +44,8 @@ Fonts/museo_slab_500-webfont.woff
 Fonts/museo_slab_500-webfont.ttf
 Fonts/museo_slab_500-webfont.svg
 
-NETWORK:
-Images/logo.png  #// 甚至可以直接用 *，表示所有未缓存的资源都必须上网索取，当然也可以指定文件夹，如 images/
+NETWORK:               # 定义需要每次去浏览器抓取的资源
+Images/logo.png  # 甚至可以直接用 *，表示所有未缓存的资源都必须上网索取，当然也可以指定文件夹，如 images/
 
 FALLBACK:
 PersonalityScore.html PersonalityScore_offline.html
@@ -57,12 +58,12 @@ prefer-online
 
 * 注意任何文件名都不能写错，只要有一个不存在的文件，浏览器会忽略整个描述文件。因此，最忌讳的问题是拼写错误。
 * 为了离线应用的正常运行，浏览器必须缓存其所需的一切，包括网页和网页用到的资源（脚本、图片、样式表和嵌入的字体）。
-* 描述文件的名字可以随便起，HTML5 推荐使用.appcache后缀，最重要的还是在服务器上进行配置，让它能够认识扩展名。
+* 描述文件的名字可以随便起，HTML5 推荐使用 `.appcache` 后缀，最重要的还是在服务器上进行配置，让它能够认识扩展名。
 * 不要缓存有查询字符串的页面，这种页面都是动态生成的，所以缓存没有意义。
 
 ### 使用描述文件
 
-必须给离线应用包含的每个页面的 &lt;html&gt; 元素都添加同样的 manifest 属性。
+必须给离线应用包含的每个页面的 `<html>` 元素都添加同样的 `manifest` 属性。
 
 ```html
 <!DOCTYPE html>
@@ -71,7 +72,7 @@ prefer-online
 
 注意：一个网站可以有任意多个离线应用，每个应用分别有自己的描述文件即可。
 
-### 把描述文件放到  Web 服务器
+### 把描述文件放到Web服务器
 
 测试描述文件的时候需要一些耐心，任何微小的问题都可能导致静默失败，结束缓存过程。测试离线应用的步骤如下：
 
@@ -217,6 +218,18 @@ applicationCache.onupdateready = function() {
 ```
 
 另外，applicationCache 对象还有个 update() 方法，能强制浏览器去检测更新。虽然浏览器能自动检测更新，但调用 update() 可以更及时地发现更新的描述文件。这个方法很适合那些生命期长的 Web 应用，比如一打开就是一整天的页面。
+
+### 利用 LocalStorage 做数据的本地存储
+
+```js
+if (navigator.onLine) saveOnline(data);
+else localStorage.setItem('data', data);
+window.online = function () {
+    var data = localStorage.getItem('data');
+    if (data) { saveOnline(data); localStorage.removeItem('data'); }
+}
+```
+
 
 
 ## Service Worker

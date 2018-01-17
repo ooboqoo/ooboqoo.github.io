@@ -53,16 +53,19 @@ function getBytes(str, charset) {
 中文以2个字符长度计算。
 
 ```js
+// 适合短文本场景
 function checksum(text) {
     return text.length + text.match(/[\u4e00-\u9fa5]/g).length;
 }
 
-function checksum(chars) {
-    var sum = len = chars.length, c;
-    while(len--) {
+// 适合长文本场景
+function checksum2(chars) {
+    var sum = i = chars.length, c;
+    while(i--) {
         c = chars.charCodeAt(i);
-        if (c >= );
+        if (c >= 0x4e00 && c <= 0x9fa5) { sum += 1; }
     }
+    return sum;
 }
 ```
 

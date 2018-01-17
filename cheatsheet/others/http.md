@@ -103,3 +103,12 @@ HTTP 状态码 HTTP Status Code 是用以表示网页服务器 HTTP 响应状态
 509 Bandwidth Limit Exceeded
 510 Not Extended
 ```
+
+
+## 常见请求头
+
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
+
+```text
+Strict-Transport-Security: max-age=<expire-time>; includeSubDomains
+```
