@@ -52,7 +52,7 @@ touch 命令不常用，用来修改文件时间戳，或者新建一个不存�
 concatenate 把...连在一起，扩展命令 tac 则是最后一行到第一行方向显示出来
 
 * `cat filename ` 一次显示整个文件
-* `cat > filename ` 从键盘创建一个文件，
+* `cat > filename ` 从键盘创建一个文件，Ctrl+D 或 Ctrl+C 退出录入，还可以自定义结束符 `cat > test.txt <<EOF`
 * `cat file1 file2 > file3 ` 将几个文件合并为一个文件
 
 #### `less` 可控分页查看文件 
@@ -65,7 +65,9 @@ concatenate 把...连在一起，扩展命令 tac 则是最后一行到第一行
 
 #### `find` 查找文件
 
-`find ./ -type f -name "*.log"` 查找当前目录，以.log结尾的普通文件
+`find [-H] [-L] [-P] [-D debugopts] [-Olevel] [path...] [expression]`
+
+`find ./ -type f -name "*.log"` 查找当前目录，以 .log 结尾的普通文件。`-type f -name "*.log"` 属于 expression 部分
 
 #### find, locate or whereis
 
@@ -75,7 +77,7 @@ concatenate 把...连在一起，扩展命令 tac 则是最后一行到第一行
 
 我们可以将连结视为档案的别名，连结分两种: 硬连结 hard link 与软连结 symbolic link。
 
-`ln –s TARGET LINK_NAME` 建立一个到TARGET的连接
+`ln –s TARGET LINK_NAME` 建立一个到 TARGET 的连接
 
 
 ## 文件权限
@@ -96,7 +98,7 @@ $ chgrp root /home  # 把 /home 的属组改成 root 组
 
 ```bash
 $ chmod 765 file     # 数字方式重新定义权限
-$ chmod u=rwx.g+w,o-w file1 file2  # 符号类型改变文件的权限可以采用 = + - 三种方法
+$ chmod u=rwx,g+w,o-w file1 file2  # 符号类型改变文件的权限可以采用 = + - 三种方法
 ```
 
 权限与数字对应关系 r: 4 w: 2 x: 1 -: 0
@@ -216,9 +218,11 @@ $ grep '[a-z]\{5\}' aa      # 显示所有包含字符串至少有5个连续小�
 
 文本处理3大命令：gerp 查找, sed 编辑, awk 根据内容分析并处理. http://www.jb51.net/article/54961.htm
 
-* grep - 文本过滤器，如果仅仅是过滤文本，使用 grep 效率要比其他的高很多
-* sed - Stream EDitor，流编辑器，默认只处理模式空间，不处理原数据，如果你处理的数据是针对行进行处理的，可以使用 sed
-* awk - 报告生成器，格式化后再显示。如果处理的数据需要生成报告之类的信息，或者数据是按列进行处理的，最好用 awk
+* `grep` - 文本过滤器，如果仅仅是过滤文本，使用 grep 效率要比其他的高很多
+* `sed` - Stream EDitor，流编辑器，默认只处理模式空间不处理原数据，如果数据是针对行进行处理的，可以使用 sed
+* `awk` - 报告生成器，格式化后再显示。如果处理的数据需要生成报告之类的信息，或者数据是按列进行处理的，最好用 awk
+
+AWK 是一种处理文本文件的语言，是一个强大的文本分析工具。AWK 由三位创始人的 Family Name 的首字符组成。
 
 ## `less` `man` 操作
 

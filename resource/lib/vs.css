@@ -13,7 +13,8 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
 
 .hljs-comment,
 .hljs-quote,
-.hljs-variable {
+.hljs-variable,
+.hljs-addition {
   color: #008000;
 }
 
@@ -33,11 +34,10 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
 .hljs-template-tag,
 .hljs-template-variable,
 .hljs-type,
-.hljs-addition {
+.hljs-deletion {
   color: #a31515;
 }
 
-.hljs-deletion,
 .hljs-selector-attr,
 .hljs-selector-pseudo,
 .hljs-meta {

@@ -109,6 +109,46 @@ HTTP 状态码 HTTP Status Code 是用以表示网页服务器 HTTP 响应状态
 
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
 
-```text
-Strict-Transport-Security: max-age=<expire-time>; includeSubDomains
+### 通用首部字段
+
+```txt
+Content-Type: application/json;charset=UTF-8
+Cache-Control: no-cache
+Connection: keep-alive
+Date: Tue, 03 Jul 2012 04:40:59 GMT
 ```
+
+### 请求首部字段
+
+```txt
+Accept: */*
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7
+Authorization: Basic dWVub3NlbjpwYXNzd29yZA==
+Host: console.demo.com                                    # 有多个主机运行在同一IP时用于区分主机，必选
+Referer: https://console.demo.com/cs/?region=southchina   # 发起请求的页面
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+Cookie: SID=Set2; browserCheckResult=A
+Max-Forwards: 10
+
+If-Match: "123456"
+If-None-Match
+If-Modified-Since
+If-Unmodified-Since
+If-Range
+```
+
+### 响应首部字段
+
+```txt
+Server: nginx/1.10.2
+Content-Encoding: gzip
+ETag: "82e22293907ce725faf67773957acd12"
+Expires: Thu, 18 Jan 2018 01:08:12 GMT
+Location: http://www.usagidesign.jp/sample.html    # 页面重定向
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+```
+
