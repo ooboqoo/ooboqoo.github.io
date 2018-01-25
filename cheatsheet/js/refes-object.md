@@ -82,8 +82,14 @@ h2 { text-align: center; }
 [注4]：ES5 中 getter 和 setter 的用法：
 
 ```js
-var a = {get foo () { return this.name; }, set foo (str) { this.name = str; } };
-Object.defineProperty(a,'bar',{get:function() { return this.foo; },set:function(str) { this.foo=str; }});
+var a = {
+  get foo () { return this.name; },
+  set foo (str) { this.name = str; }
+};
+Object.defineProperty(a, 'bar', {
+  get: function() { return this.foo; },
+  set: function(str) { this.foo = str; }
+});
 ```
 
 
@@ -317,7 +323,7 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <h5>Symbol(key?) <span>-- 新建一个 symbol 并返回，注意，此函数返回的是原始值类型，所以不是构造函数，前面不能有 `new`</span></h5>
 </div>
 <div class="dl">
-<h5>Symbol.for(key) <span>-- 查找并返回key对应的symbol，如找不到则新建一个symbol并返回</span><span>[注1]</span></h5>
+<h5>Symbol.for(key) <span>-- 查找并返回key对应的symbol，如找不到则新建一个symbol并返回</span><span class="mark">[注1]</span></h5>
 <h5>Symbol.keyFor(symbol) <span>-- 查找并返回symbol对应的key，找不到返回 undefined</span></h5>
 <h5>symbol.toString() <span>-- 返回symbol的字符串表示，重写的方法 `Symbol("desc").toString(); // "Symbol(desc)"`</span></h5>
 </div>
@@ -363,7 +369,7 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <h5 class="es">Math.max([x, y, ...) <span>-- 确定一组数值中的最小值</span></h5>
 <h5 class="es">Math.ceil(x) <span>-- 执行向上取整</span></h5>
 <h5 class="es">Math.floor(x) <span>-- 执行向下取整</span></h5>
-<h5 class="es">Math.round(x) <span>-- 执行四舍五入</span></h5>
+<h5 class="es">Math.round(x) <span>-- 执行四舍五入 `Math.round(x) = Math.floor(x + 0.5);  // 0.5 -> 1; -0.5 -> 0`</span></h5>
 <h5 class="es">Math.random() <span>-- 返回 0 到 1 之间的随机数 `[0, 1)`</span></h5>
 <h5 class="es">Math.abs(x) <span>-- 返回 x 的绝对值</span></h5>
 <h5 class="es">Math.sqrt(x) <span>-- 返回 x 的平方根</span></h5>

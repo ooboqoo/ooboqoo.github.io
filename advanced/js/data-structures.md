@@ -189,7 +189,7 @@ function hotPotato(nameList, num) {
   return queue.dequeue();
 }
 
-let names = ['John', 'Jack', 'Camila', 'Carl'];
+let names = ['John', 'Jack', 'Camila', 'Carl'],
     winner = hotPotato(names, 7);
 console.log('胜利者 ', winner);
 ```
@@ -373,7 +373,7 @@ class DoublyLinkedList {
 
 ```js
 class Set {
-  constructor() { this._items = {}; }
+  constructor() { this._items = Object.create(null); }  // 比直接用 `{}` 合适
 
   get size() { return Object.keys(this._items).length; }
 
@@ -390,8 +390,8 @@ class Set {
   union(otherSet) {
     if (!otherSet instanceof Set) { return false; }
     let unionSet = new Set();
-    this.values().forEach((k) => { unionSet.add(k); });
-    otherSet.values().forEach((k) => { unionSet.add(k); });
+    this.values().forEach(k => unionSet.add(k));
+    otherSet.values().forEach(k => unionSet.add(k));
     return unionSet;
   }
 
@@ -434,7 +434,7 @@ class Set {
 
 ```js
 class Dictionary {
-  constructor() { this._items = {}; }
+  constructor() { this._items = Object.create(null); }
 
   get size() { return this.keys().length; }
 
