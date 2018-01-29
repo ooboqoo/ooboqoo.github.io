@@ -1,5 +1,12 @@
 # CSS 小专题
 
+#### 重要特性的浏览器兼容性
+
+|||
+|----------|-----------------------
+| rgba     | IE9+
+| Flexbox  | IE11+ (IE10+ `-ms-`)
+
 #### 高度百分比讲解
 
 Here are the rules for percentages on vertical items:
