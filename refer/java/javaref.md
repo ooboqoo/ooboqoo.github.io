@@ -183,6 +183,10 @@ public long freeMemory() { }   // 空余内存
 ```java
 public final class System { }
 
+public static final InputStream in
+public static final PrintStream out
+public static final PrintStream err
+
 public static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length) { }
 public static long currentTimeMillis() { }
 public static long nanoTime() { }
@@ -223,6 +227,27 @@ public static double log10(double a) { }
 
 ```java
 public abstract class Number implements java.io.Serializable { }
+```
+
+#### java.lang.Integer
+
+```java
+public final class Integer extends Number implements Comparable<Integer> { }
+
+@Native public static final int   MIN_VALUE = 0x80000000;
+@Native public static final int   MAX_VALUE = 0x7fffffff;
+
+public static int parseInt(String s, int radix) throws NumberFormatException { }
+```
+
+#### java.lang.Double
+
+```java
+public final class Double extends Number implements Comparable<Double> { }
+
+public static boolean isNaN(double v) { return (v != v); }  // isInfinite(double v) isFinite(double d)
+public boolean isNaN() { return isNaN(value); }
+public static double parseDouble(String s) throws NumberFormatException { }
 ```
 
 #### java.math.BigInteger
@@ -401,10 +426,13 @@ public class Arrays { }
 
 public static boolean equals(int[] a, int[] a2) { }  // boolean char byte short long float double Object
 public static void fill(float[] a, float val) { }
+public static <T> T[] copyOf(T[] original, int newLength) { } // 可设定新长度，裁短，或加长并填充指定类型的默认值
+public static int[] copyOfRange(int[] original, int from, int to) { }
 public static void sort(short[] a, int fromIndex, int toIndex) { }  // 注1
 public static <T> void sort(T[] a, Comparator<? super T> c) { }  // 自定义排序，或对非 Comparable 排序
 public static int binarySearch(double[] a, int fromIndex, int toIndex, double key) { }  // 二分法查找
 public static String toString(char[] a) { }
+public static String deepToString(Object[] a) { }  // 适用多维数组，逐层解析
 ```
 
 注1：数组实际上分为普通数组和对象数组两类使用情况，普通数组可以直接根据数据的大小关系进行排序，而对象数组，要使用 `sort()` 实现排序就必须实现 Comparable 接口：

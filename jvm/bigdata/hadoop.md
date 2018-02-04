@@ -20,7 +20,8 @@ $ shutdown -r now
 
 # 安装 Java
 $ yum search java | grep 'java-'    # 查看可用包
-$ yum install java-1.8.0-openjdk    # 安装 JDK1.8
+$ yum install java-1.8.0-openjdk    # 安装 JDK1.8 运行环境
+$ yum install java-devel            # 安装开发工具，可选
 $ java -version
 
 # 安装 Hadoop
