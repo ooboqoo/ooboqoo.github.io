@@ -91,7 +91,7 @@ try {
 | `[]`             | 数组字面量
 | `{}`             | 对象字面量
 | `/ab+c/i`        | 正则字面量
-| `()`             | 分组操作符，用于修改云算符优先级
+| `()`             | 分组操作符，用于修改运算符优先级
 
 ### 左结合表达式 Left-hand-side expressions
 
@@ -111,7 +111,7 @@ try {
 |||
 |----------|--------------------------------------------
 | `delete` | 删除开发者自定义的对象属性或方法
-| `void`   | 对任何值都返回 undefined，常见用法 `<a href="javascript:void(0);">click me</a>`
+| `void`   | 对任何值都返回 undefined，常见用法 `<a href="javascript:void();">click me</a>`
 | `typeof` | 确定目标所属的原始值类型，引用类型和 null 都返回 "object"
 |||
 | `+` | 一元加，对数值没影响，非数值调用 Number() 进行数值转换
@@ -129,7 +129,7 @@ try {
 ```js
 // 递增/减运算符类型转换试验：
 let i = '5', j = '5';
-'5' === i--;  // false, i: 4，数值转换永远是个坑，尽量要避免
+'5' === i--;  // false, i: 4，数值转换永远是个坑，尽量要避免  // 原因分析，实际效果 '5' === 5
 '5' ==  j--;  // true,  j: 4
 ```
 
@@ -181,22 +181,22 @@ let i = '5', j = '5';
 
 类型转换遵循以下规则：
   * 转布尔值 `false` 的几种情况 `0`, `-0`, `NaN`, `undefined`, `null`, `""`, `document.all`
-  * Boolean 转成 Number，`false` 为 `+0`，`true` 为 `1`。
-  * String 跟 Number 比，String 转 Number。
-  * Object 跟原始值类型比，会调用对象 valueOf() 或 toString() 方法(先 valueOf 后 toString; 先自身定义的后原型链上的)。
+  * boolean 转成 number，`false` 为 `+0`，`true` 为 `1`。
+  * string 跟 number 比，string 转 number。
+  * Object 跟原始值类型比，会调用对象 `valueOf()` 或 `toString()` 方法(先 `valueOf` 后 `toString`; 先自身定义的后原型链上的)。
 
 在比较时，`==` `!=` 两个运算符还遵守下列规则：
-  * 值 null 和 undefined 相等。
-  * 不会对 null 和 undefined 进行类型转换。
-  * NaN 跟任何值都不相等，甚至 NaN 都不等于 NaN。
+  * 值 `null` 和 `undefined` 相等。
+  * 不会对 `null` 和 `undefined` 进行类型转换。
+  * `NaN` 跟任何值都不相等，甚至 `NaN` 都不等于 `NaN`。
   * 对象跟对象比，不会进行类型转换，如果指向的不是同一个对象，就返回 false。
 
-| 表达式       | 值    | 表达式              | 值    | 表达式                   | 值
-|--------------|-------|---------------------|-------| -------------------------|----------
-| `false == 0` | true  | `null == undefined` | true  | `a = {}; b = {}; a == b` | false
-| `true == 1`  | true  | `NaN == NaN`        | false | `a = [1]; a == 1`        | true
-| `true == 2`  | false | `undefined == 0`    | false | `a = ['1']; a == 1`      | true
-| `"5" == 5`   | true  | `null == 0`         | false | `a = {1: 1}; a == 1`     | false
+| 表达式       | 值    | 表达式              | 值    | 表达式                    | 值
+|--------------|-------|---------------------|-------| --------------------------|----------
+| `false == 0` | true  | `null == undefined` | true  | `({1: 1}) == {1: 1}`      | false
+| `true == 1`  | true  | `NaN == NaN`        | false | `[1] == 1` / `['1'] == 1` | true
+| `true == 2`  | false | `undefined == 0`    | false | `({1: 1}) == 1`           | false
+| `"5" == 5`   | true  | `null == 0`         | false | `({1: 1}) == "[object Object]"` | true
 
 ### 操作符优先级与结合性
 
@@ -204,7 +204,7 @@ https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Operato
 
 | P  | Operator type                | Associativity | Individual operators
 |----|------------------------------|---------------|---------------------
-| 20 | Grouping                     | n/a           | `( exp )`
+| 20 | Grouping                     | n/a           | `(exp)`
 | 19 | Member Access                | left-to-right | `obj.prop`
 |    | Computed Member Access       | left-to-right | `obj['prop']`
 |    | new (with argument list)     | n/a           | `new Class(arg)`

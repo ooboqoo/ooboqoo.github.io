@@ -117,11 +117,13 @@ public final String toString() { }
 
 ### java.lang.String
 
+
+
 ```java
 public final class String implements java.io.Serializable, Comparable<String>, CharSequence { }
 
 public static String join(CharSequence delimiter, CharSequence... elements) { }
-public static String format(String format, Object... args) { }
+public static String format(String format, Object... args) { }  // 注
 
 public boolean contains(CharSequence s) { }
 public char charAt(int index) { }
@@ -131,6 +133,7 @@ public int compareToIgnoreCase(String str) { }
 public String concat(String str) { }
 public String replace(char oldChar, char newChar) { }  // replace 没有正则的用法，对应正则的 replaceAll
 public String replace(CharSequence target, CharSequence replacement) { }
+public String substring(int beginIndex, int endIndex) { }
 public String trim() { }
 public String toLowerCase() { }
 public String toUpperCase() { }
@@ -140,6 +143,8 @@ public String replaceAll(String regex, String replacement) { }    // 将满足�
 public String replaceFirst(String regex, String replacement) { }  // 将满足正则的首个内容替换为新内容
 public String[] split(String regex, int limit) { }  // "(?i:matcher)" 忽略大小写的写法，详见 Pattern.html
 ```
+
+注: format string 格式见 https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html#syntax
 
 ```java
 String.format("hi, %s %s%n%d", "gavin", "wang", 28);  // "hi, gavin wang\r\n28"
@@ -417,6 +422,15 @@ Pattern pattern = Pattern.compile("\\d+", Pattern.MULTILINE | Pattern.CASE_INSEN
 Matcher matcher = pattern.matcher("A12bc\nde345f");
 boolean matchFound = matcher.find();  // 执行3次结果：true (lastmatch=12); true (lastmatch=345); false
 matcher.reset("46").matches();  // true
+```
+
+### java.util.Formatter
+
+```java
+public final class Formatter implements Closeable, Flushable { }
+
+public Formatter format(String format, Object ... args) { return format(l, format, args); }
+public Formatter format(Locale l, String format, Object ... args) { }
 ```
 
 ### java.util.Arrays
@@ -709,6 +723,8 @@ public void print(int i) { write(String.valueOf(i)); }  // long float double 同
 public void print(char s[]) { write(s); }
 public void print(Object obj) { write(String.valueOf(obj)); }
 public void println() { newLine(); }
+public PrintStream printf(String format, Object ... args) { }  // 格式化输出
+public PrintStream format(String format, Object ... args) { }  // 格式化输出
 ```
 
 ### java.io.BufferedReader
@@ -793,13 +809,3 @@ public Socket(String host, int port) throws UnknownHostException, IOException { 
 public OutputStream getOutputStream() throws IOException { }
 public InputStream getInputStream() throws IOException { }
 ```
-
-
-
-
-
-
-
-
-
-

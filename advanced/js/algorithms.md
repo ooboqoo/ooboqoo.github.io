@@ -56,6 +56,8 @@ function selectionSort(arr) {
 
 插入排序，首先假定第一项已经排序了，接着，它和第二项进行比较，从而决定第二项是待在原地还是插入到第一项之前。接着第三项跟第一项、第二项比较以决定第三项的位置...
 
+插入排序虽然是 O(n^2) 的算法，但是对于近乎有序的数组，插入排序的性能接近 O(n)，远优于 O(nlog(n)) 的算法。这也从另一个方面说明，O(n^2) 的算法并不是一无是处。
+
 ```js
 function insertionSort(arr) {
   for (let i = 1, length = arr.length, j, temp; i < length; i++) {
@@ -86,6 +88,14 @@ function insertionSort2(arr) {
 }
 ```
 
+
+### 希尔排序
+
+```js
+function shellSort(arr) {
+
+}
+```
 
 ### 归并排序
 
