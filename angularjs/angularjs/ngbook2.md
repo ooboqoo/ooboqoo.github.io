@@ -368,6 +368,8 @@ scope 属性设置为一个对象 `{key: value, ...}` 时就创建了一个隔�
 * **双向绑定**：通过 `=` 可以将本地作用域上的属性同父级作用域上的属性进行双向的数据绑定。
 * **父级作用域绑定**：通过 `&` 符号可以对父级作用域进行绑定，以便在其中运行函数。
 
+注：`=?` 绑定用法 https://stackoverflow.com/questions/20447786/
+
 ```html
 <div ng-controller="FirstCtrl">
   {{ people | json}}

@@ -143,7 +143,7 @@ function bar() { console.log(foo.arguments, bar.caller); }
 <h5 class="es3">array.push(item1, item2, ...) <span>-- 在数组尾部添加1个或多个元素，并返回新数组的 length</span></h5>
 <h5 class="es3">array.shift() <span>-- 移除数组中的第一个项并返回该项</span></h5>
 <h5 class="es3">array.unshift() <span>-- 在数组前端添加1个或多个元素，并返回新数组的 length</span></h5>
-<h5 class="es3">array.splice(start, deleteCount?, item1?, ...) <span>-- 在给定位置删除若干元素并添加一些元素</span></h5>
+<h5 class="es3">array.splice(start, deleteCount?, item1?, ...) <span>-- 在给定位置删除若干元素并添加一些元素，返回包含被删除元素的数组</span></h5>
 <h5 class="es3">array.sort((a, b) => { }?) <span>-- 按升序排列数组项(默认都当<span style="color: blue;">字符串</span>比较, 故 10 在 2 前面)，提供比较函数可自定义排序</span></h5>
 <h5 class="es3">array.reverse() <span>-- 反转数组项的顺序</span></h5>
 <h5 class="es6">array.copyWithin(target, start?, end?) <span>-- 在数组内部浅拷贝其中一段到另一个位置，返回修改后的数组</span></h5>
