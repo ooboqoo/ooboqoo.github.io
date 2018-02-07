@@ -7,6 +7,20 @@
 | rgba     | IE9+
 | Flexbox  | IE11+ (IE10+ `-ms-`)
 
+#### 默认值(覆盖定制设置)
+
+CSS 中的默认值：常用的 `initial` `default` `auto` 或者 `inherit`，但具体设置项差异较大，拿 `display` 举例
+
+```html
+<style>div { display: inline-block; }</style>
+<div style="display: block;">
+  <div style="display: initial;">initial 无效值</div>
+  <div style="display: default;">default 无效值</div>
+  <div style="display: inherit;">inherit 有效值</div>
+  <div style="display: auto;">无效但能清除 inline 设置项。CH 报告此值无效，IE9 下 DOM 树中直接不体现。</div>
+</div>
+```
+
 #### 高度百分比讲解
 
 Here are the rules for percentages on vertical items:
