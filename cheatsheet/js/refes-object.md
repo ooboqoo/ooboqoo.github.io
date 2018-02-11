@@ -10,7 +10,7 @@ h2 { text-align: center; }
 #md .dl::before { content: ""; }
 #md .dl h5 { color: #2824bd; }
 #md .dl h5 > a { color: red; text-decoration: none; border-bottom-width: 0; }
-#md .dl h5 > span.mark { display: inline-block; float: right; background-color: initial; font-size: small;}
+#md .dl h5 > span.mark { display: inline-block; float: right; background-color: initial; font-size: small; }
 </style>
 
 # JavaScript 内置对象参考手册

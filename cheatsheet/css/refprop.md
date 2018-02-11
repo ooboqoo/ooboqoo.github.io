@@ -25,7 +25,7 @@
 
 | Property | Description | CSS
 |----------|-------------|----------
-| background | A shorthand property for setting all the background properties in one declaration | 1
+| background | A shorthand property for setting all the background properties in one declaration <span class="mark">[注1]</span> | 1
 | background-color | Specifies the background color of an element | 1
 | background-image | Specifies one or more background images for an element | 1
 | background-repeat | Sets how a background image will be repeated | 1
@@ -68,6 +68,8 @@
 | border-image-repeat | Specifies whether the border image should be repeated, rounded or stretched | 3
 | box-shadow | Attaches one or more drop-shadows to the box | 3
 | box-decoration-break | Sets the behaviour of the background and border of an element at page-break, or, for in-line elements, at line-break. | 3
+
+注1：`background` 各项标准顺序 `image` `position` `size` `repeat` `origin` `clip` `attachment` `color`
 
 
 ## Basic Box Properties
@@ -201,12 +203,13 @@
 
 | Property | Description | CSS
 |----------|-------------|----------
-| border-collapse | Specifies whether or not table borders should be collapsed | 2
-| border-spacing | Specifies the distance between the borders of adjacent cells | 2
-| caption-side | Specifies the placement of a table caption: top|bottom | 2
-| empty-cells | Specifies whether or not to display borders and background on empty cells in a table | 2
-| table-layout | Sets the layout algorithm to be used for a table: auto|fixed | 2
+| border-collapse | 是否折叠表格边框，默认 `separate` 一般都用 `collapse` | 2
+| border-spacing | 配合 `border-collapse: separate;` 使用，指定单元格边框间距 | 2
+| caption-side | 指定表格标题位于 `top` 还是 `bottom` | 2
+| empty-cells | 配合 `border-collapse: separate;` 使用，指明单元格内容为空时的是否显示边框和背景 | 2
+| table-layout | 当指定列宽时，默认 `auto` 还是会受内容影响的，如要求浏览器严格按照指定值渲染，就得用 `fixed` | 2
 
+注：非表格元素可通过设置 `display` 属性为 `table` `table-row` `table-cell` 来实现表格布局。
 
 ## Lists and Counters Properties
 
@@ -277,9 +280,13 @@
 | outline-style | Sets the style of an outline | 2
 | outline-width | Sets the width of an outline | 2
 | outline-offset | Offsets an outline, and draws it beyond the border edge | 3
-| text-overflow | Specifies what should happen when text overflows the containing element | 3
+| text-overflow | 指明当内容超出容器时如何显示，最常见用法：<span class="mark">[注1]</span> | 3
 | ime-mode | Controls the state of the input method editor for text fields | 3
 
+```css
+// 注1
+.container { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+```
 
 ## Multi-column Layout Properties
 
@@ -372,7 +379,10 @@
 | marquee-speed | Sets how fast the content scrolls | 3
 | marquee-style | Sets the style of the moving content | 3
 
-<style>td:first-child { color: #f33; white-space: nowrap; }</style>
+<style>
+  td:first-child { color: #f33; white-space: nowrap; }
+  span.mark { display: inline-block; float: right; background-color: initial; font-size: small; }
+</style>
 <script>
   var url = "https://developer.mozilla.org/en-US/docs/Web/CSS/";
   var links = [].slice.call(document.querySelectorAll('td:first-child'));

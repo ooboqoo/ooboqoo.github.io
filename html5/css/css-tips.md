@@ -137,11 +137,25 @@ Flex 布局方案：
 </div>
 ```
 
+#### `box-sizing` 讲解
 
-### `box-sizing` 讲解
 
+### 表格布局
 
-### 表格中 `min-width` `max-width` 无效
+* 指定行间间距须通过 `td` 中加 `padding` 实现
+* `th` 和 `td` 的 `padding` `border` 等值是分别设置的
+
+#### 非表格采用表格布局
+
+```html
+<div class="table" style="display: table; table-layout: fixed; width: 100%">
+    <div class="tr" style="display: table-row">
+        <div class="td" style="display: table-cell;"></div>
+    </div>
+</div>
+```
+
+#### 表格中 `min-width` `max-width` 无效
 
 For table cells the 'width' property should be used, as the 'min-width' and 'max-width' is undefined for table cells.
 
@@ -150,11 +164,4 @@ See the specification:
 "In CSS 2.1, the effect of 'min-width' and 'max-width' on tables, inline tables, table cells, table columns, and column groups is undefined."
 
 To enforce the width, you may try to change the table-layout property to "fixed". The [specification](https://www.w3.org/TR/CSS21/tables.html#propdef-table-layout) describes the algorithm pretty clearly.
-
-### 超出部分显示省略号…
-
-```
-white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-```
-
 
