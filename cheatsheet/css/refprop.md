@@ -25,7 +25,7 @@
 
 | Property | Description | CSS
 |----------|-------------|----------
-| background | A shorthand property for setting all the background properties in one declaration <span class="mark">[注1]</span> | 1
+| background | A shorthand property for setting all the background properties <span class="mark">[注1]</span> | 1
 | background-color | Specifies the background color of an element | 1
 | background-image | Specifies one or more background images for an element | 1
 | background-repeat | Sets how a background image will be repeated | 1
@@ -39,22 +39,10 @@
 | border-width | Sets the width of the four borders | 1
 | border-style | Sets the style of the four borders | 1
 | border-color | Sets the color of the four borders | 1
-| border-top | Sets all the top border properties in one declaration | 1
+| border-top   | `border-right` `border-bottom` `border-left` 等略 | 1
 | border-top-width | Sets the width of the top border | 1
 | border-top-style | Sets the style of the top border | 1
 | border-top-color | Sets the color of the top border | 1
-| border-right | Sets all the right border properties in one declaration | 1
-| border-right-width | Sets the width of the right border | 1
-| border-right-style | Sets the style of the right border | 1
-| border-right-color | Sets the color of the right border | 1
-| border-bottom | Sets all the bottom border properties in one declaration | 1
-| border-bottom-width | Sets the width of the bottom border | 1
-| border-bottom-style | Sets the style of the bottom border | 1
-| border-bottom-color | Sets the color of the bottom border | 1
-| border-left | Sets all the left border properties in one declaration | 1
-| border-left-width | Sets the width of the left border | 1
-| border-left-style | Sets the style of the left border | 1
-| border-left-color | Sets the color of the left border | 1
 | border-radius | A shorthand property for setting all the four border-*-radius properties | 3
 | border-top-left-radius | Defines the shape of the border of the top-left corner | 3
 | border-top-right-radius | Defines the shape of the border of the top-right corner | 3
@@ -69,14 +57,14 @@
 | box-shadow | Attaches one or more drop-shadows to the box | 3
 | box-decoration-break | Sets the behaviour of the background and border of an element at page-break, or, for in-line elements, at line-break. | 3
 
-注1：`background` 各项标准顺序 `image` `position` `size` `repeat` `origin` `clip` `attachment` `color`
+注1：`background` 各项标准顺序 `color` `image` `repeat` `attachment` `position` `size` `origin` `clip`
 
 
 ## Basic Box Properties
 
 | Property | Description | CSS
 |----------|-------------|----------
-| display | Specifies how a certain HTML element should be displayed | 1
+| display | `block` `inline-block` `table` `flex` `inline-flex` `grid` `list-item` <span class="marker">[注1]</span> | 1
 | position | Specifies the type of positioning method used for an element (static, relative, absolute or fixed) | 2
 | top | Specifies the top position of a positioned element | 2
 | right | Specifies the right position of a positioned element | 2
@@ -107,6 +95,8 @@
 | max-height | Sets the maximum height of an element | 2
 | min-width | Sets the minimum width of an element | 2
 | min-height | Sets the minimum height of an element | 2
+
+注1：IE10 下 flex 布局须带厂商前缀 `-ms-flexbox`
 
 
 ## Flexible Box Layout
