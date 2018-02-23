@@ -1,6 +1,6 @@
 # Maven
 
-https://maven.apache.org/
+https://maven.apache.org/guides/getting-started/index.html
 
 Maven = 包依赖管理工具 + 构建工具；通过约定(默认配置)来减小使用的复杂度。
 

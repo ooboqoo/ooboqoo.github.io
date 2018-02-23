@@ -48,8 +48,19 @@ UPDATE Customers SET ContactName='Alfred', City='Hamburg' WHERE CustomerName='Al
 #### INSERT INTO <small>插入记录</small>
 
 ```sql
+/* INSERT */
+INSERT INTO tablename [(columns, ...)] VALUES(values, ...);
+
+/* INSERT SELECT */
+INSERT INTO tablename [(columns, ...)] SELECT columns, ... FROM tablename, ... [WHERE ...];
+```
+
+```sql
 INSERT INTO table_name VALUES (value1, value2,...);                                   -- 完整字段插入
 INSERT INTO table_name (column_name1, column_name2,...) VALUES (value1, value2,...);  -- 部分字段插入
+
+INSERT INTO table2 SELECT * FROM table1;                                -- 插入所有列，两张表列数要相等
+INSERT INTO table2 (column_name(s)) SELECT column_name(s) FROM table1;  -- 插入指定列
 ```
 
 ```sql
@@ -77,9 +88,8 @@ SELECT column_name(s) FROM table_name WHERE condition(column_name operator value
 
 ```sql
 SELECT prod_name, prod_price FROM Products WHERE prod_price < 10;  -- 检查单个值
-SELECT prod_name, prod_price FROM Products WHERE prod_price BETWEEN 5 AND 10;  -- 范围检查
+SELECT * FROM orders WHERE order_date BETWEEN '2012-02-01' AND '2012-02-18';  -- 范围检查
 SELECT cust_name FROM CUSTOMERS WHERE cust_email IS NULL;  -- 空值检查。注: 空值不会出现在不等于的过滤结果中
-SELECT * FROM Orders WHERE OrderDate BETWEEN #07/04/1996# AND #07/09/1996#;
 ```
 
 #### IN 操作符
@@ -89,7 +99,7 @@ SELECT * FROM Orders WHERE OrderDate BETWEEN #07/04/1996# AND #07/09/1996#;
 `IN` 的最大优点是可以包含其他 `SELECT` 语句，能够更动态地建立 `WHERE` 子句。
 
 ```sql
-SELECT column_name(s) FROM table_nameWHERE column_name IN (value1, value2, ..);
+SELECT column_name(s) FROM table_name WHERE column_name IN (value1, value2, ..);
 ```
 
 ```sql

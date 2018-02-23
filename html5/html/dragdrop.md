@@ -123,12 +123,20 @@ IE10 开始支持 **拖拽**、**File API** 以及样式中的 **Flexbox**，所
     function handleDrop(ev) {
       ev.preventDefault();  // 要是没有这句，浏览器会尝试打开文件
       var files = ev.dataTransfer.files;
-      // 上传文件代码略
       console.log(files);
+      upload(files);
       ev.stopPropagation();
     }
     uploader.addEventListener('dragover', ev => ev.preventDefault(), false);
     uploader.addEventListener('drop', handleDrop, false);
+
+    function upload(files) {
+      var fd = new FormData();
+      files.forEach(function (file) { fd.append("file", file); });
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "URL/TO/YOUR/FILE/HANDLER");
+      xhr.send(fd);
+    }
   </script>
 </body>
 </html>
