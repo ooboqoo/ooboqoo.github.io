@@ -1,8 +1,3 @@
-<style>
-  td:first-child { color: red; }
-  i { color: gray; }
-</style>
-
 # AngularUI Router
 
 https://github.com/angular-ui/ui-router  
@@ -195,4 +190,7 @@ var foldersState = {
 
 
 
-
+<style>
+  td:first-child { color: red; }
+  i { color: gray; }
+</style>
