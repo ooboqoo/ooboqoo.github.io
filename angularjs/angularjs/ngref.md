@@ -1,7 +1,3 @@
-<style>
-  td:first-child { color: red; }
-</style>
-
 # AngularJS 速查手册
 
 ## Module
@@ -41,16 +37,14 @@ AngularJS 会在运行 `$digest` 循环的过程中自动解析表达式。
 
 ```html
 <div ng-controller="MyController">
-  <input ng-model="to" 
-        type="email" 
-        placeholder="Recipient" />
+  <input ng-model="to" type="email" placeholder="Recipient" />
   <textarea ng-model="emailBody"></textarea>
-  <pre>{{ previewText }}</pre>
+  <pre>{{previewText}}</pre>
 </div>
 <script>
 angular.module('myApp', []).controller('MyController', function($scope, $interpolate) {
     $scope.to = 'ari@fullstack.io';
-    $scope.emailBody = 'Hello {{ to }},\n\nMy name is Ari too!';
+    $scope.emailBody = 'Hello {{to}},\n\nMy name is Ari too!';
     $scope.$watch('emailBody', function(body) {
       if (body) {
         var template = $interpolate(body);
@@ -64,3 +58,21 @@ angular.module('myApp', []).controller('MyController', function($scope, $interpo
 
 ## 过滤器
 
+
+
+## 编码习惯
+
+|                  | 不好的写法   | 好的写法
+|------------------|--------------|-------------
+| 插值表达式内不含 | `{{ exp }}`  | `{{exp}}`
+
+
+
+
+
+
+
+
+
+
+<style>td:first-child { color: red; }</style>

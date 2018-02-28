@@ -12,7 +12,7 @@ angular.module('myApp', []).config(function($provide) {  });
 
 `config()` 函数接受一个参数 configFunction，AngularJS 在模块加载时会执行这个函数。
 
-当我们使用 `factory()` `directive()` 等方法时，其实都是在使用 `.config()`，他们都只是语法糖。
+当我们使用 `.factory()` `.directive()` 等方法时，其实都是在使用 `.config()`，他们都只是语法糖。
 
 ```js
 // 语法糖形式
@@ -41,10 +41,10 @@ angular.module('myApp', []).config(function ($provide, $compileProvider) {
 ```
 
 需要特别注意，AngularJS会以这些函数书写和注册的顺序来执行它们。也就是说我们无法注入一个尚未注册的提供者。
-唯一例外的是 `constant()` 方法，这个方法总会在所有配置块之前被执行。
+唯一例外的是 `.constant()` 方法，这个方法总会在所有配置块之前被执行。
 
-当对模块进行配置时，需要格外注意只有少数几种类型的对象可以被注入到 `config()` 函数中：提供者和常量。如果我们将一个服务注入进去，会在真正对其进行配置之前就意外地把服务实例化了。
-这种对配置服务进行严格限制的另外一个副作用就是，我们只能注入用 `provider()` 语法构建的服务，其他的则不行。
+当对模块进行配置时，需要格外注意只有少数几种类型的对象可以被注入到 `.config()` 函数中：提供者和常量。如果我们将一个服务注入进去，会在真正对其进行配置之前就意外地把服务实例化了。
+这种对配置服务进行严格限制的另外一个副作用就是，我们只能注入用 `.provider()` 语法构建的服务，其他的则不行。
 
 ### 11.2 运行块
 
@@ -192,13 +192,13 @@ AngularJS 提供了一些内置服务，在任何地方使用它们的方式都�
   * service(name: String, constructor: Function) - constructor 是 getFunc 的一种特例，只能是构造函数
   * constant(name: String, value: Any) - 将一个已经存在的变量值注册为服务，并将其注入到应用的其他部分当中
   * value(name: String, value: Any) - 同上，常量能注入到配置函数中，而值不行
-  * provider() - 最基础的方法，其他的都是基于它的语法糖
+  * provider(name: String, provider: Function | Object) - 最基础的方法，其他的都是基于它的语法糖，provider 必须包含 `$get()` 方法
 
-从源代码 injector.js 可以看到，`service()` `value()` 内部调用了 `factory()`，而 `factory()` 又调用的 `provider()`
+从源代码 injector.js 可以看到，`.service()` `.value()` 内部调用了 `.factory()`，而 `.factory()` 又调用的 `.provider()`
 
-如果希望在 `config()` 函数中可以对服务进行配置，必须用 `provider()` 来定义服务。
+如果希望在 `.config()` 函数中可以对服务进行配置，必须用 `.provider()` 来定义服务。
 
-`value()` 方法和 `constant()` 方法之间最主要的区别是，常量可以注入到配置函数中，而值不行。
+`.value()` 方法和 `.constant()` 方法之间最主要的区别是，常量可以注入到配置函数中，而值不行。
 
 ```js
 angular.module('myApp.services', [])
@@ -210,6 +210,16 @@ angular.module('myApp.services', [])
     .constant('apiKey','123123123')
     .controller('MyController', function($scope, apiKey) { $scope.apiKey = apiKey; });
 ```
+
+```js
+// 常量能在配置函数中使用的原因是，直接将常量值放进了缓存对象中，不像 value()，没有通过 factory() 创建
+function constant(name, value) {
+    assertNotHasOwnProperty(name, 'constant');
+    providerCache[name] = value;
+    instanceCache[name] = value;
+}
+```
+
 
 
 ### 14.2 使用服务
@@ -234,7 +244,7 @@ angular.module('myApp', ['myApp.services'])
 
 到现在为止，我们只介绍了服务如何将类似的功能打包在一起，而使用服务也是在控制器之间共享数据的典型方法。例如，如果我们的应用需要后端服务的授权，可以创建一个 SessionsService 服务处理用户的授权过程，并保存服务端返回的令牌。当应用中任何地方要发送一个需要授权的请求，可以通过 SessionsService 来访问令牌。
 
-### 14.3 装饰器 
+### 14.3 装饰器
 
 `$provide` 服务提供了在服务实例创建时对其进行拦截的功能，可以对服务进行扩展，或者用另外的内容完全代替它。
 
