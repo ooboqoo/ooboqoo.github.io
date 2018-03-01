@@ -376,7 +376,7 @@ app.controller('DemoController', ['$scope', '$filter', function($scope, $filter)
 {{['Ari','Lerner','Likes','To','Eat','Pizza'] | filter:'e'}} <!-- ["Lerner","Likes","Eat"] -->
 
 // json 过滤器可以将一个JSON或JavaScript对象转换成字符串。
- {{\{'name': 'Ari', 'City': 'SanFrancisco'} | json}}
+ {{jsonOrObject | json}}
 
 // limitTo 过滤器会根据传入的参数生成一个新的数组或字符串
 {{San Francisco is very cloudy | limitTo:-6}} <!-- cloudy -->
