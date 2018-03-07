@@ -3,6 +3,8 @@
 https://aaaaaashu.gitbooks.io/mac-dev-setup/content/index.html
 
 
+## 快速配置
+
 ### Homebrew
 
 https://brew.sh/index_zh-cn.html
@@ -44,6 +46,26 @@ $ sudo easy_install pip
 ```
 
 
+## 控制台细调
+
+.bash_profile (本来理想的位置是 .bashrc，但试了没效果)
+
+```bash
+export PS1="\e[0;32m\u@\h \W> \e[m"  # 自定义提示符 `man bash` 可查看详细说明
+export CLICOLOR=1  # 让控制台颜色更加丰富
+```
+
+## 其他
+
+### brew update 慢
+
+方法1：使用国内镜像源
+
+方法2：走代理
+
+```bash
+$ echo socket5 = \"127.0.0.1:1086\" >> ~/.curlrc
+```
 
 
 

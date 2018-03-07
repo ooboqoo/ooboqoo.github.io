@@ -51,7 +51,7 @@ d3.selectAll(divs);
 | `selection.classed(name, value?)`          | 设置或获取选择集的类，name 为类名 value 为布尔值
 | `selection.style(name, value?, priority?)` | 设置或获取选择集的样式
 | `selection.text(value?)`           | 设置或获取选择集的文本内容，相当于 DOM 的 innerText
-| `selection.html(value?)`           | 设置或获取选择集的HTML 内容，相当于 DOM 的 innerHTML
+| `selection.html(value?)`           | 设置或获取选择集的 HTML 内容，相当于 DOM 的 innerHTML
 
 ```js
 d3.select('p').attr('id', 'para').classed({'red': true, 'bigsize': false}).style('font-size', '24px');
@@ -140,7 +140,7 @@ update enter exit 是非常重要的概念，在 D3 中会大量出现。
 
 #### enter 的处理方法
 
-通常，从服务器获取数据后，网页中是没有与之对应的元素的，因此，一个常见的用法是：选择一个空集，然后使用 `enter().append()` 的形式来添加足够数量的元素。
+通常，从服务器获取数据后，网页中是没有与之对应的元素的，因此，一个常见的用法是：选择一个空集，然后使用 `.enter().append()` 的形式来添加足够数量的元素。
 
 ```js
 var dataset = [10, 20, 30, 10, 50];
@@ -149,7 +149,7 @@ d3.selectAll('p').data(dataset).enter().append('p').text(function (d) { return d
 
 #### exit 的处理方法
 
-如果存在多余的元素，没有数据与之对应，那么需要删除元素，使用 remove() 方法即可。
+如果存在多余的元素，没有数据与之对应，那么需要删除元素，使用 `.exit().remove()` 方法即可。
 
 ```js
 dataset = [10, 20, 30];  // 接上例，数据减少

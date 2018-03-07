@@ -85,8 +85,8 @@ https://support.apple.com/zh-cn/HT201236
 
 ||||
 |-------------------|-----------------------------------------
-| control+up        | 调度中心
-| control+down      | Expose
+| control+up        | Mission Control 调度中心
+| control+down      | App Expose 显示当前应用的多个窗口
 | control+left / control+right | 切屏
 | command+space     | 聚焦
 | option+command+D  | 显示/隐藏程序坞
