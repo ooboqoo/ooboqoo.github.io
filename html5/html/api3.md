@@ -24,7 +24,7 @@ https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
 
 #### 1. 什么是跨域
 
-出于安全方面的考虑，浏览器不允许跨域调用外部资源。跨域的具体定义如下：
+出于安全方面的考虑，浏览器不允许跨域调用外部资源。跨域的具体认定如下：
 
 * 同一级域名 + 同子域名 + 同协议 + 同端口：同源
 * 以上任意一个不同：跨域
@@ -32,9 +32,9 @@ https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
 
 同源策略到底有多重要：ATM 机上被人安装了读卡器而导致资金失窃的新闻听过吧，然后想象下网银什么的...
 
-#### 2. CORS 规范 Cross-Origin Resource Sharing
+#### 2. CORS 规范
 
-W3C 的 CORS 规范通过在 HTTP headers 中加入相应字段来指示浏览器对跨域请求的控制。下面逐步分析 CORS 的工作过程：
+W3C 的 CORS 规范(Cross-Origin Resource Sharing)通过在 HTTP headers 中加入相应字段来指示浏览器对跨域请求的控制。下面逐步分析 CORS 的工作过程：
 
 1. 用户代码发起了一个跨域请求(domainA 向 domainB 发起请求)
 2. 浏览器发送请求，如果是跨域请求，就会在请求头中加入了 `Origin` 字段来声明请求域名(domainA)
@@ -108,19 +108,19 @@ document.domain = 'e.com';  // 要进行交互操作的框架都要设置，这�
 
 ```js
 // parent.html <iframe src="inner.html" name="inner"></frame>
-window.inner.funcInner();
+window.inner.innerFunction();
 // inner.html
-parent.funcOuter();
+parent.outerFunction();
 ```
 
 ##### window.postMessage 方法
 
-HTML5 中新引进了 window.postMessage 方法以实现框架间的信息沟通，没有跨域限制。
+HTML5 中新引进了 `postMessage()` 方法以实现框架间的信息沟通，没有跨域限制。
 
 ```js
 otherWindow.postMessage(message, targetOrigin, [transfer]);
     // messsage 可以是原始类型或对象，如果是对象，系统会自动序列化
-    // targetOrigin 指定目的窗口的 origin，可用 * 但出于安全考虑，建议指定具体 origin，并在消息接收端进行检查
+    // targetOrigin 指定目的窗口的 origin，可用 *，但出于安全考虑，建议指定具体 origin，并在消息接收端进行检查
 ```
 
 实测 Chrome 还是会阻止消息，而 IE 正常，应该是 Chrome 的临时性 bug。[解决方案在这里](https://groups.google.com/a/chromium.org/forum/#!searchin/chromium-discuss/postMessage/chromium-discuss/RhgzRx7Dlu0/AtETniGqAgAJ)
@@ -145,9 +145,9 @@ https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server
 
 ### 消息格式
 
-与使用 XMLHttpRequest 不同，服务器发送事件这个标准不允许随意发送数据，而是必须遵循一个简单但明确的格式。每条消息必须以 data: 开头，然后是实际的消息内容，再加上换行符（PHP等很多编程语言中用 \n\n 表示换行符）。如果要把一条消息分成多行，每行都要跟一个行结束符，用 \n 表示。
+与使用 XMLHttpRequest 不同，服务器发送事件这个标准不允许随意发送数据，而是必须遵循一个简单但明确的格式。每条消息必须以 `data:` 开头，然后是实际的消息内容，再加上换行符(PHP等很多编程语言中用 `\n\n` 表示换行符)。如果要把一条消息分成多行，每行都要跟一个行结束符，用 `\n` 表示。
 
-除了消息本身之外，Web服务器还可以发送唯一的ID值（使用 id: 前缀）和一个连接超时选项（使用 retry: 前缀）。你的网页一般只关注消息本身，不关心ID和连接超时信息。ID和超时信息是浏览器要使用的。
+除了消息本身之外，Web服务器还可以发送唯一的ID值（使用 `id:` 前缀）和一个连接超时选项（使用 `retry:` 前缀）。你的网页一般只关注消息本身，不关心ID和连接超时信息。ID和超时信息是浏览器要使用的。
 
 ```txt
 id: 495\n
@@ -200,7 +200,7 @@ function receiveMessage(e) {
 }
 ```
 
-提示：可以测试是否存在 `window.EventSource` 属性，如果不存在，就要使用后备方案，如轮询(有现成的polyfill)。
+提示：可以检测是否存在 `window.EventSource` 属性，如果不存在，就要使用后备方案，如轮询(有现成的polyfill)。
 
 注意：网页接收到的消息不会包含前缀 `data:` 和结束的 `\n\n` 符号，只有其中的消息内容。
 

@@ -79,14 +79,21 @@ https://support.apple.com/zh-cn/HT201236
 ||||
 |-------------|----------------|--------------------------
 | control+F2  | Alt            | 使用键盘打开屏幕顶部菜单栏中的菜单
-| command+tab | Alt+Tab        | 切换应用。 注: Expose 会更好用
+| command+tab | Alt+Tab        | 切换应用
+
+Home 和 End 键
+
+||||
+|------------------------------|-----------
+| option+left / command+Left   | Home
+| option+right / command+right | End
 
 其他重要功能快捷键
 
 ||||
 |-------------------|-----------------------------------------
 | control+up        | Mission Control 调度中心
-| control+down      | App Expose 显示当前应用的多个窗口
+| control+down      | App Expose 显示当前应用所有窗口
 | control+left / control+right | 切屏
 | command+space     | 聚焦
 | option+command+D  | 显示/隐藏程序坞
@@ -103,12 +110,12 @@ Finder 里没有剪切功能，使用 command+C 再 option+command+V 来实现�
 |||
 |-----------------|---------------------------------
 | command+L       | 选中地址栏
-| fn+left / command+up    | 到页面顶部
-| fn+right / command+down | 到页面底部
+| command+up      | 到页面顶部
+| command+down    | 到页面底部
 | command+Left    | 后退
 | command+Right   | 前进
-| shift+command+] | 标签页切换
-| shift+command+[ | 标签页切换
+| control+tab       | 切换标签页
+| control+shift+tab | 切换标签页
 | space           | 下翻一屏
 | shift+space     | 上翻一屏
 | command+Y       | 浏览历史
@@ -140,9 +147,10 @@ Finder 里没有剪切功能，使用 command+C 再 option+command+V 来实现�
 ```bash
 $ sudo shutdown -h now  # 立即关机
 $ sudo shutdown -h +10  # 10分钟后关机
+$ sudo shutdown -r now  # 重启
+$ sudo shutdown -s +0   # sleep
 $ sudo halt             # sleep 吗？
 $ sudo reboot           # 重启
-$ sudo shutdown -r now  # 重启
 
 $ sudo -s  # 临时升级到系统管理员
 ```
