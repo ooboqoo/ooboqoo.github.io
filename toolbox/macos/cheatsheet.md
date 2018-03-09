@@ -152,6 +152,7 @@ $ sudo shutdown -s +0   # sleep
 $ sudo halt             # sleep 吗？
 $ sudo reboot           # 重启
 
+
 $ sudo -s  # 临时升级到系统管理员
 ```
 
