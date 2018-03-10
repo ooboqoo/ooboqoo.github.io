@@ -211,6 +211,7 @@ The following properties and methods can be used on all HTML elements:
 <tr><td><i>element</i>.firstElementChild</td><td>Returns the first child element of an element</td></tr>
 <tr><td><i>element</i>.id</td><td>Sets or returns the value of the id attribute of an element</td></tr>
 <tr><td><i>element</i>.innerHTML</td><td>Sets or returns the content of an element</td></tr>
+<tr><td><i>element</i>.outerHTML</td><td></td></tr>
 <tr><td><i>element</i>.isContentEditable</td><td>Returns true if the content of an element is editable, otherwise false</td></tr>
 <tr><td><i>element</i>.lang</td><td>Sets or returns the value of the lang attribute of an element</td></tr>
 <tr><td><i>element</i>.lastChild</td><td>Returns the last child node of an element</td></tr>

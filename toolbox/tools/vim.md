@@ -21,6 +21,7 @@ https://zh.wikipedia.org/wiki/ASCII
 | `nG`          | 移动到第 n 行
 | `gg` / `1G`   | 移动到文件的第一行
 | `n[Enter]`    | 光标下移 n 行
+| `%`           | 跳到与当前括号相匹配的括号
 
 #### 查找与替换
 
@@ -29,6 +30,7 @@ https://zh.wikipedia.org/wiki/ASCII
 | `/word`   | 向下查找字符串word
 | `?word`   | 向上查找字符串word
 | `n`, `N`  | n查找下一个，N向前查找，使用n和N配合查找是很有帮助的
+| `:noh`    | 清理高亮显示 no highlight
 | `:n1,n2s/old/new`  | 在 n1 与 n2 行之间查找 old，并用 new 替换 **每行 首次** 出现的 old
 | `:1,$s/old/new/gc` | s substitute 替换；g global 多项匹配; c confirm 须确认
 
@@ -37,8 +39,8 @@ https://zh.wikipedia.org/wiki/ASCII
 | | |
 |:-----------|:-------------------------------------
 | `nx`, `nX` | x 向后删除一个 / n个字符，X 向前删除一个字符
-| `ndd`      | 删除整行 / n行 delete
-| `d1G` `dG` `d0` `d$` `dw` | 结合定位符快速删除多行或多个字符
+| `ndd`      | 删除(剪切)整行 / n行 delete
+| `d1G` `dG` `d0` `d$` `dw` | 结合定位符快速删除(剪切)多行或多个字符
 | `nyy`      | 复制整行 / 向下复制 n行 yank 拉,拽
 | `y1G` `yG` `y0` `y$` `yw` | 结合定位符快速复制多行或多个字符
 | `p`, `P`   | p 在光标后粘贴，P 在光标前粘贴
@@ -69,6 +71,7 @@ https://zh.wikipedia.org/wiki/ASCII
 | `:wq!`          | 保存后退出，有异常不提醒
 | `:w[filename]`  | 将文件另存到 filename
 | `: !command`    | 暂时离开 vim 到命令行执行命令。例 `:! ls /home`
+
 
 #### vim 环境的更改
 
