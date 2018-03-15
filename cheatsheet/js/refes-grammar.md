@@ -35,8 +35,8 @@ http://www.ecma-international.org/ecma-262/5.1/
 | `try...catch`       | try...catch...finally 语句用于捕获内部代码异常，下方有简单示例，详细使用请查文档
 |||
 | `for`        | `for ([initialization]; [condition]; [final-expression]) statement`
-| `for...in`   | `for (variable in object) { ... }` 此语句不能保证迭代顺序，故仅可用于遍历对象的可遍历属性
-| `for...of`   | `for (variable of iterable) { statement }`，迭代按顺序执行，ES6新增
+| `for...in`   | `for (key in object) { ... }` 此语句不能保证迭代顺序，故仅可用于遍历对象的可遍历属性
+| `for...of`   | `for (value of iterable) { ... }`，迭代按顺序执行，ES6新增
 | `while`      | `while (condition) statement` 先判断再执行
 | `do...while` | `do statement while (condition);` 先执行再判断
 |||
@@ -176,6 +176,8 @@ let i = '5', j = '5';
 
 #### 类型转换规则
 
+http://es5.github.io/#x11.9.3
+
 `==` 和 `!=` 两个操作符会先将被操作对象转换成同一类型后再进行全等比较。  
 `<` `<=` `>` `>=` 这四个操作符则会先将被操作对象转换成原始值类型，然后再转换成相同类型进行比较。
 
@@ -197,6 +199,8 @@ let i = '5', j = '5';
 | `true == 1`  | true  | `NaN == NaN`        | false | `[1] == 1` / `['1'] == 1` | true
 | `true == 2`  | false | `undefined == 0`    | false | `({1: 1}) == 1`           | false
 | `"5" == 5`   | true  | `null == 0`         | false | `({1: 1}) == "[object Object]"` | true
+
+注：`true == 2` 类型转换后成 `1 == 2` 所以结果是 `false`
 
 ### 操作符优先级与结合性
 

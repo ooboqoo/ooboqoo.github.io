@@ -47,6 +47,18 @@
   使用另外一个子域名或单独域名来存储静态资源，减少网络传数量（比如cookie），当然最好不要超过3个
   域名，因为太多域名的话花在DNS解析的时间就很客观了，反而得不偿失
 
+```html
+<!-- 京东金融首页优化项介绍 -->
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">  <!-- IE 优化 -->
+  <meta name="renderer" content="webkit">  <!-- 双核浏览器优化 -->
+  <link rel="dns-prefetch" href="//static.360buyimg.com"> <!-- DNS 预解析 -->
+</head>
+```
+
+
+
+
 ### 提升代码运行速度
 
 #### JS
