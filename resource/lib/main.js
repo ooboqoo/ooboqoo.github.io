@@ -140,6 +140,16 @@ function isMobile() {
   }
 
   /**
+   * 设置页面标题
+   */
+  function setTitle(elem) {
+    var h1 = elem.querySelector('h1');
+    if (h1) {
+      document.title = h1.innerText;
+    }
+  }
+
+  /**
    * 负责下载 md 文件并更新文档
    * @param {string} src 加载文件的相对路径和文件名，即 location.hash 的值
    * @param {boolean} [nocache] 是否下载最新资源，true 表示强制跳过本地缓存
@@ -173,6 +183,7 @@ function isMobile() {
       });
 
       setContents();              // 加载文档大纲
+      setTitle(elem_md);
       if (elem_md.onload) { elem_md.onload(); }  // 设置标记功能挂载在 onlaod
       location.hash = "!" + src;  // 更新地址
     }
@@ -211,6 +222,7 @@ function isMobile() {
   elem_html.onload = function () {
     adjustIframeHeight();
     setContentsHTML();
+    setTitle(elem_html.contentDocument);
   };
 
   // 设置顶部导航栏

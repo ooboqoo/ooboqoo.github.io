@@ -1,5 +1,6 @@
 # CORS 跨域
 
+http://www.ruanyifeng.com/blog/2016/04/cors.html  
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS#Access-Control-Expose-Headers  
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
 

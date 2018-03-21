@@ -256,7 +256,7 @@
 
 | Property | Description | CSS
 |----------|-------------|----------
-| box-sizing | Tells the browser what the sizing properties (width and height) should include | 3
+| box-sizing | width height 值是否包含 padding+margin，可选 `content-box` `border-box` IE8+支持 | 3
 | content | Used with the :before and :after pseudo-elements, to insert generated content | 2
 | cursor | Specifies the type of cursor to be displayed | 2
 | resize | Specifies whether or not an element is resizable by the user | 3

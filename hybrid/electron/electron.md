@@ -3,10 +3,17 @@
 https://github.com/electron/electron   
 https://electron.atom.io/   
 
+
+## 安装
+
+国内直接 npm install 不行，需配置淘宝镜像：
+
 ```bash
-$ set ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/  # 配置淘宝镜像，linux 下用 export 命令
+$ npm config set registry=https://registry.npm.taobao.org
+$ export ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/  # Win 下用 set 命令
 $ npm install electron -g
 ```
+
 
 ## Quick Start
 
@@ -17,6 +24,7 @@ $ git clone https://github.com/electron/electron-quick-start
 $ cd electron-quick-start
 $ electron .
 ```
+
 
 ## Application Distribution
 

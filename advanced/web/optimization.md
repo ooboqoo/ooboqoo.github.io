@@ -52,12 +52,10 @@
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">  <!-- IE 优化 -->
   <meta name="renderer" content="webkit">  <!-- 双核浏览器优化 -->
+  <meta http-equiv="x-dns-prefetch-control" content="on"> <!-- 强制打开 a 标签域名预解析 -->
   <link rel="dns-prefetch" href="//static.360buyimg.com"> <!-- DNS 预解析 -->
 </head>
 ```
-
-
-
 
 ### 提升代码运行速度
 

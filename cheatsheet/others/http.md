@@ -152,3 +152,23 @@ Transfer-Encoding: chunked
 Strict-Transport-Security: max-age=31536000; includeSubDomains
 ```
 
+### 浏览器缓存
+
+#### 强缓存
+
+```txt
+Expires: Sun, 08 Apr 2018 18:11:41 GMT
+Cache-Control: max-age=31536000, public
+```
+
+#### 协商缓存
+
+```txt
+# Request Headers
+If-Modified-Since: Thu, 28 Jul 2016 03:37:35 GMT
+If-None-Match: W/"1e12-1562f942e25"
+
+# Response Headers
+Last-Modified: Thu, 28 Jul 2016 03:37:35 GMT
+ETag: W/"1e12-1562f942e25"
+```
