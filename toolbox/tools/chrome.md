@@ -11,11 +11,15 @@ map 的 less 源文件时有时无，将 localhost 改为 127.0.0.1 后就正常
 
 https://www.youtube.com/watch?v=HF1luRD4Qmk Debugging The Web (Chrome Dev Summit 2016)
 
-### 行内添加多个断点
+**行内添加多个断点** Use Inline Breakpoints for greater debugging granularity
 
-Use Inline Breakpoints for greater debugging granularity
+**CSS快速跳转** Crtl+单击CSS样式快速跳转到源文件相应位置
 
-Chrome v57 正式版暂时不支持此功能，但 Canary 版已经支持此功能，调试更加方便了。 2017/03/17
+**`$0` 指向选中 DOM**
+
+**`$_` 指向控制台最后一个输出值**
+
+
 
 ### 更加智能的控制台
 
@@ -32,6 +36,7 @@ function fn() {    // 此处只输 `{` 并按下回车键，chrome 能够自动�
 ### 巧妙利用条件断点输出信息
 
 原先代码中的 `console.log()` 可以移除，然后在 DevTool 中设置条件断点，而条件就是 `console.log()` 这样就可以在不污染代码的同时输出调试信息。
+
 
 ## 使工作区能保存修改  Set Up Persistence with DevTools Workspaces
 

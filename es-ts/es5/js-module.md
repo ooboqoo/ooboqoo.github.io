@@ -217,6 +217,20 @@ require(['math'], function (math){   // 采用require()语句加载模块, 但�
 
 依赖参数是可选的，如果忽略此参数，它应该默认为["require", "exports", "module"]。然而，如果工厂方法的形参个数小于3，加载器会选择以函数指定的参数个数调用工厂方法。
 
+### CMD 规范
+
+CMD (Common Module Definition), 是 seajs 推崇的规范，CMD则是依赖就近，用的时候再 require。它写起来是这样的：
+
+```js
+define(function(require, exports, module) {
+   var clock = require('clock');
+   clock.start();
+});
+```
+
+AMD和CMD最大的区别是对依赖模块的执行时机处理不同，而不是加载的时机或者方式不同，二者皆为异步加载模块。
+AMD依赖前置，js可以方便知道依赖模块是谁，立即加载；而CMD就近依赖，需要使用把模块变为字符串解析一遍才知道依赖了那些模块，这也是很多人诟病CMD的一点，牺牲性能来带来开发的便利性，实际上解析模块用的时间短到可以忽略。
+
 ### UMD 规范
 
 CommonJS 和 AMD 风格都很流行，人们期望出现一种能同时支持两种风格的“通用”模式，于是通用模块规范（UMD）诞生了。

@@ -4,7 +4,7 @@ https://www.zhihu.com/question/29922082
 http://fex.baidu.com/blog/2015/07/front-end-test/  
 http://imweb.io/topic/56895ae54c44bcc56092e40a
 
-Jasmine 前端做单元测试的, 而 Karma 自动化完成单元测试
+Jasmine、Mocha 前端做单元测试的, 而 Karma 自动化完成单元测试
 
 Protractor 是一个 end-to-end 的测试框架，它的构建基于 Selenium WebDriver 之上。
 
