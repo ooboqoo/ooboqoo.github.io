@@ -160,6 +160,8 @@ data: }\n\n
 
 ### 服务器脚本实现
 
+#### PHP
+
 ```php
 <?php
 header("Content-Type: text/event-stream");  // 按服务器端事件标准规定设置MIME类型
@@ -177,6 +179,35 @@ do {                                        // 开始不间断的循环
 ```
 
 上例中服务器脚本一直保存运行，但事实上，保持客户端页面一段时间后，HTTP 会话被服务器因超时中断。这时，客户端将在3秒(默认值，可通过 `retry:` 更改)后，再次发出 GET 请求，直到服务端再次中断(这个过程就是轮询)。
+
+#### Node.js
+
+```js
+var http = require('http');
+var fs = require('fs');
+http.createServer(function (req, res) {
+    var index = './sse.html';  // 默认页面
+    var fileName, timer;
+    fileName = req.url === '/' ? index : '.' + req.url;
+    if (fileName === './stream') {
+        res.writeHead(200, {
+            'Content-Type': 'text/event-stream',
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive'
+        });
+        res.write('retry: 1000\n');
+        res.write('data: ' + new Data() + '\n\n');
+        timer = setInterval(function () {
+            res.write('data: ' + new Data() + '\n\n');
+        }, 1000);
+        req.connection.addListener('close', funciton () { clearInterval(timer); }, false);
+    } else if (fileName === index) {
+        // 返回 html
+    } else {
+        // 报 400 错误
+    }
+}).listen(8080, '127.0.0.1');
+```
 
 ### 在网页中处理消息
 

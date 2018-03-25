@@ -4,23 +4,30 @@
 
 > 这功能实际使用没鸟用，国内还是得用百度的服务
 
-地理定位功能实际上是非常简单的。说到底，主要就是 navigator.geolocation 对象的三个方法： getCurrentPosition() 、 watchPosition() 和 clearWatch() 。
+地理定位功能实际上是非常简单的。说到底，主要就是 `navigator.geolocation` 对象的三个方法： `getCurrentPosition()` `watchPosition()` 和 `clearWatch()`。
 
-要取得访客的位置，可以调用 getCurrentPosition() 方法。当然，查找位置不会立即返回结果，浏览器也不想锁定页面等待位置数据。所以， getCurrentPosition() 方法是异步的，它会立即执行，但不会阻塞其他代码。完成地理定位后，它会触发另一段代码来处理返回的结果。
+要取得访客的位置，可以调用 `getCurrentPosition()` 方法。当然，查找位置不会立即返回结果，浏览器也不想锁定页面等待位置数据。所以，`getCurrentPosition()` 方法是异步的，它会立即执行，但不会阻塞其他代码。完成地理定位后，它会触发另一段代码来处理返回的结果。
 
-navigator.geolocation.getCurrentPosition(success[, error[, options]])   
-navigator.geolocation.watchPosition(success[, error[, options]]);   
+```js
+navigator.geolocation.getCurrentPosition(success[, error[, options]]);
+navigator.geolocation.watchPosition(success[, error[, options]]);
 navigator.geolocation.clearWatch(id);
+```
 
 数据结构：
 
 ```js
-function sucess(Position {
-  coords: { latitude, longitude, accuracy, altitude, altitudeAccuracy, heading, speed }, timestamp
-  }) { /* some code if sucess */ }
+function sucess(
+  Position {
+    coords: { latitude, longitude, accuracy, altitude, altitudeAccuracy, heading, speed },
+    timestamp
+  }
+) { /* some code if sucess */ }
+
 function error(PositionError {code, message}) { /* some code if error */ }
 // code: 1 PERMISSION_DENIED | 2 POSITION_UNAVAILABLE | 3 TIMEOUT
-PositionOptions{ enableHighAccuracy: Boolean, timeout: milliseconds, maximumAge }
+
+PositionOptions{enableHighAccuracy: Boolean, timeout: milliseconds, maximumAge: long}
 ```
 
 应用示例：
@@ -36,7 +43,7 @@ function success(pos) {
 }
 function error(err) { console.warn('ERROR(' + err.code + '): ' + err.message); }
 target = {latitude: 0, longitude: 0};
-options = { enableHighAccuracy: false, timeout: 5000, maximumAge: 0 };
+options = {enableHighAccuracy: false, timeout: 5000, maximumAge: 0};
 id = navigator.geolocation.watchPosition(success, errir, options);  // 开始监控位置变化
 ```
 
