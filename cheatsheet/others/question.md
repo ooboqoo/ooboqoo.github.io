@@ -23,6 +23,12 @@ Object.prototype.toString.call(arr)==='[object Array]';
 const uniqueElements = arr => [...new Set(arr)];
 ```
 
+**数组展开** `flatten(arr, depth = 1)`
+
+```js
+const flatten = arr => [].concat(...arr);
+```
+
 
 ### 函数
 
@@ -41,7 +47,7 @@ function getParamList(fn) {
 ```
 
 
-
+`call(key, ...args)`
 
 
 ## 移动端开发

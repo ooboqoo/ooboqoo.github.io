@@ -232,3 +232,5 @@ https://www.w3.org/TR/navigation-timing/#processing-model#processing-model
 
 HTML5 里面提供了可以获取页面加载详细性能指标的 Web Performance API，通过 `window.performance` 对象暴露给开发者。
 
+`window.performace.timing` 对象包含了完整的网页加载性能数据  
+`window.performance.getEntries()` 可以获取到所有依赖资源的加载性能。
