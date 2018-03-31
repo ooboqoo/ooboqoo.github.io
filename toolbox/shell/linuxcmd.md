@@ -69,9 +69,10 @@ concatenate 把...连在一起，扩展命令 tac 则是最后一行到第一行
 
 `find ./ -type f -name "*.log"` 查找当前目录，以 .log 结尾的普通文件。`-type f -name "*.log"` 属于 expression 部分
 
-#### find, locate or whereis
+#### find, locate, whereis, which
 
-`whereis` 查命令和手册；`locate` 通过数据库快速查找文件；`find` 功能强大的实时查找工具，速度较慢。
+`which` 使用的是哪个位置的命令； `whereis` 查命令和手册；  
+`locate` 通过数据库快速查找文件；`find` 功能强大的实时查找工具，速度较慢。
 
 #### `ln` 创建链接文件
 

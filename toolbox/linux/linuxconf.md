@@ -11,9 +11,9 @@
 #### 时区设置
 
 ```bash
-date                                                     # 查看当前时间
-ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  # 修改设置
-shutdown -r 0                                            # 重启使所有应用都使用最新时间设置
+$ date                                                     # 查看当前时间
+$ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  # 修改设置
+$ shutdown -r 0                                            # 重启使所有应用都使用最新时间设置
 ```
 
 #### 颜色设置
@@ -29,8 +29,9 @@ set t_Co=256
 #### 语言设置
 
 ```bash
-locale                   # 查看地域偏好设置
-export LANG=en_US.UTF-8  # 临时设置环境变量，重新登录失效
+$ locale                   # 查看地域偏好设置
+$ export LANG=en_US.UTF-8  # 临时设置环境变量，重新登录失效
+
 # ~/.bash_profile        # 修改配置文件，影响以后每次登录
 LANG='en_US.UTF-8'
 ```
@@ -93,6 +94,31 @@ $ systemctl list-unit-files | grep enabled         # 查看当前启动的服务
 
 * 第 3 运行级用 multi-user.target 替代。另有 runlevel3.target 符号链接指向 multi-user.target
 * 第 5 运行级用 graphical.target 替代。另有 runlevel5.target 符号链接指向 graphical.target
+
+### 创建 service 文件
+
+通过自己创建 service 文件可以实现开机自动运行任务的目的。详细配置说明可通过 `man systemd.service` 查看。
+
+/etc/systemd/system/leanote.service
+
+```txt
+[Unit]
+Description=Leanote Service
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory= /root/leanote/bin
+ExecStart=/usr/bin/bash /root/leanote/bin/run.sh
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+$ systemctl enable leanote.service
+$ systemctl start leanote.service
+```
 
 
 ## 防火墙管理
