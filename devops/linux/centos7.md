@@ -56,7 +56,7 @@ $ firewall-cmd --permanent --add-port=443/tcp
 $ less /var/log/shadowsocks.log
 ```
 
-### github 安装方式
+### GitHub 安装方式
 
 通过以上方法安装的版本是 2.8.2，经过了一年，master 分支上已经有更新，如果想装最新版，可以试试 GitHub 安装方式：
 
