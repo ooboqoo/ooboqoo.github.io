@@ -52,6 +52,8 @@ else if (condition2) {  // 此处加了大括号，可不加
   statement2
 } else statementN       // 语句跟 else 是否同行都无所谓，但这样不是规范的用法
 
+for (; ;) { }  // 这是个死循环，当不提供判断语句时会一直执行下去
+
 switch (expression) {
   case value1:
     //Statements executed when the result of expression matches value1
@@ -183,15 +185,15 @@ http://es5.github.io/#x11.9.3
 
 类型转换遵循以下规则：
   * 转布尔值 `false` 的几种情况 `0`, `-0`, `NaN`, `undefined`, `null`, `""`, `document.all`
-  * boolean 转成 number，`false` 为 `+0`，`true` 为 `1`。
-  * string 跟 number 比，string 转 number。
-  * Object 跟原始值类型比，会调用对象 `valueOf()` 或 `toString()` 方法(先 `valueOf` 后 `toString`; 先自身定义的后原型链上的)。
+  * boolean 转成 number，`false` 为 `+0`，`true` 为 `1`
+  * string 跟 number 比，string 转 number
+  * Object 跟原始值类型比，会调用对象 `valueOf()` 或 `toString()` 方法(先 `valueOf` 后 `toString`; 先自身方法后原型链)
 
 在比较时，`==` `!=` 两个运算符还遵守下列规则：
-  * 值 `null` 和 `undefined` 相等。
-  * 不会对 `null` 和 `undefined` 进行类型转换。
-  * `NaN` 跟任何值都不相等，甚至 `NaN` 都不等于 `NaN`。
-  * 对象跟对象比，不会进行类型转换，如果指向的不是同一个对象，就返回 false。
+  * 值 `null` 和 `undefined` 相等
+  * 不会对 `null` 和 `undefined` 进行类型转换
+  * `NaN` 跟任何值都不相等，甚至 `NaN` 都不等于 `NaN`
+  * 对象跟对象比，不会进行类型转换，如果指向的不是同一个对象，就返回 false
 
 | 表达式       | 值    | 表达式              | 值    | 表达式                    | 值
 |--------------|-------|---------------------|-------| --------------------------|----------

@@ -12,15 +12,15 @@ ECMAScript 的语法很容易掌握，因为它借用了 Java、C 和 Perl 语�
 * 第一个字符必须是一个字母、下划线 `_` 或一个美元符号 `$`；
 * 其他字符可以是字母、下划线、美元符号或<b>数字</b>
 
-按照惯例，ECMAScript标识符采用驼峰大小写格式，也就是第一个字母小写，剩下的每个单词的首字母大写。
+按照惯例，ECMAScript 标识符采用驼峰大小写格式，也就是第一个字母小写，剩下的每个单词的首字母大写。
 
-### 3.1.5 语句以分号 `;` 结尾
+### 3.1.5 语句以分号结尾
 
-Java、C 和 Perl 都要求每行代码以分号（;）结束才符合语法。ECMAScript 则允许开发者省略分号。如果没有分号，则由解析器确定语句的结尾。虽然语句结尾的分号不是必需的，但我们<b>建议任何时候都不要省略它</b>，因为：
+Java、C 和 Perl 都要求每行代码以分号`;`结束才符合语法。ECMAScript 则允许开发者省略分号。如果没有分号，则由解析器确定语句的结尾。虽然语句结尾的分号不是必需的，但我们**建议任何时候都不要省略它**，因为：
 
-* 加上分号可以避免很多错误（例如不完整的输入）；
-* 开发人员可以放心地通过删除多余的空格来压缩ES代码（代码行结尾处没有分号会导致压缩错误）；
-* 加上分号也会在某些情况下增进代码性能，因为这样解析器就不必再花时间推测应该在哪里插入分号了。
+* 加上分号可以避免很多错误，如不完整的输入
+* 开发人员可以放心地通过删除多余的空格来压缩ES代码(代码行结尾处没有分号会导致压缩错误)
+* 加上分号也会在某些情况下增进代码性能，因为这样解析器就不必再花时间推测应该在哪里插入分号了
 
 ```js
 if (false)
@@ -48,10 +48,12 @@ ECMAScript 的注释与 Java、C 和 PHP 语言的注释相同。有两种类型
 ```
 
 ### 括号表示代码块
+
 从 Java 中借鉴的另一个概念是代码块。代码块表示一系列应该按顺序执行的语句，这些语句被封装在花括号 `{}` 之间。
 
 ### 3.1.4 严格模式
-ES5 引入了严格模式的概念，在严格模式下，ES3中的一些不确定的行为将得到处理，而且对某些不安全的操作也会抛出错误。
+
+ES5 引入了严格模式的概念，在严格模式下，ES3 中的一些不确定的行为将得到处理，而且对某些不安全的操作也会抛出错误。
 
 要在整个脚本中启用严格模式，可以在顶部添加代码；也可以通过在函数内部的上方包含这条编译指示，指定函数在严格模式下执行。
 ```js
@@ -62,29 +64,41 @@ ES5 引入了严格模式的概念，在严格模式下，ES3中的一些不确�
 
 ### 关键字
 
-ECMA-262 定义了 ECMAScript 支持的一套关键字（keyword）。
+ECMA-262 定义了 ECMAScript 支持的一套关键字 keyword。
 
 这些关键字标识了 ECMAScript 语句的开头和/或结尾。关键字是保留的，不能用作变量名或函数名。
 
-下面是 ECMAScript 关键字的完整列表（debugger为ES5新增）：
-`break case catch continue debugger* default delete do else finally for function if in instanceof new return switch this throw try typeof var void while with`
+下面是 ECMAScript 关键字的完整列表：
 
-**注意：** 如果把关键字用作变量名或函数名，可能得到诸如 "Identifier Expected" 这样的错误消息。
+```txt
+break case catch continue debugger default delete do else finally for function if in instanceof new return switch this throw try typeof var void while with
+```
+
+注意：如果把关键字用作变量名或函数名，可能得到诸如 "Identifier Expected" 这样的错误消息。
 
 ### 保留字
 
-ECMA-262 定义了 ECMAScript 支持的一套保留字（reserved word）。
+ECMA-262 定义了 ECMAScript 支持的一套保留字 reserved word。
 
 保留字在某种意思上是为将来的关键字而保留的单词。因此保留字不能被用作变量名或函数名。
 
 ES5 中保留字的完整列表如下：
-`abstract boolean byte char class const debugger double enum export extends final float goto implements import int interface long native package private protected public short static super synchronized throws transient volatile`
+
+```txt
+abstract boolean byte char class const debugger double enum export extends final float goto implements import int interface long native package private protected public short static super synchronized throws transient volatile
+```
 
 ES5 非严格模式下的保留字缩减为以下这些：
-`class const enum export extende import super`
+
+```txt
+class const enum export extend import super
+```
 
 ES5 严格模式下的保留字在非严格模式的基础上增加：
-`implements interface let package private protected public static yield eval* arguments*`
+
+```txt
+implements interface let package private protected public static yield eval* arguments*
+```
 
 ES3 中如果将保留字用作变量名或函数名，那么除非将来的浏览器实现了该保留字，否则很可能收不到任何错误消息。  
 ES5 对使用关键字和保留字的规则进行了少许修改，关键字和保留字虽然仍然不能作为标识符使用，但现在可以用作对象的属性名。  
@@ -93,10 +107,12 @@ ES5 在严格模式下，eval 和 arguments 这两个名字不能作为标识符
 ## 3.3 变量
 
 ### 变量是弱类型的
-与 Java 和 C 不同，ECMAScript 中的变量无特定的类型，定义变量时只用 `var` 运算符，可以将它初始化为任意值。因此，可以随时改变变量所存数据的类型（但请尽量避免这样做）。
+
+与 Java 和 C 不同，ECMAScript 中的变量无特定的类型，定义变量时只用 `var` 运算符，可以将它初始化为任意值。因此，可以随时改变变量所存数据的类型(但请尽量避免这样做)。
 
 ### 声明变量
-ECMAScript 中的变量是用 `var` 运算符（variable 的缩写）加变量名定义的。
+
+ECMAScript 中的变量是用 `var` 运算符(variable 的缩写)加变量名定义的。
 
 ```js
 var test = "hi";  // 定义变量并初始化，由于ECMAScript是弱类型的，无需明确的类型声明
@@ -110,11 +126,11 @@ var test = "hi"; test = 55;     // 变量可以存放不同类型的值，这是
 变量名需要遵守两条简单的规则：
 
 * 第一个字符必须是字母、下划线 `_` 或美元符号 `$`
-* 余下的字符可以是下划线、美元符号或任何字母或数字字符
+* 余下的字符可以是下划线、美元符号、字母或数字
 
 ### 变量声明不是必须的
 
-ECMAScript 另一个有趣的方面（也是与大多数程序设计语言的主要区别），是在使用变量之前不必声明。解释程序遇到未声明过的标识符时，**会用该变量名创建一个全局变量**，并将其初始化为指定的值。
+ECMAScript 另一个有趣的方面(也是与大多数程序设计语言的主要区别)，是在使用变量之前不必声明。解释程序遇到未声明过的标识符时，**会用该变量名创建一个全局变量**，并将其初始化为指定的值。
 
 这是该语言的便利之处，不过如果不能紧密跟踪变量，这样做也很危险。最好的习惯是像使用其他语言一样，总是声明所有变量。  
 ES5 在严格模式下给未声明的变量赋值会导致抛出 ReferenceError 错误。
@@ -132,14 +148,14 @@ ECMAScript 具有 5 种简单数据类型(primitive type) 和 1 种复杂数据�
 
 ### 3.4.1 typeof 运算符
 
-typeof 运算符有一个参数，即要检查的变量或值。例如：
+`typeof` 运算符有一个参数，即要检查的变量或值。例如：
 
 ```js
 alert (typeof "string"); //输出 "string"
 alert (typeof 86);       //输出 "number"
 ```
 
-typeof 运算符将返回下列值之一：
+`typeof` 运算符将返回下列值之一：
   * undefined - 值未定义
   * boolean - 布尔值
   * number - 数值
@@ -153,12 +169,12 @@ typeof 运算符将返回下列值之一：
 
 ### 3.4.2 Undefined 类型
 
-Undefined 类型只有一个值，即特殊的 undefined。当声明的变量未初始化时，该变量的默认值就是 undefined。
+Undefined 类型只有一个值，即特殊的 `undefined`。当声明的变量未初始化时，该变量的默认值就是 `undefined`。
 
-ES3 引入这个值是为了正式区分 **空对象指针** null 与 **未经初始化的变量** undefined。
+ES3 引入这个值是为了正式区分 **空对象指针** `null` 与 **未经初始化的变量** `undefined`。
 
-注意：包含 undefined 值的变量与尚未定义的变量是不一样的，但 typeof 运算符并不真正区分这两种值。  
-注意：对于未定义的变量，其他运算符会报错，而 typeof 不会报错，这是 typeof 特别的地方。
+注意：包含 `undefined` 值的变量与尚未定义的变量是不一样的，但 `typeof` 运算符并不真正区分这两种值。  
+注意：对于未定义的变量，其他运算符会报错，而 `typeof` 不会报错，这是 `typeof` 特别的地方。
 
 ```js
 var oTemp;
@@ -167,70 +183,71 @@ alert(typeof oTemp2);  // 输出 "undefined"
 alert(oTemp2 == undefined);  // 代码将引发错误
 ```
 
-当函数无明确返回值时，返回的也是 undefined ：
+当函数无明确返回值时，返回的也是 `undefined`：
 
 ```js
-function testFunc() {}
-alert(testFunc() == undefined);  //输出 "true"
+function testFunc() { }
+alert(testFunc() === undefined);  // 输出 "true"
 ```
 
 ### 3.4.3 Null 类型
 
-另一种只有一个值的类型是 Null，它只有一个专用值 null，即它的字面值。
+另一种只有一个值的类型是 Null，它只有一个专用值 `null`，即它的字面值。
 
-从逻辑角度来看，null 值表示一个空对象指针，而这也是 typeof 操作符检测 null 时会返回 object 的原因。
+从逻辑角度来看，`null` 值表示一个空对象指针，而这也是 `typeof` 操作符检测 `null` 时会返回 `'object'` 的原因。
 
-实际上值 undefined 是从值 null 派生来的，因此 ECMAScript 把它们定义为相等的。
+实际上值 `undefined` 是从值 `null` 派生来的，因此 ECMAScript 把它们定义为相等的。
 
 ```js
 alert(null == undefined);   // 输出 true
 alert(null === undefined);  // 输出 false
-alert(null == { });         // 输出 false
+alert(null == {});          // 输出 false
 ```
 
-注意：如果函数或方法要返回的是对象，那么找不到该对象时，返回的通常是 null  
-建议：如果定义的变量准备在将来用于保存对象，那么最好将该变量初始化为 null
+注意：如果函数或方法要返回的是对象，那么找不到该对象时，返回的通常是 `null`。
+
+建议：如果定义的变量准备在将来用于保存对象，那么最好将该变量初始化为 `null`。
 
 ### 3.4.4 Boolean 类型
 
-Boolean 类型是 ECMAScript 中最常用的类型之一。它有两个值 true 和 false
+Boolean 类型是 ECMAScript 中最常用的类型之一。它有两个值 `true` 和 `false`。
 
 虽然 Bloolean 类型的字面值只有两个，但 ES 中所有类型的值都有与这两个Boolean值等价的值。可以调用转型函数 Boolean()将一个值转换为其对应的 Boolean 值。下表给出了各种数据类型及其对应的转换规则：
 
-| 数据类型  | 转换为true的值 | 转换为false的值
-|-----------|----------------|-----------------
-| String    | 任何非空字符串 | ""（空字符串）
-| Number    | 任何非零数字值（含无穷大）| 0 和 NaN
-| Object    | 任何对象       | null
-| Undefined | n/a            | undefined
+| 数据类型  | 转换为 `true` 的值       | 转换为 `false` 的值
+|-----------|--------------------------|---------------------
+| String    | 任何非空字符串           | `""`
+| Number    | 任何非零数字值(含无穷大) | `0` 和 `NaN`
+| Object    | 任何对象                 | `null`
+| Undefined | n/a                      | `undefined`
 
-这些转换规则对理解流控制语句（如 if 语句）自动执行相应的 Boolean 转换是非常重要的。
+这些转换规则对理解流控制语句(如 `if` 语句)自动执行相应的 Boolean 转换是非常重要的。
 
 ### 3.4.5 Number 类型
 
 Number 类型 应该是最令人关注的数据类型了，这种类型使用 IEEE754 格式来表示整数和浮点数。
 
-直接输入的（而不是从另一个变量访问的）任何数字都被看做 Number 类型的字面值。
+直接输入的(而不是从另一个变量访问的)任何数字都被看做 Number 类型的字面值。
 
-#### 字面量：八进制、十进制和十六进制
+#### 字面量：八、十、十六进制
 
 最基本的数字字面量格式是十进制整数，除了十进制表示外，整数也可以通过八进制或十六进制的字面值来表示。
 
 八进制字面量的首数字必须是 0，其后的数字可以是任何八进制数字（0-7）。
 
 ```js
-var iNum = 070;     //070 等于十进制的 56
+var iNum = 070;      // 070 等于十进制的 56
 var octalNum = 079;  // 无效的八进制数值——解释为十进制 79
 ```
 
 注意：如果字面值中的数值超出了范围，那么前导0将被忽略，后面的数值将被当做十进制解析。  
-注意：八进制字面量在 ES5 严格模式下是无效的，会导致支持该模式的 JS 引擎抛出错误。
+注意：八进制字面量在 ES5 严格模式下报错 Uncaught SyntaxError: Octal literals are not allowed in strict mode.
 
 十六进制的字面量前面两位数字必须为 `0x`，然后是任意的十六进制数字(0-9 和 A-F) 这些字母不区分大小写。
 
 ```js
-var iNum = 0x1f;  //0x1f 等于十进制的 31
-var iNum = 0xAB;  //0xAB 等于十进制的 171
+var iNum = 0x1f;  // 0x1f 等于十进制的 31
+var iNum = 0xAB;  // 0xAB 等于十进制的 171
 ```
 
 提示：尽管所有整数都可以用八进制或十六进制的字面值表示，但算术运算返回的结果都用十进制表示。
@@ -266,7 +283,7 @@ ECMAScript 默认会将那些小数点后面带有6个或以上0的浮点数转�
 alert(0.1+0.2)  // 结果不是0.3 而是0.30000000000000004
 ```
 
-浮点数值计算会产生舍入误差的问题是所有基于 IEEE754 数值的浮点计算的通病，该问题也同样存在于其他采用IEEE754数值格式的语言。
+浮点数值计算会产生舍入误差，这是所有基于 IEEE754 数值格式的浮点计算的通病，该问题同样存在于其他采用 IEEE754 的语言。
 
 **正因为存在浮点计算误差，所以永远不要测试某个特定的浮点数值，如真有需要请转成整数测试！**
 

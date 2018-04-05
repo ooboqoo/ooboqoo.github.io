@@ -144,3 +144,7 @@ gzip_types text/plain text/css application/json application/javascript applicati
 # You should see content-encoding: gzip
 curl -H "Accept-Encoding: gzip" -I http://www.ngapps.cn/
 ```
+
+
+## 配置 Combo 合并请求
+

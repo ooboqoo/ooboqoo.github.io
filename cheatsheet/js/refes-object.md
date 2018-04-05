@@ -174,6 +174,15 @@ function bar() { console.log(foo.arguments, bar.caller); }
 <h5 class="es5">array.reduceRight((acc, val, idx, arr) => { return acc + val; }, initialValue?) <span>-- 从右到左...</span></h5>
 </div>
 
+https://gist.github.com/rauschma/f7b96b8b7274f2e2d8dab899803346c3
+
+```js
+var arr = ['c', 'd']; arr.unshift('e', 'f');  // 4; arr: [ 'e', 'f', 'c', 'd' ] 注意观察顺序
+['a'].concat('b', ['c', 'd'])  // [ 'a', 'b', 'c', 'd' ] 参数可以是多个值或数组
+['a', 'b', 'c', 'd'].copyWithin(0, 2, 4)  // [ 'c', 'd', 'c', 'd' ]
+Array.from(['a', 'b'].entries())  // [ [ 0, 'a' ], [ 1, 'b' ] ]
+```
+
 ## <span class="es6">Set</span>
 
 ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。
@@ -365,17 +374,17 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <h5 class="es">Math.E Math.LN2 Math.LN10 Math.LOG2E Math.LOG10E Math.PI Math.SQRT1_2 Math.SQRT2</h5>
 </div>
 <div class="dl">
-<h5 class="es">Math.min(x, y, ...) <span>-- 确定一组数值中的最小值</span></h5>
-<h5 class="es">Math.max([x, y, ...) <span>-- 确定一组数值中的最小值</span></h5>
-<h5 class="es">Math.ceil(x) <span>-- 执行向上取整</span></h5>
-<h5 class="es">Math.floor(x) <span>-- 执行向下取整</span></h5>
-<h5 class="es">Math.round(x) <span>-- 执行四舍五入 `Math.round(x) = Math.floor(x + 0.5);  // 0.5 -> 1; -0.5 -> 0`</span></h5>
-<h5 class="es">Math.random() <span>-- 返回 0 到 1 之间的随机数 `[0, 1)`</span></h5>
-<h5 class="es">Math.abs(x) <span>-- 返回 x 的绝对值</span></h5>
-<h5 class="es">Math.sqrt(x) <span>-- 返回 x 的平方根</span></h5>
-<h5 class="es">Math.pow(x, y) <span>-- 返回 x 的 y 次方</span></h5>
-<h5 class="es">Math.exp(x) Math.log(x) Math.log10(x) Math.log2(x)</h5>
-<h5 class="es">Math.sin(x) Math.cos(x) Math.tan(x) Math.asin(x) Math.acos(x) Math.atan(x) Math.atan2(y, x)</h5>
+<h5 class="es3">Math.min(x, y, z,...) <span>-- 确定一组数值中的最小值</span></h5>
+<h5 class="es3">Math.max(x, y, z,...) <span>-- 确定一组数值中的最小值</span></h5>
+<h5 class="es3">Math.ceil(x) <span>-- 执行向上取整</span></h5>
+<h5 class="es3">Math.floor(x) <span>-- 执行向下取整</span></h5>
+<h5 class="es3">Math.round(x) <span>-- 执行四舍五入 `Math.round(x) = Math.floor(x + 0.5);  // 0.5 -> 1; -0.5 -> 0`</span></h5>
+<h5 class="es3">Math.random() <span>-- 返回 0 到 1 之间的随机数 `[0, 1)`</span></h5>
+<h5 class="es3">Math.abs(x) <span>-- 返回 x 的绝对值</span></h5>
+<h5 class="es3">Math.sqrt(x) <span>-- square root 返回 x 的平方根</span></h5>
+<h5 class="es3">Math.pow(base, exponent) <span>-- returns the base to the exponent power 返回 base 的 exponent 次方</span></h5>
+<h5 class="es3">Math.exp(x) Math.log(x) Math.log10(x) Math.log2(x)</h5>
+<h5 class="es3">Math.sin(x) Math.cos(x) Math.tan(x) Math.asin(x) Math.acos(x) Math.atan(x) Math.atan2(y, x)</h5>
 <h5 class="es6">Math.sinh(x) <span>-- 返回x的双曲正弦（hyperbolic sine）</span></h5>
 <h5 class="es6">Math.cosh(x) <span>-- 返回x的双曲余弦（hyperbolic cosine）</span></h5>
 <h5 class="es6">Math.tanh(x) <span>-- 返回x的双曲正切（hyperbolic tangent）</span></h5>
