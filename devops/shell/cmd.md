@@ -101,8 +101,6 @@ Cmder
   |    |- init.bat             # cmd 初始化脚本
   |    \- profile.ps1          # PowerShell 初始化脚本
   \- Cmder.exe    # 
-
-# 注：上次复制 config 下所有文件，ConEmu 配置无效，而复制 vendor 下配置文件有效，这个待复核
 ```
 
 ### 配置

@@ -96,7 +96,7 @@ Object.defineProperty(a, 'bar', {
 ## Function
 
 <div class="dl">
-<h5 class="es3">Function(arg1, arg2, ..., body)<span>-- 构造函数，用于创建函数对象</span></h5>
+<h5 class="es3">Function(arg1, arg2, ..., body)<span>-- 构造函数，用于创建函数对象。带不带 new 效果一样。</span></h5>
 </div>
 <div class="dl">
 <h5 class="es3">arguments <span>-- 一个 Array-like 类数组对象，保存了调用函数时的参数信息，仅在函数内部有效</span></h5>
@@ -115,6 +115,10 @@ Object.defineProperty(a, 'bar', {
 <h5 class="es5">function.bind(thisArg, arg1?, ...) <span>-- 创建一个新函数(绑定函数)，原函数 this 被替换，还可预先设置部分参数</span></h5>
 <h5 class="es3">function.toString() <span>-- 获取函数源码的字符串，重写</span></h5>
 </div>
+
+```js
+var foo = Function('a', 'b, c', 'return a + b + c');  // 运行时求值
+```
 
 [注1]：在非严格模式下可以通过 `foo.caller` `foo.arguments` 读到调用栈上其他函数的信息，出于安全性考虑，foo.arguments 已经被废弃，而 foo.caller 则是一个模糊的存在，两者在严格模式下都被禁用。
 ```js

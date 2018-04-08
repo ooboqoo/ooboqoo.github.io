@@ -195,26 +195,3 @@ Markdown.sublime-settings--User
 }
 ```
 
-### SublimeLinter
-
-SublimeLinter 是比较好用的一款 linter frame，但是使用过程中发现有2点需要注意：
-
-* 装了tslint，发现不正常工作，不知道怎么回事，最后开启 debug 才发现是 tslint 有错误
-* 会在 %appdata%\Sublime Text 3\Packages\User\SublimeLinter 根据theme设定生成特定主题文件，并将这个主题文件设为默认主题文件。
-
-### TSLint
-
-https://github.com/palantir/tslint
-
-版本不同，配置文件不同，要是版本跟配置文件不合（配置项不支持啥的），就会报错，使用 SublimeLinter 时要是不开启 debug 模式，就是静默失败，坑爹。
-
-```js
-// 像这样，在最新版基础上修改，最靠谱。要是全部自己列出，换个版本就等着报错吧
-{
-  "extends": "tslint:latest",
-  "rules": {
-    "quotemark":[true, "single", "avoid-escape"],
-  }
-}
-```
-

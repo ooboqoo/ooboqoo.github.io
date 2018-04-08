@@ -1,4 +1,4 @@
-# Chrome Developer Tool Tutorials
+# Chrome Developer Tool
 
 map 的 less 源文件时有时无，将 localhost 改为 127.0.0.1 后就正常显示，然后重置了设置，一切都好了。
 
