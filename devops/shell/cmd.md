@@ -90,8 +90,8 @@ Cmder
   |- config       # 配置文件都放在这，不应该去修改 vendor 下的配置文件
   |- icons        # 图标文件
   |- vendor       # Cmder 整合的项目
-  |    |- conemu-maximus5      # 
-  |    |    \- ConEmu.xml          # 这个文件保存了 ConEmu 的完整配置
+  |    |- conemu-maximus5
+  |    |    \- ConEmu.xml      # 这个文件保存了 ConEmu 的完整配置，换电脑时复制这个就行
   |    |- clink                # 
   |    |- clink-completions    # 
   |    |- git-for-windows      # 
@@ -100,7 +100,7 @@ Cmder
   |    |- clink.lua            # clink 初始化脚本
   |    |- init.bat             # cmd 初始化脚本
   |    \- profile.ps1          # PowerShell 初始化脚本
-  \- Cmder.exe    # 
+  \- Cmder.exe
 ```
 
 ### 配置
@@ -132,7 +132,7 @@ Cmder 是 windows 下的命令行模拟器，不仅能模拟 cmd 而且还自带
 
 #### 配置备份
 
-直接拷贝 config 文件夹没效果，需要 `settings -> export` 然后再导入才有效。
+备份可以直接拷贝 vendor\conemu-maximus\ConEmu.xml，或者执行 `settings -> export` 然后再导入。
 
 #### 其他
 
