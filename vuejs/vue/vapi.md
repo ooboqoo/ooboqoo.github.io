@@ -25,6 +25,11 @@
 <!-- 添加事件监听器 -->
 <button v-on:click="someMethod">完整写法</button>
 <button @click="someMethod">简写</button>
+
+<button @click="counter += 1">Add 1</button>    <!-- 直接运行 JS 代码 -->
+<button @click="greet">Greet</button>           <!-- 直接绑定到一个方法 -->
+<button @click="say('what')">Say what</button>  <!-- 在内联 JS 语句中调用方法 -->
+<button @click="warn($event)">Submit</button>   <!-- 在内联语句处理器中访问原始的 DOM 事件 -->
 ```
 
 ```html
@@ -95,3 +100,63 @@ vm.$watch(() => this.a + this.b, function (newVal, oldVal) { /* 做点什么 */ 
 var unwatch = vm.$watch('a', cb); // 添加观察
 unwatch();                        // 之后取消观察
 ```
+
+
+
+
+## Vuex
+
+Vuex.Store 构造器
+
+```js
+import Vuex from 'vuex'
+
+const store = new Vuex.Store({
+  state: Object | Function,
+  mutations: { [type: string]: Function },  // (state, payload) => {}
+  actions: { [type: string]: Function },    // (context, payload) => {}
+  getters: { [key: string]: Function },
+  modules: Object,
+  plugins: Array<Function>,
+  strict: =false,
+});
+```
+
+Vuex.Store 实例属性/方法
+
+```js
+s.state
+s.getters
+s.commit(type: string, payload?: any, options?: Object)
+s.commit(mutation: Object, options?: Object)
+s.dispatch(type: string, payload?: any, options?: Object)
+s.dispatch(action: Object, options?: Object)
+s.replaceState(state: Object)
+s.watch(fn: Function, callback: Function, options?: Object): Function
+s.subscribe(handler: Function): Function
+s.subscribeAction(handler: Function): Function
+s.registerModule(path: string | Array<string>, module: Module, options?: Object)
+s.unregisterModule(path: string | Array<string>)
+s.hotUpdate(newOptions: Object)
+```
+
+组件绑定的辅助函数
+
+```js
+mapState(namespace?: string, map: Array<string> | Object): Object
+mapGetters(namespace?: string, map: Array<string> | Object): Object
+mapActions(namespace?: string, map: Array<string> | Object): Object
+mapMutations(namespace?: string, map: Array<string> | Object): Object
+createNamespacedHelpers(namespace: string): Object
+```
+
+
+
+
+
+
+
+
+
+
+
