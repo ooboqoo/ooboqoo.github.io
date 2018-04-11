@@ -193,9 +193,93 @@ new Vue({
 this.$emit('update:foo', newValue);
 ```
 
+### 自定义表单组件
 
+表单组件的特殊之处在于支持 `v-model` 双向绑定，自定义表单组件时对此做适配即可。
 
+`v-model` 本质上还是一种语法糖：
 
+```html
+<input
+  v-bind:value="something"
+  v-on:input="something = $event.target.value">
+```
+
+所以在组件中使用时，它相当于下面的简写：
+
+```html
+<custom-input
+  v-bind:value="something"
+  v-on:input="something = arguments[0]">
+</custom-input>
+```
+
+所以要让组件的 `v-model` 生效，它应该：
+  * 接受一个 `value` prop
+  * 在有新的值时触发 `input` 事件并将新值作为参数
+
+一个自定义表单组件示例：
+
+```html
+<currency-input v-model="price"></currency-input>
+```
+
+```js
+Vue.component('currency-input', {
+  template: `
+    <span>
+      $ <input ref="input" :value="value" @input="updateValue($event.target.value)">
+    </span>
+  `,
+  props: ['value'],
+  methods: {
+    // 不是直接更新值，而是使用此方法来对输入值进行格式化和位数限制
+    updateValue: function (value) {
+      var formattedValue = value.trim().slice(
+        0,
+        value.indexOf('.') === -1 ? value.length : value.indexOf('.') + 3
+      )
+      // 如果值尚不合规，则手动覆盖为合规的值
+      if (formattedValue !== value) {
+        this.$refs.input.value = formattedValue
+      }
+      // 通过 input 事件带出数值
+      this.$emit('input', Number(formattedValue))
+    }
+  }
+})
+```
+
+### 自定义组件的 v-model
+
+默认情况下，一个组件的 `v-model` 会使用 `value` prop 和 `input` 事件。但是诸如单选框、复选框之类的输入类型可能把 value 用作了别的目的。`model` 选项可以避免这样的冲突：
+
+```js
+Vue.component('my-checkbox', {
+  model: {
+    prop: 'checked',
+    event: 'change'
+  },
+  props: {
+    checked: Boolean,
+    value: String  // value 已经被让出来了
+  },
+})
+```
+
+```html
+<my-checkbox v-model="foo" value="some value"></my-checkbox>
+```
+
+上述代码等价于：
+
+```html
+<my-checkbox
+  :checked="foo"
+  @change="val => { foo = val }"
+  value="some value">
+</my-checkbox>
+```
 
 ### 非父子组件的通信
 
