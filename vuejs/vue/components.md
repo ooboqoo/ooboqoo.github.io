@@ -46,7 +46,7 @@ new Vue({
 
 ### data 必须是函数
 
-构造 Vue 实例时传入的各种选项大多数都可以在组件里使用。只有一个例外：`data` 必须是函数。如果是一个对象，则会导致组件各实例之间共享同一个对象。如果误写成对象，那么 Vue 会停止运行，并在控制台发出警告，告诉你在组件实例中 data 必须是一个函数。
+构造 Vue 实例时传入的各种选项大多数都可以在组件里使用。只有一个例外：`data` 必须是函数。如果是一个对象，则会导致组件各实例之间共享同一个对象。如果误写成对象，那么 Vue 会停止运行，并在控制台发出警告。
 
 ### 组件组合
 
@@ -63,10 +63,7 @@ new Vue({
 
 ```js
 Vue.component('child', {
-  // 声明 props
   props: ['message'],
-  // 就像 data 一样，prop 也可以在模板中使用
-  // 同样也可以在 vm 实例中通过 this.message 来使用
   template: '<span>{{ message }}</span>'
 });
 ```
@@ -83,7 +80,7 @@ HTML 特性是不区分大小写的。所以，当使用的不是字符串模板
 
 ```html
 <todo-item v-bind="{text: 'Learn Vue', isComplete: false}"></todo-item>
-等价于
+// 等价于
 <todo-item
   v-bind:text="todo.text"
   v-bind:is-complete="todo.isComplete"
@@ -94,20 +91,20 @@ HTML 特性是不区分大小写的。所以，当使用的不是字符串模板
 
 ```html
 <comp some-prop="1"></comp>         <!-- 传递了一个字符串 "1" -->
-<comp v-bind:some-prop="1"></comp>  <!-- 传递真正的数值 -->
+<comp v-bind:some-prop="1"></comp>  <!-- 传递真正的数值，引号内的内容是作为 JS 表达式来对待的 -->
 ```
 
-### 单项数据流
+### 单向数据流
 
 Prop 是单向绑定的：当父组件的属性变化时，将传导给子组件，但是反过来不会。
 
 每次父组件更新时，子组件的所有 prop 都会更新为最新值。这意味着你**不该**在子组件内部改变 prop。如果你这么做了，Vue 会在控制台给出警告。
 
-注意，如果 prop 是一个对象或数组，在子组件内部改变它会影响父组件的状态。
+注意，如果 prop 是一个对象或数组，因为传递的是引用地址，在子组件内部改变它会影响父组件的状态。
 
 ### Prop 验证
 
-要指定验证规则，需要用对象的形式来定义 prop，而不能用字符串数组。
+要指定验证规则，需要用**对象的形式**来定义 prop，而不能用字符串数组。
 
 注意 prop 会在组件实例创建之前进行校验，所以在 default 或 validator 函数里，诸如 data、computed 或 methods 等实例属性还无法使用。
 
@@ -127,7 +124,7 @@ Vue.component('my-comp', {
 
 所谓非 prop 特性，就是指它可以直接传入组件，而不需要定义相应的 prop。
 
-尽管为组件定义明确的 prop 是推荐的传参方式，组件的作者却并不总能预见到组件被使用的场景。所以，组件可以接收任意传入的特性，这些特性都会被添加到组件的根元素上。
+尽管为组件定义明确的 prop 是推荐的传参方式，组件的作者却并不总能预见到组件被使用的场景。所以，组件可以接收任意传入的特性，这些特性都**会被添加到组件的根元素上**。
 
 对于多数特性来说，传递给组件的值会覆盖组件本身设定的值。即例如传递 `type="large"` 将会覆盖 `type="date"` 且有可能破坏该组件！所幸我们对待 `class` 和 `style` 特性会更聪明一些，这两个特性的值都会做合并 (merge) 操作。
 
@@ -154,11 +151,9 @@ Vue 的事件系统与浏览器的 EventTarget API 有所不同。尽管它们�
 ```js
 Vue.component('button-counter', {
   template: '<button v-on:click="incrementCounter">{{ counter }}</button>',
-  data: () => ({
-    counter: 0,
-  }),
+  data: () => ({counter: 0}),
   methods: {
-    incrementCounter: function () {
+    incrementCounter() {
       this.counter += this.counter || 1;
       this.$emit('increment', { value: this.counter });
     }
@@ -167,13 +162,9 @@ Vue.component('button-counter', {
 
 new Vue({
   el: '#counter-event-example',
-  data: {
-    total: 0,
-  },
+  data: {total: 0},
   methods: {
-    incrementTotal: function (payload) {
-      this.total += payload.value || 1;
-    }
+    incrementTotal(payload) { this.total += payload.value || 1; }
   }
 });
 ```
@@ -188,7 +179,7 @@ new Vue({
 
 ### .sync 修饰符
 
-在一些情况下，我们可能会需要对一个 prop 进行“双向绑定”。事实上，这正是 Vue 1.x 中的 `.sync`修饰符所提供的功能。这很方便，但也会导致问题，因为它破坏了单向数据流。在 2.0 中被移除，但在 2.3.0 中有重新引入，但是这次它只是作为一个编译时的语法糖存在。它会被扩展为一个自动更新父组件属性的 v-on 监听器。
+在一些情况下，我们可能会需要对一个 prop 进行“双向绑定”。事实上，这正是 Vue 1.x 中的`.sync`修饰符所提供的功能。这很方便，但也会导致问题，因为它破坏了单向数据流。在 2.0 中被移除，但在 2.3.0 中有重新引入，但是这次它只是作为一个编译时的语法糖存在。它会被扩展为一个自动更新父组件属性的 v-on 监听器。
 
 ```html
 <comp :foo.sync="bar"></comp>
@@ -268,6 +259,39 @@ bus.$on('id-selected', function (id) {/* */ });  // 在组件 B 创建的钩子�
   </footer>
 </div>
 ```
+
+### 编译作用域
+
+```html
+<child-component>{{ message }}</child-component>
+```
+
+message 应该绑定到父组件的数据，还是绑定到子组件的数据？答案是父组件。组件作用域简单地说是：
+**父组件模板的内容在父组件作用域内编译；子组件模板的内容在子组件作用域内编译。**
+
+### 单个插槽
+
+除非子组件模板包含至少一个 `<slot>` 插口，否则父组件的内容将会被丢弃。当子组件模板只有一个没有属性的插槽时，父组件传入的整个内容片段将插入到插槽所在的 DOM 位置，并替换掉插槽标签本身。
+
+最初在 `<slot>` 标签中的任何内容都被视为备用内容。备用内容在子组件的作用域内编译，并且只有在宿主元素为空，且没有要插入的内容时才显示备用内容。
+
+```html
+<div>
+  <h2>我是子组件的标题</h2>
+  <slot>
+    只有在没有要分发的内容时才会显示。
+  </slot>
+</div>
+```
+
+### 具名插槽
+
+`<slot>` 元素可以用一个特殊的特性 `name` 来进一步配置如何分发内容。多个插槽可以有不同的名字。具名插槽将匹配内容片段中有对应 `slot` 特性的元素。
+
+仍然可以有一个匿名插槽，它是默认插槽，作为找不到匹配的内容片段的备用插槽。如果没有默认插槽，这些找不到匹配的内容片段将被抛弃。
+
+### 作用域插槽
+
 
 
 ## 动态组件
@@ -358,11 +382,34 @@ var parent = new Vue({ el: '#parent' });
 var child = parent.$refs.profile;  // 访问子组件实例
 ```
 
-注：其他注意事项详见文档
+注1：当 `ref` 和 `v-for` 一起使用时，获取到的引用会是一个数组。  
+注2：`$refs` 只在组件渲染完成后才填充，并且是非响应式的。它仅是一个应急方案——应避免在模板或计算属性中使用。
 
+### 异步组件
 
+在大型应用中，我们可能需要将应用拆分为多个小模块，按需从服务器下载。为了进一步简化，Vue.js 允许将组件定义为一个工厂函数，异步地解析组件的定义。Vue.js 只在组件需要渲染时触发工厂函数，并且把结果缓存起来，用于后面的再次渲染。例如：
 
+```js
+Vue.component('async-example', function (resolve, reject) {
+  setTimeout(function () {  // 使用 setTimeout 只是为了演示
+    // 将组件定义传入 resolve 回调函数
+    resolve({
+      template: '<div>I am async!</div>'
+    })
+  }, 1000)
+})
+```
 
+工厂函数接收一个 `resolve` 回调，在收到从服务器下载的组件定义时调用。也可以调用 `reject(reason)` 指示加载失败。推荐配合 webpack 的代码分割功能 来使用：
+
+```js
+Vue.component('async-webpack-example', function (resolve) {
+  // 这个特殊的 require 语法告诉 webpack 自动将编译后的代码分割成不同的块，这些块将通过 Ajax 请求自动下载。
+  require(['./my-async-component'], resolve)
+})
+```
+
+### 组件命名约定
 
 
 

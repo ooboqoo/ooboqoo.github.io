@@ -102,6 +102,8 @@ unwatch();                        // 之后取消观察
 ```
 
 
+## Vue Router
+
 
 
 ## Vuex
@@ -151,8 +153,7 @@ createNamespacedHelpers(namespace: string): Object
 ```
 
 
-
-
+## Vue Resource
 
 
 
