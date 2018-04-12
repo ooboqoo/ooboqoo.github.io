@@ -165,3 +165,11 @@ See the specification:
 
 To enforce the width, you may try to change the table-layout property to "fixed". The [specification](https://www.w3.org/TR/CSS21/tables.html#propdef-table-layout) describes the algorithm pretty clearly.
 
+#### inline-box 元素垂直居中
+
+```css
+div.inlinebox {
+    vertical-align: middle;  /* 添加此条，会在所在行中垂直居中，否则靠上显示 */
+}
+```
+
