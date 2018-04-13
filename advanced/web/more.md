@@ -127,6 +127,57 @@ a = b + c
 a = b + c(d + e).print();
 ```
 
+##### 采用省略 ; 的编码风格
+
+https://feross.org/never-use-semicolons/
+
+特别留意一下几种场景：
+
+```js
+if (false)  // 此处不会自动插入分号
+console.log('no output');
+
+return  // 此处会自动插入分号，一不小心容易悲剧
+a + b
+
+a = b + c  // 此处不会插入分号，所以 IIFE 前一定要加 `;`
+(function () { return d })()
+```
+
+在这种风格模式下，应该避免以 `(` `[` `` ` `` 作为行首，如有必要，请在行头添加 `;`
+
+If you “never use semicolons”, there’s only one rule: Never start a line with `[`, `(`, or `` ` `` In those cases, you simply prepend a `;` like this: `;[1, 2, 3].forEach(bar)`
+
+```js
+;(function () { })()  // OK
+(function () { })()   // Bad
+
+;[1, 2, 3].forEach(bar)  // OK
+[1, 2, 3].forEach(bar)   // Bad
+
+;`hello`.indexOf('o')  // OK
+`hello`.indexOf('o')   // Bad
+```
+
+只要规避这些情况，代码压缩不会导致意外情况，然后鉴于省略分号带来的一些优点，现在省略分号的写法越来越流行了。
+
+省略行位分号的好处
+  * 代码无歧义（结合开发辅助工具，任何因为 ASI 会产生歧义的地方，都会给出提示）
+  * 很明显的可以少打 n 个 `;` 了
+  * 修改链式调用的代码时，`git diff` 时会省掉一行的更改记录
+
+```diff
+  $('some fancy selector')
+    .addClass()
+    .attr()
++   .animate();
+-   .animate()
+-   .click();
+```
+
+注：开发工具配置，eslint 下为 ``，
+
+
 #### 轮播效果
 
 ```html
