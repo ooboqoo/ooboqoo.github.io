@@ -1,11 +1,5 @@
 # Node.js API 摘要
 
-<style>
-  td:first-Child { color: red; }
-  h2 a { text-decoration: none; }
-</style>
-
-https://nodejs.org/dist/latest-v7.x/docs/api/globals.html
 
 ## Globals 全局对象
 
@@ -15,15 +9,15 @@ https://nodejs.org/dist/latest-v7.x/docs/api/globals.html
 | module            | 对当前模块的引用，其中最为重要的 `modlue.exports` 定义了模块输出
 | exports           | 指向 `module.exports` 的快捷方式，如更改 `exports` 指向，会导致与 `module.exports` 脱钩
 | require()         | 用于引入模块
-| require.resolve() | 不加载模块，只返回模块的完整文件路径
+| require.resolve() | 返回模块的完整文件路径，不加载模块
 | require.main      | 指向入口模块
-| require.cache     | 模块在引入时会缓存到该对象。通过删除该对象的键值，下次调用require时会重新加载相应模块。
+| require.cache     | 模块在引入时会缓存到该对象。通过删除该对象的键值，下次调用 `require` 时会重新加载相应模块
 | process           | 进程对象
 | console           | 控制台
 | Buffer            | 类，提供数据缓存相关功能
 | __dirname         | [String] 当前执行脚本所在目录的目录名
 | __filename        | [String] 当前所执行代码文件的完整绝对路径
-|                   | setTimeout(cb, ms); clearTimeout(t); setInterval(cb, ms); clearInterval(t); setImmediate(cb)
+|                   | `setTimeout(cb, ms)` `clearTimeout(t)` `setInterval(cb, ms)` `clearInterval(t)` `setImmediate(cb)`
 
 ```js
 const refm = require('./testmodule.js');  // refm: requireExportedFromModule
@@ -41,16 +35,28 @@ console.log('cache: ', require.cache === refm.cache);        // true
 
 |||
 |--------------------|---------------------------------------------------------------------------------
-| process.argv       | 一个包含命令行参数的数组，garv[0] 为 process.execPath 即 node.exe 的完整路径
+| process.argv       | 一个包含命令行参数的数组，`garv[0]` 为 `process.execPath` 即 `node.exe` 的完整路径
 | process.env        | 读取环境变量，这个对象是可写的，但是更改仅限于当前进程，不会实际写入系统配置文件
-| process.argv0      | the original value of argv[0] passed when Node.js starts
+| process.argv0      | the original value of argv[0] passed when Node.js starts，正常都为 `'node'`
 | process.cwd()      | 返回当前目录 string
-| process.config     | 默认为编译 NodeJS 时的配置，此对象可读写，所以扩展或完整替换用来存放自定义配置信息很合适
+| process.config     | 默认为编译 Node 时的配置，此对象可读写，可扩展或完整替换来存放自定义配置信息
 | process.stdin      | 标准输入
 | process.stdout     | 标准输出
-| process.versions   | 包含 NodeJS 和相关依赖的版本信息
-| process.nextTick() | `setTimeout(fn, 0)` 类似，但执行时间更靠前，具体参看文档
+| process.versions   | 包含 Node 和相关依赖的版本信息
+| process.nextTick(cb[,...args]) | `setTimeout(fn, 0)` 类似，但执行时间更靠前，具体参看文档
 | process.chdir(dir) | 切换工作目录
+
+
+## Modules 模块
+
+
+
+## Events 事件
+
+
+
+## Errors 异常
+
 
 
 ## Path 路径
@@ -62,13 +68,13 @@ console.log('cache: ', require.cache === refm.cache);        // true
 | path.basename(path[, ext])  | 返回路径的最后部分
 | path.dirname(path)          | 返回目录（即去掉最后部分）
 | path.extname(path)          | 返回文件扩展名（带`.`）
+| path.resolve([path[, ...]]) | 根据提供的多个路径或路径片段计算最终**绝对路径**
+| path.normalize(path)        | 规范化路径字符串，主要用于去掉 `..` `.` 并规范 `\` `/`
 | path.format(pathObject)     | 根据提供的 obj 输出格式化后的路径字符串
-| path.isAbsolute(path)       | 判断是否是绝对路径
-| path.join([path[, ...]])    | 连接路径片段
-| path.normalize(path)        | 规范化路径字符串
 | path.parse(path)            | 根据提供的路径字符串返回解析后的 obj
+| path.join([path[, ...]])    | 连接路径片段
+| path.isAbsolute(path)       | 判断是否是绝对路径
 | path.relative(from, to)     | 计算两个给定路径间的相对路径
-| path.resolve([path[, ...]]) | 根据提供的路径或路径片段计算最终路径
 
 ```js
 path.basename('C:\\temp\\myfile.html');  // On POSIX returns 'C:\temp\myfile.html'
@@ -79,19 +85,19 @@ path.posix.basename('/tmp/myfile.html');       // returns 'myfile.html'
 path.basename('/foo/bar/quux.html')           // returns 'quux.html'
 path.basename('/foo/bar/quux.html', '.html')  // returns 'quux'
 path.dirname('/foo/bar/quux/')                // returns '/foo/bar'
-path.join('/foo', 'bar', 'baz/asdf', '..')    // returns '/foo/bar/baz'               或 '\\foo\\bar\\baz'
-path.normalize('/foo/bar//baz/asdf/quux/..')  // returns '/foo/bar/baz/asdf'          或 '\\foo\\bar\\baz\\asdf'
+path.join('/foo', 'bar', 'baz/asdf', '..')    // returns '/foo/bar/baz'         或 '\\foo\\bar\\baz'
+path.normalize('/foo/bar//baz/asdf/quux/..')  // returns '/foo/bar/baz/asdf'    或 '\\foo\\bar\\baz\\asdf'
 path.normalize('C:\\temp\\\\foo\\bar\\..\\'); // returns 'C:\\temp\\\\foo\\bar\\..\\' 或 'C:\\temp\\foo\\'
 path.relative('/data/orandea/test/aaa', '/data/orandea/impl/bbb')
                                               // returns '../../impl/bbb' 或 '..\\..\\impl\\bbb'
-path.resolve('/foo/bar', './baz')             // returns '/foo/bar/baz' 或 'D:\\foo\\bar\\baz'
-path.resolve('/foo/bar', '/tmp/file/')        // returns '/tmp/file' 或 'D:\\tmp\\file'
+path.resolve('/foo/bar', './baz')             // returns '/foo/bar/baz'   或 'D:\\foo\\bar\\baz'
+path.resolve('/foo/bar', '/tmp/file/')        // returns '/tmp/file'      或 'D:\\tmp\\file'
 ```
 
 
-## URL
+## URL 网址
 
-```text
+```txt
 ┌──────────┬┬───────────┬─────────────────┬───────────────────────────┬───────┐
 │ protocol ││   auth    │      host       │           path            │ hash  │
 │          ││           ├──────────┬──────┼──────────┬────────────────┤       │
@@ -132,13 +138,16 @@ url.resolve('http://ex.com/', '/one')  // returns 'http://ex.com/one'
 
 ## Console 控制台
 
-在 NodeJS 的控制台输出带颜色文字的玩法：
+在 Node 的控制台输出带颜色文字的玩法：
 
 ```js
 console.info('\x1b[32m%s\x1b[0m', `Listening to http://localhost:${port}`);
+// 或借助第三方库
+const chalk = require('chalk');
+console.log(chalk.blue('Hello world!'));
 ```
 
-注1：这个仅适用于系统终端，浏览器中要用 `console.log('%c一些信息', 'color: red')`   
+注1：这个仅适用于系统终端，浏览器中要用 `console.log('%c一些信息', 'color: red')`  
 注2：具体终端颜色设置方法 http://misc.flogisoft.com/bash/tip_colors_and_formatting
 
 
@@ -146,11 +155,29 @@ console.info('\x1b[32m%s\x1b[0m', `Listening to http://localhost:${port}`);
 
 |||
 |------------------------------|------------------------------------------
-| util.format(format[, ...])   | 根据第一个参数，返回一个格式化字符串，类似 printf 的格式化输出。
-| util.inspect(obj[, options]) | 返回一个对象的字符串表现形式, 在代码调试的时候非常有用。
+| util.promisify(original)     | 将一个异常优先的回调函数转换成 promise 版本的函数
+| util.callbackify(original)   | 将 async 异步函数或 promise 版函数转换成异常优先的回调函数
+| util.format(format[, ...args])    | 根据第一个参数，返回一个格式化字符串，类似 printf 的格式化输出
+| util.inspect(obj[, options])      | 返回一个对象的字符串表现形式, 在代码调试的时候非常有用
+| util.deprecate(function, string)  | 包装给定的 function 或类，并标记为废弃的
 
 ```js
 util.format('%s:%d', 'count', 5, 'ex');  // 'count:5 ex'
+```
+
+|||
+|------------------|------------------------------------------
+| util.TextDecoder | |
+| util.TextEncoder | ||
+
+```js
+const decoder = new TextDecoder('utf8');
+let string = '';
+let buffer;
+while (buffer = getNextChunkSomehow()) {
+  string += decoder.decode(buffer, {stream: true});
+}
+string += decoder.decode(); // end-of-stream
 ```
 
 
@@ -180,3 +207,14 @@ console.log( `stderr: ${ls.stderr.toString()}` );
 console.log( `stdout: ${ls.stdout.toString()}` );
 ```
 
+
+## Cluster 集群
+
+
+
+
+
+<style>
+  td:first-Child { color: red; }
+  h2 a { text-decoration: none; }
+</style>

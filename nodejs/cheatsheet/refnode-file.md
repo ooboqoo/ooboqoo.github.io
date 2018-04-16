@@ -1,9 +1,16 @@
 # File &amp; Buffer &amp; Stream
 
-<style>
-  td:first-Child { color: red; }
-  h2 a { text-decoration: none; }
-</style>
+
+## Buffer 缓冲
+
+
+
+## Stream 流
+
+
+
+## OS 操作系统
+
 
 ## File System 文件系统
 
@@ -57,3 +64,18 @@
 `callback(err, written, buffer)`: `written` specifies how many bytes were written from `buffer`.
 
 Note that it is unsafe to use fs.write multiple times on the same file without waiting for the callback. For this scenario, fs.createWriteStream is strongly recommended.
+
+
+
+
+
+
+
+
+
+
+
+<style>
+  td:first-Child { color: red; }
+  h2 a { text-decoration: none; }
+</style>

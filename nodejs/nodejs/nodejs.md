@@ -19,7 +19,7 @@ $ nodemon dist/app.js    # app.js 文件有更新会自动重启
 通过添加 `--inspect` 选项以支持 chrome 调试，可以同时在 Chrome 界面完成前后端调试。
 
 ```bash
-$ node --inspect app.js       # 
+$ node --inspect app.js
 $ node --inspect=9229 app.js  # 指定端口
 $ node --inspect-brk app.js   # 启动并立即暂停在首行
 ```

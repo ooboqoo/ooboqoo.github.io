@@ -11,7 +11,7 @@
 
 __tutorial__  _/tjuːˈtɔːriəl/_  n. 辅导课 a.辅导教师的
 
-__deprecate__  _/ˈdeprəkeɪt/_  v. 批评, 反对
+__deprecate__  _/ˈdeprəkeɪt/_  v. 批评, 反对; __deprecated__ [计] 废弃的
 
 __reinvent the wheel__  _/ˌriːɪnˈvent/_  重新发明轮子, 意为做无谓的重复工作
 
