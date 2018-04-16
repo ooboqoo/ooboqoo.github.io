@@ -1,7 +1,7 @@
 # Electron
 
 https://github.com/electron/electron   
-https://electron.atom.io/   
+https://electronjs.org/docs
 
 
 ## 安装
@@ -11,7 +11,7 @@ https://electron.atom.io/
 ```bash
 $ npm config set registry=https://registry.npm.taobao.org
 $ export ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/  # Win 下用 set 命令
-$ npm install electron -g
+$ npm install electron --save-dev --save-exact  # 目前推荐的安装方式
 ```
 
 
@@ -22,7 +22,8 @@ https://github.com/electron/electron/blob/master/docs/tutorial/quick-start.md
 ```bash
 $ git clone https://github.com/electron/electron-quick-start
 $ cd electron-quick-start
-$ electron .
+$ npm install
+$ npm start
 ```
 
 
