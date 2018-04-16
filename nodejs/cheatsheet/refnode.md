@@ -52,13 +52,6 @@ console.log('cache: ', require.cache === refm.cache);        // true
 | process.nextTick() | `setTimeout(fn, 0)` 类似，但执行时间更靠前，具体参看文档
 | process.chdir(dir) | 切换工作目录
 
-```js
-// https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/
-process.nextTick(() => console.log('nextTick'))  // 放到当前 phase 队列尾执行
-setImmediate(() => console.log('setImmediate'))  // 放到下一个队列前执行
-setTimeout(() => console.log('setTimeout'), 0)   // setImmediate 与 setTimeout 谁先执行视情况定
-```
-
 
 ## Path 路径
 
@@ -98,7 +91,7 @@ path.resolve('/foo/bar', '/tmp/file/')        // returns '/tmp/file' 或 'D:\\tm
 
 ## URL
 
-```txt
+```text
 ┌──────────┬┬───────────┬─────────────────┬───────────────────────────┬───────┐
 │ protocol ││   auth    │      host       │           path            │ hash  │
 │          ││           ├──────────┬──────┼──────────┬────────────────┤       │

@@ -5,6 +5,7 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
 */
 .hljs {
   display: block;
+  position: relative;
   overflow-x: auto;
   padding: 0.5em;
   background: #f3f3f6;
@@ -66,3 +67,67 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
 .hljs-strong {
   font-weight: bold;
 }
+
+.hljs::after {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  padding: 0 4px;
+  color: #666;
+  background-color: #eee;
+  border-radius: 4px;
+}
+
+.hljs.lang-js::after, .hljs.javascript::after {
+  content: "js";
+}
+
+.hljs.lang-json::after {
+  content: "json";
+}
+
+.hljs.lang-html::after, .hljs.html::after {
+  content: "html";
+}
+
+.hljs.lang-css::after, .hljs.css::after {
+  content: "css";
+}
+
+.hljs.lang-less::after, .hljs.less {
+  content: "less";
+}
+
+.hljs.lang-scss::after, .hljs.lang-sass::after,
+.hljs.scss::after, .hljs.sass::after {
+  content: "sass";
+}
+
+.hljs.lang-bash::after, .hljs.bash {
+  content: "sh";
+}
+
+.hljs.lang-diff::after, .hljs.diff {
+  content: "diff";
+}
+
+.hljs.lang-sql::after, .hljs.sql {
+  content: "sql";
+}
+
+.hljs.lang-java::after, .hljs.java {
+  content: "java";
+}
+
+.hljs.lang-kt::after, .hljs.kt {
+  content: "kt";
+}
+
+.hljs.lang-scala::after, .hljs.scala {
+  content: "sc";
+}
+
+.hljs.lang-php::after, .hljs.php {
+  content: "php";
+}
+
