@@ -82,6 +82,14 @@ h2 { text-align: center; }
 [注4]：ES5 中 getter 和 setter 的用法：
 
 ```js
+descriptor: {
+  configurable, enumerable,
+  ...data desccriptor: {value, writable},
+  ...accessor descriptor: {get, set}      // data 和 accessor 两者互斥
+}
+```
+
+```js
 var a = {
   get foo () { return this.name; },
   set foo (str) { this.name = str; }

@@ -41,7 +41,7 @@ new Vue({
 
 ### 全局混入
 
-一旦使用全局混入对象，将会影响到 所有 之后创建的 Vue 实例。
+一旦使用全局混入对象，将会影响到所有之后创建的 Vue 实例。
 
 ```js
 Vue.mixin({
@@ -68,7 +68,7 @@ Vue.config.optionMergeStrategies.myOption = strategies.methods
 
 ## 自定义指令
 
-在 Vue2.0 中，代码复用和抽象的主要形式是组件。但有时你仍然需要对普通 DOM 元素进行底层操作，这时候就会用到自定义指令。
+在 Vue2.0 中，代码复用和抽象的主要形式是组件。但有时仍然需要对普通 DOM 元素进行底层操作，这时就会用到自定义指令。
 
 ```js
 // 注册一个全局自定义指令 `v-demo`
@@ -77,7 +77,7 @@ Vue.directive('demo', {
   inserted (el, binding, vnode) { },
   update (el, binding, vnode, oldVnode) { },
   componentUpdated (el, binding, vnode, oldVnode) {
-    let {name, value,oldValue, expression, arg, modifiers} = binding
+    let {name, value, oldValue, expression, arg, modifiers} = binding
   },
   unbind: function (el, binding, vnode) { }
 })
@@ -85,7 +85,7 @@ Vue.directive('demo', {
 // 如果想注册局部指令，组件中也接受一个 `directives` 的选项：
 directives: {
   demo: {
-    inserted: function (el) { el.focus(); }
+    inserted: function (el) { el.focus() }
   }
 }
 ```
@@ -112,8 +112,8 @@ directives: {
 * `binding`：一个对象，包含以下属性：
   - `name`：指令名，不包括 `v-` 前缀。
   - `value`：指令的绑定值，例如：`v-my-directive="1 + 1"` 中，绑定值为 `2`。
-  - `oldValue`：指令绑定的前一个值，仅在 `update` 和 `componentUpdated` 钩子中可用。
   - `expression`：字符串形式的指令表达式。例如 `v-my-directive="1 + 1"` 中，表达式为 `"1 + 1"`。
+  - `oldValue`：指令绑定的前一个值，仅在 `update` 和 `componentUpdated` 钩子中可用。
   - `arg`：传给指令的参数，可选。例如 `v-my-directive:foo` 中，参数为 `"foo"`。
   - `modifiers`：一个包含修饰符的对象。例如：`v-my-directive.foo.bar` 中，修饰符对象为 `{ foo: true, bar: true }`。
 * `vnode`：Vue 编译生成的虚拟节点。移步 VNode API 来了解更多详情。
@@ -136,7 +136,7 @@ Vue.directive('color-swatch', function (el, binding) {
 如果指令需要多个值，可以传入一个 JavaScript 对象字面量。记住，指令函数能够接受所有合法的 JavaScript 表达式。
 
 ```html
-<div v-demo="{ color: 'white', text: 'hello!' }"></div>
+<div v-demo="{color: 'white', text: 'hello!'}"></div>
 ```
 
 ```js
@@ -148,18 +148,215 @@ Vue.directive('demo', function (el, binding) {
 
 ## 渲染函数 &amp; JSX
 
+### 基础
+
+Vue 推荐在绝大多数情况下使用 template 来创建你的 HTML。然而在一些场景中，使用更底层的 render 函数会更加灵活。
+
+```html
+<anchored-heading :level="1">Hello world!</anchored-heading>
+<script type="text/x-template" id="anchored-heading-template">
+  <h1 v-if="level === 1"><slot></slot></h1>
+  <h2 v-else-if="level === 2"><slot></slot></h2>
+</script>
+```
+
+```js
+Vue.component('anchored-heading', {
+  template: '#anchored-heading-template',  // 顺便学下模板缓存用法
+  props: {
+    level: {type: Number, required: true},
+  }
+})
+```
+
+上面的例子使用 render 函数重写：
+
+```js
+Vue.component('anchored-heading', {
+  render: function (createElement) {
+    return createElement(
+      'h' + this.level,   // tag name 标签名称
+      this.$slots.default // 子组件中的阵列
+    )
+  },
+  props: {
+    level: {type: Number, required: true},
+  },
+})
+```
+
+简单清晰很多，但是需要非常熟悉 Vue 的[实例属性](https://cn.vuejs.org/v2/api/#%E5%AE%9E%E4%BE%8B%E5%B1%9E%E6%80%A7)。
+
+### 虚拟 DOM
+
+Vue 通过建立一个虚拟 DOM 对真实 DOM 发生的变化保持追踪。
+
+```js
+render: function (createElement) {
+  return createElement('h1', this.blogTitle)
+}
+```
+
+上面 `createElement` 到底会返回什么呢？其实不是一个实际的 DOM 元素。它更准确的名字可能是 `createNodeDescription`，因为它所包含的信息会告诉 Vue 页面上需要渲染什么样的节点，及其子节点。我们把这样的节点描述为“虚拟节点 (Virtual Node)”，也常简写它为“VNode”。“虚拟 DOM”是我们对由 Vue 组件树建立起来的整个 VNode 树的称呼。
+
+### createElement 参数
+
+```js
+// @returns {VNode}
+createElement(
+  // 一个 HTML 标签字符串，组件选项对象，或者解析上述任何一种的一个 async 异步函数，必要参数。
+  'div',  // {String | Object | Function}
+  // 一个包含模板相关属性的数据对象，这样，您可以在 template 中使用这些属性。可选参数。
+  {  // {Object}
+    // (详情见下一节)
+  },
+  // 子节点 (VNodes)，由 `createElement()` 构建而成，或使用字符串来生成“文本节点”。可选参数。
+  [  // {String | Array}
+    '先写一些文字',
+    createElement('h1', '一则头条'),
+    createElement(MyComponent, {
+      props: {someProp: 'foobar'}
+    })
+  ]
+)
+```
+
+#### 深入 data 对象
+
+```js
+{
+  'class': {foo: true, bar: false },  // 和`v-bind:class`一样的 API
+  style: {color: 'red', fontSize: '14px'},  // 和`v-bind:style`一样的 API
+  attrs: {id: 'foo'},  // 正常的 HTML 特性
+  props: {myProp: 'bar'},  // 组件 props
+  domProps: {innerHTML: 'baz'},  // DOM 属性
+  // 事件监听器基于 `on` 所以不再支持如 `v-on:keyup.enter` 修饰器，需要手动匹配 keyCode。
+  on: {click: this.clickHandler},
+  // 仅对于组件，用于监听原生事件，而不是组件内部使用 `vm.$emit` 触发的事件。
+  nativeOn: {click: this.nativeClickHandler},
+  // 自定义指令。注意，你无法对 `binding` 中的 `oldValue` 赋值，因为 Vue 已经自动为你进行了同步。
+  directives: [
+    {
+      name: 'my-custom-directive',
+      value: '2',
+      expression: '1 + 1',
+      arg: 'foo',
+      modifiers: {bar: true}
+    }
+  ],
+  // Scoped slots in the form of { name: props => VNode | Array<VNode> }
+  scopedSlots: {
+    default: props => createElement('span', props.text)
+  },
+  // 如果组件是其他组件的子组件，需为插槽指定名称
+  slot: 'name-of-slot',
+  // 其他特殊顶层属性
+  key: 'myKey',
+  ref: 'myRef'
+}
+```
+
+#### 约束
+
+组件树中的所有 VNodes 必须是唯一的。这意味着，下面的 render function 是无效的：
+
+```js
+render: function (createElement) {
+  var myParagraphVNode = createElement('p', 'hi')
+  return createElement('div', [myParagraphVNode, myParagraphVNode ])  // 错误-重复的 VNodes
+}
+```
+
+### 使用 JS 代替模板功能
+
+#### 指令
+
+render 函数更加灵活，但也缺少了模板中的 `v-if` `v-for` `v-model` 等指令，需要自己通过 JS 实现响应的逻辑。
+
+```js
+// v-model 实现
+props: ['value'],
+render: function (createElement) {
+  var self = this
+  return createElement('input', {
+    domProps: {value: self.value},
+    on: {input (event) => self.$emit('input', event.target.value)}
+  })
+}
+```
+
+#### 事件 &amp; 按键修饰符
+
+对于 `.passive` `.capture` 和 `.once`事件修饰符, Vue 提供了相应的前缀可以用于 `on`：
+
+| Modifier(s) | Prefix
+|-------------|-----------
+| `.passive`  |   `&`
+| `.capture`  | `!`
+| `.once`     | `~`
+| `.capture.once` `.once.capture`  | `~!`
+
+```js
+on: {
+  '!click': this.doThisInCapturingMode,
+  '~keyup': this.doThisOnce,
+  '~!mouseover': this.doThisOnceInCapturingMode
+}
+```
+
+对于其他的修饰符，前缀不是很重要，因为你可以在事件处理函数中使用事件方法。
+
+#### 插槽
+
+??
+
 
 ### JSX
 
+如果你写了很多 render 函数，可能会觉得痛苦，于是有了一个 [Babel 插件](https://github.com/vuejs/babel-plugin-transform-vue-jsx)，用于在 Vue 中使用 JSX 语法的原因，它可以让我们回到更接近于模板的语法上。
+
+```js
+new Vue({
+  el: '#demo',
+  render: function (h) {
+    return (
+      <AnchoredHeading level={1}>
+        <span>Hello</span> world!
+      </AnchoredHeading>
+    )
+  }
+})
+```
+
 将 `h` 作为 `createElement` 的别名是 Vue 生态系统中的一个通用惯例，实际上也是 JSX 所要求的，如果在作用域中 `h` 失去作用，在应用中会触发报错。
 
+### 函数式组件
+
+就是类似 React 中 PureComponent 的东西。
+
+```js
+Vue.component('my-component', {
+  functional: true,
+  render: function (createElement, context) { },  // 为了弥补缺少的实例，提供第二个参数作为上下文
+  props: {}  // Props 可选
+})
+```
+
+```html
+<template functional></template>
+```
+
+
+### 模板编译
+
+如果你想看看模板的功能是怎样被编译的，可以试试 `Vue.compile`。
 
 
 ## 插件
 
 ### 开发插件
 
-插件通常会为 Vue 添加全局功能。插件的范围没有限制——一般有下面几种：
+插件通常会为 Vue 添加全局功能。插件的范围没有限制，一般有下面几种：
   * 添加全局方法或者属性，如: [vue-custom-element](https://github.com/karol-f/vue-custom-element)
   * 添加全局资源：指令/过滤器/过渡等，如 [vue-touch](https://github.com/vuejs/vue-touch)
   * 通过全局 mixin 方法添加一些组件选项，如: [vue-router](https://github.com/vuejs/vue-router)
@@ -179,7 +376,7 @@ MyPlugin.install = function (Vue, options) {
 
 ### 使用插件
 
-通过全局方法 Vue.use() 使用插件：
+通过全局方法 `Vue.use()` 使用插件：
 
 ```js
 Vue.use(MyPlugin, {someOption: 'someValue'})  // 调用 `MyPlugin.install(Vue)`
@@ -227,6 +424,6 @@ filters: {
 {{ message | filterA | filterB }}
 
 <!-- 过滤器是 JavaScript 函数，因此可以接收参数 -->
-{{ message | filterA('arg1', arg2) }}
+{{ message | filterA('arg1', 2) }}  // filterA(message, 'arg1', 2)
 ```
 

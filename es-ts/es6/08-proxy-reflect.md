@@ -6,6 +6,9 @@ ECMAScript 6 gives developers further access to JavaScript engine capabilities b
 
 ## What are Proxies and Reflection?
 
+Proxy 实际上**重载 overload 了点运算符**，即用自己的定义覆盖了语言的原始定义。
+
+
 You can create a proxy to use in place of another object (called the *target*) by calling `new Proxy()`. The proxy *virtualizes* the target so that the proxy and the target appear to be the same object to functionality using the proxy.
 
 Proxies allow you to intercept low-level object operations on the target that are otherwise internal to the JavaScript engine. These low-level operations are intercepted using a *trap*, which is a function that responds to a specific operation.
