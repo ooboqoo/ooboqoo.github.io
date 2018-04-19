@@ -8,10 +8,6 @@
 ## Stream 流
 
 
-
-## OS 操作系统
-
-
 ## File System 文件系统
 
 文件系统模块是一个简单包装的 POSIX I/O 操作方法集。
@@ -45,10 +41,42 @@
 
 |||
 |-----------------------------|--------------------------------------------------------------------------------
-| fs.readdir(path, callback)  | 读取 path 目录内容 callback(err, files): files 数组不含 '.' 和 '..'
-| fs.exists(path, callback)   | 检查指定路径的文件或者目录是否存在 callback(exists): 存在true 不存在false
-| fs.stat(path, callback)     | 读取文件状态信息 callback(err, stats): stats 是一个 fs.Stats 对象
-| fs.watch(filename, [options], [listener])  | 监控指定 路径/文件 的变化，该方法在不同系统中的行为差异较大
+| fs.readdir(path, callback)  | 读取 path 目录内容, 获取的 `files` 数组不含 `'.'` 和 `'..'`
+| fs.exists(path, callback)   | 已废弃，使用 `fs.stat()` 或 `fs.access()` 替代。<span class="marker">注</span>
+| fs.stat(path, callback)     | 读取文件状态信息, 获取的 `stats` 是一个 `fs.Stats` 对象
+| fs.access(path[, mode], callback) | 
+| fs.watch(filename[, options][, listener])  | 监控指定 路径/文件 的变化，该方法在不同系统中的行为差异较大
+
+|||
+|------------------------------------------|--------------------
+| fs.mkdir(path[, mode], callback)         | 
+| fs.link(existingPath, newPath, callback) | 
+
+fs.chmod(path, mode, callback)
+fs.fchmod(fd, mode, callback)
+fs.lchmod(path, mode, callback)
+
+
+
+|||
+|-----------------------------|--------------------------------------------------------------------------------
+| stats.size      | 
+| stats.birthtime | "Birth Time"
+| stats.mtime     | "Modified Time"
+| stats.ctime     | "Change Time"
+| stats.atime     | "Access Time"
+|||
+| stats.isDirectory()    | 
+| stats.isFile()         | 
+| stats.isSocket()       | 
+| stats.isSymbolicLink() | 
+
+
+
+
+
+注：在读写操作前不应该去检查文件是否存在，因为即使检查了，当实际操作时还是可能已经改变了状态。
+
 
 #### fs.read(fd, buffer, offset, length, position, callback)
 
@@ -68,12 +96,24 @@ Note that it is unsafe to use fs.write multiple times on the same file without w
 
 
 
+## OS 操作系统
 
+只列了部分 API，注意这里的基本都是方法
 
-
-
-
-
+|||
+|------------------------|-------------------------------------------------------------------------------
+| os.platform()          | [string] 平台名, 同 `process.platform`，取值 `'win32'` `'darwin'` `'linux'` 等
+| os.homedir()           | [string] 用户主目录
+|||
+| os.EOL                 | [string] 行末标记 (POSIX `\n`) (Win `\r\n`)
+| os.freemem()           | [integer] 空闲系统内存，返回表示字节数的整数
+| os.totalmem()          | [integer] 所有系统内存，返回表示字节数的整数
+| os.tmpdir()            | [string] 默认临时文件目录
+| os.hostname()          | [string] 主机名
+| os.loadavg()           | [Array] 返回一个数组，包含1, 5, 15分钟平均负载，Win 系统下始终为 `[0, 0, 0]`
+| os.type()              | [string] 操作系统名 `'Linux'` `Darwin` `Windows_NT` 等
+| os.uptime()            | [number] 开机秒数，Win 平台下带小数部分
+| os.userInfo([options]) | [Object] 返回当前有效用户的信息
 
 <style>
   td:first-Child { color: red; }

@@ -1,5 +1,7 @@
 # Node.js API 摘要
 
+https://nodejs.org/en/docs/
+
 
 ## Globals 全局对象
 
@@ -49,6 +51,35 @@ console.log('cache: ', require.cache === refm.cache);        // true
 
 ## Modules 模块
 
+|||
+|-------------|--------------------
+| __dirname   | 
+| __filename  | 
+| exports     | 
+| module      |
+| require()   |
+
+|||
+|-------------------------------------|--------------------------------------------------------
+| require.main                        | 指向入口模块 which file is run directly from Node.js
+| require.cache                       |
+| require.resolve(request[, options]) | 
+| require.resolve.paths(request)      | 
+
+|||
+|--------------------|---------------
+| module.children    | [Array] The module objects required by this one
+| module.exports     | 
+| module.filename    | [String] The fully resolved filename to the module
+| module.id          | [String] The identifier for the module. Typically this is the fully resolved filename or '.'
+| module.loaded      | [Boolean] Whether or not the module is done loading, or is in the process of loading
+| module.parent      | [Object] The module that first required this one
+| module.paths       | 
+| module.require(id) | 
+
+```js
+require.main === module  // 判断一个文件是否是被直接执行
+```
 
 
 ## Events 事件
@@ -218,3 +249,28 @@ console.log( `stdout: ${ls.stdout.toString()}` );
   td:first-Child { color: red; }
   h2 a { text-decoration: none; }
 </style>
+
+<script>
+// 定义目录生成级别
+ooboqoo.contentsRegExp = /H[12]/;
+
+/*
+//设置到 developer.mozilla.org 的查询链接
+(function(){
+  var list = document.querySelectorAll(".dl > h5"),
+      reg=/^[a-zA-Z0-9._]+\(?/g,
+      listHTML, atext, alink,
+      prefix = 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/';
+  for (var i = 0, length = list.length; i < length; i++){
+    reg.lastIndex = 0;
+    listHTML = list[i].innerHTML;
+    atext = reg.exec(listHTML);
+    if (atext === null) { continue; }
+    atext = atext[0];
+    alink = atext.replace('.prototype', '').replace('.', '/').replace('(', '');
+    list[i].innerHTML = '<a href="' + prefix + alink + '">' + atext + '</a>' +
+      listHTML.substr(reg.lastIndex).replace(/\) *\<span/, '<span style="color: red;">)</span> <span');
+  }
+})();
+*/
+</script>

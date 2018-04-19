@@ -6,9 +6,6 @@ ECMAScript 6 gives developers further access to JavaScript engine capabilities b
 
 ## What are Proxies and Reflection?
 
-Proxy 实际上**重载 overload 了点运算符**，即用自己的定义覆盖了语言的原始定义。
-
-
 You can create a proxy to use in place of another object (called the *target*) by calling `new Proxy()`. The proxy *virtualizes* the target so that the proxy and the target appear to be the same object to functionality using the proxy.
 
 Proxies allow you to intercept low-level object operations on the target that are otherwise internal to the JavaScript engine. These low-level operations are intercepted using a *trap*, which is a function that responds to a specific operation.
@@ -36,3 +33,44 @@ Table 11-1: Proxy traps in JavaScript 代理捕捉器
 Each trap overrides some built-in behavior of JavaScript objects, allowing you to intercept and modify the behavior. If you still need to use the built-in behavior, then you can use the corresponding reflection API method. The relationship between proxies and the reflection API becomes clear when you start creating proxies, so it's best to dive in and look at some examples.
 
 > The original ECMAScript 6 specification had an additional trap called `enumerate` that was designed to alter how `for-in` and `Object.keys()` enumerated properties on an object. However, the `enumerate` trap was removed in ECMAScript 7 (also called ECMAScript 2016) as difficulties were discovered during implementation. The `enumerate` trap no longer exists in any JavaScript environment and is therefore not covered in this chapter.
+
+
+## Proxy
+
+Proxy 实际上**重载 overload 了点运算符**，即用自己的定义覆盖了语言的原始定义。
+
+### 实例：Web 服务客户端
+
+需要实现下面这样的一个 `createWebService` 方法，以创建一个 Web 服务的接口，这个接口返回各种数据。
+
+```js
+const service = createWebService('//example.com.data')
+service.employees().then(json => {
+  const employees = JSON.parse(json)
+})
+```
+
+常规的实现是这样的：
+
+```js
+function createWebSerevice(baseUrl) {
+  return {
+    employees () { return httpGet(baseUrl + '/employees') },
+    // ...
+  }
+}
+```
+
+Proxy 可以拦截这个对象的任意属性，所以不用为每一种数据写一个适配方法，只要写一个 Proxy 拦截就可以了:
+
+```js
+function createWebService(baseUrl) {
+  return new Proxy({}, {
+    get (target, propKey, receiver) { return () => httpGet(baseUrl + '/' + propKey) }
+  })
+}
+```
+
+
+
+
