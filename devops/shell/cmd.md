@@ -1,19 +1,20 @@
 # Windows 命令行
 
+
 ## 常用命令
 
-|||
-|------|-------------------------
-| explorer | 资源管理器
-| notepad  | 打开记事本
-| calc     | 计算器
-| regedit  | 注册表编辑器
-|      |
-| where    | 查找命令位置
-| ipconfig | 显示本机网络信息
-
 ```bash
-start /b 服务名  # 在后台运行服务
+$ explorer  # 资源管理器
+$ start iexplore  # 打开 IE，注意直接打 iexplore 没用，而且注意最后不带 r
+$ notepad   # 打开记事本
+$ calc      # 计算器
+$ regedit   # 注册表编辑器
+
+$ where     # 查找命令位置
+$ ipconfig  # 显示本机网络信息
+
+$ start /b 服务名  # 在后台运行服务
+$ mklink /H <destination> <source>  # 带 /H 建立硬连接，不带则建立软连接
 ```
 
 #### `mstsc` 远程桌面

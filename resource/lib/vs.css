@@ -39,6 +39,10 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
   color: #a31515;
 }
 
+.hljs-number {
+  color: #f3f;
+}
+
 .hljs-selector-attr,
 .hljs-selector-pseudo,
 .hljs-meta {
@@ -80,6 +84,10 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
 
 .hljs.lang-js::after, .hljs.javascript::after {
   content: "js";
+}
+
+.hljs.lang-ts::after, .hljs.typescript::after {
+  content: "ts";
 }
 
 .hljs.lang-json::after {
