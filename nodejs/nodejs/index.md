@@ -11,4 +11,16 @@ http://javascript.ruanyifeng.com/nodejs/mongodb.html
 https://docs.mongodb.com/manual/installation/  
 https://docs.mongodb.com/manual/tutorial/query-documents/  
 
-## 杂项记录
+## 其他
+
+Node.js 关键技术
+  * Stream
+  * 动态 Web framework
+  * child_process & cluster
+
+深入学习：
+  * through2
+  * Express Koa Egg
+  * SSR &amp; 同构
+  * Node.js 源码 - Buffer、Stream 等
+

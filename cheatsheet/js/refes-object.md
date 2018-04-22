@@ -73,6 +73,14 @@ h2 { text-align: center; }
 <h5 class="es5">descriptor.set <span>-- 设定 setter，默认值 undefined，仅存在于 accessor descriptor</span></h5>
 </div>
 
+```js
+descriptor: {
+  configurable, enumerable,
+  ...data desccriptor: {value, writable},
+  ...accessor descriptor: {get, set}      // data 和 accessor 两者互斥
+}
+```
+
 [注1]：可以通过 `map = Object.create(null);` 创建没有附加属性和方法的纯净对象，可避免使用 `hasOwnProperty()`。
 
 [注2]：虽然 ES6 将广泛使用的 `__proto__` 引入了标准(仅在附录里提到要求浏览器都部署，对其他运行环境没要求)，只是为了不同平台间的兼容性，正常我们应该使用 `Object.getPrototypeOf()`。
@@ -82,22 +90,16 @@ h2 { text-align: center; }
 [注4]：ES5 中 getter 和 setter 的用法：
 
 ```js
-descriptor: {
-  configurable, enumerable,
-  ...data desccriptor: {value, writable},
-  ...accessor descriptor: {get, set}      // data 和 accessor 两者互斥
-}
-```
-
-```js
-var a = {
-  get foo () { return this.name; },
-  set foo (str) { this.name = str; }
-};
+// es5
 Object.defineProperty(a, 'bar', {
   get: function() { return this.foo; },
   set: function(str) { this.foo = str; }
 });
+// es6
+var a = {
+  get foo () { return this.name; },
+  set foo (str) { this.name = str; }
+};
 ```
 
 
@@ -215,13 +217,22 @@ ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都
 
 ## <span class="es6">WeakSet</span>
 
-WeakSet 结构与 Set 类似，但它与 Set 有两个区别：首先，WeakSet 的成员只能是对象，而不能是其他类型的值。其次，WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用，这也意味着 WeakSet 不可遍历。
+WeakSet 结构与 Set 类似，但它与 Set 有两个区别：
+  * WeakSet 的成员只能是对象，而不能是其他类型的值。
+  * WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用，这也意味着 WeakSet 不可遍历。
 
 <div class="dl">
   <h5>weakSet.add(value) <span>-- 向 WeakSet 实例添加一个新成员</span></h5>
   <h5>weakSet.delete(value) <span>-- 清除 WeakSet 实例的指定成员</span></h5>
   <h5>weakSet.has(value) <span>-- 返回一个布尔值，表示某个值是否在 WeakSet 实例之中</span></h5>
 </div>
+
+```js
+let a = ['a'], b = ['b'], s = new Set(), ws = new WeakSet()
+s.add(a); ws.add(b)
+a = b = undefined   // 然后通过点击 Chrome Performance 的垃圾桶按钮触发垃圾回收
+console.log(s, ws)  // Set(1) {Array(1)}   WeakSet {}
+```
 
 ## <span class="es6">Map</span>
 

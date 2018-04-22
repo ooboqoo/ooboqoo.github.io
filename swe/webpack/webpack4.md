@@ -1,6 +1,7 @@
-# Webpack3
+# Webpack4
 
-https://webpack.js.org/guides/
+https://webpack.js.org/guides/  
+https://doc.webpack-china.org/concepts/
 
 
 ## Getting Started

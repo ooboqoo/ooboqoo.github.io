@@ -84,6 +84,47 @@ require.main === module  // 判断一个文件是否是被直接执行
 
 ## Events 事件
 
+|||
+|-------------------------|-------------------------------
+| Event: 'newListener'    | 添加新 listener 时触发该事件
+| Event: 'removeListener' | 移除 listener 时触发该事件
+
+|||
+|----------------------------------|--------------------------------------
+| EventEmitter.defaultMaxListeners | 默认为 `10`，可修改以影响所有 emitter 行为
+| emitter.setMaxListeners(n)       | 修改单个 emitter 的 listener 数量限制，优先级高于默认值
+| emitter.getMaxListeners()        | 获取当前 emitter 的 listener 数量限制设定
+|||
+| emitter.eventNames()            | 返回包含已注册监听的事件名称列表
+| emitter.listeners(eventName)    | Returns a copy of the array of listeners for the event named eventName
+| emitter.rawListeners(eventName) | including any wrappers (such as those created by `.once`)
+| emitter.listenerCount(eventName)| 返回特定事件的监听器数量
+
+|||
+|------------------------------------------|--------------------------------------
+| emitter.on(eventName, listener)          | 添加事件的 listener，同一个 listener 可重复添加并重复执行
+| emitter.addListener(eventName, listener) | emitter.on 的别名
+| emitter.prependListener(eventName, listener)     | 将 listener 插入到数组前面，即 unshift listener
+| emitter.once(eventName, listener)                | 注册的 listener 只会被执行一次
+| emitter.prependOnceListener(eventName, listener) | 只执行一次 + 前插入
+|||
+| emitter.removeListener(eventName, listener) | 移除 listener，当一个 listener 被重复注册时移除也要重复相同次数，移除项不影响当前 listener 的执行，即移除还没执行的 listener 这次还是会执行
+| emitter.removeAllListeners([eventName])     | 移除([某事件的])全部监听器
+
+|||
+|------------------------------------|--------------------------------------
+| emitter.emit(eventName[, ...args]) | 根据 listener 注册顺序同步逐项调用，有 listener 返回 true 无则返回 false
+
+注：所有添加、删除 listener 的方法都返回 `EventEmitter` 以支持链式操作。  
+注：最佳实践，始终注册 `'error'` 事件的监听器，否则会导致 Node.js 应错误而退出。
+
+```js
+const EventEmitter = require('events')  // EventEmitter === EventEmitter.EventEmitter  // true
+class MyEmitter extends EventEmitter { }
+const myEmitter = new MyEmitter()
+myEmitter.on('event', () => console.log('an event occurred!'))
+myEmitter.emit('event')
+```
 
 
 ## Errors 异常
@@ -254,23 +295,11 @@ console.log( `stdout: ${ls.stdout.toString()}` );
 // 定义目录生成级别
 ooboqoo.contentsRegExp = /H[12]/;
 
-/*
-//设置到 developer.mozilla.org 的查询链接
-(function(){
-  var list = document.querySelectorAll(".dl > h5"),
-      reg=/^[a-zA-Z0-9._]+\(?/g,
-      listHTML, atext, alink,
-      prefix = 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/';
-  for (var i = 0, length = list.length; i < length; i++){
-    reg.lastIndex = 0;
-    listHTML = list[i].innerHTML;
-    atext = reg.exec(listHTML);
-    if (atext === null) { continue; }
-    atext = atext[0];
-    alink = atext.replace('.prototype', '').replace('.', '/').replace('(', '');
-    list[i].innerHTML = '<a href="' + prefix + alink + '">' + atext + '</a>' +
-      listHTML.substr(reg.lastIndex).replace(/\) *\<span/, '<span style="color: red;">)</span> <span');
+;(function () {
+  var list = document.querySelectorAll("td:first-Child");
+  for (var i = 0, length = list.length; i < length; i++) {
+    list[i].innerHTML = list[i].innerHTML.replace(/\(/, '(<span style="color: #669">')
+                                         .replace(/\)/, '</span>)');
   }
 })();
-*/
 </script>
