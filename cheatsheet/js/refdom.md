@@ -1,7 +1,3 @@
-<style>
-  #md span.mark { display: inline-block; float: right; background-color: initial; font-size: small;}
-</style>
-
 # HTML DOM 手册
 
 ### Finding HTML Elements

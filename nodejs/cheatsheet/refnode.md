@@ -11,7 +11,7 @@ https://nodejs.org/en/docs/
 | module            | 对当前模块的引用，其中最为重要的 `modlue.exports` 定义了模块输出
 | exports           | 指向 `module.exports` 的快捷方式，如更改 `exports` 指向，会导致与 `module.exports` 脱钩
 | require()         | 用于引入模块
-| require.resolve() | 返回模块的完整文件路径，不加载模块
+| require.resolve() | 返回模块的完整文件路径。不加载模块，但会实际去找模块，找不到报错 <span class="mark">[注]</span>
 | require.main      | 指向入口模块
 | require.cache     | 模块在引入时会缓存到该对象。通过删除该对象的键值，下次调用 `require` 时会重新加载相应模块
 | process           | 进程对象
@@ -28,6 +28,13 @@ console.log('resolve: ', require.resolve === refm.resolve);  // false
 console.log('main: ', require.main === refm.main);           // true
 console.log('cache: ', require.cache === refm.cache);        // true
 // 结论：每个模块实例拥有独立的 require 变量，所有模块的 require.main 和 require.cache 的引用是相同的。 
+```
+
+```js
+// require.resolve 与 path.resolve 之区别
+require.resolve('./a')          // "e:\GitHub\testlab\nodejs\module\a.js"
+path.resolve('./a')             // "e:\GitHub\testlab\a"
+path.resolve(__dirname, './a')  // "e:\GitHub\testlab\nodejs\module\a"
 ```
 
 
@@ -96,14 +103,14 @@ require.main === module  // 判断一个文件是否是被直接执行
 | emitter.getMaxListeners()        | 获取当前 emitter 的 listener 数量限制设定
 |||
 | emitter.eventNames()            | 返回包含已注册监听的事件名称列表
-| emitter.listeners(eventName)    | Returns a copy of the array of listeners for the event named eventName
+| emitter.listeners(eventName)    | 返回对应事件名的 the array of listeners 的副本
 | emitter.rawListeners(eventName) | including any wrappers (such as those created by `.once`)
 | emitter.listenerCount(eventName)| 返回特定事件的监听器数量
 
 |||
 |------------------------------------------|--------------------------------------
 | emitter.on(eventName, listener)          | 添加事件的 listener，同一个 listener 可重复添加并重复执行
-| emitter.addListener(eventName, listener) | emitter.on 的别名
+| emitter.addListener(eventName, listener) | emitter.on 的别名 <span class="mark">[注1]</span>
 | emitter.prependListener(eventName, listener)     | 将 listener 插入到数组前面，即 unshift listener
 | emitter.once(eventName, listener)                | 注册的 listener 只会被执行一次
 | emitter.prependOnceListener(eventName, listener) | 只执行一次 + 前插入
@@ -113,10 +120,11 @@ require.main === module  // 判断一个文件是否是被直接执行
 
 |||
 |------------------------------------|--------------------------------------
-| emitter.emit(eventName[, ...args]) | 根据 listener 注册顺序同步逐项调用，有 listener 返回 true 无则返回 false
+| emitter.emit(eventName[, ...args]) | 根据 listener 注册顺序同步逐项调用，指定的参数将传给每个 listener，有 listener 返回 true 无则返回 false
 
 注：所有添加、删除 listener 的方法都返回 `EventEmitter` 以支持链式操作。  
-注：最佳实践，始终注册 `'error'` 事件的监听器，否则会导致 Node.js 应错误而退出。
+注：最佳实践，始终注册 `'error'` 事件的监听器，否则会导致 Node.js 应错误而退出。  
+注1：浏览器环境下的 `Target.addEventListener()` 重复添加相同 listener 会被忽略，注意区分。
 
 ```js
 const EventEmitter = require('events')  // EventEmitter === EventEmitter.EventEmitter  // true

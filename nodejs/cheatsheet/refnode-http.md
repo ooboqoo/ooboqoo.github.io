@@ -9,8 +9,8 @@ http.STATUS_CODES
 http.globalAgent
 
 http.createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server
-http.get(options: string | RequestOptions | URL, callback?: (res: IncomingMessage) => void): ClientRequest
 http.request(options: string | RequestOptions | URL, callback?: (res: IncomingMessage) => void): ClientRequest
+http.get()  // 简化版 http.request, It sets the method to GET and calls req.end() automatically.
 ```
 
 ```js
@@ -43,6 +43,7 @@ agent.getName(options)
 
 ### http.Server
 
+```txt
 Event: 'checkContinue'
 Event: 'checkExpectation'
 Event: 'clientError'
@@ -51,6 +52,7 @@ Event: 'connect'
 Event: 'connection'
 Event: 'request'
 Event: 'upgrade'
+```
 
 ```ts
 server.listening: boolean
@@ -65,6 +67,7 @@ server.close([callback])
 
 ### http.ClientRequest
 
+```txt
 Event: 'abort'
 Event: 'connect'
 Event: 'continue'
@@ -72,6 +75,7 @@ Event: 'response'
 Event: 'socket'
 Event: 'timeout'
 Event: 'upgrade'
+```
 
 ```js
 request.aborted
@@ -92,8 +96,10 @@ request.setTimeout(timeout[, callback])
 
 ### http.ServerResponse
 
+```txt
 Event: 'close'
 Event: 'finish'
+```
 
 ```js
 response.connection
@@ -104,24 +110,30 @@ response.socket
 response.statusCode
 response.statusMessage
 
-response.addTrailers(headers)
-response.end([data][, encoding][, callback])
+response.setTimeout(msecs[, callback])
+
 response.getHeader(name)
 response.getHeaderNames()
 response.getHeaders()
 response.hasHeader(name)
 response.removeHeader(name)
 response.setHeader(name, value)
-response.setTimeout(msecs[, callback])
-response.write(chunk[, encoding][, callback])
-response.writeContinue()
 response.writeHead(statusCode[, statusMessage][, headers])
+
+response.addTrailers(headers)
+
+response.write(chunk[, encoding][, callback]) // Writable.write(chunk, encoding, cb): boolean
+response.end([data][, encoding][, callback])
+
+response.writeContinue()  // Sends a HTTP/1.1 100 Continue message to the client, indicating that the request body should be sent.
 ```
 
 ### http.IncomingMessage
 
+```txt
 Event: 'aborted'
 Event: 'close'
+```
 
 ```ts
 message.url: string

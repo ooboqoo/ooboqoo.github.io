@@ -371,7 +371,6 @@
 
 <style>
   td:first-child { color: #f33; white-space: nowrap; }
-  span.mark { display: inline-block; float: right; background-color: initial; font-size: small; }
 </style>
 <script>
   var url = "https://developer.mozilla.org/en-US/docs/Web/CSS/";

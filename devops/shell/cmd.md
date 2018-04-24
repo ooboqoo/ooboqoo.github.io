@@ -114,7 +114,17 @@ Cmder 是 windows 下的命令行模拟器，不仅能模拟 cmd 而且还自带
 
 #### 修改提示符
 
-设置在 `config -> user-startup.cmd`，用法见`help prompt`，另外，作者的 cmder.lua 脚本写得有问题，直接删除或改名即可。
+`vendor/clik.lua` 配置的自定义 prompt 功能增强会导致终端字符宽度计算问题，建议将颜色定义的东西全部去掉。原因分析：应该是 bash 中的 `\[ \]` 无法使用，因为原 `\e` 这里用的 `\x1b`。另外，作者的 cmder.lua 脚本写得有问题，直接删除或改名即可。
+
+目前用的 prompt 配置文件 config/prompt.lua
+
+```lua
+local function set_prompt_filter()
+    local cmder_prompt = "\x1b[0;32m{cwd}\x1b[0m $ "
+    clink.prompt.value = string.gsub(cmder_prompt, "{cwd}", clink.get_cwd())
+end
+clink.prompt.register_filter(set_prompt_filter, 1)
+```
 
 #### 字体颜色
 

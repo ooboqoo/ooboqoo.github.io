@@ -111,6 +111,141 @@ buf.writeUIntLE(value, offset, byteLength[, noAssert])#
 
 ## Stream 流
 
+所有 stream 都是 EventEmitter 的实例，stream 模块通过 `require('stream')` 导入。
+
+* Readable - streams from which data can be read, e.g. `fs.createReadStream()`
+* Writable - streams to which data can be written, e.g. `fs.createWriteStream()`
+* Duplex - streams that are both Readable and Writable, e.g. `net.Socket`
+* Transform - Duplex streams that can modify or transform the data, e.g. `zlib.createDeflate()`
+
+### API for Stream Consumers
+
+#### stream.Writable
+
+```txt
+Event: 'close' 可写入资源关闭了 Note: The stream is not closed when the 'error' event is emitted.
+Event: 'drain' 缓存下降，可继续写入了
+Event: 'error' 出错啦
+Event: 'finish' 调用了 stream.end() 且数据都已完成写入时触发
+Event: 'pipe' 调用 readable.pipe(writable) 向该 writable 输入数据时触发
+Event: 'unpipe' 调用 readable.unpipe(writable) 将该 writable 移出 dest 时触发
+```
+
+```js
+writable.writableHighWaterMark
+writable.writableLength
+
+writable.setDefaultEncoding(encoding)  // sets the default encoding for a Writable stream
+
+writable.cork()    // 强制缓存在内存，调用 stream.uncork() or stream.end() 时才正式写入 dest
+writable.uncork()  // flushes all data buffered since stream.cork() was called
+
+writable.write(chunk[, encoding][, callback])  // 写入数据
+writable.end([chunk][, encoding][, callback])  // 完成最后处理并告知写入完毕
+writable.destroy([error])
+```
+
+#### stream.Readable
+
+Two Modes
+Three States
+Choose One
+
+```txt
+Event: 'close'     可读流关闭了
+Event: 'data'      数据准备好了，拿走
+Event: 'end'       这里已经没有更多数据了，都被取走了
+Event: 'error'     出错啦
+Event: 'readable'  您有新的消息
+```
+
+```js
+readable.readableHighWaterMark
+readable.readableLength
+readable.isPaused()  // 判断是否暂停了(pipe() 时系统用，人类一般不用此方法)
+
+readable.setEncoding(encoding)
+
+readable.pause()  // 等着，先别主动传数据了
+readable.resume() // 从 paused 切换到 flowing 模式
+
+readable.pipe(destination[, options])
+readable.unpipe([destination])
+
+readable.unshift(chunk)  // 将取出的数据重新写回 readable
+readable.wrap(stream)
+
+readable.read([size])
+readable.destroy([error])
+```
+
+#### stream.Duplex & stream.Transform
+
+transform.destroy([error])
+
+### API for Stream Implementers
+
+Simplified Construction
+
+Implementing a Writable Stream
+Constructor: new stream.Writable([options])
+
+```js
+writable._write(chunk, encoding, callback)
+writable._writev(chunks, callback)
+writable._destroy(err, callback)
+writable._final(callback)
+```
+
+Errors While Writing
+An Example Writable Stream
+Decoding buffers in a Writable Stream
+
+Implementing a Readable Stream
+new stream.Readable([options])
+readable._read(size)
+readable._destroy(err, callback)
+readable.push(chunk[, encoding])
+
+Errors While Reading
+An Example Counting Stream
+
+Implementing a Duplex Stream
+new stream.Duplex(options)
+An Example Duplex Stream
+Object Mode Duplex Streams
+
+Implementing a Transform Stream
+new stream.Transform([options])
+Events: 'finish' and 'end'
+transform._flush(callback)
+transform._transform(chunk, encoding, callback)
+Class: stream.PassThrough
+
+```js
+// learnyounode 练习 12 代码
+// 根据传入的 req 返回大写形式的 res
+const http = require('http'),
+  port = +process.argv[2],
+  createTransStream = require('./program12_createtransstream.js');
+http.createServer((req, res) => {
+  req.pipe(createTransStream(function(chunk) {
+    return chunk.toString().toUpperCase();
+  })).pipe(res);
+}).listen(port);
+
+// program12_createtransstream.js
+const Transform = require('stream').Transform;
+module.exports = function createTransStream(func) {
+  return new Transform({
+    transform(chunk, encoding, callback) {
+      this.push(func(chunk));
+      callback();
+    }
+  });
+};
+```
+
 
 ## File System 文件系统
 
@@ -148,7 +283,7 @@ fs.unlink(path, callback)                                fs.unlinkSync()        
 fs.rmdir(path, callback)                                 fs.rmdirSync()         // rmdir
 fs.copyFile(src, dest[, flags], callback)                fs.copyFileSync()      // cp
 
-fs.realpath(path[, options], callback)                   fs.realpathSync()  // path.resolve() 区别？
+fs.realpath(path[, options], callback)                   fs.realpathSync()
 fs.realpath.native(path[, options], callback)            fs.realpathSync.native()
 
 //-------------------------------------------------------------------------------------------
@@ -178,6 +313,11 @@ fs.unwatchFile(filename[, listener])
   * 绝大多数都包含异步版本和同步版本，同步版本带 `Sync` 后缀
   * 一些带 `f` 前缀的变异版，通过 file descriptor 读取
   * 一些带 `l` 前缀的变异版，如果碰到 symbolic link 则返回软链接本身的信息
+
+```js
+fs.realpathSync('./nodejs/module/a.js')  // 'E:\\GitHub\\testlab\\nodejs\\module\\a.js'
+fs.realpathSync('./nodejs/module/a')     // Error: ENOENT: no such file or directory
+```
 
 #### 文件读写操作
 
@@ -280,5 +420,4 @@ Note that it is unsafe to use fs.write multiple times on the same file without w
 <style>
   td:first-Child { color: red; }
   h2 a { text-decoration: none; }
-  span.mark { display: inline-block; float: right; background-color: initial; font-size: small; }
 </style>

@@ -47,8 +47,8 @@ cd $html
 alias cp='cp -i'
 alias ll='ls -lA'
 
-export PS1="\[\e[0;32m\u@\h \W> \e[m\]"  # 自定义提示符 `man bash` 可查看详细说明
-  # 最外层的 \[ \] - 如果要用控制字符，务必用\[和\]包裹，否则算行宽度时会出错，导致不换行
+export PS1="\[\e[0;32m\]\u@\h \W> \[\e[m\]"  # 自定义提示符 `man bash` 可查看详细说明
+  # \[ \] - 如果要用控制字符，务必用\[和\]包裹，否则算行宽度时会出错，导致不换行等问题
   # \u – Username \h – Hostname \w – Full path of the cwd
   # \e[  – Indicates the beginning of color prompt
   # x;ym – Indicates color code. Use the color code values mentioned below.

@@ -227,6 +227,14 @@ main table td:first-child a {
   display: none;
 }
 
+.dl h5 > span.mark,
+td > span.mark {
+  display: inline-block;
+  float: right;
+  background-color: initial;
+  font-size: small;
+}
+
 #html {
   position: relative;
   width: 100%;

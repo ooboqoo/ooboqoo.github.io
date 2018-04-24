@@ -24,3 +24,12 @@ Node.js 关键技术
   * SSR &amp; 同构
   * Node.js 源码 - Buffer、Stream 等
 
+Node.js 源码：
+
+https://medium.com/@Trott/a-quick-guide-to-reading-node-js-core-source-c968d83e4194  
+https://blog.ghaiklor.com/how-nodejs-works-bfe09efc80ca
+
+* JS源码 https://github.com/nodejs/node/blob/master/lib
+* 测试用例 https://github.com/nodejs/node/tree/master/test/parallel
+
+
