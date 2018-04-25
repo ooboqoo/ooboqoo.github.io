@@ -57,6 +57,7 @@ export PS1="\[\e[0;32m\]\u@\h \W> \[\e[m\]"  # 自定义提示符 `man bash` 可
 
 > 这里有详细的终端颜色配置说明 http://misc.flogisoft.com/bash/tip_colors_and_formatting
 
+再附一篇教程：https://www.ibm.com/developerworks/linux/library/l-tip-prompt/
 
 ## 系统服务
 
