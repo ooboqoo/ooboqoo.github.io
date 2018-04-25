@@ -20,8 +20,8 @@ $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/inst
 $ brew search [TEXT|/REGEX/]
 $ brew (info|home|options) [FORMULA...]
 $ brew install FORMULA...
-$ brew update
-$ brew upgrade [FORMULA...]
+$ brew update                # 更新 brew 自身
+$ brew upgrade [FORMULA...]  # 更新软件
 $ brew uninstall FORMULA...
 $ brew list [FORMULA...]
 
@@ -51,9 +51,10 @@ $ sudo easy_install pip
 .bash_profile (本来理想的位置是 .bashrc，但试了没效果)
 
 ```bash
-export PS1="\e[0;32m\u@\h \W> \e[m"  # 自定义提示符 `man bash` 可查看详细说明
+export PS1="\[\e[0;32m\]\u@\h \W $ \[\e[m\]"  # 自定义提示符 `man bash` 可查看详细说明
 export CLICOLOR=1  # 让控制台颜色更加丰富
 ```
+
 
 ## 其他
 
@@ -66,17 +67,3 @@ export CLICOLOR=1  # 让控制台颜色更加丰富
 ```bash
 $ echo socket5 = \"127.0.0.1:1086\" >> ~/.curlrc
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-

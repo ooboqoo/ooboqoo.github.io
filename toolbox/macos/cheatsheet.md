@@ -84,9 +84,9 @@ https://support.apple.com/zh-cn/HT201236
 Home 和 End 键
 
 ||||
-|------------------------------|-----------
-| option+left / command+Left   | Home
-| option+right / command+right | End
+|------------------------------------------|-----------
+| control+a / option+left / command+Left   | Home
+| control+e / option+right / command+right | End
 
 其他重要功能快捷键
 
