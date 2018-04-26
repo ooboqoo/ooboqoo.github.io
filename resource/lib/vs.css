@@ -111,31 +111,30 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
   content: "sass";
 }
 
-.hljs.lang-bash::after, .hljs.bash {
+.hljs.lang-bash::after, .hljs.lang-sh::after, .hljs.bash::after {
   content: "sh";
 }
 
-.hljs.lang-diff::after, .hljs.diff {
+.hljs.lang-diff::after, .hljs.diff::after {
   content: "diff";
 }
 
-.hljs.lang-sql::after, .hljs.sql {
+.hljs.lang-sql::after, .hljs.sql::after {
   content: "sql";
 }
 
-.hljs.lang-java::after, .hljs.java {
+.hljs.lang-java::after, .hljs.java::after {
   content: "java";
 }
 
-.hljs.lang-kt::after, .hljs.kt {
+.hljs.lang-kt::after, .hljs.kt::after {
   content: "kt";
 }
 
-.hljs.lang-scala::after, .hljs.scala {
+.hljs.lang-scala::after, .hljs.scala::after {
   content: "sc";
 }
 
-.hljs.lang-php::after, .hljs.php {
+.hljs.lang-php::after, .hljs.php::after {
   content: "php";
 }
-

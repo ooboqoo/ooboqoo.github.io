@@ -269,8 +269,8 @@ https://nodejs.org/dist/latest-v10.x/docs/api/crypto.html#crypto_class_hash
 
 ```js
 const crypto = require('crypto')
-const hash = crypto.createHmac('sha256')  // 注意没有使用 `new` 创建实例
-// 普通用法                               // 实例是一个转换流，切具有 update() digest() 方法
+const hash = crypto.createHmac('sha256')  // 实例是一个转换流，且具有 update() digest() 方法
+// 普通用法
 hash.update('I love cupcakes').digest('hex')
 // 流式用法
 fs.createReadStream('test.js').pipe(hash).pipe(process.stdout)
