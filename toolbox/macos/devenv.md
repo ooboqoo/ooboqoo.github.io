@@ -47,24 +47,26 @@ $ sudo easy_install pip
 
 ## 控制台细调
 
-.bashrc
+macOS 中每开启一个终端，都会去调用 .bash_profile，所以在 .bash_profile 中并没有像 Linux 一样默认导入 .bashrc 配置项。所以将配置都放 .bash_profile 是可行的，但如果在 bash 中启动一个子 bash，这时就不会去加载 .bash_profile 中内容了。所以最好还是跟 Linux 习惯对其为好。
 
-```bash
-export PS1="\[\e[0;32m\]\u@\h \W $ \[\e[m\]"  # 自定义提示符 `man bash` 可查看详细说明
-export CLICOLOR=1  # 让控制台颜色更加丰富
+.bash_profile
 
-alias ll="ls -l"
-```
+```sh
+# 自定义提示符 `man bash` 可查看详细说明
+PS1="\[\e[0;32m\]\u@\h \W $ \[\e[m\]"
+# 确保控制台颜色更加丰富，如 ls 输出彩色信息
+export CLICOLOR=1
 
-注：Mac 中 .bash_profile 不会自动导入 .bashrc 中的内容，所以需要在 .bash_profile 中添加导入
-
-```bash
 if [ -f ~/.bashrc ]; then
     . ~/.bashrc
 fi
 ```
 
-注：关于 .bash_profile 与 .bashrc 的区别：前者只在登录时加载一次，后者每个 shell 都会加载，如在 bash 中再开一个 bash，前者配置项无效，而后者配置项有效。(类似别名这种配置项不会继承)
+.bashrc
+
+```sh
+alias ll="ls -l"
+```
 
 
 ## 其他

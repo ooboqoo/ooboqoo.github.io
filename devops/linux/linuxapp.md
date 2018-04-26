@@ -44,23 +44,23 @@ rsync - a fast, versatile, remote (and local) file-copying tool
 Pull: rsync [OPTION...] [USER@]HOST:SRC... [DEST]
 Push: rsync [OPTION...] SRC... [USER@]HOST:DEST
 
-rsync -iurp --chmod=Dgo+x,Fgo+r /media/sf_52web/ /var/www/html/
-# -i 显示信息 -u 只更新 -r 递归执行 -p 保存权限信息
-# --chmod=CHMOD 更改权限（-p 不能省）
-# --delete 删除 SRC 中没有的文件
+$ rsync -iurp --chmod=Dgo+x,Fgo+r /media/sf_52web/ /var/www/html/
+  # -i 显示信息 -u 只更新 -r 递归执行 -p 保存权限信息
+  # --chmod=CHMOD 更改权限（-p 不能省）
+  # --delete 删除 SRC 中没有的文件
 ```
 
 ### `crond` 计划任务服务
 
 ```bash
-systemctl enable crond.service  # 设置 cron 服务开机启动
-systemctl start crond.service   # 立即启动 cron 服务
-crontab -e  # 编辑定时任务列表
+$ systemctl enable crond.service  # 设置 cron 服务开机启动
+$ systemctl start crond.service   # 立即启动 cron 服务
+$ crontab -e  # 编辑定时任务列表
 ```
 
 `crontab -e` 命令编辑的是 /var/spool/cron 下对应用户的 cron 文件，也可以直接修改 /etc/crontab 文件。
 
-```bash
+```txt
 分钟  小时  天  月  星期  命令
 0-59 0-23 1-31 1-12 0-6 command
 */10 * * * * date               # 每10分钟显示一次时间
@@ -73,7 +73,7 @@ crontab -e  # 编辑定时任务列表
 ssh — OpenSSH SSH client (remote login program)
 
 ```bash
-ssh -p 28379 root@104.128.85.201
+$ ssh -p 28379 root@104.128.85.201
 ```
 
 #### 配置
@@ -101,12 +101,12 @@ User root
 
 scp — secure copy (remote file copy program), scp = ssh + rcp
 
-```
-scp [-pr] [ssh options] [[user@]host1:]file1 ... [[user@]host2:]file2
-# -p 保留文档存取时间及权限信息，用 -P 指定连接端口，这与 ssh 稍有区别
-# -r 递归拷贝
+```bash
+# scp [-pr] [ssh options] [[user@]host1:]file1 ... [[user@]host2:]file2
+  # -p 保留文档存取时间及权限信息，用 -P 指定连接端口，这与 ssh 稍有区别
+  # -r 递归拷贝
 
-scp file1 file2 centos:/var/www/html  # 同时拷贝多个文件到服务器
+$ scp file1 file2 centos:/var/www/html  # 同时拷贝多个文件到服务器
 ```
 
 ## 应用专题
@@ -116,13 +116,13 @@ scp file1 file2 centos:/var/www/html  # 同时拷贝多个文件到服务器
 tail - output the last part of files
 
 ```bash
-tail -f filename  # 监控文件变化，文件有更新就会打印出来
+$ tail -f filename  # 监控文件变化，文件有更新就会打印出来
 ```
 
 watch - execute a program periodically, showing output fullscreen
 
 ```bash
-watch src cp -uvf src des  # 每隔2秒执行一次复制，这是个简易的实时文件同步命令
+$ watch src cp -uvf src des  # 每隔2秒执行一次复制，这是个简易的实时文件同步命令
 ```
 
 ### 查看日志
@@ -137,8 +137,56 @@ watch src cp -uvf src des  # 每隔2秒执行一次复制，这是个简易的�
 
 日志查看常用命令：`nl` 显示带行号；`head` 只看头几行；`tail` 只看结尾几行
 
+### 压缩打包
 
+使用 `gzip` 和 `zip` 压缩，优先用 `gzip`，但 `gzip` 打包的文件其他操作系统不一定兼容，跨操作系统分享文件就用 `zip`。
 
+`gzip` 是设计成针对单文件操作的，一般都是搭配 `tar` 命令使用。
 
+```bash
+$ gzip filename.ext       # 压缩后生成 filename.ext.gz，原文件会被删除
+$ gzip file1 file2 subdir/   # 压缩多个文件并生成相应数量的 .gz 文件，目录会被忽略
+$ gunzip filename.ext.gz  # 解压文件，原文件会被删除
 
+$ zip -r filename file1, file2, subdir  # 压缩文件 file1 file2 及 subdir 目录下内容到 filename.zip
+$ unzip -d output/ filename.zip         # 解压内容到 output 目录
+```
 
+使用 `tar` 新建存档文件
+
+```bash
+$ tar -cvf filename.tar files directories  # 打包文档
+$ tar -tvf foo.tar  # 列出存档内容
+$ tar -xvf foo.tar  # 取出存档内容
+$ tar -czvf foo.tgz foo.tar  # 调用 gzip 压缩存档文件 foo.tar，生成 foo.tgz
+$ tar -xzvf foo.tgz  # 解压并取出存档内容
+```
+
+常用参数
+
+```bash
+$ tar 
+  # -r 追加文件到档案文件末尾
+  # -t 列出档案文件内容
+  # -u 更新文件，如果找不到，就追加到档案末尾
+  # -v verbose 打印详细信息
+  # -f 使用档案文件或设备，这个选项通常是必选的
+
+$ zip -q -r -e -m -o '\user\someone\someDir\someFile.zip' '\users\someDir'
+  # -q 不显示压缩进度状态
+  # -r 将所有的子目录内容都打包。注：不指定只打包子目录本身，而不含子目录下内容
+  # -e 压缩文件需要加密，终端稍后会提示输入密码
+  # -m 压缩完删除原文件
+
+$ unzip -v test.zip  # 查看压缩文件目录，但不解压
+  # -v 查看压缩文件目录不解压
+  # -z 只显示注解不解压
+  # -t 测试文件有无损坏但不解压
+
+$ unzip -nj -x -d /tmp test.zip
+  # -d 指定解压目录
+  # -n 不覆盖已存在的文件
+  # -o 强制覆盖已存在的文件
+  # -x 解压时排除特定文件
+  # -j 不重建文档的目录结构，解压到同一目录下
+```

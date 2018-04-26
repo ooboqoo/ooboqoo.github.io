@@ -4,9 +4,40 @@
 
 ### 配置文件位置
 
-* /etc/profile.d - 此处配置全局环境变量，添加个 .sh 文件，里面的设置会被 /etc/profile 读取，影响所有用户
-* ~/.bash_profile - 保存用户个人配置，只在登录时执行一次配置，此文件会调用 .bashrc，用户个人环境变量可放在此处
-* ~/.bashrc - 保存用户个人配置，每开一个命令窗口都会执行一遍，跟终端有关的颜色设置、命令别名等应放此处
+* `/etc/profile.d` - 配置全局环境变量，添加个 .sh 文件，里面的设置会被 /etc/profile 读取，影响所有用户
+* `~/.bash_profile` - 保存用户配置，只在登录时执行一次，此文件会调用 .bashrc，适合存放环境变量和初始化用的代码
+* `~/.bashrc` - 保存用户配置，每开一个命令窗口都会执行一遍，命令别名等应放此处
+
+```sh
+# .bash_profile
+
+# User specific environment and startup programs
+PATH=$PATH:$HOME/bin
+LANG="en_US.UTF-8"
+TERM="xterm-256color"
+export CLICOLOR=1
+
+export html="/var/www/html"  # 自定义变量没有 export 为环境变量，子 bash 中就看不到
+cd $html
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+```
+
+```sh
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+# User specific aliases and functions
+alias ll="ls -lA"
+```
+
 
 #### 时区设置
 
@@ -19,8 +50,9 @@ $ shutdown -r 0                                            # 重启使所有应�
 #### 颜色设置
 
 ```bash
-# ~/.bashrc
-export TERM="xterm-256color"
+# ~/.bash_profile
+TERM="xterm-256color"
+export CLICOLOR=1      # Set CLICOLOR if you want Ansi Colors
 
 # ~/.vimrc
 set t_Co=256
@@ -29,33 +61,30 @@ set t_Co=256
 #### 语言设置
 
 ```bash
-$ locale                   # 查看地域偏好设置
-$ export LANG=en_US.UTF-8  # 临时设置环境变量，重新登录失效
+$ locale            # 查看地域偏好设置
+$ LANG=en_US.UTF-8  # 临时设置环境变量，重新登录失效
 
-# ~/.bash_profile        # 修改配置文件，影响以后每次登录
-LANG='en_US.UTF-8'
+# ~/.bash_profile   # 修改配置文件，影响以后每次登录
+LANG="en_US.UTF-8"
 ```
 
 #### 其他偏好配置
 
 ```bash
-# ~/.bash_profile    # System wide environment and startup programs, for login setup
-html='/var/www/html'
-cd $html
-
-# ~/.bashrc          # System wide functions and aliases
-alias cp='cp -i'
-alias ll='ls -lA'
-
-export PS1="\[\e[0;32m\]\u@\h \W> \[\e[m\]"  # 自定义提示符 `man bash` 可查看详细说明
+# ~/.bash_profile
+PS1="\[\e[0;32m\]\u@\h \W> \[\e[m\]"  # 自定义提示符 `man bash` 可查看详细说明
   # \[ \] - 如果要用控制字符，务必用\[和\]包裹，否则算行宽度时会出错，导致不换行等问题
   # \u – Username \h – Hostname \w – Full path of the cwd
   # \e[  – Indicates the beginning of color prompt
   # x;ym – Indicates color code. Use the color code values mentioned below.
   # \e[m – indicates the end of color prompt
+
+# ~/.bashrc
+alias cp="cp -i"
+alias ll="ls -lA"
 ```
 
-> 这里有详细的终端颜色配置说明 http://misc.flogisoft.com/bash/tip_colors_and_formatting
+详细的终端颜色配置说明 http://misc.flogisoft.com/bash/tip_colors_and_formatting
 
 再附一篇教程：https://www.ibm.com/developerworks/linux/library/l-tip-prompt/
 
@@ -182,5 +211,4 @@ $ ss -tp                 # 查看所有 tcp 端口，并显示使用的进程名
 
 
 ## SELinux 管理
-
 

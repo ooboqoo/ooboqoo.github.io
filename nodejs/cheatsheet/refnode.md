@@ -261,6 +261,31 @@ string += decoder.decode(); // end-of-stream
 ```
 
 
+## Crypto 加密
+
+Provides cryptographic functionality that includes a set of wrappers for OpenSSL's hash, HMAC, cipher, decipher, sign, and verify functions.
+
+https://nodejs.org/dist/latest-v10.x/docs/api/crypto.html#crypto_class_hash
+
+```js
+const crypto = require('crypto')
+const hash = crypto.createHmac('sha256')  // 注意没有使用 `new` 创建实例
+// 普通用法                               // 实例是一个转换流，切具有 update() digest() 方法
+hash.update('I love cupcakes').digest('hex')
+// 流式用法
+fs.createReadStream('test.js').pipe(hash).pipe(process.stdout)
+```
+
+```ts
+export interface Hash extends NodeJS.ReadWriteStream {
+  update(data: string | Buffer | DataView): Hash;  // 更新数据
+  update(data: string | Buffer | DataView, input_encoding: "utf8"|"ascii"|"latin1"): Hash;
+  digest(): Buffer;                                // 计算哈希值
+  digest(encoding: "latin1"|"hex"|"base64"): string;
+}
+```
+
+
 ## Child Processes 子进程
 
 child_process是node一个比较重要的模块，通过它可以实现创建多线程，来利用多核CPU。
