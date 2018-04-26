@@ -53,7 +53,7 @@ macOS 中每开启一个终端，都会去调用 .bash_profile，所以在 .bash
 
 ```sh
 # 自定义提示符 `man bash` 可查看详细说明
-PS1="\[\e[0;32m\]\u@\h \W $ \[\e[m\]"
+export PS1="\[\e[0;32m\]\u@\h \W $ \[\e[m\]"
 # 确保控制台颜色更加丰富，如 ls 输出彩色信息
 export CLICOLOR=1
 

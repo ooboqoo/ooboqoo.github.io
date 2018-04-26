@@ -12,12 +12,12 @@
 # .bash_profile
 
 # User specific environment and startup programs
-PATH=$PATH:$HOME/bin
-LANG="en_US.UTF-8"
-TERM="xterm-256color"
+export PATH=$PATH:$HOME/bin
+export LANG="en_US.UTF-8"
+export TERM="xterm-256color"
 export CLICOLOR=1
 
-export html="/var/www/html"  # 自定义变量没有 export 为环境变量，子 bash 中就看不到
+export html="/var/www/html"
 cd $html
 
 # Get the aliases and functions
@@ -25,6 +25,8 @@ if [ -f ~/.bashrc ]; then
     . ~/.bashrc
 fi
 ```
+
+注：没有 `export` 的自定义变量或者给环境变量赋的新值，作用域仅限于当前 shell，子 shell 中看不到。
 
 ```sh
 # .bashrc
@@ -51,7 +53,7 @@ $ shutdown -r 0                                            # 重启使所有应�
 
 ```bash
 # ~/.bash_profile
-TERM="xterm-256color"
+export TERM="xterm-256color"
 export CLICOLOR=1      # Set CLICOLOR if you want Ansi Colors
 
 # ~/.vimrc
@@ -65,14 +67,14 @@ $ locale            # 查看地域偏好设置
 $ LANG=en_US.UTF-8  # 临时设置环境变量，重新登录失效
 
 # ~/.bash_profile   # 修改配置文件，影响以后每次登录
-LANG="en_US.UTF-8"
+export LANG="en_US.UTF-8"
 ```
 
 #### 其他偏好配置
 
 ```bash
 # ~/.bash_profile
-PS1="\[\e[0;32m\]\u@\h \W> \[\e[m\]"  # 自定义提示符 `man bash` 可查看详细说明
+export PS1="\[\e[0;32m\]\u@\h \W> \[\e[m\]"  # 自定义提示符 `man bash` 可查看详细说明
   # \[ \] - 如果要用控制字符，务必用\[和\]包裹，否则算行宽度时会出错，导致不换行等问题
   # \u – Username \h – Hostname \w – Full path of the cwd
   # \e[  – Indicates the beginning of color prompt
