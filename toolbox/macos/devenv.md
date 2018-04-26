@@ -36,8 +36,7 @@ $ brew install google-chrome visual-studio-code
 
 ### Node.js
 
-可以通过 brew 来安装，但感觉这么重要的东东，还是直接从官网下载安装包安装吧。
-
+可以通过 brew 来安装，也可以直接从官网下载安装包安装。
 
 ### Python
 
@@ -48,12 +47,24 @@ $ sudo easy_install pip
 
 ## 控制台细调
 
-.bash_profile (本来理想的位置是 .bashrc，但试了没效果)
+.bashrc
 
 ```bash
 export PS1="\[\e[0;32m\]\u@\h \W $ \[\e[m\]"  # 自定义提示符 `man bash` 可查看详细说明
 export CLICOLOR=1  # 让控制台颜色更加丰富
+
+alias ll="ls -l"
 ```
+
+注：Mac 中 .bash_profile 不会自动导入 .bashrc 中的内容，所以需要在 .bash_profile 中添加导入
+
+```bash
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+```
+
+注：关于 .bash_profile 与 .bashrc 的区别：前者只在登录时加载一次，后者每个 shell 都会加载，如在 bash 中再开一个 bash，前者配置项无效，而后者配置项有效。(类似别名这种配置项不会继承)
 
 
 ## 其他
