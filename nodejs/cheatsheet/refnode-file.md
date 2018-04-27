@@ -3,6 +3,10 @@
 
 ## Buffer 缓冲
 
+在 ES 引入 TypedArray 之前，JS 缺少一种处理二进制数据流的机制。于是 Node.js 引入了 Buffer 来处理八位字节流 octet streams。TypeArray 可用后，Buffer 实现了 Unit8Array API 并作了调整和优化。
+
+Buffer 很像 arrays of integers，但 Buffer 的长度是固定不能更改的，分配内存不包含在 V8 heap 内。
+
 ```js
 const buf1 = Buffer.alloc(5)        // <Buffer 00 00 00 00 00> 长度5，内容用 `0x0` 填充
 const buf2 = Buffer.alloc(5, 1)     // <Buffer 01 01 01 01 01> 长度5，内容用 `0x1` 填充
@@ -30,9 +34,14 @@ Buffer.allocUnsafe(size)
 Buffer.allocUnsafeSlow(size)
 ```
 
-```txt
+```js
 Buffer.poolSize
 
+buf.toJSON()
+buf.toString([encoding[, start[, end]]])
+```
+
+```txt
 Buffer.byteLength(string[, encoding])
 Buffer.compare(buf1, buf2)
 Buffer.concat(list[, totalLength])
@@ -61,8 +70,6 @@ buf.values()
 buf.swap16()
 buf.swap32()
 buf.swap64()
-buf.toJSON()
-buf.toString([encoding[, start[, end]]])
 buffer.INSPECT_MAX_BYTES
 buffer.transcode(source, fromEnc, toEnc)
 ```
@@ -111,6 +118,8 @@ buf.writeUIntLE(value, offset, byteLength[, noAssert])#
 
 ## Stream 流
 
+https://medium.freecodecamp.org/node-js-streams-everything-you-need-to-know-c9141306be93
+
 所有 stream 都是 EventEmitter 的实例，stream 模块通过 `require('stream')` 导入。
 
 * Readable - streams from which data can be read, e.g. `fs.createReadStream()`
@@ -118,17 +127,167 @@ buf.writeUIntLE(value, offset, byteLength[, noAssert])#
 * Duplex - streams that are both Readable and Writable, e.g. `net.Socket`
 * Transform - Duplex streams that can modify or transform the data, e.g. `zlib.createDeflate()`
 
+```ts
+declare module "stream" {
+  import * as events from "events";
+
+  class internal extends events.EventEmitter {
+    // pipe 才是使用流的正确方式，其他杂七杂八的控制方法和事件其实都用不到，除非真的需要做到精确控制
+    // 返回值为传递的 destination
+    pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
+  }
+
+  namespace internal {
+    export class Stream extends internal { }
+
+    export interface ReadableOptions {
+      highWaterMark?: number;
+      encoding?: string;
+      objectMode?: boolean;
+      read?: (this: Readable, size?: number) => any;
+      destroy?: (error?: Error) => any;
+    }
+
+    export class Readable extends Stream implements NodeJS.ReadableStream {
+      readable: boolean;
+      readonly readableHighWaterMark: number;
+      readonly readableLength: number;
+      constructor(opts?: ReadableOptions);
+      _read(size: number): void;
+      read(size?: number): any;
+      setEncoding(encoding: string): this;
+      pause(): this;
+      resume(): this;
+      isPaused(): boolean;
+      unpipe<T extends NodeJS.WritableStream>(destination?: T): this;
+      unshift(chunk: any): void;
+      wrap(oldStream: NodeJS.ReadableStream): this;
+      push(chunk: any, encoding?: string): boolean;
+      _destroy(err: Error, callback: Function): void;
+      destroy(error?: Error): void;
+
+      addListener(event: string, listener: (...args: any[]) => void): this;
+      addListener(event: "readable", listener: () => void): this;
+      addListener(event: "data", listener: (chunk: Buffer | string) => void): this;
+      addListener(event: "end", listener: () => void): this;
+      addListener(event: "close", listener: () => void): this;
+      addListener(event: "error", listener: (err: Error) => void): this;
+
+      emit(event: string | symbol, ...args: any[]): boolean;
+      emit(event: "readable"): boolean;
+      emit(event: "data", chunk: Buffer | string): boolean;
+      emit(event: "end"): boolean;
+      emit(event: "close"): boolean;
+      emit(event: "error", err: Error): boolean;
+
+      on(event: string, listener: (...args: any[]) => void): this;
+      once(event: string, listener: (...args: any[]) => void): this;
+      prependListener(event: string, listener: (...args: any[]) => void): this;
+      prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+      removeListener(event: string, listener: (...args: any[]) => void): this;
+    }
+
+    export interface WritableOptions {
+      highWaterMark?: number;
+      decodeStrings?: boolean;
+      objectMode?: boolean;
+      write?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
+      writev?: (chunks: Array<{ chunk: string | Buffer, encoding: string }>, callback: Function) => any;
+      destroy?: (error?: Error) => any;
+      final?: (callback: (error?: Error) => void) => void;
+    }
+
+    export class Writable extends Stream implements NodeJS.WritableStream {
+      writable: boolean;
+      readonly writableHighWaterMark: number;
+      readonly writableLength: number;
+      constructor(opts?: WritableOptions);
+      _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
+      _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (err?: Error) => void): void;
+      _destroy(err: Error, callback: Function): void;
+      _final(callback: Function): void;
+      write(chunk: any, encoding?: string, cb?: Function): boolean;
+      setDefaultEncoding(encoding: string): this;
+      end(chunk?: any, encoding?: string, cb?: Function): void;
+      cork(): void;
+      uncork(): void;
+      destroy(error?: Error): void;
+
+      addListener(event: string, listener: (...args: any[]) => void): this;
+      addListener(event: "close", listener: () => void): this;
+      addListener(event: "drain", listener: () => void): this;
+      addListener(event: "error", listener: (err: Error) => void): this;
+      addListener(event: "finish", listener: () => void): this;
+      addListener(event: "pipe", listener: (src: Readable) => void): this;
+      addListener(event: "unpipe", listener: (src: Readable) => void): this;
+
+      emit(event: string | symbol, ...args: any[]): boolean;
+      emit(event: "close"): boolean;
+      emit(event: "drain", chunk: Buffer | string): boolean;
+      emit(event: "error", err: Error): boolean;
+      emit(event: "finish"): boolean;
+      emit(event: "pipe", src: Readable): boolean;
+      emit(event: "unpipe", src: Readable): boolean;
+
+      on(event: string, listener: (...args: any[]) => void): this;
+      once(event: string, listener: (...args: any[]) => void): this;
+      prependListener(event: string, listener: (...args: any[]) => void): this;
+      prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+      removeListener(event: string, listener: (...args: any[]) => void): this;
+    }
+
+    export interface DuplexOptions extends ReadableOptions, WritableOptions {
+      allowHalfOpen?: boolean;
+      readableObjectMode?: boolean;
+      writableObjectMode?: boolean;
+    }
+
+    // Note: Duplex extends both Readable and Writable.
+    export class Duplex extends Readable implements Writable {
+      writable: boolean;
+      readonly writableHighWaterMark: number;
+      readonly writableLength: number;
+      constructor(opts?: DuplexOptions);
+      _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
+      _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (err?: Error) => void): void;
+      _destroy(err: Error, callback: Function): void;
+      _final(callback: Function): void;
+      write(chunk: any, encoding?: string, cb?: Function): boolean;
+      setDefaultEncoding(encoding: string): this;
+      end(chunk?: any, encoding?: string, cb?: Function): void;
+      cork(): void;
+      uncork(): void;
+    }
+
+    export interface TransformOptions extends DuplexOptions {
+      transform?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
+      flush?: (callback: Function) => any;
+    }
+
+    export class Transform extends Duplex {
+      constructor(opts?: TransformOptions);
+      _transform(chunk: any, encoding: string, callback: Function): void;
+      destroy(error?: Error): void;
+    }
+
+    export class PassThrough extends Transform { }
+  }
+
+  export = internal;
+}
+```
+
 ### API for Stream Consumers
 
 #### stream.Writable
 
 ```txt
-Event: 'close' 可写入资源关闭了 Note: The stream is not closed when the 'error' event is emitted.
-Event: 'drain' 缓存下降，可继续写入了
-Event: 'error' 出错啦
-Event: 'finish' 调用了 stream.end() 且数据都已完成写入时触发
-Event: 'pipe' 调用 readable.pipe(writable) 向该 writable 输入数据时触发
+Event: 'pipe'   调用 readable.pipe(writable) 向该 writable 输入数据时触发
 Event: 'unpipe' 调用 readable.unpipe(writable) 将该 writable 移出 dest 时触发
+Event: 'drain'  （重要）缓存下降，腾出了空间供继续写入
+Event: 'finish' （重要）调用了 stream.end() 且数据都已完成写入时触发
+Event: 'close'  可写入资源关闭了 Note: The stream is not closed when the 'error' event is emitted.
+Event: 'error'  出错啦
 ```
 
 ```js
@@ -147,16 +306,21 @@ writable.destroy([error])
 
 #### stream.Readable
 
-Two Modes
-Three States
-Choose One
+Two Modes: flowing and paused
+  * 刚启动时是 paused 模式，有监听 data 或有 pipe 目标就自动转 flowing
+  * 去掉 pipe 目标会自动转 paused，但是去掉所有 data 监听器不会自动转回 paused 模式
+  * 没有 pipe 目标，也没有添加 data 监听器时，flowing 模式下数据会丢失
+
+Three States: readable.readableFlowing = `null` / `false` / `true` (`true`对应 flowing 模式，前两者对应 paused 模式)
+
+Choose One：不管是用 `pipe()` 还是用 `on('data')` 再或者 `read()`，一个可读流上尽量只用一种方式，不要混用。
 
 ```txt
-Event: 'close'     可读流关闭了
-Event: 'data'      数据准备好了，拿走
-Event: 'end'       这里已经没有更多数据了，都被取走了
-Event: 'error'     出错啦
-Event: 'readable'  您有新的消息
+Event: 'readable' 有数据哦，具体说明看文档
+Event: 'data'     （重要）给你数据，给你数据，...
+Event: 'end'      （重要）数据传完了
+Event: 'close'    可读流关闭了
+Event: 'error'    出错啦
 ```
 
 ```js
@@ -166,22 +330,38 @@ readable.isPaused()  // 判断是否暂停了(pipe() 时系统用，人类一般
 
 readable.setEncoding(encoding)
 
-readable.pause()  // 等着，先别主动传数据了
-readable.resume() // 从 paused 切换到 flowing 模式
-
 readable.pipe(destination[, options])
 readable.unpipe([destination])
 
-readable.unshift(chunk)  // 将取出的数据重新写回 readable
-readable.wrap(stream)
+readable.pause()  // 等着，先别主动传数据了，此时需要调用 read() 手动读取数据
+readable.resume() // 从 paused 切换到 flowing 模式，持续需要监听 data 事件以获取数据
 
-readable.read([size])
+readable.read([size])    // paused 模式下手动读取数据
+readable.unshift(chunk)  // 将取出的数据重新写回 readable
+
+readable.wrap(stream)
 readable.destroy([error])
 ```
 
 #### stream.Duplex & stream.Transform
 
+```js
 transform.destroy([error])
+```
+
+```js
+// demo - 将用户输入的字符装成大写打印
+const {Transform} = require('stream')
+process.stdin
+  .pipe(new Transform({
+    transform (chunk, encoding, callback) {
+      this.push(chunk.toString().toUpperCase())
+    }
+  }))
+  .on('data', data => console.log(data))
+  .pipe(process.stdout)
+```
+
 
 ### API for Stream Implementers
 
@@ -221,30 +401,6 @@ Events: 'finish' and 'end'
 transform._flush(callback)
 transform._transform(chunk, encoding, callback)
 Class: stream.PassThrough
-
-```js
-// learnyounode 练习 12 代码
-// 根据传入的 req 返回大写形式的 res
-const http = require('http'),
-  port = +process.argv[2],
-  createTransStream = require('./program12_createtransstream.js');
-http.createServer((req, res) => {
-  req.pipe(createTransStream(function(chunk) {
-    return chunk.toString().toUpperCase();
-  })).pipe(res);
-}).listen(port);
-
-// program12_createtransstream.js
-const Transform = require('stream').Transform;
-module.exports = function createTransStream(func) {
-  return new Transform({
-    transform(chunk, encoding, callback) {
-      this.push(func(chunk));
-      callback();
-    }
-  });
-};
-```
 
 
 ## File System 文件系统
