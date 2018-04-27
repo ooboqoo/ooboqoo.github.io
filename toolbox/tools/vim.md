@@ -54,7 +54,7 @@ Vim Cheat Sheet https://vim.rtorr.com/
 | `v`, `V`   | `v` 是行内选择；`V` 是行选择
 | `Ctrl`+`v` | Visual Block 块选择，按 `I` 或 `A` 进入多光标编辑模式
 
-注：进入多光标编辑模式时，只会在首行显示输入内容，编辑完成后按 esc 键才能看到效果。想删除的话，选中直接 x，会直观很多。
+注：进入多光标编辑模式时，只会在首行显示输入内容，编辑完成后按 esc 键才能看到效果。想删除的话，会直观很多，选中直接 x。
 
 |||
 |:------|:-----------------------
@@ -175,7 +175,7 @@ set t_Co=256        " 256 color support
 set tabstop=4       " The width of a TAB is set to 4. Still it is a \t.
 set shiftwidth=4    " Indents will have a width of 4
 set softtabstop=4   " Sets the number of columns for a TAB
-"set expandtab      " Expand TABs to spaces
+set expandtab       " Expand TABs to spaces
 set list            " Display invisible characters
 set listchars=tab:\|-,trail:~,extends:>,precedes:<  " :help listchars - for details
 hi SpecialKey ctermfg=7  " :help hi - for details of highlight
