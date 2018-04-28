@@ -1,4 +1,4 @@
-# Webpack
+# Webpack3
 
 不错的参考书 https://survivejs.com/webpack/optimizing/tree-shaking/
 
