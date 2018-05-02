@@ -3,11 +3,11 @@
 ## NPM
 
 ```bash
-$ npm install npm -g  # 更新 npm 自身
+$ npm install -g npm  # 更新 npm 自身
 $ npm -v              # 查看 npm 版本
 $ npm root -g         # 查看全局 node_modules 文件夹位置
 
-$ npm list --depth=0        # 列出安装的软件包
+$ npm list --depth=0        # 列出安装的软件包, 注意与 `git clone depth 1` 区分
 $ npm outdated              # 列出过时的包
 $ npm update                # 更新本地软件包
 $ npm update --save-dev && npm update --save  # 更新本地包并将最新版本信息写入到 package.json
@@ -185,7 +185,7 @@ npm                                       | Yarn
 `npm uninstall --save-dev [package]`      | `yarn remove [package]`
 `npm uninstall --save-optional [package]` | `yarn remove [package]`
 `npm cache clean`                         | `yarn cache clean`
-`rm -rf node_modules && npm install`      | `yarn upgrade`
+`npm ci`                                  | `yarn upgrade`
 
 推荐下载安装包安装，据说会自动设置 Path。我 `npm install yarn` 后费好大劲才找到 global 地址 `%USERPROFILE%\AppData\Local\Yarn\config\global\node_modules\.bin` 然后还得手动去设置 `PATH` 变量(设置完不用重启系统，重启终端即可)。
 

@@ -130,12 +130,12 @@ export interface BabelFileResult {
 
 ```ts
 export interface TransformOptions {
-  ast?: boolean; /** Include the AST in the returned object. Default: `true`. */
+  ast?: boolean; // =true, include the AST in the returned object
   auxiliaryCommentAfter?: string; /** Attach a comment after all non-user injected code. */
   auxiliaryCommentBefore?: string; /** Attach a comment before all non-user injected code. */
-  babelrc?: boolean; /** Specify whether or not to use `.babelrc` and `.babelignore` files. Default: `true`. */
-  code?: boolean; /** Enable code generation. Default: `true`. */
-  comments?: boolean; /** write comments to generated output. Default: `true`. */
+  babelrc?: boolean; // =true, specify whether or not to use `.babelrc` and `.babelignore` files
+  code?: boolean; // =true, enable code generation
+  comments?: boolean; // =true, write comments to generated output
   compact?: boolean | "auto";
   env?: object;
   extends?: string;
@@ -194,8 +194,8 @@ $ npm install babel-preset-env --save-dev
 ### 分环境区别配置
 
 ```bash
-export BABEL_ENV=production  # Unix
-set BABEL_ENV=production   # WIn
+export BABEL_ENV=production     # Unix
+set BABEL_ENV=production        # WIn
 cross-env BABEL_ENV=production  # 借助 cross-env 配置环境变量
 ```
 

@@ -153,8 +153,8 @@ declare module "stream" {
       readonly readableHighWaterMark: number;
       readonly readableLength: number;
       constructor(opts?: ReadableOptions);
-      _read(size: number): void;
-      read(size?: number): any;
+      _read(size: number): void;  // 自定义读取时的行为
+      read(size?: number): any;   // 执行读取操作
       setEncoding(encoding: string): this;
       pause(): this;
       resume(): this;
@@ -162,7 +162,7 @@ declare module "stream" {
       unpipe<T extends NodeJS.WritableStream>(destination?: T): this;
       unshift(chunk: any): void;
       wrap(oldStream: NodeJS.ReadableStream): this;
-      push(chunk: any, encoding?: string): boolean;
+      push(chunk: any, encoding?: string): boolean; // push 以供读取
       _destroy(err: Error, callback: Function): void;
       destroy(error?: Error): void;
 
@@ -355,7 +355,8 @@ const {Transform} = require('stream')
 process.stdin
   .pipe(new Transform({
     transform (chunk, encoding, callback) {
-      this.push(chunk.toString().toUpperCase())
+      this.push(chunk.toString().toUpperCase())       // 可单独 push
+      callback(null, chunk.toString().toLowerCase())  // 或放到 callback(隐式调用 push)
     }
   }))
   .on('data', data => console.log(data))
@@ -365,42 +366,43 @@ process.stdin
 
 ### API for Stream Implementers
 
-Simplified Construction
-
-Implementing a Writable Stream
-Constructor: new stream.Writable([options])
+||
+----------|-------------------------
+Readable  | `_read`
+Writable  | `_write`, `_writev`?, `_final`?
+Duplex    | `_read`, `_write`, `_writev`?, `_final`?
+Transform | `_transform`, `_flush`?, `_final`?
 
 ```js
-writable._write(chunk, encoding, callback)
-writable._writev(chunks, callback)
-writable._destroy(err, callback)
-writable._final(callback)
+const { Writable } = require('stream')
+
+// 要自定义一个可写流，必须提供 `_write` 的具体实现
+class MyWritable extends Writable {
+  constructor(options) {
+    super(options);
+    // ...
+  }
+  _write(chunk, encoding, callback) { /* ... */ }  // 注意这里带下划线
+}
+
+// 对于一些简单的使用场景，可以通过向构造函数 `Writable` 直接传递 `write` 方法创建自定义可写流
+const myWritable1 = new Writabel({
+  wirte(chunk, encoding, callback) { /* ... */ }   // 注意这里不带下划线
+})
 ```
 
-Errors While Writing
-An Example Writable Stream
-Decoding buffers in a Writable Stream
+Node.js 源码：
 
-Implementing a Readable Stream
-new stream.Readable([options])
-readable._read(size)
-readable._destroy(err, callback)
-readable.push(chunk[, encoding])
-
-Errors While Reading
-An Example Counting Stream
-
-Implementing a Duplex Stream
-new stream.Duplex(options)
-An Example Duplex Stream
-Object Mode Duplex Streams
-
-Implementing a Transform Stream
-new stream.Transform([options])
-Events: 'finish' and 'end'
-transform._flush(callback)
-transform._transform(chunk, encoding, callback)
-Class: stream.PassThrough
+```js
+function Writable(options) {
+  // ...
+  if (options) {
+    if (typeof options.write === 'function') this._write = options.write;
+    // ...
+  }
+  Stream.call(this);
+}
+```
 
 
 ## File System 文件系统
@@ -520,8 +522,8 @@ Note that it is unsafe to use fs.write multiple times on the same file without w
 | fs.exists(path, callback)   | 已废弃，使用 `fs.stat()` 或 `fs.access()` 替代。<span class="mark">[注]</span>
 | fs.mkdir(path[, mode], callback)         | 新建一个目录
 | fs.mkdtemp(prefix[, options], callback)  | 新建一个目录，目录名为 prefix 加 6位随机字符
-| fs.link(existingPath, newPath, callback) | 
-| fs.access(path[, mode], callback)        | 
+| fs.link(existingPath, newPath, callback) ||
+| fs.access(path[, mode], callback)        ||
 | fs.utimes(path, atime, mtime, callback)  | 改变文件的系统时间戳，有点 `touch` 的感觉
 
 注：在读写操作前不应该去检查文件是否存在，因为即使检查了，当实际操作时还是可能已经改变了状态。
