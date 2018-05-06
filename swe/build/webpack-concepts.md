@@ -1,67 +1,23 @@
-# Webpack4
+# Webpack 概念
 
-https://webpack.js.org/guides/  
 https://doc.webpack-china.org/concepts/
 
 
-## Getting Started
 
-```bash
-$ mkdir webpack-demo && cd webpack-demo
-$ npm init -y
-$ npm install --save-dev webpack   # 推荐安装到项目目录下
-$ npm run build  # 在创建以下文件后运行 webpack 打包
-```
+本质上，webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。
 
-dist/index.html
+### 入口 entry
 
-```html
-<html>
-  <head>
-    <title>Getting Started</title>
-  </head>
-  <body>
-    <script src="bundle.js"></script>
-  </body>
- </html>
-```
 
-src/index.js
+### 输出 output
 
-```js
-function component() {
-  var element = document.createElement('div');
-  element.innerHTML = 'Hello webpack';
-  return element;
-}
-document.body.appendChild(component());
-```
 
-webpack.config.js
+### loader
 
-```js
-const path = require('path');
 
-module.exports = {
-  entry: './src/index.js',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
-  }
-};
-```
+### 插件 plugins
 
-package.json
 
-```js
-{
-  ...
-  "scripts": {
-    "build": "webpack"
-  },
-  ...
-}
-```
 
 
 ## Asset Management

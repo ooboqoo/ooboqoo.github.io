@@ -15,7 +15,7 @@ Gulp 是基于 Node.js 的自动任务运行器，她能自动化地完成 javas
 
 Gulp 和 Grunt 非常类似，但相比于 Grunt 的频繁 IO 操作，Gulp 的流操作，能更快地更便捷地完成构建工作。
 
-Gulp 使用步骤：全局安装 Gulp -> 新建 package.json -> 项目安装 Gulp 及其插件 -> 配置 gulpfile.js -> 运行任务
+Gulp 使用步骤：全局安装 Gulp CLI -> 新建 package.json -> 项目安装 Gulp 及其插件 -> 配置 gulpfile.js -> 运行任务
 
 ```bash
 $ npm install -g gulp-cli
@@ -41,6 +41,7 @@ gulp.task('testLess', function () {
 
 /* 定义默认任务，elseTask 为其他任务，该示例没有定义 elseTask 任务 */
 gulp.task('default', ['testLess', 'elseTask']); // 虽然没有实际定义 default，但会执行定义的两个前置任务
+                                                // 所依赖的任务会并发执行，没有先后顺序
 
 // gulp.task(name[, deps], fn) 定义任务  name：任务名称 deps：依赖任务名称 fn：回调函数
 // gulp.src(globs[, options]) 执行任务处理的文件  globs：处理的文件路径(字符串或者字符串数组) 

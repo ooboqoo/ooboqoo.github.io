@@ -11,7 +11,7 @@ https://babeljs.io/docs/plugins/transform-es2015-block-scoping/
 #### 安装并使用 CLI
 
 ```bash
-$ mkdir babel && cd babel
+$ mkdir babel-demo && cd babel-demo
 $ npm init -y
 $ npm i -D babel-cli
 ```
@@ -85,11 +85,10 @@ $ npm install --save-dev babel-preset-env
 {
   "presets": [
     // 配置项写法: 不带参 string 带参 [preset, options]
-    ["env", {
-      "targets": {
-        "browsers": ["last 2 versions", "safari >= 7"]
-      }
-    }]
+    [
+      "env",
+      {"targets": {"browsers": ["last 2 versions", "safari >= 7"]}}
+    ]
   ]
 }
 ```

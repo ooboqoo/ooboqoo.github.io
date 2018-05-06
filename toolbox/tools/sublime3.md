@@ -3,6 +3,20 @@
 [Sublime Text Unofficial Documentation](http://docs.sublimetext.info/en/latest/index.html)   
 [Package Control](https://packagecontrol.io/installation)
 
+
+## 注册
+
+https://gist.github.com/svmotha/9fae060072bd88d6168e738dd09d85a3
+
+`C:\Windows\System32\drivers\etc\hosts` 或 `/etc/hosts` 添加一行
+
+```txt
+0.0.0.0 license.sublimehq.com
+```
+
+然后再输入 Twitter license 即可。如果没有上一行配置，sublime 会连接服务器验证，然后就会发现此授权已失效。
+
+
 ## 颜色主题设置
 
 [Garden 主题文件](/001/Garden.tmTheme)
@@ -35,7 +49,10 @@
 安装 BracketHighlighter 插件即可解决此问题。
 
 
+
+
 ## 快捷键列表
+
 <p>屌丝的默认快捷键设置：{ "keys": ["ctrl+k", "ctrl+b"], "command": "toggle_side_bar" } 的意思是 Hide Side Bar is the sequence Ctrl+K, Ctrl+B（先按Ctrl+K, 再按Ctrl+B）不谷歌能看懂？</p>
 <p>默认快键键列表在 <code>Preferences -> Key Bindings - Default</code></p>
 <p>Emmet 默认快键键列表在 <code>Preferences -> Package Settings -> Emmet -> Key Bindings - Default</code></p>
