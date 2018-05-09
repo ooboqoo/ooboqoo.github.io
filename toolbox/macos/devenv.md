@@ -78,5 +78,5 @@ alias ll="ls -l"
 方法2：走代理
 
 ```bash
-$ echo socket5 = \"127.0.0.1:1086\" >> ~/.curlrc
+$ echo proxy=socks5://127.0.0.1:1086 >> ~/.curlrc
 ```
