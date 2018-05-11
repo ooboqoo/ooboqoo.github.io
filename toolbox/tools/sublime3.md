@@ -4,7 +4,18 @@
 [Package Control](https://packagecontrol.io/installation)
 
 
-## 注册
+## 设置
+
+```json
+{
+  "color_scheme": "Packages/Colorsublime-Themes/Garden.tmTheme",
+  "draw_white_space": "all",
+  "font_size": 13,
+  "update_check": false
+}
+```
+
+### 注册
 
 https://gist.github.com/svmotha/9fae060072bd88d6168e738dd09d85a3
 
@@ -16,12 +27,11 @@ https://gist.github.com/svmotha/9fae060072bd88d6168e738dd09d85a3
 
 然后再输入 Twitter license 即可。如果没有上一行配置，sublime 会连接服务器验证，然后就会发现此授权已失效。
 
-
-## 颜色主题设置
+### 颜色主题设置
 
 [Garden 主题文件](/001/Garden.tmTheme)
 
-### How to install a Sublime Text theme
+#### How to install a Sublime Text theme
 
 `Preferences -> Browse Packages` 进入"Packages"文件夹，并创建"Colorsublime-Themes"，再将下载的主题文件放入该文件夹。
 
@@ -37,18 +47,12 @@ https://gist.github.com/svmotha/9fae060072bd88d6168e738dd09d85a3
 }
 ```
 
-### 自定义主题的相关文档和资料
+#### 自定义主题的相关文档和资料
 
 如何查看要修改的部分的scope：`ctrl+alt+shift+p`
 
 [Colorsublime How to install a theme](http://colorsublime.com/how-to-install-a-theme)   
 [Color Schemes — Sublime Text Unofficial Documentation](http://docs.sublimetext.info/en/latest/reference/color_schemes.html)
-
-### 解决标记匹配高亮不明显问题
-
-安装 BracketHighlighter 插件即可解决此问题。
-
-
 
 
 ## 快捷键列表
