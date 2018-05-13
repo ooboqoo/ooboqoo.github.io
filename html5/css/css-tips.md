@@ -99,6 +99,10 @@ CSS3 中引入了 `vh` 单位，表示视窗 viewport 的百分之一高度，�
 
 table-cell 方案
 
+注：`vertical-align` 只在两种环境内有效：
+  * To vertically align an inline element's box inside its containing line box.
+  * To vertically align the content of a cell in a table.
+
 ```html
 <style>
 .demo-item {

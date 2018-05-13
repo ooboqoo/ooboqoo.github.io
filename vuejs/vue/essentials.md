@@ -50,6 +50,48 @@ $ npm run build  # 生成生产版本
 * CommonJS：CommonJS 版本用来配合老的打包工具比如 Browserify 或 webpack 1。
 * ES Module：ES module 版本用来配合现代打包工具比如 webpack 2 或 Rollup。
 
+### 调试
+
+https://github.com/vuejs/vue-devtools
+
+#### vue-devtools
+
+安装：默认以 Chrome Extension 的形式提供，对于一些特殊场合，还提供了 Get standalone Electron app 选项。
+
+Vue.JS DevTool 提供了一个在控制台快捷访问 Vue 实例的方式：`$vm` / `$vm0` `$vm1` `$vm2` etc. (You can access the previously selected instances via $vm1 , $vm2 , etc.)
+
+注：生产版本无法使用该工具
+注：想调试直接通过文件协议 `file://` 访问的页面，需要在 Chrome's extension management panel 中开启选项 Allow access to file URLs
+
+##### vue-remote-devtools
+
+在没办法直接使用 vue-devtools 的情况下，这是个很好的解决方案。只要在 HTML 内插入一段代码，并启动该应用即可调试。
+
+安装
+
+```bash
+$ npm install -g @vue/devtools
+```
+
+使用步骤 1：开启应用
+
+```bash
+$ vue-devtools
+```
+
+使用步骤 2：在 HTML 中插入以下代码(实际见应用中提示)
+
+```html
+<script src="http://localhost:8098"></script>
+```
+
+#### 通过全局变量调试
+
+```js
+window.app = new Vue()  // [在代码中] 将 vm 实例暴露为一个全局变量
+app.$children[0].$children[0].foo.bar = 3  // [在控制台中] 修改组件数据
+```
+
 
 ## 介绍
 

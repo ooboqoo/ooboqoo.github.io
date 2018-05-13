@@ -104,6 +104,104 @@ unwatch();                        // 之后取消观察
 
 ## Vue Router
 
+```html
+<router-link to="home">Home</router-link>
+<router-link :to="'home'">Home</router-link>
+<router-link :to="{ path: 'home' }">Home</router-link>
+<router-link :to="{ name: 'user', params: { userId: 123 }}">User</router-link>
+<router-link :to="{ path: 'register', query: { plan: 'private' }}">Register</router-link>
+
+<!--
+  replace  调用 router.replace() 而非 router.push()
+  append   基于当前路径(基路径)跳转
+  tag      默认会渲染成 a 标签，可通过此属性更换  <router-link to="/foo" tag="li">foo</router-link>
+  exact    匹配激活链接时，必须是完全匹配
+  .router-link-active  链接激活时会添加此类，可以通过路由的构造选项 linkActiveClass 来更改类名
+  .router-link-exact-active  链接被精确匹配时的类名，可通过 linkExactActiveClass 选项更改
+-->
+
+<transition>
+  <keep-alive>
+    <router-view></router-view>
+  </keep-alive>
+</transition>
+```
+
+
+## Vue Resource
+
+https://github.com/pagekit/vue-resource/blob/develop/docs/api.md
+
+Request
+
+```
+{
+  // Constructor
+  constructor(object: config)
+
+  // Properties
+  url (string)
+  body (any)
+  headers (Headers)
+  method (string)
+  params (object)
+  timeout (number)
+  credentials (boolean)
+  emulateHTTP (boolean)
+  emulateJSON (boolean)
+  before (function(Request))
+  progress (function(Event))
+
+  // Methods
+  getUrl() (string)
+  getBody() (any)
+  respondWith(any: body, object: config) (Response)
+  abort()
+}
+```
+
+Response
+
+```
+{
+  // Constructor
+  constructor(any: body, object: {string: url, object: headers, number: status, string: statusText})
+
+  // Properties
+  url (string)
+  body (any)
+  headers (Headers)
+  ok (boolean)
+  status (number)
+  statusText (string)
+
+  // Methods
+  blob() (Promise)
+  text() (Promise)
+  json() (Promise)
+}
+```
+
+Headers
+
+```
+{
+  // Constructor
+  constructor(object: headers)
+
+  // Properties
+  map (object)
+
+  // Methods
+  has(string: name) (boolean)
+  get(string: name) (string)
+  getAll() (string[])
+  set(string: name, string: value) (void)
+  append(string: name, string: value) (void)
+  delete(string: name) (void)
+  forEach(function: callback, any: thisArg) (void)
+}
+```
 
 
 ## Vuex

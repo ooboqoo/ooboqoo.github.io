@@ -115,6 +115,16 @@ buf.writeUIntBE(value, offset, byteLength[, noAssert])#
 buf.writeUIntLE(value, offset, byteLength[, noAssert])#
 ```
 
+## String Decoder
+
+```js
+new StringDecoder(encoding='utf8')
+decoder.end(buffer?): string
+decoder.write(buffer): string
+```
+
+与 `buffer.toString()` 的区别是，对于不完整的输入，`decoder.write()` 只会返回完整的部分，对于不完整的部分，会等待下次录入完整信息后再输出，而不像 `toString()` 直接出乱码。
+
 
 ## Stream 流
 
