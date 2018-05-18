@@ -6,6 +6,27 @@
   * C 推荐 - 将选择和认知成本最小化
   * D 谨慎使用 - 有潜在危险的模式
 
+## 避坑指南
+
+### 事件名应该始终用小写
+
+如 `ontouchcancel` `onloadedmetadata` 不要有大小写，或者分割线 <s>myEvent</s> <s>my-event</s>
+
+```js
+Vue.component('child-comp', {
+  template: `<button @click="eimtEvent">触发事件<button>`,
+  methods: {
+    emitEvent () { this.emit('anyName') }
+  }
+})
+Vue.component('aprent-comp', {\
+  template: `<child-comp @anyName="eventHandler"></child-comp>`, // `anyname` `any-name` 都不工作，Vue 的提示是错误的
+  methods: {
+    eventHandler () { alert('works') }
+  }
+})
+```
+
 
 ## A 必要的
 
