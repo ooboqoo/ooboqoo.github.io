@@ -209,7 +209,7 @@ module.exports = {
     // 用于查找模块的目录
 
     [extensions](/configuration/resolve#resolve-extensions): [".js", ".json", ".jsx", ".css"],
-    // 使用的扩展名
+    // 可以省略的扩展名，加载时 webpack 会尝试自动添加这些扩展名
 
     [alias](/configuration/resolve#resolve-alias): {
       // 模块别名列表
