@@ -46,9 +46,9 @@ Semantic versioning is a standard that a lot of projects use to communicate what
 
 Angular versioning will then follow the MAJOR.MINOR.PATCH scheme as described by [semver](http://semver.org/spec/v2.0.0.html):
 
-the MAJOR version gets incremented when incompatible API changes are made to stable APIs,   
-the MINOR version gets incremented when backwards-compatible functionality are added,   
-the PATCH version gets incremented when backwards-compatible bug are fixed.
+the *MAJOR* version gets incremented when incompatible API changes are made to stable APIs,   
+the *MINOR* version gets incremented when backwards-compatible functionality are added,   
+the *PATCH* version gets incremented when backwards-compatible bug are fixed.
 
 #### Semver for publishers
 

@@ -12,18 +12,17 @@
 
 如 `ontouchcancel` `onloadedmetadata` 不要有大小写，或者分割线 <s>myEvent</s> <s>my-event</s>
 
+> Vue 内置的一些事件使用了 `my-event` 的形式，统一下也可以，但绝对不要用驼峰形式的事件名。
+
 ```js
 Vue.component('child-comp', {
-  template: `<button @click="eimtEvent">触发事件<button>`,
-  methods: {
-    emitEvent () { this.emit('anyName') }
-  }
+  template: `<button @click="emitEvent">触发事件</button>`,
+  methods: { emitEvent () { this.$emit('anyName') } }
 })
-Vue.component('aprent-comp', {\
-  template: `<child-comp @anyName="eventHandler"></child-comp>`, // `anyname` `any-name` 都不工作，Vue 的提示是错误的
-  methods: {
-    eventHandler () { alert('works') }
-  }
+Vue.component('parent-comp', {
+  // `anyname` `any-name` 都不工作，Vue 的提示是错误的
+  template: `<child-comp @anyName="eventHandler"></child-comp>`,
+  methods: { eventHandler () { alert('works') } }
 })
 ```
 
@@ -128,7 +127,7 @@ var myGreatMixin = {
 
 ### 基础组件名应该全部以一个特定的前缀开头
 
-应用特定样式和约定的基础组件 (也就是展示类的、无逻辑的或无状态的组件) 应该全部以一个特定的前缀开头，比如 `Base`、`App` 或 `V`。
+应用特定样式和约定的基础组件 (即展示类的、无逻辑的或无状态的组件) 全部以一个特定的前缀开头，比如 `Base`、`App` 或 `V`。
 
 ### 单例组件名应该以 The 前缀命名
 
@@ -190,7 +189,7 @@ SettingsCheckboxLaunchOnStartup.vue
 
 ### 在单文件组件和字符串模板中组件名应该总是大驼峰格式的
 
-对于绝大多数项目来说，在单文件组件和字符串模板中组件名应该总是 PascalCase 的——但是在 DOM 模板中总是 kebab-case 的。
+对于绝大多数项目来说，在单文件组件和字符串模板中组件名始终用 PascalCase —— 但在 DOM 模板中始终用 kebab-case。
 
 PascalCase 相比 kebab-case 有一些优势：
   * 编辑器可以在模板里自动补全组件名，因为 PascalCase 同样适用于 JavaScript。
@@ -220,6 +219,8 @@ export default {name: 'MyComponent', /* ... */};
 编辑器中的自动补全已经让书写长命名的代价非常之低了，而其带来的明确性却是非常宝贵的。不常用的缩写尤其应该避免。
 
 ### Prop 名在 JS 中用 camelCase 在 HTML 中用 kebab-case
+
+> 监听事件时，大小写必须完全一致，否则捕获不到事件。避免踩坑的最好方式是，事件名始终用小写(跟 DOM 事件命名保持一致)
 
 在声明 prop 的时候，其命名应该始终使用 camelCase，而在模板和 JSX 中应该始终使用 kebab-case。
 

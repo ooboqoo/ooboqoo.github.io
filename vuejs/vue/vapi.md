@@ -17,10 +17,17 @@
 
 <!-- 表单双向绑定 -->
 <input v-model="message">
+<input v-model.number="age" type="number">  <!-- `number` 修饰符自动将输入转为数值类型 -->
+<input v-model.trim="msg">                  <!-- `trim` 修饰符自动过滤输入的首尾空白字符 -->
 
-<!-- 条件与循环 -->
-<p v-if="seen">现在你看到我了</p>
+<!-- 条件渲染 -->
+<div v-if="type === 'A'"> A </div>
+<div v-else-if="type === 'B'"> B </div> <!-- 必须是紧跟在 v-if 后才生效 -->
+<div v-else> Not A/B </div>
+
+<!-- 循环 -->
 <li v-for="todo in todos" :key="todo.id">{{ todo.text }}</li> <!-- 始终指定 key 是最佳实践 -->
+<div v-for="(val, key, index) in object"></div>
 
 <!-- 添加事件监听器 -->
 <button v-on:click="someMethod">完整写法</button>
@@ -104,17 +111,19 @@ unwatch();                        // 之后取消观察
 
 ## Vue Router
 
+声明式路由
+
 ```html
-<router-link to="home">Home</router-link>
+<router-link to="home">Home</router-link>    <!-- `router.push('/home')` -->
 <router-link :to="'home'">Home</router-link>
-<router-link :to="{ path: 'home' }">Home</router-link>
-<router-link :to="{ name: 'user', params: { userId: 123 }}">User</router-link>
-<router-link :to="{ path: 'register', query: { plan: 'private' }}">Register</router-link>
+<router-link :to="{path: 'home'}">Home</router-link>
+<router-link :to="{name: 'user', params: {userId: 123}}" tag="li">User</router-link>
+<router-link :to="{path: 'register', query: {plan: 'private'}}">Register</router-link>
 
 <!--
-  replace  调用 router.replace() 而非 router.push()
+  replace  调用 `router.replace()` 而非 `router.push()`
   append   基于当前路径(基路径)跳转
-  tag      默认会渲染成 a 标签，可通过此属性更换  <router-link to="/foo" tag="li">foo</router-link>
+  tag      默认会渲染成 a 标签，可通过此属性更换 `<router-link to="/foo" tag="li">foo</router-link>`
   exact    匹配激活链接时，必须是完全匹配
   .router-link-active  链接激活时会添加此类，可以通过路由的构造选项 linkActiveClass 来更改类名
   .router-link-exact-active  链接被精确匹配时的类名，可通过 linkExactActiveClass 选项更改
@@ -125,6 +134,16 @@ unwatch();                        // 之后取消观察
     <router-view></router-view>
   </keep-alive>
 </transition>
+```
+
+编程式路由
+
+```js
+router.push(location, onComplete?, onAbort?)
+router.replace(location, onComplete?, onAbort?)
+router.go(n)
+router.back()
+router.forward()
 ```
 
 
@@ -249,13 +268,3 @@ mapActions(namespace?: string, map: Array<string> | Object): Object
 mapMutations(namespace?: string, map: Array<string> | Object): Object
 createNamespacedHelpers(namespace: string): Object
 ```
-
-
-## Vue Resource
-
-
-
-
-
-
-
