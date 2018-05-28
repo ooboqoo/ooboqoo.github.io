@@ -90,7 +90,7 @@ const router = new VueRouter({
 
 ### 响应路由参数的变化
 
-当使用路由参数时，例如从 `/user/foo` 导航到 `/user/bar`，原来的组件实例会被复用。复用组件时，想对路由参数的变化作出响应的话，你可以简单地 watch (监测变化) $route 对象：
+当使用路由参数时，例如从 `/user/foo` 导航到 `/user/bar`，原来的组件实例会被复用。复用组件时，想对路由参数的变化作出响应的话，你可以简单地 `watch` (监测变化) `$route` 对象：
 
 ```js
 const User = {
@@ -167,7 +167,7 @@ router.push({path: 'register', query: {plan: 'private'}})
 const userId = 123
 router.push({name: 'user', params: {userId}})  // -> /user/123
 router.push({path: `/user/${userId}`})         // -> /user/123
-// 这里的 params 不生效
+// 这里的 params 不生效，即，等同于没写，在 `$route.params` 中也看不到任何信息
 router.push({path: '/user', params: {userId}}) // -> /user
 ```
 
@@ -180,22 +180,15 @@ router.push({path: '/user', params: {userId}}) // -> /user
 
 ```js
 const router = new VueRouter({
-  routes: [
-    {
-      path: '/user/:userId',
-      name: 'user',
-      component: User
-    }
-  ]
+  routes: [{name: 'user', path: '/user/:userId', component: User}]
 })
-
 router.push({name: 'user', params: {userId: 123}})
 ```
 
 
 ## 命名视图
 
-有时候想同时 (同级) 展示多个视图，而不是嵌套展示，例如创建一个布局，有 sidebar (侧导航) 和 main (主内容) 两个视图，这个时候命名视图就派上用场了。你可以在界面中拥有多个单独命名的视图，而不是只有一个单独的出口。如果 router-view 没有设置名字，那么默认为 default。
+有时候想同时 (同级) 展示多个视图，而不是嵌套展示，例如创建一个布局，有 sidebar (侧导航) 和 main (主内容) 两个视图，这个时候命名视图就派上用场了。你可以在界面中拥有多个单独命名的视图，而不是只有一个单独的出口。如果 `router-view` 没有设置名字，那么默认为 `default`。
 
 ```html
 <router-view class="view one"></router-view>
@@ -225,7 +218,7 @@ const router = new VueRouter({
 
 ### 重定向
 
-重定向也是通过 routes 配置来完成，下面例子是从 /a 重定向到 /b：
+重定向也是通过 `routes` 配置来完成，下面例子是从 `/a` 重定向到 `/b`：
 
 ```js
 const router = new VueRouter({
@@ -242,11 +235,11 @@ const router = new VueRouter({
 })
 ```
 
-注意：导航守卫并没有应用在跳转路由上，而仅仅应用在其目标上。在下面这个例子中，为 /a 路由添加一个 `beforeEach` 或 `beforeLeave` 守卫并不会有任何效果。
+注意：导航守卫并没有应用在跳转路由上，而仅仅应用在其目标上。在下面这个例子中，为 `/a` 路由添加一个 `beforeEach` 或 `beforeLeave` 守卫并不会有任何效果。
 
 ### 别名
 
-/a 的别名是 /b，意味着，当用户访问 /b 时，URL 会保持为 /b，但是路由匹配则为 /a，就像用户访问 /a 一样。
+`/a` 的别名是 `/b`，意味着，当用户访问 `/b` 时，URL 会保持为 `/b`，但是路由匹配则为 `/a`，就像用户访问 `/a` 一样。
 
 上面对应的路由配置为：
 
@@ -263,7 +256,7 @@ const router = new VueRouter({
 
 ## 路由组件传参
 
-在组件中使用 $route 会使之与其对应路由形成高度耦合，使用 `props` 可以将组件和路由解耦。这样你便可以在任何地方使用该组件，使得该组件更易于重用和测试。
+在组件中使用 `$route` 会使之与其对应路由形成高度耦合，使用 `props` 可以将组件和路由解耦。这样你便可以在任何地方使用该组件，使得该组件更易于重用和测试。
 
 ```js
 const User = {
@@ -317,6 +310,15 @@ const router = new VueRouter({
 
 所以呢，你要在服务端增加一个覆盖所有情况的候选资源：如果 URL 匹配不到任何静态资源，则应该返回同一个 index.html 页面，这个页面就是你 app 依赖的页面。
 
+但这么做以后，你的服务器就不再返回 404 错误页面，因为对于所有路径都会返回 index.html 文件。为了避免这种情况，你应该在 Vue 应用里面覆盖所有的路由情况，然后在给出一个 404 页面。
+
+```js
+const router = new VueRouter({
+  mode: 'history',
+  routes: [{path: '*', component: NotFoundComponent}]
+})
+```
+
 
 ## 路由守卫
 
@@ -341,11 +343,11 @@ router.beforeEach((to: Route, from: Route, next: Function) => {
 
 当一个导航触发时，全局前置守卫按照创建顺序调用。守卫是异步解析执行，此时导航在所有守卫 resolve 完之前一直处于等待中。
 
-一定要调用 `next` 方法来 resolve 这个钩子。执行效果依赖 next 方法的调用参数。
+一定要调用 `next` 方法来 resolve 这个钩子。执行效果依赖 `next` 方法的调用参数。
   * `next()`: 进行管道中的下一个钩子。如果全部钩子执行完了，则导航的状态就是 confirmed (确认的)。
-  * `next(false)`: 中断当前的导航。如果浏览器的 URL 改变了 (可能是用户手动或者浏览器后退按钮)，那么 URL 地址会重置到 from 路由对应的地址。
-  * `next('/')` 或者 `next({path: '/'})`: 跳转到一个不同的地址。当前的导航被中断，然后进行一个新的导航。你可以向 next 传递任意位置对象，且允许设置诸如 replace: true、name: 'home' 之类的选项以及任何用在 router-link 的 to prop 或 router.push 中的选项。
-  * `next(error)`: 如果传入 next 的参数是一个 Error 实例，则导航会被终止且该错误会被传递给 router.onError() 注册过的回调。
+  * `next(false)`: 中断当前的导航。如果浏览器的 URL 改变了 (可能是用户手动或者浏览器后退按钮)，那么 URL 地址会重置到 `from` 路由对应的地址。
+  * `next('/')` 或者 `next({path: '/'})`: 跳转到一个不同的地址。当前的导航被中断，然后进行一个新的导航。你可以向 `next` 传递任意位置对象，且允许设置诸如 `replace: true`、`name: 'home'` 之类的选项以及任何用在 `router-link` 的 `to` prop 或 `router.push` 中的选项。
+  * `next(error)`: 如果传入 `next` 的参数是一个 `Error` 实例，则导航会被终止且该错误会被传递给 `router.onError()` 注册过的回调。
 
 
 #### 全局解析守卫
