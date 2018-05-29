@@ -12,7 +12,7 @@
 
 如 `ontouchcancel` `onloadedmetadata` 不要有大小写，或者分割线 <s>myEvent</s> <s>my-event</s>
 
-> Vue 内置的一些事件使用了 `my-event` 的形式，统一下也可以，但绝对不要用驼峰形式的事件名。
+> Vue 内置的一些事件使用了 `my-event` `update:foo`的形式，统一下也可以，但绝对不要用驼峰形式的事件名。
 
 ```js
 Vue.component('child-comp', {

@@ -451,3 +451,31 @@ export default {
 
 
 ## 滚动行为
+
+
+## 路由懒加载
+
+结合 Vue 的异步组件和 Webpack 的代码分割功能，轻松实现路由组件的懒加载。
+
+```js
+const Foo = () => import('./Foo.vue')
+
+const router = new VueRouter({
+  routes: [{path: '/foo', component: Fo }]
+})
+```
+
+注意：如果使用了 Babel，需要添加 syntax-dynamic-import 插件，才能使 Babel 可以正确地解析语法。
+
+### 把组件按组分块
+
+有时候我们想把某个路由下的所有组件都打包在同个异步块 (chunk) 中。只需要使用 [命名 chunk](https://webpack.js.org/guides/code-splitting-require/#chunkname)，一个特殊的注释语法来提供 chunk name (需要 Webpack > 2.4)。
+
+```js
+const Foo = () => import(/* webpackChunkName: "group-foo" */ './Foo.vue')
+const Bar = () => import(/* webpackChunkName: "group-foo" */ './Bar.vue')
+const Baz = () => import(/* webpackChunkName: "group-foo" */ './Baz.vue')
+```
+
+Webpack 会将任何一个异步模块与相同的块名称组合到相同的异步块中。
+

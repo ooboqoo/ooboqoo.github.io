@@ -30,7 +30,7 @@ new Vue({
 
 ### DOM 解析限制
 
-当使用 DOM 作为模板时 (例如，使用 el 选项来把 Vue 实例挂载到一个已有内容的元素上)，你会受到 HTML 本身的一些限制，因为 Vue 只有在浏览器解析、规范化模板之后才能获取其内容。尤其要注意，像 ul、ol、table、select 这样的元素里允许包含的元素有限制，而另一些像 option 这样的元素只能出现在某些特定元素的内部。
+当使用 DOM 作为模板时 (例如，使用 `el` 选项来把 Vue 实例挂载到一个已有内容的元素上)，你会受到 HTML 本身的一些限制，因为 Vue 只有在浏览器解析、规范化模板之后才能获取其内容。尤其要注意，像 `ul`、`ol`、`table`、`select` 这样的元素里允许包含的元素有限制，而另一些像 `option` 这样的元素只能出现在某些特定元素的内部。
 
 ```html
 <table>
@@ -467,11 +467,13 @@ var child = parent.$refs.profile;  // 访问子组件实例
 ```
 
 注1：当 `ref` 和 `v-for` 一起使用时，获取到的引用会是一个数组。  
-注2：`$refs` 只在组件渲染完成后才填充，并且是非响应式的。它仅是一个应急方案——应避免在模板或计算属性中使用。
+注2：`$refs` 只在组件渲染完成后才填充，并且是**非响应式**的。它仅是一个应急方案——应避免在模板或计算属性中使用。
 
 ### 异步组件
 
-在大型应用中，我们可能需要将应用拆分为多个小模块，按需从服务器下载。为了进一步简化，Vue.js 允许将组件定义为一个工厂函数，异步地解析组件的定义。Vue.js 只在组件需要渲染时触发工厂函数，并且把结果缓存起来，用于后面的再次渲染。例如：
+#### require()
+
+在大型应用中，我们可能需要将应用拆分为多个小模块，按需从服务器下载。为了进一步简化，Vue.js 允许将组件定义为一个**工厂函数**，异步地解析组件的定义。Vue.js 只在组件需要渲染时触发工厂函数，并且把结果缓存起来，用于后面的再次渲染。例如：
 
 ```js
 Vue.component('async-example', function (resolve, reject) {
@@ -492,6 +494,52 @@ Vue.component('async-webpack-example', function (resolve) {
   require(['./my-async-component'], resolve)
 })
 ```
+
+#### import()
+
+你**也可以在工厂函数中返回一个 Promise**，所以把 webpack 2 和 ES2015 语法加在一起，我们可以写成这样：
+
+```js
+Vue.component(
+  'async-webpack-example',
+  // 这个 `import` 函数会返回一个 `Promise` 对象。
+  () => import('./my-async-component')
+)
+```
+
+当使用局部注册的时候，你也可以直接提供一个返回 Promise 的函数：
+
+```js
+new Vue({
+  // ...
+  components: {
+    'my-component': () => import('./my-async-component')
+  }
+})
+```
+
+#### 处理加载状态
+
+2.3.0+ 新增
+
+这里的异步组件工厂函数也可以返回一个如下格式的对象：
+
+```js
+const AsyncComponent = () => ({
+  // 需要加载的组件 (应该是一个 `Promise` 对象)
+  component: import('./MyComponent.vue'),
+  // 异步组件加载时使用的组件
+  loading: LoadingComponent,
+  // 加载失败时使用的组件
+  error: ErrorComponent,
+  // 展示加载时组件的延时时间。默认值是 200 (毫秒)
+  delay: 200,
+  // 如果提供了超时时间且组件加载也超时了，
+  // 则使用加载失败时使用的组件。默认值是：`Infinity`
+  timeout: 3000
+})
+```
+
 
 ### 组件命名约定
 
