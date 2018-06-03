@@ -210,12 +210,12 @@ Markdown.sublime-settings--User
 
 ```
 {
-  "color_scheme": "Packages/Garden.tmTheme",
+  "color_scheme": "Packages/Colorsublime-Themes/Garden.tmTheme",,
   "tab_size": 2,
   "draw_centered": false,
   "wrap_width": 120,
   "rulers": [120],
-  "line_numbers": true,
+  "line_numbers": true
 }
 ```
 
