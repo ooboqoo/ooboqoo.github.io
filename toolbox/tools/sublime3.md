@@ -124,6 +124,9 @@ alt+- 上一个编辑处
 alt+shift+- 下一个编辑处
 Ctrl+G 跳转到相应的行
 Ctrl+M 光标移动至括号内开始或结束的位置
+
+### MarkdownEditing
+shift+Tab 折叠展开当前 Section
 ```
 
 ### 查找替换

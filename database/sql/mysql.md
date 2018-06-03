@@ -39,13 +39,13 @@ Linux: /etc/my.cnf
 
 为 root 用户设置密码，root 用户默认是没有密码的。
 
-```
-[root@sample ~]# mysql -u root　 ← 用root用户登录MySQL服务器
-mysql> select user,host,password from mysql.user;　 ← 查看用户信息
-mysql> set password for root@localhost=password('在这里填入root密码');　 ← 设置root密码
-mysql> set password for root@'sample.centospub.com'=password('在这里填入root密码');　 ← 设置root密码
-mysql> select user,host,password from mysql.user;　 ← 查看用户信息
-mysql> exit　 ← 退出MySQL服务器
+```sql
+[root@sample ~]# mysql -u root  -- 用root用户登录MySQL服务器
+mysql> select user,host,password from mysql.user;  -- 查看用户信息
+mysql> set password for root@localhost=password('在这里填入root密码');  -- 设置root密码
+mysql> set password for root@'sample.centospub.com'=password('在这里填入root密码');  -- 设置root密码
+mysql> select user,host,password from mysql.user;  -- 查看用户信息
+mysql> exit  -- 退出MySQL服务器
 ```
 
 #### 删除匿名用户
@@ -53,47 +53,48 @@ mysql> exit　 ← 退出MySQL服务器
 MySQL 初始安装存在用户名、密码为空的用户。这使得数据库服务器有无需密码被登录的可能性。为消除隐患，将匿名用户删除。
 
 ```sql
-select user,host from mysql.user;　     -- 查看用户信息
-delete from mysql.user where user='';　 -- 删除匿名用户
+select user,host from mysql.user;      -- 查看用户信息
+delete from mysql.user where user='';  -- 删除匿名用户
 ```
 
 ### 测试 MySQL
 
 ```sql
-mysql> grant all privileges on test.* to centospub@localhost identified by '密码';　 ← 建立对test数据库有完全操作权限的名为centospub的用户
-mysql> select user from mysql.user where user='centospub';　 ← 确认centospub用户的存在与否
+-- 建立对test数据库有完全操作权限的名为centospub的用户
+mysql> grant all privileges on test.* to centospub@localhost identified by '密码';
+mysql> select user from mysql.user where user='centospub';  -- 确认centospub用户的存在与否
 mysql> quit;
 
-[root@sample ~]# mysql -u centospub -p　 ← 用新建立的centospub用户登录MySQL服务器
-mysql> create database test;　 ← 建立名为test的数据库
-mysql> show databases;　 ← 查看系统已存在的数据库
+[root@sample ~]# mysql -u centospub -p  -- 用新建立的centospub用户登录MySQL服务器
+mysql> create database test;  -- 建立名为test的数据库
+mysql> show databases;  -- 查看系统已存在的数据库
 
-mysql> use test　 ← 连接到数据库
-mysql> create table test(num int, name varchar(50));　 ← 在数据库中建立表
-mysql> show tables;　 ← 查看数据库中已存在的表
+mysql> use test  -- 连接到数据库
+mysql> create table test(num int, name varchar(50));  -- 在数据库中建立表
+mysql> show tables;  -- 查看数据库中已存在的表
 
-mysql> insert into test values(1,'Hello World!');　 ← 插入一个值到表中
-mysql> select * from test;　 ← 查看数据库中的表的信息
+mysql> insert into test values(1,'Hello World!');  -- 插入一个值到表中
+mysql> select * from test;  -- 查看数据库中的表的信息
 
-mysql> update test set name='Hello Everyone!';　 ← 更新表的信息，赋予新的值
-mysql> select * from test;　 ← 查看数据库中的表的信息
-mysql> delete from test where num=1;　 ← 删除表内的值
-mysql> select * from test;　 ← 确认删除结果
+mysql> update test set name='Hello Everyone!';  -- 更新表的信息，赋予新的值
+mysql> select * from test;  -- 查看数据库中的表的信息
+mysql> delete from test where num=1;  -- 删除表内的值
+mysql> select * from test;  -- 确认删除结果
 
-mysql> drop table test;　 ← 删除表
-mysql> show tables;　 ← 查看表信息
+mysql> drop table test;  -- 删除表
+mysql> show tables;  -- 查看表信息
 
-mysql> drop database test;　 ← 删除名为test的数据库
-mysql> show databases;　 ← 查看已存在的数据库
+mysql> drop database test;  -- 删除名为test的数据库
+mysql> show databases;  -- 查看已存在的数据库
 
-mysql> exit　 ← 退出MySQL服务器
+mysql> exit  -- 退出MySQL服务器
 
-mysql> revoke all privileges on *.* from centospub@localhost;　 ← 取消centospub用户对数据库的操作权限
-mysql> delete from mysql.user where user='centospub' and host='localhost';　 ← 删除centospub用户
-mysql> select user from mysql.user where user='centospub';　 ← 查找用户centospub，确认已删除与否
-mysql> exit　 ← 退出MySQL服务器
+mysql> revoke all privileges on *.* from centospub@localhost;  -- 取消centospub用户对数据库的操作权限
+mysql> delete from mysql.user where user='centospub' and host='localhost';  -- 删除centospub用户
+mysql> select user from mysql.user where user='centospub';  -- 查找用户centospub，确认已删除与否
+mysql> exit  -- 退出MySQL服务器
 
-[root@sample ~]# /etc/rc.d/init.d/httpd restart　 ← 重新启动HTTP服务，让php-mysql反映到HTTP服务中。
+[root@sample ~]# /etc/rc.d/init.d/httpd restart  -- 重新启动HTTP服务，让php-mysql反映到HTTP服务中。
 ```
 
 ### 其他项
@@ -134,16 +135,16 @@ A query normally consists of an SQL statement followed by a semicolon;<br>Keywor
 
 ### 3.3 Creating and Using a Database
 
-```bash
+```sql
 mysql> show databases;
-mysql> use testdb    //USE, like QUIT, does not require a semicolon, but it does no harm to add a ";"
-mysql> GRANT ALL ON testdb.* TO 'your_mysql_name'@'your_host';    //MySQL administrator used to give permission
+mysql> use testdb  -- USE, like QUIT, does not require a semicolon, but it does no harm to add a ";"
+mysql> GRANT ALL ON testdb.* TO 'your_mysql_name'@'your_host';  -- MySQL administrator used to give permission
 
 # 3.3.1 Creating and Selecting a Database
 mysql> create database testdb;
 mysql> use testdb
-shell> mysql -h host -u user -p testdb    // select the database when invok mysql
-mysql> select database();    //show the database currently selected
+shell> mysql -h host -u user -p testdb  -- select the database when invok mysql
+mysql> select database();  -- show the database currently selected
 
 # 3.3.2 Creating a Table
 mysql> show tables;
@@ -165,7 +166,7 @@ mysql> describe user;
 
 ### 3.4 Getting Information About Databases and Tables
 
-```bash
+```sql
 mysql> select database();
 mysql> show tables;
 mysql> describe user;
@@ -196,11 +197,11 @@ mysql> SELECT article, MAX(price) AS price FROM shop GROUP BY article;
 
 ### 6.3.2 Adding User Accounts
 
-```bash
+```sql
 mysql> create user 'gavin'@'localhost' identified by 'some_pass';
 mysql> grant all privileges on some_table.* 'gavin'@'localhost';
 mysql> grant all privileges on some_table.* to gavin@localhost identified by 'some_pass'  # a substitute for convenience 
-# mysql> show grants for 'gavin'@'localhost';
+mysql> show grants for 'gavin'@'localhost';
 ```
 
 ### 6.3.3 Removing User Accounts
