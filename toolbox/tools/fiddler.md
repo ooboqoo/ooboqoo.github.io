@@ -31,6 +31,12 @@ Burp Suite 一款集成型的渗透测试工具，是可以用于攻击 web 应�
 
 ## 配置
 
+### Decrypt HTTPS
+
+http://docs.telerik.com/fiddler/Configure-Fiddler/Tasks/DecryptHTTPS
+
+Tools > Fiddler Options > HTTPS > [√] Capture HTTPS CONNECTs > [√] Decrypt HTTPS Traffic
+
 
 ## 常见用法
 

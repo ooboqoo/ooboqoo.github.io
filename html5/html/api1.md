@@ -1,15 +1,46 @@
 # LocalStorage / Cookies / IndexDB
 
 
+## Cookies
+
+在 HTML5 之前，Web 应用程序通用的数据存储方案一般通过 Cookie 实现。不过，将数据存储在 Cookie 中有如下弊端：
+  * 大小受限，标准浏览器下单个 Cookie 允许的大小是 **4KB**
+  * 消耗性能，当前域下的所有 HTTP 请求都会携带这些 Cookie 数据
+
+```js
+// 设置 Cookies
+function setCookie(name, value, expiredays) {
+  let exp = new Date();
+  exp.setDate(exp.getDate() + expiredays);
+  document.cookie = name + '=' + escape(value) +
+    (expiredays === undefined ? '' : ';expires=' + exp.toUTCString());
+}
+
+// 读取 Cookies
+function getCookie(name) {
+  let arr, reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)');
+  if (arr = document.cookie.match(reg)) return unescape(arr[2]);
+}
+
+// 删除 Cookies
+function delCookie(name) {
+  document.cookie = name + '=del' + ';expires=' + new Date().toUTCString();
+}
+
+//使用示例
+setCookie('name', 'gavin', 25);
+```
+
+
 ## Local Storage
 
 详细文档请参阅： [Mozilla Using_the_Web_Storage_API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API)
 
-在 HTML5 之前，应用数据只能通过 Cookies 保存，而 Cookies 的数据会被包含在每个 request 的头部，即影响性能还不安全。
+在 HTML5 之前，应用数据只能通过 Cookies 保存，而 Cookies 的数据会被包含在每个请求的头部，既影响性能还不安全。
 
-HTML5 引入了 LocalStorage，其中数据不会被包含在请求头部，这样既安全，存储容量也可以更大（多数浏览器设为 5M）。
+HTML5 引入了 LocalStorage，其中数据不会被包含在请求头部，这样既安全，存储容量也可以更大(多数浏览器设为 5M)。
 
-同源（同域名 + 同协议）的页面可以共享 LocalStorage 中的数据。
+同源(同域名 + 同协议)的页面可以共享 LocalStorage 中的数据。
 
 ### Browser Support
 
@@ -79,35 +110,14 @@ window.addEventListener('storage', function(e) {
 从页面代码的角度说，本地存储和会话存储的操作完全相同。它们的区别仅在于数据的寿命。本地存储主要用于保存访客将来还能看到的数据，而会话存储则用于保存那些需要从一个页面传递给下一个页面的数据。（当然，使用会话存储也可以保存只在一个页面中使用
 的数据，但这个任务就算普通的 JavaScript 变量也绝对可以胜任，又何必多此一举呢。）
 
-## Cookies
 
-在 HTML5 之前，Web 应用程序通用的数据存储方案一般通过 Cookie 实现。不过，将数据存储在 Cookie 中有如下弊端：
-  * 大小受限，标准浏览器下单个 Cookie 允许的大小是 **4KB**
-  * 消耗性能，当前域下的所有 HTTP 请求都会携带这些 Cookie 数据
+## IndexDB：浏览器的数据库引擎
 
-```js
-// 设置 Cookies
-function setCookie(name, value, expiredays) {
-  let exp = new Date();
-  exp.setDate(exp.getDate() + expiredays);
-  document.cookie = name + '=' + escape(value) +
-    (expiredays === undefined ? '' : ';expires=' + exp.toUTCString());
-}
+这一切看起来很完美，但是随着前端的不断发展，Web Storage 也有了一些不太合适的地方:
+  * 随着 Web 应用程序的不断发展，5M 的存储大小对于一些大型的 Web 应用程序来说有些不够
+  * Web Storage 只能存储 string 类型的数据。对于 Object 类型的数据只能先用 `JSON.stringify()` 转换后再存储
 
-// 读取 Cookies
-function getCookie(name) {
-  let arr, reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)');
-  if (arr = document.cookie.match(reg)) return unescape(arr[2]);
-}
-
-// 删除 Cookies
-function delCookie(name) {
-  document.cookie = name + '=del' + ';expires=' + new Date().toUTCString();
-}
-
-//使用示例
-setCookie('name', 'gavin', 25);
-```
+(其他内容移到数据库部分了...)
 
 
 ## 读取文件 File API
@@ -145,7 +155,3 @@ function showFileInput() {  // 对应方法2，本例没用该函数
   <div id="fileOutput"></div>
 </body>
 ```
-
-## IndexDB：浏览器的数据库引擎
-
-(移到数据库部分了)

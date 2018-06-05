@@ -6,12 +6,48 @@
 
 ## 设置
 
+_Preferences.sublime-settings_
+
 ```json
 {
   "color_scheme": "Packages/Colorsublime-Themes/Garden.tmTheme",
   "draw_white_space": "all",
   "font_size": 13,
+  "ignored_packages":
+  [
+    "Markdown",
+    "Vintage"
+  ],
   "update_check": false
+}
+```
+
+_Package Control.sublime-settings_
+
+```json
+{
+  "bootstrapped": true,
+  "auto_upgrade": false,
+  "installed_packages":
+  [
+    "IMESupport",
+    "MarkdownEditing",
+    "Package Control",
+    "SideBarEnhancements"
+  ]
+}
+```
+
+_Markdown.sublime-settings_
+
+```json
+{
+  "color_scheme": "Packages/Colorsublime-Themes/Garden.tmTheme",
+  "tab_size": 2,
+  "draw_centered": false,
+  "rulers": [120],
+  "wrap_width": 120,
+  "line_numbers": true
 }
 ```
 
@@ -33,44 +69,36 @@ https://gist.github.com/svmotha/9fae060072bd88d6168e738dd09d85a3
 
 #### How to install a Sublime Text theme
 
-`Preferences -> Browse Packages` 进入"Packages"文件夹，并创建"Colorsublime-Themes"，再将下载的主题文件放入该文件夹。
+`Preferences -> Browse Packages` 进入 Packages 文件夹，新建 Colorsublime-Themes，并将下载的主题文件放入该文件夹。
 
-`Preferences -> Color Scheme -> Colorsublime-Themes` 选择相应的主题即可。
-
-或者在配置文件里直接设置 `Preferences -> Settings`
-
-```json
-{
-  "color_scheme": "Packages/Colorsublime-Themes/Garden.tmTheme",
-  "draw_white_space": "all",
-  "font_size": 12
-}
-```
+`Preferences -> Color Scheme -> Colorsublime-Themes` 选择相应的主题即可。或者直接在配置文件里设置 `Preferences -> Settings`
 
 #### 自定义主题的相关文档和资料
 
 如何查看要修改的部分的scope：`ctrl+alt+shift+p`
 
-[Colorsublime How to install a theme](http://colorsublime.com/how-to-install-a-theme)   
+[Colorsublime How to install a theme](http://colorsublime.com/how-to-install-a-theme)  
 [Color Schemes — Sublime Text Unofficial Documentation](http://docs.sublimetext.info/en/latest/reference/color_schemes.html)
 
 
 ## 快捷键列表
 
-<p>屌丝的默认快捷键设置：{ "keys": ["ctrl+k", "ctrl+b"], "command": "toggle_side_bar" } 的意思是 Hide Side Bar is the sequence Ctrl+K, Ctrl+B（先按Ctrl+K, 再按Ctrl+B）不谷歌能看懂？</p>
-<p>默认快键键列表在 <code>Preferences -> Key Bindings - Default</code></p>
-<p>Emmet 默认快键键列表在 <code>Preferences -> Package Settings -> Emmet -> Key Bindings - Default</code></p>
-<p>用户自定义快键键在 <code>Preferences -> Key Bindings - User</code></p>
+屌丝的默认快捷键设置，不谷歌能看懂？
 
-<h4>如何查找命令并设置快捷键</h4>
-<p>通过 <code>ctrl + shift + p</code> 输入相关词查找命令。</p>
-<p>如果想设置快键键的话，<code>ctrl+`</code> 打开控制台，并输入 <code>sublime.log_commands(True)</code> 命令开启“记录命令”功能，再然后记下命令，并到 Key Bindings - User 下绑定自定义快捷键。关闭命令记录功能是 <code>sublime.log_commands(False)</code> <a href="http://robdodson.me/sublime-text-2-tips-and-shortcuts/">参考来源</a></p>
+```js
+{ "keys": ["ctrl+k", "ctrl+b"], "command": "toggle_side_bar" }
+// 的意思是 Hide Side Bar is the sequence Ctrl+K, Ctrl+B (先按Ctrl+K, 再按Ctrl+B)
+```
 
-<table>
-<tr><th>操作</th><th>默认快键键</th><th>自定义快捷键</th></tr>
-<tr><td>toggle_side_bar</td><td>["ctrl+k", "ctrl+b"]</td><td>alt+a</td></tr>
-<tr><td>emmet wrap_as_you_type</td><td>shift+ctrl+g</td><td>ctrl+alt+t</td></tr>
-</table>
+* 默认快键键列表在 `Preferences -> Key Bindings - Default`
+* Emmet 默认快键键列表在 `Preferences -> Package Settings -> Emmet -> Key Bindings - Default`
+* 用户自定义快键键在 `Preferences -> Key Bindings - User`
+
+#### 如何查找命令并设置快捷键
+
+通过 `Ctrl+Shift+P` 输入相关词查找命令。
+
+如果想设置快键键的话，`` Ctrl+` `` 打开控制台，并输入 `sublime.log_commands(True)` 命令开启“记录命令”功能，再然后记下命令，并到 Key Bindings - User 下绑定自定义快捷键。关闭命令记录功能是 `sublime.log_commands(False)`
 
 ```bash
 ###特色功能
@@ -131,91 +159,66 @@ shift+Tab 折叠展开当前 Section
 
 ### 查找替换
 
-<table>
-<tr><td>Open search panel</td><td>Ctrl + F</td><td>普通查找（按F3会跳到下个匹配项）</td></tr>
-<tr><td>Incremental search</td><td>Ctrl + I</td><td>增量查找（按F3会添加下个匹配项到选择）</td></tr>
-<tr><td>Open replace panel</td><td>Ctrl + H</td><td>打开替换栏</td></tr>
-<tr><td>Regular expressions</td><td>Alt + R</td><td>是否是正则表达式</td></tr>
-<tr><td>Case sensitive</td><td> Alt + C</td><td>大小写敏感</td></tr>
-<tr><td>Exact match</td><td>Alt + W</td><td>完整匹配 Whole word</td></tr>
-<tr><td>Find next</td><td>Enter</td><td>查找下一项</td></tr>
-<tr><td>Find previous</td><td>Shift + Enter</td><td>向前查找下一项</td></tr>
-<tr><td>Find all</td><td>Alt + Enter</td><td>查找全部匹配项</td></tr>
-<tr><td>Preserve case</td><td>Alt+A</td><td>智能调整大小写（碰到驼峰式命名会乱）
-  <pre>This is this -> (this > that ) -> That is that // 智能调整<br>Replace MySQL by PostgreSQL -> PoSTGreSQL // 乱了</pre></td></tr>
-<tr><td>Wrap</td><td></td><td>即 wrap around ，是否循环查找匹配项</td></tr>
-<tr><td>In selection</td><td></td><td>必须是先选中内容再调出“查找替换”栏才有效，<br>调出替换栏后，再用鼠标选中其他内容，系统还是认原先的选中区域</td></tr>
-</table>
+||||
+|---------------------|---------------|----------------------
+| Open search panel   | Ctrl + F | 普通查找（按F3会跳到下个匹配项）
+| Incremental search  | Ctrl + I | 增量查找（按F3会添加下个匹配项到选择）
+| Open replace panel  | Ctrl + H | 打开替换栏
+| Regular expressions | Alt + R  | 是否是正则表达式
+| Case sensitive      | Alt + C  | 大小写敏感
+| Exact match         | Alt + W  | 完整匹配 Whole word
+| Find next           | Enter    | 查找下一项
+| Find previous       | Shift + Enter | 向前查找下一项
+| Find all            | Alt + Enter   | 查找全部匹配项
+| Preserve case       | Alt+A         | 智能调整大小写(碰到驼峰式命名会乱)
+| Wrap                |               | 即 wrap around ，是否循环查找匹配项
+| In selection        |               | 必须是先选中内容再调出“查找替换”栏才有效，<br>调出替换栏后，再用鼠标选中其他内容，系统还是认原先的选中区域
 
-```
-Open Find in Files  Ctrl + Shift + F
-Search forward using most recent pattern  F3
-Search backwards using most recent pattern  Shift + F3
-Select all matches using most recent pattern  Alt + F3
-```
+
+|||
+|---------------|---------------------------------------------
+| Ctrl+Shift+F  | Open Find in Files
+| F3            | Search forward using most recent pattern
+| Shift+F3      | Search backwards using most recent pattern
+| Alt+F3        | Select all matches using most recent pattern
 
 
 ## 使用技巧
 
-<h3>强大的快速搜索 ctrl+p</h3>
-<p>Goto Anything accepts several operators. All of them can be used on their own or after the search term.</p>
-<p>The Goto Anything operators are bound to the following shortcuts:</p>
-<table>
-<tr><th>operator</th><th>shortcut</th><th>description</th></tr>
-<tr><td>@</td><td>Ctrl + R</td><td>Searches the active file for the symbol (usually include class and function names)</td></tr>
-<tr><td>#</td><td>Ctrl + ;</td><td>Performs a fuzzy search and highlights all matches</td></tr>
-<tr><td>:</td><td>Ctrl + G</td><td>Goes to the specified</td></tr>
-</table>
+### 强大的快速搜索 Ctrl+p
+
+The Goto Anything operators are bound to the following shortcuts:
+
+||||
+|-----|----------|------------------------------------------------------------------------------------
+| `@` | `Ctrl+R` | Searches the active file for the symbol (usually include class and function names)
+| `#` | `Ctrl+;` | Performs a fuzzy search and highlights all matches
+| `:` | `Ctrl+G` | Goes to the specified
 
 ### 强大的命令模式：ctrl+shift+p
-使用命令模式可以减少鼠标的使用，提升效率；   
-同时，因为命令模式支持模糊匹配，我们还可以少记些快捷键。
+
+使用命令模式可以减少鼠标的使用，提升效率；同时，因为命令模式支持模糊匹配，我们还可以少记些快捷键。
 
 ### 多行游标功能
-<ul>
-<li>方式1：ctrl+d 连续选中 ctrl+k 跳过一个项目</li>
-<li>方式2：alt+f3 全选相应项目并生成多行游标</li>
-<li>方式3：shift+鼠标右键拖动</li>
-</ul>
+
+* `Ctrl+D` 连续选中 ctrl+k 跳过一个项目
+* `Alt+F3` 全选相应项目并生成多行游标
+* `Shift+鼠标右键拖动`
 
 ### 屏幕拆分
 
 
 ## 插件
 
- 插件           | 描述 
- -------------- | ---------------------------------------------------
-**Package Control** | 插件管理器 https://sublime.wbond.net/installation
-Emmet           | HTML CSS 快速输入必装插件。
-JavaScript Completions | JS 自动补齐支持。
-SublimeLinter 3 | JS代码分析与提示，需要加装插件 jshint
-HTML-CSS-JS prettify   | This extension gives you a command to format your HTML, CSS and JS
-Autoprefixer    | 可以自动帮助添加CSS浏览器前缀
-Less            | Less 语法高亮支持。
-Color Highlighter      | 根据颜色代码直观显示颜色，并带 color picker
-BracketHighlighter     | 默认的匹配标记高亮很扯蛋，所以有了这个插件。
-Git Gutter      | Add a marker in the gutter wherever there is a change made to a file.
-AutoFileName    | 自动添加引用文件名。
-**SideBarEnhancements**    | 侧边栏右键功能增强。
-SyncedSideBar   | 可以在侧边栏同步展开编辑文件所在目录的插件。后来发现 右键->Reveal in Side Bar 是个更好的选择
-**IMESupport**      | 输入中文时，输入框总是在最下面，装了这个插件不用设置，一切就会正常工作了。
-HTML2Text       | HTML 转 Markdown 插件
-ConvertToUTF8   | 提供 GBK GB2312 编码支持
-
-### Markdown Editing
-
-重装或者改 theme 时要注意，这个主题是要在其配置文件中单独设定的，如原主题找不到就会一直报错，怎么改主题都不行，好大一个坑。
-
-Markdown.sublime-settings--User
-
-```
-{
-  "color_scheme": "Packages/Colorsublime-Themes/Garden.tmTheme",,
-  "tab_size": 2,
-  "draw_centered": false,
-  "wrap_width": 120,
-  "rulers": [120],
-  "line_numbers": true
-}
-```
-
+|||
+|-------------------- | ---------------------------------------------------
+| **Package Control** | 插件管理器 https://sublime.wbond.net/installation
+| **IMESupport**      | 输入中文时，输入框总是在最下面，装了这个插件不用设置，一切就会正常工作了
+| **SideBarEnhancements** | 侧边栏右键功能增强
+| Emmet                   | HTML CSS 快速输入必装插件
+| Color Highlighter       | 根据颜色代码直观显示颜色，并带 color picker
+| BracketHighlighter      | 默认的匹配标记高亮很扯蛋，所以有了这个插件。
+| Git Gutter      | Add a marker in the gutter wherever there is a change made to a file.
+| AutoFileName    | 自动添加引用文件名。
+| SyncedSideBar   | 可以在侧边栏同步展开编辑文件所在目录的插件。后来发现 右键->Reveal in Side Bar 是个更好的选择
+| HTML2Text       | HTML 转 Markdown 插件

@@ -8,13 +8,17 @@
 
 ```bash
 $ curl "http://www.baidu.com"      # 下载文件到本地
-$ curl -i "http://www.baidu.com"   # 显示全部信息
-$ curl -l "http://www.baidu.com"   # 只显示头部信息
-$ curl -v "http://www.baidu.com"   # 显示get请求全过程解析，查看网址对应的 IP 很方便
+  # -i --include    输出包含头部信息
+  # -I --head       只显示头部信息
+  # -v --verbose    显示详细解析过程，查看网址对应的 IP 很方便
 
 # POST 请求
 $ curl -d "param1=value1&param2=value2" "http://www.baidu.com"
 $ curl -H "Content-Type: application/json" -X POST -d '{"username":"admin"}' http://localhost:3300/token
+  # -d --data     HTTP POST data
+  # -G --get      添加 -d 选项后请求默认为 POST，利用这个选项可转回 GET 请求
+  # -H --header   定制请求头
+  # -X --request  指定请求方法 GET POST 等
 
 # 下载脚本并执行
 $ bash <(curl -s http://domain/path/to/script.sh)
