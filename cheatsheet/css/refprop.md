@@ -338,7 +338,7 @@
 
 | Property | Description | CSS
 |----------|-------------|----------
-| mask | 3 | mask-type | 3
+| mask     | mask-type   | 3
 
 
 ## Speech Properties

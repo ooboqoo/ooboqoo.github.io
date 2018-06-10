@@ -14,6 +14,10 @@
 
 中断的升级过程，只能看到 [RESUME] 按钮，无法取消，此时可按下 [opt] 键，就会出现 [CANCEL] 按钮。
 
+##### Show LockScreen Message
+
+Preferences > Security > [√] Show a message when the screen is locked
+
 
 ### APFS
 

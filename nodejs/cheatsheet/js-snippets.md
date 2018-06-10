@@ -85,7 +85,15 @@ sortedIndex
 sortedIndexBy
 sortedLastIndex
 sortedLastIndexBy
-stableSort
+
+// 两个要点：不改变原数组 + 如果两项一样，保持原有顺序
+// 此处一个比较有参考意义的是 “双因子排序” 的用法
+const stableSort = (arr, compare) =>
+  arr
+    .map((item, index) => ({ item, index }))
+    .sort((a, b) => compare(a.item, b.item) || a.index - b.index)  // “双因子排序” 写法
+    .map(({ item }) => item)
+
 symmetricDifference
 symmetricDifferenceBy
 symmetricDifferenceWith
@@ -169,6 +177,62 @@ unfold
 ```
 
 
+## String
+
+```js
+byteSize
+capitalize
+capitalizeEveryWord
+decapitalize
+escapeHTML
+escapeRegExp
+fromCamelCase
+isAbsoluteURL
+isAnagram
+isLowerCase
+isUpperCase
+mask
+pad
+palindrome
+pluralize
+removeNonASCII
+reverseString
+sortCharactersInString
+
+const splitLines = str => str.split(/\r?\n/)
+
+stringPermutations
+stripHTMLTags
+
+const toCamelCase = str => {
+  let s =
+    str &&
+    str
+      .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+      .map(x => x.slice(0, 1).toUpperCase() + x.slice(1).toLowerCase())
+      .join('');
+  return s.slice(0, 1).toLowerCase() + s.slice(1)
+}
+
+const toKebabCase = str =>
+  str &&
+  str
+    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+    .map(x => x.toLowerCase())
+    .join('-')
+
+const toSnakeCase = str =>
+  str &&
+  str
+    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+    .map(x => x.toLowerCase())
+    .join('_')
+
+truncateString
+unescapeHTML
+URLJoin
+words
+```
 
 
 
