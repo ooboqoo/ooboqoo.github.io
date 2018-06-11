@@ -3,8 +3,8 @@
 
 ## CSS Functions
 
-| Function | Description | CSS
-|----------|-------------|------------
+||||
+|----------|-----------------------------------------------------------|----
 | `attr()` | Returns the value of an attribute of the selected element | 2
 | `calc()` | Allows you to perform calculations to determine CSS property values | 3
 | `linear-gradient()` | Creates an "image" which represents a linear gradient of colors | 3
@@ -15,49 +15,59 @@
 
 ## Color Properties
 
-| Property | Description | CSS
-|----------|-------------|----------
+||||
+|----------|------------------------|----
 | color    | Sets the color of text | 1
 | opacity  | 子元素的 opacity 无法覆盖父元素的 opacity | 3
 
 
 ## Background and Border Properties
 
-| Property | Description | CSS
-|----------|-------------|----------
-| background | A shorthand property for setting all the background properties <span class="mark">[注1]</span> | 1
-| background-color | Specifies the background color of an element | 1
-| background-image | Specifies one or more background images for an element | 1
-| background-repeat | Sets how a background image will be repeated | 1
-| background-size | Specifies the size of the background image(s) | 3
-| background-clip | Specifies the painting area of the background | 3
-| background-position | Specifies the position of a background image | 1
-| background-origin | Specifies where the background image(s) is/are positioned | 3
-| background-attachment | Sets whether a background image is fixed or scrolls with the rest of the page | 1
+||||
+|-------------------|----------------------------------------------------------------|----
+| background        | 设置所有 background 属性的简写 <span class="mark">[注1]</span> | 1
+| background-color  | Specifies the background color of an element | 1
+| background-image  | 背景图 `none` `url()` element gradient etc.  | 1
+| background-repeat | `no-repeat` `repeat` `repeat-x` `space` etc. | 1
+| background-size   | 背景图缩放 `contain` `cover` `auto` length percentage(相对背景来说) | 3
+| background-clip   | 填充区域 `border-box` `padding-box`(默认) `content-box`             | 3
+| background-position   | `left` `top` `bottom` `center` `25% 75%;` `right 35% bottom 5px;` etc. | 1
+| background-origin     | 左上角起点 `border-box`(默认) `padding-box` `content-box` `inherit` `initial` `unset` | 3
+| background-attachment | 背景图是否跟随页面滚动 `scroll`(默认) `fixed` `local` | 1
 | background-blend-mode | Specifies the blending mode of each background layer (color/image) | 3
-| border | Sets all the border properties in one declaration | 1
-| border-width | Sets the width of the four borders | 1
-| border-style | Sets the style of the four borders | 1
-| border-color | Sets the color of the four borders | 1
-| border-top   | `border-right` `border-bottom` `border-left` 等略 | 1
+| border           | Sets all the border properties in one declaration | 1
+| border-width     | Sets the width of the four borders | 1
+| border-style     | Sets the style of the four borders | 1
+| border-color     | Sets the color of the four borders | 1
+| border-top       | `border-right` `border-bottom` `border-left` etc. | 1
 | border-top-width | Sets the width of the top border | 1
 | border-top-style | Sets the style of the top border | 1
 | border-top-color | Sets the color of the top border | 1
-| border-radius | A shorthand property for setting all the four border-*-radius properties | 3
-| border-top-left-radius | Defines the shape of the border of the top-left corner | 3
-| border-top-right-radius | Defines the shape of the border of the top-right corner | 3
+| border-radius    | A shorthand property for setting all the four border-*-radius properties | 3
+| border-top-left-radius     | Defines the shape of the border of the top-left corner | 3
+| border-top-right-radius    | Defines the shape of the border of the top-right corner | 3
 | border-bottom-right-radius | Defines the shape of the border of the bottom-right corner | 3
-| border-bottom-left-radius | Defines the shape of the border of the bottom-left corner | 3
-| border-image | A shorthand property for setting all the border-image-* properties | 3
+| border-bottom-left-radius  | Defines the shape of the border of the bottom-left corner | 3
+| border-image        | A shorthand property for setting all the border-image-* properties | 3
 | border-image-source | Specifies the path to the image to be used as a border | 3
-| border-image-slice | Specifies how to slice the border image | 3
-| border-image-width | Specifies the widths of the image-border | 3
+| border-image-slice  | Specifies how to slice the border image | 3
+| border-image-width  | Specifies the widths of the image-border | 3
 | border-image-outset | Specifies the amount by which the border image area extends beyond the border box | 3
 | border-image-repeat | Specifies whether the border image should be repeated, rounded or stretched | 3
-| box-shadow | Attaches one or more drop-shadows to the box | 3
+| box-shadow          | Attaches one or more drop-shadows to the box | 3
 | box-decoration-break | Sets the behaviour of the background and border of an element at page-break, or, for in-line elements, at line-break. | 3
 
 注1：`background` 各项标准顺序 `color` `image` `repeat` `attachment` `position` `size` `origin` `clip`
+
+```scss
+background-image: url("../../media/examples/a.png"),  // 多张图片用 `,` 分隔
+                  url("../../media/examples/b.png");  // b 叠在 a 上面
+background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5)),
+                  url("../../media/examples/lizard.png");
+background-size: 25px 50px;
+background-size: 50% 50%;
+background-position: right 35% bottom 5px;
+```
 
 
 ## Basic Box Properties
@@ -101,20 +111,31 @@
 
 ## Flexible Box Layout
 
-| Property | Description | CSS
-|----------|-------------|----------
-| align-content | Specifies the alignment between the lines inside a flexible container when the items do not use all available space | 3
-| align-items | Specifies the alignment for items inside a flexible container | 3
-| align-self | Specifies the alignment for selected items inside a flexible container | 3
-| flex | Specifies the length of the item, relative to the rest | 3
-| flex-basis | Specifies the initial length of a flexible item | 3
+||||
+|-----------------|-------------------------------------------------------------------|----
+| justify-content | 水平方向对齐 `center` `start` `space-between` `space-around` etc. | 3
+| align-content   | 垂直方向对齐 `stretch` `center` `start` etc. | 3
+| align-items     | Specifies the alignment for items inside a flexible container | 3
+| align-self      | Specifies the alignment for selected items inside a flexible container | 3
+||||
+| flex           | flex-grow flex-shrink flex-basis 三者的简写方式 `auto` `initial`(同 `flex: 0 1 auto;`) `none` | 3
+| flex-grow      | Specifies how much the item will grow relative to the rest | 3
+| flex-basis     | Specifies the initial length of a flexible item            | 3
+| flex-shrink    | Specifies how the item will shrink relative to the rest    | 3
+||||
 | flex-direction | Specifies the direction of the flexible items | 3
-| flex-flow | A shorthand property for the flex-direction and the flex-wrap properties | 3
-| flex-grow | Specifies how much the item will grow relative to the rest | 3
-| flex-shrink | Specifies how the item will shrink relative to the rest | 3
-| flex-wrap | Specifies whether the flexible items should wrap or not | 3
-| justify-content | Specifies the alignment between the items inside a flexible container when the items do not use all available space | 3
-| order | Sets the order of the flexible item, relative to the rest | 3
+| flex-flow      | A shorthand property for the flex-direction and the flex-wrap properties | 3
+| flex-wrap      | Specifies whether the flexible items should wrap or not | 3
+| order          | Sets the order of the flexible item, relative to the rest | 3
+
+```scss
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  .flex-item { flex: auto; }
+  .raw-item { width: 5rem; }
+}
+```
 
 
 ## Text Properties
