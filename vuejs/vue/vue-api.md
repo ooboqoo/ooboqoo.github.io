@@ -20,6 +20,10 @@
 <input v-model.number="age" type="number">  <!-- `number` 修饰符自动将输入转为数值类型 -->
 <input v-model.trim="msg">                  <!-- `trim` 修饰符自动过滤输入的首尾空白字符 -->
 
+<!-- v-model 原理 -->
+<input :value="val" @input="val = $event.target.value">
+<my-comp :value="val" @input="val = $event"></my-comp>
+
 <!-- 条件渲染 -->
 <div v-if="type === 'A'"> A </div>
 <div v-else-if="type === 'B'"> B </div> <!-- 必须是紧跟在 v-if 后才生效 -->
@@ -52,6 +56,50 @@
 
 <!-- 修饰符：用于指出一个指令应该以特殊方式绑定 -->
 <form v-on:submit.prevent="onSubmit">...</form>
+```
+
+### 修饰符
+
+```html
+<!-- 事件处理 / 事件修饰符 -->
+<a    @click.stop="doThis"></a>          <!-- 阻止单击事件继续传播 -->
+<form @submit.prevent="onSubmit"></form> <!-- 阻止浏览器默认行为 -->
+<a    @click.stop.prevent="doThat"></a>  <!-- 修饰符可以串联 -->
+<form @submit.prevent></form>            <!-- 只有修饰符 -->
+<div  @click.capture="doThis">...</div>  <!-- 添加事件监听器时使用事件捕获模式 -->
+<div  @click.self="doThat">...</div>     <!-- 只在 event.target 是当前元素自身时触发处理函数 -->
+
+<a v-on:click.once="doThis"></a>              <!-- 点击事件将只会触发一次 -->
+<div v-on:scroll.passive="onScroll">...</div> <!-- 先执行浏览器默认行为，可有效提升移动端的性能 -->
+
+<!-- 事件处理 / 按键修饰符 -->
+<input v-on:keyup.13="submit">  <!-- 只有在 `keyCode` 是 13 时调用 -->
+<!--
+Vue 为最常用的按键提供了别名：
+  `enter` `tab` `delete`(含退格和删除) `esc` `space` `up` `down` `left` `right`
+自定义按键别名：`Vue.config.keyCodes.f1 = 112`
+2.5.0 新增用法，直接将 `KeyboardEvent.key` 暴露的任意有效按键名转换为 kebab-case 来作为修饰符：
+-->
+<input @keyup.page-down="onPageDown">
+
+<!-- 事件处理 / 系统修饰键 -->
+<!--
+  按键修饰符 .ctrl .alt .shift .meta
+  .exact(2.5.0)
+  鼠标按钮修饰符 .left .right .middle
+-->
+<input @keyup.alt.67="clear">                      <!-- Alt + C -->
+<div @click.ctrl="doSomething">Do something</div>  <!-- Ctrl + Click -->
+<button @click.ctrl.exact="onCtrlClick">A</button> <!-- 有且只有 Ctrl 被按下的时候才触发 -->
+
+<!-- 自定义事件 (父子组件双向绑定，语法糖) -->
+<text-document :title.sync="doc.title"></text-document>  <!-- 绑定值 -->
+<text-document v-bind.sync="doc"></text-document>        <!-- 绑定对象(多个值) -->
+
+<!-- 表单输入绑定 -->
+<input v-model.lazy="msg" >                 <!-- 在 change 时而非 input 时更新 -->
+<input v-model.number="age" type="number">  <!-- 自动将用户输入值转为数值类型 -->
+<input v-model.trim="msg">                  <!-- 自动过滤输入的首尾空白字符 -->
 ```
 
 

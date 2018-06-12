@@ -1,4 +1,4 @@
-# CSS Properties 
+# CSS Properties
 
 
 ## CSS Functions
@@ -25,15 +25,15 @@
 
 ||||
 |-------------------|----------------------------------------------------------------|----
-| background        | 设置所有 background 属性的简写 <span class="mark">[注1]</span> | 1
+| background        | 各项标准顺序 `color` `image` `repeat` `attachment` `position` `size` `origin` `clip` | 1
 | background-color  | Specifies the background color of an element | 1
 | background-image  | 背景图 `none` `url()` element gradient etc.  | 1
 | background-repeat | `no-repeat` `repeat` `repeat-x` `space` etc. | 1
-| background-size   | 背景图缩放 `contain` `cover` `auto` length percentage(相对背景来说) | 3
-| background-clip   | 填充区域 `border-box` `padding-box`(默认) `content-box`             | 3
-| background-position   | `left` `top` `bottom` `center` `25% 75%;` `right 35% bottom 5px;` etc. | 1
-| background-origin     | 左上角起点 `border-box`(默认) `padding-box` `content-box` `inherit` `initial` `unset` | 3
 | background-attachment | 背景图是否跟随页面滚动 `scroll`(默认) `fixed` `local` | 1
+| background-position   | `left` `top` `bottom` `center` `25% 75%;` `right 35% bottom 5px;` etc. | 1
+| background-size       | 背景图缩放 `contain` `cover` `auto` length percentage(相对背景来说) | 3
+| background-origin     | 左上角起点 `border-box`(默认) `padding-box` `content-box` `inherit` `initial` `unset` | 3
+| background-clip       | 填充区域 `border-box` `padding-box`(默认) `content-box`             | 3
 | background-blend-mode | Specifies the blending mode of each background layer (color/image) | 3
 | border           | Sets all the border properties in one declaration | 1
 | border-width     | Sets the width of the four borders | 1
@@ -56,8 +56,6 @@
 | border-image-repeat | Specifies whether the border image should be repeated, rounded or stretched | 3
 | box-shadow          | Attaches one or more drop-shadows to the box | 3
 | box-decoration-break | Sets the behaviour of the background and border of an element at page-break, or, for in-line elements, at line-break. | 3
-
-注1：`background` 各项标准顺序 `color` `image` `repeat` `attachment` `position` `size` `origin` `clip`
 
 ```scss
 background-image: url("../../media/examples/a.png"),  // 多张图片用 `,` 分隔
