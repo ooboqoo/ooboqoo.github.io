@@ -182,7 +182,7 @@ vm.$el === document.getElementById('app');  //  true
 vm.$watch('a', function (newValue, oldValue) { /* */ });
 ```
 
-### 声明周期钩子
+### 实例声明周期钩子
 
 **不要在选项属性或回调上使用箭头函数**，比如 `created: () => console.log(this.a)` 或 `vm.$watch('a', newValue => this.myMethod())`。因为箭头函数是和父级上下文绑定在一起的，`this` 不会是如你所预期的 Vue 实例。
 

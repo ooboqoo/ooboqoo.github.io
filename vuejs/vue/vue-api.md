@@ -103,6 +103,39 @@ Vue 为最常用的按键提供了别名：
 ```
 
 
+## 选项
+
+### 数据
+
+### DOM
+
+### 生命周期钩子
+
+```js
+export default {
+  beforeCreate () { },// 在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用
+  created () { },     // 在实例创建完成后被立即调用。挂载阶段还没开始，`$el` 属性目前不可见
+  beforeMount () { }, // 在挂载开始之前被调用，相关的 render 函数首次被调用
+  mounted () { },     // `el` 被新创建的 `vm.$el` 替换，并挂载到实例上去之后调用该钩子。
+                      // 注意此时并不确保子组件也一起被挂载。如果希望等到整个视图都渲染完毕，可以用 `$nextTick`
+  beforeUpdate () { },// 数据更新时调用，发生在虚拟 DOM 打补丁之前。这里适合在更新之前访问现有 DOM
+  Update () { },      // 当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。
+                      // 注意此时并不确保子组件也一起被重绘。如果希望等到整个视图都重绘完毕，可以用 `$nextTick`
+  // <keep-alive> 包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们
+  activated () { },    // keep-alive 组件激活时调用
+  deactivated () { },  // keep-alive 组件停用时调用
+  beforeDestroy () { },// 实例销毁之前调用。在这一步，实例仍然完全可用
+  destroyed () { }     // Vue 实例销毁后调用
+}
+```
+
+### 资源
+
+### 组合
+
+### 其他
+
+
 ## 实例属性和方法
 
 ### 实例属性
@@ -193,6 +226,12 @@ router.go(n)
 router.back()
 router.forward()
 ```
+
+
+## axios
+
+
+
 
 
 ## Vue Resource

@@ -139,18 +139,8 @@ The table below lists all CSS3 properties and their browser support:
 | -webkit- | Supported by Google Chrome / Safari / Opera  with the prefix `-webkit-`
 
 <style>
-td:first-child {white-space:nowrap;}
-.bsIE::before {content:"ie ";color:#ccc;}
-.bsFirefox::before{content:"firefox ";color:#ccc;}
-.bsChrome::before{content:"chrome ";color:#ccc;}
-.bsSafari::before{content:"safari ";color:#ccc;}
-.bsOpera::before{content:"opera ";color:#ccc;}
-.bsNoIE, .bsNoFirefox, .bsNoChrome, .bsNoSafari, .bsNoOpera{}
-.bsPreIE::before{content:"-ms- ";}
-.bsPreFirefox::before{content:"-moz- ";}
-.bsPreChrome::before{content:"-webkit- ";}
-.bsPreSafari::before{content:"-webkit- ";}
-.bsPreOpera::before{content:"-webkit- ";}
+table { display: table !important; width: 100%; }
+td:first-child { white-space:nowrap; }
 </style>
 
 <script>
