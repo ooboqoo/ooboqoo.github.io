@@ -138,23 +138,25 @@ background-position: right 35% bottom 5px;
 
 ## Text Properties
 
-| Property | Description | CSS
-|----------|-------------|----------
-| line-height | Sets the line height | 1
-| text-align | Specifies the horizontal alignment of text | 1
+||||
+|-----------------|-------------------------------------------------------------------------------------|----
+| text-align      | 指定文本水平对齐方式 `left` `right` `center` `justify`。垂直对齐用 `vertical-align` | 1
+| text-justify    | `text-align: justify;` 时具体对齐行为 `none` `auto` `inter-word` `inter-character`  | 3
+| text-align-last | `text-align: justify;` 时最后一行的对齐行为 `right`/`end` `center` `left`/`start`   | 3
+||||
+| white-space | 如何处理空白 `normal`不留换 `nowrap`不留不换 `pre`留不换 `pre-line`不留换 `pre-wrap`留换 | 1
+| word-break | 是否/如何断行 `normal`(词尾插入换行) `break-all`(单词内插入) `keep-all`(即使中日韩也不换行) `break-word`(仅在单词长度超过行宽时才在单词内插入换行) | 3
+| overflow-wrap | 当一个单词大于行宽时是否插入换行 `normal`(不断) `break-word`(断行) | 3
+| hyphens | 当单词内断行时，是否插入连字符 `none` `auto` `manual` | 3
+| line-break | 是否/如何在符号处换行，仅适用于 CJK `auto` `loose` `normal` `strict` | 3
+||||
 | text-indent | Specifies the indentation of the first line in a text-block | 1
-| white-space | `normal` 不留换 `nowrap` 不留不换 `pre` 留不换 `pre-line` 不留换 `pre-wrap` 留换 | 1
-| word-wrap | `normal` `break-word` 如果一个长单词换行后还是无法放下则打断，默认不打断，中日韩CJK始终都打断的 | 3
-| word-break | `normal` `break-all` `keep-all` 打断任何单词以填满行尾 | 3
 | word-spacing | Increases or decreases the space between words in a text | 1
 | letter-spacing | Increases or decreases the space between characters in a text | 1
 | tab-size | Specifies the length of the tab-character | 3
+||||
+| line-height | Sets the line height | 1
 | text-transform | Controls the capitalization of text | 1
-| text-justify | Specifies the justification method used when text-align is "justify" | 3
-| text-align-last | Describes how the last line of a block or a line right before a forced line break is aligned when text-align is "justify" | 3
-| line-break | Specifies how/if to break lines | 3
-| hyphens | Sets how to split words to improve the layout of paragraphs | 3
-| overflow-wrap | Specifies whether or not the browser may break lines within words in order to prevent overflow (when a string is too long to fit its containing box) | 3
 | text-combine-upright | Specifies the combination of multiple characters into the space of a single character | 3
 | hanging-punctuation | Specifies whether a punctuation character may be placed outside the line box | 3
 

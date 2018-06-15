@@ -50,8 +50,10 @@ Push: rsync [OPTION...] SRC... [USER@]HOST:DEST
 
 $ rsync -iurp --chmod=Dgo+x,Fgo+r /media/sf_52web/ /var/www/html/
   # -i 显示信息 -u 只更新 -r 递归执行 -p 保存权限信息
+  # -a 启用存档模式 -z 传输时启用压缩
   # --chmod=CHMOD 更改权限（-p 不能省）
   # --delete 删除 SRC 中没有的文件
+$ rsync -avzP --delete -e 'ssh -i /home/git/.ssh/id_rsa' /opt/project/dist/ dev@host:/opt/www/ 2>&1
 ```
 
 ### `crond` 计划任务服务

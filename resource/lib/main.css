@@ -162,13 +162,14 @@ main table {
 main table thead {
   color: #fff;
   text-align: center;
-  background-color: #666;
+  background-color: #999;
   border-style: solid;
   border-color: #ccc;
   border-width: 0 2px;
 }
 
 main table th, main table td {
+  font-weight: normal;
   padding: .15em .5em;
   border: 1px solid #ccc;
 }

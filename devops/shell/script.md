@@ -9,6 +9,7 @@ https://en.wikibooks.org/wiki/Bash_Shell_Scripting （应该不错）
 http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html   
 http://arachnoid.com/linux/shell_programming.html
 
+
 ## 认识 Shell 脚本
 
 ### 脚本示例
@@ -92,6 +93,8 @@ Bash 是 Bourne shell 的替代品，属 GNU Project，二进制文件路径通�
 
 ## Bash Script
 
+http://www.gnu.org/software/bash/manual/html_node/index.html
+
 Shell script 是利用 shell 的功能所写的程序，将一些 shell 的语法与命令(含外部命令)写在里面，搭配正则表达式、管道命令与数据流重定向等功能，以达到我们所想要的处理目的。
 
 脚本编程的应用：
@@ -109,6 +112,7 @@ echo $name    # 使用变量，方式1: 变量名前加`$`，省掉了可选的�
 echo ${name}  # 使用变量，方式2: 采用 `${ }`，添加了可选的花括号，`${name}otherwords`，推荐用这种方式
 name="ivan"   # 重定义变量
 echo $name      # 打印 ivan
+echo ${name:-123} # "Parameter Expansion" 如果 $name 不存在就返回 123
 ```
 
 注：引用变量时，变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界。
@@ -190,6 +194,20 @@ echo "Total parameter number is ==> $#"  # 此处假设执行是输入了4个参
 shift 3
 echo "Total parameter number is ==> $#"  # 此处输出为 1
 ```
+
+#### Parameter Expansion
+
+|                      | 参数存在并非 null  | 参数存在但是 null | 参数不存在
+|----------------------|--------------------|-------------------|-------------
+| `${parameter:-word}` | ${parameter}       | word              | word
+| `${parameter-word}`  | ${parameter}       | null              | word
+| `${parameter:=word}` | ${parameter}       | assign word       | assign word
+| `${parameter=word}`  | ${parameter}       | null              | assign word
+| `${parameter:?word}` | ${parameter}       | error, exit       | error, exit
+| `${parameter?word}`  | ${parameter}       | null              | error, exit
+| `${parameter:+word}` | word               | null              | null
+| `${parameter+word}`  | word               | word              | null
+
 
 ### 注释
 
