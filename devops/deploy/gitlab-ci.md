@@ -33,7 +33,7 @@ https://docs.gitlab.com/ee/ci/variables/
 | CI_BUILD_TAG          | CI_COMMIT_TAG
 | CI_BUILD_REF_NAME     | CI_COMMIT_REF_NAME
 
-```bash
+```yaml
 variables:
   LS_CMD: 'ls $FLAGS $$TMP_DIR'
   FLAGS: '-al'

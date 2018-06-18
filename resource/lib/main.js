@@ -48,6 +48,7 @@ function isMobile() {
         cb(xmlhttp.responseText);
     };
   }
+  window.ajax = ajax;
 
   /**
    * 根据 src 参数确认加载的是 html 还是 markdown 文件，并调整他们的容器的显示和隐藏
@@ -231,7 +232,7 @@ function isMobile() {
     var links = elem_header.getElementsByTagName("a");
     var a, p, temp;
     for (var i = 0, length = links.length; i < length; i++) {
-      a = links[i]
+      a = links[i];
       if (window.location.href.indexOf(a.href) !== -1 && a.className.indexOf('btn') === -1) {
         a.className = "active";
         p = a.parentElement.parentElement;
@@ -244,12 +245,6 @@ function isMobile() {
       }
     }
   });
-
-  elem_header.onclick = function (e) {
-    if (e.target.tagName !== "A") { return; }
-    window.location.href = e.target.href;
-    e.target.className = "active";
-  };
 
   // 定义菜单开关按钮
   elem_togglemenu.addEventListener("click", function () {

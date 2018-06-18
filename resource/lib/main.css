@@ -114,6 +114,10 @@ html, body {
   height: 100%;
 }
 
+html {
+  overflow-y: overlay;
+}
+
 main {
   position: relative;
   width: 100%;

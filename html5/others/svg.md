@@ -1,18 +1,39 @@
 # SVG
 
-### 位图和矢量图
+## 位图和矢量图
 
 位图由一些列像素组成，对于需要表现丰富色彩的图像，位图很合适，但是放大会造成失真。
 
 矢量图不是由像素定义的，而是由线段和曲线来定义的。相比位图，矢量图具有文件小、缩放不失真的优点。
 由于矢量图是用数学方法描述的图，因此不适合表现自然度高、复杂多变的图。
 
-### 图形元素
+## SVG 容器
 
 ```html
 <!-- 容器 -->
 <svg width="300" height="300" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
 ```
+
+### Viewport and viewBox
+
+视口——飞机上的小窗  视框——望远镜
+
+https://webdesign.tutsplus.com/tutorials/svg-viewport-and-viewbox-for-beginners--cms-30844
+
+```html
+<!-- 缩小，视口内显示更多内容，但内容缩小 -->
+<svg width="50" height="50" viewBox="0 0 100 100">
+  <ellipse cx="50" cy="50" rx="50" ry="50"></ellipse>
+</svg>
+<!-- 放大 -->
+<svg width="50" height="50" viewBox="0 0 25 25">
+  <ellipse cx="50" cy="50" rx="50" ry="50"></ellipse>
+</svg>
+```
+
+
+## 图形元素
+
 
 SVG 中预定义了七种形状元素，分别为：矩形 `rect` 圆形 `circle` 椭圆 `ellipse` 线段 `line` 折线 `polyline` 多边形 `polygon` 路径 `path`。
 
@@ -190,3 +211,22 @@ SVG 中预定义了七种形状元素，分别为：矩形 `rect` 圆形 `circle
 
 ### 渐变
 
+
+## 编辑器
+
+https://css-tricks.com/tools-visualize-edit-svg-paths-kinda/
+
+#### 在线编辑器
+
+https://github.com/SVG-Edit/svgedit  
+http://editor.method.ac/  
+
+#### 在线优化
+
+http://petercollingridge.appspot.com/svg-editor
+
+#### 在线路径生成
+
+可以考虑把下面两个项目的优点合并下，自己造个轮子  
+http://jxnblk.com/paths/?d=M32%200%20L0%2032%20L32%2064  
+https://codepen.io/anthonydugois/pen/mewdyZ  
