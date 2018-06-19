@@ -17,7 +17,7 @@
 ```
 
 > **尺寸应当在标记中指定，而不应使用css**   
-CSS 的 width 和 height 属性与画布的 width 和 height 属性并不是一回事儿。如果仅在 CSS 中指定尺寸，那画布会取得其默认尺寸（300px × 150px）。然后，CSS 的 width 和 height 属性又会把画布拉伸或压缩到它设置的大小。与此同时，画布中的内容也会随之变形。
+CSS 的 width 和 height 属性与画布的 width 和 height 属性并不是一回事儿。如果仅在 CSS 中指定尺寸，那画布会取得其默认尺寸 (300px × 150px)。然后，CSS 的 width 和 height 属性又会把画布拉伸或压缩到它设置的大小。与此同时，画布中的内容也会随之变形。
 
 ### Canvas 坐标系
 
@@ -123,9 +123,9 @@ ctx.strokeRect(5,5,25,15);  // 这个框是原先款的4倍大小，且向右下
 
 ### 合成操作
 
-所谓合成操作，就是告诉 &lt;canvas&gt; 怎么显示两个重叠的图形。默认的合成操作是 source-over。   
+所谓合成操作，就是告诉 canvas 怎么显示两个重叠的图形。默认的合成操作是 source-over。   
 在合成操作的术语中，源是指正在绘制的图形，目标是指画布上已经绘制的内容。   
-要改变 &lt;canvas&gt; 当前使用的合成操作方式，只要在画后面的图形之前设置绘图上下文的 globalCompositeOperation 属性即可。
+要改变 canvas 当前使用的合成操作方式，只要在画后面的图形之前设置绘图上下文的 globalCompositeOperation 属性即可。
 
 ```
 source-over  source-in  source-out  source-atop   
@@ -167,11 +167,11 @@ context.fill();
 #### 绘制图像
 
 `drawImage()` 方法用于在画布上绘制图片。使用这个方法很简单，调用它的时候传入相应的图片对象及起点坐标即可。
-在调用 drawImage() 之前，需要准备好图片对象。HTML5为此提供了三个方案。
+在调用 `drawImage()` 之前，需要准备好图片对象。HTML5 为此提供了三个方案。
 
-* 使用 createImageData() 方法一个像素一个像素地创建图像，这种方法很麻烦，也没有效率。
-* 使用网页中已有的 &lt;img&gt; 元素
-* 在代码中创建一个图片对象，然后把一个外部图片加载进来。但这个方案有一个缺点，即必须先等待图片加载完毕，然后才能把图片对象传递给 drawImage() 方法使用
+* 使用 `createImageData()` 方法一个像素一个像素地创建图像，这种方法很麻烦，也没有效率。
+* 使用网页中已有的 `<img>` 元素
+* 在代码中创建一个图片对象，然后把一个外部图片加载进来。但这个方案有一个缺点，即必须先等待图片加载完毕，然后才能把图片对象传递给 `drawImage()` 方法使用
 
 ```js
 // 使用网页中的已有<img>元素
@@ -184,6 +184,7 @@ img.src = "maze.png";  // 此时开始加载图片
 ```
 
 #### 裁剪和缩放图片
+
 ```js
 void ctx.drawImage(image, dx, dy);  // 插入图片到指定位置
 void ctx.drawImage(image, dx, dy, dWidth, dHeight);  // 先缩放再插入到指定位置
@@ -240,18 +241,18 @@ createRadialGradient(x,y,r,x1,y1,r1) - creates a radial gradient, 在两个圆�
 如果待填充的范围大于渐变指定范围，渐变会以纯色扩展以填满待填充区域。
 
 ```js
-var c=document.getElementById("drawingCanvas");
-var ctx=c.getContext("2d");
+var c = document.getElementById("drawingCanvas");
+var ctx = c.getContext("2d");
 // Create linear gradient
-var grdl=ctx.createLinearGradient(0,0,200,0);
+var grdl = ctx.createLinearGradient(0,0,200,0);
 grdl.addColorStop(0,"white");
 grdl.addColorStop(1,"red");
 // Create radial gradient
-var grdr=ctx.createRadialGradient(75,50,20,90,60,100);
+var grdr = ctx.createRadialGradient(75,50,20,90,60,100);
 grdr.addColorStop(0,"white");
 grdr.addColorStop(1,"red");
 // Fill with gradient
-ctx.fillStyle=grdr;
+ctx.fillStyle = grdr;
 ctx.fillRect(10,10,400,200);
 ctx.strokeRect(10,10,400,200);
 ```
@@ -271,12 +272,13 @@ ctx.strokeRect(10,10,400,200);
 
 ### 碰撞检测
 
-一种是基于数学计算来实现碰撞检测。   
-另一种手段，是取得像素块，检测它们的颜色。很多情况下，这种手段更简单，因为它不涉及全部对象，也不必编写图形记录代码。然而，这种手段只适合能明确判断颜色的场合。通过 getImageData() 从矩形区域中取得一个像素块，然后再检测这些像素。
+一种是基于数学计算来实现碰撞检测。
+
+另一种手段，是取得像素块，检测它们的颜色。很多情况下，这种手段更简单，因为它不涉及全部对象，也不必编写图形记录代码。然而，这种手段只适合能明确判断颜色的场合。通过 `getImageData()` 从矩形区域中取得一个像素块，然后再检测这些像素。
 
 ## 操作像素
 
-绘图上下文为操作像素提供了三个方法： getImageData() 、 putImageData() 和 createImageData()。
+绘图上下文为操作像素提供了三个方法：`getImageData()` `putImageData()` 和 `createImageData()`。
 
 imageDate 对象结构：imageDate{ width, height, data[r, g, b, a, ...] }  // 从 行1列1 到 行1列n 到 行n列n 排列
 
@@ -295,22 +297,23 @@ ctx.putImageData(imageData, dx, dy);  // x y 即要放置的位置
 
 ## 添加动画
 
-在HTML5中利用 Canvas 实现动画非常容易。首先，要设置一个定时器，反复调用绘图函数（一般每秒30～40次）。每次调用，都会重绘整个画布。完成后的效果就像动画一样，每一帧间的过渡会平滑而流畅。JavaScript 为控制重复绘制提供了两种手段：使用 setTimeout() 函数和使用 setInterval() 函数。
+在 HTML5 中利用 Canvas 实现动画非常容易。首先，要设置一个定时器，反复调用绘图函数（一般每秒30～40次）。每次调用，都会重绘整个画布。完成后的效果就像动画一样，每一帧间的过渡会平滑而流畅。JavaScript 为控制重复绘制提供了两种手段：使用 `setTimeout()` 函数和使用 `requestAnimationFrame()` 函数。
 
 ### 多物体动画
 
-弹跳小球动画实现细节：   
-(1) 清除画布；   
-(2) 循环球的数组；   
-(3) 调整每个球的位置和速度；   
-(4) 绘制每个球；   
-(5) 调用 setTimeout() 以便每隔20毫秒就执行一次 drawFrame() 函数。
+弹跳小球动画实现细节
+  1. 清除画布
+  2. 循环球的数组
+  3. 调整每个球的位置和速度
+  4. 绘制每个球
+  5. 调用 `setTimeout()` 以便每隔20毫秒就执行一次 drawFrame() 函数
 
 ### 动画的性能问题
 
 由于绘制速度很快，因此与基本的绘图操作相比，动画对画布的要求要高得多。现代浏览器都使用了硬件加速等性能增强技术，把图形处理工作转移给了显卡，从而节省了CPU。即使 JavaScript 不是现有最快的语言，但仍然可以利用它来创造出复杂、高速的动画，甚至是实时电子游戏——只要有脚本和画布即可。
 
-然而，对于移动设备（比如iPhone或Android手机）来说，由于能力不足，性能就是一个问题了。测试表明，在桌面浏览器中运行速度达每秒60帧的动画，在智能手机中最高才能达到每秒10帧。因此，要是想为手机用户开发应用，一定要尽早测试并准备牺牲一些夺人眼目的动画效果，从而确保应用运行流畅。
+然而，对于移动设备（比如 iPhone 或 Android 手机）来说，由于能力不足，性能就是一个问题了。测试表明，在桌面浏览器中运行速度达每秒60帧的动画，在智能手机中最高才能达到每秒10帧。因此，要是想为手机用户开发应用，一定要尽早测试并准备牺牲一些夺人眼目的动画效果，从而确保应用运行流畅。
+
 
 ## 相关资源
 
