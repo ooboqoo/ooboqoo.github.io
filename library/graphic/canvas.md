@@ -1,5 +1,6 @@
 # Canvas 画布
 
+
 ## Canvas 基础
 
 `<canvas>` 元素是一切高级图形应用的核心所在。利用它可以开发出很多你梦寐以求的东西（比如游戏、地图和动态图表），也可以开发出你从未想过的东西（比如音乐灯光秀、物理模拟器）。
@@ -17,16 +18,16 @@
 ```
 
 > **尺寸应当在标记中指定，而不应使用css**   
-CSS 的 width 和 height 属性与画布的 width 和 height 属性并不是一回事儿。如果仅在 CSS 中指定尺寸，那画布会取得其默认尺寸 (300px × 150px)。然后，CSS 的 width 和 height 属性又会把画布拉伸或压缩到它设置的大小。与此同时，画布中的内容也会随之变形。
+CSS 的 width 和 height 属性与画布的 width 和 height 属性并不是一回事儿。如果仅在 CSS 中指定尺寸，那画布会取得其默认尺寸 (300px × 150px)。然后，CSS 的 width 和 height 属性又会把画布拉伸或压缩到它设置的大小。与此同时，画布中的内容也会随之变形。当然。也可以通过 JS 设置宽高。
 
-### Canvas 坐标系
+### 坐标系
 
 与其他 HTML 元素一样，`<canvas>` 坐标的左上角是坐标原点(0,0)。向右移动，x值增大，向下移动，y值增大。
 
 ### 路径
 
-beginPath() 开启新路径   
-closePath() 闭合当前路径（首尾相连形成闭合区域）
+`beginPath()` 开启新路径   
+`closePath()` 闭合当前路径（首尾相连形成闭合区域）
 
 ### 简单绘画
 
@@ -46,6 +47,9 @@ fill()       | 执行填充操作
 rect(x,y,width,height)       | 绘制矩形路径
 strokeRect(x,y,width,height) | 直接绘制一个矩形框 = rect() + stroke()
 fillRect(x,y,width,height)   | 直接填充一个矩形区域 = rect() + fill()
+clearRect(x,y,width,height)  | 清除指定矩形区域，让清除部分完全透明
+
+不同于 SVG，HTML 中的元素 canvas 只支持一种原生的图形绘制：矩形。所有其他的图形的绘制都至少需要生成一条路径。
 
 ```js
 var canvas = document.getElementById("drawingCanvas");  // 取得 <canvas> 对象

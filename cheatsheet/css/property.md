@@ -279,7 +279,7 @@ background-position: right 35% bottom 5px;
 |----------|-------------|----------
 | box-sizing | width height 值是否包含 padding+margin，可选 `content-box` `border-box` IE8+支持 | 3
 | content | Used with the :before and :after pseudo-elements, to insert generated content | 2
-| cursor | Specifies the type of cursor to be displayed | 2
+| cursor | 定制光标样式，不支持动态gif <span class="mark">[注1]</span> | 2
 | resize | Specifies whether or not an element is resizable by the user | 3
 | nav-index | Specifies the tabbing order for an element | 3
 | nav-left | Specifies where to navigate when using the arrow-left navigation key | 3
@@ -291,12 +291,12 @@ background-position: right 35% bottom 5px;
 | outline-style | Sets the style of an outline | 2
 | outline-width | Sets the width of an outline | 2
 | outline-offset | Offsets an outline, and draws it beyond the border edge | 3
-| text-overflow | 指明当内容超出容器时如何显示，最常见用法：<span class="mark">[注1]</span> | 3
+| text-overflow | 指明当内容超出容器时如何显示，最常见用法：<span class="mark">[注2]</span> | 3
 | ime-mode | Controls the state of the input method editor for text fields | 3
 
 ```css
-// 注1
-.container { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+注1  cursor: url(one.svg), url(two.svg) 5 5, progress;  // 自定义光标好多高级玩法
+注2  .container { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 ```
 
 ## Multi-column Layout Properties
