@@ -589,17 +589,17 @@ ooboqoo.contentsRegExp = /H[12]/;
 (function(){
   var list = document.querySelectorAll(".dl > h5"),
       reg=/^[a-zA-Z0-9._]+\(?/g,
-      listHTML, atext, alink,
+      html, text, link,
       prefix = 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/';
   for (var i = 0, length = list.length; i < length; i++){
     reg.lastIndex = 0;
-    listHTML = list[i].innerHTML;
-    atext = reg.exec(listHTML);
-    if (atext === null) { continue; }
-    atext = atext[0];
-    alink = atext.replace('.prototype', '').replace('.', '/').replace('(', '');
-    list[i].innerHTML = '<a href="' + prefix + alink + '">' + atext + '</a>' +
-      listHTML.substr(reg.lastIndex).replace(/\) *\<span/, '<span style="color: red;">)</span> <span');
+    html = list[i].innerHTML;
+    text = reg.exec(html);
+    if (text === null) { continue; }
+    text = text[0];
+    link = text.replace('.prototype', '').replace('.', '/').replace('(', '');
+    list[i].innerHTML = '<a href="' + prefix + link + '">' + text + '</a>' +
+      html.substr(reg.lastIndex).replace(/\) *\<span/, '<span style="color: red;">)</span> <span');
   }
 })();
 </script>

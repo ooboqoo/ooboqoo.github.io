@@ -37,11 +37,11 @@ CSS 的 width 和 height 属性与画布的 width 和 height 属性并不是一�
 ------------ | ----------------
 lineWidth    | 设置线条宽度
 strokeStyle  | 设置线条的颜色，可以使用 HTML 颜色名、颜色编码 以及 rgb() 函数
-lineCap      | 设置线头类型，默认是 butt（方头）还有 round（圆头）或 square（加长方头，线条两头各加长一半线宽）
-lineJoin     | 指定线段交点的形状，默认是 mitre（锐角斜接），还有 round（圆头）和 bevel（平头斜接）
-moveTo(x,y); | 移动到某一点
-lineTo(x,y); | 在画布上画直线（绘制路径）
-stroke();    | 沿着路径画出线条
+lineCap      | 设置线头类型，butt(方头，默认) round(圆头) square(加长方头，线条两头各加长一半线宽)
+lineJoin     | 指定线段交点形状，miter(锐角斜接，默认) round(圆头) bevel(平头斜接)
+moveTo(x,y)  | 移动到某一点
+lineTo(x,y)  | 在画布上绘制(直线)路径
+stroke()     | 沿着路径画出线条
 fillStyle    | 设置填充颜色
 fill()       | 执行填充操作
 rect(x,y,width,height)       | 绘制矩形路径
@@ -59,10 +59,10 @@ ctx.moveTo(250,50);   // 设置起点
 ctx.lineTo(50,250);
 ctx.lineTo(450,250);
 ctx.closePath();      // 闭合路径
-//填充内部
+// 填充内部
 ctx.fillStyle = "blue";
 ctx.fill();
-//绘制轮廓
+// 绘制轮廓
 ctx.lineWidth = 10;
 ctx.strokeStyle = "red";
 ctx.stroke();
@@ -70,25 +70,25 @@ ctx.stroke();
 
 ### 绘制曲线
 
-arc(centerX, centerY, radius, startingAngle, endingAngle,anticlockwise) 绘制圆或圆弧   
-使用 arc() 方法画不了椭圆。要画椭圆，要么使用更复杂的绘制曲线的方法，要么使用变换把普通的圆拉伸成椭圆。
+`arc(centerX, centerY, radius, startingAngle, endingAngle, anticlockwise)` 绘制圆或圆弧   
+使用 `arc()` 方法画不了椭圆。要画椭圆，要么使用更复杂的绘制曲线的方法，要么使用变换把普通的圆拉伸成椭圆。
 
-void ctx.arcTo(x1, y1, x2, y2, radius); 圆弧一端与(x1,y1)到(x2,y2)的直线相切，另一端与起点用竖线相连   
-void ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y); 贝塞尔曲线由起点、终点 和 2个控制点控制   
-void ctx.quadraticCurveTo(cpx, cpy, x, y); 二次曲线由起点、终点 和 1个控制点控制
+`ctx.arcTo(x1, y1, x2, y2, radius)` 圆弧一端与 (x1,y1) 到 (x2,y2) 的直线相切，另一端与起点用竖线相连   
+`ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)` 贝塞尔曲线由起点、终点 和 2个控制点控制   
+`ctx.quadraticCurveTo(cpx, cpy, x, y)` 二次曲线由起点、终点 和 1个控制点控制
 
 ```js
 var canvas = document.getElementById("drawingCanvas");
 var context = canvas.getContext("2d");
 context.moveTo(62, 242);
-//创建变量，保存两个控制点及曲线终点信息
+// 创建变量，保存两个控制点及曲线终点信息
 var control1_x = 187;
 var control1_y = 32;
 var control2_x = 429;
 var control2_y = 480;
 var endPointX = 365;
 var endPointY = 133;
-//绘制贝塞尔曲线
+// 绘制贝塞尔曲线
 context.bezierCurveTo(control1_x, control1_y, control2_x, control2_y, endPointX, endPointY);
 context.stroke();
 // 绘制二次曲线
@@ -98,20 +98,17 @@ context.quadraticCurveTo(230, 30, 50, 100);
 context.stroke();
 ```
 
-复杂而自然的形状通常需要多个圆弧和曲线拼接而成。完成之后，可以调用 closePath() 以便填充或描边。
+复杂而自然的形状通常需要多个圆弧和曲线拼接而成。完成之后，可以调用 `closePath()` 以便填充或描边。
 
 ### 变换
 
-translate() 平移，移动了坐标系的原点
+`translate()` 平移，移动了坐标系的原点  
+`scale()` 缩放，可以把本来要绘制的形状放大或缩小  
+`rotate()` 旋转，旋转坐标系  
+`matrix()` 矩阵，矩阵变换更复杂一些，但可以在任意方向拉伸和扭曲坐标系，要求你必须理解复杂的矩阵计算
 
-scale() 缩放，可以把本来要绘制的形状放大或缩小
-
-rotate() 旋转，旋转坐标系
-
-matrix() 矩阵，矩阵变换更复杂一些，但可以在任意方向拉伸和扭曲坐标系，要求你必须理解复杂的矩阵计算
-
-变换是累积的。调用绘图上下文的 save() 方法可以保存坐标系当前的状态。然后，再调用 restore() 方法可以返回保存过的前一个状态。如果要保存坐标系的状态，必须在应用任何变换之前调用 save()。而在多步操作绘制复杂图形时，往往都需要多次保存坐标系状态，这些状态就如同浏览器中的历史记录一样。
-每调用一次 restore()，坐标系就会恢复到前一个最近的状态。
+变换是累积的。调用绘图上下文的 `save()` 方法可以保存坐标系当前的状态。然后，再调用 `restore()` 方法可以返回保存过的前一个状态。如果要保存坐标系的状态，必须在应用任何变换之前调用 `save()`。而在多步操作绘制复杂图形时，往往都需要多次保存坐标系状态，这些状态就如同浏览器中的历史记录一样。
+每调用一次 `restore()`，坐标系就会恢复到前一个最近的状态。
 
 ```js
 ctx.strokeRect(5,5,25,15);
@@ -121,35 +118,34 @@ ctx.strokeRect(5,5,25,15);  // 这个框是原先款的4倍大小，且向右下
 
 ### 透明度
 
-使用 rgba() 函数，或者设置 globalAlpha 属性。
+使用 `rgba()` 函数，或者设置 `globalAlpha` 属性。
 
-设置 globalAlpha 属性后，后续所有绘图操作都会取得相同的不透明度，包括描边和填充，直至再次修改 globalAlpha 属性。
+设置 `globalAlpha` 属性后，后续所有绘图操作都会取得相同的不透明度，包括描边和填充，直至再次修改 `globalAlpha` 属性。
 
 ### 合成操作
 
-所谓合成操作，就是告诉 canvas 怎么显示两个重叠的图形。默认的合成操作是 source-over。   
+所谓合成操作，就是告诉 canvas 怎么显示两个重叠的图形。默认的合成操作是 `'source-over'`。   
 在合成操作的术语中，源是指正在绘制的图形，目标是指画布上已经绘制的内容。   
-要改变 canvas 当前使用的合成操作方式，只要在画后面的图形之前设置绘图上下文的 globalCompositeOperation 属性即可。
+要改变 canvas 当前使用的合成操作方式，只要在画后面的图形之前设置绘图上下文的 `globalCompositeOperation` 属性即可。
 
-```
-source-over  source-in  source-out  source-atop   
-destination-over  destination-in  destination-out  destination-atop   
-lighter(重叠部分颜色相加) copy（覆盖） xor   
-(还有新增加内容，略)
+```js
+'source-over' | 'source-in' | 'source-out' | 'source-atop' |
+'destination-over' | 'destination-in' | 'destination-out' | 'destination-atop' |
+'lighter' /* 重叠部分颜色相加 */ | 'copy' /* 覆盖 */ | 'xor' 
 ```
 
 ```js
 var canvas = document.getElementById("drawingCanvas");
 var context = canvas.getContext("2d");
-//绘制矩形
+// 绘制矩形
 context.fillStyle = "blue";
 context.fillRect(15,15,70,70);
-//选择globalCompositeOperation
+// 选择 globalCompositeOperation
 context.globalCompositeOperation = "source-atop";
-//在上方绘制圆形
+// 在上方绘制圆形
 context.fillStyle = "red";
 context.beginPath();
-context.arc(75, 75, 35, 0, Math.PI*2, true);
+context.arc(75, 75, 35, 0, Math.PI * 2, true);
 context.fill();
 ```
 
@@ -160,9 +156,9 @@ context.fill();
 
 ### 裁剪蒙版
 
-`clip()` 方法可创建裁剪蒙版，效果与合成有些类似，就是路径内的内容会保留，而路径外的内容被隐藏（清除）。
+`clip()` 方法可创建裁剪蒙版，效果与合成有些类似，就是路径内的内容会保留，而路径外的内容被隐藏(清除)。
 
-如何取消蒙版：用 save() 方法在 clip() 之前创建一个保存点之后可以用 restore() 方法回到保存点。
+如何取消蒙版：用 `save()` 方法在 `clip()` 之前创建一个保存点之后可以用 `restore()` 方法回到保存点。
 
 ## Canvas 进阶
 
@@ -183,7 +179,7 @@ var img = document.getElementById("image");
 context.drawImage(img, 10, 10);
 // 创建一个图片对象加载图片
 var img = new Image();
-img.onload = function() { context.drawImage(img, 0, 0); };
+img.onload = function () { context.drawImage(img, 0, 0); };
 img.src = "maze.png";  // 此时开始加载图片
 ```
 
@@ -291,7 +287,7 @@ imageDate 对象结构：imageDate{ width, height, data[r, g, b, a, ...] }  // �
 var myImageData = ctx.createImageData(width, height);     // 方法1 通过指定高宽创建
 var myImageData = ctx.createImageData(anotherImageData);  // 方法2 复制另外一个对象的高宽（不复制内容）
 // 获取像素信息
-imageData = ctx.getImageData(left, top, width, height);  // 获取针对特定区块的 imageDate
+imageData = ctx.getImageData(left, top, width, height);   // 获取针对特定区块的 imageDate
 blue = imageData.data[((50*(imageData.width*4)) + (200*4)) + 2];  // 读取第50行200列的蓝色位置的数值
 // 写入像素
 ctx.putImageData(imageData, dx, dy);  // x y 即要放置的位置

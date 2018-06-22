@@ -9,115 +9,129 @@ https://www.w3schools.com/tags/ref_canvas.asp
 ### Colors, Styles, and Shadows
 
 ||
---------------------------------------|---------------------------------------------------------------------
-[fillStyle](canvas_fillstyle.asp)     | Sets or returns the color, gradient, or pattern used to fill the drawing
-[strokeStyle](canvas_strokestyle.asp) | Sets or returns the color, gradient, or pattern used for strokes
-[shadowColor](canvas_shadowcolor.asp) | Sets or returns the color to use for shadows
-[shadowBlur](canvas_shadowblur.asp)   | Sets or returns the blur level for shadows
-[shadowOffsetX](canvas_shadowoffsetx.asp) | Sets or returns the horizontal distance of the shadow from the shape
-[shadowOffsetY](canvas_shadowoffsety.asp) | Sets or returns the vertical distance of the shadow from the shape
+--------------|---------------------------------------------------------------------
+fillStyle     | 填充颜色或样式，值类型 颜色DOMString / 渐变CanvasGradient / 贴图CanvasPattern
+strokeStyle   | 线条颜色或样式，值类型 DOMString / CanvasGradient / CanvasPattern
+shadowColor   | 阴影颜色
+shadowBlur    | 阴影尺寸等级，默认 `0`，跟像素的关系大概是，单边阴影宽度 px 为 指定值/2
+shadowOffsetX | 阴影水平偏移量，float 值
+shadowOffsetY | 阴影垂直偏移量，float 值
 
 ||
-----------------------------------------------------------|-------------------------------------------------------
-[createLinearGradient()](canvas_createlineargradient.asp) | Creates a linear gradient (to use on canvas content)
-[createRadialGradient()](canvas_createradialgradient.asp) | Creates a radial/circular gradient (to use on canvas content)
-[addColorStop()](canvas_addcolorstop.asp)   | Specifies the colors and stop positions in a gradient object
-[createPattern()](canvas_createpattern.asp) | Repeats a specified element in the specified direction
+---------------------------------------------|-------------------------------------------------------
+createLinearGradient(x0, y0, x1, y1)         | 创建线性渐变
+createRadialGradient(x0, y0, r0, x1, y1, r1) | 创建径向渐变
+grd.addColorStop(offset, color)              | Specifies the colors and stop positions in a gradient object
+createPattern(image, repetition)             | 创建一个贴图 CanvasPattern
 
 ### Line Styles
 
 ||
-------------------------------------|----------------------------------------------
-[lineWidth](canvas_linewidth.asp)   | Sets or returns the current line width
-[lineCap](canvas_linecap.asp)       | Sets or returns the style of the end caps for a line
-[lineJoin](canvas_linejoin.asp)     | Sets or returns the type of corner created, when two lines meet
-[miterLimit](canvas_miterlimit.asp) | Sets or returns the maximum miter length
+-----------|---------------------------------------------------------------------------------------------
+lineWidth  | 线条宽度，不带单位 px
+lineCap    | 线头类型，`'butt'`(方头，默认) `'round'`(圆头) `'square'`(加长方头，线条两头各加长一半线宽)
+lineJoin   | 线段交点形状，`'miter'`(锐角斜接，默认) `'round'`(圆头) `'bevel'`(平头斜接)
+miterLimit | 线段交点为锐角时，锐角的最大尺寸，默认 `10`，`0` `NaN` `Infinity` 及负数时会被忽略
 
 ### Rectangles
 
 ||
------------------------------------|-----------------------------
-[rect()](canvas_rect.asp)          | Creates a rectangle
-[fillRect()](canvas_fillrect.asp)  | Draws a "filled" rectangle
-[strokeRect()](canvas_strokerect.asp) | Draws a rectangle (no fill)
-[clearRect()](canvas_clearrect.asp)   | Clears the specified pixels within a given rectangle
+-----------|----------------------------------------
+rect       | 创建一个闭合矩形路径
+fillRect   | 填充一个矩形区域 = `rect()` + `fill()`
+strokeRect | 绘制一个矩形框 = `rect()` + `stroke()`
+clearRect  | 清除指定矩形区域
 
 ### Paths
 
 ||
--------------------------------------|--------------------------------------
-[beginPath()](canvas_beginpath.asp)  | Begins a path, or resets the current path
-[closePath()](canvas_closepath.asp)  | Creates a path from the current point back to the starting point
-[moveTo()](canvas_moveto.asp)        | Moves the path to the specified point in the canvas, without creating a line
-[lineTo()](canvas_lineto.asp)        | Adds a new point and creates a line to that point from the last specified point in the canvas
-[fill()](canvas_fill.asp)            | Fills the current drawing (path)
-[stroke()](canvas_stroke.asp) | Actually draws the path you have defined
-[arc()](canvas_arc.asp) | 圆或圆弧 arc(centerX, centerY, radius, startingAngle, endingAngle);
-[arcTo()](canvas_arcto.asp) | Creates an arc/curve between two tangents
-[quadraticCurveTo()](canvas_quadraticcurveto.asp) | Creates a quadratic Bézier curve
-[bezierCurveTo()](canvas_beziercurveto.asp) | Creates a cubic Bézier curve
-[clip()](canvas_clip.asp) | Clips a region of any shape and size from the original canvas
-[isPointInPath()](canvas_ispointinpath.asp) | Returns true if the specified point is in the current path, otherwise false
+-----------------------|--------------------------------------------
+beginPath()            | 开始创建一个新路径
+closePath()            | 闭合当前路径(直线连接起点和终点)
+moveTo(x, y)           | 移动到某个坐标点
+lineTo(x, y)           | 在当前点和指定点间添加一段(直线)路径
+fill(path?, fillRule?) | 执行填充操作 [注1]
+stroke(path?)          | 沿着路径绘制线条
+
+||
+------------------------------|-------------------------------------------------------------------------
+arc(x, y, radius, startAngle, endAngle, anticlockwise?)  | 添加圆或圆弧路径，默认顺时针
+arcTo(x1, y1, x2, y2, radius)  | 在切线P0-(x1,y1) 和 切线 (x1,y1)-(x2,y2)<br>添加圆弧路径并与 P0 相连
+quadraticCurveTo(cpx, cpy, x, y)               | 添加一条二次(贝塞尔)曲线路径
+bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)    | 添加一条(三次)贝塞尔曲线路径
+clip(path?, fillRule?)                         | 裁剪可编辑区域，即快速蒙版功能
+isPointInPath(path?, x, y, fillRule?)          | 判断一个坐标点是否在 fill 区域内，路径是否闭合不影响
+
+注1: fillRule 取值 `'nonzero'` `'evenodd'`，规则(算法)用来判断哪些区域在路径范围内(需要被填充)
+  * `nonzero` 在路径包围区域随便找一个点，向外发散一条射线，遇到顺时针路径+1，逆时针路径-1，非零即填充
+  * `evenodd` 在路径包围的区域随便找一点，向外发射一条射线，所有相交的路径为奇数就填充，为偶数则不填充
 
 ### Transformations
 
+https://segmentfault.com/a/1190000007792150
+
 ||
--------------------------------------|---------------------------------
-[translate()](canvas_translate.asp)  | Remaps the (0,0) position on the canvas
-[scale()](canvas_scale.asp)          | Scales the current drawing bigger or smaller
-[rotate()](canvas_rotate.asp)        | Rotates the current drawing
-[transform()](canvas_transform.asp)  | Replaces the current transformation matrix for the drawing
-[setTransform()](canvas_settransform.asp) | Resets the current transform to the identity matrix. Then runs `transform()`
+---------------|-----------------------------------------------
+translate()    | Remaps the (0,0) position on the canvas
+scale()        | Scales the current drawing bigger or smaller
+rotate()       | Rotates the current drawing
+transform()    | Replaces the current transformation matrix for the drawing
+setTransform() | Resets the current transform to the identity matrix. Then runs `transform()`
 
 ### Text
 
 ||
-----------------------------------|------------------------------------------
-[font](canvas_font.asp)           | Sets or returns the current font properties for text content
-[textAlign](canvas_textalign.asp) | Sets or returns the current alignment for text content
-[textBaseline](canvas_textbaseline.asp) | Sets or returns the current text baseline used when drawing text
+-------------|------------------------------------------
+font         | Sets or returns the current font properties for text content
+textAlign    | Sets or returns the current alignment for text content
+textBaseline | Sets or returns the current text baseline used when drawing text
 
 ||
----------------------------------------|----------------------------------
-[fillText()](canvas_filltext.asp)      | Draws "filled" text on the canvas
-[strokeText()](canvas_stroketext.asp)  | Draws text on the canvas (no fill)
-[measureText()](canvas_measuretext.asp)| Returns an object that contains the width of the specified text
+------------|----------------------------------
+fillText    | Draws "filled" text on the canvas
+strokeText  | Draws text on the canvas (no fill)
+measureText | Returns an object that contains the width of the specified text
 
 ### Image Drawing
 
 ||
--------------------------------------|---------------------
-[drawImage()](canvas_drawimage.asp)  | Draws an image, canvas, or video onto the canvas
+-------------------------------------------------|--------------------------------------------------
+drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh) | Draws an image, canvas, or video onto the canvas
 
 ### Pixel Manipulation
 
 ||
--------------------------------------|-----------------------------
-[width](canvas_imagedata_width.asp)  | Returns the width of an ImageData object
-[height](canvas_imagedata_height.asp)| Returns the height of an ImageData object
-[data](canvas_imagedata_data.asp)    | Returns an object that contains image data of a specified ImageData object
+-------|-------------------------------------------
+width  | Returns the width of an ImageData object
+height | Returns the height of an ImageData object
+data   | Returns an object that contains image data of a specified ImageData object
 
 ||
-------------------------------------------------|---------------------------------
-[createImageData()](canvas_createimagedata.asp) | Creates a new, blank ImageData object
-[getImageData()](canvas_getimagedata.asp)       | Returns an ImageData object that copies the pixel data for the specified rectangle on a canvas
-[putImageData()](canvas_putimagedata.asp)       | Puts the image data (from a specified ImageData object) back onto the canvas
+----------------|---------------------------------
+createImageData | Creates a new, blank ImageData object
+getImageData    | Returns an ImageData object that copies the pixel data for the specified rectangle on a canvas
+putImageData    | Puts the image data (from a specified ImageData object) back onto the canvas
 
 ### Compositing
 
 ||
-----------------------------------------|----------------------------------
-[globalAlpha](canvas_globalalpha.asp)   | Sets or returns the current alpha or transparency value of the drawing
-[globalCompositeOperation](canvas_globalcompositeoperation.asp) | Sets or returns how a new image are drawn onto an existing image
+-------------------------|--------------------------------------------------------------------------
+globalAlpha              | Sets or returns the current alpha or transparency value of the drawing
+globalCompositeOperation | Sets or returns how a new image are drawn onto an existing image
 
 ### Other
 
 ||
--------------|----------------------------
-save()       | Saves the state of the current context
-restore()    | Returns previously saved path state and attributes
-getContext() | `var ctx = canvas.getContext("2d");` 3d 的还没出来，就这一种用法。
-toDataURL()  | 数据URL就是一个以 `data:image/png;base64` 之类开头的 base-64 编码的字符串
+----------|--------------------------------------------------------------------------------------------------
+save()    | 保存(push) Context 的当前状态，含 transformation matrix / clipping region / dash list / 设置项 [注]
+restore() | 恢复(pop)最近一次保存的 Context 状态
+
+注：设置项包含 `strokeStyle` `globalAlpha` `font` 等
+
+||
+-------------------------------------------------|------------------------------------------------------------------
+cvs.getContext(contextType, contextAttributes?)  | 获取绘图上下文，contextType: `'2d'` `'webgl'` `'webgl2'`
+cvs.toDataURL(type='image/png', encoderOptions?) | 数据 URL 就是一个以 `data:image/png;base64` 之类开头的<br> base-64 编码的字符串
 
 
 ## Cheatsheet
@@ -182,9 +196,9 @@ context.stroke();
 
 ```js
 var imageObj = new Image();
-imageObj.onload = () => { context.drawImage(imageObj, x, y); }; // Draw Image with default size
-imageObj.onload = () => { context.drawImage(imageObj, x, y, width, height); }; // Draw image and set size
-imageObj.onload = () => { context.drawImage(imageObj, sx, sy, sw, sh, dx, dy, dw, dh); }; // Crop image
+imageObj.onload = () => { context.drawImage(imageObj, x, y); }; // 从指定点原样复制图片
+imageObj.onload = () => { context.drawImage(imageObj, x, y, width, height); }; // 缩放
+imageObj.onload = () => { context.drawImage(imageObj, sx, sy, sw, sh, dx, dy, dw, dh); }; // 裁剪+缩放
 imageObj.src = 'path/to/my/image.jpg';
 ```
 
@@ -335,3 +349,22 @@ for(y = 0; y < imageHeight; y++) {
 // Set Image Data
 context.putImageData(imageData, x, y);
 ```
+
+<script>
+// 设置到 developer.mozilla.org 的查询链接
+(function() {
+  var list = document.querySelectorAll("td:first-child"),
+      reg = /^[a-zA-Z0-9._]+\(?/g,
+      html, text, link,
+      prefix = 'https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/';
+  for (var i = 0, length = list.length; i < length; i++) {
+    reg.lastIndex = 0;
+    html = list[i].innerHTML;
+    text = reg.exec(html);
+    if (text === null) { continue; }
+    text = text[0];
+    link = text.replace('(', '');
+    list[i].innerHTML = '<a href="' + prefix + link + '">' + text + html.substr(reg.lastIndex) + '</a>';
+  }
+})();
+</script>
