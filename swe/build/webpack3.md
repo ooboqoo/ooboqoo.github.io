@@ -2,13 +2,13 @@
 
 不错的参考书 https://survivejs.com/webpack/optimizing/tree-shaking/
 
-## 什么是 Webpack ？
+## 什么是 Webpack
 
-Webpack 是一个强力的模块打包器。所谓 包 (bundle) 就是一个 JavaScript 文件，它把一堆 资源 (assets) 合并在一起，以便它们可以在同一个文件请求中发回给客户端。包中可以包含 JavaScript CSS HTML 以及很多其它类型的文件。
+Webpack 是一个强力的模块打包器。所谓 **包**(bundle) 就是一个 JavaScript 文件，它把一堆 **资源**(assets) 合并在一起，以便它们可以在同一个文件请求中发回给客户端。包中可以包含 JavaScript CSS HTML 以及很多其它类型的文件。
 
-Webpack 会遍历你应用中的所有源码，查找 `import` 语句，构建出依赖图谱，并产出一个(或多个)包。通过“加载器(loaders)”插件，Webpack 可以对各种非 JavaScript 文件进行预处理和最小化(Minify)，比如 TypeScript、SASS 和 LESS 文件等。
+Webpack 会遍历你应用中的所有源码，查找 `import` 语句，构建出依赖图谱，并产出一个(或多个)包。通过 **加载器**(loaders)插件，Webpack 可以对各种非 JavaScript 文件进行预处理和最小化(Minify)，比如 TypeScript、SASS 和 LESS 文件等。
 
-我们通过一个 JavaScript 配置文件 webpack.config.js 来决定 Webpack 做什么以及如何做。
+我们通过一个 JavaScript 配置文件 _webpack.config.js_ 来决定 Webpack 做什么以及如何做。
 
 ### 入口与输出
 
@@ -115,10 +115,10 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.ts$/, // 
+        test: /\.ts$/,
+        // awesome-typescript-loader: 把 TS 代码转译成 ES5 的加载器，它会调用 tsconfig.json 文件
+        // angular2-template-loader: 用于加载 Angular 组件的模板和样式，会改成 template: require() 的形式
         loaders: ['awesome-typescript-loader', 'angular2-template-loader']
-          // awesome-typescript-loader: 把 TS 代码转译成 ES5 的加载器，它会调用 tsconfig.json 文件
-          // angular2-template-loader: 用于加载 Angular 组件的模板和样式，会改成 template: require() 的形式
       },
       {
         test: /\.html$/,
@@ -131,8 +131,9 @@ module.exports = {
       {
         test: /\.css$/,  // 匹配应用级样式
         exclude: helpers.root('src', 'app'),  // 排除 /src/app 目录下的 .css文件，那里放的是组件局部样式
+        // ExtractTextPlugin( 后面会讲到 ) 使用 style 和 css 加载器来处理这些文件
         loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
-      },     // ExtractTextPlugin( 后面会讲到 ) 使用 style 和 css 加载器来处理这些文件
+      },
       {
         test: /\.css$/,  // 匹配组件局部样式 (就是在组件元数据的 styleUrls 属性中指定的那些)
         include: helpers.root('src', 'app'),
@@ -146,9 +147,10 @@ module.exports = {
     // 应用代码中 import 了提供商代码。Webpack 还没有智能到自动把提供商代码排除在 app.js 包之外。
     // CommonsChunkPlugin 插件能完成此工作。
     new webpack.optimize.CommonsChunkPlugin({
-      name: ['app', 'vendor', 'polyfills']  // 这里标记出了三个块之间的等级体系： app -> vendor -> polyfills。
-        // 当 Webpack 发现 app 与 vendor 有共享依赖时，就把它们从 app 中移除。
-        // 在 vendor 和 polyfills 之间有共享依赖时也同样如此 ( 虽然它们没啥可共享的 ) 。
+      // 这里标记出了三个块之间的等级体系： app -> vendor -> polyfills。
+      // 当 Webpack 发现 app 与 vendor 有共享依赖时，就把它们从 app 中移除。
+      // 在 vendor 和 polyfills 之间有共享依赖时也同样如此 ( 虽然它们没啥可共享的 )。
+      name: ['app', 'vendor', 'polyfills']
     }),
 
     // Webpack 生成了一些 js 和 css 文件。 虽然我们可以手动把它们插入到 index.html 中，但那样既枯燥又容易出错。

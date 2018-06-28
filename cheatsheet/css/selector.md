@@ -117,10 +117,10 @@ Selector | Example | Example description | CSS
  :in-range     | input:in-range     |                     | 3
  :out-of-range | input:out-of-range |                     | 3
 
- ```html
+```html
 <style> input:out-of-range { border: 2px solid red; } </style>
 <input type="number" min="5" max="10" value="17">
- ```
+```
 
 ### 伪元素选择符
 
@@ -131,3 +131,9 @@ Selector | Example | Example description | CSS
  ::first-letter | p::first-letter | 选择段落的首字母        | 1
  ::first-line   | p::first-line   | 选择段落的首行          | 1
  ::selection    | ::selection     | 当前选中范围            | 4
+
+||
+--------------------------|-----------------------------
+::-webkit-scrollbar       | targets the whole scrollbar element.
+::-webkit-scrollbar-track | targets only the scrollbar track.
+::-webkit-scrollbar-thumb | targets the scrollbar thumb.
