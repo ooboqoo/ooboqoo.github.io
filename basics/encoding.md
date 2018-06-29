@@ -1,10 +1,4 @@
-# JS 小专题
-
-### 计算字符串所占字节数
-
-http://www.cnblogs.com/sniper007/p/3309787.html
-
-##### 字符编码
+# 字符编码
 
 http://zh.wikipedia.org/zh-cn/UTF-8
 
@@ -18,7 +12,7 @@ UTF-8 (8-bit Unicode Transformation Format) 是一种针对 Unicode 的可变长
   * 000000 – 00FFFF 两个字节；
   * 010000 – 10FFFF 四个字节。
 
-##### 编码
+### localStorage 编码试验
 
 最近项目有个需求要用js计算一串字符串写入到 localStorage 里所占的内存，众所周知的，js 是使用 Unicode 编码的。而 Unicode 的实现有N种，其中用的最多的就是 UTF-8 和 UTF-16。因此本文只对这两种编码进行讨论。
 
@@ -27,24 +21,24 @@ UTF-8 (8-bit Unicode Transformation Format) 是一种针对 Unicode 的可变长
 ```js
 /** 返回字节长度 */
 function getBytes(str, charset) {
-    var total = 0, i, charCode;
-    charset = charset.toLowerCase().replace('-', '');
-    if (charset === 'utf16') {
-        for (i = 0; i < str.length; i++) {
-            if (str.charCodeAt(i) <= 0xffff) { total += 2; } else { total += 4; }
-        }
-    } else if (charset === 'utf8') {
-        for (i = 0; i < str.length; i++) {
-            charCode = str.charCodeAt(i);
-            if (charCode <= 0x007f) { total += 1; continue; }
-            if (charCode <= 0x07ff) { total += 2; continue; }
-            if (charCode <= 0xffff) { total += 3; continue; }
-            total += 4;
-        }
-    } else {
-        throw new Error('不支持该编码: ' + charset);
+  var total = 0, i, charCode;
+  charset = charset.toLowerCase().replace('-', '');
+  if (charset === 'utf16') {
+    for (i = 0; i < str.length; i++) {
+      if (str.charCodeAt(i) <= 0xffff) { total += 2; } else { total += 4; }
     }
-    return total;
+  } else if (charset === 'utf8') {
+    for (i = 0; i < str.length; i++) {
+      charCode = str.charCodeAt(i);
+      if (charCode <= 0x007f) { total += 1; continue; }
+      if (charCode <= 0x07ff) { total += 2; continue; }
+      if (charCode <= 0xffff) { total += 3; continue; }
+      total += 4;
+    }
+  } else {
+    throw new Error('不支持该编码: ' + charset);
+  }
+  return total;
 }
 ```
 
@@ -55,23 +49,16 @@ function getBytes(str, charset) {
 ```js
 // 适合短文本场景
 function checksum(text) {
-    return text.length + text.match(/[\u4e00-\u9fa5]/g).length;
+  return text.length + text.match(/[\u4e00-\u9fa5]/g).length;
 }
 
 // 适合长文本场景
 function checksum2(chars) {
-    var sum = i = chars.length, c;
-    while(i--) {
-        c = chars.charCodeAt(i);
-        if (c >= 0x4e00 && c <= 0x9fa5) { sum += 1; }
-    }
-    return sum;
+  var sum = i = chars.length, c;
+  while(i--) {
+    c = chars.charCodeAt(i);
+    if (c >= 0x4e00 && c <= 0x9fa5) { sum += 1; }
+  }
+  return sum;
 }
 ```
-
-
-
-
-
-
-

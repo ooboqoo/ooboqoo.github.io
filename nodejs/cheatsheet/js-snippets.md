@@ -22,6 +22,7 @@ spreadOver
 unary
 ```
 
+
 ## Array
 
 ```js
@@ -115,6 +116,7 @@ zipObject
 zipWith
 ```
 
+
 ## Function
 
 ```js
@@ -180,7 +182,8 @@ unfold
 ## String
 
 ```js
-byteSize
+const byteSize = str => new Blob([str]).size
+
 capitalize
 capitalizeEveryWord
 decapitalize
