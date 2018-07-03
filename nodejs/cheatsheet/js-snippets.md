@@ -6,28 +6,51 @@ https://github.com/Chalarangelo/30-seconds-of-code
 ## Adapter
 
 ```js
-const ary = () => ;
+// 自取前 n 个参数，忽略其他多余参数
+const ary = (fn, n) => (...args) => fn(...args.slice(0, n));
+const firstTwoMax = ary(Math.max, 2);
+[[2, 6, 'a'], [8, 4, 6], [10]].map(x => firstTwoMax(...x));  // [6, 8, 10]
 
+// 提供方法名和参数，在提供对象(作用目标)时再执行
 const call = (key, ...args) => context => context[key](...args);
+const map = call('map', x => 2 * x);
+map([1, 2, 3]);
 
-collectInto
-flip
+// 修改传参形式  接受数组 -> 接受可变参数
+const collectInto = fn => (...args) => fn(args);
+
+// 将第一个参数移到最后
+const flip = fn => (first, ...rest) => fn(...rest, first);
+
 over
 overArgs
 pipeAsyncFunctions
 pipeFunctions
-promisify
+
+// Node 8+ 下直接用 util.promisify
+const promisify = func => (...args) =>
+  new Promise((resolve, reject) =>
+    func(...args, (err, result) => (err ? reject(err) : resolve(result)))
+  );
+
 rearg
 spreadOver
-unary
+
+// 只使用第一个参数，忽略其他参数
+const unary = fn => val => fn(val);
 ```
 
 
 ## Array
 
 ```js
-all
-any
+const all = (arr, fn = Boolean) => arr.every(fn);
+
+const any = (arr, fn = Boolean) => arr.some(fn);
+
+// 将一个二维数组转换成 CSV 字符串
+const arrayToCSV = (arr, delimiter = ',') => arr.map(v => v.join(delimiter)).join('\n');
+
 bifurcate
 bifurcateBy
 chunk
@@ -91,9 +114,9 @@ sortedLastIndexBy
 // 此处一个比较有参考意义的是 “双因子排序” 的用法
 const stableSort = (arr, compare) =>
   arr
-    .map((item, index) => ({ item, index }))
+    .map((item, index) => ({item, index}))
     .sort((a, b) => compare(a.item, b.item) || a.index - b.index)  // “双因子排序” 写法
-    .map(({ item }) => item)
+    .map(({item}) => item);
 
 symmetricDifference
 symmetricDifferenceBy
@@ -182,7 +205,7 @@ unfold
 ## String
 
 ```js
-const byteSize = str => new Blob([str]).size
+const byteSize = str => new Blob([str]).size;
 
 capitalize
 capitalizeEveryWord
@@ -202,7 +225,7 @@ removeNonASCII
 reverseString
 sortCharactersInString
 
-const splitLines = str => str.split(/\r?\n/)
+const splitLines = str => str.split(/\r?\n/);
 
 stringPermutations
 stripHTMLTags
@@ -214,22 +237,22 @@ const toCamelCase = str => {
       .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
       .map(x => x.slice(0, 1).toUpperCase() + x.slice(1).toLowerCase())
       .join('');
-  return s.slice(0, 1).toLowerCase() + s.slice(1)
-}
+  return s.slice(0, 1).toLowerCase() + s.slice(1);
+};
 
 const toKebabCase = str =>
   str &&
   str
     .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
     .map(x => x.toLowerCase())
-    .join('-')
+    .join('-');
 
 const toSnakeCase = str =>
   str &&
   str
     .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
     .map(x => x.toLowerCase())
-    .join('_')
+    .join('_');
 
 truncateString
 unescapeHTML

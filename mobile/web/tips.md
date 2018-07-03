@@ -20,6 +20,24 @@ http://www.cnblogs.com/tugenhua0707/p/5204568.html
 
 click 事件在移动手机开发中有 300ms 的延迟，因为在手机早期，用户在屏幕上点击两次之后，系统会触发放大或者缩放功能。因此系统做了一个处理，在 300ms 这段时间内如果触摸了第二次的话，说明是触发放大或缩放功能，否则是 click 事件。
 
+#### 如何避免延时产生
+
+https://developers.google.com/web/updates/2013/12/300ms-tap-delay-gone-away
+
+当设置视窗宽度为设备宽度时，浏览器就会认为你已经合理设置了字体大小，为了得到更快的响应，将 double-tap-to-zoom 功能关闭了。
+
+```html
+<meta name="viewport" content="width=device-width">
+```
+
+对于无法设置 viewport 或者只想影响特定元素时，也可以使用一下方式，但 Firefox 不支持。
+
+```css
+html { touch-action: manipulation; }
+```
+
+[FastClick by FT Labs](https://github.com/ftlabs/fastclick) uses touch events to trigger clicks faster & removes the double-tap gesture. It looks at the amount your finger moved between `touchstart` and `touchend` to differentiate scrolls and taps.
+
 ### 手势事件的介绍
 
 |||

@@ -292,14 +292,14 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <h5 class="es3">number.valueOf() <span>-- 返回一个 Number 对象的基本数字值</span></h5>
 </div>
 <div class="dl">
-<h5 class="es3">Number.MAX_VALUE</h5>
-<h5 class="es3">Number.MIN_VALUE</h5>
+<h5 class="es3">Number.MAX_VALUE <span>-- `1.7976931348623157e+308`</span></h5>
+<h5 class="es3">Number.MIN_VALUE <span>-- `5e-324` 注意改值是正的</span></h5>
 <h5 class="es3">Number.NaN</h5>
-<h5 class="es3">Number.NEGATIVE_INFINITY</h5>
-<h5 class="es3">Number.POSITIVE_INFINITY</h5>
+<h5 class="es3">Number.NEGATIVE_INFINITY <span>-- `-Infinity`</span></h5>
+<h5 class="es3">Number.POSITIVE_INFINITY <span>-- `Infinity`</span></h5>
 <h5 class="es6">Number.EPSILON <span>-- 极小的常量，实质是一个可以接受的误差范围</span></h5>
-<h5 class="es6">Number.MAX_SAFE_INTEGER <span>-- Number.MAX_SAFE_INTEGER === Math.pow(2, 53) - 1 // true</span></h5>
-<h5 class="es6">Number.MIN_SAFE_INTEGER <span>-- -2^53 +1</span></h5>
+<h5 class="es6">Number.MAX_SAFE_INTEGER <span>-- `=== Math.pow(2, 53) - 1`</span></h5>
+<h5 class="es6">Number.MIN_SAFE_INTEGER <span>-- `=== -2 ** 53 + 1`</span></h5>
 </div>
 
 
