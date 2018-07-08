@@ -3,13 +3,13 @@
 ### CSS Functions
 
 |||
----------|-----------------------------------------------------------|-----
-attr() | Returns the value of an attribute of the selected element | 2
-calc() | Allows you to perform calculations to determine CSS property values | 3
+------------------|------------------------------------------------------------|-----
+attr(attr-name)   | 获取属性名对应的值，注意属性名不能加引号，否则无效         | 2
+calc(expression)  | Allows you to perform calculations to determine CSS property values | 3
 linear-gradient() | Creates an "image" which represents a linear gradient of colors | 3
-radial-gradient() | Creates an "image" which represents a gradient of colors radiating from the center of the gradient | 3
-repeating-linear-gradient() | Creates an "image" consisting of repeating gradients | 3
-repeating-radial-gradient() | Similarly to radial-gradient(), but it automatically repeats the color stops infinitely in both directions | 3
+radial-gradient() | Creates an "image" which represents a radial gradient of colors | 3
+repeating-linear-gradient() | Creates an "image" consisting of repeating gradients  | 3
+repeating-radial-gradient() | Automatically repeats the color stops infinitely in both directions | 3
 
 ### Color Properties
 
@@ -238,14 +238,22 @@ font-language-override | Controls the usage of language-specific glyphs in a typ
 
 ### Lists and Counters Properties
 
-| Property | Description | CSS
-|----------|-------------|----------
-| list-style | Sets all the properties for a list in one declaration | 1
-| list-style-image | Specifies an image as the list-item marker | 1
-| list-style-position | Specifies if the list-item markers should appear inside or outside the content flow | 1
-| list-style-type | `disc` `circle` `none` `square` `decimal` `lower-alpha` `upper-roman` 其他 | 1
-| counter-reset | Creates or resets one or more counters | 2
-| counter-increment | Increments one or more counters | 2
+||
+------------------|-------------------------------------------------------|-----
+list-style        | Sets all the properties for a list in one declaration | 1
+list-style-image  | Specifies an image as the list-item marker            | 1
+list-style-position | Specifies if the list-item markers should appear inside or outside the content flow | 1
+list-style-type   | `disc` `circle` `none` `square` `decimal` `lower-alpha` `upper-roman` 其他            | 1
+counter-reset     | Creates or resets one or more counters                | 2
+counter-increment | Increments one or more counters                       | 2
+counter(name, style)   | 获取计数值       | 2
+counters(name, string) | 获取嵌套的计数值 | 2
+
+```css
+.counter { counter-reset: countername 2; }
+.counter::before, .counter::after { content: counter(countername); counter-increment: countername; }
+/* 结果：输出 34 */
+```
 
 ### Transform Properties
 
@@ -367,13 +375,15 @@ transition-delay           | Specifies when the transition effect will start    
 
 ### Image Values and Replaced Content
 
-| Property | Description | CSS
-|----------|-------------|----------
-| image-orientation | Specifies a rotation in the right or clockwise direction that a user agent applies to an image (This property is likely going to be deprecated and its functionality moved to HTML) | 3
-| image-rendering | Gives a hint to the browser about what aspects of an image are most important to preserve when the image is scaled | 3
-| image-resolution | Specifies the intrinsic resolution of all raster images used in/on the element | 3
-| object-fit | Specifies how the contents of a replaced element should be fitted to the box established by its used height and width | 3
-| object-position | Specifies the alignment of the replaced element inside its box | 3
+||
+----------|-------------|----------
+image-orientation | Specifies a rotation in the right or clockwise direction that a user agent applies to an image (This property is likely going to be deprecated and its functionality moved to HTML) | 3
+image-rendering | Gives a hint to the browser about what aspects of an image are most important to preserve when the image is scaled | 3
+image-resolution | Specifies the intrinsic resolution of all raster images used in/on the element | 3
+object-fit | 替换元素如何填充到容器 `fill`(拉升填充，默认) `contain`(包含，留白) `cover`(覆盖) `none`(原尺寸) `scale-down`(contain/none 取最小值) | 3
+object-position | 替换元素的定位设置，值参考 `background-position` | 3
+
+注：在理解 `object-fit` 和 `object-position` 的时候，可以或多或少映射 `background-size` 和 `background-position`。
 
 ### Masking Properties
 

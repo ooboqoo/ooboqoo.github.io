@@ -1,69 +1,70 @@
 # HTML DOM 手册
 
+<style>td:first-child{ color:red; }  td:first-child em { color: gray; }</style>
+
 ### Finding HTML Elements
 
-<table>
-<tr><td>document.getElementById(<em>id</em>)</td><td>Find an element by element id</td></tr>
-<tr><td>document.getElementsByTagName(<em>name</em>)</td><td>Find elements by tag name</td></tr>
-<tr><td>document.getElementsByClassName(<em>name</em>)</td><td>Find elements by class name</td></tr>
-</table>
+||
+----------------------------------------|------------------------------
+document.getElementById(_id_)           | Find an element by element id
+document.getElementsByTagName(_name_)   | Find elements by tag name
+document.getElementsByClassName(_name_) | Find elements by class name
 
 ### Changing HTML Elements
 
-<table>
-<tr><td><em>element</em>.innerHTML =&nbsp; <em>new html content</em></td><td>Change the inner HTML of an element</td></tr>
-<tr><td><em>element</em>.<em>attribute = new value</em></td><td>Change the attribute value of an HTML element</td></tr>
-<tr><td><em>element</em>.setAttribute<em>(attribute, value)</em></td><td>Change the attribute value of an HTML element</td></tr>
-<tr><td><em>element</em>.style.<em>property = new style</em></td><td>Change the style of an HTML element</td></tr>
-</table>
+||
+-------------------------------------------|-----------------------------------------------
+element.innerHTML =  _new html content_    | Change the inner HTML of an element
+element.attribute = _new value_            | Change the attribute value of an HTML element
+element.setAttribute(_attribute_, _value_) | Change the attribute value of an HTML element
+element.style._property_ = _new style_     | Change the style of an HTML element
 
 ### Adding and Deleting Elements
 
-<table>
-<tr><td>document.createElement(<em>element</em>)</td><td>Create an HTML element</td></tr>
-<tr><td>document.removeChild(<em>element</em>)</td><td>Remove an HTML element</td></tr>
-<tr><td>document.appendChild(<em>element</em>)</td><td>Add an HTML element</td></tr>
-<tr><td>document.replaceChild(<em>element</em>)</td><td>Replace an HTML element</td></tr>
-<tr><td>document.write(<em>text</em>)</td><td>Write into the HTML output stream</td></tr>
-</table>
+||
+----------------------------------|--------------------------------------
+document.createElement(_element_) | Create an HTML element
+document.removeChild(_element_)   | Remove an HTML element
+document.appendChild(_element_)   | Add an HTML element
+document.replaceChild(_element_)  | Replace an HTML element
+document.write(_text_)            | Write into the HTML output stream
 
 ### Adding Events Handlers
 
-<table>
-<tr><td>document.getElementById(<em>id</em>).onclick = function(){<em>code</em>}</td></tr>
-</table>
+||
+-----|-----
+document.getElementById(_id_).onclick = function(){_code_} | 
 
 ### Finding HTML Objects
 
 The first HTML DOM Level 1 (1998), defined 11 HTML objects, object collections, and properties. These are still valid in HTML5. Later, in HTML DOM Level 3, more objects, collections, and properties were added.
 
-<table>
-<tr><th>Property</th><th>Description</th><th>DOM</th></tr>
-<tr><td>document.anchors</td><td>Returns all &lt;a&gt; elements that have a name attribute</td><td>1</td></tr>
-<tr><td>document.baseURI</td><td>Returns the absolute base URI of the document</td><td>3</td></tr>
-<tr><td>document.body</td><td>Returns the &lt;body&gt; element </td><td>1</td></tr>
-<tr><td>document.cookie</td><td>Returns the document's cookie</td><td>1</td></tr>
-<tr><td>document.doctype</td><td>Returns the document's doctype</td><td>3</td></tr>
-<tr><td>document.documentElement</td><td>Returns the &lt;html&gt; element </td><td>3</td></tr>
-<tr><td>document.documentMode</td><td>Returns the mode used by the browser</td><td>3</td></tr>
-<tr><td>document.documentURI</td><td>Returns the URI of the document </td><td>3</td></tr>
-<tr><td>document.domain</td><td>Returns the domain name of the document server </td><td>1</td></tr>
-<tr><td>document.domConfig</td><td><span class="deprecated">Obsolete.</span> Returns the DOM configuration</td><td>3</td></tr>
-<tr><td>document.embeds</td><td>Returns all &lt;embed&gt; elements</td><td>3</td></tr>
-<tr><td>document.forms</td><td>Returns all &lt;form&gt; elements </td><td>1</td></tr>
-<tr><td>document.head</td><td>Returns the &lt;head&gt; element</td><td>3</td></tr>
-<tr><td>document.images</td><td>Returns all &lt;img&gt; elements </td><td>1</td></tr>
-<tr><td>document.implementation</td><td>Returns the DOM implementation</td><td>3</td></tr>
-<tr><td>document.inputEncoding</td><td>Returns the document's encoding (character set)</td><td>3</td></tr>
-<tr><td>document.lastModified</td><td>Returns the date and time the document was updated</td><td>3</td></tr>
-<tr><td>document.links</td><td>Returns all &lt;area&gt; and &lt;a&gt; elements that have a href attribute</td><td>1</td></tr>
-<tr><td>document.readyState</td><td>Returns the (loading) status of the document</td><td>3</td></tr>
-<tr><td>document.referrer</td><td>Returns the URI of the referrer (the linking document)</td><td>1</td></tr>
-<tr><td>document.scripts</td><td>Returns all &lt;script&gt; elements</td><td>3</td></tr>
-<tr><td>document.strictErrorChecking</td><td>Returns if error checking is enforced</td><td>3</td></tr>
-<tr><td>document.title</td><td>Returns the &lt;title&gt; element </td><td>1</td></tr>
-<tr><td>document.URL</td><td>Returns the complete URL of the document </td><td>1</td></tr>
-</table>
+|||
+------------------|-------------------------------------------------------|-----
+document.anchors  | Returns all `<a>` elements that have a name attribute | 1
+document.baseURI  | Returns the absolute base URI of the document         | 3
+document.body     | Returns the `<body>` element                          | 1
+document.cookie   | Returns the document's cookie | 1
+document.doctype  | Returns the document's doctype | 3
+document.documentElement | Returns the `<html>` element | 3
+document.documentMode    | Returns the mode used by the browser | 3
+document.documentURI     | Returns the URI of the document      | 3
+document.domain          | Returns the domain name of the document server | 1
+document.domConfig       | Obsolete. Returns the DOM configuration        | 3
+document.embeds | Returns all `<embed>` elements | 3
+document.forms  | Returns all `<form>` elements | 1
+document.head   | Returns the `<head>` element | 3
+document.images | Returns all `<img>` elements | 1
+document.implementation | Returns the DOM implementation | 3
+document.inputEncoding  | Returns the document's encoding (character set) | 3
+document.lastModified   | Returns the date and time the document was updated | 3
+document.links      | Returns all `<area>` and `<a>` elements that have a href attribute | 1
+document.readyState | Returns the (loading) status of the document | 3
+document.referrer   | Returns the URI of the referrer (the linking document) | 1
+document.scripts    | Returns all `<script>` elements | 3
+document.strictErrorChecking | Returns if error checking is enforced | 3
+document.title               | Returns the `<title>` element | 1
+document.URL                 | Returns the complete URL of the document | 1
 
 
 ## Document 对象
@@ -193,14 +194,14 @@ The following properties and methods can be used on all HTML elements:
 <tr><td><i>element</i>.classList</td><td>Returns the class name(s) of an element</td></tr>
 <tr><td><i>element</i>.className</td><td>Sets or returns the value of the class attribute of an element</td></tr>
 <tr><td><i>element</i>.contentEditable</td><td>Sets or returns whether the content of an element is editable or not</td></tr>
-<tr><td><i>element</i>.clientHeight</td><td>Returns the height of an element, including padding</td></tr>
-<tr><td><i>element</i>.clientWidth</td><td>Returns the width of an element, including padding</td></tr>
-<tr><td><i>element</i>.offsetHeight</td><td>Returns the height of an element, including padding, border and scrollbar</td></tr>
-<tr><td><i>element</i>.offsetWidth</td><td>Returns the width of an element, including padding, border and scrollbar</td></tr>
-<tr><td><i>element</i>.clientLeft</td><td>Returns the width of the left border of an element</td></tr>
-<tr><td><i>element</i>.clientTop</td><td>Returns the width of the top border of an element</td></tr>
-<tr><td><i>element</i>.offsetLeft</td><td>Returns the horizontal offset position of an element</td></tr>
-<tr><td><i>element</i>.offsetTop</td><td>Returns the vertical offset position of an element</td></tr>
+<tr><td><i>element</i>.clientHeight</td><td>元素的 padding box (content box + padding) 的高度</td></tr>
+<tr><td><i>element</i>.clientWidth</td><td>元素的 padding box (content box + padding) 的宽度</td></tr>
+<tr><td><i>element</i>.offsetHeight</td><td>元素的 border box (padding box + border) 的高度</td></tr>
+<tr><td><i>element</i>.offsetWidth</td><td>元素的 border box (padding box + border) 的宽度</td></tr>
+<tr><td><i>element</i>.clientLeft</td><td>`border-left-width` 的像素值</td></tr>
+<tr><td><i>element</i>.clientTop</td><td>`border-top-width` 的像素值</td></tr>
+<tr><td><i>element</i>.offsetLeft</td><td>左上角相对于 offsetParent 的水平偏移量</td></tr>
+<tr><td><i>element</i>.offsetTop</td><td>左上角相对于 offsetParent 的垂直偏移量</td></tr>
 <tr><td><i>element</i>.offsetParent</td><td>Returns the offset container of an element</td></tr>
 <tr><td><i>element</i>.dir</td><td>Sets or returns the value of the dir attribute of an element</td></tr>
 <tr><td><i>element</i>.firstChild</td><td>Returns the first child node of an element</td></tr>
@@ -631,4 +632,4 @@ https://developer.mozilla.org/en-US/docs/Web/Events
 </table>
 
 
-<style>#article em {color:#333} td:first-child{color:red;}</style>
+

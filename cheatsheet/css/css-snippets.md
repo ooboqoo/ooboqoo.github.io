@@ -2,24 +2,6 @@
 
 https://atomiks.github.io/30-seconds-of-css/
 
-<style>
-  .demo {
-    position: relative;
-    padding: 10px;
-    border: 1px solid #eee;
-    border-radius: .25em;
-  }
-  .demo::after {
-    content: 'demo';
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0 4px;
-    color: #666;
-    background-color: #eee;
-    border-bottom-left-radius: 4px;
-  }
-</style>
 
 ## Layout
 
