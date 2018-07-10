@@ -15,11 +15,11 @@ https://www.youtube.com/watch?v=HF1luRD4Qmk Debugging The Web (Chrome Dev Summit
 
 **CSS快速跳转** Crtl+单击CSS样式快速跳转到源文件相应位置
 
+### 控制台快速选择元素
+
 **`$0` 指向选中 DOM**
 
 **`$_` 指向控制台最后一个输出值**
-
-
 
 ### 更加智能的控制台
 
@@ -36,6 +36,24 @@ function fn() {    // 此处只输 `{` 并按下回车键，chrome 能够自动�
 ### 巧妙利用条件断点输出信息
 
 原先代码中的 `console.log()` 可以移除，然后在 DevTool 中设置条件断点，而条件就是 `console.log()` 这样就可以在不污染代码的同时输出调试信息。
+
+### 使用 Chrome 任务管理器
+
+`Shift + Esc` 或 `更多工具 -> 任务管理器` 打开任务管理器。
+
+### 打开 Shadow DOM 显示
+
+`<vedio>` 等组件，可通过配置显示被隐藏的组件代码：Settings → General → Elements → Show user agent shadow DOM
+
+### 改变颜色模式
+
+`Shift + 单击颜色属性` 可在颜色模式 rgba hsl hexadecimal 之间来回切换。
+
+### Workspace编辑本地文件
+
+Workspace 把开发者工具变成了一个真正的 IDE。将 Sources 选项卡中的文件和本地项目中的文件进行匹配，直接编辑和保存，不必复制/粘贴到编辑器。
+
+实现：Source左侧面板下右击 → Add Folder to worksapce
 
 
 ## 使工作区能保存修改  Set Up Persistence with DevTools Workspaces
@@ -157,6 +175,14 @@ Sources就是所有资源了，你可以看到页面加载的资源，图片，c
 ### Profiles
 
 Profiles工具主要是用来检测CPU占用程度，堆栈申请的内存。
+
+#### 找出 JavaScript 内存泄漏
+
+https://blog.wilddog.com/?p=680  
+https://developers.google.com/web/tools/chrome-devtools/memory-problems/?hl=zh-cn  
+https://leeon.gitbooks.io/devtools/content/learn_basic/tips_and_tricks_part_profiles.html
+
+
 
 ### Resources
 
