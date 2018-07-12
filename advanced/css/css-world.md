@@ -48,8 +48,164 @@
 **@规则**，指的是以 `@` 字符开始的一些规则，像 `@media` `@font-face` `@page` `@support` 等。
 
 
-
 ## 流、元素、基本尺寸
+
+### 块级元素
+
+常见的块级元素 block-level element 有 `<div>` `<li>` `<table>`。需要注意的是，"块级元素" 和 `display: block` 的元素是不完全等同的，`li {display: list-item}` `table {display: table}` 但它们均是块级元素，因为它们都符合块级元素的基本特征，也就是一个水平流上只能单独显示一个元素。
+
+#### 标记盒子 容器盒子
+
+设计 CSS 时，先有**块级盒子** block-level box 和**内联盒子** inline box，块级盒子负责结构，内联盒子负责内容。
+
+后面出现了 `list-item` 默认要显示项目符号，于是又增加了个附加盒子，学名**标记盒子** marker box，专门用来放圆点、数字这些项目符号。
+
+后面又出现了 `display: inline-block` 元素，穿着 `inline` 的皮藏着 `block` 的心，现有的盒子没法解释，于是又新增一个盒子，最终**每个元素都有两个盒子：外在盒子+内在盒子**，外在盒子负责元素是可以一行显示还是只能换行显示，内在盒子负责宽高、内容呈现等。内在盒子学名叫**容器盒子**。
+
+有了两层盒子，`inline-block` 就很好解释了。遵循这种理解，`display: block` 可以脑补成 `display: block-block`，`display: table` 应该脑补成 `display: block-table`。
+
+### width/height 作用细节
+
+#### width:auto
+
+`width` 的默认值是 `auto`，因为是默认值，所以出镜率不高，但它至少包含了以下4种不同的宽度表现。
+  * 充分利用可用空间 fill-available，`<div>` `<p>` 这些元素的宽度默认是 100% 于父级容器的
+  * 收缩与包裹 fit-content，典型代表就是浮动、绝对定位、inline-block 元素或 table 元素，根据内容确定宽度
+  * 收缩到最小 min-content，这个最容易出现在 table-layout: auto 的表格中
+  * 超出容器限制 max-content，正常宽度都不会超过父级容器宽度，但也存在一些特殊情况，如内容很长的连续的英文和数字，或者内联元素被设置了 white-space: nowrap
+
+##### 外部尺寸与流体特性
+
+**流动性丢失**
+
+表现为 "外部尺寸" 的块级元素一旦设置了宽度，流动性就丢失了。所谓流动性，并不是看上去的宽度 100% 显示这么简单，而是一种 margin border padding 和内容区域自动分配水平空间的机制。
+
+```css
+a {
+  display: block;
+  width: 100%;    /* 画蛇添足，导致流动性丢失 */
+}
+```
+
+<div class="demo">
+  <style>
+  .nav-a {
+    display: block;
+    margin: 0 10px;
+    padding: 9px 10px;
+    border-bottom: 1px solid #b70000;
+    border-top: 1px solid #de3636;
+    color: #fff;
+  }
+  </style>
+  <div class="nav" style="width: 300px; background-color: #cd0000;">
+    <a class="nav-a">导航1</a>
+    <a class="nav-a">导航2</a>
+    <a class="nav-a" style="width: 100%;">导航3 (width:100% 惹的祸)</a>
+  </div>
+</div>
+
+**格式化宽度**
+
+在默认情况下，绝对定位元素(`absolute` 或 `fixed`)的宽度表现是"包裹性"，宽度由内部尺寸决定，但存在一种特例情况。对于非替换元素，当 left/right 或 top/bottom 对立方位的属性值同时存在的时候，元素的宽度表现为 "格式化宽度"，其宽度大小相对于最近的具有定位特性的祖先元素计算。
+
+```css
+div { position: absolute; left: 20px; right: 20px; }
+```
+
+##### 内部尺寸与流体特性
+
+**包裹性**
+
+所谓内部尺寸，简单来讲就是元素的尺寸由内部的元素决定，而非由外部的容器决定。
+
+按钮是 CSS 世界中极具代表性的 inline-block 元素，可谓是展示**包裹性**最好的例子，具体表现为：按钮文字越多宽度越宽(**内部尺寸特性**)，但如果文字足够多，则会在容器的宽度处自动换行(**自适应特性**)。
+
+按钮会自动换行？没错，你之所以没印象，可能是因为
+  * 实际项目中按钮上的文字个数比较有限，没机会换行。
+  * `<button>` 标签按钮才会自动换行，`<input>` 标签按钮，默认 white-space:pre 是不会换行的。
+
+```css
+.box { text-align: center; }
+.content { display: inline-block; text-align: left; }
+```
+
+<div class="demo">
+  <style>
+    .box { float: left; width: 200px; margin: 10px; padding: 10px; background-color: #cd0000; text-align: center; }
+    .content { display: inline-block; text-align: left; color: #fff; }
+  </style>
+  <div class="box"><p class="content">文字内容</p></div>
+  <div class="box"><p class="content">文字内容-新增文字-新增文字-新增文字-新增文字</p></div>
+  <div style="clear: both;"></div>
+  <div class="desc">包裹性在实际开发中的应用：文字少的时候居中显示，文字超过一行居左显示</div>
+</div>
+
+**首选最小宽度**
+
+假设外部容器的宽度是 0，请问里面的 inline-block 元素的宽度时多少？是 0？不是。在 CSS 世界中，图片和文字的权重要远大于布局，因此，CSS 的设计者显然是不会让 width:auto 时宽度变成 0 的，此时所表现的宽度就是 "首选最小宽度"：
+  * CJK文字最小宽度为每个汉字的宽度
+  * 西方文字最小宽度由特定的连续的英文字符单元决定
+
+<div class="demo">
+  <style>
+.ao { display: inline-block; width: 0; font-size: 14px; line-height: 18px; }
+.ao::before { content: attr(title); outline: 2px solid #cd0000; font-family: Consolas,monospace; }
+/* 这里使用了 attr 是为了规避双引号被 marked 自动转义问题 */
+  </style>
+  <span class="ao" title="love你love"></span>
+</div>
+
+**最大宽度**
+
+最大宽度实际等同于包裹性元素设置 withe-space:nowrap 声明后的宽度。如果内部没有块级元素或者块级元素没有设定宽度值，则最大宽度实际上是最大的连续内联盒子的宽度。
+
+#### 宽度分离原则 与 box-sizing
+
+width 是作用在 "内在盒子" 上的，这个内在盒子由很多部分构成：content box + padding box + border box + margin box。
+
+所谓宽度分离原则，就是 CSS 中的 width 属性不与影响宽度的 `padding` `border`(有时也含 `margin`)属性并存。
+
+```css
+/* 没有分离，最终的宽度可能是 102px */
+.box { width: 100px; border: 1px solid; }
+
+/* 宽度分离，宽度值确定 */
+.father { width: 100px; }
+.son { margin: 0 20px; padding: 20px; border: 1px solid; }
+```
+
+使用宽度分离原则需要多使用一层标签，而 `box-sizing` 的出现可以避免此问题，它可以改变 width 属性的作用细节。
+
+```css
+.box1 { box-sizing: content-box; }  /* 默认值 */
+.box2 { box-sizing: padding-box; }  /* Firefox 曾支持过 */
+.box3 { box-sizing: border-box; }   /* 全线支持 */
+.box4 { box-sizing: margin-box; }   /* 从未支持过，基于...等理由，没有存在的价值 */
+```
+
+有的同行觉得默认的 box-sizing: content-box 有点反人类，因此进行全局重置，我是不喜欢这种做法的。我一向推崇的是充分利用元素本身的特性来实现我们想要的效果，足够简单纯粹。
+
+在我看来，box-sizing 被发明出来最大的初衷应该是解决替换元素宽度自适应的问题。如 `<textarea>` 是替换元素，尺寸由内部元素决定，无论其 display 为 inline 还是 block，我们只能通过 width 设定让尺寸 100% 自适应父容器。于是 width/border 和 padding 注定要共存，同时还要整体宽度 100% 自适应容器。
+
+```css
+/* 不合理的重置 */
+* { box-sizing: border-box }
+/* 更合理的重置 */
+input, textarea, img, video, object { box-sizing: border-box; }
+```
+
+#### height
+
+
+### min-width/max-width min-height/max-height
+
+
+
+
+### 内敛元素
+
+
 
 
 ## 盒尺寸四大家族
