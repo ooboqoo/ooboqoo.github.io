@@ -32,6 +32,19 @@ $ mongo     # 跑下 mongodb shell
 $ npm install pm2 typescript -g
 ```
 
+### 直接下载安装包安装
+
+```bash
+$ yum remove nodejs npm
+$ wget https://nodejs.org/dist/v8.11.3/node-v8.11.3-linux-x64.tar.xz
+$ tar -xvf node-v8.11.3-linux-x64.tar.xz  # 解压其实就已经可用了
+$ cd node-v8.11.3-linux-x64/bin && ls
+$ rm -rf /usr/bin/node  # 如存在软链接，先删除
+$ rm -rf /usr/bin/npm
+$ ln -s node /usr/bin/node  # 建立软链接，shell 才能看到
+$ ln -s npm /usr/bin/npm
+```
+
 
 ## Koa 自动部署
 
