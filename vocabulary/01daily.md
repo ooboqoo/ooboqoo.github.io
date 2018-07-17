@@ -1,9 +1,6 @@
 # 基本生活
 
-<style>
-  strong { color:#C00; }
-  i, em { font-style: normal; font-family:"lucida sans unicode", arial, sans-serif; color: #0aa; }
-</style>
+
 
 
 ## 时间

@@ -107,7 +107,112 @@ Vue 为最常用的按键提供了别名：
 
 ### 数据
 
+```js
+export default {
+  props: ['size', 'myMessage'],
+  // props 对象形式允许配置高级选项
+  props: {
+    // 检测类型
+    height: Number,
+    // 检测类型 + 其他验证
+    age: {
+      type: Number,
+      default: 0,
+      required: true,
+      validator: function (value) {
+        return value >= 0
+      }
+    }
+  },
+  data: function () {
+    return {
+      a: 1
+    }
+  },
+  computed: {
+    // 仅读取
+    aDouble: function () {
+      return this.a * 2
+    },
+    // 读取和设置
+    aPlus: {
+      get: function () {
+        return this.a + 1
+      },
+      set: function (v) {
+        this.a = v - 1
+      }
+    }
+  },
+  methods: {
+    plus: function () {
+      this.a++
+    }
+  },
+  watch: {
+    a: function (val, oldVal) {
+      console.log('new: %s, old: %s', val, oldVal)
+    },
+    // watch vm.e.f's value: {g: 5}
+    'e.f': function (val, oldVal) { /* ... */ }
+    // 方法名
+    b: 'someMethod',
+    // 深度 watcher
+    c: {
+      handler: function (val, oldVal) { /* ... */ },
+      deep: true
+    },
+    // 该回调将会在侦听开始之后被立即调用
+    d: {
+      handler: function (val, oldVal) { /* ... */ },
+      immediate: true
+    },
+    // 添加多个监听处理函数
+    e: [
+      function handle1 (val, oldVal) { /* ... */ },
+      function handle2 (val, oldVal) { /* ... */ }
+    ],
+  },
+}
+```
+
+```js
+var vm = new Comp({
+  propsData: {      // 创建实例时传递 props，主要作用是方便测试
+    msg: 'hello'
+  },
+  data: {           // 只有 new 时 data 可以以对象形式出现
+    a: 1
+  },
+});
+```
+
+
 ### DOM
+
+```ts
+export default {
+  el: string | HTMLElement,
+  template: string,
+  render: (createElement: () => VNode) => VNode,
+  // 只在开发环境下工作，当 render 函数遭遇错误时，提供另外一种渲染输出
+  renderError: (createElement: () => VNode, error: Error) => VNode
+}
+```
+
+```js
+import App from './App.vue'
+import router from './router/index.js'
+import store from './store/index.js'
+
+var app = new Vue({
+  el: '#app',
+  render: h => h(App),
+  router,
+  store,
+})
+```
+
 
 ### 生命周期钩子
 
@@ -160,7 +265,7 @@ vm.$listeners
 
 ```js
 // 数据
-vm.$watch( expOrFn, callback, [options] )
+vm.$watch(expOrFn, callback, options?)
 vm.$set()
 vm.$delete()
 
@@ -171,7 +276,7 @@ vm.$off()
 vm.$emit()
 
 // 声明周期
-vm.$mount([elementOrSelector])  // 手动挂载一个未挂载(实例化时未指定 el 选项)的实例
+vm.$mount(elementOrSelector?)  // 手动挂载一个未挂载(实例化时未指定 el 选项)的实例
 vm.$forceUpdate() // 迫使 Vue 实例重新渲染。注意它仅影响实例本身和插入插槽内容的子组件
 vm.$nextTick()
 vm.$destroy()  // 销毁实例
@@ -230,84 +335,6 @@ router.forward()
 
 ## axios
 
-
-
-
-
-## Vue Resource
-
-https://github.com/pagekit/vue-resource/blob/develop/docs/api.md
-
-Request
-
-```
-{
-  // Constructor
-  constructor(object: config)
-
-  // Properties
-  url (string)
-  body (any)
-  headers (Headers)
-  method (string)
-  params (object)
-  timeout (number)
-  credentials (boolean)
-  emulateHTTP (boolean)
-  emulateJSON (boolean)
-  before (function(Request))
-  progress (function(Event))
-
-  // Methods
-  getUrl() (string)
-  getBody() (any)
-  respondWith(any: body, object: config) (Response)
-  abort()
-}
-```
-
-Response
-
-```
-{
-  // Constructor
-  constructor(any: body, object: {string: url, object: headers, number: status, string: statusText})
-
-  // Properties
-  url (string)
-  body (any)
-  headers (Headers)
-  ok (boolean)
-  status (number)
-  statusText (string)
-
-  // Methods
-  blob() (Promise)
-  text() (Promise)
-  json() (Promise)
-}
-```
-
-Headers
-
-```
-{
-  // Constructor
-  constructor(object: headers)
-
-  // Properties
-  map (object)
-
-  // Methods
-  has(string: name) (boolean)
-  get(string: name) (string)
-  getAll() (string[])
-  set(string: name, string: value) (void)
-  append(string: name, string: value) (void)
-  delete(string: name) (void)
-  forEach(function: callback, any: thisArg) (void)
-}
-```
 
 
 ## Vuex

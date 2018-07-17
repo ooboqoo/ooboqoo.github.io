@@ -57,7 +57,10 @@ chunk
 compact
 countBy
 countOccurrences
-deepFlatten
+
+// 将一个多层数组展开成单层数组，特别注意 concat 函数的功用
+const deepFlatten = arr => [].concat(...arr.map(v => (Array.isArray(v) ? deepFlatten(v) : v)));
+
 difference
 differenceBy
 differenceWith
@@ -199,6 +202,57 @@ times
 uncurry
 unfold
 
+```
+
+
+## Object
+
+```js
+bindAll
+
+// 此深拷贝写法简单，但性能不好
+const deepClone = obj => JSON.parse(JSON.stringify(obj));
+
+// 深拷贝，支持对象和数组，性能好
+const deepClone = obj => {
+  let clone = Object.assign({}, obj);
+  Object.keys(clone).forEach(
+    key => (clone[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key])
+  );
+  return Array.isArray(obj) ? (clone.length = obj.length) && Array.from(clone) : clone;
+};
+
+defaults
+dig
+equals
+findKey
+findLastKey
+flattenObject
+forOwn
+forOwnRight
+functions
+get
+invertKeyValues
+lowercaseKeys
+mapKeys
+mapValues
+matches
+matchesWith
+merge
+nest
+objectFromPairs
+objectToPairs
+omit
+omitBy
+orderBy
+pick
+pickBy
+renameKeys
+shallowClone
+size
+transform
+truthCheckCollection
+unflattenObject
 ```
 
 
