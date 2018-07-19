@@ -16,18 +16,24 @@
   .tag-syn { padding: 0 2px;  color: #999;  font-size: .75em;  border: 1px solid;  border-radius: 4px;  }
 </style>
 
-Jesus  Christ  Christian 基督教徒，基督教的  
+Jesus 耶稣 Christ 基督 Jesus Christ 耶稣基督是人民，the man who Christians believe was the son of God  
+Christian 基督教徒，基督教的  
 optional subjects 选修课  major 主修课程，专业  
 sewing machine 缝纫机  
 gallery  画廊，楼座  
+lucky guy / lucky dog 幸运儿  
 scissor  _/ˈsɪzəz $ -ərz/_  剪子，剪刀；本身为复数   <s>a scissors</s>  a pair of scissors  
 rich harvest  大丰收  
 commit suicide  自杀  
+outlook 风光  scenery 风景  
+the trash field 垃圾场  
+resigned from 辞职  
+vocal  a.大声说出的; 嗓音的,发声的 vocal training 发声训练
 
 
 ## 忘
 
-忘 delicate  _/ˈdelɪkət/_  a.精致的; 易碎的 SYN fragile  
+忘 delicate  _/ˈdelɪkət/_  a.精致的,娇美的; 易碎的 SYN fragile  
 忘 diverse  _/daɪˈvɜːs/_  a.多种多样的,(from)不同的  
 忘 cognitive  _/ˈkɒɡnətɪv/_  a.认知的,认识能力的  例: As children grow older, their cognitive processes become sharper.  
 忘 ridiculous  _/rɪˈdɪkjələs/_  a.荒谬的,可笑的  
@@ -48,6 +54,7 @@ commit suicide  自杀
 忘 indispensable  _/ˌɪndɪˈspensəbəl◂/_  a.(to,for)必不可少的,必需的  
 
 忘 dependant 美dependent  _/dɪˈpendənt/_  a.依靠的,依赖的; 取决于…的  
+    Jan’s mother was dependent on her for physical care.  
 忘 independent  _/ˌɪndɪˈpendənt◂/_  a.(of)独立的,自主的  英美拼写一样  
 
 忘 advocate  _/ˈædvəkeɪt/_  n.辩护律师; 拥护者 v.拥护,提倡 SYN proponent  
@@ -83,7 +90,7 @@ commit suicide  自杀
 忘 jury  _/ˈdʒʊəri $ ˈdʒʊri/_  n.陪审团  
 忘 antique  _/ˌænˈtiːk◂/_  n.古董,古玩  
 忘 contemporary  _/kənˈtempərəri/_  a.当代的,现代的; 同时代的; 同时代的人  con+temporary短暂的  
-忘 ancestor  _/ˈænsəstə/_  n.祖宗,祖先; 原种,原型  
+忘 ancestor  _/ˈænsestə/_  n.祖宗,祖先; 原种,原型  
 忘 cancer  _/ˈkænsə/_  n.癌症  
 忘 plague  _/pleɪɡ/_  n.瘟疫  
 忘 notion  _/ˈnəʊʃən/_  n.看法; 观念; 理念  
@@ -103,7 +110,8 @@ commit suicide  自杀
 忘 continent  _/ˈkɒntənənt, ˈkɒntɪnənt/_  n.大陆,洲  
 忘 faint  _/feɪnt/_  a.(声音、颜色、标记、感觉或特性)微弱的,暗淡的,虚弱的 n.晕厥,晕倒  
 忘 yield  _/jiːld/_  v.出产(作物等); (to)屈服,服从 n.产量,产出 field 牧场,球场,领域  
-忘 keen  _/kiːn/_  a.(on)渴望的,热切的,热衷的 近义eager,enthusiastic,zealous  
+忘 keen  _/kiːn/_  a.渴望的,热切的,热衷的 keen to do something, keen on doing something, keen for something to happen
+    eager  渴望的 热切的, enthusiastic 非常感兴趣的 热情的, zealous 充满激情的，狂热的  
 忘 haste  _/heɪst/_  n.急速; 仓促; 匆忙  in haste 匆忙地,草率地  
 忘 stereo  _/ˈsteriəʊ, ˈstɪər-/_  a.立体声的 n.立体音响  
 忘 merit  _/ˈmerɪt/_  n.优点,长处 v.值得,应得  
@@ -114,11 +122,11 @@ commit suicide  自杀
 忘 nurture  _/ˈnɜːtʃə/_  n/v.养育,培育  
 忘 prosperity  _/prɒˈsperəti, prɒˈsperɪti/_  n.繁荣,兴旺  
 忘 tragedy  _/ˈtrædʒədi/_  n.不幸,灾难,惨剧; 悲剧作品  
-忘 farewell  _/ˌfeəˈwel◂/_  同goodbye,意译为"进展顺利"  fare n.车费 v.进展  
+忘 fare  _/feə/_  n.车费 v.进展 farewell  
 忘 inevitable  _/ɪˈnevətəbəl, ɪˈnevɪtəbəl/_  a.不可避免的,必然发生的  
 忘 handkerchief  _/ˈhæŋkətʃɪf/_  n.手帕  hand·ker·chief  
-忘 dumb  _/dʌm/_  a.哑的; 哑口无言的; 人愚蠢的,笨的; 无声的,不用言语表达的  
-忘 damp  _/dæmp/_  a.潮湿的,湿气重的; 弄湿  
+忘 dumb  _/dʌm/_  a.哑的; 哑口无言的; 人愚蠢的,笨的; 无声的,不用言语表达的  a young deaf and dumb man  
+忘 damp  _/dæmp/_  a.潮湿的,湿气重的; n.潮气 v.弄湿  
 忘 fatigue  _/fəˈtiːɡ/_  n.疲劳,疲倦; (金属或木材的)疲劳  
 忘 costume  _/ˈkɒstjʊm/_  n.表演服装; (某历史时期或某国的)装束 a.(戏剧)古装的  
 忘 trap  _/træp/_  n.(捕鸟兽的)陷阱,罗网,夹子; 圈套,骗局 v.诱骗,诱捕  
