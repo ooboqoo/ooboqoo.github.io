@@ -113,7 +113,7 @@ export default {
   // props 对象形式允许配置高级选项
   props: {
     // 检测类型
-    height: Number,
+    height: [Number, String],
     // 检测类型 + 其他验证
     age: {
       type: Number,
@@ -219,6 +219,7 @@ var app = new Vue({
 ```js
 export default {
   beforeCreate () { },// 在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用
+                      // 这里读 props 里内容会抛错(然后被catch)，读 data 里内容为 undefined
   created () { },     // 在实例创建完成后被立即调用。挂载阶段还没开始，`$el` 属性目前不可见
   beforeMount () { }, // 在挂载开始之前被调用，相关的 render 函数首次被调用
   mounted () { },     // `el` 被新创建的 `vm.$el` 替换，并挂载到实例上去之后调用该钩子。
@@ -255,7 +256,7 @@ vm.$root
 vm.$children
 vm.$slots
 vm.$scopedSlots
-vm.$refs
+vm.$refs    // 如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；如果用在子组件上，引用就指向组件实例
 vm.$isServer
 vm.$attrs
 vm.$listeners

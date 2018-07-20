@@ -37,7 +37,7 @@
 
 **声明**，属性名加上属性值就是声明。
 
-**声明块**，声明块是花括号 `{}` 包裹的一些列声明。
+**声明块**，声明块是花括号 `{}` 包裹的一系列声明。
 
 **规则或规则集**，选择器加声明块就是一个规则集。
 
@@ -52,27 +52,27 @@
 
 ### 块级元素
 
-常见的块级元素 block-level element 有 `<div>` `<li>` `<table>`。需要注意的是，"块级元素" 和 `display: block` 的元素是不完全等同的，`li {display: list-item}` `table {display: table}` 但它们均是块级元素，因为它们都符合块级元素的基本特征，也就是一个水平流上只能单独显示一个元素。
+常见的块级元素 block-level element 有 `<div>` `<li>` `<table>`。需要注意的是，"块级元素" 和 `display:block` 的元素是不完全等同的，`li {display:list-item}` `table {display:table}` 但它们均是块级元素，因为它们都符合块级元素的基本特征，也就是一个水平流上只能单独显示一个元素。
 
-#### 标记盒子 容器盒子
+#### 标记盒子、容器盒子
 
 设计 CSS 时，先有**块级盒子** block-level box 和**内联盒子** inline box，块级盒子负责结构，内联盒子负责内容。
 
 后面出现了 `list-item` 默认要显示项目符号，于是又增加了个附加盒子，学名**标记盒子** marker box，专门用来放圆点、数字这些项目符号。
 
-后面又出现了 `display: inline-block` 元素，穿着 `inline` 的皮藏着 `block` 的心，现有的盒子没法解释，于是又新增一个盒子，最终**每个元素都有两个盒子：外在盒子+内在盒子**，外在盒子负责元素是可以一行显示还是只能换行显示，内在盒子负责宽高、内容呈现等。内在盒子学名叫**容器盒子**。
+后来又出现了 `display:inline-block` 元素，穿着 `inline` 的皮藏着 `block` 的心，现有的盒子没法解释，于是又新增一个盒子，最终**每个元素都有两个盒子：外在盒子+内在盒子**，外在盒子负责元素是可以一行显示还是只能换行显示，内在盒子负责宽高、内容呈现等。内在盒子学名叫**容器盒子**。
 
-有了两层盒子，`inline-block` 就很好解释了。遵循这种理解，`display: block` 可以脑补成 `display: block-block`，`display: table` 应该脑补成 `display: block-table`。
+有了两层盒子，`inline-block` 就很好解释了。遵循这种理解，`display:block` 可以脑补成 `display:block-block`，`display:table` 应该脑补成 `display:block-table`。
 
 ### width/height 作用细节
 
 #### width:auto
 
 `width` 的默认值是 `auto`，因为是默认值，所以出镜率不高，但它至少包含了以下4种不同的宽度表现。
-  * 充分利用可用空间 fill-available，`<div>` `<p>` 这些元素的宽度默认是 100% 于父级容器的
-  * 收缩与包裹 fit-content，典型代表就是浮动、绝对定位、inline-block 元素或 table 元素，根据内容确定宽度
-  * 收缩到最小 min-content，这个最容易出现在 table-layout: auto 的表格中
-  * 超出容器限制 max-content，正常宽度都不会超过父级容器宽度，但也存在一些特殊情况，如内容很长的连续的英文和数字，或者内联元素被设置了 white-space: nowrap
+  * 充分利用可用空间 fill-available，`<div>` `<p>` 这些元素的宽度默认是 100% 于父级容器的。
+  * 收缩与包裹 fit-content，典型代表就是浮动、绝对定位、inline-block 元素或 table 元素，根据内容确定宽度。
+  * 收缩到最小 min-content，这个最容易出现在 `table-layout:auto` 的表格中。
+  * 超出容器限制 max-content，正常宽度都不会超过父级容器宽度，但也存在一些特殊情况，如内容很长的连续的英文和数字，或者内联元素被设置了 `white-space:nowrap`。
 
 ##### 外部尺寸与流体特性
 
@@ -123,7 +123,7 @@ div { position: absolute; left: 20px; right: 20px; }
 
 按钮会自动换行？没错，你之所以没印象，可能是因为
   * 实际项目中按钮上的文字个数比较有限，没机会换行。
-  * `<button>` 标签按钮才会自动换行，`<input>` 标签按钮，默认 white-space:pre 是不会换行的。
+  * `<button>` 标签按钮才会自动换行，`<input>` 标签按钮，默认 `white-space:pre` 是不会换行的。
 
 ```css
 .box { text-align: center; }
@@ -143,7 +143,7 @@ div { position: absolute; left: 20px; right: 20px; }
 
 **首选最小宽度**
 
-假设外部容器的宽度是 0，请问里面的 inline-block 元素的宽度时多少？是 0？不是。在 CSS 世界中，图片和文字的权重要远大于布局，因此，CSS 的设计者显然是不会让 width:auto 时宽度变成 0 的，此时所表现的宽度就是 "首选最小宽度"：
+假设外部容器的宽度是 0，请问里面的 inline-block 元素的宽度时多少？是 0？不是。在 CSS 世界中，图片和文字的权重要远大于布局，因此，CSS 的设计者显然是不会让 `width:auto` 时宽度变成 0 的，此时所表现的宽度就是 "首选最小宽度"：
   * CJK文字最小宽度为每个汉字的宽度
   * 西方文字最小宽度由特定的连续的英文字符单元决定
 
@@ -158,9 +158,9 @@ div { position: absolute; left: 20px; right: 20px; }
 
 **最大宽度**
 
-最大宽度实际等同于包裹性元素设置 withe-space:nowrap 声明后的宽度。如果内部没有块级元素或者块级元素没有设定宽度值，则最大宽度实际上是最大的连续内联盒子的宽度。
+最大宽度实际等同于包裹性元素设置 `withe-space:nowrap` 声明后的宽度。如果内部没有块级元素或者块级元素没有设定宽度值，则最大宽度实际上是最大的连续内联盒子的宽度。
 
-#### 宽度分离原则 与 box-sizing
+#### 宽度分离原则与 box-sizing
 
 width 是作用在 "内在盒子" 上的，这个内在盒子由很多部分构成：content box + padding box + border box + margin box。
 
@@ -184,7 +184,7 @@ width 是作用在 "内在盒子" 上的，这个内在盒子由很多部分构�
 .box4 { box-sizing: margin-box; }   /* 从未支持过，基于...等理由，没有存在的价值 */
 ```
 
-有的同行觉得默认的 box-sizing: content-box 有点反人类，因此进行全局重置，我是不喜欢这种做法的。我一向推崇的是充分利用元素本身的特性来实现我们想要的效果，足够简单纯粹。
+有的同行觉得默认的 `box-sizing:content-box` 有点反人类，因此进行全局重置，我是不喜欢这种做法的。我一向推崇的是充分利用元素本身的特性来实现我们想要的效果，足够简单纯粹。
 
 在我看来，box-sizing 被发明出来最大的初衷应该是解决替换元素宽度自适应的问题。如 `<textarea>` 是替换元素，尺寸由内部元素决定，无论其 display 为 inline 还是 block，我们只能通过 width 设定让尺寸 100% 自适应父容器。于是 width/border 和 padding 注定要共存，同时还要整体宽度 100% 自适应容器。
 
@@ -203,7 +203,7 @@ input, textarea, img, video, object { box-sizing: border-box; }
 
 
 
-### 内敛元素
+### 内联元素
 
 
 
@@ -308,7 +308,7 @@ margin 合并有以下 3 种场景
 4\. margin 合并的意义
 
 
-#### 深入理解 margin: auto
+#### 深入理解 margin:auto
 
 
 

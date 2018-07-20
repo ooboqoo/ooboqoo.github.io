@@ -178,7 +178,7 @@ function isMobile() {
         if (script.src) {
           newScript.src = script.src;
         } else {
-          newScript.innerHTML = script.innerHTML;
+          newScript.innerHTML = script.innerHTML.replace(/&#39;/g, "'");
         }
         elem_md.appendChild(newScript).parentNode.removeChild(newScript);
       });
