@@ -22,7 +22,7 @@ optional subjects 选修课  major 主修课程，专业
 sewing machine 缝纫机  
 gallery  画廊，楼座  
 lucky guy / lucky dog 幸运儿  
-scissor  _/ˈsɪzəz $ -ərz/_  剪子，剪刀；本身为复数   <s>a scissors</s>  a pair of scissors  
+scissors  _/ˈsɪzəz $ -ərz/_  剪子，剪刀；本身为复数   <s>a scissors</s>  a pair of scissors  
 rich harvest  大丰收  
 commit suicide  自杀  
 outlook 风光  scenery 风景  
@@ -34,7 +34,7 @@ vocal  a.大声说出的; 嗓音的,发声的 vocal training 发声训练
 ## 忘
 
 忘 delicate  _/ˈdelɪkət/_  a.精致的,娇美的; 易碎的 SYN fragile  
-忘 diverse  _/daɪˈvɜːs/_  a.多种多样的,(from)不同的  
+忘 diverse  _/daɪˈvɜːs/_  a.多种多样的,(from)不同的  shops selling a diverse range of gifts  
 忘 cognitive  _/ˈkɒɡnətɪv/_  a.认知的,认识能力的  例: As children grow older, their cognitive processes become sharper.  
 忘 ridiculous  _/rɪˈdɪkjələs/_  a.荒谬的,可笑的  
 忘 solitary  _/ˈsɒlətəri/_  a.孤单的; 独居的  
@@ -71,7 +71,7 @@ vocal  a.大声说出的; 嗓音的,发声的 vocal training 发声训练
 忘 curse  _/kɜːs $ kɜːrs/_  v.诅咒,咒骂 n.诅咒,咒语 curl卷发  
 忘 colony  _/ˈkɒləni/_  n.殖民地; 聚居区; (动植物的)群体  
 忘 monopoly  _/məˈnɒpəli/_  n.垄断,专卖,专利权  
-忘 desperate  _/ˈdespərət/_  a.绝望的; 渴望的  
+忘 desperate  _/ˈdespərət/_  a.绝望的; 渴望的  She was desperate with fear.  The team is desperate for a win.  He was desperate to get a job.  
 忘 imperative  _/ɪmˈperətɪv/_  n.必要紧急的事 a.强制的; 紧急的; 祈使语气  
 忘 intimate  _/ˈɪntəmət, ˈɪntɪmət/_  a.亲密的,密切的 n.熟友,熟人  
 忘 baffle  _/ˈbæfəl/_  v.使困惑; 把…难住    if something baffles you, you cannot understand or explain it at all  
@@ -80,7 +80,7 @@ vocal  a.大声说出的; 嗓音的,发声的 vocal training 发声训练
 忘 heir  _/eə $ er/_  n.继承人 记发音  
 忘 omit  _/əʊˈmɪt/_  v.遗漏; 排除 emit发出光\热\气味  you do not include it in an activity or piece of work, deliberately or accidentally.  
 
-忘 sore  _/sɔː $ sɔːr/_  a.疼痛的; 痛心的,恼怒的 n.痛处,疮口  
+忘 sore  _/sɔː $ sɔːr/_  a.疼痛的; 痛心的,恼怒的 n.痛处,疮口  Don’t be sore at me  
 忘 sue  _/sjuː $ suː/_  v.(通常为索赔而)控告,对…提起诉讼  
 忘 beast  _/biːst/_  n.野兽; 王八蛋,(人)禽兽  
 忘 youth  _/juːθ/_  n.青年时期; 青春,朝气; 统称青年,年轻人 plural youths  _/juːðz/_  
