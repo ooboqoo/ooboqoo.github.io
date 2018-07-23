@@ -28,7 +28,10 @@ commit suicide  自杀
 outlook 风光  scenery 风景  
 the trash field 垃圾场  
 resigned from 辞职  
-vocal  a.大声说出的; 嗓音的,发声的 vocal training 发声训练
+vocal  a.大声说出的; 嗓音的,发声的 vocal training 发声训练  
+inference _/ˈɪnfərəns/_ n. 推理; 结论  
+frustrate  _/ˈfrʌstreɪt/_  使沮丧,使愤怒; 挫败,阻挠…的成功  These questions frustrated me  
+discourage  v. 使泄气,使灰心; 劝阻  discourage someone from doing something  
 
 
 ## 忘
@@ -314,8 +317,7 @@ vocal  a.大声说出的; 嗓音的,发声的 vocal training 发声训练
 混 protect  _/prəˈtekt/_  v.(from)保护,保卫  
 混 protest  _/ˈprəʊtest/_  v./n.抗议,反对  
 
-混 breath  _/breθ/_  n.呼吸,气息
-Do not confuse the noun breath  _/breθ/_  with the verb breathe  _/briːð/_: She took a breath and continued. I can’t breathe in here!  
+混 breath  _/breθ/_  n.呼吸,气息  
 混 breathe  _/briːð/_  v.呼吸,吸入  
 混 breadth  _/bredθ, bretθ/_  n.宽度,广度
 
@@ -376,7 +378,7 @@ There is no noun ‘sunbath’: Let’s go and sunbathe/do some sunbathing (NOT 
 混 quiet  _/ˈkwaɪət/_  a.安静的,平静的n.安静 v.使安静,平静  
 混 quite  _/kwaɪt/_  ad.十分,完全; 相当  
 
-混 launch  _/lɔːntʃ $ lɒːntʃ/_  v.发射; 使船下水; 开展活动; 发动袭击等  
+混 launch  _/lɒːntʃ/_  v.发射; 使船下水; 开展活动; 发动袭击等  
 混 lunch  _/lʌntʃ/_  n.午餐  there’s no (such thing as a) free lunch  
 
 混 rob  _/rɒb $ rɑːb/_  v.(of)抢劫,盗取  
@@ -384,7 +386,7 @@ There is no noun ‘sunbath’: Let’s go and sunbathe/do some sunbathing (NOT 
 
 混 adopt  _/əˈdɒpt/_  v.采用,采取(态度等); 选定; 收养  
 混 adapt  _/əˈdæpt/_  v.适应,使适应; 改编,改写  
-混 adept  _/ˈædept, əˈdept/_  a.熟练的; 内行的  
+混 adept  _/əˈdept/_  a.熟练的; 内行的  
 
 混 perspective  _/pəˈspektɪv $ pər-/_  n.透视画法; 观点,看法  SYN viewpoint  
 混 prospective  _/prəˈspektɪv/_  a.预期的  
@@ -420,10 +422,10 @@ extremely good in a way that impresses you or makes you very pleased
 析 wonderful  _/ˈwʌndəfəl/_  a.精彩的; 绝妙的; 极好的  
 析 amazing  _/əˈmeɪzɪŋ/_  a.令人称奇的; 惊人的  
 析 incredible  _/ɪnˈkredəbəl/_  a.惊人的,不可思议的  
-析 brilliant  _/ˈbrɪljənt/_  a.光辉的; 卓越的,有才华的  
-析 glorious  _/ˈɡlɔːriəs/_  a.壮丽的,辉煌的; 光荣的  
+析 brilliant  _/ˈbrɪljənt/_  a.卓越的,有才华的  
+析 glorious  _/ˈɡlɔːriəs/_  a.辉煌的; 光荣的  
 析 superb  _/sjuːˈpɜːb/_  a.极佳的; 卓越的  
-析 splendid  _/ˈsplendəd,-ɪd/_  a.极好的,壮丽的,美妙的  
+析 splendid  _/ˈsplendəd,-ɪd/_  a.壮丽的  beautiful and impressive  
 析 spectacular  _/spekˈtækjələ/_  a.壮观的,引人注目的 n.盛大的演出  
 
 析 stale  _/steɪl/_  (食物)不新鲜的,变质的; 厌倦的; 令人厌倦的  
@@ -546,8 +548,9 @@ to take another person's child into your home for a period of time, without beco
 析 flock  _/flɒk $ flɑːk/_  n.兽群,鸟群; 人群 v.群集,成群 重在"群"  
 析 herd  _/hɜːd/_  n.牧群,兽群 v.放牧,驱赶  重在"牧"+兽群  
 
-析 blast  _/blɑːst $ blæst/_  n/v.爆炸    A blast is a big explosion, especially one caused by a bomb.  
+析 blast  _/blɑːst $ blæst/_  n/v.爆炸    A blast is a _big explosion_, especially one caused by a bomb.  
 析 explosion  _/ɪkˈspləʊʒən/_  n.爆炸,爆发  
+析 burst  _/bɜːrst/_ v. 使爆裂,使胀破
 
 析 strap  _/stræp/_  n.皮带,带子 v.用带子系(或绑、捆、扎) 由韧性材料制成的长的窄带,如皮带,皮鞭  
 析 strip  _/strɪp/_  v.剥,剥去 n.窄条; 商业街  通常有同样宽度的长而狭窄的条片  
@@ -557,6 +560,7 @@ to take another person's child into your home for a period of time, without beco
 析 football  _/ˈfʊtbɔːl $ -bɒːl/_  n.足球    在美国指橄榄球,一般的就是通常的足球  
 析 soccer  _/ˈsɒkə $ ˈsɑːkər/_  n.(英式)足球    soccer是美国人为足球运动特别命名的,用来区别在美国被称为football的橄榄球  
 
+析 outlook  n. 景色,风光; 世界观,人生观; 展望,前景  
 析 scenery  _/ˈsiːnəri/_  n.风景,风光; 舞台布景  指某地总的自然风景或景色  
 析 scene  _/siːn/_  n.(给人以某种印象的)景象,场景; (电影)镜头; (戏剧、书的)场面,片段 多指某一特定或具体场面所表示的“景色”、“场景”等  
 析 view  _/vjuː/_  n.视野; 风景; 观察; 见解; 照片 vt.观察; 认为  view常指从远处或高处看到的scenery的一部分,有时可与scene互换  
@@ -566,7 +570,6 @@ to take another person's child into your home for a period of time, without beco
 析 comprise  _/kəmˈpraɪz/_  vt.包含,包括,由...组成; 构成,组成 comprises or is comprised of  
 析 compose  _/kəmˈpəʊz $ -ˈpoʊz/_  v.组成,构成; 创作(诗歌等) 整体+be composed of+部分的全体  
 析 make up   v.组成; 编造; 给…化妆  make up (also constitute formal)  
-析 consistent  _/kənˈsɪstənt/_  a.连贯的,一致的 OPP inconsistent  
 析 compound  _/ˈkɒmpaʊnd $ ˈkɑːm-/_  n.(化学中的)化合物; 混合物 a.混合的; (单词句子)复合的  
 
 析 tone  _/təʊn $ toʊn/_  n.音调; 腔调; 色调; 格调 O就像嘴形,跟语音有关  

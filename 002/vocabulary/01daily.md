@@ -44,6 +44,8 @@ clock  watch  timepiece 时钟  hand 表针  hour  minute  second  date 日期  
 
 ## 食
 
+stove 炉  oven 灶  range 炉灶
+
 
 ## 住
 

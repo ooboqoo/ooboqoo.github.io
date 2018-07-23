@@ -399,13 +399,14 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <h5 class="es3">Math.min(x, y, z,...) <span>-- 确定一组数值中的最小值</span></h5>
 <h5 class="es3">Math.max(x, y, z,...) <span>-- 确定一组数值中的最小值</span></h5>
 <h5 class="es3">Math.ceil(x) <span>-- 执行向上取整</span></h5>
-<h5 class="es3">Math.floor(x) <span>-- 执行向下取整</span></h5>
+<h5 class="es3">Math.floor(x) <span>-- 执行向下取整, 即不超过 x 的最大整数 `Math.floor(-3.5) // -4`</span></h5>
 <h5 class="es3">Math.round(x) <span>-- 执行四舍五入 `Math.round(x) = Math.floor(x + 0.5);  // 0.5 -> 1; -0.5 -> 0`</span></h5>
 <h5 class="es3">Math.random() <span>-- 返回 0 到 1 之间的随机数 `[0, 1)`</span></h5>
-<h5 class="es3">Math.abs(x) <span>-- 返回 x 的绝对值</span></h5>
-<h5 class="es3">Math.sqrt(x) <span>-- square root 返回 x 的平方根</span></h5>
-<h5 class="es3">Math.pow(base, exponent) <span>-- returns the base to the exponent power 返回 base 的 exponent 次方</span></h5>
-<h5 class="es3">Math.exp(x) Math.log(x) Math.log10(x) Math.log2(x)</h5>
+<h5 class="es3">Math.abs(x) <span>-- absolute 绝对值 `|x|`</span></h5>
+<h5 class="es3">Math.sqrt(x) <span>-- square root 平方根 <code>x<sup>0.5</sup></code></span></h5>
+<h5 class="es3">Math.pow(base, exponent) <span>-- power 幂, base 的 exponent 次方, <code>base<sup>exponent</sup></code></span></h5>
+<h5 class="es3">Math.exp(x) <span>--  <code>e<sup>x</sup></code></span></h5>
+<h5 class="es3">Math.log(x) <span>-- 即 ln(x), <code>e<sup>y</sup>=x</span></code></h5>
 <h5 class="es3">Math.sin(x) Math.cos(x) Math.tan(x) Math.asin(x) Math.acos(x) Math.atan(x) Math.atan2(y, x)</h5>
 <h5 class="es6">Math.sinh(x) <span>-- 返回x的双曲正弦（hyperbolic sine）</span></h5>
 <h5 class="es6">Math.cosh(x) <span>-- 返回x的双曲余弦（hyperbolic cosine）</span></h5>
