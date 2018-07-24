@@ -187,7 +187,7 @@ discourage  v. 使泄气,使灰心; 劝阻  discourage someone from doing someth
 忘 interest  _/ˈɪntrəst/_  n.(in)兴趣,重要性; 利益 v.(in)使发生兴趣  
 忘 preface  _/ˈprefəs/_  n.序言,引言,前言 v.作序,写前言  
 忘 publicity  _/pʌˈblɪsɪti/_  n.宣传,报道; 媒体或公众的关注  
-忘 cease  _/siːs/_  v/n.停止,中止 stop  
+忘 cease  _/siːs/_  v/n.停止,中止 formal, In everyday English, people usually use stop rather than cease  
 忘 presentation  _/ˌprezənˈteɪʃən/_  n.介绍,陈述,报告  
 忘 impact  _/ˈɪmpækt/_  n.冲击,碰撞; 影响 v.影响; 挤入,压紧  
 忘 rib  _/rib/_  n.肋骨,肋状物  
@@ -441,12 +441,12 @@ decay to be slowly destroyed by a natural chemical process – use this especial
 析 flatten  _/ˈflætn/_  v.夷平(建筑、城镇或植物); 把…弄平  
 析 trash  _/træʃ/_  n.垃圾; 拙劣的作品  
 
-析 peasant  _/ˈpezənt/_  n.农民  没钱  
-析 farmer  _/ˈfɑːmə/_  n.农场主; 农民  有钱  
+析 peasant  _/ˈpezənt/_  n.农民(没钱)  
+析 farmer  _/ˈfɑːmə/_  n.农场主; 农民(有钱)  
 
 析 adopt  _/əˈdɒpt $ əˈdɑːpt/_  vt.采用,采取; 收养(当子女)
 to take someone else’s child into your home and legally become its parent  
-析 foster  _/ˈfɒstə/_  vt.养育; 收养(代养) a.收养的 n.养育者
+析 foster  _/ˈfɒstə/_  vt.寄养,代养 a.寄养的
 to take another person's child into your home for a period of time, without becoming his or her legal parents  
 
 析 maid  _/meɪd/_  n.女仆; (old use)少女,处女 old maid 老处女  
@@ -493,9 +493,9 @@ to take another person's child into your home for a period of time, without beco
 析 wallet  _/ˈwɒlət $ -ɪt/_  n.皮夹,钱包 NAmE also billfold  
 析 purse  _/pɜːs/_  n.尤指女式钱包  
 
-析 lorry  _/ˈlɒri/_  n.卡车,运货汽车 lorry BrE; truck NAmE  
-析 wagon  _/ˈwæɡən/_  n.运货马车,运货车; 敞蓬车厢  
-析 carriage  _/ˈkærɪdʒ/_  n.(四轮)马车; (火车)客车厢  
+析 lorry  _/ˈlɒri/_  n.卡车,运货汽车 lorry BrE; _truck_ NAmE  是货车的统称, 包含 pickup van jeep tractor 等  
+析 wagon  _/ˈwæɡən/_  n.运货马车; 敞蓬车厢,(火车)货车箱  
+析 carriage  _/ˈkærɪdʒ/_  n.敞篷马车(客运); (火车)客车厢  
 析 cart  _/kɑːt $ kɑːrt/_  n.购物车; (旧时的)马车 SYN trolley  
 
 析 crash  _/kræʃ/_  v./n.碰撞 n.破产  
@@ -505,7 +505,7 @@ to take another person's child into your home for a period of time, without beco
 
 析 inn  _/ɪn/_  n.小旅馆; 客栈; 小酒馆  
 析 hotel  _/həʊˈtel/_  n.宾馆; 旅馆; 酒店  
-析 hostel  _/ˈhɒstl/_  n.廉价招待所,临时收容所 =youth hostel  
+析 hostel  _/ˈhɒstl/_  n.廉价招待所,临时收容所 =youth hostel  注意 t 的发音更像 d
 
 析 interpret  _/ɪnˈtɜːprət,-ɪt/_  vt.解释,说明; 口译   to change what someone is saying into another language, as they are speaking  
 析 translate  _/trænsˈleɪt, trænz-/_  v.翻译,解释; 转化    to change written or spoken words into another language  
@@ -515,7 +515,7 @@ to take another person's child into your home for a period of time, without beco
 析 mountain  _/ˈmaʊntən/_  n.高山  a very high hill  
 析 hill  _/hɪl/_  n.小山,山岗,高地; [pl.]丘陵(地带)    an area of land that is higher than the land around it, which is like a mountain but smaller and usually has a rounded top  
 析 cliff  _/klɪf/_  n.(尤指靠海的)悬崖,峭壁    the steep side of an area of land, often next to the sea  
-析 precipice  _/ˈpresəpəs, -sɪpəs/_  n.悬崖,峭壁; 险境,绝境   a very steep and dangerous cliff  
+析 precipice  _/ˈpresəpəs/_  n.悬崖,峭壁; 险境,绝境   a very steep and dangerous cliff  
 析 ridge  _/rɪdʒ/_  n.山脊    a long narrow area of high ground, especially at the top of a mountain  
 析 peak  _/piːk/_  n.山顶,顶峰 a.高峰的    the top of a mountain.(peak time 高峰期的)  
 析 summit  _/ˈsʌmət, ˈsʌmɪt/_  n.峰会,首脑会议; 山峰,峰顶 SYN peak,比peak多个峰会的意义  
@@ -523,10 +523,10 @@ to take another person's child into your home for a period of time, without beco
 析 calculate  _/ˈkælkjəleɪt, ˈkælkjʊleɪt/_  v.计算; 估算 这个就是要"算"  
 析 estimate  _/ˈestəmət, ˈestɪmət/_  v./n.估计,估价 n.估算单; 预算书 重在"估",基于现有资料尽量准确地猜测.  to guess an amount, price, or number as exactly as you can, based on the knowledge you have  
 析 reckon  _/ˈrekən/_  v.认为; 预计; 估计  口语常用,重"感觉"缺乏准确性  
-析 evaluate  _/ɪˈvæljueɪt/_  v.评估  根据信息作出评价  to judge especially by carefully examining all the information about them.Evaluate is often used about the work of people doing research  
-析 assess  _/əˈses/_  v.评价  根据标准来评价 to judge especially by using a fixed set of standards.Assess is often used about measuring students’ abilities and performance  
-析 appraise  _/əˈpreɪz/_  v.鉴定,评估 根据比较优缺点作出评价 formal,to judge especially by comparing their good and bad points  
-析 appraisal  _/əˈpreɪzəl/_  n.鉴定,评估  
+析 evaluate  _/ɪˈvæljueɪt/_  v.根据信息作出评价  to judge especially by carefully examining all the information about them. Evaluate is often used about the work of people doing research  
+析 assess  _/əˈses/_  v.根据标准来评估,评价 to judge especially by using a fixed set of standards. Assess is often used about measuring students’ abilities and performance  
+析 appraise  _/əˈpreɪz/_  v.评价,评估 根据比较优缺点作出评价 formal,to judge especially by comparing their good and bad points  
+析 appraisal  _/əˈpreɪzəl/_  n.评价,评估  
 
 析 barber  _/ˈbɑːbə $ ˈbɑːrbər/_  n.为男性理发的男理发师    a man whose job is to cut men’s hair and sometimes to ↑shave them  
 析 hairdresser  _/ˈheəˌdresə/_  n.理发师,美发师; 美发店  
@@ -581,26 +581,26 @@ to take another person's child into your home for a period of time, without beco
 析 bacon  _/ˈbeɪkən/_  n.咸猪肉,熏猪肉  
 
 析 clerk  _/klɑːk $ klɜːrk/_  n.职员,办事员; 店员  
-析 staff  _/stɑːf $ stæf/_  n.(一组织的)全体工作人员; (全体工作人员中的)部分成员  
-析 crew  _/kruː/_  n.全体船员,全体乘务员  
+析 staff  _/stɑːf $ stæf/_  n.(一组织的)全体工作人员; (全体工作人员中的)部分成员  I’d like to welcome a new member of staff.  
+析 crew  _/kruː/_  n.全体船员,全体乘务员; (有专门技术的)一组工作人员  He joined the crew of a large fishing boat.
 
 析 revenue  _/ˈrevənjuː/_  n.财政收入,税收; (公司、组织的)收入  
 析 income  _/ˈɪŋkʌm, ˈɪn-/_  n.收入,收益,所得    较口语,一般只个人的收入,也用于公司.会计上revenue指收入income指盈利  
 
-析 admit  _/ədˈmɪt/_  vt.常指不情愿地承认,供认; 准许...进入,准许...加入    to agree unwillingly that something is true  
-析 confess  _/kənˈfes/_  v.供认,承认,坦白,忏悔   In everyday English, people usually say admit rather than confess  
-析 concede  _/kənˈsiːd/_  vt.承认; 认输    formal to admit something in a discussion or argument  
-析 acknowledge  _/əkˈnɒlɪdʒ/_  vt.承认事实,局面等; 告知(信件等的)收到; 答谢   formal to say that something is true or that a situation exists  
+析 admit  _/ədˈmɪt/_  vt.常指不情愿地承认,供认; 准许...进入,准许...加入  to agree unwillingly that something is true  
+析 confess  _/kənˈfes/_  v.坦白,忏悔,供认,承认  In everyday English, people usually say admit rather than confess  
+析 concede  _/kənˈsiːd/_  vt.(勉强)承认; 认输  formal to admit something in a discussion or argument  
+析 acknowledge  _/əkˈnɒlɪdʒ/_  vt.承认事实,局面等; 告知(信件等的)收到; 答谢  formal to say that something is true or that a situation exists  
 析 confession  _/kənˈfeʃən/_  n.承认,坦白,忏悔  
 
 析 company  _/ˈkʌmpəni/_  n.公司; 陪伴   an organization that makes or sells something, or provides a service  
-析 enterprise  _/ˈentəpraɪz $ -tər-/_  n.常指小型企业,公司; 创业; 进取心  
-析 firm  _/fɜːm $ fɜːrm/_  n.公司,商号 a.坚固的; 坚决的    a company, especially one that provides a service rather than producing goods  
-析 corporation  _/ˌkɔːpəˈreɪʃən/_  大公司; 大企业; (英国某些大城市的)市政委员会   a large company that often includes several smaller companies  
-析 subsidiary  _/səbˈsɪdiəri/_  n.附属公司; 子公司 a.辅助的; 次要的   a company that is owned by a larger company  
+析 enterprise  _/ˈentəpraɪz $ -tər-/_  n.常指小型企业; 创业; 进取心  
+析 firm  _/fɜːm $ fɜːrm/_  n.商号 a.坚固的; 坚决的    a company, especially one that provides a service rather than producing goods  
+析 corporation  _/ˌkɔːpəˈreɪʃən/_  n.大企业; (英国某些大城市的)市政委员会   a large company that often includes several smaller companies  
+析 subsidiary  _/səbˈsɪdiəri/_  n.子公司 a.辅助的; 次要的   a company that is owned by a larger company  
 析 business  _/ˈbɪznəs, ˈbɪznɪs/_  n.商业,生意; 商铺; 事务,业务,职责   a company – often used when talking about a company that employs only a small number of people  
 
-析 dispute  _/dɪˈspjuːt, ˈdɪspjuːt/_  n.争论,争端 v.质疑 [P]in dispute有争端/纠纷   a public or legal argument about something, especially one which continues for a long time  
+析 dispute  _/dɪˈspjuːt, ˈdɪspjuːt/_  n.争论,争端 v.质疑 _in dispute_ 有争端/纠纷   a public or legal argument about something, especially one which continues for a long time  
 析 argument  _/ˈɑːɡjəmənt/_  n.争论(吵),辩论; 理由; 质疑    a situation in which people speak angrily to each other because they disagree about something  
 析 controversy  _/ˈkɒntrəvɜːsi, kənˈtrɒvəsi/_  n.争论,辩论,争吵    a serious argument about something that involves many people and continues for a long time  
 析 quarrel  _/ˈkwɒrəl/_  n.争吵; 吵架   especially British English an argument, especially one in which people get angry and that lasts a long time  
@@ -610,9 +610,9 @@ to take another person's child into your home for a period of time, without beco
 析 feud  _/fjuːd/_  n.世仇 v.结怨,长期争吵   a very bitter argument between two groups, especially families, which lasts for many years and causes people to hate each other  
 
 析 sadness  _/ˈsædnəs,-nɪs/_  n.伤心  
-析 despair  _/dɪˈspeə/_  n.绝望 v.感到绝望  
 析 depression  _/dɪˈpreʃən/_  n.抑郁,沮丧; 萧条[期]; 洼地; 低气压  
 析 sorrow  _/ˈsɒrəʊ/_  n.悲哀; 悲伤  
+析 despair  _/dɪˈspeə/_  n.绝望 v.感到绝望  
 
 析 bind  _/baɪnd/_  v.捆绑; 束缚 过去式 bound  
 析 bond  _/bɒnd $ bɑːnd/_  n.结合(物); 情感的纽带; 束缚; 公债,债券,契约  
@@ -621,29 +621,29 @@ to take another person's child into your home for a period of time, without beco
 析 boundary  _/ˈbaʊndəri/_  n.分界线,边界  ↑bound4  
 
 析 comparable  _/ˈkɒmpərəbəl/_  a.类似的; 可比较的  
-析 comparative  _/kəmˈpærətɪv/_  a.相对的; 比较的; (形容词或副词)比较级的  
+析 comparative  _/kəmˈpærətɪv/_  a.相对的; 比较的; (形容词或副词)比较级的  The comparative of 'pretty' is 'prettier'  
 
 析 miserable  _/ˈmɪzərəbəl/_  a.痛苦的,悲惨的  
 析 upset  _/ˌʌpˈset◂/_  a.心烦的 v.打乱,搅乱  
 析 depressed  _/dɪˈprest/_  a.抑郁的,沮丧的; 萧条的,不景气的; 凹陷的  very unhappy  
 析 heartbroken  _/ˈhɑːtˌbrəʊkən/_  a.极度伤心的,心碎的  
-析 distressed  _/dɪˈstrest/_  a.烦恼的,忧虑的; 仿旧的,做旧的 very upset  
+析 distressed  _/dɪˈstrest/_  a.苦恼的; 仿旧的,做旧的 very upset or worried.  
 析 distress  _/dɪˈstres/_  n.悲伤,痛苦,忧虑; 危难,危急 v.使苦恼  
 
 析 trend  _/trend/_  n.趋势,倾向; 风尚  
 析 tend  _/tend/_  v.倾向于; 个人认为; 照料  
 析 tendency  _/ˈtendənsi/_  n.(人的)习惯,倾向,偏好  
 
-析 flaw  _/flɔː $ flɒː/_  n.错误,谬误; 瑕疵,缺陷; 性格中的缺点,弱点  
-析 defect  _/'diːfekt/_  v.  _/dɪˈfekt/_  n.缺点,缺陷,毛病 v.叛逃,背叛  
+析 flaw  _/flɔː $ flɒː/_  n.瑕疵,缺陷; 性格中的缺点,弱点; 错误,谬误;   
+析 defect  _/'diːfekt/_  n.缺点,缺陷,毛病  _/dɪˈfekt/_ v.叛逃,背叛  
 析 fault  _/fɔːlt/_  n.过失,过错; 缺点,毛病  
 析 weakness  _/ˈwiːknəs, ˈwiːknɪs/_  n.弱点; 软弱; 嗜好  
 析 mistake  _/məˈsteɪk, mɪˈsteɪk/_  n.错误,过失,误解 v.弄错; (for)把...误认为  
 
 析 vice-  _/vaɪs/_  用于级别或头衔前表示副的  vice- 着重形容职务  一般来说，职位较高的副职人员多采用vice-,如:president,premier,chairman,minister,governor  
-析 deputy  _/ˈdepjəti, ˈdepjʊti/_  n.副职,副手,副主管; 执行- deputy着重形容责任  职务稍低的副职人员多用deputy来翻译,如:director,chief,mayor  
-析 associate  _/əˈsəʊʃiət/_  a.用于等级或头衔前,表示稍有不同或略低副的,准的   大学教授,研究员,主编.审判长等一般用associate  
-析 assitant  _/əˈsɪstənt/_  a.用于头衔或职务前,表示级别略低助理的,副的 主要助手,比deputy再低一级  
+析 deputy  _/ˈdepjəti, ˈdepjʊti/_  n.副职的,副手,副主管; 执行- deputy着重形容责任  职务稍低的副职人员多用deputy来翻译,如:director,chief,mayor  
+析 associate  _/əˈsəʊʃiət/_  a.准的, 用于等级或头衔前,表示稍有不同或略低,副的,准的   大学教授,研究员,主编.审判长等一般用associate  
+析 assitant  _/əˈsɪstənt/_  a.助理的, 用于头衔或职务前,表示级别略低助理的,副的 主要助手,比deputy再低一级  
 
 析 surprise  _/səˈpraɪz/_  v.使诧异,使惊异; 奇袭 n.诧异,惊异  
 析 amaze  _/əˈmeɪz/_  v.使惊奇,使惊愕 to greatly surprise someone  
@@ -668,10 +668,11 @@ to take another person's child into your home for a period of time, without beco
 析 previous  _/ˈpriːviəs/_  a.先前的,早先的; 上一次的,上一个的  
 析 preceding  _/prɪˈsiːdɪŋ/_  a.发生在…之前的; 顺序 位置在先的  
 
-析 grasp  _/ɡrɑːsp/_  v.紧握; 理解,领悟 n.紧握; 理解,掌握  
+析 grasp  _/ɡrɑːsp/_  written v.紧握; 理解,领悟 n.紧握; 理解,掌握  比 grip 多个理解的意思  _grasp an opportunity_  
 析 cling  _/klɪŋ/_  v.紧紧抓住,抱紧; 抓住(职位或财产)不放; 黏附,粘住; 缠住  过去式 clung  _/klʌŋ/_  
 析 grip  _/ɡrɪp/_  v.紧握,抓牢 n.控制,支配; 抓地力,防滑; 手提包,旅行袋  
-析 grab  _/ɡræb/_  v.抓住,攫取; 夺取; 引起…的注意,吸引; 争取,抓住机会等  
+析 grab  _/ɡræb/_  v.抓住,攫取; 夺取; 引起…的注意,吸引; 争取,抓住机会等  更突然,更暴力  
+析 seize _/siːz/_ written v.抓住
 
 
 ## 联
@@ -993,7 +994,7 @@ an important victory or success after a difficult struggle
 联 rough  _/rʌf/_  a.粗糙的; 大致的; 粗暴的  
 联 tough  _/tʌf/_  a.坚韧的,棘手的; 强健的,吃苦耐劳的; 粗暴的  
 
-联 delegate  _/ˈdeləɡət, ˈdelɪɡət/_  n.代表 vt.委派...为代表; 授权; 委托  
+联 delegate  _/ˈdelɪɡət/_  n.代表  _/ˈdelɪɡeit/_  vt.委派...为代表; 授权; 委托  
 联 delegation  _/ˌdelɪˈɡeɪʃən/_  n.代表团  
 联 representative  _/ˌreprɪˈzentətɪv◂/_  n.代表,代理人 a.(of)典型的,有代表性的  
 
