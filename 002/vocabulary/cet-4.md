@@ -1843,3 +1843,6 @@ In everyday English,people usually say somewhere to live/stay rather than accomm
 类 plough 美plow  _/plaʊ/_  v.犁[地]; 耕地  
 类 maths 美math  _/mæθs/_  n.数学,同mathematics  
 类 aero plane 美airplane  _/ˈeərəpleɪn $ ˈerə-/_  n.飞机  
+
+
+

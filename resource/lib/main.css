@@ -204,6 +204,10 @@ main table td:first-child a {
   border-radius: .25em;
 }
 
+#md .demo + .demo {
+  margin-top: 10px;
+}
+
 #md .demo::after {
   content: 'Demo';
   position: absolute;
@@ -228,7 +232,7 @@ main table td:first-child a {
   padding: 0;
 }
 
-#md .demo.column > .content,
+#md .demo.column > div:first-child,
 #md .demo.column > .desc {
   flex: auto;
   padding: 10px;

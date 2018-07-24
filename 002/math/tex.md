@@ -6,10 +6,13 @@ p > code { display: inline-block; min-width: 100px; background: inherit; }
 
 # Tex 语法速查
 
-http://www.forkosh.com/mathtextutorial.html  
-http://ctan.mirror.rafal.ca/info/lshort/english/lshort.pdf  
-http://www.tug.org/twg/mactex/tutorials/ltxprimer-1.0.pdf
 
+## 参考资源
+
+  http://www.forkosh.com/mathtextutorial.html  
+  http://ctan.mirror.rafal.ca/info/lshort/english/lshort.pdf  
+  http://www.tug.org/twg/mactex/tutorials/ltxprimer-1.0.pdf
+  http://mirrors.shu.edu.cn/CTAN/info/symbols/math/maths-symbols.pdf
 
 ## 示例
 
@@ -19,18 +22,25 @@ http://www.tug.org/twg/mactex/tutorials/ltxprimer-1.0.pdf
     <pre>\\( z = r\cdot e^{2\pi i}. \\)</pre>
   </div>
 </div>
-<p></p>
 <div class="demo">
   \\[ J(\theta) = \frac 1 2 \sum\_{i=1}^m (h\_\theta(x^{(i)})-y^{(i)})^2 \\]
   <div class="desc">
     <pre>\\[ J(\theta) = \frac 1 2 \sum\_{i=1}^m (h\_\theta(x^{(i)})-y^{(i)})^2 \\]</pre>
   </div>
 </div>
+<div class="demo column">
+  <div>
+    \\[ y= \begin{cases} -x,\quad x\leq 0 \\\\ x,\quad x>0 \end{cases} \\]
+  </div>
+  <div class="desc">
+    <pre>\\[ y= \begin{cases}
+-x,\quad x\leq 0 \\\\ x,\quad x>0
+\end{cases} \\]</pre>
+  </div>
+</div>
 
 
 ## 语法
-
-http://mirrors.shu.edu.cn/CTAN/info/symbols/math/maths-symbols.pdf
 
 数学标记
 
@@ -151,7 +161,9 @@ http://mirrors.shu.edu.cn/CTAN/info/symbols/math/maths-symbols.pdf
  Ψ | ψ | psi     | /psaɪ $ saɪ/ | 角速; 介质电通量(静电力线); 角
  Ω | ω | omega   | /ˈəʊmɪɡə/    | 欧姆(大写); 角速(小写); 角
 
+其他符号
 
+\\( \partial \\)  `\partial`  
 
 
 
