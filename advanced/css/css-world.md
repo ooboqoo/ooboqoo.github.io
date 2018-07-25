@@ -279,16 +279,16 @@ img { max-width: 100%; height: auto !important }  /* 这里 height 的设定是�
 
 width/height 的默认值是 `auto`；max-width/max-height 的初始值是 `none`；虽然 MDN 和 W3C WiKi 的文档上都显示 min-width/min-height 的初始值是 `0`，但是根据我的分析和测试，所有浏览器中的 min-width/min-height 的初始值是 `auto`。具体分析过程如下：
   * 证明 min-* 的 auto 为合法值，且预设值就是 auto
-  * 证明初始值不是 0设置初始值为 0 再修改值时 transition 无动画，而不预先设置值
+  * 证明初始值不是 0，设置初始值为 0 再修改值时 transition 有动画，而不预先设置值就没有动画效果
 
 ```html
 <body style="min-width: auto; max-width: auto;">
 document.body.style.minWidth  // 输出 'auto'
-document.body.style.maxWidht  // 输出 ''
+document.body.style.maxWidth  // 输出 ''
 ```
 
 ```css
-.box { transition: min-height .3s; min-height: 0; }  /* 此时无动画效果 */
+.box { transition: min-height .3s; min-height: 0; }  /* 此时有动画效果，去掉 min-height 设置就没动画 */
 .box:hover { min-height: 300px; }
 ```
 
@@ -305,18 +305,32 @@ max-width 与 min-width 并存并起冲突时，min-width 设置碾压 max-width
 
 这里再推荐 max-height 的方案，选一个比展开内容高度大的值，此方案不足之处是，存在一个 "效果延迟"，所以选一个足够安全的最小值是此方案的关键。
 
+> Chrome 67 实测不是延迟执行，而是动画会加速执行(动画时长成比例缩短)，就是延迟部分会被自动抹掉
+
 ```css
   .element { height: 0; overflow: hidden; transition: height .25s; }
   .element.active { height: auto; } /* 没有动画效果 */
 
   .element { max-height: 0; overflow: hidden; transition: height .25s; }
-  .element.active { max-height: 666px; } /* 动画效果存在延迟 */
+  .element.active { max-height: 666px; } /* 动画时长成比例缩短 */
 ```
 
 <div class="demo">
   <style>
+    .d311-height, .d311-max-height {overflow: hidden; transition: all 2s; border: 1px solid red; float: left;}
 
+    .d311-height { height: 20px; }
+    .d311-height.auto:hover { height: auto; }
+    .d311-height.px60:hover { height: 60px; }
+
+    .d311-max-height { max-height: 20px; }
+    .d311-max-height:hover { max-height: 560px; }
   </style>
+  <div>.
+    <div class="d311-height auto">滑动展开 height:auto<br>:hover {height: auto}<br>行1<br>行2</div>
+    <div class="d311-height px60">滑动展开 height:60px<br>:hover {height: 60px}<br>行1<br>行2</div>
+    <div class="d311-max-height">滑动展开 max-height<br>max-height: 560px<br>行1<br>行2</div>
+  </div>
 </div>
 
 
