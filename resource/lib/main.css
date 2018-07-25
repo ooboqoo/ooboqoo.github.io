@@ -199,13 +199,10 @@ main table td:first-child a {
 
 #md .demo {
   position: relative;
+  margin: 10px 0;
   padding: 10px;
   border: 1px dashed #ddd;
   border-radius: .25em;
-}
-
-#md .demo + .demo {
-  margin-top: 10px;
 }
 
 #md .demo::after {

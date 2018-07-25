@@ -22,7 +22,7 @@
 
 **关键字**，指的是 CSS 里面很关键的单词，如 `transparent` `solid` `inherit` 等，其中 `inherit` 还可被细分为 "泛关键字"。
 
-**变量**，CSS 中目前可以称为变量的比较有限，CSS3中的 `currentColor` 就是变量，非常有用。
+**变量**，CSS 中目前可以称为变量的比较有限，CSS3 中的 `currentColor` 就是变量，非常有用。
 
 **长度单位**，CSS 中的单位有时间单位(如 `s` `ms`)，还有角度单位(`deg` `rad` 等)，但最常见的自然还是长度单位(如 `px` `em` 等)。需要注意的是，诸如 `2%` 后面的百分号不是长度单位，`2%` 本身就是一个完整的值，等效于 `0.02`。
 
@@ -197,10 +197,127 @@ input, textarea, img, video, object { box-sizing: border-box; }
 
 #### height
 
+##### height:auto
+
+`height:auto` 要比 `width:auto` 简单单纯得多，基本就是一个套路：有几个元素盒子，每个多高，然后一加就是最终高度了。
+
+淡然，涉及具体场景，就会有其他小故事，比方说元素 float 容器高度就没了，或者是 margin 直接穿过去，高度比预期的矮了，这些其实不是 height 的问题，具体后面对应属性章节会说明。
+
+此外，height:auto 也有外部尺寸特性，但据我所知，其仅存在于绝对定位模型中，也就是 "格式化高度"。
+
+##### height:100%
+
+height 和 width 还有一个比较明显的区别就是对百分比单位的支持。对于 height 属性，如果父元素 height 为 auto，只要子元素在文档流中，其百分比值完全就被忽略。
+
+为何父级元素没有具体高度值的时候，height:100% 会无效？要明白其中的原因要先了解浏览器渲染的基本原理。首先，先下载文档内容，加载头部的样式资源(如果有的话)，然后按照自上而下、自外而内的顺序渲染 DOM 内容。... 那么问题来了，为何宽度支持，高度就不支持呢？规范中其实给出了答案。如果包含块的高度没有显式指定(即高度由内容决定)，并且该元素不是绝对定位，则计算值为 auto，`'auto' * 100 / 100 = NaN` 大概就是这么个意思，算不了。而 width 的行为，规范中并未明确规定，浏览器实际都是按照包含块的真实计算值来作为百分比计算的基数。
+
+> 个人感觉，这里作者用 NaN 的说法还是有点不合适，尺寸自上而下、自外而内计算，这没错，宽度就是这么确定的。而对于高度，正常都是根据内容来确定的，所以才没办法计算。而作者所反驳的，如果高度可计算会陷入死循环，其实说的也没问题。
+> 或者更准确地说，宽度是自外向内确定的(除了包裹性这些特例)而高度更多时候是自内向外确定的...
+
+高度百分比生效的条件 https://developer.mozilla.org/en-US/docs/Web/CSS/height  
+  * 父元素明确指定高度，此时以指定高度为计算基准
+  * 元素采用绝对定位，此时会逐层往上查找基准元素 relative absolute fixed
+
+另外需要注意的是，绝对定位元素的百分比计算和非绝对定位元素的百分比计算是有区别的，绝对定位元素的宽高百分比是相对于 padding box 的，而非绝对定位元素则是相对于 content box 计算的。
+
+ 百分比计算 | 绝对定位元素            | 非绝对定位元素
+------------|-------------------------|-----------------------------------------------------
+宽度计算    | 定位元素的 padding box  | 父元素的 content box
+高度计算    | 定位元素的 padding box  | 父元素的 content box (父元素无明确高度时设置项无效)
+
+<div class="demo">
+  <style>
+  .wh-outer {
+    position: relative;
+    width: 500px;
+    margin: 10px;
+    padding: 10px;
+    border: 15px solid gray;
+    background-color: #eea;
+    background-clip: content-box;
+  }
+  .wh-absolute {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid red;
+    display: flex;
+    align-items: center;
+  }
+  .wh-static {
+    width: 100%;
+    height: 100%;
+    border: 1px solid green;
+  }
+  </style>
+  <div class="wh-outer">
+    <div class="wh-absolute">
+      我是绝对定位元素，宽高百分比是相对于 padding box 计算的
+    </div>
+    <div class="wh-static">
+      我是非绝对定位元素，宽高百分比是相对于 content box 计算的
+    </div>
+    <p>。。。</p>
+  </div>
+</div>
 
 ### min-width/max-width min-height/max-height
 
+#### 为流体而生的 min-width/max-width
 
+新手可能更多地会写 width/height 定死的砖头式布局，min-width/max-width 就没有任何出现的价值，随着 CSS 技能深入，能够兼顾还原性的同时还兼顾扩展性和适配性之后，min-width/max-width 才会用得越来越多。
+
+```css
+/* 既满足大屏的大气，又满足笔记本的良好显示 */
+.container { min-width: 1200px; max-width: 1400px; }
+
+/* 公众号文章中，避免图片在移动端展示过大影响体验 */
+img { max-width: 100%; height: auto !important }  /* 这里 height 的设定是必须的，以保持图片宽高比例 */
+```
+
+#### 与众不同的初始值
+
+width/height 的默认值是 `auto`；max-width/max-height 的初始值是 `none`；虽然 MDN 和 W3C WiKi 的文档上都显示 min-width/min-height 的初始值是 `0`，但是根据我的分析和测试，所有浏览器中的 min-width/min-height 的初始值是 `auto`。具体分析过程如下：
+  * 证明 min-* 的 auto 为合法值，且预设值就是 auto
+  * 证明初始值不是 0设置初始值为 0 再修改值时 transition 无动画，而不预先设置值
+
+```html
+<body style="min-width: auto; max-width: auto;">
+document.body.style.minWidth  // 输出 'auto'
+document.body.style.maxWidht  // 输出 ''
+```
+
+```css
+.box { transition: min-height .3s; min-height: 0; }  /* 此时无动画效果 */
+.box:hover { min-height: 300px; }
+```
+
+#### 超越 !important 超越 max-*
+
+max-width 与 width 并存时，max-width 完全碾压 width 设置，即使 width 带了 `!important`  
+max-width 与 min-width 并存并起冲突时，min-width 设置碾压 max-width 设置  
+
+#### 任意高度元素的展开收起动画技术
+
+“展开收起” 效果是网页中比较常见的一种交互形式，通常的做法是控制 display 属性在 none 和其他值之间切换，虽说功能可以实现，但是效果略显生硬，所以就会有这样的需求——希望元素展开收起时能有明显的高度滑动效果。传统实现可以使用 jQuery 的 slideUp() 和 slideDown() 方法，但是移动端 CSS3 动画支持良好，首选 CSS。
+
+首选方案是 height + overflow:hidden，但很多时候我们展开的元素内容是动态的，因此 height 使用的是默认值 auto，因为 auto 是关键字值，不是数字，无法形成 0px 到 auto 的过渡动画。
+
+这里再推荐 max-height 的方案，选一个比展开内容高度大的值，此方案不足之处是，存在一个 "效果延迟"，所以选一个足够安全的最小值是此方案的关键。
+
+```css
+  .element { height: 0; overflow: hidden; transition: height .25s; }
+  .element.active { height: auto; } /* 没有动画效果 */
+
+  .element { max-height: 0; overflow: hidden; transition: height .25s; }
+  .element.active { max-height: 666px; } /* 动画效果存在延迟 */
+```
+
+<div class="demo">
+  <style>
+
+  </style>
+</div>
 
 
 ### 内联元素

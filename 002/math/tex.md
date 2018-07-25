@@ -49,15 +49,17 @@ p > code { display: inline-block; min-width: 100px; background: inherit; }
  ^     | 上标 | \\( x^2 \\)       | `x^2`
  _     | 下标 | \\( x_1 \\)       | `x_1`
  \to   | 箭头 | \\( \to \\)       | `\to`
- \quad | 空格 |                   | 
+ \quad | 空格 |                   | 一个M宽度; `\空格` 1/3M宽; `\;` 2/7M宽; `\,` 1/6M宽
  \backslash | | \\( \backslash \\)| 
- \\    | 换行 |                   | 
+ \\\\    | 换行 |                   | 
  \frac _a b_        | 分数 fraction    | \\( \frac a b \\)       | `\frac a b`
  \sqrt[_n_]{_x_}    | 根式 square root | \\( \sqrt[n]{x} \\)     | `\sqrt[n]{x}`
- \sum\_{_exp_}^_m_  | 累加             | \\( \sum_{i=1}^m \\)    | `\sum_{i=1}^m`
+ \sum\_{_exp_}^_m_  | 累加 sum         | \\( \sum_{i=1}^m \\)    | `\sum_{i=1}^m`
  \prod\_{_exp_}^_n_ | 累乘             | \\( \prod_{k=1}^n \\)   | `\prod_{k=1}^n`
- \lim               | 极限             | \\( \lim_{x\to0}x^2 \\) | `\lim_{x\to0}x^2`
- \int               | 积分             | \\( \int_a^b \\)        | `\int_a^b`
+ \lim               | 极限 limit       | \\( \lim_{x\to0}x^2 \\) | `\lim_{x\to0}x^2`
+ \int               | 积分 integral    | \\( \int_a^b \\)        | `\int_a^b`
+
+\quad The word “quad” is a traditional term in typography. It comes from Italian “quadratone” (big square).
 
 数学符号
 
@@ -69,7 +71,6 @@ p > code { display: inline-block; min-width: 100px; background: inherit; }
 \\( \neq \\) `\neq`
 \\( \approx \\) `\approx`
 
-\\( \infty \\) `\infty`
 \\( \in \\) `\in`
 \\( \notin \\) `\notin`
 \\( \supset \\) `\supset`
@@ -88,6 +89,18 @@ p > code { display: inline-block; min-width: 100px; background: inherit; }
 \\( \hat b \\) `\hat b`
 \\( \bar c \\) `\bar c`
 \\( \tilde d \\) `\tilde d`
+
+任意的  \\( \forall \\)  `\forall`
+无穷大  \\( \infty \\)  `\infty`
+空集  \\( \emptyset \\)  `\emptyset`
+
+存在  \\( \exists \\)  `\exists`
+因为  \\( \because \\)  `\because`
+所以  \\( \therefore \\)  `\therefore`
+
+梯度  \\( \nabla \\)  `\nabla`
+垂直  \\( \bot \\)  `\bot`
+角  \\( \angle \\)  `\angle`
 
 希腊字母
 
@@ -164,6 +177,8 @@ p > code { display: inline-block; min-width: 100px; background: inherit; }
 其他符号
 
 \\( \partial \\)  `\partial`  
+
+
 
 
 

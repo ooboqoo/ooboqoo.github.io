@@ -32,7 +32,19 @@ vocal  a.大声说出的; 嗓音的,发声的 vocal training 发声训练
 inference _/ˈɪnfərəns/_ n. 推理; 结论  
 frustrate  _/ˈfrʌstreɪt/_  使沮丧,使愤怒; 挫败,阻挠…的成功  These questions frustrated me  
 discourage  v. 使泄气,使灰心; 劝阻  discourage someone from doing something  
+reproduce  _/ˌriːprəˈdjuːs/_  v. (动植物)繁殖; 复制 copy  
+mount  _/maʊnt/_  v. 骑上(马、自行车等) n. 山  
+zebra crossing  n. 斑马线  
 
+promise  诺言  a verbal commitment  
+rally  _/ˈræli/_  n.集会  a public meeting to support or oppose someone or something  
+
+Celsius  _/ˈselsiəs/_  摄氏度  
+Centigrade  摄氏度  相对 Celsius 更老的用法  
+Fahrenheit  华式度  
+
+emoticon  _/ɪˈmoʊtɪkɑːn/_  A special sign that is used to show an _emotion_ in email and on the Internet.  
+emoji  _/ɪˈmoʊdʒi/_  表情图标, 源自日文, 与 emoticon 相似纯属巧合
 
 ## 忘
 
@@ -280,6 +292,9 @@ discourage  v. 使泄气,使灰心; 劝阻  discourage someone from doing someth
 
 
 ## 混
+
+混 angle  _/ˈæŋɡəl/_  n.角,角度
+混 angel  _/ˈeɪndʒəl/_  n.天使,善人
 
 混 mental  _/ˈmentl/_  a.精神的,思想的,智力的  
 混 metal  _/ˈmetl/_  n.金属,金属制品  
@@ -1262,7 +1277,7 @@ to say very strongly in public that you do not approve of something or someone, 
 联 efficiency  _/ɪˈfɪʃənsi/_  n.效率; 功效; (物理学的)效率  
 
 联 phrase  _/freɪz/_  n.短语,词语,习语  
-联 phase  _/feɪz/_  n.阶段,时期; 相位  
+联 phase  _/feɪz/_  n.阶段,时期; v.把…分阶段 _out of phase with_ 不同步的(地)  
 
 联 fare  _/feə $ fer/_  n.车费,船费  
 联 fair  _/feə $ fer/_  a.公平的,合理的; 相当的 n.集市,交易会  
