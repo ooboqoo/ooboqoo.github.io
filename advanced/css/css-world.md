@@ -317,29 +317,124 @@ max-width 与 min-width 并存并起冲突时，min-width 设置碾压 max-width
 
 <div class="demo">
   <style>
-    .d311-height, .d311-max-height {overflow: hidden; transition: all 2s; border: 1px solid red; float: left;}
+    .c3-height, .c3-max-height {overflow: hidden; transition: all 2s; border: 1px solid red; float: left;}
 
-    .d311-height { height: 20px; }
-    .d311-height.auto:hover { height: auto; }
-    .d311-height.px60:hover { height: 60px; }
+    .c3-height { height: 20px; }
+    .c3-height.auto:hover { height: auto; }
+    .c3-height.px60:hover { height: 60px; }
 
-    .d311-max-height { max-height: 20px; }
-    .d311-max-height:hover { max-height: 560px; }
+    .c3-max-height { max-height: 20px; }
+    .c3-max-height:hover { max-height: 560px; }
   </style>
   <div>.
-    <div class="d311-height auto">滑动展开 height:auto<br>:hover {height: auto}<br>行1<br>行2</div>
-    <div class="d311-height px60">滑动展开 height:60px<br>:hover {height: 60px}<br>行1<br>行2</div>
-    <div class="d311-max-height">滑动展开 max-height<br>max-height: 560px<br>行1<br>行2</div>
+    <div class="c3-height auto">滑动展开 height:auto<br>:hover {height: auto}<br>行1</div>
+    <div class="c3-height px60">滑动展开 height:60px<br>:hover {height: 60px}<br>行1<br>行2</div>
+    <div class="c3-max-height">滑动展开 max-height<br>max-height: 560px<br>行1</div>
+  </div>
+</div>
+
+### 内联元素
+
+在 CSS 世界中，内联元素是最为重要的，涉及的 CSS 属性也非常之多，这些 CSS 属性往往具有继承性，混合在一起会导致 CSS 解析规则非常复杂。这就是内联元素的解析比块级元素解析更难理解的原因——其是多个属性共同作用的结果，需要对内联元素特性，内联盒模型以及当前 CSS 属性都了解，才能明白其中的原因。
+
+就行为表现来看，"内联元素" 的典型特征就是可以和文字在一行显示。
+
+#### 内联盒模型
+
+这里的内容可谓是 CSS 进阶标志知识点，是入门 CSS 开发人员和熟练 CSS 开发人员之间的分水岭，需要反复体会。
+
+```html
+<p>这是一行普通的文字，这里有个<em>em</em>标签</p>
+```
+
+上面这段很普通的 HTML 实际上包含了很多术语和概念，或者说包含了很多种盒子。
+  * 内容区域 content area -- 指一种围绕文字看不见的盒子，其大小仅受字符本身特性控制；对于图片这样的替换元素，内容区域可以看成是元素自身。实际上，内容区域并没有明确的定义，为了学习方便，可以简单地理解为文本选中的区域。
+  * 内联盒子 inline box -- 这里的内联盒子实际指的是用来决定元素是内联还是块级的 "外在盒子"，该盒子又可以细分为 "内联盒子" 和 "匿名内联盒子"。
+  * 行框盒子 line box -- 每一行就是一个行框盒子。
+  * 包含盒子 containing box -- 标签就是一个包含盒子，此盒子由一行一行的行框盒子组成。在 CSS 规范中，并没有 "包含盒子" 的说法，更准确的称呼应该是 "包含块" containing block。
+
+#### 幽灵空白节点
+
+Each line box starts with a zero-width inline box with the element's font and line height properties. We call that imaginary box a "strut".
+
+"幽灵空白节点" 是内联盒模型中非常重要的一个概念，具体指的是：在 HTML5 文档中，内联元素的所有解析和渲染表现就如同每个行框盒子的前面有一个 "空白节点" 一样，这个空白节点不占据任何宽度，看不见也无法通过脚本获取，就像幽灵一样，但又确确实实地存在。理解 "幽灵空白节点" 的存在是理解后续很多内联元素为何会这么表现的基础。
+
+<div class="demo">
+  <div style="background-color: #cd0000;"><span style="display: inline-block; line-height: 48px;"></span></div>
+  <div class="desc">
+    试验注意项：这里 span 的 inline-block 必须要有；且必须是是 HTML5 文档类型。<br>
+    试验现象：span 的高度是 0，但 div 的高度却不是 0<br>
+    调试：当给 span 内添加内容，div 会被撑高。说明 span 没有内容时，div 是被其他元素撑高的
   </div>
 </div>
 
 
-### 内联元素
-
-
-
-
 ## 盒尺寸四大家族
+
+盒尺寸中的 4 个盒子 content box、padding box、border box 和 margin box 分别对应 CSS 世界中的 content、padding、border 和 margin 属性，我把这 4 个属性称为 "盒尺寸四大家族"。
+
+### 深入理解 content
+
+#### content 与替换元素
+
+通过修改某个属性值呈现的内容就可以被替换的元素就称为 **替换元素**。因此 `img` `object` `video` `iframe` 和表单元素 `textarea` `input` 都是典型的替换元素。
+
+替换元素除了内容可替换这一特性以外，还有以下一些特性：
+  * 内容的外观不受页面上的 CSS 的影响，
+  * 有自己的尺寸，很多替换元素在没有明确尺寸设定的情况下，其默认的尺寸(不含边框)是 300px*150px，如 `video` `iframe` `canvas` 等，也有少部分替换元素为 0px，如 `img`，而表单元素的替换元素尺寸则和浏览器有关，无明显规律。
+  * 在很多 CSS 属性上有自己的一套表现规则，如 vertical-align: baseline，对非替换元素，就是字符 x 的下边缘，而在替换元素中，基线被定义成了元素的下边缘。
+
+所有的替换元素都是内联水平元素，默认的 `display` 为 inline 或 inline-block。
+
+**替换元素的尺寸计算规则**
+
+我个人将替换元素的尺寸从内而外分为 3 类：固有尺寸、HTML尺寸 和 CSS尺寸。
+  * 固有尺寸指的是替换内容原本的尺寸，像图片、视频作为独立文件存在时，都是有着自己的宽度和高度的，而表单类替换元素，默认的 font-size padding margin 属性值全部使用 px 作为单位
+  * HTML尺寸，这个概念略显抽象，即 HTML 原生属性确定的值，如 img 的 width height; input 的 size; textarea 的 cols rows
+  * CSS尺寸，特指可以通过 width height 或者 max-width min-width max-height min-height 设置的尺寸
+
+这三种尺寸的权重关系为 CSS尺寸 > HTML尺寸 > 固有尺寸
+
+video canvas iframe 等元素在无实际内容时，固有尺寸都是 300x150，但 img 元素却是个例外，各个浏览器下的表现并不一致，IE 下为 28x30 Chrome 下是 0x0 Firefix 下是 0x22。
+
+> Web 开发的时候，为了提高加载性能和节约带宽，首屏以下的图片就会通过滚屏加载的方式异步加载，然后，这个即将被异步加载的图片为了布局稳健、体验良好，往往会使用一张透明的图片占位，如 `<img src="transparent.png">`，其实，这个透明的占位图片也是多余的资源，直接 `<img>` 再配合CSS样式 `img { visibility: hidden; } img[src] { visibility: visible }` 就可以实现一样的效果。注意，这里的 `<img>` 直接没有 `src` 属性，而不是 `src=""`，`src=""` 在很多浏览器下依然会有请求(Edge 会 CH FF 不会)，而且请求的是当前页面数据。
+
+另外一个需要注意的地方是，Firefox 下，没有 src 的 `<img>` 不是替换元素，而是一个普通的内联元素，像 `img { width: 200px; height: 150px; }` 这样的样式设置没有任何效果。为了浏览器的一致性，推荐始终添加一条 `img { display: inline-block; }`，这个既能修复 Firefox 的特殊情况，又不会对其他浏览器的图片表现造成影响。
+
+CSS 世界中的替换元素的固有尺寸有一个很重要的特性，那就是：我们无法改变这个替换元素的固有尺寸。那么为什么 img 上的 width height 会影响图片的尺寸呢？那是因为图片中的 content 替换内容默认的适配方式是 `object-fit: fill`。
+
+```css
+div::before {
+  content: url(1.jpg);
+  display: block;
+  width: 200px; height: 200px; /* 如果图片的尺寸是 400*400，那么显示的还是 400*400 */
+}
+```
+
+**替换元素和非替换元素的距离有多远，就是 src 或 content 那一点**
+
+使用 CSS 技术强化 alt 效果示例（示例略）。当我们点击按钮给图片添加 src 地址时，图片从普通元素变成替换元素，原本都还支持的 ::before ::after 此时全部失效，此时再 hover 图片，是不会有任何信息出现的。于是就非常巧妙地增强了图片还没加载时的信息展示体验。
+
+替换元素之所以为替换元素，就是因为其内容可替换，内容对应的 CSS 属性是 content。所以从理论层面讲，content 属性决定了一个元素是不是替换元素。
+
+Chrome 的渲染表现可帮助我们更好地理解替换元素，Chrome 中所有元素都支持 content 属性，而其他浏览器仅在 ::before ::after 伪元素中才支持。
+
+Chrome 下使用 content 改变图片内容：`img:hover { content: url(laugh-tear.png) }` ... 然后，还有一点需要说明下，content 属性改变的仅仅是视觉呈现，当我们以右键或其他形式保存这张图片的时候，所保存的还是原来 src 对应的图片。
+
+不仅如此，使用 content 属性，我们还可以让普通标签元素变成替换元素：`h1 { content： url(logo.png) }`... 此外，虽然视觉上文字被替换了，但是屏幕阅读设备阅读的还是文字内容，搜索引擎 SEO 抓取的还是原始的文本信息，因此，对页面的可访问性等没有任何影响。看起来这是一个完美的文字换图方案，但是还有些局限，使用 content 生成的图片，是无法设置图片尺寸的，为了解决高分屏的图片清晰度问题，建议配合 SVG 矢量图片使用。
+
+**content 与替换元素关系剖析**
+
+在 CSS 世界中，我们把 content 属性生成的对象称为 "匿名替换元素"，对，content 属性生成的内容都是替换元素。也正是这个原因，content 属性生成的内容和普通元素内容才会有很多不同的特性表现：
+  * 使用 content 生成的文本是无法选中、无法复制的，好像设置了 user-select:none 一般。同时，无法被屏幕阅读设备读取，也无法被搜索引擎抓取。
+  * content 动态生成值无法获取。content 是一个非常强大的 CSS 属性，其中一个就是计数器效果，可以自动累加数值，但此时 content 对应的具体数值是无法获取的 `window.getComputedStyle(dom, "::after").content // counter(icecream)`
+
+#### content 内容生成技术
+
+
+
+### 温和的 padding 属性
+
 
 ### 激进的 margin 属性
 
@@ -444,5 +539,12 @@ margin 合并有以下 3 种场景
 
 
 #### margin 无效情形
+
+
+### 功勋卓越的 border 属性
+
+
+
+
 
 

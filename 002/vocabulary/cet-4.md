@@ -46,6 +46,12 @@ Fahrenheit  华式度
 emoticon  _/ɪˈmoʊtɪkɑːn/_  A special sign that is used to show an _emotion_ in email and on the Internet.  
 emoji  _/ɪˈmoʊdʒi/_  表情图标, 源自日文, 与 emoticon 相似纯属巧合
 
+literacy  _/ˈlɪtərəsi/_  n.读写能力, 识字  Many adults have some problems with literacy and numeracy  在读写和计算方面都有困难  
+
+cargo  _/ˈkɑːɡəʊ/_  n. (轮船、飞机所装载的)货物  
+freight  _/freɪt/_  n. 货运; 货物  
+
+
 ## 忘
 
 忘 delicate  _/ˈdelɪkət/_  a.精致的,娇美的; 易碎的 SYN fragile  
@@ -289,7 +295,7 @@ emoji  _/ɪˈmoʊdʒi/_  表情图标, 源自日文, 与 emoticon 相似纯属�
 
 错 delete  _/dɪˈliːt/_  v.删除  以前发音一直是错的  
 错 mobile  _/ˈməʊbaɪl $ ˈmoʊbl/_  a.行动自如的  注意下英美发音区别  
-
+错 circle  _/ˈsɜːkəl/_  n. 圆, 周期  
 
 ## 混
 
@@ -384,7 +390,7 @@ There is no noun ‘sunbath’: Let’s go and sunbathe/do some sunbathing (NOT 
 混 packet  _/ˈpækət, ˈpækɪt/_  n.小包裹,小捆; 一捆,一扎  packing有图例  
 混 pocket  _/ˈpɒkət, ˈpɒkɪt/_  n.衣袋a.袖珍的,小型的 v.把...装入袋内  
 
-混 dairy  _/ˈdeəri $ ˈderi/_  n.乳制品; 乳品店 a.奶制的  
+混 dairy  _/ˈderi/_  n.乳制品; 乳品店 a.奶制的  
 混 diary  _/ˈdaɪəri $ ˈdaɪri/_  n.日记,日记簿  
 
 混 folk  _/fəʊk $ foʊk/_  n.人们,大家; 亲属,双亲 a.民间的,大众的  
