@@ -210,3 +210,32 @@ hi SpecialKey ctermfg=7  " :help hi - for details of highlight
 ```
 :s/\(.*\) \(.*\)/\U\1\e \2/  // 将第一个词转换为大写形式
 ```
+
+
+## vimdiff
+
+http://vimdoc.sourceforge.net/htmldoc/diff.html
+
+```bash
+$ vimdiff file1 file2 [file3 [file4]]
+$ vim -d file1 file2 [file3 [file4]]
+```
+
+```txt
+]c :        - next difference 下一个差异点
+n]c                           跳转到下n个差异点
+[c :        - previous difference 上一个差异点
+
+do          - diff obtain 差异点复制到当前文件
+dp          - diff put 差异点复制到另一文件
+zo          - open folded text 展开折叠的行
+zc          - close folded text 重新折叠
+:diffupdate - re-scan the files for differences
+```
+
+### diff
+
+http://sonack.top/2016/10/Git/how-to-read-git-diff.html
+
+
+

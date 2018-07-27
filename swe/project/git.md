@@ -45,7 +45,7 @@ $ git diff > ..\patch1023  # 生成一个 patch 文件，文件放到父目录
 $ git apply ..\patch1023   # 在另一个地方导入这些更改
 # 修改 commit message
 $ git commit --amend       # 修改最近一次提交
-$ git rebase -i HEAD~num   # 批量修改最近 num+1 次提交
+$ git rebase -i HEAD~num   # 批量修改最近 num 次提交
 $ git fetch & git rebase origin/master & git push  # 避免合并冲突时产生冗余提交记录
 ```
 
@@ -129,9 +129,11 @@ $ git revert <commit>  # 生成一次新的提交来撤销某个指定 commit，
 
 # rebase 变基会修改 commit 变更历史 http://blog.csdn.net/hudashi/article/details/7664631/
 $ git rebase origin/master      # 以变基的形式合并分支
-$ git rebase --continue         # 如果变基出现冲突，冲突解决后继续
+$ git rebase --continue         # 如变基出现冲突，冲突解决后继续
+$ git rebase --skip             # 如变基出现冲突，也可以直接跳过这步的 commit 继续 reapply 下一个 commit
 $ git rebase --abort            # 取消变基操作
 $ git rebase -i HEAD~commit_count # 批量修改 commit message 很好用
+$ git rebase --onto master topicA topicB  # 更换 topicB 的上游分支 topicA 为 master 分支，具体见使用文档
 
 # reset（回退） 用于私人分支，revert（撤销） 用于公共分支，rebase（变基） 适用于还没有 push 的提交
 ```
@@ -280,9 +282,10 @@ $ git ls-files --stage # 检查保存在 stage 的文件
 $ git cat-file -p d67046  # 查看一个 Git 对象的内容，用于研究 Git 内部机制
 ```
 
-#### gitk 图形化操作
+#### 图形化操作
 
 ```
+$ git gui      # 调出图形界面
 $ gitk         # 调用图形界面查看历史提交的详细信息 gitk - a commit viever for git
 $ gitk stash   # 查看 stash 的详细变更信息
 $ git config --global gui.encoding utf-8  # 解决 gitk 中文乱码
