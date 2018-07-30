@@ -13,6 +13,19 @@ https://github.com/yoowinsu/blog/issues/10
 
 ## JS
 
+### 基础
+
+```js
+var length = 6
+function fn () { console.log(this.length) }
+var b = {
+  length: 3,
+  fn: function (fn) { fn(); arguments[0](); fn.call(b, 5) }
+}
+b.fn(fn, 10)
+// 答案：6 2 3  解析：arguments[0]() 这个地方比较难理解些
+```
+
 ### 数组
 
 **如何判断数组类型**
@@ -72,6 +85,8 @@ function getParamList(fn) {
 
 
 **调微信支付接口的步骤**
+
+
 
 
 

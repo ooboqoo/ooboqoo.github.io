@@ -172,6 +172,11 @@ function isMobile() {
       // 给文档代码设置高亮
       [].forEach.call(elem_md.querySelectorAll("pre > code"), hljs.highlightBlock);
 
+      // markd 怎么把引号都转义了...
+      [].forEach.call(elem_md.querySelectorAll(".demo"), function(demo) {
+        demo.innerHTML = demo.innerHTML.replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+      });
+
       // 通过重新生成 script 标签来执行 script 标签内容，注：不能用 script.cloneNode(true)
       [].forEach.call(elem_md.getElementsByTagName("script"), function (script) {
         var newScript = document.createElement("script");

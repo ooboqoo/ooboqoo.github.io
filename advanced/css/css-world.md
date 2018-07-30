@@ -431,10 +431,190 @@ Chrome 下使用 content 改变图片内容：`img:hover { content: url(laugh-te
 
 #### content 内容生成技术
 
+在实际项目中，content 属性几乎都是用在 ::before ::after 这两个伪元素中，因此，"content 内容生成技术" 有时候也称为 "::before ::after 伪元素技术"。
 
+```css
+.clear { content: ''; display: table; clear: both; }  /* 很多人用 content:'.' 其实完全没必要 */
+```
+
+**字符内容生成**
+
+content 字符内容生成就是直接写入字符内容，中英文都可以，比较常见的就应用就是配合 @font-face 规则实现图标字体效果。
+
+除常规字符之外，我们还可以插入 Unicode 字符，比较经典的就是插入换行符来实现某些布局或者效果。
+
+<div class="demo">
+  <style>
+dot {
+  display: inline-block; 
+  height: 1em;
+  line-height: 1;
+  text-align: left;
+  vertical-align: -.25em;
+  overflow: hidden;
+}
+dot::before {
+  display: block;
+  content: '...\A..\A.';
+  white-space: pre-wrap;
+  animation: dot 3s infinite step-start both;
+}
+@keyframes dot {
+  33% { transform: translateY(-2em); }
+  66% { transform: translateY(-1em); }
+}
+  </style>
+  正在加载中<dot>...</dot>
+  <div class="desc">
+    IE6 至 IE9 浏览器下是静态的点点点，支持 animation 动画的浏览器下全部都是打点的 loading 动画效果
+    <ul>
+      <li>为什么使用 `<dot>` 元素 - 自定义元素，方便向下兼容，IE8等低版本浏览器不认识自定义标签，就会乖乖显示里面默认的3个点，对我们的CSS代码完全忽略</li>
+      <li>3个点在第一行的目的在于兼容 IE9 浏览器，因为 IE9 浏览器认识 `<dot>` 以及 `::before` 但是不支持 `animation`，所以为了 IE9 也能正常显示静态的3个点，故而把3个点放在第一行。</li>
+    </ul>
+  </div>
+</div>
+
+**图片生成**
+
+content 图片生成指的是直接用 url 功能符显示图片。url 功能符中的图片地址不仅可以是常见的 png jpg 还可以是 ico svg 以及 base64URL地址，但不支持 CSS3 渐变背景图。
+
+虽然支持的图片格式多，但是实际项目中，content 图片生成用得并不多，主要原因在于图片的尺寸不好控制。所以伪元素中的图片更多的是使用 background-image 模拟。在不需要控制图片尺寸时，直接使用 content:url() 倒是可以省不少 CSS 代码。
+
+```css
+a[target="_blank"]:after {
+  content: url(data:image/gif;base64,R0lGODlhBQAFAIABAM0AAAAAACH5BAEAAAEALAAAAAAFAAUAAAIHRIB2eKuOCgA7);
+}
+a[target="_blank"]:after {
+  content: ''; display: inline-block; width: 6px; height: 6px; background: url(blank.gif);
+}
+```
+
+**开启闭合符号生成**
+
+稍作了解即可
+
+```css
+.ask { quotes: '提问："' '"' }
+.ask::before { content: open-quote; }
+.ask::after { content: close-quote; }
+```
+
+**attr 属性值内容生成**
+
+```css
+.icon::before { content: attr(data-title); }  /* 注意，属性值名称千万不要加引号，否则无效 */
+```
+
+**content 计数器**
+
+计数器效果可以说是 content 部分的重中之重，因为此功能非常强大、实用，且不具有可替代性，甚至可以实现连 JS 都不好实现的效果。(内容比较多，细节知识点先跳过...)
+
+**混合使用上述内容**
+
+各种 content 内容生成语法是可以混合在一起使用的，举例如下
+
+```css
+a::after { content: "(" attr(href) ")" };
+q::before { content: open-quote url(1.jpg); }
+.cunter::before { content: counters(wangxiaoer, '-') '. '; }
+```
 
 ### 温和的 padding 属性
 
+#### padding 与元素的尺寸
+
+很多人可能有这样的误区，认为设置了 box-sizing:border-box，元素尺寸就不会变化。大多数情况下是这样的，但是，如果 padding 值足够大，那么 width 也无能为力了。
+
+```css
+.box { width: 80px; padding: 20px 60px; box-sizing: border-box; }
+/* 此时 width 会无效，最终宽度为 60*2=120px，里面的内容表现为 "首选最小宽度"，即为 0 */
+```
+
+上述尺寸表现是对具有块状特性的元素而言的，对于内联元素(不包括图片等替换元素)表现则有些许不同。很多前端同事有这么个错误的认识：内联元素的 padding 只会影响水平方向，不会影响垂直方向。其实不是，内联元素的 padding 在垂直方向同样会影响布局，影响视觉表现。只是因为内联元素没有可视宽度和可视高度的说法(clientHeight 和 clientWidth 永远是 0)，垂直方向的行为表现完全受 line-height 和 vertical-align 的影响，视觉上并没有改变和上一行下一行内容的间距，因此，给我们的感觉就会是垂直 padding 没有起作用。如果我们给内联元素加个背景色或者边框，自然就看到效果了。
+
+<div class="demo">
+  <style>
+    .d421-padding { padding: 20px; background-color: #cd0000; color: #fff; cursor: pointer;}
+  </style>
+  行1 其他一些文字<br>
+  行首<a class="d421-padding">链接</a>行尾<br>
+  行2 其他一些文字
+  <div class="desc">
+    padding 尺寸虽然有效，但对上下元素的原本布局没有任何影响，仅仅是垂直方向发生了层叠
+  </div>
+</div>
+
+CSS 中还有很多其他场景或属性会出现这种不影响其他元素布局而是出现层叠效果的现象。如 relative 元素的定位、盒阴影 box-shadow 以及 outline 等。其分为两类一类是纯视觉层叠，不影响外部尺寸(如 box-shadow outline)；另一类则会影响外部尺寸(如 padding)。区分的方式很简单，如果父容器 overflow:auto，层叠区域超出父容器的时候，没有滚动条出现，就是纯视觉的，否则就不是。
+
+应用示例：增加链接点击区域；内联元素(而非标题栏)设置 padding-top 避免标题栏被固定导航栏覆盖
+
+#### padding 的百分比值
+
+和 margin 属性不同，padding 属性是不支持负值的。padding 支持百分比值，但是和 height 等属性的百分比计算规则有些差异：百分比值无论是水平方向还是垂直方向均是相对于宽度计算的。
+
+```css
+/* 利用 padding 百分比计算规则实现头图自适应 */
+.box { padding: 10% 50%; position:relative; }
+.box img { position: absolute; width: 100%; height: 100%; left: 0; top: 0; }
+```
+
+上述百分比值是应用在具有块状特性的元素上的，如果是内联元素，则
+  * 同样相对于宽度计算
+  * 默认的高度和宽度细节有差异
+  * padding 会断行
+
+<div class="demo">
+  <style>
+    .d422-box { width: 87px; border: 2px dashed #cd0000; }
+    .d422-span { padding: 25%; background-color: gray }
+  </style>
+  <div class="d422-box">
+    <span class="d422-span">内有文字若干</span>
+  </div>
+  <div class="desc">
+    现象描述："内有"两字不见了，"文字"两字居右显示了，背景区域非矩形，背景色宽度和外部容器宽度不一致等。
+  </div>
+</div>
+
+#### 标签元素内置的 padding
+
+`<button>` 中 padding 与高度计算在不同浏览器下千差万别，这就是我们平时很少使用原生按钮而使用 `<a>` 标签来模拟的原因。但是表单中，有时候按钮是自带交互行为的，所以比 `<a>` 更好的方案是用 `<label>`
+
+```html
+<label>按钮<button></button></label>
+<style>
+  button { position: absolute; clip: rect(0 0 0 0); }
+  label { display: inline-block; line-height: 20px; padding: 10px; }
+</style>
+```
+
+#### padding 与图形绘制
+
+padding 和 background-clip 配合，可以在有限的标签下实现一些 CSS 图形绘制效果，这里抛砖引玉，举两例
+
+<div class="demo">
+  <i class="d424-icon-menu"></i>
+  <i class="d424-icon-dot"></i>
+  <style>
+.d424-icon-menu {
+  display: inline-block;
+  width: 140px; height: 8px;
+  padding: 35px 0;
+  border-top: 8px solid; border-bottom: 8px solid;
+  background-color: currentColor;
+  background-clip: content-box;
+}
+.d424-icon-dot {
+  display: inline-block;
+  width: 25px; height: 25px;
+  padding: 10px;
+  border: 10px solid;
+  border-radius: 50%;
+  background-color: currentColor;
+  background-clip: content-box;
+}
+  </style>
+</div>
 
 ### 激进的 margin 属性
 
@@ -448,6 +628,12 @@ Chrome 下使用 content 改变图片内容：`img:hover { content: url(laugh-te
 
 ##### margin 与元素的内部尺寸
 
+对于 padding，元素设定了 width 或者保持 "包裹性" 的时候，会改变元素可视尺寸；但是对于 margin 则相反，元素设定了 width 值或者保持 "包裹性" 的时候，margin 对尺寸没有影响，只有元素是 "充分利用可用空间" 状态的时候，margin 才可以改变元素的可视尺寸。
+
+```css
+.father { width: 300px; margin: 0 -20px; }  /* margin 对可视尺寸无影响 */
+.father { width: 300px; } .son { margin: 0 -20px; } /* margin 影响元素可视尺寸 */
+```
 
 ##### margin 与元素的外部尺寸
 
@@ -525,26 +711,103 @@ margin 合并有以下 3 种场景
   <div class="desc">此示例中存在多次 margin 合并，首先是 div 的上下 margin 会进行一次合并，然后...</div>
 </div>
 
-
-
 3\. margin 合并的计算规则
 
 正正取大值，正负值相加，负负最负值
 
-4\. margin 合并的意义
-
-
 #### 深入理解 margin:auto
 
+margin:auto 的填充规则如下：
+  * 如果一侧定值，一侧 auto，则 auto 为剩余空间大小
+  * 如果两侧均是 auto，则平分剩余空间
 
+如果想让某个块状元素右对齐，脑子里不要就一个 float:right，很多时候，margin-left:auto 才是最佳的实践，浮动毕竟是个"小魔鬼"。我甚至可以这么说，margin 属性的 auto 计算就是为块级元素的左中右对齐而设计的，和内联元素使用 text-align 控制左中右对齐正好遥相呼应！
+
+触发 margin:auto 计算有一个前提条件，就是 width 或 height 为 auto 时，元素是具有对应方向的自动填充特性的。正常情况下，元素的高度没有自动填充特性，所以 margin:auto 无法垂直居中。当元素为 absolute 绝对定位时，则可以实现垂直居中:
+
+```css
+.father { width: 300px; height: 150px;  }
+.son {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  width: 200px; height: 100px;
+  margin: auto;
+}
+```
+
+由于绝对定位元素的格式化高度即使父元素 height:auto 也是支持的，因此，其应用场景可以相当广泛，绝对定位下的margin:auto 居中是我用的最频繁的块级元素垂直居中对齐方式，比 top:50% 然后 margin 负一半元素高度的方法要好使很多。
 
 #### margin 无效情形
 
+因为 margin 属性的诸多特异性，所以，我们在实际开发的时候，经常会遇到设置的 margin 无效的情形，这里我罗列一下，希望大家遇到类似的问题知道原因以及如何对症下药。
+
+* display:inline 的非替换元素的垂直 margin 是无效的，对于内联替换元素，垂直 margin 有效，并且没有 margin 合并的问题
+* 表格的 tr 和 td 元素，或者 display:table-cell table-row 的元素的 margin 都是无效的。如果计算值是 table-caption table inline-table 则没有此问题，可以通过 margin 控制外间距，甚至 ::first-letter 伪元素也可以解析 margin
+* margin 合并发生时，改变其中一个 margin 值有可能看不到任何效果
+* 绝对定位元素非定位方位的 margin 值看不出效果
+* 定高容器的子元素的 margin-bottom 或者宽度定死的子元素的 margin-right 的定位看不出来效果
+* ...
 
 ### 功勋卓越的 border 属性
 
+CSS 世界中很多大受欢迎的属性之所以受欢迎，并不是因为其本职工作做的很好，而是衍生出来的特性可以用来解决很多棘手的问题。border 就是典型代表之一，我总是称赞 border 功勋卓著，正是因为 border 属性在图形构建、体验优化以及网页布局这几块大放异彩，同时保证其良好的兼容性和稳定性才得此荣耀的。
 
+border-width 不支持百分比值，直接声明无效。另外像 outline box-shadow text-shadow 等也都是不支持百分比值的。
 
+border-style 默认值为 none
 
+border-color 的默认值是 color 的色值
 
+#### border 与透明边框技巧
 
+**右下方 background 定位的技巧**
+
+```css
+/* 在距离右边缘50px 的位置设置一个背景图片，关键点在 transparent 和 100% */
+.box { border-right: 50px solid transparent; background-position: 100% 50%; }
+```
+
+**优雅地增加点击区域大小**
+
+```css
+/* 通过透明 border 增加可点击区域，提升移动端体验 */
+.icon-clear { width: 16px; height: 16px; border: 11px solid transparent; }
+```
+
+**三角等图形绘制**
+
+即使在移动端，使用 CSS 的 border 属性绘制三角形等图形仍是性价比最高的方式。
+
+```css
+div { width: 0; border: 10px solid; border-color: #f30 transparent transparent; } /* 朝下的等腰三角形 */
+```
+
+#### border 与图形构建
+
+只要是与三角形或者梯形相关的图形，都可以使用 border 属性来模拟。
+
+<div class="demo" style="display: flex;">
+  <div class="d445-border"></div>
+  <div class="d445-border2"></div>
+  <style>
+    .d445-border { width: 10px; height: 0; border: 10px solid; border-color: #f30 #00f #396 #0f0; }
+    .d445-border2 {
+      width: 0; height: 0; border-style: solid;
+      border-width: 20px 10px; border-color: #f30 #00f transparent transparent;
+    }
+  </style>
+</div>
+
+#### border 等高布局技术
+
+margin+padding 可以实现等高布局，同样，border 属性也可以实现等高布局。
+
+```css
+.box { border-left: 150px solid #333; background-color: #f0f3f9; }
+.box > nav { width: 150px; margin-left: -150px; float: left; }
+.box > section { overflow: hidden; }
+```
+
+左侧深色背景区域是由 border-left 属性生成的，元素边框高度总是和元素自身高度保持一致，因此可以巧妙的实现等高布局。
+
+border 等高布局只能满足2~3栏的情况，一旦栏目过多，则建议使用 table-cell 等高布局或者 margin 负值等高布局。
