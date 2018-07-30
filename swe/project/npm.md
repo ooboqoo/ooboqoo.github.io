@@ -40,6 +40,12 @@ $ npm config set proxy http://127.0.0.1:1080  # 通过代理安装
 $ npm config delete proxy  # 删除代理，恢复直连模式
 ```
 
+```bash
+$ npm home vue    # 打开项目主页
+$ npm repo react  # 打开项目代码仓库
+$ npm bugs react  # 打开项目 Issues 页
+```
+
 
 ## 版本规范
 

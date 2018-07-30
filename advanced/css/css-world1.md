@@ -1,4 +1,4 @@
-# CSS 世界
+# CSS 世界 1-4
 
 
 ## 概述
@@ -143,7 +143,7 @@ div { position: absolute; left: 20px; right: 20px; }
 
 **首选最小宽度**
 
-假设外部容器的宽度是 0，请问里面的 inline-block 元素的宽度时多少？是 0？不是。在 CSS 世界中，图片和文字的权重要远大于布局，因此，CSS 的设计者显然是不会让 `width:auto` 时宽度变成 0 的，此时所表现的宽度就是 "首选最小宽度"：
+假设外部容器的宽度是 0，请问里面的 inline-block 元素的宽度是多少？是 0？不是。在 CSS 世界中，图片和文字的权重要远大于布局，因此，CSS 的设计者显然是不会让 `width:auto` 时宽度变成 0 的，此时所表现的宽度就是 "首选最小宽度"：
   * CJK文字最小宽度为每个汉字的宽度
   * 西方文字最小宽度由特定的连续的英文字符单元决定
 
@@ -197,15 +197,15 @@ input, textarea, img, video, object { box-sizing: border-box; }
 
 #### height
 
-##### height:auto
+**height:auto**
 
 `height:auto` 要比 `width:auto` 简单单纯得多，基本就是一个套路：有几个元素盒子，每个多高，然后一加就是最终高度了。
 
-淡然，涉及具体场景，就会有其他小故事，比方说元素 float 容器高度就没了，或者是 margin 直接穿过去，高度比预期的矮了，这些其实不是 height 的问题，具体后面对应属性章节会说明。
+当然，涉及具体场景，就会有其他小故事，比方说元素 float，容器高度就没了，或者是 margin 直接穿过去，高度比预期的矮了，这些其实不是 height 的问题，具体后面对应属性章节会说明。
 
 此外，height:auto 也有外部尺寸特性，但据我所知，其仅存在于绝对定位模型中，也就是 "格式化高度"。
 
-##### height:100%
+**height:100%**
 
 height 和 width 还有一个比较明显的区别就是对百分比单位的支持。对于 height 属性，如果父元素 height 为 auto，只要子元素在文档流中，其百分比值完全就被忽略。
 
@@ -389,19 +389,19 @@ Each line box starts with a zero-width inline box with the element's font and li
 **替换元素的尺寸计算规则**
 
 我个人将替换元素的尺寸从内而外分为 3 类：固有尺寸、HTML尺寸 和 CSS尺寸。
-  * 固有尺寸指的是替换内容原本的尺寸，像图片、视频作为独立文件存在时，都是有着自己的宽度和高度的，而表单类替换元素，默认的 font-size padding margin 属性值全部使用 px 作为单位
-  * HTML尺寸，这个概念略显抽象，即 HTML 原生属性确定的值，如 img 的 width height; input 的 size; textarea 的 cols rows
+  * 固有尺寸指的是替换内容原本的尺寸，像图片、视频作为独立文件存在时，都是有着自己的宽度和高度的，而表单类替换元素，默认的 font-size padding margin 属性值全部使用 px 作为单位(因此尺寸是固定的)
+  * HTML尺寸，即 HTML 原生属性确定的值，如 img 的 width height; input 的 size; textarea 的 cols rows
   * CSS尺寸，特指可以通过 width height 或者 max-width min-width max-height min-height 设置的尺寸
 
 这三种尺寸的权重关系为 CSS尺寸 > HTML尺寸 > 固有尺寸
 
 video canvas iframe 等元素在无实际内容时，固有尺寸都是 300x150，但 img 元素却是个例外，各个浏览器下的表现并不一致，IE 下为 28x30 Chrome 下是 0x0 Firefix 下是 0x22。
 
-> Web 开发的时候，为了提高加载性能和节约带宽，首屏以下的图片就会通过滚屏加载的方式异步加载，然后，这个即将被异步加载的图片为了布局稳健、体验良好，往往会使用一张透明的图片占位，如 `<img src="transparent.png">`，其实，这个透明的占位图片也是多余的资源，直接 `<img>` 再配合CSS样式 `img { visibility: hidden; } img[src] { visibility: visible }` 就可以实现一样的效果。注意，这里的 `<img>` 直接没有 `src` 属性，而不是 `src=""`，`src=""` 在很多浏览器下依然会有请求(Edge 会 CH FF 不会)，而且请求的是当前页面数据。
+> Web 开发的时候，为了提高加载性能和节约带宽，首屏以下的图片就会通过滚屏加载的方式异步加载，然后，这个即将被异步加载的图片为了布局稳健、体验良好，往往会使用一张透明的图片占位，如 `<img src="transparent.png">`，其实，这个透明的占位图片也是多余的资源，直接 `<img>` 再配合CSS样式 `img { visibility: hidden; } img[src] { visibility: visible; }` 就可以实现一样的效果。注意，这里的 `<img>` 直接没有 `src` 属性，而不是 `src=""`，`src=""` 在很多浏览器下依然会有请求(Edge 会 CH FF 不会)，而且请求的是当前页面数据。
 
 另外一个需要注意的地方是，Firefox 下，没有 src 的 `<img>` 不是替换元素，而是一个普通的内联元素，像 `img { width: 200px; height: 150px; }` 这样的样式设置没有任何效果。为了浏览器的一致性，推荐始终添加一条 `img { display: inline-block; }`，这个既能修复 Firefox 的特殊情况，又不会对其他浏览器的图片表现造成影响。
 
-CSS 世界中的替换元素的固有尺寸有一个很重要的特性，那就是：我们无法改变这个替换元素的固有尺寸。那么为什么 img 上的 width height 会影响图片的尺寸呢？那是因为图片中的 content 替换内容默认的适配方式是 `object-fit: fill`。
+CSS 世界中的替换元素的固有尺寸有一个很重要的特性，那就是：我们无法改变这个替换元素的固有尺寸。那么为什么 img 上的 width height 会影响图片的尺寸呢？那是因为图片内容默认的适配方式是 `object-fit: fill`。
 
 ```css
 div::before {
@@ -411,7 +411,7 @@ div::before {
 }
 ```
 
-**替换元素和非替换元素的距离有多远，就是 src 或 content 那一点**
+**替换元素和非替换元素的距离有多远，就是 `src` 或 `content` 那一点**
 
 使用 CSS 技术强化 alt 效果示例（示例略）。当我们点击按钮给图片添加 src 地址时，图片从普通元素变成替换元素，原本都还支持的 ::before ::after 此时全部失效，此时再 hover 图片，是不会有任何信息出现的。于是就非常巧妙地增强了图片还没加载时的信息展示体验。
 
@@ -421,7 +421,7 @@ Chrome 的渲染表现可帮助我们更好地理解替换元素，Chrome 中所
 
 Chrome 下使用 content 改变图片内容：`img:hover { content: url(laugh-tear.png) }` ... 然后，还有一点需要说明下，content 属性改变的仅仅是视觉呈现，当我们以右键或其他形式保存这张图片的时候，所保存的还是原来 src 对应的图片。
 
-不仅如此，使用 content 属性，我们还可以让普通标签元素变成替换元素：`h1 { content： url(logo.png) }`... 此外，虽然视觉上文字被替换了，但是屏幕阅读设备阅读的还是文字内容，搜索引擎 SEO 抓取的还是原始的文本信息，因此，对页面的可访问性等没有任何影响。看起来这是一个完美的文字换图方案，但是还有些局限，使用 content 生成的图片，是无法设置图片尺寸的，为了解决高分屏的图片清晰度问题，建议配合 SVG 矢量图片使用。
+不仅如此，使用 content 属性，我们还可以让普通标签元素变成替换元素：`h1 { content: url(logo.png) }`... 此外，虽然视觉上文字被替换了，但是屏幕阅读设备阅读的还是文字内容，搜索引擎 SEO 抓取的还是原始的文本信息，因此，对页面的可访问性等没有任何影响。看起来这是一个完美的文字换图方案，但是还有些局限，使用 content 生成的图片，是无法设置图片尺寸的，为了解决高分屏的图片清晰度问题，建议配合 SVG 矢量图片使用。
 
 **content 与替换元素关系剖析**
 
@@ -434,12 +434,12 @@ Chrome 下使用 content 改变图片内容：`img:hover { content: url(laugh-te
 在实际项目中，content 属性几乎都是用在 ::before ::after 这两个伪元素中，因此，"content 内容生成技术" 有时候也称为 "::before ::after 伪元素技术"。
 
 ```css
-.clear { content: ''; display: table; clear: both; }  /* 很多人用 content:'.' 其实完全没必要 */
+.clear { content: ''; display: table; clear: both; }  /* 很多人用 content: '.' 其实完全没必要 */
 ```
 
 **字符内容生成**
 
-content 字符内容生成就是直接写入字符内容，中英文都可以，比较常见的就应用就是配合 @font-face 规则实现图标字体效果。
+content 字符内容生成就是直接写入字符内容，中英文都可以，比较常见的应用就是配合 @font-face 规则实现图标字体效果。
 
 除常规字符之外，我们还可以插入 Unicode 字符，比较经典的就是插入换行符来实现某些布局或者效果。
 
@@ -466,9 +466,9 @@ dot::before {
   </style>
   正在加载中<dot>...</dot>
   <div class="desc">
-    IE6 至 IE9 浏览器下是静态的点点点，支持 animation 动画的浏览器下全部都是打点的 loading 动画效果
+    IE6 至 IE9 浏览器下是静态的点点点，支持 animation 动画的浏览器下则会出现打点的 loading 动画效果
     <ul>
-      <li>为什么使用 `<dot>` 元素 - 自定义元素，方便向下兼容，IE8等低版本浏览器不认识自定义标签，就会乖乖显示里面默认的3个点，对我们的CSS代码完全忽略</li>
+      <li>为什么使用 `<dot>` 元素 - 自定义元素，方便向下兼容，IE8等低版本浏览器不认识自定义标签，就会乖乖显示里面默认的3个点，对我们的 CSS 代码完全忽略</li>
       <li>3个点在第一行的目的在于兼容 IE9 浏览器，因为 IE9 浏览器认识 `<dot>` 以及 `::before` 但是不支持 `animation`，所以为了 IE9 也能正常显示静态的3个点，故而把3个点放在第一行。</li>
     </ul>
   </div>
@@ -544,7 +544,7 @@ q::before { content: open-quote url(1.jpg); }
   </div>
 </div>
 
-CSS 中还有很多其他场景或属性会出现这种不影响其他元素布局而是出现层叠效果的现象。如 relative 元素的定位、盒阴影 box-shadow 以及 outline 等。其分为两类一类是纯视觉层叠，不影响外部尺寸(如 box-shadow outline)；另一类则会影响外部尺寸(如 padding)。区分的方式很简单，如果父容器 overflow:auto，层叠区域超出父容器的时候，没有滚动条出现，就是纯视觉的，否则就不是。
+CSS 中还有很多其他场景或属性会出现这种不影响其他元素布局而是出现层叠效果的现象。如 relative 元素的定位、盒阴影 box-shadow 以及 outline 等。其分为两类：一类是纯视觉层叠，不影响外部尺寸(如 box-shadow outline)；另一类则会影响外部尺寸(如 padding)。区分的方式很简单，如果父容器 overflow:auto，层叠区域超出父容器的时候，没有滚动条出现，就是纯视觉的，否则就不是。
 
 应用示例：增加链接点击区域；内联元素(而非标题栏)设置 padding-top 避免标题栏被固定导航栏覆盖
 
@@ -598,8 +598,8 @@ padding 和 background-clip 配合，可以在有限的标签下实现一些 CSS
   <style>
 .d424-icon-menu {
   display: inline-block;
-  width: 140px; height: 8px;
-  padding: 35px 0;
+  width: 70px; height: 8px;
+  padding: 20px 0;
   border-top: 8px solid; border-bottom: 8px solid;
   background-color: currentColor;
   background-clip: content-box;
@@ -723,7 +723,7 @@ margin:auto 的填充规则如下：
 
 如果想让某个块状元素右对齐，脑子里不要就一个 float:right，很多时候，margin-left:auto 才是最佳的实践，浮动毕竟是个"小魔鬼"。我甚至可以这么说，margin 属性的 auto 计算就是为块级元素的左中右对齐而设计的，和内联元素使用 text-align 控制左中右对齐正好遥相呼应！
 
-触发 margin:auto 计算有一个前提条件，就是 width 或 height 为 auto 时，元素是具有对应方向的自动填充特性的。正常情况下，元素的高度没有自动填充特性，所以 margin:auto 无法垂直居中。当元素为 absolute 绝对定位时，则可以实现垂直居中:
+触发 margin:auto 计算有一个前提条件，就是 width 或 height 为 auto 时，元素是具有对应方向的自动填充特性的。正常情况下，元素的高度没有自动填充特性，所以 margin:auto 无法垂直居中。当元素为绝对定位时，则可以实现垂直居中:
 
 ```css
 .father { width: 300px; height: 150px;  }
@@ -750,7 +750,7 @@ margin:auto 的填充规则如下：
 
 ### 功勋卓越的 border 属性
 
-CSS 世界中很多大受欢迎的属性之所以受欢迎，并不是因为其本职工作做的很好，而是衍生出来的特性可以用来解决很多棘手的问题。border 就是典型代表之一，我总是称赞 border 功勋卓著，正是因为 border 属性在图形构建、体验优化以及网页布局这几块大放异彩，同时保证其良好的兼容性和稳定性才得此荣耀的。
+CSS 世界中很多大受欢迎的属性之所以受欢迎，并不是因为其本职工作做的很好，而是衍生出来的特性可以用来解决很多棘手的问题。border 就是典型代表之一，我总是称赞 border 功勋卓著，正是因为 border 属性在图形构建、体验优化以及网页布局这几块大放异彩，同时保证其良好的兼容性和稳定性才得此殊荣。
 
 border-width 不支持百分比值，直接声明无效。另外像 outline box-shadow text-shadow 等也都是不支持百分比值的。
 
@@ -763,14 +763,14 @@ border-color 的默认值是 color 的色值
 **右下方 background 定位的技巧**
 
 ```css
-/* 在距离右边缘50px 的位置设置一个背景图片，关键点在 transparent 和 100% */
+/* 在距离右边缘 50px 的位置设置一个背景图片，技术关键点在 transparent 和 100% */
 .box { border-right: 50px solid transparent; background-position: 100% 50%; }
 ```
 
-**优雅地增加点击区域大小**
+**优雅地增加可点击区域大小**
 
 ```css
-/* 通过透明 border 增加可点击区域，提升移动端体验 */
+/* 通过透明 border 增加可点击区域大小，提升移动端体验 */
 .icon-clear { width: 16px; height: 16px; border: 11px solid transparent; }
 ```
 
