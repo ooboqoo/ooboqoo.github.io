@@ -151,3 +151,38 @@ fetch(request).then(function(response) {
 })
 ```
 
+
+## Performance
+
+||
+--------|-----------------------
+p.now() | 返回的毫秒数自页面加载时 performance.timing.navigationStart 开始算起，带小数，比 Date.now() 更精确，主要应用于对时间精度要求高的场景：benchmarking gaming audio video .etc
+p.mark(_name_)           | 添加记录点 mark
+p.clearMarks(_name?_)    | 清除某个 mark 或(无参时)清除所有 mark
+p.measure(_name, startMark, endMark_) | 
+p.clearMeasures(_name?_)              | 
+p.getEntriesByType(_type_)            | 
+p.getEntriesByName(_name, type?_)     | 
+
+```js
+// 记录每次 XHR 请求的耗时
+var reqCnt = 0;
+var myReq = new XMLHttpRequest();
+myReq.open('GET', url, true);
+myReq.onload = function(e) {
+  window.performance.mark('mark_end_xhr');
+  reqCnt++;
+  window.performance.measure('measure_xhr_' + reqCnt, 'mark_start_xhr', 'mark_end_xhr');
+  do_something(e.responseText);
+}
+window.performance.mark('mark_start_xhr');
+myReq.send();
+
+// 输出统计信息
+var items = window.performance.getEntriesByType('measure');
+for (var i = 0; i < items.length; ++i) {
+  var req = items[i];
+  console.log('XHR ' + req.name + ' took ' + req.duration + 'ms');
+}
+```
+
