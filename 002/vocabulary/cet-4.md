@@ -51,6 +51,9 @@ literacy  _/ˈlɪtərəsi/_  n.读写能力, 识字  Many adults have some probl
 cargo  _/ˈkɑːɡəʊ/_  n. (轮船、飞机所装载的)货物  
 freight  _/freɪt/_  n. 货运; 货物  
 
+induce  v.引诱,劝说  
+
+
 
 ## 忘
 
@@ -296,6 +299,7 @@ freight  _/freɪt/_  n. 货运; 货物
 错 delete  _/dɪˈliːt/_  v.删除  以前发音一直是错的  
 错 mobile  _/ˈməʊbaɪl $ ˈmoʊbl/_  a.行动自如的  注意下英美发音区别  
 错 circle  _/ˈsɜːkəl/_  n. 圆, 周期  
+错 women  _/ˈwɪmɪn/_  n. the plural of woman  _/ˈwʊmən/_  
 
 ## 混
 
