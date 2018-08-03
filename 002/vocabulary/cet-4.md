@@ -699,6 +699,14 @@ to take another person's child into your home for a period of time, without beco
 析 grab  _/ɡræb/_  v.抓住,攫取; 夺取; 引起…的注意,吸引; 争取,抓住机会等  更突然,更暴力  
 析 seize _/siːz/_ written v.抓住
 
+析 part  something that together with other things forms a whole  
+析 piece  one of several different parts that you join together to make something  
+析 component  a part of a machine or process  
+析 section  a part of something that is clearly different and separate from other parts  
+析 chapter  one of the numbered parts that a book is divided into  
+析 scene  one of the parts that a film or play is divided into  
+析 episode  a part of a story on the television or the radio, which is told in separate parts  
+
 
 ## 联
 
