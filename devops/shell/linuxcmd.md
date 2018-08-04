@@ -193,6 +193,11 @@ df (disk free) is a standard Unix command used to display the amount of availabl
   * `-h` 以人类易读的格式展现 K M G
   * `-T` 打印磁盘格式
 
+#### `du -hd1 /home` 统计目录下文件磁盘占用
+
+df estimate file space usage. 递归列出某个目录下的所有文件的空间占用
+  * `-h` 以人类易读的格式展现 K M G
+  * `-d{N} --max-depth=N` 指定递归显示的最大层级 N
 
 ## CentOS 安装配置中的其他命令
 

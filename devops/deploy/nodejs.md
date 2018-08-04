@@ -67,6 +67,7 @@ $ cat > hooks/post-receive
 $ chmod +x hooks/post-receive
 $ cd /var/www
 $ mkdir koa-mongo
+
 # 切换到本地仓库 git push 然后继续:
 $ pm2 start dist/app.js
 $ pm2 save               # 保存当前进程列表
@@ -76,7 +77,28 @@ $ pm2 startup            # 配置 pm2 开机启动
 至此自动部署就完成了，以后只要在本地 `git push`，服务器就会自动编译和更新了。
 
 
-## PM2 常用命令
+## PM2
+
+### 快速开始
+
+```bash
+# Installation
+$ npm install pm2 -g
+
+# Manage multiple processes / Process list
+$ pm2 start app.js    # start and add a process to your list
+$ pm2 ls              # show your list
+$ pm2 delete app      # stop and delete a process from the list, 默认的 process 名不带 .js
+$ pm2 save               # 保存当前进程列表
+$ pm2 startup            # 配置 pm2 开机启动
+
+# Manage multiple processes / Routine
+$ pm2 stop app     # stop the process (kill the process but keep it in the process list)
+$ pm2 start app    # start the process
+$ pm2 restart app  # both stop and start
+```
+
+### 常用命令
 
 ```bash
 $ pm2 help               # 获取帮助

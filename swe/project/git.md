@@ -114,7 +114,7 @@ $ git rm --cached <file>          # 将文件移出 index，但保留本地文�
 $ git mv <oldname> <newfilename>  # 修改文件名并调整 index
   # 相当于运行了3条命令： `$ mv oldname newfilename` `$ git rm oldname` `$ git add newfilename`
 
-$ git commit -m <description>  # 提交记录到仓库
+$ git commit -m <description>  # 提交记录到仓库 注：录入带空格的文字时，只能用双引号不能用单引号包裹
 $ git commit -a                # 提交前自动完成 add 或 rm 已跟踪文件，但未跟踪文件不受影响 
 $ git commit --amend           # 重做(替换)最近一次提交，修改 commit message 很好用
 
@@ -154,6 +154,7 @@ $ git status -s            # 以简洁的形式显示当前状态，`-s` 同 `--
 
 # log 显示提交历史
 $ git log                       # 显示当前分支的提交记录
+$ git log --graph               # 图形化展现提交历史，即左侧有树状图案
 $ git log --oneline             # 显示提交记录，每条记录只占一行
 $ git log --follow <file>       # 跟踪一个文件的修改历史，包括重命名前后的情况
 $ git log --all -- path/to/file # 查找单个文件的提交历史，--all 选项可以找出已删除文件的提交历史
