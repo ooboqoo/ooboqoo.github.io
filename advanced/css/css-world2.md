@@ -274,27 +274,27 @@ http://demo.cssworld.cn/5/3-10.php
 
 在早期，复杂布局都是用 table 实现的，而 float 属性只是为了实现文字环绕效果。
 
-浮动属性用来布局非常符合现实世界的认知，就像搭积木，把元素一个一个定宽定高，通过浮动一个一个堆积起来，理论上一个 float:left 声明几乎就可以把整个页面结构都弄出来，而且内联元素的间隙问题、margin 合并问题都没有，对于新手，不知道多开心。
+浮动属性用来布局非常符合现实世界的认知，就像搭积木，把元素定宽定高，再通过浮动一个一个堆积起来，理论上一个 float:left 声明几乎就可以把整个页面结构都弄出来，而且内联元素的间隙问题、margin 合并问题都没有，对于新手，不知道多开心。
 
 乍一看，float 好像也能满足我们布局页面的需求，但实际上，这种砌砖头式的布局方式缺少弹性，布局的容错性很糟糕。...说这么多就是要告诉大家：浮动是魔鬼，少砌砖头、少浮动，要更多地去挖掘 CSS 世界本身的 "流动性" 和 "自适应性"，以构建能够适用于各种环境的高质量的网页布局。
 
-我们在开发移动端时，不可避免要面对各种设备尺寸的问题，加上横竖屏切换，其可变的外部环境非常之多，尤其在初期，很多人有这样的想法：固定宽度 320px，然后左右留白；抑或是 320px布局，然后根据比例缩放整个页面以 100% 填满屏幕宽度。这些想法最大的问题在于思维方式还是"刚"式思维。记住，CSS 设计的初衷就是表现如水流，富有弹性，"砖头式思维"是逆道而行，是绝不可取的。
+我们在开发移动端时，不可避免要面对各种设备尺寸的问题，加上横竖屏切换，其可变的外部环境非常之多，尤其在初期，很多人有这样的想法：固定宽度 320px，然后左右留白；抑或是 320px布局，然后根据比例缩放整个页面以填满屏幕宽度。这些想法最大的问题在于思维方式还是刚式思维。记住，CSS 设计的初衷就是表现如水流，富有弹性，"砖头式思维" 是逆道而行，绝不可取。
 
-如果进一步深究，"刚"式思维的主要原因还在于开发人员对 CSS 的了解不够深入，没有能够了解到其表层属性之下更深入的流动性和自适应性。好在 CSS3 出现了类似 flex 弹性盒子布局这种更表层、更上层、更浅显、更直白的 CSS 属性，以另外一种更加简单的方式让大家不得不适应的方式去实现布局。
+如果进一步深究，"刚"式思维的主要原因还在于开发人员对 CSS 的了解不够深入，没有能够了解到其表层属性之下更深入的流动性和自适应性。好在 CSS3 出现了类似 flex 弹性盒子布局这种更表层、更上层、更浅显、更直白的 CSS 属性，以另外一种更加简单的方式让大家不得不以自适应的方式去实现布局。
 
 纯浮动布局容错性差，容易出现比较严重的布局问题，还有就是，float 本身就是魔鬼属性，容易出现意料之外的情况，这里的意料之外除了 float 属性自身特性(如父元素高度坍塌)导致的布局问题外，还包括诸多兼容性问题。
 
-float 属性的种种归根结底还是由于自身各种特性导致的，float 的特性：
+float 属性的种种表现归根结底还是由于自身各种特性导致的，float 的特性：
   * 包裹性
   * 块状化并格式化上下文，元素一旦 float 不为 none，其 display 计算值就是 block 或 table
-  * 破坏文档流，这时该属性的万恶之源，也是其立命之本，是其作用机制之所在
+  * 破坏文档流，这是该属性的万恶之源，也是其立命之本，是其作用机制之所在
   * 没有任何 margin 合并
 
 #### 作用机制
 
 float 属性有个著名的特性表现，就是会让父元素的高度塌陷，大多数场景下，这种特性会影响 "正常的" 布局。float 属性的原本作用只是为了实现文字环绕效果，所以让父元素高度坍塌是符合预期的，但后面 float 被大量用来布局，显然，布局的时候是不需要父元素坍塌的，于是高度坍塌这种特性反而成为了 float 属性一个不得不重视的坑。
 
-高度坍塌只是让跟随的内容可以和浮动元素在一个水平线上，但这只是实现 "环绕效果" 的条件之一，要想实现真正的 "环绕效果"，就需要另外一个平时大家不太在意的特性，那就是 "行框盒子和浮动元素的不可重叠性"，也就是，行框盒子如果和浮动元素的垂直高度有重叠，则行框盒子在正常定位状态下只会跟随浮动元素，而不会发生重叠。
+高度坍塌只是让跟随的内容可以和浮动元素在一个水平线上，但这只是实现 环绕效果的条件之一，要想实现真正的环绕效果，就需要另外一个平时大家不太在意的特性，那就是 "行框盒子和浮动元素的不可重叠性"，也就是，行框盒子如果和浮动元素的垂直高度有重叠，则行框盒子在正常定位状态下只会跟随浮动元素，而不会发生重叠。
 
 <div class="demo" style="height: 100px; overflow: hidden;">
   <style>
@@ -317,7 +317,7 @@ float 属性有个著名的特性表现，就是会让父元素的高度塌陷�
   </div>
 </div>
 
-至此，浮动作用的基本机制算是介绍完了，那么了解 float 属性的作用机制有什么用呢？很有用，除了下一节会着重介绍基于 float 属性的流体布局之外，很有很有用的一点就是让我们一下子知道一些意外场景发生的原因以及如何快速对症下药。
+了解 float 属性的作用机制可以让我们知道一些意外场景发生的原因以及如何快速对症下药。
 
 #### float 与流体布局
 
@@ -331,7 +331,7 @@ float 属性有个著名的特性表现，就是会让父元素的高度塌陷�
 
 ### float 的天然克星 clear
 
-官方对 clear 属性的解释是，元素盒子的边不能和前面的浮动元素相邻。虽然有些拗口，但是有一点可以体会出来，就是设置了 clear 属性值的元素自身如何如何，而不是让 float 元素如何如何。我对 clear 属性的理解是这样的：
+官方对 clear 属性的解释是：元素盒子的边不能和前面的浮动元素相邻。虽然有些拗口，但是有一点可以体会出来，就是设置了 clear 属性值的元素自身如何如何，而不是让 float 元素如何如何。我对 clear 属性的理解是这样的：
   * `none` 默认值，允许存在左右浮动元素
   * `left` 左侧不允许出现浮动元素
   * `right` 右侧不允许出现浮动元素
@@ -370,30 +370,360 @@ clear 属性只有块级元素才有效，而 ::after 等伪元素默认都是�
     <div>虽然你很帅，但是我对你不感兴趣。</div>
   </div>
 
-  <div class="desc">虽然 .father 父元素的最后设置了 clear:both 来阻止浮动对后面元素的影响，但是最后错位依然发生了</div>
+  <div class="desc">虽然 .father 父元素设置了 clear:both 来阻止浮动对后面元素的影响，但是最后错位依然发生了。</div>
 </div>
 
-## CSS 世界的结界 BFC
+### CSS 世界的结界 BFC
+
+BFC 块级格式化上下文 block formatting context，IFC 内联格式化上下文 inline formatting context，IFC 作用和影响比较隐晦，不作介绍，重点介绍 BFC。
+
+关于 BFC 各种特性什么的，说起来很啰嗦，而我喜欢用 "CSS 世界的结界" 这种称谓概括 BFC 特性。"结界" 这个词大家应该都理解，指通过一些特定的手段形成的封闭空间，里面的人出不去，外面的人进不来，具有极强的防御力。BFC 的特性表现如出一辙。
+
+BFC 元素是不可能发生 margin 重叠的，因为 margin 重叠是会影响外面的元素的；BFC 元素也可以用来清除浮动的影响，因为如果不清除，子元素浮动则父元素高度塌陷，必然会影响后面元素的布局和定位，这显然有违 BFC 元素的子元素不会影响外部元素的设定。
+
+那什么时候会触发 BFC 呢？常见的情况如下：
+  * html 根元素
+  * float 的值不为 none
+  * overflow 的值为 auto scroll 或 hidden
+  * display 的值为 table-cell table-caption 或 inline-block
+  * position 的值不为 relative 和 static
+
+换言之，只要元素符合上面任意一个条件，就无须使用 clear:both 属性去清除浮动的影响了。
+
+#### BFC 与流体布局
+
+BFC 的结界特性最重要的用途其实不是去 margin 重叠或者是清除 float 影响，而是实现更健壮、更智能的自适应布局。
+
+<div class="demo">
+  <style>
+.d632-father {
+    height: 64px; width: 180px;
+    border: 1px solid #444;
+}
+.d632-float {
+    float:left;
+}
+.d632-float img {
+    width: 60px; height: 64px;
+}
+  </style>
+  <div style="height: 100px; overflow: hidden;">
+  <div style="width: 220px; float: left;">
+    <div class="d632-father">
+      <div class="d632-float">
+          <img src="">
+      </div>
+      <p>我是帅哥，好巧啊，我也是帅哥，原来看这本书的人都是帅哥~</p>
+    </div>
+  </div>
+  <div style="width: 220px; float: left;">
+    <div class="d632-father">
+      <div class="d632-float">
+          <img src="">
+      </div>
+      <p style="overflow: hidden;">(overflow:hidden)我是帅哥，好巧啊，我也是帅哥，原来看这本书的人都是帅哥~</p>
+    </div>
+  </div>
+  <div style="width: 220px; float: left;">
+    <div class="d632-father">
+      <div class="d632-float">
+          <img src="" style="margin-right: 10px;">
+      </div>
+      <p style="overflow: hidden;">(overflow:hidden)我是帅哥，好巧啊，我也是帅哥，原来看这本书的人都是帅哥~</p>
+    </div>
+  </div>
+  </div>
+  <div class="desc">
+    例1 图 float:left 例2 图 float:left 字 overflow:hidden 例3 图 float:left;margin-right:10px 字 overflow:hidden<br>
+    例3 中添加了空隙，没有在字上添加 margin-left 是因为，其值必须是浮动元素的宽度加间隙的大小
+  </div>
+</div>
+
+和基于纯流体特性实现的两栏或多栏自适应布局相比，基于 BFC 特性的自适应布局有如下优点：
+  * 自适应内容由于封闭而更健壮，容错性更强
+  * 自适应内容自动填满浮动以外区域，无须关心浮动元素宽度，可以整站大规模应用
+
+```css
+.left { float: left; }
+.right { float: right; }
+.bfc { overflow: hidden; }  /* overflow 属性是用来开启 BFC 的最完美属性了，唯一不足是会隐藏溢出内容 */
+```
+
+有了 BFC 自适应布局，纯流体特性布局基本似乎没有了存在价值，但实际为什么没有如此呢？理论上，任何 BFC 元素和 float 元素相遇的时候，都可以实现自动填充的自适应布局，但是，由于绝大多数的触发 BFC 的属性自身有一些古怪的特性，所以，实际操作的时候，能兼顾流体特性和 BFC 特性来实现无敌自适应布局的属性并不多。
+
+### 最佳结界 overflow
+
+要想彻底清除浮动的影响，最适合的属性不是 clear 而是 overflow。一般使用 overflow:hidden，利用 BFC 的结界特性彻底解决浮动对外部或兄弟元素的影响。虽然有很多其他 CSS 声明也能清除浮动，但基本上都会让元素的宽度表现为 "包裹性"，也就是会影响原来的样式布局，而 overflow:hidden 声明不会影响元素原先的流体特性或宽度表现，因此在我看来是最佳结界。不过话说回来，overflow 属性原本的作用制定了块容器元素的内容溢出时是否需要裁剪，也就是说结界只是衍生出来的特性，裁剪才是器本职工作。
+
+#### overflow 裁剪边界 border box
+
+一个设置了 overflow:hidden 声明的元素，假设同时存在 border 属性和 padding 属性，这当子元素内容超出容器宽高限制时，裁剪的边界是 border box 的内边缘，而非 padding box 的内边缘。
+
+这里顺便探讨下一个很经典的不兼容问题，即 Chrome 浏览器下，如果容器可滚动(假设是垂直滚动)，则 padding-bottom 也算在滚动尺寸之内，而 IE 和 Firefox 则会忽略 padding-bottom。正因为存在此不兼容问题，实际开发中要尽量避免滚动容器设置 padding-bottom 值，除了样式表现不一致外，还会导致 scrollHeight 值不一样，这往往会给开发带来难以察觉的麻烦。
+
+#### overflow-x 与 overflow-y
+
+如果 overflow-x 和 overflow-y 属性中的一个值设置为 visible 而另外一个设置为 scroll auto 或 hidden，则 visible 的样式表现会如同 auto。也就是说，除非 overflow-x 和 overflow-y 的属性值都是 visible，否则 visible 会被当成 atuo 来解析。换句话说，永远不可能实现一个方向溢出裁剪或滚动，而另一个方向内容溢出显示的效果。
+
+#### overflow 与滚动条
+
+HTML 中有两个标签是默认可以产生滚动条的，一个是根元素 `<html>`，另一个是文本域 `<textarea>`。
+
+在 PC 端，所有浏览器的滚动条均来自 `html` 而非 `body` 标签。在 PC 端窗体滚动高度可以使用 `document.documentElement.scrollTop` 获取，但在移动端可能就要使用 `document.body.scrollTop` 获取。
+
+在 PC 端，尤其是 Windows 下，几乎所有浏览的滚动栏都会占据宽度，目前都是 17px。在移动端，滚动条一般采用悬浮模式，不会占据可用宽度。滚动栏占据宽度的特性有时候会给我们的布局带来不小的麻烦。
+
+如我们希望实现一个表格头固定、表格主体可以滚动的效果，常见的实现方法是使用双 `<table>`，表头是一个独立的 `<table>`，主体也是一个独立的 `<table>`，放在一个 overflow:auto 的元素中，如果滚动条不出现，两个表格可以完美对齐，但是一旦滚动条出现，主体表格可用宽度被压缩，表格列往往就无法完美对齐了。常用的解决方法有两种：一种是 table 元素使用固定的宽度值，但是距离右侧预留 17px 的间隙；另一种就是表格的最后一列不设定宽度，而前面的列都定时宽度。
+
+当然，滚动栏占据宽度的特性的最大问题就是页面加载的时候水平居中的布局可能会产生晃动。这里分享一个可以让页面滚动条不发生晃动的小技巧：
+
+```css
+html { overflow-y: scroll; } /* for IE8 任何时候都显示滚动条，简单粗暴 */
+:root { overflow-y: auto; overflow-x: hidden; }
+:root body { position: absolute; }
+body { width: 100vw; overflow: hidden; }
+```
+
+滚动条是可以自定义的，IE 浏览器的自定义效果比原生的还难看，就只说说支持 -webkit- 前缀的浏览器...
+
+#### overflow 与锚点定位
+
+我所知道的基于 URL 地址的锚链实现锚点跳转的方法有两种，一种是 `<a>` 标签以及 `name` 属性，还有一种就是使用标签的 `id` 属性。
+
+```html
+<a href="#1">发展历程</a>
+<a name="1"></a>             <!-- a 标签 + name 属性，正统用法 -->
+<h2 id="1">发展历程</h2>      <!-- HTML 标签会显得更加干净 -->
+```
+
+下面两种情况可以触发锚点定位行为的发生
+  * URL 地址中的锚链与锚点元素对应并有交互行为
+  * 可 focus 的锚点元素出于 focus 状态
+
+```html
+<a href="#">返回顶部</a>
+```
+
+两种锚点定位方法的行为表现还是有差异的，"URL 地址锚链定位" 是让元素定位在浏览器窗体的上边缘；而 "focus 锚点定位" 是让元素在浏览器窗体范围内显示即可，不一定是在上边缘。
+
+锚点定位行为的发生，本质上是通过改变 **容器** 滚动高度或者宽度来实现的。而且定位行为的发生是由内而外的，"由内而外" 指的是，普通元素和窗体同时可滚动的时候，会由内而外触发所有可滚动窗体的锚点定位行为。
+
+对于 overflow:hidden 的元素，无论你鼠标怎么滚，都没有滚动行为发生，但该元素依然是可滚动的，如果发生锚点定位，就发现滚动发生了。overflow:hidden 与 overflow:auto overflow:scroll 的差别就在于有没有那个滚动条。
+
+**实现选项卡切换效果**
+
+...这一技术只适用于高度固定的选项卡效果，如各大网站首页经常出现的幻灯片广告切换效果等...
+
+### float 的兄弟 position:absolute
+
+我一直认为 position:absolute 和 float:left/right 是兄弟关系，都兼具 块状化、包裹性、破坏性 等特性，不少布局场合甚至可以相互替代。
+
+#### absolute 的包含块
+
+包含块 containing block 就是元素用来计算和定位的一个框。普通元素的百分比宽度是相对于父元素的 content box 宽度计算的，而绝对定位元素的宽度是相对于第一个 position 不为 static 的祖先元素计算的。
+
+对于包含块的计算规则，规范是有明确定义的：
+  * 根元素被称为 "初始包含块"，其尺寸等同于浏览器可视窗口大小
+  * position:relative/static 的元素，包含块由其最近的块容器祖先盒的 content box 边界形成
+  * positon:fixed 元素的包含块是 "初始包含块"
+  * position:absolute 元素的包含块由最近的 position 不为 static 的祖先元素建立
+
+和常规元素相比，absolute 绝对定位元素的包含块有以下3个明显差异
+  * 内联元素也可以作为包含块所在的元素
+  * 包含块所在的元素不是父级块元素，而是最近的 position 不为 static 的祖先元素或根元素
+  * 边界是 padding box 而不是 content box
+
+对于绝对定位元素，height:100% 和 height:inherit 是不一样的，height:100% 是第一个具有定位属性值的祖先元素的高度，而 height:inherit 则是单纯地继承父元素的高度，在某些场景下非常好用。
+
+绝对定位元素的包裹性中的"宽度自适应性"其实也是相对于包含块来表现的。绝对定位元素默认的最大宽度就是包含块的宽度。
+
+**tip 案例说明**
+
+http://demo.cssworld.cn/6/5-1.php  http://demo.cssworld.cn/6/5-2.php
+
+要修复此问题其实很简单，只要改变默认的宽度显示类型，添加 `withe-space: nowrap` 即可
+
+<div class="demo">
+  <style>
+    .d651-box {
+      position: relative;
+      border: 10px solid #8bc34a;
+      padding: 10px;
+      background: #00b0e8;
+      background-clip: content-box;
+    }
+    .d651-content {
+      position: absolute;
+      background: rgba(255, 193, 7, .75);
+      top: 0; left: 0;
+    }
+  </style>
+  <div class="d651-box"> 123 <div class="d651-content">456<br>789<br>123</div></div>
+  <div class="desc">边界是 padding box 而不是 content box 也不是 border box</div>
+</div>
+
+#### 具有相对特性的无依赖绝对定位 position:absolute + margin
+
+虽然 absolute 破坏正常的流来实现自己的特性表现，但本身还是受普通的流体元素布局、位置甚至一些内联相关属性影响的。
+
+absolute 定位效果实现完全不需要父元素设置 position 为 relative 或其他什么属性就可以实现，我把这种没有设置 left/top/right/bottom 属性值的绝对定位称为 "无依赖绝对定位"。很对场景下无依赖绝对定位要比使用 left/top 之类属性定位要实用和强大很多，因为除了代码更简洁外，还有一个很棒的特性，就是 "相对定位特性"。"无依赖绝对定位" 本质上就是 "相对定位"，仅仅是不占据 CSS 流的尺寸空间而已。**相对性** 和 **不占据空间** 这两个特性在实际开发的时候非常有用。
+
+**各类图标定位**
+
+我们经常会在导航右上方增加一个 NEW 或 HOT 这样的小图标。要实现在导航文字右上方的定位很简单，直接对图标元素进行样式设定就可以了，原纯文字导航的样式完全不需要修改。
+
+```css
+.icon-hot { position: absolute; margin: -6px 0 0 2px; width: 28px; height: 11px; background: url(hot.gif) }
+```
+
+一个简简单单的 positon:absolute，然后通过 margin 属性进行定位，效果即达成。设想一下，如果给父元素设置 position:relative 然后 right/top 定位，文字长度一旦发生变化，CSS 代码就要重新调整，维护成本显然要高很多。
+
+**超越常规布局的排版**
+
+<div class="demo">
+  <style>
+    .d652-regist-box { width: 356px; margin-left: auto; margin-right: auto; border: 1px solid #eee; }
+    .d652-regist-group { margin: 10px 0; overflow: hidden; }
+    .d652-regist-label { width: 70px; padding-top: 5px; float: left; }
+    .d652-regist-star { position: absolute; margin-left: -1em; color: #f30; }
+    .d652-regist-remark { position: absolute; margin: 10px 0 0 10px; color: #666; }
+    .d652-regist-warn { padding-left: 16px; color: #be0000; }
+    .d652-icon-warn {
+      position: absolute; margin-left: -18px;
+      width: 16px; height: 20px;
+      background: url(/images/6/warn.gif) no-repeat center; background: #f00;
+    }
+  </style>
+  <div class="d652-regist-box">
+    <div class="d652-regist-group">
+      <label class="d652-regist-label"><span class="d652-regist-star">&lowast;</span>邮箱</label>
+      <div class="d652-regist-cell">
+        <input type="email" class="d652-regist-input">
+        <span class="d652-regist-remark d652-regist-warn"><i class="d652-icon-warn"></i>邮箱格式不准确（示意）</span>
+      </div>
+    </div>
+    <div class="d652-regist-group">
+      <label class="d652-regist-label"><span class="d652-regist-star">&lowast;</span>密码</label>
+      <div class="d652-regist-cell">
+        <input type="password" class="regist-input">
+        <span class="d652-regist-remark">请输入6-16位密码，不能使用空格</span>
+      </div>
+    </div>
+    <div class="d652-regist-group">
+      <i class="d652-regist-label"></i>
+      <div class="d652-regist-cell">
+        <a href="javascript:" class="regist-btn">立即注册</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+上例是一个常见的注册表单，为了保证视觉舒适，我们往往会让表单水平居中对齐。初步的，width:356px;margin:auto; 就可实现。但是开发中往往还有提示或报错等交互效果。有一种做法是提示信息放在输入框的下面，但这样做会带来一种不好的体验，那就是提示信息出现和隐藏的时候，整个容器的高度会突然变化；还有一种做法就是在输入框的后面(即右边)显示，但是为了让默认状态下表单水平居中，外面容器的宽度不是很大，因此如果在后面显示，就会有宽度不够的问题。如果我们使用 "无依赖绝对定位"，那这个问题就不再是问题了。
+
+```css
+.remark { position: absolute; margin-left: 10px; }
+```
+
+更为关键的是，提示信息的位置智能跟随输入框。与容器设置 position:relative 再通过 left 属性实现的定位相比，其代码更简洁，容错性更强，维护成本更低。
+
+此外，页面中的星号也是典型的 "无依赖绝对定位"，自身绝对定位，然后通过 margin-left 负值偏移实现，从而保证所有输入信息头左对齐，同时又不会影响原先的布局。
+
+**深入 "无依赖绝对定位"**
+
+虽然说元素 position:absolute 后的 display 计算值都是块状的，但是其定位的位置和没有设置 absolute 时的位置相关。
+
+```html
+<h3>标题<span class="follow">span</span></h3>
+<h3>标题<div class="follow">div</div></h3>
+```
+
+标题后面分别跟了一个 span 和 div，当添加样式 .follow { position: absolute; } 后，看到的效果还和没有添加绝对定位样式时一样，一个在后面，一个在下面。
+
+#### absolute 与 overflow
+
+如果 overflow 不是定位元素，同时绝对定位元素和 overflow 容器之间也没有定位元素，则 overflow 无法对 absolute 元素进行裁剪。
+
+如果 overflow 的属性值不是 hidden 而是 auto 或者 scroll，即使绝对定位元素高度比 overflow 元素高宽还要大，也都不会出现滚动条。
+
+#### absolute 与 clip
+
+CSS 世界中有些属性或者特性必须和其他属性一起使用才有效，比方说裁剪属性 clip。clip 属性想要起作用，元素必须是绝对定位或者固定定位，也就是 position 必须是 absolute 或 fixed。
+
+```css
+clip: rect(top, right, bottom, left)
+```
+
+多数人认为 clip 是个冷门属性，作用不大，但在以下两种场景下具有不可替代的地位
+  * fixed 固定定位的裁剪
+  * 最佳可访问性隐藏
+
+clip 隐藏仅仅是决定了哪部分是可见的，非可见部分无法响应点击事件等。然后，虽然视觉上隐藏，但是元素的尺寸依然是原本的尺寸，在 IE 和 Firefox 中抹掉了不可见区域尺寸对布局的影响，而 Chrome 则保留了。
+
+#### absolute 的流体特征
+
+当 absolute 遇到 left/top/right/bottom 属性的时候，absolute 元素才真正变成绝对定位元素。如果我们仅设置了一个方向的绝对定位，如水平方向绝对定位，那垂直方向依然保持相对特性。
+
+当一个绝对定位元素，其对立定位方向属性同时有具体定位数值的时候，流体特性就发生了。设置了对立定位属性的绝对定位元素的表现神似普通的 div 元素，无论设置 padding 还是 margin，其占据的空间一直不变，变化的就是 content box 的尺寸，这就是典型的流体表现特性。
+
+绝对定位元素宽高自适应于包含块，绝对定位元素的这种流体特性比普通元素要更强大，普通元素流体特性只有一个方向，默认是水平方向，但绝对定位元素可以让垂直方向和水平方向同时保持流动性。在垂直方向也保持流动性对布局非常有价值。
+
+当绝对定位元素出于流体状态的时候，各个盒模型相关属性的解析和普通流体元素都是一模一样的，margin 负值可以让元素的尺寸更大，margin:auto 可以让绝对定位元素保持居中。
+
+```css
+.element {
+  width: 300px; height: 200px;
+  position: absolute; left: 0; right: 0; top: 0; bottom: 0;
+  margin: auto;
+}
+
+/* 以下两种垂直居中方法可以直接淘汰 */
+.element {
+  width: 300px; height: 200px;
+  position: absolute; left: 50%; top: 50%;
+  margin-left: -150px; margin-right: -100px;
+}
+.element {
+  width: 300px; height: 200px;
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+}
+```
+
+### position:realtive 才是大哥
+
+如果说 float 和 absolute 是同父异母的兄弟关系，那么 position:ralative 则是 absolute 的亲大哥，管着 absolute 避免其到处惹是生非。
+
+虽然说 relative/absolute/fixed 都能对 absolute 的包裹性和定位产生限制，但只有 relative 可以让元素依然保持在正常的文档流中。
+
+relative 的定位有两大特性：相对自身 + 无侵入。无侵入的意思是，当 relative 进行定位偏移的时候，一般情况下不会影响周围元素的布局。[margin 和 relative 定位偏移对比示例](http://demo.cssworld.cn/6/6-1.php)。
+
+relative 的定位还有另外两点值得一提：相对定位元素的 left/top/right/bottom 的百分比值是相对于包含块计算的，而不是自身。虽然定位位移是相对自身的，但是百分比值的计算不是。
+
+"relative 的最小化影响原则" 是我自己总结的一套更好地布局实践的原则，主要分为以下两部分：
+  * 尽量不要使用 relative，如果想定位某些元素，看看能否使用 "无依赖的绝对定位"
+  * 如果场景受限，一定要使用 relative，则该 relative 务必最小化
+
+```html
+<div style="position: relative;">  <!-- 日后不敢随便删 -->
+  <img src="icon.png" style="position: absolute; top: 0; right: 0;">
+  <p>内容</p>
+</div>
+
+<!-- relative 的最小化影响原则 -->
+<div>
+  <div style="position: relative;"> <!-- 日后大胆删 -->
+    <img src="icon.png" style="position: absolute; top: 0; right: 0;">
+  </div>
+  <p>内容</p>
+</div>
+```
+
+一个普通元素变成相对定位元素，看似没什么变化，实际上元素的层叠顺序提高了，会导致一些绝对定位浮层无论怎么设置 z-index 都会被其他元素覆盖。
+
+relative 的最小化影响原则不仅规避了复杂场景可能出现样式问题的隐患，从日后维护角度讲也更方便... 从这一点可以看出来，项目代码越来越臃肿、冗余，归根结底还是一开始实现项目的人的技术水平和能力火候还不到。实现时洋溢着灿烂的笑容没什么好得意的，能够让日后维护甚至其他人接手项目维护的时候也洋溢着灿烂的笑容，那才是真厉害。
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### 强悍的 position:fixed 固定定位
 
 
 

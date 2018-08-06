@@ -77,7 +77,7 @@ left       | Specifies the left position of a positioned element                
 float      | Specifies whether or not a box should float                                       | 1
 clear      | Specifies which sides of an element where other floating elements are not allowed | 1
 visibility | 不可见元素还是会占据页面空间                                                      | 2
-z-index    | Sets the stack order of a positioned element                                      | 2
+z-index    | Sets the stack order of a positioned element，只适用于 position 不为 static 的元素  | 2
 vertical-align | `length` `%` `sub` `super` `top` `text-top` `middle` `bottom` `text-bottom` 等 | 1
 clip           | Clips an absolutely positioned element                       | 2
 overflow       | Specifies what happens if content overflows an element's box | 2

@@ -53,6 +53,13 @@ freight  _/freɪt/_  n. 货运; 货物
 
 induce  v.引诱,劝说  
 
+chilli  _/ˈtʃɪli//_  n. 辣椒(长)
+pepper  _/ˈpepə/_  n. 胡椒；甜椒(圆)
+
+nail polish  指甲油  
+
+uptown  ad.往(或在)城外  
+downtown  ad.在城市的商业区 a.n.城市商业区的  
 
 
 ## 忘
@@ -902,7 +909,7 @@ A concrete noun is a noun that refers to a physical object rather than to a qual
 联 scratch  _/skrætʃ/_  v.给…搔痒; 划伤n.划痕 [P]from scratch 从零开始; 白手起家  
 联 scrape  _/skreɪp/_  v.刮擦 n.刮,擦痕,刮擦声  刮擦(scrape)痒处(itch)叫挠痒(scratch)  
 
-联 repent  _/rɪˈpent/_  v.后悔; 忏悔; 悔悟  repent of sth.  
+联 repent  _/rɪˈpent/_  v.忏悔,悔悟  repent of sth.  used especially when considering your actions in a religious way  
 联 regret  _/rɪˈɡret/_  v.对…感到后悔 n.悔恨; 抱歉; 遗憾  
 
 联 confine  _/kənˈfaɪn/_  vt.限制; 监禁 n.[pl.]限制; 局限    verb  _/kən'faɪn/_  noun confines  _/'kɒnfaɪnz/_  

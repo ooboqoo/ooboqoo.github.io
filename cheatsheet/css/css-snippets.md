@@ -254,6 +254,29 @@ To enforce the width, you may try to change the table-layout property to "fixed"
   </style>
 </div>
 
+对 -webkit- 私有前缀支持良好的浏览器还可以实现多行文字打点效果
+
+```css
+.truncate-text-rows-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+```
+
+<div class="demo">
+  <p class="truncate-text-rows-2">If I exceed one line's width, I will be truncated in the second line.</p>
+  <style>
+  .truncate-text-rows-2 {
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+    width: 200px;
+  }
+  </style>
+</div>
+
+
+
 ### Reset all styles
 
 ```css
