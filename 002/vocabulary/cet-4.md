@@ -57,9 +57,14 @@ chilli  _/ˈtʃɪli//_  n. 辣椒(长)
 pepper  _/ˈpepə/_  n. 胡椒；甜椒(圆)
 
 nail polish  指甲油  
+piggy bank  小猪储蓄罐  
 
 uptown  ad.往(或在)城外  
 downtown  ad.在城市的商业区 a.n.城市商业区的  
+
+snack n. 小吃;便餐  a small amount of food that is eaten between main meals or instead of a meal  
+
+
 
 
 ## 忘
@@ -896,7 +901,7 @@ A concrete noun is a noun that refers to a physical object rather than to a qual
 
 联 apparatus  _/ˌæpəˈreɪtəs/_  n.器械,器具,仪器; 机构,组织  
 联 equipment  _/ɪˈkwɪpmənt/_  n.设备,装备  
-联 facility  _/fəˈsɪləti, -lɪti/_  n.功能; 天赋; (pl.)设备,设施  
+联 facility  _/fəˈsɪləti/_  n.功能; 天赋; 设备,设施 rooms, equipment, or services that are provided for a particular purpose  
 联 appliance  _/əˈplaɪəns/_  n.家用电器,器械,装置; 技术或知识的使用,应用  
 联 instrument  _/ˈɪnstrəmənt/_  n.仪器,器械; 乐器  
 联 instrumental  _/ˌɪnstrəˈmentl◂/_  a.有助益的,有帮助的; 用乐器演奏(而非声乐)的  
