@@ -36,6 +36,8 @@ CSS 中有些属性值的定义就和这个 x-height 有关，最典型的代表
 
 通常，line-height 的高度作用细节都是使用 **行距** 和 **半行距** 来解释的... 在 CSS 中，"行距" 分散在当前文字的上方和下方，也就是即使是第一行文字，其上方也是有 "行距" 的，只不过这个行距的高度仅仅是完整行距高度的一半，因此也被称为 "半行距"。
 
+> Chrome 68 实测，当选中非首行时行距都在文字上方，选中第一行没有 "半行距"，段首和段尾各有一个 "半行距"，但不在选中范围内。增加一个 span 的 line-height 值，确实又是行上方、下方同时增长的。所以，作者这里说的上下平分没有问题，但同时注意，选中文字时的阴影范围是在行上方取行高的。
+
 ```txt
 行距 = line-height - font-size
 ```
@@ -61,7 +63,7 @@ CSS 中有些属性值的定义就和这个 x-height 有关，最典型的代表
 
 line-height 的默认值是 normal，还支持数值、百分比值以及长度值。
 
-很多人会认为 normal 应该对应一个具体的行高值，实际上 normal 是一个和 font-family 有着密切关联的变量值，也就是说，改变字体会影响到 line-height 的计算值。
+很多人会认为 normal 应该对应一个具体的行高值，实际上 normal 是一个和 font-family 有着密切关联的变量值，可以粗略地看成是 1.2，也就是说，改变字体会影响到 line-height 的计算值。
 
 乍一看，似乎 line-height:1.5  line-height:150%  line-height:1.5em 这三种用法是一模一样的，实际上，line-height:1.5 和另外两个有一点儿不同，那就是 **继承** 细节有所差别。如果使用数值作为属性值，那么所有的子元素继承的都是这个值；但是，如果使用百分比或者长度值作为属性，那么所有的子元素继承的是最终的计算值。
 
@@ -73,6 +75,8 @@ input, button { line-height: inherit; }
 ```
 
 注意，在 CSS 中，计算行高时，行高值一定不要向下舍入，而要向上舍入，如 14x1.42857 非常接近 20px，但最终浏览器还是会以 19px 呈现，而 14x1.42858 则如预期显示 20px。
+
+> Chrome 68 实测可以实现比四舍五入更精细的变化效果(border: 1px solid 然后 Alt + 上下键调整看效果)
 
 #### 内联元素 line-height 的大值特性
 
@@ -97,8 +101,8 @@ input, button { line-height: inherit; }
 
 上例中，如果只有一行文本，最终的高度是多少？很多人一定认为是 32px，而事实上要大那么几像素，原因就是 vertical-align 在背后下了黑手(P132 图5-25 一看就懂)。
 
-抛开 inherit 这类全局属性值不谈，我把 vertical-align 属性值分为以下4类：
-  * 线类，如 baseline(默认值)  top  middle  bottom
+抛开 inherit 这类全局属性值不谈，我把 vertical-align 属性值分为以下 4 类：
+  * 线类，如 `baseline`(默认值)  top  middle  bottom
   * 文本类，如 text-top  text-bottom
   * 上标下标类，如 sub  super
   * 数值百分比类，如 20px  2em  20%
@@ -137,11 +141,13 @@ input, button { line-height: inherit; }
 
 #### 深入理解 vertical-align 属性值
 
+https://developer.mozilla.org/en-US/docs/Web/CSS/vertical-align
+
 **inline-block 与 baseline**
 
 vertical-align 属性的默认值 baseline 在文本之类的内联元素那里就是字符 x 的下边缘，对于替换元素则是替换元素的下边缘。但是，如果是 inline-block 元素，则规则要复杂了：一个 inline-block 元素，如果里面没有内联元素，或者 overflow 不是 visible，则该元素的基线就是其 margin 底边缘，否则其基线就是元素里面最后一行内联元素的基线。
 
-背景小图标与文字对其的案例，略。
+背景小图标与文字对齐的案例，略。
 
 **top 与 bottom**
 
@@ -156,6 +162,8 @@ vertical-align:bottom 声明与此类似。
 虽然同属线性类属性值，但是 top/bottom 和 baseline/middle 却是完全不同的两个帮派，前者看齐看边缘看行框盒子，而后者是和字符 x 打交道，注意区分。
 
 **middle 与近似垂直居中**
+
+> Aligns the middle of the element with the baseline plus half the x-height of the parent.
 
 * 内联元素，元素的垂直中心点和行框盒子基线往上 1/2 x-height 处对齐
 * table-cell 元素，单元格填充盒子相对于外面的表格行居中对齐
@@ -379,14 +387,14 @@ BFC 块级格式化上下文 block formatting context，IFC 内联格式化上�
 
 关于 BFC 各种特性什么的，说起来很啰嗦，而我喜欢用 "CSS 世界的结界" 这种称谓概括 BFC 特性。"结界" 这个词大家应该都理解，指通过一些特定的手段形成的封闭空间，里面的人出不去，外面的人进不来，具有极强的防御力。BFC 的特性表现如出一辙。
 
-BFC 元素是不可能发生 margin 重叠的，因为 margin 重叠是会影响外面的元素的；BFC 元素也可以用来清除浮动的影响，因为如果不清除，子元素浮动则父元素高度塌陷，必然会影响后面元素的布局和定位，这显然有违 BFC 元素的子元素不会影响外部元素的设定。
+BFC 元素是不可能发生 margin 重叠的，因为 margin 重叠是会影响外面的元素的；BFC 元素也可以用来清除浮动的影响，因为如果不清除，子元素浮动则父元素高度塌陷，必然会影响后面元素的布局和定位，这显然有违 **BFC 元素的子元素不会影响外部元素**的设定。
 
 那什么时候会触发 BFC 呢？常见的情况如下：
   * html 根元素
-  * float 的值不为 none
-  * overflow 的值为 auto scroll 或 hidden
-  * display 的值为 table-cell table-caption 或 inline-block
-  * position 的值不为 relative 和 static
+  * `float` 的值不为 `none`
+  * `overflow` 的值为 `auto` `scroll` 或 `hidden`
+  * `display` 的值为 `table-cell` `table-caption` 或 `inline-block`
+  * `position` 的值不为 `relative` 和 `static`
 
 换言之，只要元素符合上面任意一个条件，就无须使用 clear:both 属性去清除浮动的影响了。
 
@@ -445,25 +453,39 @@ BFC 的结界特性最重要的用途其实不是去 margin 重叠或者是清�
 
 ```css
 .left { float: left; }
-.right { float: right; }
+.right { float: right; } /* .left .right 要在 .bfc 之前，如果是 .left .bfc .right 这顺序，.right 会另起行 */
 .bfc { overflow: hidden; }  /* overflow 属性是用来开启 BFC 的最完美属性了，唯一不足是会隐藏溢出内容 */
 ```
+
+<div class="demo" style="overflow: hidden;">
+  <style>
+    .left { width: 200px; float: left; background-color: aqua; }
+    .bfc { overflow: hidden; background-color: green; }
+    .right { width: 300px; float: right; background-color:blueviolet; }
+  </style>
+  <div class="left">.left</div>
+  <div class="right">.right</div>
+  <div class="bfc">.bfc</div>
+  <div class="left">.left</div>
+  <div class="bfc">.bfc</div>
+  <div class="right">.right</div>
+</div>
 
 有了 BFC 自适应布局，纯流体特性布局基本似乎没有了存在价值，但实际为什么没有如此呢？理论上，任何 BFC 元素和 float 元素相遇的时候，都可以实现自动填充的自适应布局，但是，由于绝大多数的触发 BFC 的属性自身有一些古怪的特性，所以，实际操作的时候，能兼顾流体特性和 BFC 特性来实现无敌自适应布局的属性并不多。
 
 ### 最佳结界 overflow
 
-要想彻底清除浮动的影响，最适合的属性不是 clear 而是 overflow。一般使用 overflow:hidden，利用 BFC 的结界特性彻底解决浮动对外部或兄弟元素的影响。虽然有很多其他 CSS 声明也能清除浮动，但基本上都会让元素的宽度表现为 "包裹性"，也就是会影响原来的样式布局，而 overflow:hidden 声明不会影响元素原先的流体特性或宽度表现，因此在我看来是最佳结界。不过话说回来，overflow 属性原本的作用制定了块容器元素的内容溢出时是否需要裁剪，也就是说结界只是衍生出来的特性，裁剪才是器本职工作。
+要想彻底清除浮动的影响，最适合的属性不是 clear 而是 overflow。一般使用 overflow:hidden，利用 BFC 的结界特性彻底解决浮动对外部或兄弟元素的影响。虽然有很多其他 CSS 声明也能清除浮动，但基本上都会让元素的宽度表现为 "包裹性"，也就是会影响原来的样式布局，而 overflow:hidden 声明不会影响元素原先的流体特性或宽度表现，因此在我看来是最佳结界。不过话说回来，overflow 属性原本的作用制定了块容器元素的内容溢出时是否需要裁剪，也就是说结界只是衍生出来的特性，裁剪才是其本职工作。
 
 #### overflow 裁剪边界 border box
 
-一个设置了 overflow:hidden 声明的元素，假设同时存在 border 属性和 padding 属性，这当子元素内容超出容器宽高限制时，裁剪的边界是 border box 的内边缘，而非 padding box 的内边缘。
+一个设置了 overflow:hidden 声明的元素，假设同时存在 border 属性和 padding 属性，则当子元素内容超出容器宽高限制时，裁剪的边界是 border box 的内边缘，而非 padding box 的内边缘。
 
-这里顺便探讨下一个很经典的不兼容问题，即 Chrome 浏览器下，如果容器可滚动(假设是垂直滚动)，则 padding-bottom 也算在滚动尺寸之内，而 IE 和 Firefox 则会忽略 padding-bottom。正因为存在此不兼容问题，实际开发中要尽量避免滚动容器设置 padding-bottom 值，除了样式表现不一致外，还会导致 scrollHeight 值不一样，这往往会给开发带来难以察觉的麻烦。
+这里顺便探讨下一个很经典的不兼容问题，即 Chrome 浏览器下，如果容器可滚动(假设是垂直滚动)，则 padding-bottom 也算在滚动尺寸之内，而 IE 和 Firefox 则会忽略 padding-bottom，即，当设置很大的 padding-bottom 时，Chrome 滚动到底部能看到很大的一块空白，而 IE 和 Firefox 下没有这块空白。正因为存在此不兼容问题，实际开发中要尽量避免滚动容器设置 padding-bottom 值，除了样式表现不一致外，还会导致 `scrollHeight` 值不一样，这往往会给开发带来难以察觉的麻烦。
 
 #### overflow-x 与 overflow-y
 
-如果 overflow-x 和 overflow-y 属性中的一个值设置为 visible 而另外一个设置为 scroll auto 或 hidden，则 visible 的样式表现会如同 auto。也就是说，除非 overflow-x 和 overflow-y 的属性值都是 visible，否则 visible 会被当成 atuo 来解析。换句话说，永远不可能实现一个方向溢出裁剪或滚动，而另一个方向内容溢出显示的效果。
+如果 overflow-x 和 overflow-y 属性中的一个值设置为 visible 而另外一个设置为 scroll、auto 或 hidden，则 visible 的样式表现会如同 auto。也就是说，除非 overflow-x 和 overflow-y 的属性值都是 visible，否则 visible 会被当成 atuo 来解析。换句话说，永远不可能实现一个方向溢出裁剪或滚动，而另一个方向内容溢出显示的效果。
 
 #### overflow 与滚动条
 
@@ -473,13 +495,13 @@ HTML 中有两个标签是默认可以产生滚动条的，一个是根元素 `<
 
 在 PC 端，尤其是 Windows 下，几乎所有浏览的滚动栏都会占据宽度，目前都是 17px。在移动端，滚动条一般采用悬浮模式，不会占据可用宽度。滚动栏占据宽度的特性有时候会给我们的布局带来不小的麻烦。
 
-如我们希望实现一个表格头固定、表格主体可以滚动的效果，常见的实现方法是使用双 `<table>`，表头是一个独立的 `<table>`，主体也是一个独立的 `<table>`，放在一个 overflow:auto 的元素中，如果滚动条不出现，两个表格可以完美对齐，但是一旦滚动条出现，主体表格可用宽度被压缩，表格列往往就无法完美对齐了。常用的解决方法有两种：一种是 table 元素使用固定的宽度值，但是距离右侧预留 17px 的间隙；另一种就是表格的最后一列不设定宽度，而前面的列都定时宽度。
+如我们希望实现一个表格头固定、表格主体可以滚动的效果，常见的实现方法是使用双 `<table>`，表头是一个独立的 `<table>`，主体也是一个独立的 `<table>`，放在一个 overflow:auto 的元素中，如果滚动条不出现，两个表格可以完美对齐，但是一旦滚动条出现，主体表格可用宽度被压缩，表格列往往就无法完美对齐了。常用的解决方法有两种：一种是 table 元素使用固定的宽度值，但是距离右侧预留 17px 的间隙；另一种就是表格的最后一列不设定宽度，而前面的列都定死宽度。
 
-当然，滚动栏占据宽度的特性的最大问题就是页面加载的时候水平居中的布局可能会产生晃动。这里分享一个可以让页面滚动条不发生晃动的小技巧：
+当然，滚动栏占据宽度的特性的最大问题就是页面加载的时候水平居中的布局可能会产生晃动。这里分享一个可以让页面滚动条不发生晃动的小技巧(最终的效果，出滚动条时会盖在 body 上面，页面不会发生晃动)：
 
 ```css
 html { overflow-y: scroll; } /* for IE8 任何时候都显示滚动条，简单粗暴 */
-:root { overflow-y: auto; overflow-x: hidden; }
+:root { overflow-y: auto; overflow-x: hidden; }  /* 滚动条来自这里的 auto */
 :root body { position: absolute; }
 body { width: 100vw; overflow: hidden; }
 ```
@@ -488,7 +510,7 @@ body { width: 100vw; overflow: hidden; }
 
 #### overflow 与锚点定位
 
-我所知道的基于 URL 地址的锚链实现锚点跳转的方法有两种，一种是 `<a>` 标签以及 `name` 属性，还有一种就是使用标签的 `id` 属性。
+我所知道的基于 URL 地址的锚链实现锚点跳转的方法有两种：`<a name="xxx">` 或 使用标签的 `id` 属性。
 
 ```html
 <a href="#1">发展历程</a>
@@ -498,7 +520,7 @@ body { width: 100vw; overflow: hidden; }
 
 下面两种情况可以触发锚点定位行为的发生
   * URL 地址中的锚链与锚点元素对应并有交互行为
-  * 可 focus 的锚点元素出于 focus 状态
+  * 可 focus 的锚点元素处于 focus 状态
 
 ```html
 <a href="#">返回顶部</a>
@@ -531,17 +553,7 @@ body { width: 100vw; overflow: hidden; }
 和常规元素相比，absolute 绝对定位元素的包含块有以下3个明显差异
   * 内联元素也可以作为包含块所在的元素
   * 包含块所在的元素不是父级块元素，而是最近的 position 不为 static 的祖先元素或根元素
-  * 边界是 padding box 而不是 content box
-
-对于绝对定位元素，height:100% 和 height:inherit 是不一样的，height:100% 是第一个具有定位属性值的祖先元素的高度，而 height:inherit 则是单纯地继承父元素的高度，在某些场景下非常好用。
-
-绝对定位元素的包裹性中的"宽度自适应性"其实也是相对于包含块来表现的。绝对定位元素默认的最大宽度就是包含块的宽度。
-
-**tip 案例说明**
-
-http://demo.cssworld.cn/6/5-1.php  http://demo.cssworld.cn/6/5-2.php
-
-要修复此问题其实很简单，只要改变默认的宽度显示类型，添加 `withe-space: nowrap` 即可
+  * 边界是 **padding box** 而不是 **content box**
 
 <div class="demo">
   <style>
@@ -562,6 +574,16 @@ http://demo.cssworld.cn/6/5-1.php  http://demo.cssworld.cn/6/5-2.php
   <div class="desc">边界是 padding box 而不是 content box 也不是 border box</div>
 </div>
 
+对于绝对定位元素，**height:100%** 和 **height:inherit** 是不一样的，height:100% 是第一个具有定位属性值的祖先元素的高度，而 height:inherit 则是单纯地继承父元素的高度，在某些场景下非常好用。
+
+绝对定位元素的包裹性中的"宽度自适应性"其实也是相对于包含块来表现的。绝对定位元素默认的最大宽度就是包含块的宽度。
+
+**tip 案例说明**
+
+http://demo.cssworld.cn/6/5-1.php  http://demo.cssworld.cn/6/5-2.php
+
+要修复此问题其实很简单，只要改变默认的宽度显示类型，添加 `withe-space: nowrap` 即可
+
 #### 具有相对特性的无依赖绝对定位 position:absolute + margin
 
 虽然 absolute 破坏正常的流来实现自己的特性表现，但本身还是受普通的流体元素布局、位置甚至一些内联相关属性影响的。
@@ -573,7 +595,7 @@ absolute 定位效果实现完全不需要父元素设置 position 为 relative 
 我们经常会在导航右上方增加一个 NEW 或 HOT 这样的小图标。要实现在导航文字右上方的定位很简单，直接对图标元素进行样式设定就可以了，原纯文字导航的样式完全不需要修改。
 
 ```css
-.icon-hot { position: absolute; margin: -6px 0 0 2px; width: 28px; height: 11px; background: url(hot.gif) }
+.icon-x { position: absolute; margin: -6px 0 0 2px; width: 28px; height: 11px; background: url(x.gif) }
 ```
 
 一个简简单单的 positon:absolute，然后通过 margin 属性进行定位，效果即达成。设想一下，如果给父元素设置 position:relative 然后 right/top 定位，文字长度一旦发生变化，CSS 代码就要重新调整，维护成本显然要高很多。
@@ -633,17 +655,21 @@ absolute 定位效果实现完全不需要父元素设置 position 为 relative 
 虽然说元素 position:absolute 后的 display 计算值都是块状的，但是其定位的位置和没有设置 absolute 时的位置相关。
 
 ```html
-<h3>标题<span class="follow">span</span></h3>
-<h3>标题<div class="follow">div</div></h3>
+<h3>标题<span class="follow">span</span>.。.。.</h3>
+<h3>标题<div class="follow">div</div>.。.。.</h3>
 ```
 
 标题后面分别跟了一个 span 和 div，当添加样式 .follow { position: absolute; } 后，看到的效果还和没有添加绝对定位样式时一样，一个在后面，一个在下面。
 
+<div class="demo">
+  <style>.d651-follow { position: absolute; }</style>
+  <h3>标题<span class="d651-follow">span</span>.。.。.</h3>
+  <h3>标题<div class="d651-follow">div</div>.。.。.</h3>
+</div>
+
 #### absolute 与 overflow
 
-如果 overflow 不是定位元素，同时绝对定位元素和 overflow 容器之间也没有定位元素，则 overflow 无法对 absolute 元素进行裁剪。
-
-如果 overflow 的属性值不是 hidden 而是 auto 或者 scroll，即使绝对定位元素高度比 overflow 元素高宽还要大，也都不会出现滚动条。
+如果 overflow 所在元素不是定位元素，同时此绝对定位元素和 overflow 容器之间也没有定位元素，则 overflow 无法对 absolute 所在元素进行裁剪。如果 overflow 的属性值不是 hidden 而是 auto 或者 scroll，即使绝对定位元素高度比 overflow 元素高宽还要大，也都不会出现滚动条。
 
 #### absolute 与 clip
 
@@ -665,7 +691,7 @@ clip 隐藏仅仅是决定了哪部分是可见的，非可见部分无法响应
 
 当一个绝对定位元素，其对立定位方向属性同时有具体定位数值的时候，流体特性就发生了。设置了对立定位属性的绝对定位元素的表现神似普通的 div 元素，无论设置 padding 还是 margin，其占据的空间一直不变，变化的就是 content box 的尺寸，这就是典型的流体表现特性。
 
-绝对定位元素宽高自适应于包含块，绝对定位元素的这种流体特性比普通元素要更强大，普通元素流体特性只有一个方向，默认是水平方向，但绝对定位元素可以让垂直方向和水平方向同时保持流动性。在垂直方向也保持流动性对布局非常有价值。
+绝对定位元素宽高自适应于包含块(就是那个 position 非 static 的元素)，绝对定位元素的这种流体特性比普通元素要更强大，普通元素流体特性只有一个方向，默认是水平方向，但绝对定位元素可以让垂直方向和水平方向同时保持流动性。在垂直方向也保持流动性对布局非常有价值。
 
 当绝对定位元素出于流体状态的时候，各个盒模型相关属性的解析和普通流体元素都是一模一样的，margin 负值可以让元素的尺寸更大，margin:auto 可以让绝对定位元素保持居中。
 

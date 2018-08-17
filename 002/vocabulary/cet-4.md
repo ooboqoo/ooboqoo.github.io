@@ -960,7 +960,7 @@ a mark that is difficult to remove, especially one made by a dark liquid
 联 memory  _/ˈmeməri/_  n.记忆,记忆力; 回忆; 存储(器)  
 
 联 rival  _/ˈraɪvəl/_  n.竞争者,对手 v.竞争,对抗; 能与…媲美  
-联 contest  _/ˈkɒntest/_  n.竞赛,比赛 v.角逐  
+联 contest  _/ˈkɒntest/_  n.竞赛,比赛 v.角逐  contest 专指比赛，而 competition 指竞争，面更广  
 联 compete  _/kəmˈpiːt/_  vi.比赛; 竞争; 对抗  
 联 competition  _/ˌkɒmpəˈtɪʃən/_  n.竞争,比赛; 角逐; 竞争对手  
 联 competitor  _/kəmˈpetətə, -tɪtə/_  n.选手,参赛者  
@@ -1160,7 +1160,7 @@ change, alter, convert, modify, transfigure, transform, transmogrify, transmute
 联 heap  _/hiːp/_  n.尤指杂乱的一堆 v.堆放  a large messy pile of things  
 联 leap  _/liːp/_  v.跳,跳跃 n.跳跃,飞跃  
 
-联 peculiar  _/pɪˈkjuːliə $ -ər/_  a.怪异的,古怪的; 独特的  
+联 peculiar  _/pɪˈkjuːliə $ -ər/_  a.怪异的,古怪的  
 联 strange  _/streɪndʒ/_  a.奇怪的; 陌生的  
 联 curious  _/ˈkjʊəriəs $ ˈkjʊr-/_  a.求知欲强的,好奇的; 稀奇古怪的  
 

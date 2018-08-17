@@ -190,7 +190,8 @@ $ git checkout <branch-name>    # 切换到某个分支
 $ git checkout HEAD~2           # 往回退2个commit，这对于快速查看项目旧版本来说非常有用
   # 此时工作在 detached HEAD 模式，所做的修改在切换到普通分支后将无法找回，除非你新建分支 checkout -b
 $ git checkout -b newBrach origin/master  # 在 fetch 下来的 origin/master 的基础上创建一个新分支
-$ git checkout <file>           # 从最近的一次提交中取回文件并覆盖工作目录中的文件
+$ git checkout <files>          # 从最近的一次提交中取回文件并覆盖工作目录中的文件
+  # 示例  git checkout -- a.txt b.txt  /  git checkout -- "path/to/*.txt"
 
 $ git merge origin/master       # 将刚拉取下来的 master 合并到本地分支
 $ git merge topic               # 合并 topic 分支内容到当前分支
