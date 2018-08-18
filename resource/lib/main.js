@@ -265,6 +265,16 @@ function isMobile() {
     if (e.target.tagName === "A") {
       src = e.target.getAttribute("href");
 
+      // 允许不同目录间的跳转
+      if (src[0] === '/') { return }
+
+      // 打开站外链接
+      if (src.indexOf('http://') === 0 || src.indexOf('https://') === 0) {
+        window.open(src)
+        e.preventDefault()
+        return
+      }
+
       if (src !== localStorage.getItem(currentPath)) {
         loadPage(src);
         window.scrollTo(0, 0);

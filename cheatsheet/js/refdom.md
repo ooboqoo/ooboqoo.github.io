@@ -157,6 +157,13 @@ The following properties and methods can be used on HTML documents:
 
 注1：[DocumentFragment](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment) 的关键点: 片段是轻量级的Document; append时从片段内移出
 
+```js
+var domRect = element.getBoundingClientRect()  // IE9+ 支持
+// DOMRect object has eight properties: left, top, right, bottom, x, y, width, height
+// 除开 width height 其他几个都是相对于视口左上角计算得到的 px 值
+var rectCollection = object.getClientRects()
+```
+
 ### Warning !!!
 
 In the W3C DOM Core, the Document object inherits all properties and methods from the Node object. Many of these properties and methods make no sense used on documents.
@@ -185,98 +192,98 @@ In the W3C DOM Core, the Document object inherits all properties and methods fro
 
 The following properties and methods can be used on all HTML elements:
 
-<table>
-<tr><td><i>element</i>.accessKey</td><td>Sets or returns the accesskey attribute of an element</td></tr>
-<tr><td><i>element</i>.attributes</td><td>Returns a NamedNodeMap of an element's attributes</td></tr>
-<tr><td><i>element</i>.childElementCount</td><td>Returns the number of child elements an element has</td></tr>
-<tr><td><i>element</i>.childNodes</td><td>Returns a collection of an element's child nodes (including text and comment nodes)</td></tr>
-<tr><td><i>element</i>.children</td><td>Returns a collection of an element's child element (excluding text and comment nodes)</td></tr>
-<tr><td><i>element</i>.classList</td><td>Returns the class name(s) of an element</td></tr>
-<tr><td><i>element</i>.className</td><td>Sets or returns the value of the class attribute of an element</td></tr>
-<tr><td><i>element</i>.contentEditable</td><td>Sets or returns whether the content of an element is editable or not</td></tr>
-<tr><td><i>element</i>.clientHeight</td><td>元素的 padding box (content box + padding) 的高度</td></tr>
-<tr><td><i>element</i>.clientWidth</td><td>元素的 padding box (content box + padding) 的宽度</td></tr>
-<tr><td><i>element</i>.offsetHeight</td><td>元素的 border box (padding box + border) 的高度</td></tr>
-<tr><td><i>element</i>.offsetWidth</td><td>元素的 border box (padding box + border) 的宽度</td></tr>
-<tr><td><i>element</i>.clientLeft</td><td>`border-left-width` 的像素值</td></tr>
-<tr><td><i>element</i>.clientTop</td><td>`border-top-width` 的像素值</td></tr>
-<tr><td><i>element</i>.offsetLeft</td><td>左上角相对于 offsetParent 的水平偏移量</td></tr>
-<tr><td><i>element</i>.offsetTop</td><td>左上角相对于 offsetParent 的垂直偏移量</td></tr>
-<tr><td><i>element</i>.offsetParent</td><td>Returns the offset container of an element</td></tr>
-<tr><td><i>element</i>.dir</td><td>Sets or returns the value of the dir attribute of an element</td></tr>
-<tr><td><i>element</i>.firstChild</td><td>Returns the first child node of an element</td></tr>
-<tr><td><i>element</i>.firstElementChild</td><td>Returns the first child element of an element</td></tr>
-<tr><td><i>element</i>.id</td><td>Sets or returns the value of the id attribute of an element</td></tr>
-<tr><td><i>element</i>.innerHTML</td><td>Sets or returns the content of an element</td></tr>
-<tr><td><i>element</i>.outerHTML</td><td></td></tr>
-<tr><td><i>element</i>.isContentEditable</td><td>Returns true if the content of an element is editable, otherwise false</td></tr>
-<tr><td><i>element</i>.lang</td><td>Sets or returns the value of the lang attribute of an element</td></tr>
-<tr><td><i>element</i>.lastChild</td><td>Returns the last child node of an element</td></tr>
-<tr><td><i>element</i>.lastElementChild</td><td>Returns the last child element of an element</td></tr>
-<tr><td><i>element</i>.namespaceURI</td><td>Returns the namespace URI of an element</td></tr>
-<tr><td><i>element</i>.nextSibling</td><td>Returns the next node at the same node tree level</td></tr>
-<tr><td><i>element</i>.nextElementSibling</td><td>Returns the next element at the same node tree level</td></tr>
-<tr><td><i>element</i>.nodeName</td><td>Returns the name of a node</td></tr>
-<tr><td><i>element</i>.nodeType</td><td>Returns the node type of a node</td></tr>
-<tr><td><i>element</i>.nodeValue</td><td>Sets or returns the value of a node</td></tr>
-<tr><td><i>element</i>.ownerDocument</td><td>Returns the root element (document object) for an element</td></tr>
-<tr><td><i>element</i>.parentNode</td><td>Returns the parent node of an element</td></tr>
-<tr><td><i>element</i>.parentElement</td><td>Returns the parent element node of an element</td></tr>
-<tr><td><i>element</i>.previousSibling</td><td>Returns the previous node at the same node tree level</td></tr>
-<tr><td><i>element</i>.previousElementSibling</td><td>Returns the previous element at the same node tree level</td></tr>
-<tr><td><i>element</i>.scrollHeight</td><td>Returns the entire height of an element, including padding</td></tr>
-<tr><td><i>element</i>.scrollLeft</td><td>Sets or returns the number of pixels an element's content is scrolled horizontally</td></tr>
-<tr><td><i>element</i>.scrollTop</td><td>Sets or returns the number of pixels an element's content is scrolled vertically</td></tr>
-<tr><td><i>element</i>.scrollWidth</td><td>Returns the entire width of an element, including padding</td></tr>
-<tr><td><i>element</i>.style</td><td>Sets or returns the value of the style attribute of an element</td></tr>
-<tr><td><i>element</i>.tabIndex</td><td>Sets or returns the value of the tabindex attribute of an element</td></tr>
-<tr><td><i>element</i>.tagName</td><td>Returns the tag name of an element</td></tr>
-<tr><td><i>element</i>.textContent</td><td>Sets or returns the textual content of a node and its descendants</td></tr>
-<tr><td><i>element</i>.title</td><td>Sets or returns the value of the title attribute of an element</td></tr>
-</table>
+||
+-----------------------|------------------------------------------------------
+_element_.accessKey    | Sets or returns the accesskey attribute of an element
+_element_.attributes   | Returns a NamedNodeMap of an element's attributes
+_element_.childElementCount | Returns the number of child elements an element has
+_element_.childNodes   | Returns a collection of an element's child nodes (including text and comment nodes)
+_element_.children     | Returns a collection of an element's child element (excluding text and comment nodes)
+_element_.classList    | Returns the class name(s) of an element
+_element_.className    | Sets or returns the value of the class attribute of an element
+_element_.contentEditable | Sets or returns whether the content of an element is editable or not
+_element_.clientHeight | 元素的 padding box (content box + padding) 的高度
+_element_.clientWidth  | 元素的 padding box (content box + padding) 的宽度
+_element_.offsetHeight | 元素的 border box (padding box + border) 的高度
+_element_.offsetWidth  | 元素的 border box (padding box + border) 的宽度
+_element_.clientLeft   | `border-left-width` 的像素值
+_element_.clientTop    | `border-top-width` 的像素值
+_element_.offsetLeft   | 左上角相对于 offsetParent 的水平偏移量
+_element_.offsetTop    | 左上角相对于 offsetParent 的垂直偏移量
+_element_.scrollWidth  | Returns the entire width of an element, including padding
+_element_.scrollHeight | Returns the entire height of an element, including padding
+_element_.offsetParent | Returns the offset container of an element
+_element_.dir          | Sets or returns the value of the dir attribute of an element
+_element_.firstChild   | Returns the first child node of an element
+_element_.firstElementChild  | Returns the first child element of an element
+_element_.id           | Sets or returns the value of the id attribute of an element
+_element_.innerHTML    | Sets or returns the content of an element
+_element_.outerHTML    | 
+_element_.isContentEditable  | Returns true if the content of an element is editable, otherwise false
+_element_.lang         | Sets or returns the value of the lang attribute of an element
+_element_.lastChild    | Returns the last child node of an element
+_element_.lastElementChild   | Returns the last child element of an element
+_element_.namespaceURI       | Returns the namespace URI of an element
+_element_.nextSibling        | Returns the next node at the same node tree level
+_element_.nextElementSibling | Returns the next element at the same node tree level
+_element_.nodeName        | Returns the name of a node
+_element_.nodeType        | Returns the node type of a node
+_element_.nodeValue       | Sets or returns the value of a node
+_element_.ownerDocument   | Returns the root element (document object) for an element
+_element_.parentNode      | Returns the parent node of an element
+_element_.parentElement   | Returns the parent element node of an element
+_element_.previousSibling | Returns the previous node at the same node tree level
+_element_.previousElementSibling | Returns the previous element at the same node tree level
+_element_.scrollLeft      | Sets or returns the number of pixels an element's content is scrolled horizontally
+_element_.scrollTop       | Sets or returns the number of pixels an element's content is scrolled vertically
+_element_.style           | Sets or returns the value of the style attribute of an element
+_element_.tabIndex        | Sets or returns the value of the tabindex attribute of an element
+_element_.tagName         | Returns the tag name of an element
+_element_.textContent     | Sets or returns the textual content of a node and its descendants
+_element_.title           | Sets or returns the value of the title attribute of an element
 
-<table>
-<tr><td><i>element</i>.addEventListener()</td><td>Attaches an event handler to the specified element</td></tr>
-<tr><td><i>element</i>.removeEventListener()</td><td>Removes an event handler that has been attached with the addEventListener() method</td></tr>
-<tr><td><i>element</i>.querySelector()</td><td>Returns the first child element that matches a specified CSS selector(s) of an element</td></tr>
-<tr><td><i>element</i>.querySelectorAll()</td><td>Returns all child elements that matches a specified CSS selector(s) of an element</td></tr>
-<tr><td><i>element</i>.getElementsByClassName()</td><td>Returns a collection of all child elements with the specified class name</td></tr>
-<tr><td><i>element</i>.getElementsByTagName()</td><td>Returns a collection of all child elements with the specified tag name</td></tr>
-<tr><td><i>element</i>.normalize()</td><td>Joins adjacent text nodes and removes empty text nodes in an element</td></tr>
-<tr><td><i>element</i>.focus()</td><td>Gives focus to an element</td></tr>
-<tr class="separator"><td>&nbsp;</td><td></td></tr>
-<tr><td><i>element</i>.hasAttribute()</td><td>Returns true if an element has the specified attribute, otherwise false</td></tr>
-<tr><td><i>element</i>.hasAttributes()</td><td>Returns true if an element has any attributes, otherwise false</td></tr>
-<tr><td><i>element</i>.setAttribute()</td><td>Sets or changes the specified attribute, to the specified value</td></tr>
-<tr><td><i>element</i>.getAttribute()</td><td>Returns the specified attribute value of an element node</td></tr>
-<tr><td><i>element</i>.removeAttribute()</td><td>Removes a specified attribute from an element</td></tr>
-<tr><td><i>element</i>.setAttributeNode()</td><td>Sets or changes the specified attribute node</td></tr>
-<tr><td><i>element</i>.removeAttributeNode()</td><td>Removes a specified attribute node, and returns the removed node</td></tr>
-<tr><td><i>element</i>.getAttributeNode()</td><td>Returns the specified attribute node</td></tr>
-<tr class="separator"><td>&nbsp;</td><td></td></tr>
-<tr><td><i>element</i>.appendChild()</td><td>Adds a new child node, to an element, as the last child node</td></tr>
-<tr><td><i>element</i>.removeChild()</td><td>Removes a child node from an element</td></tr>
-<tr><td><i>element</i>.replaceChild()</td><td>Replaces a child node in an element</td></tr>
-<tr><td><i>element</i>.insertBefore()</td><td>Inserts a new child node before a specified, existing, child node</td></tr>
-<tr><td><i>element</i>.hasChildNodes()</td><td>Returns true if an element has any child nodes, otherwise false</td></tr>
-<tr><td><i>element</i>.isEqualNode()</td><td>Checks if two elements are equal</td></tr>
-<tr><td><i>element</i>.isSameNode()</td><td>Checks if two elements are the same node</td></tr>
-<tr class="separator"><td>&nbsp;</td><td></td></tr>
-<tr><td><i>element</i>.blur()</td><td>Removes focus from an element</td></tr>
-<tr><td><i>element</i>.click()</td><td>Simulates a mouse-click on an element<br>支持input元素，不适合a元素，其他元素待确认</td></tr>
-<tr><td><i>element</i>.cloneNode(deep)</td><td>复制一个节点，如果 deep 为 true 则会递归复制子节点。拷贝带属性不带绑定的事件</td></tr>
-<tr><td><i>element</i>.compareDocumentPosition()</td><td>Compares the document position of two elements</td></tr>
-<tr><td><i>element</i>.contains()</td><td>Returns true if a node is a descendant of a node, otherwise false</td></tr>
-<tr><td><i>element</i>.getFeature()</td><td>Returns an object which implements the APIs of a specified feature</td></tr>
-<tr><td><i>element</i>.isDefaultNamespace()</td><td>Returns true if a specified namespaceURI is the default, otherwise false</td></tr>
-<tr><td><i>element</i>.isSupported()</td><td>Returns true if a specified feature is supported on the element</td></tr>
-<tr><td><i>element</i>.toString()</td><td>Converts an element to a string</td></tr>
-</table>
+||
+----------------------------------|----------------------------------------------
+_element_.addEventListener()    | Attaches an event handler to the specified element
+_element_.removeEventListener() | Removes an event handler that has been attached with the addEventListener() method
+_element_.querySelector()    | Returns the first child element that matches a specified CSS selector(s) of an element
+_element_.querySelectorAll() | Returns all child elements that matches a specified CSS selector(s) of an element
+_element_.getElementsByClassName() | Returns a collection of all child elements with the specified class name
+_element_.getElementsByTagName()   | Returns a collection of all child elements with the specified tag name
+_element_.normalize() | Joins adjacent text nodes and removes empty text nodes in an element
+_element_.focus()     | Gives focus to an element
+|
+_element_.hasAttribute()  | Returns true if an element has the specified attribute, otherwise false
+_element_.hasAttributes() | Returns true if an element has any attributes, otherwise false
+_element_.setAttribute()  | Sets or changes the specified attribute, to the specified value
+_element_.getAttribute()  | Returns the specified attribute value of an element node
+_element_.removeAttribute()     | Removes a specified attribute from an element
+_element_.setAttributeNode()    | Sets or changes the specified attribute node
+_element_.removeAttributeNode() | Removes a specified attribute node, and returns the removed node
+_element_.getAttributeNode()    | Returns the specified attribute node
+|
+_element_.appendChild()   | Adds a new child node, to an element, as the last child node
+_element_.removeChild()   | Removes a child node from an element
+_element_.replaceChild()  | Replaces a child node in an element
+_element_.insertBefore()  | Inserts a new child node before a specified, existing, child node
+_element_.hasChildNodes() | Returns true if an element has any child nodes, otherwise false
+_element_.isEqualNode()   | Checks if two elements are equal
+_element_.isSameNode()    | Checks if two elements are the same node
+|
+_element_.blur()  | Removes focus from an element
+_element_.click() | Simulates a mouse-click on an element<br>支持input元素，不适合a元素，其他元素待确认
+_element_.cloneNode(deep) | 复制一个节点，如果 deep 为 true 则会递归复制子节点。拷贝带属性不带绑定的事件
+_element_.compareDocumentPosition() | Compares the document position of two elements
+_element_.contains()    | Returns true if a node is a descendant of a node, otherwise false
+_element_.getFeature()  | Returns an object which implements the APIs of a specified feature
+_element_.isDefaultNamespace() | Returns true if a specified namespaceURI is the default, otherwise false
+_element_.isSupported() | Returns true if a specified feature is supported on the element
+_element_.toString()    | Converts an element to a string
 
-<table>
-<tr><td><em>nodelist</em>.length</td><td>Returns the number of nodes in a NodeList</td></tr>
-<tr><td><em>nodelist</em>.item()</td><td>Returns the node at the specified index in a NodeList</td></tr>
-</table>
+||
+------------------|-------------------------------------------------------
+_nodelist_.length | Returns the number of nodes in a NodeList
+_nodelist_.item() | Returns the node at the specified index in a NodeList
 
 注: `textContent` 源于 FF，而 `innerText` 源于 IE，现代浏览器中两种并存，但实现稍有[不同](http://www.jb51.net/article/25082.htm)，`innerText` 包含换行等信息，更接近于网页上看到的样子，而 `textContent` 是更纯粹的文本。
 
@@ -363,11 +370,11 @@ https://developer.mozilla.org/en-US/docs/Web/Events
 
 ### Keyboard Events
 
-<table>
-  <tr><td>onkeydown</td><td>The event occurs when the user is pressing a key</td><td>2</td></tr>
-  <tr><td>onkeypress</td><td>The event occurs when the user presses a key</td><td>2</td></tr>
-  <tr><td>onkeyup</td><td>The event occurs when the user releases a key</td><td>2</td></tr>
-</table>
+|||
+----------|--------------------------------------------------|-----
+keydown   | The event occurs when the user is pressing a key | 2
+keyup     | The event occurs when the user releases a key    | 2
+keypress  | The event occurs when the user presses a key     | 2
 
 ### Frame/Object Events
 
@@ -386,19 +393,28 @@ https://developer.mozilla.org/en-US/docs/Web/Events
 
 ### Form Events
 
-<table>
-  <tr><td>onblur</td><td>The event occurs when an element loses focus</td><td>2</td></tr>
-  <tr><td>onchange</td><td>The event occurs when the content of a form element, the selection, or the checked state have changed (for &lt;input&gt;, &lt;keygen&gt;, &lt;select&gt;, and &lt;textarea&gt;)</td><td>2</td></tr>
-  <tr><td>onfocus</td><td>The event occurs when an element gets focus</td><td>2</td></tr>
-  <tr><td>onfocusin</td><td>The event occurs when an element is about to get focus</td><td>2</td></tr>
-  <tr><td>onfocusout</td><td>The event occurs when an element is about to lose focus</td><td>2</td></tr>
-  <tr><td>oninput</td><td>The event occurs when an element gets user input</td><td>3</td></tr>
-  <tr><td>oninvalid</td><td>The event occurs when an element is invalid</td><td>3</td></tr>
-  <tr><td>onreset</td><td>The event occurs when a form is reset</td><td>2</td></tr>
-  <tr><td>onsearch</td><td>The event occurs when the user writes something in a search field (for &lt;input=&quot;search&quot;&gt;)</td><td>3</td></tr>
-  <tr><td>onselect</td><td>The event occurs after the user selects some&nbsp;text (for &lt;input&gt; and &lt;textarea&gt;)</td><td>2</td></tr>
-  <tr><td>onsubmit</td><td>The event occurs when a form is submitted</td><td>2</td></tr>
-</table>
+|||
+---------|----------------------------------------------------------|-------
+blur     | The event occurs when an element loses focus             | 2
+change   | The event occurs when the content of a form element, the selection, or the checked state have changed (for `input` `keygen` `select` and `textarea`) |  2
+focus    |  The event occurs when an element gets focus             | 2
+focusin  |  The event occurs when an element is about to get focus  | 2
+focusout |  The event occurs when an element is about to lose focus | 2
+input    |  The event occurs when an element gets user input        | 3
+invalid  |  The event occurs when an element is invalid             | 3
+reset    |  The event occurs when a form is reset                   | 2
+search   |  The event occurs when the user writes something in a search field `<input="search">`   | 3
+select   |  The event occurs after the user selects some text (for `input` and `textarea`)         | 2
+submit   |  The event occurs when a form is submitted  | 2
+
+||
+------------------|--------------------------------------------------------------------
+compositionend    | 使用输入法输入完成时，会触发一次该事件，**很适合用在中文过滤场合**
+compositionupdate | 使用输入法输入中文时，触发频率同 input，且先于 input 触发
+compositionstart  | 使用输入法输入时，会触发一次该事件
+
+注：如果没有出输入法(如直接输入英文字符)，则不会触发 composition+ 相关事件  
+注：`InputEvent.isComposing` `KeyboardEvent.isComposing` 等可以 indicating if the event is fired after compositionstart and before compositionend，但目前浏览器支持情况很差，所以可以先自己维护这个 isComposing 变量
 
 ### Drag Events
 

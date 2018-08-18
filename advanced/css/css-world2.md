@@ -818,4 +818,10 @@ CSS3 新世界的出现除了带来了新属性，还对过去的很多规则发
 
 所谓层级计数器，实际上就是一段 JS 脚本，会遍历所有 body 出于现实状态的子元素，并得到最大 z-index 值，和默认 z-index 做比较。如果超出，则显示的组件的 z-index 自动加1。默认的 z-index 值我习惯设成 9。
 
+```js
+Array.from(document.all)
+  .map(e => +window.getComputedStyle(e).zIndex || 0)
+  .reduce((acc, val) => val > 999 ? acc : Math.max(acc, val), 9)
+```
+
 页面上主体元素遵循 z-index "不犯二"准则，浮层元素 z-index "层级计数器"双管齐下，从此和 z-index 问题说拜拜。

@@ -61,7 +61,10 @@ concatenate 把...连在一起，扩展命令 tac 则是最后一行到第一行
 
 #### cat, tac, nl, more, less, head, tail, od
 
-`nl` 显示带行号；`head` 只看头几行；`tail` 只看结尾几行；`od` 以二进制的方式读取文件内容
+`nl` 显示带行号  
+`head` 只看头几行  
+`tail` 只看结尾几行  
+`od` 以二进制的方式读取文件内容  octal, decimal, hex, ASCII dump  
 
 #### `find` 查找文件
 
@@ -71,8 +74,10 @@ concatenate 把...连在一起，扩展命令 tac 则是最后一行到第一行
 
 #### find, locate, whereis, which
 
-`which` 使用的是哪个位置的命令； `whereis` 查命令和手册；  
-`locate` 通过数据库快速查找文件；`find` 功能强大的实时查找工具，速度较慢。
+`which` 使用的是哪个位置的命令  
+`whereis` 查命令和手册  
+`locate` 通过数据库快速查找文件  
+`find` 功能强大的实时查找工具，速度较慢  
 
 #### `ln` 创建链接文件
 
@@ -174,28 +179,29 @@ $ groupadd [-g gid][-r]  # -g 直接指定用户组；-r 新建系统用户组
 
 ## 进程管理 17章
 
-| | |
-|:--------------:|:-----------------------------------------------------
-| `&`            | 这个用在一个命令的最后，可以把这个命令放到后台执行
-| `^Z`           | 将一个正在前台执行的命令放到后台，并且暂停
-| `jobs`         | 查看当前有多少在后台运行的命令
-| `ps -ef`       | 列出系统中正在运行的进程 processes snapshot
-| `fg [%jobnum]` | 将后台中的命令调至前台继续运行
-| `bg [%jobnum]` | 将一个在后台暂停的命令，变成继续执行
-| `kill`         | 发送信号给一个或多个进程（经常用来杀死一个进程）
+||
+:-------------:|:-----------------------------------------------------
+`&`            | 这个用在一个命令的最后，可以把这个命令放到后台执行
+`^Z`           | 将一个正在前台执行的命令放到后台，并且暂停
+`jobs`         | 查看当前有多少在后台运行的命令
+`ps -ef`       | 列出系统中正在运行的进程 processes snapshot
+`fg [%jobnum]` | 将后台中的命令调至前台继续运行
+`bg [%jobnum]` | 将一个在后台暂停的命令，变成继续执行
+`kill`         | 发送信号给一个或多个进程（经常用来杀死一个进程）
+`top`          | linux下的任务管理器 h 帮助 q 退出 k+PID 结束进程 table of process
 
 
 ## 磁盘管理
 
-#### `df -h` 查看磁盘空间占用
+#### `df -h` 显示已经挂载的分区列表
 
-df (disk free) is a standard Unix command used to display the amount of available disk space for file systems.
+df -- display free disk space
   * `-h` 以人类易读的格式展现 K M G
   * `-T` 打印磁盘格式
 
 #### `du -hd1 /home` 统计目录下文件磁盘占用
 
-df estimate file space usage. 递归列出某个目录下的所有文件的空间占用
+du -- display disk usage statistics 递归列出某个目录下的所有文件的空间占用
   * `-h` 以人类易读的格式展现 K M G
   * `-d{N} --max-depth=N` 指定递归显示的最大层级 N
 

@@ -142,10 +142,14 @@ for (let i of iterable) { console.log(i) }            // logs 3, 5, 7
 `void` 运算符通常用于避免输出不应该输出的值，`<a href="javascript:void(window.open('about:blank'))">click me</a>`
 
 ```js
+void 5  // undefined
+void(5) // undefined
+```
+
+```js
 // 递增/减运算符类型转换试验：
 let i = '5', j = '5';
 '5' === i--;  // false, i: 4，数值转换永远是个坑，尽量要避免  // 原因分析，实际效果 '5' === 5
-'5' ==  j--;  // true,  j: 4
 ```
 
 ### 算术运算符 Arithmetic operators

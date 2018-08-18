@@ -64,8 +64,13 @@ downtown  ad.在城市的商业区 a.n.城市商业区的
 
 snack n. 小吃;便餐  a small amount of food that is eaten between main meals or instead of a meal  
 
+crane /kreɪn/ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)伸长(脖子)，探头 She craned forward to look at me.  
+represent v.代表个人或团体出席
 
-
+cupboard  _/ˈkʌbəd/_  n.橱柜(英国英语中，cupboard 指所有类似的家具；而在美国英语中，常用 closet 来指较大的此类家具)  
+wardrobe  _/ˈwɔːrdroʊb/_  n.衣柜,衣橱；A wardrobe is a tall cupboard or cabinet in which you can hang your clothes.  
+closet  _/ˈklɒzɪt/_  n. [美] a cupboard built into the wall of a room from the floor to the ceiling  **comes out of the closet** 公开同性恋身份  
+cabinet  _/ˈkæbɪnət/_  n.内阁,内阁会议; (带玻璃门存物品的)橱柜
 
 ## 忘
 
@@ -1200,7 +1205,7 @@ change, alter, convert, modify, transfigure, transform, transmogrify, transmute
 联 spirits  _/ˈspɪrəts, ˈspɪrɪts/_  n.(英)(威士忌、杜松子酒等)烈性酒; 酒精  spirit 精神; 灵魂  
 联 alcohol  _/ˈælkəhɒl/_  n.酒精,乙醇; 含酒精的饮料  
 
-联 trail  _/treɪl/_  n.乡间小路; 踪迹 v.跟踪; 拖拽  
+联 trail  _/treɪl/_  n.乡间小路,林间小道; 踪迹 v.跟踪; 拖拽  
 联 trace  _/treɪs/_  n.痕迹,踪迹 v.追溯; 查出; 描绘  
 
 联 guy  _/ɡaɪ/_  n.男人; 小伙子; 家伙  
