@@ -470,6 +470,16 @@ extremely good in a way that impresses you or makes you very pleased
 析 splendid  _/ˈsplendəd,-ɪd/_  a.壮丽的  beautiful and impressive  
 析 spectacular  _/spekˈtækjələ/_  a.壮观的,引人注目的 n.盛大的演出  
 
+析 beautiful  _//_  
+析 lovely  _//_  
+析 pretty  _//_  
+析 attractive  _//_  
+析 magnificent  _/mæɡˈnɪfɪsənt/_  a.华丽的;宏伟的 very big, beautiful, and impressive
+析 picturesque  _//_  
+析 stunning/breathtaking  _//_  
+析 exquisite  _/ɪkˈskwɪzət/_  
+析 elegant  _//_  
+
 析 stale  _/steɪl/_  (食物)不新鲜的,变质的; 厌倦的; 令人厌倦的  
 析 rotten  _/ˈrɑːtn/_  a.腐烂的,腐朽的  
 析 rot  _/rɒt $ rɑːt/_  v./n.(使)变质
@@ -623,8 +633,9 @@ to take another person's child into your home for a period of time, without beco
 析 bacon  _/ˈbeɪkən/_  n.咸猪肉,熏猪肉  
 
 析 clerk  _/klɑːk $ klɜːrk/_  n.职员,办事员; 店员  
-析 staff  _/stɑːf $ stæf/_  n.(一组织的)全体工作人员; (全体工作人员中的)部分成员  I’d like to welcome a new member of staff.  
-析 crew  _/kruː/_  n.全体船员,全体乘务员; (有专门技术的)一组工作人员  He joined the crew of a large fishing boat.
+析 staff  _/stɑːf $ stæf/_  n.(一组织的)全体工作人员; (全体工作人员中的)部分成员  a new member of staff  
+析 crew  _/kruː/_  n.全体船员,全体乘务员; (有专门技术的)一组工作人员  He joined the crew of a large fishing boat.  
+联 faculty  _/ˈfækəlti/_  n.(大学、学院或院系的)全体教员
 
 析 revenue  _/ˈrevənjuː/_  n.财政收入,税收; (公司、组织的)收入  
 析 income  _/ˈɪŋkʌm, ˈɪn-/_  n.收入,收益,所得    较口语,一般只个人的收入,也用于公司.会计上revenue指收入income指盈利  
@@ -1058,8 +1069,8 @@ an important victory or success after a difficult struggle
 联 defiance  _/dɪˈfaɪəns/_  n.违抗; 蔑视; 挑战  
 
 联 battle  _/ˈbætl/_  n.战役,战斗; 斗争  
-联 combat  _/ˈkɒmbæt/_  n.战斗,搏斗,格斗  
-联 conflict  _/ˈkɒnflɪkt/_  n.争执; 内心冲突; 军事冲突v.冲突  
+联 combat  _/ˈkɒmbæt/_  n.格斗,搏斗,战斗  
+联 conflict  _/ˈkɒnflɪkt/_  n.争执;内心冲突;军事冲突 v.冲突  
 
 联 liable  _/ˈlaɪəbəl/_  a.(to)有...倾向的; 可能遭受...的; (for)在法律上有责任的  
 联 responsible  _/rɪˈspɒnsəbəl/_  a.(for,to)应负责的; 可靠的; 责任重大的  

@@ -263,8 +263,14 @@ $ git tag -a v1.4 -m 'version 1.4'  # 创建一个附注标签 annotated，包�
 $ git tag v1.4                      # 创建一个轻量标签 lightweight，不包含详细信息，适用于临时标签
 $ git show v1.4                     # 查看标签信息
 $ git tag -a v1.2 9fceb02           # 给历史提交补打标签，需提供 SHA-1 校验值
+$ git tag -d v1.4                   # 删除一个标签
+$ git tag -f v1.4                   # 删除原有的 v1.4 标签重新在当前提交上打标签
+$ git tag                           # 查看本地标签
+$ git ls-remote --tags origin       # 列出远端所有标签
 $ git push origin v1.5              # git push 命令并不会传送标签, 你必须显式地推送标签到远程服务器
 $ git push origin --tags            # 也可以一次性推送所有不在远程服务器上的标签
+$ git push -d origin <tagname>      # 删除远端标签
+$ git push origin :tagname          # 删除远端标签
 # Git 中你并不能真的检出一个标签，因为它们并不能像分支一样来回移动。如果你想要工作目录与仓库中特定的标签版本完全一样，可以使用 `git checkout -b [branchname] [tagname]` 在特定的标签上创建一个新分支：
 $ git checkout -b version2 v2.0.0
 ```
