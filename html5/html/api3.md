@@ -125,8 +125,6 @@ otherWindow.postMessage(message, targetOrigin, [transfer]);
 
 实测 Chrome 还是会阻止消息，而 IE 正常，应该是 Chrome 的临时性 bug。[解决方案在这里](https://groups.google.com/a/chromium.org/forum/#!searchin/chromium-discuss/postMessage/chromium-discuss/RhgzRx7Dlu0/AtETniGqAgAJ)
 
-##### ~~通过 window.name 在不同框架间交互（经试验此方法已过时失效）~~
-
 
 ## Fetch API
 

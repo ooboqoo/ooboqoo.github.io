@@ -14,6 +14,8 @@ $ systemctl start nginx php-fpm   # 先进行配置，然后执行此命令启�
 ```bash
 $ nginx                                     # 启动
 $ nginx -s [stop | quit | reload | reopen]  # 启动后就可以通过 -s 执行后续操作了
+
+$ tail /var/log/nginx/error.log  # 查看错误日志
 ```
 
 
@@ -36,7 +38,11 @@ http {
         include /etc/nginx/default.d/*.conf;
 
         location /api {                            ## 配置反向代理
-          proxy_pass  http://127.0.0.1:3300;
+            proxy_pass  http://127.0.0.1:3300;
+        }
+
+        location ^~ /static {                      ## 配置子路径访问不同目录
+            alias /var/www/static
         }
 
         location ~ \.(jpg|jpeg|png|ico|js|css)$ {  ## 配置缓存时间
@@ -66,8 +72,9 @@ http {
 }
 ```
 
-
 ### location
+
+https://nginx.org/en/docs/http/ngx_http_core_module.html#location
 
 ```
 location [=|~|~*|^~] /uri/ { … }
@@ -87,8 +94,7 @@ location [=|~|~*|^~] /uri/ { … }
   * 最后是交给通用匹配`/`
   * 匹配成功即停止匹配
 
-
-## 部署 HTTPS
+### 部署 HTTPS
 
 https://letsencrypt.org/getting-started/   
 https://linuxstory.org/deploy-lets-encrypt-ssl-certificate-with-certbot/ 此文章值得参考下
@@ -123,7 +129,7 @@ server {
 }
 ```
 
-## 启用 gzip 压缩
+### 启用 gzip 压缩
 
 新建 /etc/nginx/conf.d/gzip.conf 并添加以下内容：
 
@@ -145,6 +151,30 @@ gzip_types text/plain text/css application/json application/javascript applicati
 curl -H "Accept-Encoding: gzip" -I http://www.ngapps.cn/
 ```
 
+### 配置 Combo 合并请求
 
-## 配置 Combo 合并请求
+
+### WebSocket 代理
+
+http://nginx.org/en/docs/http/websocket.html
+
+我配置时想把那个 map 干掉，结果就是不通，老老实实用就 OK
+
+```
+http {
+    map $http_upgrade $connection_upgrade {
+        default upgrade;
+        ''      close;
+    }
+    server {
+        ...
+        location /chat/ {
+            proxy_pass http://backend;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+        }
+    }
+}
+```
 
