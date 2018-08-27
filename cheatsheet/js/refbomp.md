@@ -86,19 +86,29 @@ xhr.send(formData);
 ## WebSocket
 
 ||
------------------------------|---------------------------
-WebSocket(_url, protocols?_) | 
+-------------------------------|----------------------------------------------------------------
+WebSocket(_url_, _protocols=''_) | protocols 可以是字符串，或含字符串的数字，用于自定义子协议类型
 |
-onclose    | 
-onerror    | 
-onmessage  | 
-onopen     | 
-protocol   | 
-readyState | 
-url        | 
+socket.url        | 只读, property returns the resolved absolute URL
+socket.readyState | 只读, `0`=`s.CONNECTING`  `1`=`s.OPEN`  `2`=`s.CLOSING` `3`=`s.CLOSED`
+socket.protocol   | 只读, 子协议类型
+socket.binaryType | 可写, 发送的二进制数据类型
+socket.bufferedAmount | 只读, 待发送数据的 bytes，连接关闭后再调用 send() 这个值不会被重置而是会一直增加
 |
-close()    | 
-send()     | 
+socket.onopen     | 注册连接成功时的监听器
+socket.onclose    | 注册关闭后的监听器
+socket.onerror    | 注册 error 事件监听器
+socket.onmessage  | 注册消息处理函数
+|
+socket.close(_code?_, _reason?_) | 关闭连接，可能抛异常：(`INVALID_ACCESS_ERR` 错误码写错) (`SYNTAX_ERR` 原因写太长)
+socket.send(_data_)             | 发送数据，可能抛异常或关闭连接 `send(data: string; ArrayBuffer; Blob)`
+
+
+注：`send` 方法可能抛异常(`INVALID_STATE_ERR` `SYNTAX_ERR`)或关闭连接: If the data can't be sent (for example, because it needs to be buffered but the buffer is full), the socket is closed automatically.
+
+注：服务器上用 ws 时，在已经关闭的连接上 send 数据，会导致应用退出。在客户端，实际测试，trycatch 不到错误，但控制台会报错。`new WebSocket(wsUri)` `send(data)` 的异常都捕获不到，但 `close()` 的错误能捕获到。  
+注：只读属性写了不会报错，只是静默失败。  
+注：所有 `on-*` 方法，可以改用 `addEventListener` 添加多个监听器。  
 
 ```js
 const socket = new WebSocket('ws://localhost:8080')

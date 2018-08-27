@@ -246,34 +246,21 @@ function receiveMessage(e) {
 
 ## WebSocket
 
-http://www.ibm.com/developerworks/cn/java/j-lo-WebSocket/
+`ws` 本质上一种计算机网络应用层的协议，用来弥补 `http` 协议在持久通信能力上的不足。
 
-服务器发送事件非常适合从服务器连续不断地接收消息。但整个通信完全是单向的，服务器无法知道浏览器是否响应，也不能进行更复杂的对话。
+WebSocket 是 HTML5 一种新协议。它实现了浏览器与服务器全双工通信，能更好的节省服务器资源和带宽并达到实时通讯，它建立在 TCP 之上，同 HTTP 一样通过 TCP 来传输数据。
 
 在 WebSocket 出现之前，如果你想创建一个应用，浏览器与服务器需要正式对话，那你很可能使用 XMLHttpRequest 对象。使用 XMLHttpRequest 对象在很多情况下没有问题，但同样也有很多情况不合适。首先， XMLHttpRequest 不适合快速地来回发送多条消息(如聊天室)。其次，没有办法将一次调用与下一次调用联系起来，每次网页发送请求，服务器都要确定请求来自何方。在这种情况下，要想把一系列请求关联起来，服务器端代码会变得非常复杂。
 
-还有一种方案基于 Flash，AdobeFlash 通过自己的 Socket 实现完成数据交换，再利用 Flash 暴露出相应的接口为 JavaScript 调用，从而达到实时传输目的。此方式比轮询要高效，且因为 Flash 安装率高，应用场景比较广泛，但在移动互联网终端上 Flash 的支持并不好。IOS 系统中没有 Flash 的存在，在 Android 中虽然有 Flash 的支持，但实际的使用效果差强人意。2012 年 Adobe 官方宣布不再支持 Android4.1+ 系统，宣告了 Flash 在移动终端上的死亡。
-
-传统 Web 模式在处理高并发及实时性需求的时候，会遇到难以逾越的瓶颈，我们需要一种高效节能的双向通信机制来保证数据的实时传输。在此背景下，基于 HTML5 规范的、有 Web TCP 之称的 WebSocket 应运而生。使用 WebSocket，浏览器能够保持对Web服务器打开的连接，从而与服务器长时间交换数据。WebSocket 标准让开发人员非常兴奋，而且已经获得多数浏览器的支持，但 IE 到 IE10 之后才支持。
+传统 Web 模式在处理高并发及实时性需求的时候，会遇到难以逾越的瓶颈，我们需要一种高效节能的双向通信机制来保证数据的实时传输。在此背景下，基于 HTML5 规范的、有 Web TCP 之称的 WebSocket 应运而生。使用 WebSocket，浏览器能够保持对 Web 服务器打开的连接，从而与服务器长时间交换数据。WebSocket 标准让开发人员非常兴奋，而且已经获得多数浏览器的支持，但 IE 到 IE10 之后才支持。
 
 提示：WebSocket 有点繁琐。比如，在支持它的浏览器上运行也会出问题，可能是因为电脑网络设置的限制、防火墙或者杀毒软件。
-可以连接 http://websocketstest.com 测试一下 WebSocket 能否工作。
-
-使用 WebSocket 之前，必须理解两点。第一，WebSocket 是一种专用手段，非常适合开发聊天室、大型多人游戏，或者端到端的协作工具。利用它能开发出很多新应用，但恐怕不太适合普通的Web应用(如电商网站)。
-第二，WebSocket 方案做起来可能会无比复杂。网页中的 js 代码很简单，可服务器端代码不好写，为此必须熟练掌握编程技能，而且要对多线程和网络模型有深刻理解。
-
-WebSocket 是 HTML5 一种新协议。它实现了浏览器与服务器全双工通信，能更好的节省服务器资源和带宽并达到实时通讯，它建立在 TCP 之上，同 HTTP 一样通过 TCP 来传输数据，但是它和 HTTP 最大不同是：
-
-* WebSocket 是一种双向通信协议，在建立连接后，WebSocket 服务器和 Browser/Client Agent 能主动的向对方发送或接收数据，就像 Socket 一样；
-* WebSocket 需要类似 TCP 的客户端和服务器端通过握手连接，连接成功后才能相互通信。
 
 ### 服务器
 
 为了使用 WebSocket，需要在服务器上运行一个程序(也叫 WebSocket 服务器)。这个程序负责协调各方通信，而且启动后就会不间断地运行下去。
 
 很多 Web 主机不允许长时间运行程序，如果你使用的是共享主机，那很可能无法创建使用 WebSocket 的网页。就算能启动，Web主机商也会检测它并把它关掉。
-
-多数开发人员都没有利用 Socket 创建过服务器端程序，因为这样做明显代价太大。最简单的办法是安装别人写好的 WebSocket 服务器，然后再设计网页来与之通信。
 
 ### 客户端
 
@@ -301,6 +288,30 @@ function disconnect () {
 如你所见，WebSocket 对象惊人地简单。事实上，我们已经介绍完它所有的方法和事件了。使用其他人写好的 WebSocket 服务器并不费事，只要知道发送什么消息，以及服务器会发回什么消息即可。
 
 注意：建立 WebSocket 连接时，后台其实会执行很多处理工作。首先，网页要使用常见的 HTTP 标准与服务器建立联系，然后再把连接“升级”到 WebSocket 连接，以便浏览器与服务器能够双向通信。此时，如果计算机与服务器之间有代理服务器(比如在公司网络中)，可能会遇到问题，代理服务器可能会拒绝请求并断开连接。对于这种问题，可以检测失败的连接(通过 onError 事件)，然后使用腻子脚本来作为后备，这些脚本会使用轮询来模拟 WebSocket 连接。
+
+### 其他问题项
+
+#### 会不会丢包或乱序
+
+https://www.zhihu.com/question/53960871/answer/137346451
+
+TCP 负责保证数据准确和完整性，应用层不需要考虑。理论上，如果你发了100个包，第一个没到，后面的先到了，那就都缓存着，API表现为你什么都没收到。要么第一个包重发后尽快到达，要么 buffer 满了傻逼，要么 TCP 自己觉得太久了决定掉线。
+
+TCP 是一个流式设备，是一个虚拟的连接。从 TCP 建立连接开始，到连接正常结束，所有的数据应看成一个整体，它保证的是发送端发送的这个整体和接收端接收的整体是一致的。例如，你整个 TCP 连接存在期间，发送端全部数据是 12345，不论你是怎么发送的，123,45也好，1,234,5也好，对于tcp而言，它保证接收端接收的是12345，不论是1234,5返回也好，12,3,4,5返回也好。而直至TCP断开前，接收端是不知道发送端发送的是多大的数据，怎么发送的，还有多少数据。至于数据的交付方式，则要看各个库的实现，如 lib @vczh Network 里是每 1ms 交付一次，或者收满 1KB 交付一次。
+
+#### WebSocket 与 WebRTC
+
+https://stackoverflow.com/questions/18799364/webrtc-vs-websockets-if-webrtc-can-do-video-audio-and-data-why-do-i-need-web/18825175#18825175
+
+WebRTC 是端对端的，WebSocket 是客户端对服务器的。WebRTC 主要用于端对端的音视频通讯和数据传输。
+
+WebRTC is designed for high-performance, high quality communication of video, audio and arbitrary data.
+
+WebRTC apps need a service via which they can exchange network and media metadata, a process known as signaling. However, once signaling has taken place, video/audio/data is streamed directly between clients, avoiding the performance cost of streaming via an intermediary server.
+
+WebSocket on the other hand is designed for bi-directional communication between client and server. It is possible to stream audio and video over WebSocket (see here for example), but the technology and APIs are not inherently designed for efficient, robust streaming in the way that WebRTC is.
+
+As other replies have said, WebSocket can be used for signaling.
 
 
 ## 服务侧消息推送方案调研
