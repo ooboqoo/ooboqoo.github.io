@@ -45,7 +45,7 @@ export {}
 
 ## 插件使用
 
-### Git Lens
+### GitLens
 
 极大地增强了 git 的功能，强！
 
@@ -166,7 +166,6 @@ tslint --init
 #### Multiple Selections
 
 `Ctrl+D` 选中一个词  
-`Alt+Click` 添加一个光标  
 
 #### Shrink/expand selection
 
@@ -175,11 +174,11 @@ tslint --init
 #### Column (box) text selection
 
 多行编辑: `Ctrl+Alt+Up` or `Ctrl+Alt+Down` 或 `Ctrl+Shift+Alt+Up` or `Ctrl+Shift+Alt+Down`  
-`Shift + Alt + 拖动`  
+`Alt+Click` 添加一个活动光标  `Shift+Alt+Click` (从光标起始点到点击处)添加多个(连续)光标  
 
 #### Undo cursor position
 
-`Ctrl+u`
+`Ctrl+U`
 
 #### Folding
 
@@ -248,20 +247,35 @@ If no debugging is available, the debugger statement has no effect.
 
 ### User and Workspace Settings
 
-```json
+```js
 {
-    "workbench.activityBar.visible": false,  // 关闭左侧导航条
-    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\usr\\bin\\bash.exe",  // 终端用 bash
-    "editor.rulers": [ 100 ],
-    "editor.tabSize": 2,
-    "editor.wrappingIndent": "indent",      // 换行后是否缩进显示
-    "editor.renderWhitespace": "boundary",  // 显示空白--两边显示，中间不显示
-    "editor.detectIndentation": false,      // 是否自动根据打开文件调整缩进设置
-    "editor.renderIndentGuides": true,      // 显示缩进指示
-    "editor.minimap.enabled": true,         // 显示右侧缩略图
-    "workbench.iconTheme": "vs-seti",       // 文件导航栏显示文件图标
-    "git.autorefresh": false,               // 这个开着的话，每次刷新会触发 webpack-dev-server 编译
-    "flow.runOnEdit": false                 // 安装 flow 插件后，如果开启输入检测，会很卡
+  "window.zoomLevel": 0,
+  "breadcrumbs.enabled": true,
+  "editor.tabSize": 2,
+  "editor.rulers": [100],
+  "editor.renderWhitespace": "boundary",
+  "editor.detectIndentation": false,
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.activityBar.visible": false,  // 关闭左侧导航条
+  "workbench.statusBar.feedback.visible": false,
+  "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\usr\\bin\\bash.exe",
+  "javascript.validate.enable": false,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "gitlens.keymap": "none",
+  "gitlens.gitExplorer.location": "scm",
+  "gitlens.codeLens.authors.enabled": false,
+  "gitlens.codeLens.recentChange.enabled": false,
+  "gitlens.currentLine.enabled": false,
+  "vim.useCtrlKeys": false,
+  "vim.startInInsertMode": true,
+  "vim.useSystemClipboard": true,
+  "vsicons.dontShowNewVersionMessage": true,
+
+  // 视情况采用
+  "git.autorefresh": false,  // 这个开着的话，每次刷新会触发 webpack-dev-server 编译
+  "flow.runOnEdit": false    // 安装 flow 插件后，如果开启输入检测，会很卡
 }
 ```
 
