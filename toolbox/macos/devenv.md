@@ -29,13 +29,26 @@ $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/inst
 
 ```bash
 # Example usage:
-$ brew search [TEXT|/REGEX/]
-$ brew (info|home|options) [FORMULA...]
-$ brew install FORMULA...
+$ brew install FORMULA...    # 软件安装位置 /usr/local/Cellar/
+$ brew uninstall FORMULA...
+
+$ brew outdated              # 查找是否有更新的软件包
 $ brew update                # 更新 brew 自身
 $ brew upgrade [FORMULA...]  # 更新软件
-$ brew uninstall FORMULA...
-$ brew list [FORMULA...]
+$ brew switch                # 在本机安装的多个新老版本软件包之间切换
+
+$ brew unlink vim            # 临时使 vim 失效，即，只去链接不实际卸载
+  # brew unlink -n vim           查看将会有哪些个链接会被删除，只是问问不实际删除
+$ brew link [FORMULA]        # 重新创建链接
+
+$ brew search [TEXT|/REGEX/]
+$ brew (info|home|options) [FORMULA...]  # 如 `brew info git` 可查看本机安装的 git 相关信息
+$ brew list [FORMULA...]     # 不带参数可列出安装的软件清单，带具体软件包名，可列出安装目录细节
+$ brew cleanup               # brew 更新软件不会删除老版，需要定期手动清理
+$ brew leaves                # 列出那些不被其他包依赖的软件包
+
+$ man brew
+$ brew help leaves
 
 # Troubleshooting:
 $ brew config
@@ -45,6 +58,16 @@ $ brew doctor
 ```bash
 $ brew install google-chrome visual-studio-code
 ```
+
+#### brew update 慢
+
+可使用使用国内镜像源，或者走代理
+
+```bash
+$ echo proxy=socks5://127.0.0.1:1086 >> ~/.curlrc
+```
+
+
 
 ### Node.js
 
@@ -78,17 +101,4 @@ fi
 
 ```sh
 alias ll="ls -l"
-```
-
-
-## 其他
-
-### brew update 慢
-
-方法1：使用国内镜像源
-
-方法2：走代理
-
-```bash
-$ echo proxy=socks5://127.0.0.1:1086 >> ~/.curlrc
 ```
