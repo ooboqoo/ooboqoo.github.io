@@ -99,3 +99,12 @@ In NW.js, frames matching ALL of the following criterias will be a node frame:
   * URL of windows and frames matching `node-remote` patterns in manifest file or `chrome-extension://` protocol.
   * Frames or parent frames NOT having `nwdisable` attribute.
   * Frames or parent frames NOT in `<webview>` tag
+
+
+## Command Line Options
+
+**--user-data-dir** 指定用户数据存放目录，打开多个窗口就靠它老人家了
+
+Windows: `%LOCALAPPDATA%/<name-in-manifest>/`  
+Mac: `~/Library/Application Support/<name-in-manifest>/`  
+Linux: `~/.config/<name-in-manifest>`  
