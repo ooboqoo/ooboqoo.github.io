@@ -23,5 +23,30 @@ Vue.component('Child', {
 new Vue({el: '#app'})
 ```
 
+### 生命周期
 
+||
+-------------|--------------------------------------
+beforeCreate | 能访问 `this.$options` 不能访问 `this.$data` `this.$props` 和 computed methods 上的属性和方法
+created      | 可用：数据观测，属性和方法的运算，watch/event 事件回调。`$el`=undefined `$ref`={}
+beforeMount  | 在挂载开始之前被调用：相关的 render 函数首次被调用。
+mounted      | `el` 已被新创建的 `vm.$el`(只读) 替换。
+beforeupdate | 发生在虚拟 DOM 打补丁之前。这里适合在更新之前访问现有 DOM，比如手动移除已添加的事件监听器。
+updated      | 虚拟 DOM 重新渲染和打补丁之后调用，组件 DOM 已经更新，可执行依赖于 DOM 的操作
 
+`created` 阶段与 `mounted` 阶段的 AJAX 请求的区别：前者页面视图未出现，如请求信息过多，页面会长时间白屏。
+
+`mounted` 不承诺所有的子组件也都一起被挂载。如果你希望等到整个视图都渲染完毕，可以用 `vm.$nextTick()`。
+
+`updated` 不会承诺所有的子组件也都一起被重绘。如果你希望等到整个视图都重绘完毕，可以用 `vm.$nextTick()`。
+
+在大多数情况下，你应该避免在 `updated` 此期间更改状态，可能会陷入死循环。
+
+vue2.0 之后手动调用 `$destroy()` 不会移除 DOM 节点，需要手动移除。
+
+`mixins` 中的生命周期钩子优先于组件的生命周期钩子执行。
+
+<details>
+<summary>生命周期图示</summary>
+![](https://cn.vuejs.org/images/lifecycle.png)
+</details>
