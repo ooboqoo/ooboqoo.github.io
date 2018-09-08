@@ -30,7 +30,7 @@
 集合的基本运算有以下几种
   * 并集(简称并), <code>A &cup; B = { x | x &isin; A 或 x &isin; B }</code>
   * 交集(简称交), <code>A &cap; B = { x | x &isin; A 且 x &isin; B }</code>
-  * 差集(简称差), <code>A \ B = { x | x &isin; A 或 x &notin; B }</code>
+  * 差集(简称差), <code>A \ B = { x | x &isin; A 且 x &notin; B }</code>
 
 有时, 我们研究某个问题限定在一个大的集合 I 中进行, 所研究的其他集合 A 都是 I 的子集. 此时, 我们称集合 _I_ 为 **全集** 或 **基本集**, 称 _I \ A_ 为 A 的 **余集** 或 **补集**, 记作 _A<sup>c</sup>_.
 

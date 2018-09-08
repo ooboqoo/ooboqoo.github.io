@@ -23,7 +23,31 @@ Vue.component('Child', {
 new Vue({el: '#app'})
 ```
 
+### `computed` 与 `watch`
+
+Computed properties have a a very specific purpose: composing new data derived from other data. They are used whenever you have some data and need to transform it, filter it, or otherwise manipulate it before using it in the template.
+
+Computed properties always have to return a value, should not have any side effects, and they have to be synchronous.
+
+So there are quite some situations where computed properties won't help you, for this, you would need a watcher.
+
 ### 生命周期
+
+生命周期钩子  | 首次执行 | SSR | 主要用途
+--------------|--------- |-----|-------------------
+beforeCreate  | 是       | 是  | 改 `vm.$options`
+created       | 是       | 是  | AJAX 请求
+beforeMount   | 是       | 否  | 
+mounted       | 是       | 否  | 改 DOM
+beforeupdate  | 否       | 否  | 
+updated       | 否       | 否  | 
+activated     | ？       | 否  | 
+deactivated   | ？       | 否  | 
+beforeDestroy | 否       | 否  | 
+destroyed     | 否       | 否  | 
+errorCaptured | 否       | ？  | 
+
+在 `<keep-alive>` 内 `activated` 会在 `created` 后触发一次，而 `destroyed` 一直不会被触发。
 
 ||
 -------------|--------------------------------------

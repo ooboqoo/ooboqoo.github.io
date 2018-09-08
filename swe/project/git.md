@@ -65,6 +65,7 @@ $ git config --global alias.st status               # 设定命令别名，所�
 $ git config --global credential.helper wincred     # 设定免密码登录(记住密码) [注1]
 $ git config --global https.proxy 'socks5://127.0.0.1:1080'  # git 使用 ss 代理加速
 $ git config --global gui.encoding utf-8            # 解决图形界面乱码
+$ git config --global pull.rebase true              # pull 时用 rebase 替代默认 merge
 
 # 配置使用 meld 作为 diff & merge 外部工具，注意需要添加 meld 路径到 PATH
 # 如果命令行执行不成功，则手动修改 .gitconfig 文件
@@ -156,6 +157,8 @@ $ git diff                 # 查看工作目录与暂存区的差异
 $ git diff --staged        # 查看暂存区与最近一次提交之间的差异
 $ git diff master branchB  # 比较两个不同提交之间的差异，此处的不同分支指向不同的提交
 $ git difftool             # 不想使用内置的 git diff 时，启动一个外部工具来显示差异
+# 注1 阮一峰的 diff 讲解：http://www.ruanyifeng.com/blog/2012/08/how_to_read_diff.html
+# 注2 git show 默认会调用 git diff，而 git log 只有在提供 `-p` 或 `--name-only` 等选项时才会调 git diff
 
 # 显示工作目录状态
 $ git status               # 显示当前状态
@@ -170,6 +173,7 @@ $ git log --follow <file>       # 跟踪一个文件的修改历史，包括重�
 $ git log --all -- path/to/file # 查找单个文件的提交历史，--all 选项可以找出已删除文件的提交历史
 $ git log -L <start>,<end>:<file>  # 跟踪 file 文件的特定部分的变更记录，参数可以是行号或者正则
 $ git log -L "/function ajax/",/}/:main.js  # 跟踪 main.js 文件中的 ajax 函数的变更记录, 正则有空格的要带引号
+$ git log --pretty="%h %s"  # 精细输出格式
 
 # blame 是调试指令，可以跟 log 指令配合使用
 $ git blame -L 12,22 sth.cs     # 查看 sth.cs 的 12-22行 都有谁在什么时候做了哪些修改
@@ -179,8 +183,6 @@ $ git show     # 查看数据对象 blob 数对象 tree 提交对象 commit 标�
 # 周工作量统计
 $ git log --author="gavin" --since=2018-1-1 --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }' -
 ```
-
-阮一峰的 diff 讲解：http://www.ruanyifeng.com/blog/2012/08/how_to_read_diff.html
 
 #### 分支操作
 
@@ -217,8 +219,9 @@ $ git fetch origin master # 获取 origin 仓库的 master 分支，取回的内
 $ git fetch origin +pu:pu maint:tmp  # 获取 origin 仓库的 pu 和 maint 分支，并更新/新建本地 pu tmp 分支
   # pu 前的 + 加号表示，即使不能 fast-forward 也强制更新(自动 merge)
 
-$ git pull  # 获取最新版本并合并，相当于 fetch + merge
 $ git pull <远程仓库名> <远程分支名>:<本地分支名>
+$ git pull           # 获取最新版本并合并，相当于 `git fetch` + `git merge`
+$ git pull --rebase  # 相当于 `git fetch` + `git rebase --onto`，推荐使用这种方式
 $ git pull origin next:master
 $ git pull -p  # `-p` 告诉 pull 如果远程仓库已经删除了该分支，那么可以将本地分支删除
 
@@ -322,7 +325,7 @@ $ gitk --first-parent    # 查看存在频繁合并的分支记录非常有用
 gitk 是一个历史记录的图形化查看器。你可以把它当作是基于 `git log` 和 `git grep` 命令的一个强大的图形操作界面。当你需要查找过去发生的某次记录，或是可视化查看项目历史的时候，你将会用到这个工具。
 
 常用操作：
-  * 查看合并记录的文件变更 - 选中父提交并在当前合并提交右键调出 `Diff this -> selected`
+  * 查看合并记录的文件变更 - 选中父提交并在当前合并提交右键调出 `Diff selected -> this`
   * 利用外部工具查看具体文件变更 - 选择单个文档，右键调出 `External diff`
 
 #### GitHub 操作
@@ -622,3 +625,30 @@ $ vi /etc/httpd/conf/httpd.conf     # 修改 Apache 相关配置
 $ git remote add web ssh://root@45.32.60.84:22/opt/git/ooboqoo.github.io.git
 $ git push web  # 完成站点部署/更新，打开浏览器验证下吧！
 ```
+
+
+## Git 进阶
+
+### git merge 与 git rebase
+
+merge 可以理解成是 多源继承，操作简单，future 分支合入 master 时也比较直观。但碰到多分支同时开发时，合来合去，很难跟踪变更记录，借助 `gitk --first-parent` 可有效改善跟踪体验。
+
+rebase 确保了单源继承，提交历史清晰直观，但如果一个分支多人同时开发时，如果你用 rebase 合了最新 master 代码，那么其他同事都必须得用 `git pull --rebase` 拉取代码，对使用能力有一定要求。
+
+#### 查看 merge 信息
+
+https://stackoverflow.com/questions/37801342/using-git-log-to-display-files-changed-during-merge
+
+在 `gitk` 中点击某次 commit 时，调用的 `git show` 来显示具体提交信息的。至于具体的文件变更，则要进一步调用 `git diff` 来提取信息。对于普通的提交，碰不到啥问题，但是对于 Merge 提交，处理方式跟普通提交存在较大差异。
+
+一次 merge commit 存在两个或多个 parents，这就意味着 `git log` `git show` 需要跑两次或多次 `git diff`。但实际上，`git show` 确实会这么做，但还会进一步处理为 [combined diff](https://mirrors.edge.kernel.org/pub/software/scm/git/docs/git-diff-tree.html#_combined_diff_format)(which shows only those files whose merge-commit version differs from both parents.)。`git log` 碰到有多个 parents 的合并提交，即使提供了 `-p` 或 `--name-status` 等开启 diff 的参数，也会忽略，只有碰到 `-m` 参数才会执行 `git diff`。
+
+> Using `-m` by itself always works. This flag essentially tells `git log` (and `git show`) to break up a merge into multiple separate "virtual commits". That is, if commit M is a merge with parents P1 and P2, then—for the purpose of the diff at least—Git acts as though there was a commit MP1 with parent P1, and a second commit MP2 with parent P2. You get two diffs (and two commit IDs in the diff headers).
+> 
+> Besides `-m`, you can supply `-c` or `--cc` to `git log` to get it to produce a combined diff, just like `git show`.
+
+```bash
+$ git log -m --oneline --follow -- <filename>  # 追踪文件变更记录，不带 `-m` 无法看到合并中的更改
+$ git log -m -p --oneline --merges --follow -- <filename>  # 排查某个文件合并中出现的问题，显示具体变更内容
+```
+
