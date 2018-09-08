@@ -143,3 +143,18 @@ search    | Sets or returns the querystring part of a URL
 assign()  | Loads a new document
 reload()  | Reloads the current document
 replace() | Replaces the current document with a new one
+
+
+## Storage
+
+含 `Window.sessionStorage` `Window.localStorage`
+
+||
+----------|----------------------------------------
+s.length    | 返回数据条数，只读
+||
+s.clear()            | 删除所有数据，始终返回 `undefined`
+s.key(_index_)       | 返回第 index 条记录的键名，出界就返回 `null`
+s.getItem(_keyName_) | 返回键名对应的记录 (string 类型)，如果 key 不存在就返回 `null`
+s.setItem(_key_, _value_) | 新建或修改记录，注意该方法可能抛异常(当存储空间不够时，异或是...)，返回 `undefind`
+s.removeItem(_keyName_)   | 移除一条记录，不管有没有记录被移除，该方法始终返回 `undefined`

@@ -599,6 +599,7 @@ to take another person's child into your home for a period of time, without beco
 
 析 flock  _/flɒk $ flɑːk/_  n.兽群,鸟群; 人群 v.群集,成群 重在"群"  
 析 herd  _/hɜːd/_  n.牧群,兽群 v.放牧,驱赶  重在"牧"+兽群  
+析 crowd  n.人群,民众  a crowd of people
 
 析 blast  _/blɑːst $ blæst/_  n/v.爆炸    A blast is a _big explosion_, especially one caused by a bomb.  
 析 explosion  _/ɪkˈspləʊʒən/_  n.爆炸,爆发  
