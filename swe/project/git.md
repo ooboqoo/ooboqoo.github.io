@@ -1,10 +1,12 @@
-# Git & GitHub
+<script>ooboqoo.contentsRegExp = /H[123]/;</script>
 
-## Git
+# Git
 
 文档：https://git-scm.com/doc  
 Pro Git：官方推荐免费教程中文版 https://git-scm.com/book/zh/v2  
-Git for Windows: Git 的 windows 版本，包含 Git 版本控制工具核心、Git Bash 和 Git GUI
+
+
+## Git 简介
 
 ![简明图解](/resource/images/project/git.jpg)  
 [在线动态解析各部分之间的联系](http://ndpsoftware.com/git-cheatsheet.html)：Stash - Workspace - Index - LocalRepository - UpstreamRepository
@@ -16,9 +18,10 @@ Git for Windows: Git 的 windows 版本，包含 Git 版本控制工具核心、
 * HEAD 文件 指示目前被检出的分支；
 * index 文件 保存暂存区信息。
 
-### 命令速查表
+Git for Windows: Git 的 windows 版本，包含 Git 版本控制工具核心、Git Bash 和 Git GUI
 
-### 最常用命令
+
+## 常用命令速查表
 
 ```bash
 $ git pull   # 拉取代码 或
@@ -54,7 +57,10 @@ $ git rebase -i HEAD~num   # 批量修改最近 num 次提交
 $ git fetch & git rebase origin/master & git push  # 避免合并冲突时产生冗余提交记录
 ```
 
-#### 设置与帮助
+
+## 命令详解
+
+### 设置与帮助
 
 ```bash
 $ git config --global user.name "<name>"            # 指定全局默认用户名
@@ -93,7 +99,7 @@ $ git help <command>     # 通过 help 指令来获取帮助，另开网页显�
   cmd = meld.exe $LOCAL $REMOTE
 ```
 
-#### 获取或新建仓库
+### 获取或新建仓库
 
 ```bash
 $ git init <project-name>  # 将现有目录初始化成 Git 仓库
@@ -103,12 +109,12 @@ $ git clone -o jq https://github.com/jquery/jquery.git  # 克隆并指定远程�
 $ git clone --depth 1
 
 # GitHub clone 快速下载项目分支，指定 depth 会自动开启 --single-branch，实现最小下载，--branch 指定具体分支
-$ git clone --branch v4-dev --depth 1 https://github.com/twbs/bootstrap.git  # 快速下载 bootsrap/ve-dev
+$ git clone --branch v4-dev --depth 1 https://github.com/twbs/bootstrap.git  # 快速下载 bootsrap/v4-dev
 ```
 
 git clone 实际上封装了多个命令：创建新目录，切换到新目录，初始化，为 URL 添加一个仓库别名，针对远程仓库执行 git fetch，最后通过 git checkout 将远程仓库的最新提交检出到工作目录。
 
-#### 变更操作
+### 变更操作
 
 ```bash
 $ git add *.js index.html  # 添加所有 js 文件和 index.html 到暂存区
@@ -144,7 +150,7 @@ $ git rebase --onto master topicA topicB  # 更换 topicB 的上游分支 topicA
 # reset（回退） 用于私人分支，revert（撤销） 用于公共分支，rebase（变基） 适用于还没有 push 的提交
 ```
 
-#### 查询操作
+### 查询操作
 
 ```bash
 $ git ls-remote  # List references in a remote repository
@@ -173,7 +179,7 @@ $ git log --follow <file>       # 跟踪一个文件的修改历史，包括重�
 $ git log --all -- path/to/file # 查找单个文件的提交历史，--all 选项可以找出已删除文件的提交历史
 $ git log -L <start>,<end>:<file>  # 跟踪 file 文件的特定部分的变更记录，参数可以是行号或者正则
 $ git log -L "/function ajax/",/}/:main.js  # 跟踪 main.js 文件中的 ajax 函数的变更记录, 正则有空格的要带引号
-$ git log --pretty="%h %s"  # 精细输出格式
+$ git log --pretty="%h %s"  # 精细控制输出格式
 
 # blame 是调试指令，可以跟 log 指令配合使用
 $ git blame -L 12,22 sth.cs     # 查看 sth.cs 的 12-22行 都有谁在什么时候做了哪些修改
@@ -184,7 +190,7 @@ $ git show     # 查看数据对象 blob 数对象 tree 提交对象 commit 标�
 $ git log --author="gavin" --since=2018-1-1 --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }' -
 ```
 
-#### 分支操作
+### 分支操作
 
 ```bash
 # branch 列出/创建/删除分支
@@ -207,9 +213,10 @@ $ git checkout <files>          # 从最近的一次提交中取回文件并覆�
 $ git merge origin/master       # 将刚拉取下来的 master 合并到本地分支
 $ git merge topic               # 合并 topic 分支内容到当前分支
 $ git merge --no-ff future-name # 合并 future 分支到 master 分支，且不允许 fast-forward
+$ git merge -e                  # 提交前暂停供编辑 message
 ```
 
-#### 远程同步
+### 远程同步
 
 ```bash
 # Fetch branches and/or tags (collectively, "refs") 
@@ -246,13 +253,12 @@ $ git remote add <仓库别名> <网址>  # 添加远程仓库
 $ git remote rm <仓库别名>          # 删除一个仓库别名，并一同删除本地的相关分支内容和配置
 $ git remote show <仓库别名>        # 查看远程仓库的详细信息
 $ git remote rename <原仓库名> <新仓库名>  # 修改指向远程仓库的别名
-
-  # 实现一个 git push 同时推送到多个远程仓库
-  $ git remote set-url --add --push origin git://original/repo.git
-  $ git remote set-url --add --push origin git://another/repo.git
+# 实现一个 git push 同时推送到多个远程仓库
+$ git remote set-url --add --push origin git://original/repo.git
+$ git remote set-url --add --push origin git://another/repo.git
 ```
 
-#### 暂存 stash
+### 暂存 stash
 
 ```bash
 # stash 藏匿/储存变动
@@ -268,7 +274,7 @@ $ git stash drop  # 删除最近一次 stash
 $ git stash clear # 清空所有 stash 的内容
 ```
 
-#### 标签 tag
+### 标签 tag
 
 ```bash
 # tag 创建/列出/删除/修改 标签对象
@@ -288,7 +294,7 @@ $ git push origin :tagname          # 删除远端标签
 $ git checkout -b version2 v2.0.0
 ```
 
-#### 其他操作
+### 其他操作
 
 ```bash
 # clean 清理工作目录
@@ -304,7 +310,7 @@ $ git ls-files --stage # 检查保存在 stage 的文件
 $ git cat-file -p d67046  # 查看一个 Git 对象的内容，用于研究 Git 内部机制
 ```
 
-#### 图形化操作
+### 图形化操作
 
 在安装 Git 的同时，你也装好了它提供的可视化工具，gitk 和 git-gui。
 
@@ -316,7 +322,7 @@ $ gitk stash                              # 查看 stash 的详细变更信息
 $ git config --global gui.encoding utf-8  # 解决 gitk 中文乱码
 ```
 
-**gitk**
+#### gitk
 
 ```bash
 $ gitk --first-parent    # 查看存在频繁合并的分支记录非常有用
@@ -328,18 +334,24 @@ gitk 是一个历史记录的图形化查看器。你可以把它当作是基于
   * 查看合并记录的文件变更 - 选中父提交并在当前合并提交右键调出 `Diff selected -> this`
   * 利用外部工具查看具体文件变更 - 选择单个文档，右键调出 `External diff`
 
-#### GitHub 操作
+#### GitHub
+
+GitHub Desktop: https://desktop.github.com/
+
+GitHub 发布的本地客户端，相比网站操作提供了更多功能，也避免了 git 命令操作的各种麻烦和不给力。
+
+### GitHub 操作
 
 ```bash
 # 在 GitHub 上先新建项目仓库，然后
 $ git init
-git add README.md
-git commit -m "first commit"
-git remote add origin https://github.com/ooboqoo/primeng-webpack.git  # 如果是现有项目，可以直接从这开始
-git push -u origin master  # -u / --set-upstream 具体讲解如下：
+$ git add README.md
+$ git commit -m "first commit"
+$ git remote add origin https://github.com/ooboqoo/primeng-webpack.git  # 如果是现有项目，可以直接从这开始
+$ git push -u origin master  # -u / --set-upstream 具体讲解如下：
 ```
 
-一般只有同时存在多个远程仓库时才会用到--set-upstream。每个git branch可以有个对应的upstream。假设你有两个upstream，分别叫server1和server2，本地master branch的upstream是server1上的master，那么当你不带参数直接输入git pull或者git push时，默认是对server1进行pull/push。如果你成功运行"git push -u server2 master"，那么除了本地branch会被push到server2之外，还会把server2设置成upstream。
+一般只有同时存在多个远程仓库时才会用到 --set-upstream。每个分支可以有自己对应的 upstream。假设你有两个 upstream，分别叫 server1 和 server2，本地 master 分支的 upstream 是 server1 上的 master，那么当你不带参数直接输入 git pull 或 git push 时，默认是对 server1 进行 pull/push。如果你成功运行 `git push -u server2 master`，那么在将本地 master 分支推送到 server2 的同时还会把 server2 设置成 upstream。
 
 ### 配置 .gitignore
 
@@ -379,53 +391,66 @@ doc/*.txt
 doc/**/*.pdf
 ```
 
+注：将已跟踪的文件添加到 ignore 名单里并不会有效果。
+https://stackoverflow.com/questions/1753070/how-do-i-configure-git-to-ignore-some-files-locally
+
+```bash
+$ git update-index --skip-worktree <file>    # 或
+$ git update-index --assume-unchanged <file> # `--no-assume-unchanged` 重新开启 track
+```
+
 #### .gitkeep
 
 这只是个空文件，貌似也不是官方的用法，而更像是一个 hack，目的就是让 git 忽略其所在目录的同时保留该空目录。
 
+
 ## Git 流程规范化
 
-http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html   
-http://www.ruanyifeng.com/blog/2015/12/git-workflow.html   
-https://cattail.me/tech/2016/06/06/git-commit-message-and-branching-model.html   
+### 分支管理规范
+
+龙猫关于多人合作项目的经验分享：
+  * 多用客户端和工具，少用命令行，除非是在 linux 服务器上直接开发。
+  * 每次提交前，diff 自己的代码，以免提交错误代码或测试代码。
+  * 下班回家前，整理好自己的工作区并提交。
+  * 并行的项目，使用分支开发。
+  * 遇到冲突时，搞明白冲突的原因，千万不要随意丢弃别人的代码。
+  * 产品发布后，记得打 tag，方便将来拉分支修 bug。
 
 ### Commit message 规范化
 
-Git 每次提交代码，都要写 Commit message（提交说明），否则就不允许提交。
+每次提交代码都要写提交说明 commit message，应该清晰明地说明本次提交的目的。
+
+目前，社区有多种 commit message 的规范，其中 Angular 规范是目前使用最广的写法，比较合理和系统化，并有配套的工具。
 
 ```bash
 $ git commit -m "hello world"  # -m 参数，就是用来指定 commit mesage 的
 $ git commit                   # 如果一行不够，可以只执行 git commit，就会跳出文本编辑器，让你写多行。
 ```
 
-Commit message 内容可以随便写，但一般来说，应该清晰明地说明本次提交的目的。
-
-目前，社区有多种 Commit message 的写法规范，其中 Angular 规范是目前使用最广的写法，比较合理和系统化，并有配套的工具。
-
-#### Commit message 的作用
-
-* 提供更多的历史信息，方便快速浏览
-* 可以直接从 commit 生成 changelog (见下文)
+commit message 的作用
+  * 提供更多的历史信息，方便快速浏览
+  * 可以直接从 commit 生成 changelog (见下文)
 
 ```bash
 $ git log <last tag> HEAD --pretty=format:%s  # 利用 pretty 配置单行显示
 $ git log <last release> HEAD --grep feature  # 利用 grep 筛选
 ```
 
+### Angular 规范
 
-#### Angular 规范
+https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines
 
-##### Commit Message Format
+#### Commit Message Format
 
 ```
 <type>(<scope>): <subject>     # 必填，其中的 scope 是可选的
-    // 空一行                      # 每行长度不的超过 100 个字符
-<body>                         # 可选
-    // 空一行
+<BLANK LINE>
+<body>                         # 可选，每行长度不的超过 100 个字符
+<BLANK LINE>
 <footer>                       # 可选
 ```
 
-##### Type
+#### Type
 
 |||
 |---------|------------------------------------------------------------------------------------------
@@ -439,11 +464,11 @@ $ git log <last release> HEAD --grep feature  # 利用 grep 筛选
 | `build` | 编译配置 Changes that affect the build system, CI configuration or external dependencies
 | `chore` | 杂项 Other changes that don't modify src or test files
 
-##### Scope
+#### Scope
 
 用于说明 commit 影响的范围，比如数据层、控制层、视图层等等，视项目不同而不同。
 
-##### Subject
+#### Subject
 
 subject 是 commit 目的的简短描述，写法上须注意以下几点：
 
@@ -451,11 +476,11 @@ subject 是 commit 目的的简短描述，写法上须注意以下几点：
 * 首字母不要用大写
 * 末尾不要叫句号 `.`
 
-##### Body
+#### Body
 
-##### Footer
+#### Footer
 
-Footer 部分只用于两种情况：不兼容变动 和 关闭 issues。
+如有不兼容变动必须在 footer 部分说明，另外关闭 issues 的指令也写在 footer 里。
 
 不兼容变动以 `BREAKING CHANGE:` 开头，后面是对变动的描述以及变动理由和迁移方法。
 
@@ -472,7 +497,7 @@ Closes #123, #245, #992
 ```
 
 
-##### Revert
+#### Revert
 
 还有一种特殊情况，如果当前 commit 用于撤销以前的 commit，则必须以 `revert:` 开头，后面跟着被撤销 Commit 的 Header。
 
@@ -484,7 +509,7 @@ revert: feat(pencil): add 'graphiteWidth' option
 This reverts commit 667ecc1654a317a13331b17617d973392f415f02.
 ```
 
-#### Commitizen
+### Commitizen
 
 Commitizen是一个撰写合格 Commit message 的工具。安装及使用方法如下：
 
@@ -569,22 +594,6 @@ $ git flow release finish RELEASE         # 完成发布版本，此时会自动
 ```
 
 
-## GitHub
-
-GitHub Desktop: https://desktop.github.com/
-
-GitHub 发布的本地客户端，相比网站操作提供了更多功能，也避免了 git 命令操作的各种麻烦和不给力。
-
-> 龙猫关于多人合作项目的经验分享：
-> 
-> * 多用客户端和工具，少用命令行，除非是在 linux 服务器上直接开发。
-> * 每次提交前，diff 自己的代码，以免提交错误代码或测试代码。
-> * 下班回家前，整理好自己的工作区并提交。
-> * 并行的项目，使用分支开发。
-> * 遇到冲突时，搞明白冲突的原因，千万不要随意丢弃别人的代码。
-> * 产品发布后，记得打 tag，方便将来拉分支修 bug。
-
-
 ## Git Server
 
 教程：https://git-scm.com/book/en/v2/Git-on-the-Server-Getting-Git-on-a-Server
@@ -601,7 +610,9 @@ $ git push web
 
 搭建私人自用的 git 服务器就这么简单，最关键的是要设置好 SSH。
 
-## 使用 git 自动部署 web 服务器
+## Git Hooks
+
+### 自动部署网站
 
 教程：http://toroid.org/git-website-howto
 
