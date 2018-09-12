@@ -151,6 +151,18 @@ req.addEventListener('success', e => {
 })
 ```
 
+#### compound query
+
+https://stackoverflow.com/questions/12084177/in-indexeddb-is-there-a-way-to-make-a-sorted-compound-query
+
+```js
+const students = db.createObjectStore('students')
+const keyPath = ['name', 'gender', 'age']
+students.createIndex('myCompoundIndex', keyPath)
+```
+
+因为 **short-circuiting** 的缘故，组合查询结果并不会跟直观预想的一样。
+
 
 ## Demo
 
