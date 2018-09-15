@@ -220,9 +220,9 @@ https://github.com/babel/babel-loader
 
 ```bash
 # webpack 4.x | babel-loader 8.x | babel 7.x
-$ npm install "babel-loader@^8.0.0-beta" @babel/core @babel/preset-env webpack
+$ npm install babel-loader @babel/core @babel/preset-env webpack
 # webpack 4.x | babel-loader 7.x | babel 6.x
-$ npm install babel-loader babel-core babel-preset-env webpack
+$ npm install babel-loader@7 babel-core babel-preset-env webpack
 ```
 
 ```js

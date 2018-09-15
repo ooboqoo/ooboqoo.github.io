@@ -10,32 +10,32 @@
 # 插入 document 操作
 > db.restaurants.insert(
   {
-    "address" : {
-      "street" : "2 Avenue",
-      "zipcode" : "10075",
-      "building" : "1480",
-      "coord" : [ -73.9557413, 40.7720266 ]
+    "address": {
+      "street": "2 Avenue",
+      "zipcode": "10075",
+      "building": "1480",
+      "coord": [ -73.9557413, 40.7720266 ]
     },
-    "borough" : "Manhattan",
-    "cuisine" : "Italian",
-    "grades" : [
+    "borough": "Manhattan",
+    "cuisine": "Italian",
+    "grades": [
       {
-        "date" : ISODate("2014-10-01T00:00:00Z"),
-        "grade" : "A",
-        "score" : 11
+        "date": ISODate("2014-10-01T00:00:00Z"),
+        "grade": "A",
+        "score": 11
       },
       {
-        "date" : ISODate("2014-01-16T00:00:00Z"),
-        "grade" : "B",
-        "score" : 17
+        "date": ISODate("2014-01-16T00:00:00Z"),
+        "grade": "B",
+        "score": 17
       }
     ],
-    "name" : "Vella",
-    "restaurant_id" : "41704620"
+    "name": "Vella",
+    "restaurant_id": "41704620"
   }
 )
 # 返回
-WriteResult({ "nInserted" : 1 })
+WriteResult({ "nInserted": 1 })
 ```
 
 
@@ -135,11 +135,11 @@ The following operation updates the first document with name equal to "Juni", us
 
 ```txt
 > db.restaurants.update(
-    { "name" : "Juni" },
-    {
-      $set: { "cuisine": "American (New)" },
-      $currentDate: { "lastModified": true }
-    }
+  { "name": "Juni" },
+  {
+    $set: { "cuisine": "American (New)" },
+    $currentDate: { "lastModified": true }
+  }
 )
 ```
 
@@ -147,7 +147,7 @@ The following operation updates the first document with name equal to "Juni", us
 
 ```txt
 > db.restaurants.update(
-  { "restaurant_id" : "41156888" },
+  { "restaurant_id": "41156888" },
   { $set: { "address.street": "East 31st Street" } }
 )
 ```
@@ -171,16 +171,16 @@ To replace the entire document except for the _id field, pass an entirely new do
 
 ```txt
 > db.restaurants.update(
-   { "restaurant_id" : "41704620" },
-   {
-     "name" : "Vella 2",
-     "address" : {
-              "coord" : [ -73.9557413, 40.7720266 ],
-              "building" : "1480",
-              "street" : "2 Avenue",
-              "zipcode" : "10075"
-     }
-   }
+  { "restaurant_id": "41704620" },
+  {
+    "name": "Vella 2",
+    "address": {
+      "coord": [ -73.9557413, 40.7720266 ],
+      "building": "1480",
+      "street": "2 Avenue",
+      "zipcode": "10075"
+    }
+  }
 )
 ```
 
@@ -216,12 +216,9 @@ To replace the entire document except for the _id field, pass an entirely new do
 
 ```txt
 db.restaurants.aggregate(
-   [
-     { $group: { "_id": "$borough", "count": { $sum: 1 } } }
-   ]
+  [
+    { $group: { "_id": "$borough", "count": { $sum: 1 } } }
+  ]
 );
 ```
-
-
-
 
