@@ -452,17 +452,17 @@ https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guid
 
 #### Type
 
-|||
-|---------|------------------------------------------------------------------------------------------
-| `feat`  | 新功能 A new feature
-| `fix`   | bug 修复 A bug fix
-| `docs`  | 文档 Documentation only changes
-| `style` | 格式调整 Changes that do not affect the meaning of the code (white-space, formatting, etc)
-| `refactor` | 重构 A code change that neither fixes a bug nor adds a feature
-| `perf`  | 性能优化 A code change that improves performance
-| `test`  | 测试 Adding missing tests or correcting existing tests
-| `build` | 编译配置 Changes that affect the build system, CI configuration or external dependencies
-| `chore` | 杂项 Other changes that don't modify src or test files
+||
+---------|------------------------------------------------------------------------------------------
+ `feat`  | 新功能 A new feature
+ `fix`   | bug 修复 A bug fix
+ `docs`  | 文档 Documentation only changes
+ `style` | 格式调整 Changes that do not affect the meaning of the code (white-space, formatting, etc)
+ `refactor` | 重构 A code change that neither fixes a bug nor adds a feature
+ `perf`  | 性能优化 A code change that improves performance
+ `test`  | 测试 Adding missing tests or correcting existing tests
+ `build` | 编译配置 Changes that affect the build system, CI configuration or external dependencies
+ `chore` | 杂项 Other changes that don't modify src or test files
 
 #### Scope
 
