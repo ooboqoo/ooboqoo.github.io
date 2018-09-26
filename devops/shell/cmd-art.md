@@ -47,35 +47,6 @@
 
 - 学会使用 `apt-get`，`yum`，`dnf` 或 `pacman` （取决于你使用的 Linux 发行版）来查找或安装软件包。并确保你的环境中有 `pip` 来安装基于 Python 的命令行工具 （接下来提到的部分程序使用 `pip` 来安装会很方便）。
 
-### 命令行选项
-
-```bash
-# 长选项和其参数之间只能有 `=` 不能出现空格
-$ npm ls --depth=0   # 不带空格，工作正常
-# 错误用法
-$ npm ls --depth= 0  # xx 选项和参数间带空格，无效
-
-# 短选项和其参数之间的空格可选
-$ du -d 1  # ok
-$ du -d1   # ok
-# 在带参情况下，每个选项前都要带 `-`
-$ du -d1 -h  # ok
-$ du -hd1    # ok
-$ du -d1h    # xx
-$ du -d1 h   # xx
-$ du -d1-h   # xx
-
-# 在 bash 里 `"` 和 `'` 如预期工作，双引号有变量置换功能，而单引号没有，但在 win 下好像有点问题
-$ git commit -m 'abc de'  # win 下的提交记录为 `'abc de'`
-$ git commit -m "abc de"  # win 下的提交记录为 `abc de`
-```
-
-> [命令行命令中短选项与长选项之间的差别](https://www.quora.com/Why-do-command-line-tools-have-a-short-version-and-a-long-version-for-options)  
-> 早期只有短选项这种形式，长选项是后来才加入的。
-> 短选项，只有一个字符，`-` 后可以跟多个设定项，方便录入，但可读性不强，对用户要求高。
-> 长选项录入不便，但易读，适合在脚本中使用。
-> 必要时，可以在最后一个选项后录入 `--` 或 `-`，用于告诉解析器选项结束，后面的是其他参数内容。
-
 
 ## 日常使用
 

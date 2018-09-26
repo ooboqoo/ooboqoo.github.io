@@ -247,7 +247,7 @@ If no debugging is available, the debugger statement has no effect.
 
 ### User and Workspace Settings
 
-```js
+```json
 {
   "window.zoomLevel": 0,
   "breadcrumbs.enabled": true,
@@ -258,20 +258,26 @@ If no debugging is available, the debugger statement has no effect.
   "workbench.iconTheme": "vscode-icons",
   "workbench.activityBar.visible": false,  // 关闭左侧导航条
   "workbench.statusBar.feedback.visible": false,
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#1E1E1E",
+    "statusBar.border": "#444",
+  },
+  "vsicons.dontShowNewVersionMessage": true,
   "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\usr\\bin\\bash.exe",
   "javascript.validate.enable": false,
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
   "gitlens.keymap": "none",
-  "gitlens.gitExplorer.location": "scm",
   "gitlens.codeLens.authors.enabled": false,
   "gitlens.codeLens.recentChange.enabled": false,
   "gitlens.currentLine.enabled": false,
+  "gitlens.statusBar.alignment": "left",
+  "gitlens.statusBar.format": "${authorAgoOrDate} · ${message}",
+  "gitlens.statusBar.dateFormat": "YYYYMMDD",
   "vim.useCtrlKeys": false,
   "vim.startInInsertMode": true,
   "vim.useSystemClipboard": true,
-  "vsicons.dontShowNewVersionMessage": true,
 
   // 视情况采用
   "git.autorefresh": false,  // 这个开着的话，每次刷新会触发 webpack-dev-server 编译

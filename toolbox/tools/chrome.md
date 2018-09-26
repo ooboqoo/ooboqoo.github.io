@@ -1,10 +1,13 @@
 # Chrome Developer Tool
 
+https://developers.google.com/web/tools/chrome-devtools/
+
+
+## 使用中碰到的问题
+
 map 的 less 源文件时有时无，将 localhost 改为 127.0.0.1 后就正常显示，然后重置了设置，一切都好了。
 
 还有就是关于 ts 文件 browserify 后设定 workspace 找不到源文件的问题，直接 map ts 源文件问题解决。2016/7/11
-
---------
 
 
 ## Tips
@@ -43,7 +46,7 @@ function fn() {    // 此处只输 `{` 并按下回车键，chrome 能够自动�
 
 ### 打开 Shadow DOM 显示
 
-`<vedio>` 等组件，可通过配置显示被隐藏的组件代码：Settings → General → Elements → Show user agent shadow DOM
+`<vedio>` 等组件，可通过配置显示被隐藏的组件代码：Settings/General/Elements/Show user agent shadow DOM
 
 ### 改变颜色模式
 
@@ -55,6 +58,12 @@ Workspace 把开发者工具变成了一个真正的 IDE。将 Sources 选项卡
 
 实现：Source左侧面板下右击 → Add Folder to worksapce
 
+### 获取并调试监听器
+
+```js
+const listeners = getEventListeners($('button'))
+debug(listeners.click[0].listener)
+```
 
 ## 使工作区能保存修改  Set Up Persistence with DevTools Workspaces
 
@@ -115,34 +124,20 @@ Changes made in an external editor are not detected by DevTools until the Source
 
 ## 实时调试 Less 文件
 
-chrome 设置：Setting >> General >> Sources >> Enable CSS source maps >> Auto-reload generated CSS
+chrome 设置：Setting/General/Sources/Enable CSS source maps/Auto-reload generated CSS
 
 Less编译器设置：
 
 CSS vs Less
-
-CSS 原生支持，无需安装工具；可以直接用样式面板修改源码，实时保存；代码繁琐，可维护性差
-
-Less 代码简洁，可维护性好；需要工具支持；不可用样式面板直接修改
-
-问题：说明中说，元素面板中改DOM不会保存，但改 css 是会实时保存的，但我的 chrome 不会保存，估计是为了统一，都调整为不能保存了吧。
+  * CSS 原生支持，无需安装工具；可以直接用样式面板修改源码，实时保存；代码繁琐，可维护性差
+  * Less 代码简洁，可维护性好；需要工具支持；不可用样式面板直接修改
 
 
 ## 前端调试工具 Chrome 使用分享
 
-  * 作者: 久久话事
-  * 视频地址: http://edu.csdn.net/course/detail/1743/26849?auto_start=1
-  * 作者网站: http://xjiujiu.com
-
-讲师介绍： 2010年从事WEB开发，先后学习了PHP，JAVA，C#，Python等编程语言，熟悉常用的设计理念及代码优化方法，目前有自主研发的框架3个
-，PHP-Wooc，Java-jWooc, Js-HHJsLib。有兴趣的同学欢迎访问：https://www.github.com/HongJuZiNetStudio
-
-### 课程目录
-
-web开发工具之谷歌浏览器开发者工具
+视频地址: http://edu.csdn.net/course/detail/1743/26849?auto_start=1
 
 谷歌浏览器必会功能项目:
-
   1. 查看网站源码
   2. 查看HTML标签在页面中真正使用的CSS代码
   3. 格式化JS代码

@@ -1,5 +1,53 @@
 # Bash Shell
 
+http://www.gnu.org/software/bash/manual/html_node/index.html
+
+
+## Basic Shell Features
+
+### Shell Syntax
+
+#### Shell Operation
+
+以下是 Bash 执行命令的基本流程：
+
+1. Reads its input from a file (Shell Scripts), or from the user’s terminal.
+2. Breaks the input into words and operators. Alias expansion is performed by this step.
+3. Parses the tokens into simple and compound commands.
+4. Performs the shell expansions, breaking the expanded tokens into lists of filenames + commands + arguments.
+5. Performs any necessary redirections and removes the redirection from the argument list.
+6. Executes the command.
+7. Optionally waits for the command to complete and collects its exit status.
+
+#### Quoting
+
+Quoting is used to remove the special meaning of certain characters or words to the shell.
+
+||
+-------|--------------
+ `\`   | 转义单个字符
+ `''`  | 单引号内的所有内容都会被认为是普通字符串
+ `""`  | 双引号内的字符串仅 `$` <code>\`</code> `\` 保留特殊含义
+
+#### Comments
+
+`#` 及其后(在同一行内)的内容被视为注释
+
+### Shell Commands
+
+### Shell Functions
+
+### Shell Parameters
+
+### Shell Expansions
+
+### Redirections
+
+### Executing Commands
+
+### Shell Scripts
+
+
 #### 常用快捷键
 
 |||
@@ -9,9 +57,6 @@
 | ctrl+a    | 跳到行首
 | ctrl+e    | 跳到行尾
 
-#### bash 的主要优点
-
-命令记忆 history ；自动补全 tab；命令别名 alias；作业控制；程序脚本；通配符
 
 #### 变量功能
 
@@ -148,3 +193,34 @@ $ tar -cvf - /home | tar -xvf - -C /tmp/homeback
 ```
 
 A `--` signals the end of options and disables further option processing. Any arguments after the `--` are treated as filenames and arguments. An argument of `-` is equivalent to `--`.
+
+### 命令行选项
+
+```bash
+# 长选项和其参数之间只能有 `=` 不能出现空格
+$ npm ls --depth=0   # 不带空格，工作正常
+# 错误用法
+$ npm ls --depth= 0  # xx 选项和参数间带空格，无效
+
+# 短选项和其参数之间的空格可选
+$ du -d 1  # ok
+$ du -d1   # ok
+# 在带参情况下，每个选项前都要带 `-`
+$ du -d1 -h  # ok
+$ du -hd1    # ok
+$ du -d1h    # xx
+$ du -d1 h   # xx
+$ du -d1-h   # xx
+
+# 在 bash 里 `"` 和 `'` 如预期工作，双引号有变量置换功能，而单引号没有，但在 win 下好像有点问题
+$ git commit -m 'abc de'  # win 下的提交记录为 `'abc de'`
+$ git commit -m "abc de"  # win 下的提交记录为 `abc de`
+```
+
+> [命令行命令中短选项与长选项之间的差别](https://www.quora.com/Why-do-command-line-tools-have-a-short-version-and-a-long-version-for-options)  
+> 早期只有短选项这种形式，长选项是后来才加入的。
+> 短选项，只有一个字符，`-` 后可以跟多个设定项，方便录入，但可读性不强，对用户要求高。
+> 长选项录入不便，但易读，适合在脚本中使用。
+> 必要时，可以在最后一个选项后录入 `--` 或 `-`，用于告诉解析器选项结束，后面的是其他参数内容。
+
+
