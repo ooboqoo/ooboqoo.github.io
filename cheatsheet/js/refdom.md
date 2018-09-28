@@ -157,13 +157,6 @@ The following properties and methods can be used on HTML documents:
 
 注1：[DocumentFragment](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment) 的关键点: 片段是轻量级的Document; append时从片段内移出
 
-```js
-var domRect = element.getBoundingClientRect()  // IE9+ 支持
-// DOMRect object has eight properties: left, top, right, bottom, x, y, width, height
-// 除开 width height 其他几个都是相对于视口左上角计算得到的 px 值
-var rectCollection = object.getClientRects()
-```
-
 ### Warning !!!
 
 In the W3C DOM Core, the Document object inherits all properties and methods from the Node object. Many of these properties and methods make no sense used on documents.
@@ -261,6 +254,7 @@ _element_.removeAttribute()     | Removes a specified attribute from an element
 _element_.setAttributeNode()    | Sets or changes the specified attribute node
 _element_.removeAttributeNode() | Removes a specified attribute node, and returns the removed node
 _element_.getAttributeNode()    | Returns the specified attribute node
+_element_.getBoundingClientRect() | 获取元素的(相对视口)定位及尺寸信息
 |
 _element_.appendChild()   | Adds a new child node, to an element, as the last child node
 _element_.removeChild()   | Removes a child node from an element
@@ -279,6 +273,13 @@ _element_.getFeature()  | Returns an object which implements the APIs of a speci
 _element_.isDefaultNamespace() | Returns true if a specified namespaceURI is the default, otherwise false
 _element_.isSupported() | Returns true if a specified feature is supported on the element
 _element_.toString()    | Converts an element to a string
+
+```js
+var domRect = element.getBoundingClientRect()  // IE9+ 支持
+// DOMRect object has eight properties: left, top, right, bottom, x, y, width, height
+// 除开 width height 其他几个都是相对于视口左上角计算得到的 px 值
+var rectCollection = object.getClientRects()
+```
 
 ||
 ------------------|-------------------------------------------------------

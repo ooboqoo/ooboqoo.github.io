@@ -196,3 +196,57 @@ for (var i = 0; i < items.length; ++i) {
 }
 ```
 
+
+## Intersection Observer
+
+The Intersection Observer API provides a way to asynchronously observe changes in the intersection of a target element with an ancestor element or with a top-level document's viewport.
+
+在引入此 API 之前，像图片懒加载之类的需要添加 `scroll` `resize` `orientationChange` 等事件监听函数，借助 `element.getBoundingClientRect()` 等 API 来确认元素是否出现在特定位置。这样在主线程进行大量计算会拖慢整体性能。而通过 Intersection Observer API 添加的回调，只会在元素 visibility 变化时才会触发一次回调。
+
+典型应用场景：
+  * Lazy-loading of images or other content as a page is scrolled.
+  * Implementing "infinite scrolling" web sites, where more and more content is loaded and rendered as you scroll, so that the user doesn't have to flip through pages.
+  * Reporting of visibility of advertisements in order to calculate ad revenues.
+  * Deciding whether or not to perform tasks or animation processes based on whether or not the user will see the result.
+
+```js
+const options = { rootMargin: '200px' }
+const callback = (entries, observer) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) { return }
+    const image = entry.target
+    image.src = image.dataset.src
+    image.classList.remove('lazy')
+    observer.unobserve(image)
+  })
+}
+const observer = new IntersectionObserver(callback, options)
+observer.observe(document.querySelector('.lazy'))
+```
+
+附：图片懒加载优化好文 https://css-tricks.com/the-complete-guide-to-lazy-loading-images/
+
+## 一些较新的 API
+
+```js
+window.requestAnimationFrame(callback: FrameRequestCallback): number;  // 在下一帧开始时调用指定函数
+window.cancelAnimationFrame(requestID: number);
+window.requestIdleCallback(callback[, options]): number;  // 在空闲时再执行回调
+window.cancelIdleCallback(handle: number);
+```
+
+```js
+var adiv = document.getElementById('mydiv')
+var leftpos = 0
+function movediv (timestamp) {
+  leftpos += 5
+  adiv.style.left = leftpos + 'px'
+  requestAnimationFrame(movediv) // call requestAnimationFrame again to animate next frame
+}
+requestAnimationFrame(movediv) // call requestAnimationFrame and pass into it animation function
+```
+
+```js
+var handle = window.requestIdleCallback(callback[, options])
+```
+
