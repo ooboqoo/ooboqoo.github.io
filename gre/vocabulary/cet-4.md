@@ -4,123 +4,140 @@
   var ps = document.querySelectorAll('#md p')
   for (let p of ps) {
     p.innerHTML = p.innerHTML
-      .replace(/(^|<br>)([忘析混错联派类])/g, '$1<span class="tag-class">$2</span>')
-      .replace(/\b(n|v|vt|vi|a|ad)\./g, '<span class="tag-aaa">$&</span>')
+      .replace(/(^|<br>)([忘析混错联派类]) ([\w-]+)/g, '$1<span class="tag-class">$2</span> <span class="word">$3</span>')
+      .replace(/\b(n|v|vt|vi|a|ad|prep)\./g, '<span class="tag-pos">$&</span>')
       .replace(/SYN|OPP/g, '<span class="tag-syn">$&</span>')
   }
+  var exs = document.querySelectorAll('#md p span.exp, #md p span.exa')
+  for (let ex of exs) { ex.dataset.txt = ex.innerHTML; ex.innerHTML = '' }
 </script>
 
 <style>
+  .word { color: red; }
   .tag-class { font-size: .75em; color: #999; }
-  .tag-aaa { padding: 0 2px; color: #c33; }
+  .tag-pos { padding: 0 2px; color: #c33; }
   .tag-syn { padding: 0 2px; color: #999; font-size: .75em; border: 1px solid; border-radius: 4px; }
+  .exp::before, .exa::before { padding: 0 2px; color: #999; border: 1px solid; border-radius: 4px; }
+  .exp:hover::after, .exa:hover::after { display: block; position: absolute; background-color: #f6f6f6; padding: 4px 4px 4px 12px; width: 95%; }
+  .exp:hover::after, .exa:hover::after { content: attr(data-txt); }
+  .exp::before { content: '释'; }
+  .exa::before { content: '例'; }
 </style>
 
-Jesus 耶稣 Christ 基督 Jesus Christ 耶稣基督是人民，the man who Christians believe was the son of God  
-Christian 基督教徒，基督教的  
+Jesus 耶稣 Christ 基督 Jesus Christ 耶稣基督(人名) the man who Christians believe was the son of God  
+Christian 基督教徒,基督教的  
 optional subjects 选修课  major 主修课程，专业  
 sewing machine 缝纫机  
-gallery  画廊，楼座  
+gallery  画廊,楼座  
 lucky guy / lucky dog 幸运儿  
-scissors  _/ˈsɪzəz $ -ərz/_  剪子，剪刀；本身为复数   <s>a scissors</s>  a pair of scissors  
+nail polish  指甲油  
+piggy bank  小猪储蓄罐  
+scenario(plural scenarios)  _/sɪˈnærioʊ/_  n.场景  
+
+scissors  _/ˈsɪzəz $ -ərz/_  [pl.] 剪子,剪刀  <s>a scissors</s> a pair of scissors  
 rich harvest  大丰收  
 commit suicide  自杀  
-outlook 风光  scenery 风景  
-the trash field 垃圾场  
+swear  _/sweə/_  v.咒骂,诅咒,说脏话; 发誓,郑重声明  
+
 resigned from 辞职  
 vocal  a.大声说出的; 嗓音的,发声的 vocal training 发声训练  
-inference _/ˈɪnfərəns/_ n. 推理; 结论  
-frustrate  _/ˈfrʌstreɪt/_  使沮丧,使愤怒; 挫败,阻挠…的成功  These questions frustrated me  
-discourage  v. 使泄气,使灰心; 劝阻  discourage someone from doing something  
-reproduce  _/ˌriːprəˈdjuːs/_  v. (动植物)繁殖; 复制 copy  
+
+析 frustrate  _/ˈfrʌstreɪt/_  v.使沮丧,使愤怒; 挫败
+  <span class="exp">upsets or angers you because you are unable dffdfdfdsfdsfdf sdfdfdfdsfds sdfdsfdsf sdfdsfsdfdf sdfdsfdsfdfdsf dfsdfdsfd sdfsdfsdfsdfsdf sdfsdfsdfsdf to do anything about the problems it creates</span>  
+析 discourage  v.使泄气,使灰心; 劝阻,打消…的念头  discourage someone from doing something  
+
+reproduce  _/ˌriːprəˈdjuːs/_  v.(动植物)繁殖; 复制 copy  
 mount  _/maʊnt/_  v. 骑上(马、自行车等) n. 山  
 zebra crossing  n. 斑马线  
 
-promise  诺言  a verbal commitment  
+inference _/ˈɪnfərəns/_ n. 推理; 结论  
+
+promise  n.诺言  a verbal commitment  
 rally  _/ˈræli/_  n.集会  a public meeting to support or oppose someone or something  
 
-Celsius  _/ˈselsiəs/_  摄氏度  
-Centigrade  摄氏度  相对 Celsius 更老的用法  
-Fahrenheit  华式度  
+联 Celsius  _/ˈselsiəs/_  摄氏度  
+联 Centigrade  摄氏度  相对 Celsius 更老的用法  
+联 Fahrenheit  华式度  
 
-emoticon  _/ɪˈmoʊtɪkɑːn/_  A special sign that is used to show an _emotion_ in email and on the Internet.  
-emoji  _/ɪˈmoʊdʒi/_  表情图标, 源自日文, 与 emoticon 相似纯属巧合
-
-literacy  _/ˈlɪtərəsi/_  n.读写能力, 识字  Many adults have some problems with literacy and numeracy  在读写和计算方面都有困难  
+联 emoticon  _/ɪˈmoʊtɪkɑːn/_  A special sign that is used to show an _emotion_ in email and on the Internet.  
+联 emoji  _/ɪˈmoʊdʒi/_  表情图标, 源自日文, 与 emoticon 相似纯属巧合
 
 cargo  _/ˈkɑːɡəʊ/_  n. (轮船、飞机所装载的)货物  
 freight  _/freɪt/_  n. 货运; 货物  
 
-induce  v.引诱,劝说  
+induce  _/ɪnˈdjuːs/_  v.劝说; 导致  
+tempt  _/tempt/_  v.吸引(无好坏的偏向性); 怂恿,引诱(做不该做的)  
 
-chilli  _/ˈtʃɪli//_  n. 辣椒(长)
-pepper  _/ˈpepə/_  n. 胡椒；甜椒(圆)
+联 chilli  _/ˈtʃɪli//_  n. 辣椒(长)
+联 pepper  _/ˈpepə/_  n. 胡椒;甜椒(圆)
 
-nail polish  指甲油  
-piggy bank  小猪储蓄罐  
-
-uptown  ad.往(或在)城外  
-downtown  ad.在城市的商业区 a.n.城市商业区的  
+联 uptown  ad.往(或在)城外  
+联 downtown  ad.在城市的商业区 a./n.城市商业区(的)  
+联 suburb  _/ˈsʌbɜːb/_  n.城郊  
 
 snack n. 小吃;便餐  a small amount of food that is eaten between main meals or instead of a meal  
+troop  _/truːp/_  n.部队,士兵(可复数); 一群,一队 v.结队前行
 
-crane /kreɪn/ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)伸长(脖子)，探头 She craned forward to look at me.  
-represent v.代表个人或团体出席
+crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)伸长(脖子)，探头 She craned forward to look at me.  
 
-cupboard  _/ˈkʌbəd/_  n.橱柜(英国英语中，cupboard 指所有类似的家具；而在美国英语中，常用 closet 来指较大的此类家具)  
-wardrobe  _/ˈwɔːrdroʊb/_  n.衣柜,衣橱；A wardrobe is a tall cupboard or cabinet in which you can hang your clothes.  
-closet  _/ˈklɒzɪt/_  n. [美] a cupboard built into the wall of a room from the floor to the ceiling  **comes out of the closet** 公开同性恋身份  
-cabinet  _/ˈkæbɪnət/_  n.内阁,内阁会议; (带玻璃门存物品的)橱柜
 
-## 忘
+## 忘 1
+
+
+
+
+## 忘 2
 
 忘 delicate  _/ˈdelɪkət/_  a.精致的,娇美的; 易碎的 SYN fragile  
 忘 diverse  _/daɪˈvɜːs/_  a.多种多样的,(from)不同的  shops selling a diverse range of gifts  
-忘 cognitive  _/ˈkɒɡnətɪv/_  a.认知的,认识能力的  例: As children grow older, their cognitive processes become sharper.  
-忘 ridiculous  _/rɪˈdɪkjələs/_  a.荒谬的,可笑的  
-忘 solitary  _/ˈsɒlətəri/_  a.孤单的; 独居的  
+忘 cognitive  _/ˈkɒɡnətɪv/_  a.认知的,认识能力的  As children grow older, their cognitive processes become sharper  
+
 忘 prominent  _/ˈprɒmənənt/_  a.显著的; 突出的; 杰出的  
-忘 lease  _/liːs/_  n.租约; 租契v.出租,租借  Rental Contract  
-忘 brutal  _/ˈbruːtl/_  a.野蛮的,残暴的  
+dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的  
+
+忘 lease  _/liːs/_  n.租约; 租契 v.出租,租借  Rental Contract  
 忘 drought  _/draʊt/_  n.旱灾,干旱  
-忘 scatter  _/ˈskætə/_  v.撒播; 使(人群)分散  
-忘 lean  _/liːn/_  v.身体倾斜,倚靠 a.肉瘦的; 组织精简的  
 忘 stationary  _/ˈsteɪʃənəri/_  a.静止的; 不动的  
 忘 punctual  _/ˈpʌŋktʃuəl/_  a.准时的,守时的,正点的 SYN on time  
 忘 utter  _/ˈʌtə/_  a.彻底的,完全的 v.说,发出(声音)  
 
-忘 auction  _/ˈɔːkʃən $ ˈɒːk-/_  v/n.拍卖  
-忘 sanction  _/ˈsæŋkʃən/_  n.处罚; 制裁 v.(正式)认可,准许; 对…实施处罚  
+忘 auction  _/ˈɔːkʃən $ ˈɒːk-/_  v./n.拍卖  
+忘 sanction  _/ˈsæŋkʃən/_  n.处罚,制裁 v.(正式)认可,准许; 对…实施处罚  
 
-忘 dispensable  _/dɪˈspensəbəl/_  a.可有可无的; 不重要的  
-忘 indispensable  _/ˌɪndɪˈspensəbəl◂/_  a.(to,for)必不可少的,必需的  
+联 dispensable  _/dɪˈspensəbəl/_  a.可有可无的; 不重要的  
+联 indispensable  _/ˌɪndɪˈspensəbəl◂/_  a.(to,for)必不可少的,必需的  
+联 dependant 美dependent  _/dɪˈpendənt/_  a.依靠的,依赖的; 取决于…的
+  <span class="exa">Jan’s mother was dependent on her for physical care.</span>  
+联 independent  _/ˌɪndɪˈpendənt◂/_  a.(of)独立的,自主的  英美拼写一样  
 
-忘 dependant 美dependent  _/dɪˈpendənt/_  a.依靠的,依赖的; 取决于…的  
-    Jan’s mother was dependent on her for physical care.  
-忘 independent  _/ˌɪndɪˈpendənt◂/_  a.(of)独立的,自主的  英美拼写一样  
-
-忘 advocate  _/ˈædvəkeɪt/_  n.辩护律师; 拥护者 v.拥护,提倡 SYN proponent  
+忘 advocate  _/ˈædvəkeɪt/_  v.拥护,提倡 n.拥护者; 辩护律师 SYN proponent  
 忘 proponent  _/prəˈpəʊnənt/_  n.支持者,拥护者,辩护者  
 
 忘 controversial  _/ˌkɒntrəˈvɜːʃəl◂/_  a.有争议的; 引发争论的  
 忘 conservative  _/kənˈsɜːvətɪv/_  a.保守的,守旧的 n.保守主义者  
-忘 contempt  _/kənˈtempt/_  n.轻视,藐视; 受辱,丢脸  
+
+联 contempt  _/kənˈtempt/_  n.轻视,藐视; 受辱,丢脸  
+
 忘 convince  _/kənˈvɪns/_  v.(of)使信服,使确信  
 忘 concession  _/kənˈseʃən/_  n.让步,妥协; 特许(权)  
 忘 hostile  _/ˈhɑːstl $ ˈhɒstaɪl/_  a.敌对的,敌方的,怀有敌意的  
 忘 grim  _/ɡrɪm/_  a.严峻的; 糟糕的,讨厌的,丑陋的 looking or sounding very serious  
+
 忘 humble  _/ˈhʌmbəl/_  a.谦逊的; 卑贱的 v.使谦逊; 羞辱  
+
 忘 curse  _/kɜːs $ kɜːrs/_  v.诅咒,咒骂 n.诅咒,咒语 curl卷发  
 忘 colony  _/ˈkɒləni/_  n.殖民地; 聚居区; (动植物的)群体  
 忘 monopoly  _/məˈnɒpəli/_  n.垄断,专卖,专利权  
-忘 desperate  _/ˈdespərət/_  a.绝望的; 渴望的  She was desperate with fear.  The team is desperate for a win.  He was desperate to get a job.  
+忘 desperate  _/ˈdespərət/_  a.因绝望而孤注一掷的; 渴望的; 极困难的
+  <span class="exa">She was desperate with fear. We are desperate for a win. He was desperate to get a job.</span>  
 忘 imperative  _/ɪmˈperətɪv/_  n.必要紧急的事 a.强制的; 紧急的; 祈使语气  
 忘 intimate  _/ˈɪntəmət, ˈɪntɪmət/_  a.亲密的,密切的 n.熟友,熟人  
 忘 baffle  _/ˈbæfəl/_  v.使困惑; 把…难住    if something baffles you, you cannot understand or explain it at all  
 忘 vulnerable  _/ˈvʌlnərəbəl/_  a.脆弱的,易受伤害的 OPP invulnerable  
 忘 ingredient  _/ɪnˈɡriːdiənt/_  n.(混合物的)组成部分; (烹调的)原料; 成份,要素  是原料,不是调料  
 忘 heir  _/eə $ er/_  n.继承人 记发音  
-忘 omit  _/əʊˈmɪt/_  v.遗漏; 排除 emit发出光\热\气味  you do not include it in an activity or piece of work, deliberately or accidentally.  
+忘 omit  _/əʊˈmɪt/_  v.遗漏; 排除 emit发出光\热\气味
+  <span class="exp">you do not include it in an activity or piece of work, deliberately or accidentally.</span>  
 
 忘 sore  _/sɔː $ sɔːr/_  a.疼痛的; 痛心的,恼怒的 n.痛处,疮口  Don’t be sore at me  
 忘 sue  _/sjuː $ suː/_  v.(通常为索赔而)控告,对…提起诉讼  
@@ -143,8 +160,6 @@ cabinet  _/ˈkæbɪnət/_  n.内阁,内阁会议; (带玻璃门存物品的)橱�
 忘 moderate  _/ˈmɒdərət, ˈmɒdərɪt/_  a.(政治观点或政策)温和的,稳健的; 中等的,普通的,适度的,适量的  
 忘 intermediate  _/ˌɪntəˈmiːdiət◂/_  a.居中的,中间的; 中等程度的,中级的 n.中级学习者  
 
-忘 discipline  _/ˈdɪsəplən,-sɪ-,-lɪn/_  n.(旨在使行为举止正规的)训练; 自制力,遵守纪律; (一套)规章制度,纪律; (尤指大学里的)学科 v.惩罚; 训练,管教  
-
 忘 spite  _/spaɪt/_  [in spite of] 尽管 SYN despite n.怨恨  
 忘 virtue  _/ˈvɜːtʃuː/_  n.善行; 美德; 优点  
 忘 false  _/fɔːls/_  a.错误的; 假的; 人虚伪的  
@@ -158,8 +173,9 @@ cabinet  _/ˈkæbɪnət/_  n.内阁,内阁会议; (带玻璃门存物品的)橱�
 忘 faint  _/feɪnt/_  a.(声音、颜色、标记、感觉或特性)微弱的,暗淡的,虚弱的 n.晕厥,晕倒  
 忘 yield  _/jiːld/_  v.出产(作物等); (to)屈服,服从 n.产量,产出 field 牧场,球场,领域  
 
-忘 keen  _/kiːn/_  a.渴望的,热切的,热衷的 keen to do something, keen on doing something, keen for something to happen
-    eager  渴望的 热切的, enthusiastic 非常感兴趣的 热情的, zealous 充满激情的，狂热的  
+忘 keen  _/kiːn/_  a.渴望的,热切的,热衷的
+  <span class="exa">keen to do something, keen on doing something, keen for something to happen</span>
+  <span class="exp">eager  渴望的 热切的, enthusiastic 非常感兴趣的 热情的, zealous 充满激情的，狂热的</span>  
 
 忘 haste  _/heɪst/_  n.急速; 仓促; 匆忙  [in haste] 匆忙地,草率地  
 忘 stereo  _/ˈsteriəʊ, ˈstɪər-/_  a.立体声的 n.立体音响  
@@ -171,36 +187,44 @@ cabinet  _/ˈkæbɪnət/_  n.内阁,内阁会议; (带玻璃门存物品的)橱�
 忘 nurture  _/ˈnɜːtʃə/_  n./v.养育,培育  
 忘 prosperity  _/prɒˈsperəti, prɒˈsperɪti/_  n.繁荣,兴旺  
 忘 tragedy  _/ˈtrædʒədi/_  n.不幸,灾难,惨剧; 悲剧作品  
-忘 fare  _/feə/_  n.车费 v.进展 farewell  
+忘 fare  _/feə/_  n.车费 v.进展 fare well 进展顺利 [联] farewell=goodby  
 忘 inevitable  _/ɪˈnevətəbəl, ɪˈnevɪtəbəl/_  a.不可避免的,必然发生的  
+
 忘 handkerchief  _/ˈhæŋkətʃɪf/_  n.手帕  hand·ker·chief  
+忘 tissue  _/ˈtɪʃuː/_  n.(动植物的)组织; 面巾纸,手巾纸  
+
 忘 dumb  _/dʌm/_  a.哑的; 哑口无言的; 人愚蠢的,笨的; 无声的,不用言语表达的  a young deaf and dumb man  
 忘 damp  _/dæmp/_  a.潮湿的,湿气重的; n.潮气 v.弄湿  
+
 忘 fatigue  _/fəˈtiːɡ/_  n.疲劳,疲倦; (金属或木材的)疲劳  
 忘 costume  _/ˈkɒstjʊm/_  n.表演服装; (某历史时期或某国的)装束 a.(戏剧)古装的  
 忘 trap  _/træp/_  n.(捕鸟兽的)陷阱,罗网,夹子; 圈套,骗局 v.诱骗,诱捕  
 
 忘 rebel  _/ˈrebəl/_  n.叛军,反叛者,反对派; 叛逆者 v.政见不同者反抗  
-忘 revolt  _/rɪˈvəʊlt/_  n/v.反叛; 起义; 叛乱; 抗争  
+忘 revolt  _/rɪˈvəʊlt/_  n./v.反叛; 起义; 叛乱; 抗争  
 忘 riot  _/ˈraɪət/_  n.暴动,骚乱 v.闹事  
 
 忘 deliberate  _/dɪˈlɪbərət/_  a.故意的,蓄意的; 从容的,审慎的  
 忘 wax  _/wæks/_  n.蜡; 耳垢 v.给…上蜡  
 忘 alongside  _/əˌlɒŋˈsaɪd/_  [介] 在…旁边,沿着…的边  
 忘 knot  _/nɒt $ nɑːt/_  n.(绳)结; (树)节; 节(=海里/小时) v.打结  
-忘 ditch  _/dɪtʃ/_  n.沟,沟渠,水沟  
+忘 ditch  _/dɪtʃ/_  n.沟,沟渠,水沟  dig a ditch  
 忘 wrist  _/rɪst/_  n.腕,手腕  
 忘 waist  _/weɪst/_  n.腰,腰部; (衣服的)腰部,腰身  
+
 忘 jaw  _/dʒɔː $ dʒɒː/_  n.下巴,下颌  
+
 忘 mercury  _/ˈmɜːkjəri/_  n.水银; 水星  
 忘 neutral  _/ˈnjuːtrəl/_  a.中性的; 中立的  
 忘 violet  _/ˈvaɪələt, ˈvaɪəlɪt/_  n.紫罗兰; 紫罗兰色  
 忘 violin  _/ˌvaɪəˈlɪn/_  n.小提琴  
-忘 tissue  _/ˈtɪʃuː/_  n.(动植物的)组织; 面巾纸,手巾纸  
+
 忘 whale  _/weɪl/_  n.鲸  
 忘 diligent  _/ˈdɪlədʒənt, ˈdɪlɪdʒənt/_  a.勤奋的,孜孜不倦的  
+
 忘 plural  _/ˈplʊərəl/_  n.复数,复数形式 a.复数的  
 忘 adjective  _/ˈædʒəktɪv, ˈædʒɪktɪv/_  n.形容词  
+
 忘 dye  _/daɪ/_  v.给…染色 n.染料  
 忘 recite  _/rɪˈsaɪt/_  v.背诵,朗诵  
 忘 stimulate  _/ˈstɪmjəleɪt, ˈstɪmjʊleɪt/_  v.刺激(身体部位); 激励,鼓舞  
@@ -231,13 +255,15 @@ cabinet  _/ˈkæbɪnət/_  n.内阁,内阁会议; (带玻璃门存物品的)橱�
 忘 exit  _/ˈeɡzɪt/_  n.出口,通道  
 忘 Canadian  _/kəˈneɪdiən/_  a.加拿大的  Canada 加拿大  
 忘 silicon  _/ˈsɪlɪkən/_  n.硅  
-忘 hazard  _/ˈhæzəd/_  n.危险,冒险,危害 v.冒险  something that may be dangerous, or cause accidents or problems  
+忘 hazard  _/ˈhæzəd/_  n.危险,冒险,危害 v.冒险
+  <span class="exp">something that may be dangerous, or cause accidents or problems</span>  
 忘 yeast  _/jiːst/_  n.酵母; 酵母菌; 兴奋  
 忘 gene  _/dʒiːn/_  n.基因  
 忘 interest  _/ˈɪntrəst/_  n.(in)兴趣,重要性; 利益 v.(in)使发生兴趣  
 忘 preface  _/ˈprefəs/_  n.序言,引言,前言 v.作序,写前言  
 忘 publicity  _/pʌˈblɪsɪti/_  n.宣传,报道; 媒体或公众的关注  
-忘 cease  _/siːs/_  v./n.停止,中止 formal, In everyday English, people usually use stop rather than cease  
+忘 cease  _/siːs/_  v./n.停止,中止 formal
+  <span class="exp">In everyday English, people usually use stop rather than cease</span>  
 忘 presentation  _/ˌprezənˈteɪʃən/_  n.介绍,陈述,报告  
 忘 impact  _/ˈɪmpækt/_  n.冲击,碰撞; 影响 v.影响; 挤入,压紧  
 忘 rib  _/rib/_  n.肋骨,肋状物  
@@ -247,7 +273,8 @@ cabinet  _/ˈkæbɪnət/_  n.内阁,内阁会议; (带玻璃门存物品的)橱�
 忘 organ  _/ˈɔːɡən/_  n.器官; 管风琴  
 
 忘 germ  _/dʒɜːm/_  n.微生物,细菌  
-忘 bureau  _/ˈbjʊərəʊ/_  n.署,局,司,处   a government department or a part of a government department in the US  
+忘 bureau  _/ˈbjʊərəʊ/_  n.署,局,司,处
+  <span class="exp">a government department or a part of a government department in the US</span>  
 忘 bold  _/bəʊld/_  a.大胆的,勇敢的; 醒目的,粗体的  
 
 忘 myth  _/mɪθ/_  n.神话; 虚构的理论; 编造的话,谎言  SYN fallacy  
@@ -274,7 +301,8 @@ cabinet  _/ˈkæbɪnət/_  n.内阁,内阁会议; (带玻璃门存物品的)橱�
 忘 boast  _/bəʊst $ boʊst/_  v.(of,about)自夸,夸耀  
 忘 tire  _/taɪə $ taɪr/_  v.(使)疲倦,(使)厌倦 n.轮胎,车胎  轮胎:BrE tyre; NAmE tire  
 忘 diplomatic  _/ˌdɪpləˈmætɪk◂/_  a.外交的; 圆滑的  
-忘 whip  _/wɪp/_  n.鞭子v.鞭打; 搅打(奶油或鸡蛋等)   to mix cream or the clear part of an egg very hard until it becomes stiff ⇨ beat, whisk  
+忘 whip  _/wɪp/_  n.鞭子v.鞭打; 搅打(奶油或鸡蛋等)
+  <span class="exp">to mix cream or the clear part of an egg very hard until it becomes stiff ⇨ beat, whisk</span>  
 忘 prevail  _/prɪˈveɪl/_  v.(over,against)取胜,占优势; 流行,盛行  
 忘 pit  _/pɪt/_  n.坑,陷阱; 煤矿,矿井  A pit is a large hole that is dug in the ground.  
 忘 expert  _/ˈekspɜːt/_  n.专家,能手a.熟练的; 专门的  
@@ -282,11 +310,11 @@ cabinet  _/ˈkæbɪnət/_  n.内阁,内阁会议; (带玻璃门存物品的)橱�
 忘 tear  n._/tɪə/_ v._/teə/_  n.(pl.)眼泪 vt.撕裂; 使..分裂 vi.破裂  
 忘 acute  _/əˈkjuːt/_  a.情况严重的; 感觉强烈的; 疾病急性的; 感官灵敏的; 发音重音的  
 忘 obstacle  _/ˈɒbstəkəl/_  n.障碍(物),妨碍,阻碍,干扰  
-忘 exploit  _/ɪkˈsplɔɪt/_  v.开采; 剥削n.功绩[勋]  
+忘 exploit  _/ɪkˈsplɔɪt/_  v.开采; 剥削 n.功绩,功勋  
 忘 stadium  _/ˈsteɪdiəm/_  n.(周围设有看台的)露天体育场  
 忘 monetary  _/ˈmʌnətəri/_  a.金融的,货币的 money  
-忘 acquaintance  _/əˈkweɪntəns/_  n.认识的人,泛泛之交; 认识,相识,了解  
-    In everyday English, people usually say "someone I know" rather than an acquaintance  
+忘 acquaintance  _/əˈkweɪntəns/_  n.认识的人,泛泛之交; 认识,相识,了解
+  <span class="exp">In everyday English, people usually say "someone I know" rather than an acquaintance</span>  
 忘 gymnasium 简gym  _/dʒɪmˈneɪziəm/_  n.体育馆,健身房  
 忘 eliminate  _/ɪˈlɪməneɪt,-mɪ-/_  v.剔除; 淘汰; 消灭  
 忘 sack  _/sæk/_  n.麻袋 v.解雇; 洗劫  
@@ -298,7 +326,7 @@ cabinet  _/ˈkæbɪnət/_  n.内阁,内阁会议; (带玻璃门存物品的)橱�
 忘 tile  _/taɪl/_  n.瓷砖; 瓦片  
 忘 symptom  _/ˈsɪmptəm/_  n.(疾病的)症状; (不好事情的)征兆  
 忘 passion  _/ˈpæʃən/_  n.热恋; 激情; 酷爱  
-忘 dwelling  _/ˈdwelɪŋ/_  n.formal 住宅,寓所    house, building, dwelling, housing, place, premises  
+忘 dwelling  _/ˈdwelɪŋ/_  n.formal 住宅,寓所  house, building, dwelling, housing, place, premises  
 忘 fuss  _/fʌs/_  n./v.忙乱,大惊小怪  
 忘 convict  _/kənˈvɪkt/_  v.(经审讯)证明...有罪,宣判...有罪 n.囚犯  
 忘 sponsor  _/ˈspɒnsə $ ˈspɑːnsər/_  n.赞助人; 发起人 v.资助; 主办  
@@ -325,7 +353,7 @@ cabinet  _/ˈkæbɪnət/_  n.内阁,内阁会议; (带玻璃门存物品的)橱�
 忘 liberate  _/ˈlɪbəreɪt/_  vt.解放,释放  
 忘 tedious  _/ˈtiːdiəs/_  a.乏味的,单调的,冗长的 SYN boring  
 忘 distinction  _/dɪˈstɪŋkʃən/_  n.区别,差别; 特性; 卓越; 光荣  
-忘 awkward  _/ˈɔːkwəd/_  a.棘手的; 行动笨拙的; 难相处的  SYN difficult  
+忘 awkward  _/ˈɔːkwəd/_  a.尴尬的; 棘手的; 行动笨拙的; 难相处的  SYN difficult  
 忘 unexpected  _/ˌʌnɪkˈspektəd◂, -tɪd◂/_  a.未预料到的; 意外的 注意发音  
 
 
@@ -338,8 +366,8 @@ cabinet  _/ˈkæbɪnət/_  n.内阁,内阁会议; (带玻璃门存物品的)橱�
 
 ## 混
 
-混 angle  _/ˈæŋɡəl/_  n.角,角度
-混 angel  _/ˈeɪndʒəl/_  n.天使,善人
+混 angle  _/ˈæŋɡəl/_  n.角,角度  
+混 angel  _/ˈeɪndʒəl/_  n.天使,善人  
 
 混 mental  _/ˈmentl/_  a.精神的,思想的,智力的  
 混 metal  _/ˈmetl/_  n.金属,金属制品  
@@ -356,11 +384,11 @@ cabinet  _/ˈkæbɪnət/_  n.内阁,内阁会议; (带玻璃门存物品的)橱�
 混 heal  _/hiːl/_  v.治愈,愈合  
 混 heel  _/hiːl/_  n.脚后跟; 鞋跟  
 
-混 wealthy  _/ˈwelθi/_  a.富有的,充分的n.富人,有钱人  
+混 wealthy  _/ˈwelθi/_  a.富有的,充分的 n.富人,有钱人  
 混 worthy  _/ˈwɜːði/_  a.(of)值得...的,配得上...的  注意发音  
 混 worthwhile  _/ˌwɜːθˈwaɪl◂/_  a.有价值的,值得(做)的  
 
-混 sole  _/səʊl/_  a.单独的,唯一的n.脚垫,鞋底  
+混 sole  _/səʊl/_  a.单独的,唯一的 n.脚垫,鞋底  
 混 soul  _/səʊl $ soʊl/_  n.灵魂,心灵; 精神,精力  
 
 混 affect  _/əˈfekt/_  vt.影响; (疾病)侵袭; 感动 动词形式  
@@ -369,23 +397,21 @@ cabinet  _/ˈkæbɪnət/_  n.内阁,内阁会议; (带玻璃门存物品的)橱�
 
 混 slip  _/slɪp/_  v.滑倒; 溜走 n.疏忽,口误,笔误  FALL OR SLIDE  
 混 slippery  _/ˈslɪpəri/_  a.滑的,滑溜的  
-混 slide  _/slaɪd/_  v.(使)滑动 n.滑梯; 幻灯片    past tense and past participle slid  _/slɪd/_  
+混 slide  _/slaɪd/_  v.(使)滑动 n.滑梯; 幻灯片  [past tense and past participle] **slid**  _/slɪd/_  
 
-混 latter  _/ˈlætə $ -ər/_  a.后一半的,接近终了的 n.两者之间的后者  [the PRON] [ADJ n]  
+混 latter  _/ˈlætə $ -ər/_  a.后一半的,接近终了的 n.两者之间的后者 the latter  
 混 later  _/ˈleɪtə $ -ər/_  ad.后来,过后  late的比较级  
 
-混 protect  _/prəˈtekt/_  v.(from)保护,保卫  
+混 protect  _/prəˈtekt/_  v.保护,保卫  
 混 protest  _/ˈprəʊtest/_  v./n.抗议,反对  
 
 混 breath  _/breθ/_  n.呼吸,气息  
 混 breathe  _/briːð/_  v.呼吸,吸入  
-混 breadth  _/bredθ, bretθ/_  n.宽度,广度
+混 breadth  _/bredθ, bretθ/_  n.宽度,广度  SYN width -> broad, depth, length
 
-混 bath  _/bɑːθ $ bæθ/_  n.沐浴,洗澡; 浴室(池,盆) v.(给...)洗澡
-When you wash yourself you can say that you bath (BrE) or bathe (NAmE), but it is much more common to say have a bath (BrE) or take a bath (NAmE).  
+混 bath  _/bɑːθ $ bæθ/_  n.沐浴,洗澡; 浴室(池,盆) v.(给...)洗澡  [BrE] have a bath [NAmE] take a bath  
 混 bathe  _/beɪð/_  v.游泳,洗澡,浸,弄湿  
-混 sunbathe  _/ˈsʌnbeɪð/_  v.晒太阳; 沐日光浴
-There is no noun ‘sunbath’: Let’s go and sunbathe/do some sunbathing (NOT have a sunbath).  
+混 sunbathe  _/ˈsʌnbeɪð/_  v.晒太阳; 沐日光浴 (不存在名词形式 sunbath)  Let’s go and sunbathe / do some sunbathing  
 
 混 cue  _/kjuː/_  n.暗示,提示,球杆  
 混 cure  _/kjʊə $ kjʊr/_  v.(of)治愈,矫正 n.治愈,痊愈; 良药  
@@ -395,20 +421,22 @@ There is no noun ‘sunbath’: Let’s go and sunbathe/do some sunbathing (NOT 
 
 混 altitude  _/ˈæltətjuːd/_  n.高度,海拔  
 混 attitude  _/ˈætətjuːd, ˈætɪtjuːd/_  n.态度,看法(to,toward,about); 姿势  
+联 gratitude  _/ˈɡrætɪtjuːd/_  n.感恩之情,感谢
 
 混 principal  _/ˈprɪnsəpəl/_  a.首要的,最主要的 n.美国中小学校长; 英国大学校长  
 混 principle  _/ˈprɪnsəpəl/_  n.行为准则; 原理 [in principle] 大体上,按道理; [on -] 按照原则  
+忘 discipline  _/ˈdɪsəplɪn/_  n.(旨在使行为举止正规的)训练; 自制力,遵守纪律; (一套)规章制度,纪律 v.惩罚; 训练,管教  
 
 混 experience  _/ɪkˈspɪəriəns $ -ˈspɪr-/_  n./vt.经验; 经历; 体验; 阅历  
 混 experiment  _/ɪkˈsperəmənt/_  n.实验; 试验 v.(on)进行实验; 做试验  
 
-混 strike  _/straɪk/_  n./vi.罢工 vt.打,击; 攻击; 给...深刻印象    past tense and past participle struck  _/strʌk/_  
+混 strike  _/straɪk/_  n./vi.罢工 vt.打,击; 攻击; 给...深刻印象 [过去式,过去分词] struck  _/strʌk/_  
 混 stroke  _/strəʊk/_  v.抚摸 n.一击/划/笔; 钟声; 中风  
 混 striking  _/ˈstraɪkɪŋ/_  a.显著的; 惹人注目的,容貌出众的  
 
-混 evolve  _/ɪˈvɒlv $ ɪˈvɑːlv/_  v.(使)进化;  v.使演化  
+混 evolve  _/ɪˈvɒlv $ ɪˈvɑːlv/_  v.(使)进化 v.使演化  
 混 involve  _/ɪnˈvɒlv/_  v.卷入,陷入; 涉及  
-混 revolve  _/rɪˈvɒlv/_  v.围绕…旋转  
+混 revolve  _/rɪˈvɒlv/_  v.围绕…旋转  SYN rotate  
 
 混 lessen  _/ˈlesən/_  v.使缩小; 使减轻  
 混 lesson  _/ˈlesən/_  n.(功)课; [pl.]课程  
@@ -417,7 +445,8 @@ There is no noun ‘sunbath’: Let’s go and sunbathe/do some sunbathing (NOT 
 混 dessert  _/dɪˈzɜːt/_  n.饭后甜点  
 混 desert  _/ˈdezət/_  n.沙漠,不毛之地 v.抛弃,遗弃  
 
-混 proceed  _/prəˈsiːd/_  v.接着做; 继续进行; 朝着某个方向前进   In everyday English, people usually say go ahead rather than proceed  
+混 proceed  _/prəˈsiːd/_  v.接着做; 继续进行; 朝着某个方向前进
+  <span class="exp">In everyday English, people usually say go ahead rather than proceed</span>  
 混 precede  _/prɪˈsiːd/_  v.发生在…之前; 顺序、位置先于  
 
 混 council  _/ˈkaʊnsəl/_  n.理事会,委员会,议事机构  
@@ -427,7 +456,7 @@ There is no noun ‘sunbath’: Let’s go and sunbathe/do some sunbathing (NOT 
 混 advise  _/ədˈvaɪz/_  vt.忠告,劝告,建议; 通知,告知  
 
 混 packet  _/ˈpækət, ˈpækɪt/_  n.小包裹,小捆; 一捆,一扎  packing有图例  
-混 pocket  _/ˈpɒkət, ˈpɒkɪt/_  n.衣袋a.袖珍的,小型的 v.把...装入袋内  
+混 pocket  _/ˈpɒkət, ˈpɒkɪt/_  n.衣袋 a.袖珍的,小型的 v.把...装入袋内  
 
 混 dairy  _/ˈderi/_  n.乳制品; 乳品店 a.奶制的  
 混 diary  _/ˈdaɪəri $ ˈdaɪri/_  n.日记,日记簿  
@@ -435,7 +464,7 @@ There is no noun ‘sunbath’: Let’s go and sunbathe/do some sunbathing (NOT 
 混 folk  _/fəʊk $ foʊk/_  n.人们,大家; 亲属,双亲 a.民间的,大众的  
 混 fork  _/fɔːk $ fɔːrk/_  n.餐叉; 岔路口 v.叉; 分叉  
 
-混 quiet  _/ˈkwaɪət/_  a.安静的,平静的n.安静 v.使安静,平静  
+混 quiet  _/ˈkwaɪət/_  a.安静的,平静的 n.安静 v.使安静,平静  
 混 quite  _/kwaɪt/_  ad.十分,完全; 相当  
 
 混 launch  _/lɒːntʃ/_  v.发射; 使船下水; 开展活动; 发动袭击等  
@@ -446,7 +475,7 @@ There is no noun ‘sunbath’: Let’s go and sunbathe/do some sunbathing (NOT 
 
 混 adopt  _/əˈdɒpt/_  v.采用,采取(态度等); 选定; 收养  
 混 adapt  _/əˈdæpt/_  v.适应,使适应; 改编,改写  
-混 adept  _/əˈdept/_  a.熟练的; 内行的  
+混 adept  _/əˈdept/_  a.熟练的; 内行的  SYN skilful  
 
 混 perspective  _/pəˈspektɪv $ pər-/_  n.透视画法; 观点,看法  SYN viewpoint  
 混 prospective  _/prəˈspektɪv/_  a.预期的  
@@ -455,7 +484,7 @@ There is no noun ‘sunbath’: Let’s go and sunbathe/do some sunbathing (NOT 
 混 border  _/ˈbɔːdə/_  n.边界,国界; 边(沿) v.毗连,与…接壤  
 混 broad  _/brɔːd $ brɒːd/_  a.宽的,广阔的  
 混 abroad  _/əˈbrɔːd/_  ad.到国外,在国外; 广为流传地  
-混 aboard  _/əˈbɔːd/_  ad. & prep.在船(飞机,车)上  
+混 aboard  _/əˈbɔːd/_  ad./prep.在船(飞机,车)上  
 
 混 contrary  _/ˈkɒntrəri/_  a.(to)相反的,矛盾的 on the contrary [p]相反地  
 混 contrast  _/ˈkɒntrɑːst/_  n.差异,悬殊 v.(with)对比,对照  
@@ -476,9 +505,9 @@ There is no noun ‘sunbath’: Let’s go and sunbathe/do some sunbathing (NOT 
 析 fantastic  _/fænˈtæstɪk/_  a.极好的; 极大的; 奇异的 口语常用  
 析 terrific  _/təˈrɪfɪk/_  a.极好的 口语常用  
 析 great  _/ɡreɪt/_  a.伟大的; 大量的; 妙极了 口语常用  
-析 excellent  _/ˈeksələnt/_  a.卓越的,极好的   used especially about the quality of something  
+析 excellent  _/ˈeksələnt/_  a.卓越的,极好的  used especially about the quality of something  
 析 marvellous 美-elous  _/ˈmɑːvələs/_  a.绝妙的; 非凡的; 不可思议的
-extremely good in a way that impresses you or makes you very pleased  
+  <span class="exp">extremely good in a way that impresses you or makes you very pleased</span>  
 析 wonderful  _/ˈwʌndəfəl/_  a.精彩的; 绝妙的; 极好的  
 析 amazing  _/əˈmeɪzɪŋ/_  a.令人称奇的; 惊人的  
 析 incredible  _/ɪnˈkredəbəl/_  a.惊人的,不可思议的  
@@ -492,7 +521,7 @@ extremely good in a way that impresses you or makes you very pleased
 析 lovely  _//_  
 析 pretty  _//_  
 析 attractive  _//_  
-析 magnificent  _/mæɡˈnɪfɪsənt/_  a.华丽的;宏伟的 very big, beautiful, and impressive
+析 magnificent  _/mæɡˈnɪfɪsənt/_  a.华丽的;宏伟的 very big, beautiful, and impressive  
 析 picturesque  _//_  
 析 stunning/breathtaking  _//_  
 析 exquisite  _/ɪkˈskwɪzət/_  
@@ -501,23 +530,21 @@ extremely good in a way that impresses you or makes you very pleased
 析 stale  _/steɪl/_  (食物)不新鲜的,变质的; 厌倦的; 令人厌倦的  
 析 rotten  _/ˈrɑːtn/_  a.腐烂的,腐朽的  
 析 rot  _/rɒt $ rɑːt/_  v./n.(使)变质
-Rot is less formal than decay and is more common in everyday English.同时作为腐烂理解时,rot变质先发生,再decay腐烂  
+  <span class="exp">rot is less formal than decay and is more common in everyday English.</span>
+  <span class="exp">同时作为腐烂理解时, rot 变质先发生, 再 decay 腐烂</span>  
 析 decay  _/dɪˈkeɪ/_  v./n.腐烂; 衰减,衰退
-decay to be slowly destroyed by a natural chemical process – use this especially about natural things such as wood or plants, or about teeth  
+  <span class="exp">to be slowly destroyed by a natural chemical process – use this especially about natural things such as wood or plants, or about teeth</span>  
 析 spoil  _/spɔɪl/_  v.损坏,溺爱; 使(食物)变坏   if food spoils, it starts to decay.  
 析 ruin  _/ˈruːən, ˈruːɪn/_  v.毁灭; (使)破产 n.毁灭; (pl.)废墟    to spoil something completely and permanently  
-析 wreck  _/rek/_  n.失事船(或飞机) v.(船等)失事,遇难  
+析 wreck  _/rek/_  n.失事的船(或飞机); 损毁的建筑 v.(船等)失事,遇难  
 析 destroy  _/dɪˈstrɔɪ/_  v.破坏,摧毁,消灭  
 析 flatten  _/ˈflætn/_  v.夷平(建筑、城镇或植物); 把…弄平  
-析 trash  _/træʃ/_  n.垃圾; 拙劣的作品  
 
 析 peasant  _/ˈpezənt/_  n.农民(没钱)  
 析 farmer  _/ˈfɑːmə/_  n.农场主; 农民(有钱)  
 
-析 adopt  _/əˈdɒpt $ əˈdɑːpt/_  vt.采用,采取; 收养(当子女)
-to take someone else’s child into your home and legally become its parent  
-析 foster  _/ˈfɒstə/_  vt.寄养,代养 a.寄养的
-to take another person's child into your home for a period of time, without becoming his or her legal parents  
+析 adopt  _/əˈdɒpt $ əˈdɑːpt/_  vt.采用,采取; 收养(当子女)  
+析 foster  _/ˈfɒstə/_  vt.寄养,代养 a.寄养的  without becoming his or her legal parents  
 
 析 maid  _/meɪd/_  n.女仆; (old use)少女,处女 old maid 老处女  
 析 maiden  _/ˈmeɪdn/_  n.少女,处女 a.未婚的  SYN damsel  
@@ -529,12 +556,18 @@ to take another person's child into your home for a period of time, without beco
 析 shed  _/ʃed/_  n.工棚,库房 v.流出; 发散  
 析 barn  _/bɑːn $ bɑːrn/_  n.谷仓,牲口棚  
 
+析 lane  _/leɪn/_  n.乡间的小径; 泳道,跑道,车道,航线; (用于路名)路,巷  
+析 alley  _/ˈæli/_  n.小巷,胡同  a narrow passage or street with buildings or walls on both sides  
+析 road  
+析 street  
+析 avenue  _/ˈævɪnjuː/_  大道(尤指林阴大道)  a wide, straight road, especially one with trees on either side.  
+
 析 fare  _/feə $ fer/_  n.车费,船费  
 析 fee  _/fiː/_  n.服务费; 报酬; 酬金 price value charge  
 析 toll  _/təʊl $ toʊl/_  n.(桥梁、道路的)通行费 death toll: (死亡、事故或灾难的)总数  
 
-析 elder  _/ˈeldə/_  a.年长的,资格老的 n.长辈  elder后不能接than  
-析 old  _/əʊld/_  a.年老的; 过去的 older用于指年龄,可以接than  
+析 elder  _/ˈeldə/_  a.年长的,资格老的 n.长辈  elder 后不能接 than  
+析 old  _/əʊld/_  a.年老的; 过去的 older 用于指年龄,可以接 than  
 
 析 per cent  _/_  percent  _/pəˈsent/_  n.(percent)百分之...的  
 析 percentage  _/pəˈsentɪdʒ $ pər-/_  n.百分数,百分率,百分比  
@@ -548,22 +581,26 @@ to take another person's child into your home for a period of time, without beco
 析 segment  _/ˈseɡmənt/_  n.部分,片段; (水果的)瓣; (市场)细分的部分  
 析 partial  _/ˈpɑːʃəl/_  a.部分的,不完全的; 偏爱的; 偏心的  
 
-析 wage  _/weɪdʒ/_  n.(常pl.)工资,报酬 vt.进行,开展   Manual workers are paid wages, or a wage.The plural is more common than the singular  
-析 salary  _/ˈsæləri/_  n.薪金,薪水   Professional people and office workers receive a salary, which is paid monthly  
+析 wage  _/weɪdʒ/_  n.(常pl.)工资,报酬 vt.进行,开展
+  <span class="exp">Manual workers are paid wages, or a wage.The plural is more common than the singular</span>  
+析 salary  _/ˈsæləri/_  n.薪金,薪水
+  <span class="exp">Professional people and office workers receive a salary, which is paid monthly</span>  
+联 income 收入  earnings 报酬
 
 析 gulf  _/ɡʌlf/_  n.海湾    a very large area of sea partly enclosed by land  
 析 bay  _/beɪ/_  n.海湾,(港)湾   an area of sea that is partly enclosed by a curve in the land  
 析 seashore  _/ˈsiːʃɔː/_  n.海岸; 海滨; 海滩    the land along the edge of the sea or ocean  
 析 beach  _/biːtʃ/_  n.海滩,湖滩,河滩    an area of sand, or small stones, beside the sea or a lake  
 析 coast  _/kəʊst/_  n.海岸 coastline海岸线   the land beside or near to the sea or ocean  
-析 harbor  _/ˈhɑːbə/_  n.海港; 避难所 v.隐匿,窝藏   BrE harbour,an area of water next to the land which is protected by walls so the water is calm  
+析 harbor / BrE harbour  _/ˈhɑːbə/_  n.海港; 避难所 v.隐匿,窝藏
+  <span class="exp">an area of water next to the land which is protected by walls so the water is calm</span>  
 析 port  _/pɔːt/_  n.港口    a place where ships can be loaded and unloaded  
 析 dock  _/dɒk $ dɑːk/_  n.船坞,码头   a place in a port where ships are loaded, unloaded, or repaired  
 
 析 wallet  _/ˈwɒlət $ -ɪt/_  n.皮夹,钱包 NAmE also billfold  
 析 purse  _/pɜːs/_  n.尤指女式钱包  
 
-析 lorry  _/ˈlɒri/_  n.卡车,运货汽车 lorry BrE; _truck_ NAmE  是货车的统称, 包含 pickup van jeep tractor 等  
+析 lorry / NAmE _truck_  _/ˈlɒri/_  n.卡车,运货汽车  是货车的统称, 包含 pickup van jeep tractor 等  
 析 wagon  _/ˈwæɡən/_  n.运货马车; 敞蓬车厢,(火车)货车箱  
 析 carriage  _/ˈkærɪdʒ/_  n.敞篷马车(客运); (火车)客车厢  
 析 cart  _/kɑːt $ kɑːrt/_  n.购物车; (旧时的)马车 SYN trolley  
@@ -577,13 +614,17 @@ to take another person's child into your home for a period of time, without beco
 析 hotel  _/həʊˈtel/_  n.宾馆; 旅馆; 酒店  
 析 hostel  _/ˈhɒstl/_  n.廉价招待所,临时收容所 =youth hostel  注意 t 的发音更像 d
 
-析 interpret  _/ɪnˈtɜːprət,-ɪt/_  vt.解释,说明; 口译   to change what someone is saying into another language, as they are speaking  
-析 translate  _/trænsˈleɪt, trænz-/_  v.翻译,解释; 转化    to change written or spoken words into another language  
-析 paraphrase  _/ˈpærəfreɪz/_  v.改述; 意译   to express in a shorter, clearer, or different way what someone has said or written -> summarize  
+析 interpret  _/ɪnˈtɜːprət,-ɪt/_  vt.解释,说明; 口译
+  <span class="exp">to change what someone is saying into another language, as they are speaking</span>  
+析 translate  _/trænsˈleɪt, trænz-/_  v.翻译,解释; 转化
+  <span class="exp">to change written or spoken words into another language</span>  
+析 paraphrase  _/ˈpærəfreɪz/_  v.改述; 意译  -> summarize
+  <span class="exp">to express in a shorter, clearer, or different way what someone has said or written</span>   
 
 析 mount  _/maʊnt/_  v.登上; 安装  
 析 mountain  _/ˈmaʊntən/_  n.高山  a very high hill  
-析 hill  _/hɪl/_  n.小山,山岗,高地; [pl.]丘陵(地带)    an area of land that is higher than the land around it, which is like a mountain but smaller and usually has a rounded top  
+析 hill  _/hɪl/_  n.小山,山岗,高地; [pl.]丘陵(地带)
+  <span class="exp">an area of land that is higher than the land around it, which is like a mountain but smaller and usually has a rounded top</span>  
 析 cliff  _/klɪf/_  n.(尤指靠海的)悬崖,峭壁    the steep side of an area of land, often next to the sea  
 析 precipice  _/ˈpresəpəs/_  n.悬崖,峭壁; 险境,绝境   a very steep and dangerous cliff  
 析 ridge  _/rɪdʒ/_  n.山脊    a long narrow area of high ground, especially at the top of a mountain  
@@ -591,45 +632,54 @@ to take another person's child into your home for a period of time, without beco
 析 summit  _/ˈsʌmət, ˈsʌmɪt/_  n.峰会,首脑会议; 山峰,峰顶 SYN peak,比peak多个峰会的意义  
 
 析 calculate  _/ˈkælkjəleɪt, ˈkælkjʊleɪt/_  v.计算; 估算 这个就是要"算"  
-析 estimate  _/ˈestəmət, ˈestɪmət/_  v./n.估计,估价 n.估算单; 预算书 重在"估",基于现有资料尽量准确地猜测.  to guess an amount, price, or number as exactly as you can, based on the knowledge you have  
+析 estimate  _/ˈestəmət, ˈestɪmət/_  v./n.估计,估价 n.估算单; 预算书 重在"估",基于现有资料尽量准确地猜测.
+  <span class="exp">to guess an amount, price, or number as exactly as you can, based on the knowledge you have</span>  
 析 reckon  _/ˈrekən/_  v.认为; 预计; 估计  口语常用,重"感觉"缺乏准确性  
-析 evaluate  _/ɪˈvæljueɪt/_  v.根据信息作出评价  to judge especially by carefully examining all the information about them. Evaluate is often used about the work of people doing research  
-析 assess  _/əˈses/_  v.根据标准来评估,评价 to judge especially by using a fixed set of standards. Assess is often used about measuring students’ abilities and performance  
-析 appraise  _/əˈpreɪz/_  v.评价,评估 根据比较优缺点作出评价 formal,to judge especially by comparing their good and bad points  
+析 evaluate  _/ɪˈvæljueɪt/_  v.根据信息作出评价
+  <span class="exp">to judge especially by carefully examining all the information about them. Evaluate is often used about the work of people doing research</span>  
+析 assess  _/əˈses/_  v.根据标准来评估,评价
+  <span class="exp">to judge especially by using a fixed set of standards. Assess is often used about measuring students’ abilities and performance</span>  
+析 appraise  _/əˈpreɪz/_  formal v.评价,评估 根据比较优缺点作出评价 
+  <span class="exp">to judge especially by comparing their good and bad points</span>  
 析 appraisal  _/əˈpreɪzəl/_  n.评价,评估  
 
-析 barber  _/ˈbɑːbə $ ˈbɑːrbər/_  n.为男性理发的男理发师    a man whose job is to cut men’s hair and sometimes to ↑shave them  
+析 barber  _/ˈbɑːbə $ ˈbɑːrbər/_  n.为男性理发的男理发师
+  <span class="exp">a man whose job is to cut men’s hair and sometimes to ↑shave them</span>  
 析 hairdresser  _/ˈheəˌdresə/_  n.理发师,美发师; 美发店  
 析 stylist  _/ˈstaɪləst, ˈstaɪlɪst/_  n.发型师; 造型设计师  
 析 beautician  _/bjuːˈtɪʃən/_  n.美容师  
 
-析 counsel  _/ˈkaʊnsəl/_  v./n.劝告,忠告 n.辩护人,法律顾问    a type of lawyer who represents you in court  
+析 counsel  _/ˈkaʊnsəl/_  v./n.劝告,忠告 n.辩护人,法律顾问  
 析 lawyer  _/ˈlɔːjə $ ˈlɒːjər/_  n.律师  
-析 attorney  _/əˈtɜːni $ -ɜːr-/_  n.(美国)律师    NAmE a lawyer. Attorney sounds more formal than lawyer  
+析 attorney  _/əˈtɜːni $ -ɜːr-/_  n.(美国)律师  NAmE a lawyer. Attorney sounds more formal than lawyer  
+析 advocate  _/ˈædvəkeɪt/_  n.辩护律师  
 
 析 agreement  _/əˈɡriːmənt/_  n.协定; 协议; 承诺; 合约   常指两个或多个当事人之间达成的谅解、理解后定的协议  
-析 convention  _/kənˈvenʃən/_  n.(国家,首脑等之间的)公约,协议,协定   常用于“国际公约”尤指处理某件具体事务的公约eg. the Geneva Convention 日内瓦公约  
+析 convention  _/kənˈvenʃən/_  n.(国家,首脑等之间的)公约,协议,协定   常用于“国际公约”尤指处理某件具体事务的公约
+  <span class="exa">eg. the Geneva Convention 日内瓦公约</span>  
 析 treaty  _/ˈtriːti/_  n.(国家之间的)条约,协定    指的是国与国之间正式的、当事国签订并批准的条约  
-析 pact  _/pækt/_  n.合同,条约,公约,协定   近来pact常代替treaty,但在重要性和约束力上不如treaty  
+析 pact  _/pækt/_  n.合同,条约,公约,协定   近来 pact 常代替 treaty, 但在重要性和约束力上不如 treaty  
 
-析 velocity  _/vəˈlɒsəti/_  n.速度; 速率[科技用词] 矢量  专业词汇,物理上表示速度的v就是velocity的缩写,是一个矢量,当然是同时表示方向和速度.  
+析 velocity  _/vəˈlɒsəti/_  n.速度; 速率[科技用词] 矢量
+  <span class="exp">专业词汇,物理上表示速度的v就是velocity的缩写,是一个矢量,当然是同时表示方向和速度</span>  
 析 speed  _/spiːd/_  n.速度 v.前进; 加速  
 
 析 flock  _/flɒk $ flɑːk/_  n.兽群,鸟群; 人群 v.群集,成群 重在"群"  
 析 herd  _/hɜːd/_  n.牧群,兽群 v.放牧,驱赶  重在"牧"+兽群  
-析 crowd  n.人群,民众  a crowd of people
+析 crowd  _/kraʊd/_  n.人群,民众  a crowd of people
 
-析 blast  _/blɑːst $ blæst/_  n/v.爆炸    A blast is a _big explosion_, especially one caused by a bomb.  
+析 blast  _/blɑːst $ blæst/_  n./v.爆炸    A blast is a _big explosion_, especially one caused by a bomb.  
 析 explosion  _/ɪkˈspləʊʒən/_  n.爆炸,爆发  
 析 burst  _/bɜːrst/_ v. 使爆裂,使胀破
 
 析 strap  _/stræp/_  n.皮带,带子 v.用带子系(或绑、捆、扎) 由韧性材料制成的长的窄带,如皮带,皮鞭  
 析 strip  _/strɪp/_  v.剥,剥去 n.窄条; 商业街  通常有同样宽度的长而狭窄的条片  
 析 stripe  _/straɪp/_  n.条纹,线条; 臂章  
-析 streak  _/striːk/_  n.条痕;  v.在…上留下条纹(或条痕) 如车轮印  
+析 streak  _/striːk/_  n.条痕 v.在…上留下条纹(或条痕) 如车轮印  
 
 析 football  _/ˈfʊtbɔːl $ -bɒːl/_  n.足球    在美国指橄榄球,一般的就是通常的足球  
-析 soccer  _/ˈsɒkə $ ˈsɑːkər/_  n.(英式)足球    soccer是美国人为足球运动特别命名的,用来区别在美国被称为football的橄榄球  
+析 soccer  _/ˈsɒkə $ ˈsɑːkər/_  n.(英式)足球
+  <span class="exp">soccer是美国人为足球特别命名的, 用来区别在美国被称为football的橄榄球</span>  
 
 析 outlook  n. 景色,风光; 世界观,人生观; 展望,前景  
 析 scenery  _/ˈsiːnəri/_  n.风景,风光; 舞台布景  指某地总的自然风景或景色  
@@ -648,8 +698,13 @@ to take another person's child into your home for a period of time, without beco
 析 rhythm  _/ˈrɪðəm/_  n.节奏,韵律  
 
 析 roast  _/rəʊst $ roʊst/_  v.烘烤 a.烤制的 n.烤肉  
-析 bake  _/beɪk/_  v.烤,烘,焙   There is no difference between these two terms as far as the method of cooking is concerned. The difference between roast and bake is that the former is used almost exclusively in reference to large pieces of meat or fowl, while the latter can be applied as well to anything else that is cooked in an oven  
+析 bake  _/beɪk/_  v.烤,烘,焙
+  <span class="exp">There is no difference between these two terms as far as the method of cooking is concerned. The difference between roast and bake is that the former is used almost exclusively in reference to large pieces of meat or fowl, while the latter can be applied as well to anything else that is cooked in an oven</span>  
 析 bacon  _/ˈbeɪkən/_  n.咸猪肉,熏猪肉  
+
+析 drive v.驾驶,开车  对象通常是车,但船也可以  
+析 steer v.驾驶(车、船、飞机等)  对象通常是船,但也可以是车
+  <span class="exp">drive 偏重于"引导,控制", 主语(人)的主体性较强. 而 steer 偏重大方向上的引导, 通常不会有频繁的转弯. 比如: 在道路交错的城市里, 我们 "drive a car", 而驾驶汽车在草原上行驶, 用 "steer a car in the plain" 就比用 drive 更能体现那种自由自在的味道.</span>
 
 析 clerk  _/klɑːk $ klɜːrk/_  n.职员,办事员; 店员  
 析 staff  _/stɑːf $ stæf/_  n.(一组织的)全体工作人员; (全体工作人员中的)部分成员  a new member of staff  
@@ -657,12 +712,13 @@ to take another person's child into your home for a period of time, without beco
 联 faculty  _/ˈfækəlti/_  n.(大学、学院或院系的)全体教员
 
 析 revenue  _/ˈrevənjuː/_  n.财政收入,税收; (公司、组织的)收入  
-析 income  _/ˈɪŋkʌm, ˈɪn-/_  n.收入,收益,所得    较口语,一般只个人的收入,也用于公司.会计上revenue指收入income指盈利  
+析 income  _/ˈɪŋkʌm, ˈɪn-/_  n.收益,所得; (个人的)收入  会计上revenue指收入income指盈利  
 
 析 admit  _/ədˈmɪt/_  vt.常指不情愿地承认,供认; 准许...进入,准许...加入  to agree unwillingly that something is true  
 析 confess  _/kənˈfes/_  v.坦白,忏悔,供认,承认  In everyday English, people usually say admit rather than confess  
 析 concede  _/kənˈsiːd/_  vt.(勉强)承认; 认输  formal to admit something in a discussion or argument  
-析 acknowledge  _/əkˈnɒlɪdʒ/_  vt.承认事实,局面等; 告知(信件等的)收到; 答谢  formal to say that something is true or that a situation exists  
+析 acknowledge  _/əkˈnɒlɪdʒ/_  vt.承认事实,局面等; 告知(信件等的)收到; 答谢  formal
+  <span class="exp">to say that something is true or that a situation exists</span>  
 析 confession  _/kənˈfeʃən/_  n.承认,坦白,忏悔  
 
 析 company  _/ˈkʌmpəni/_  n.公司; 陪伴   an organization that makes or sells something, or provides a service  
@@ -754,6 +810,11 @@ to take another person's child into your home for a period of time, without beco
 析 scene  one of the parts that a film or play is divided into  
 析 episode  a part of a story on the television or the radio, which is told in separate parts  
 
+析 cupboard  _/ˈkʌbəd/_  n.橱柜([英] cupboard 指所有类似的家具；[美] 常用 closet 来指较大的此类家具)  
+析 wardrobe  _/ˈwɔːrdroʊb/_  n.衣柜,衣橱；A tall cupboard or cabinet in which you can hang your clothes.  
+析 closet  _/ˈklɒzɪt/_  n. [美] a cupboard built into the wall of a room from the floor to the ceiling  **comes out of the closet** 公开同性恋身份  
+析 cabinet  _/ˈkæbɪnət/_  n.内阁,内阁会议; (带玻璃门存物品的)橱柜
+
 
 ## 联
 
@@ -814,8 +875,9 @@ to take another person's child into your home for a period of time, without beco
 联 tropical  _/ˈtrɒpɪkəl/_  a.热带的; 有热带特征的; 热带的; 有热带特征的  
 联 tropic  _/ˈtrɒpɪk $ ˈtrɑː-/_  n.回归线; [theT-s]热带地区  
 
-联 underneath  _/ˌʌndəˈniːθ/_  prep.在...下面 ad.在下面,在底下   They hid under the table. A picture with a caption underneath  
-联 beneath  _/bɪˈniːθ/_  prep.在...下面ad.在下面,在底下 be+neath下面  
+联 underneath  _/ˌʌndəˈniːθ/_  prep.在...下面 ad.在下面,在底下
+  <span class="exa">If one thing is underneath another, it is directly under it, and may be covered or hidden by it.</span>  
+联 beneath  _/bɪˈniːθ/_  formal.  prep.在...下面 ad.在下面,在底下  
 
 联 merge  _/mɜːdʒ $ mɜːrdʒ/_  v.(使)结合,(使)合并  
 联 emerge  _/ɪˈmɜːdʒ/_  n.出现; 显露; 暴露; 兴起  
@@ -827,10 +889,12 @@ to take another person's child into your home for a period of time, without beco
 联 enthusiasm  _/ɪnˈθjuːziæzəm/_  n.热情,热心; 狂热; 积极性  
 
 联 sauce  _/sɔːs $ sɒːs/_  n.沙司; 调味汁; 酱; 佐料  
-联 sausage  _/ˈsɒsɪdʒ $ ˈsɒː-/_  n.香肠,腊肠   In the beautiful bureau my daughter's laughter served for the sauce of the sausage.  
+联 sausage  _/ˈsɒsɪdʒ $ ˈsɒː-/_  n.香肠,腊肠
+  <span class="exa">In the beautiful bureau my daughter's laughter served for the sauce of the sausage.</span>  
 联 saucer  _/ˈsɔːsə $ ˈsɒːsər/_  n.茶碟; 茶托 其实就是放佐料的小碟子  
 
 联 sweat  _/swet/_  n.汗v.(使)出汗  SYN perspire  
+联 sweater  n.毛衣  
 联 perspire  _/pəˈspaɪə/_  v.出汗  
 联 sweet  _/swiːt/_  a.甜的; 可爱的,美好的 n.(常pl.)糖果; 甜食  
 
@@ -856,7 +920,7 @@ to take another person's child into your home for a period of time, without beco
 
 联 cement  _/sɪˈment/_  n.水泥; 胶泥,胶接剂 v.胶合; 巩固,加强  
 联 concrete  _/ˈkɒŋkriːt/_  a.具体的,实质性的 n.混凝土 v.用混凝土修筑
-A concrete noun is a noun that refers to a physical object rather than to a quality or idea  
+  <span class="exp">A concrete noun is a noun that refers to a physical object rather than to a quality or idea</span>
 
 联 past  _/pɑːst $ pæst/_  a.过去的 ad.过 n.过去,昔日 prep.(经)过  
 联 paste  _/peɪst/_  n.糊,浆糊 v.粘,贴 toothpaste 牙膏  
@@ -1052,15 +1116,16 @@ an important victory or success after a difficult struggle
 联 friction  _/ˈfrɪkʃən/_  n.矛盾,争执; 摩擦力  
 
 联 conserve  _/kənˈsɜːv/_  v.节约; 保存 n.蜜饯 SYN preserve  
-联 preserve  _/prɪˈzɜːv/_  v.保护,维持; 腌 n.果酱,保护区   is jam containing a large proportion of fruit, usually in whole pieces.  
-联 reserve  _/rɪˈzɜːv/_  v.保留,储备; 预定 n.储备(物),储备金; 缄默  re再+serve→再留住→预定  
+联 preserve  _/prɪˈzɜːv/_  v.保护,维持; 腌 n.蜜饯,果酱; 保护区  
+联 reserve  _/rɪˈzɜːv/_  v.保留,储备; 预定 n.储备(物),储备金; 缄默  
 联 serve  _/sɜːv $ sɜːrv/_  v.服务,尽责; 招待,侍候; 符合,适用  
 
 联 journal  _/ˈdʒɜːnl/_  n.定期刊物,杂志,日报; 日志,日记  
 联 memoirs  _/ˈmemwɑːz/_  n.传记,回忆录  
 
 联 conform  _/kənˈfɔːm $ -ɔːrm/_  vi.(to)遵守,适应; 相似,一致,符合  
-联 accord  _/əˈkɔːd $ -ɔːrd/_  v.与…一致,符合 n.正式协定   accord with; according to依据; of sb's own accord自愿地; with one accord一致地  
+联 accord  _/əˈkɔːd $ -ɔːrd/_  v.与…一致,符合 n.正式协定
+  <span class="exp">accord with; according to 依据; of sb's own accord 自愿地; with one accord 一致地</span>  
 
 联 reward  _/rɪˈwɔːd $ -ˈwɔːrd/_  n.(for)报酬,奖赏 v.(for)酬劳; 酬谢  
 联 award  _/əˈwɔːd $ -ɔːrd/_  vt.授予,给予; 判定 n.奖,奖金; 仲裁  
@@ -1184,9 +1249,10 @@ change, alter, convert, modify, transfigure, transform, transmogrify, transmute
 
 联 cabbage  _/ˈkæbɪdʒ/_  n.洋白菜,卷心菜  
 联 garbage  _/ˈɡɑːbɪdʒ/_  n.垃圾  SYN rubbish  
+联 trash BrE rubbish  _/træʃ/_  n.垃圾; 拙劣的作品  the trash field 垃圾场  
 
 联 stir  _/stɜː $ stɜːr/_  v.搅拌,搅动  
-联 steer  _/stɪə $ stɪr/_  v.驾驶(车、船、飞机等)   drive的对象通常是车,但船也可以; steer的对象通常是船,但也可以是车.这不是他们的根本区别.drive的"驾驶"偏重于："引导,控制",主语(人)的主体性较强.而steer的"驾驶"则偏重大方向上的引导,通常不会有频繁的转弯.比如:通常在道路交错的城市里,我们是"drive a car",而驾驶汽车在草原上行驶,用"steer a car in the plain"就比用drive更能体现那种自由自在的味道.  
+联 steer  _/stɪə $ stɪr/_  v.驾驶(车、船、飞机等)
 
 联 shriek  _/ʃriːk/_  v.(因惊讶或疼痛等)尖叫; 尖声笑  
 联 shrink  _/ʃrɪŋk/_  v.起皱,收缩; 退缩,畏缩  
@@ -1207,7 +1273,8 @@ change, alter, convert, modify, transfigure, transform, transmogrify, transmute
 联 radius  _/ˈreɪdiəs/_  n.半径  
 
 联 predict  _/prɪˈdɪkt/_  v.预言,预测,预告  
-联 prophesy  _/ˈprɒfəsaɪ, -fɪ-/_  v.预言,预告   to say that something will happen because you feel that it will, or by using special religious or magical powers  
+联 prophesy  _/ˈprɒfəsaɪ, -fɪ-/_  v.预言,预告
+  <span class="exp">to say that something will happen because you feel that it will, or by using special religious or magical powers</span>  
 联 forecast  _/ˈfɔːkɑːst/_  v/n.预测,预报  
 联 anticipate  _/ænˈtɪsəpeɪt/_  v.预期,预料,预计  except  
 
@@ -1325,15 +1392,15 @@ change, alter, convert, modify, transfigure, transform, transmogrify, transmute
 联 provoke  _/prəˈvəʊk/_  v.挑衅,招惹  
 联 threaten  _/ˈθretn/_  v.恐吓,威胁  
 
-联 profess  _/prəˈfes/_  v.自称,谎称; 表达感情、观点、信仰等  
-If you profess to do or have something, you claim that you do it or have it, often when you do not.  
+联 profess  _/prəˈfes/_  v.自称,谎称; 表达感情、观点、信仰等
+  <span class="exp">If you profess to do or have something, you claim that you do it or have it, often when you do not.</span>  
 联 professor  _/prəˈfesə/_  n.教授  
 联 profession  _/prəˈfeʃən/_  n.(需要高等教育或训练的)职业  
 
 联 accuse  _/əˈkjuːz/_  v.指责,控告  
 联 criticise 美-ze  _/ˈkrɪtəsaɪz/_  v.批评,指责  
-联 condemn  _/kənˈdem/_  v.谴责,指责; 宣判  
-to say very strongly in public that you do not approve of something or someone, especially because you think they are morally wrong  
+联 condemn  _/kənˈdem/_  v.谴责,指责; 宣判
+  <span class="exp">to say very strongly in public that you do not approve of something or someone, especially because you think they are morally wrong</span>  
 
 联 circumstance  _/ˈsɜːkəmstæns/_  n.情况,条件; 生活状况  circum周围+stance  
 联 environment  _/ɪnˈvaɪrənmənt/_  n.生活环境; 自然环境  
@@ -1478,6 +1545,10 @@ to shake slightly in a way that you cannot control, especially because you are f
 联 basin  _/ˈbeɪsən/_  n.盆,脸盆; 内海,盆地  
 联 bowl  _/bəʊl $ boʊl/_  n.碗(状物),钵  
 
+联 literacy  _/ˈlɪtərəsi/_  n.读写能力,识字  have some problems with literacy and numeracy  在识字和算术上..  
+联 literary  _/ˈlɪtərəri/_  a.文学上的  
+联 literature  _/ˈlɪtərətʃə/_  n.文学,文学作品  
+
 
 ## 派
 
@@ -1542,8 +1613,8 @@ to shake slightly in a way that you cannot control, especially because you are f
 派 heavy  _/ˈhevi/_  a.重的,重型的; 猛烈的  OPP light  
 
 派 rational  _/ˈræʃənəl/_  a.理性的,合理的  
-派 ration  _/ˈræʃən/_  n.定量; 口粮 v.常指紧缺时的定量供应
-a fixed amount of something that people are allowed to have when there is not enough, for example during a war  
+派 ration  _/ˈræʃən/_  n.配给量 plural.给灾民或士兵的口粮 v.(紧缺时的)定量供应
+  <span class="exp">a fixed amount of something that people are allowed to have when there is not enough, for example during a war</span>  
 
 派 definite  _/ˈdefɪnət, ˈdefɪnɪt/_  a.明确的; 一定的  
 派 infinite  _/ˈɪnfənət, ˈɪnfɪnət/_  a.无限的,无穷的 n.无限  
@@ -1721,6 +1792,7 @@ In everyday English,people usually say somewhere to live/stay rather than accomm
 派 association  _/əˌsəʊsiˈeɪʃən/_  n.联盟,协会,社团  
 
 派 prefer  _/prɪˈfɜː/_  v.(to)更喜欢,宁愿  
+派 preferable  _/ˈprefərəbəl/_  a.更可取的,更合适的
 派 preference  _/ˈprefərəns/_  n.喜好,偏好; 优惠,优先权  
 
 派 distinguish  _/dɪˈstɪŋɡwɪʃ/_  v.(from)区别,辨别; 辨认出; 使杰出  
@@ -1821,6 +1893,7 @@ In everyday English,people usually say somewhere to live/stay rather than accomm
 
 派 moist  _/mɔɪst/_  a.湿润的,潮湿的  
 派 moisture  _/ˈmɔɪstʃə/_  n.潮气,湿气,水分  
+联 damp  _/dæmp/_  a.潮湿的,湿气重的 n.潮气 v.弄湿  
 
 派 inhabit  _/ɪnˈhæbət, ɪnˈhæbɪt/_  v.居住于; 栖居在 live; come from; reside; grow up if a group of people or animals inhabit an area, they live there. Used especially in written descriptions  
 派 inhabitant  _/ɪnˈhæbɪtənt/_  n.居民  
@@ -1886,7 +1959,7 @@ In everyday English,people usually say somewhere to live/stay rather than accomm
 类 metre 美meter  _/ˈmiːtə $ -ər/_  n.米; 仪表  
 类 milli-metre 美-ter  _/mɪlə, mɪlɪ/_  n.毫米 mm  
 类 centimetre 美-ter  _/-tə-,ˈsentɪˌmiːtə/_  n.厘米 cm  
-类 kilometre 美-ter  _/ˈkɪləˌmiːtə/_  n.千米,公里  
+类 kilometre 美-ter  _/ˈkɪləˌmiːtə 美 kɪˈlɑːmətər/_  n.千米,公里  
 类 centre 美-ter  _/ˈsentə $ -ər/_  n.中心,中央,中间  
 类 litre 美liter  _/ˈliːtə $ -ər/_  n.(单位)升  
 类 fibre 美fiber  _/ˈfaɪbə $ -ər/_  n.纤维; 构造; 纤维制品  

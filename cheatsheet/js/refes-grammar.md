@@ -1,6 +1,6 @@
 # ECMAScript 语法
 
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference  
+https://developer.mozilla.org/en-US/docs/Web/JavaScript  
 https://www.amazon.cn/JavaScript高级程序设计-泽卡斯/dp/B007OQQVMY  
 http://www.ecma-international.org/ecma-262/5.1/
 

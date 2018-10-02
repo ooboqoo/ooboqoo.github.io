@@ -492,6 +492,7 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <div class="dl">
   <h5>promise.then(onFulfilled, onRejected) <span>-- 为 Promise 实例添加状态改变时的回调函数</span></h5>
   <h5>promise.catch(onRejected) <span>-- 是 `.then(null, onRejected)` 的别名，用于指定发生错误时的回调函数</span></h5>
+  <h5>promise.finally(onFinally) <span>-- 不管是成功还是失败，只要状态确定就会执行</span></h5>
   <h5>Promise.resolve(value) <span>-- 将现有对象转为 Promise 对象</span></h5>
   <h5>Promise.reject(reason) <span>-- 返回一个新的 Promise 实例，该实例的状态为 rejected</span></h5>
   <h5>Promise.all(iterable) <span>-- 将多个 Promise 实例包装成一个新的 Promise 实例，返回数组或首个 reject 值</span></h5>

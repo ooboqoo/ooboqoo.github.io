@@ -266,10 +266,10 @@ function isMobile() {
       src = e.target.getAttribute("href");
 
       // 允许不同目录间的跳转
-      if (src[0] === '/') { return }
+      if (src[0] === '/' && src[1] !== '/') { return }
 
       // 打开站外链接
-      if (src.indexOf('http://') === 0 || src.indexOf('https://') === 0) {
+      if (/^https?:\/\//.test(src) && !/\.md/.test(src)) {
         window.open(src)
         e.preventDefault()
         return
