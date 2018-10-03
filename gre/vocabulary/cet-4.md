@@ -1,20 +1,26 @@
 # CET-4
 
 <script>
-  var ps = document.querySelectorAll('#md p')
+  const ps = document.querySelectorAll('#md p')
   for (let p of ps) {
     p.innerHTML = p.innerHTML
       .replace(/(^|<br>)([忘析混错联派类]) ([\w-]+)/g, '$1<span class="tag-class">$2</span> <span class="word">$3</span>')
       .replace(/\b(n|v|vt|vi|a|ad|prep)\./g, '<span class="tag-pos">$&</span>')
       .replace(/SYN|OPP/g, '<span class="tag-syn">$&</span>')
   }
-  var exs = document.querySelectorAll('#md p span.exp, #md p span.exa')
+  const exs = document.querySelectorAll('#md p span.exp, #md p span.exa')
   for (let ex of exs) { ex.dataset.txt = ex.innerHTML; ex.innerHTML = '' }
+  const ems = document.querySelectorAll('#md p em')
+  for (let em of ems) {
+    const txt = em.textContent
+    if (txt[0] === '/' && txt[txt.length - 1] === '/') { em.classList.add('tag-ps') }
+  }
 </script>
 
 <style>
-  .word { color: red; }
   .tag-class { font-size: .75em; color: #999; }
+  .word { color: red; }
+  .tag-ps { color: #6aa; }
   .tag-pos { padding: 0 2px; color: #c33; }
   .tag-syn { padding: 0 2px; color: #999; font-size: .75em; border: 1px solid; border-radius: 4px; }
   .exp::before, .exa::before { padding: 0 2px; color: #999; border: 1px solid; border-radius: 4px; }
@@ -403,7 +409,7 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 混 breathe  _/briːð/_  v.呼吸,吸入  
 混 breadth  _/bredθ, bretθ/_  n.宽度,广度  SYN width -> broad, depth, length
 
-混 bath  _/bɑːθ $ bæθ/_  n.沐浴,洗澡; 浴室(池,盆) v.(给...)洗澡  [BrE] have a bath [NAmE] take a bath  
+混 bath  _/bɑːθ $ bæθ/_  n.沐浴,洗澡; 浴室(池,盆) v.(给...)洗澡  BrE _have a bath_  NAmE _take a bath_  
 混 bathe  _/beɪð/_  v.游泳,洗澡,浸,弄湿  
 混 sunbathe  _/ˈsʌnbeɪð/_  v.晒太阳; 沐日光浴 (不存在名词形式 sunbath)  Let’s go and sunbathe / do some sunbathing  
 
@@ -825,7 +831,8 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 
 析 cupboard  _/ˈkʌbəd/_  n.橱柜([英] cupboard 指所有类似的家具；[美] 常用 closet 来指较大的此类家具)  
 析 wardrobe  _/ˈwɔːrdroʊb/_  n.衣柜,衣橱；A tall cupboard or cabinet in which you can hang your clothes.  
-析 closet  _/ˈklɒzɪt/_  n. [美] a cupboard built into the wall of a room from the floor to the ceiling  **comes out of the closet** 公开同性恋身份  
+析 closet  _/ˈklɒzɪt/_  n.[美] 壁橱; 密室 a.(信仰、习惯、情感)隐蔽的,不公开的  *comes out of the closet* 公开同性恋身份
+  <span class="exp">a cupboard built into the wall of a room from the floor to the ceiling</span>  
 析 cabinet  _/ˈkæbɪnət/_  n.内阁,内阁会议; (带玻璃门存物品的)橱柜
 
 
