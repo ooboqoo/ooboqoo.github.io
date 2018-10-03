@@ -39,6 +39,7 @@
 形容词 | Adjective `adj.` | 表示人或事物的特征         | brave, small
 动词   | Verb `v.`        | 表示动作或状态             | hear, know
 副词   | Adverb `adv.`    | 表示动作特征或状态特征     | nicely, very
+|||
 冠词   | Article `art.`   | 用在名词前，帮助说明其意义 | an, the
 介词   | Preposition `prep.`    | 用在名词、代词前说明与别的词的关系 | for, from
 连词   | Conjunction `conj.`    | 用来连接词与词或句与句             | and, if
@@ -106,8 +107,8 @@ In <em>after</em> years I became familiar with it.     // 形容词
 **选择问句** Alternative Questions  都提出两种可能，问那种情况属实  
 **反意问句** Disjunctive Questions  这种问句由两部分组成，前面是陈述句，后面为简短问句
 
-反意问句，[A类] 如果前面是肯定句，后面一般为否定问句，[B类] 如果前面是否定句，这后面多为肯定问句。  
-在回答 B 类问题是要注意，如果是肯定回答，先说 yes，如果是否定回答，先说 no。这和汉语是不同的。
+反意问句，[A类] 如果前面是肯定句，后面一般为否定问句，[B类] 如果前面是否定句，则后面多为肯定问句。  
+在回答 B 类问题时要注意，如果是肯定回答，先说 yes，如果是否定回答，先说 no。这和汉语是不同的。
 
 ```txt
 This is your office, isn't it?

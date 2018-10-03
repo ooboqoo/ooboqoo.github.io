@@ -55,9 +55,7 @@ inference _/ˈɪnfərəns/_ n. 推理; 结论
 promise  n.诺言  a verbal commitment  
 rally  _/ˈræli/_  n.集会  a public meeting to support or oppose someone or something  
 
-联 Celsius  _/ˈselsiəs/_  摄氏度  
-联 Centigrade  摄氏度  相对 Celsius 更老的用法  
-联 Fahrenheit  华式度  
+
 
 联 emoticon  _/ɪˈmoʊtɪkɑːn/_  A special sign that is used to show an _emotion_ in email and on the Internet.  
 联 emoji  _/ɪˈmoʊdʒi/_  表情图标, 源自日文, 与 emoticon 相似纯属巧合
@@ -65,10 +63,9 @@ rally  _/ˈræli/_  n.集会  a public meeting to support or oppose someone or s
 cargo  _/ˈkɑːɡəʊ/_  n. (轮船、飞机所装载的)货物  
 freight  _/freɪt/_  n. 货运; 货物  
 
-induce  _/ɪnˈdjuːs/_  v.劝说; 导致  
-tempt  _/tempt/_  v.吸引(无好坏的偏向性); 怂恿,引诱(做不该做的)  
 
-联 chilli  _/ˈtʃɪli//_  n. 辣椒(长)
+
+联 chilli  _/ˈtʃɪli//_  n. 辣椒(长)  
 联 pepper  _/ˈpepə/_  n. 胡椒;甜椒(圆)
 
 联 uptown  ad.往(或在)城外  
@@ -76,7 +73,8 @@ tempt  _/tempt/_  v.吸引(无好坏的偏向性); 怂恿,引诱(做不该做的
 联 suburb  _/ˈsʌbɜːb/_  n.城郊  
 
 snack n. 小吃;便餐  a small amount of food that is eaten between main meals or instead of a meal  
-troop  _/truːp/_  n.部队,士兵(可复数); 一群,一队 v.结队前行
+
+troop  _/truːp/_  n.部队,士兵(可复数); 一群,一队 v.结队前行  
 
 crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)伸长(脖子)，探头 She craned forward to look at me.  
 
@@ -104,11 +102,7 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 忘 auction  _/ˈɔːkʃən $ ˈɒːk-/_  v./n.拍卖  
 忘 sanction  _/ˈsæŋkʃən/_  n.处罚,制裁 v.(正式)认可,准许; 对…实施处罚  
 
-联 dispensable  _/dɪˈspensəbəl/_  a.可有可无的; 不重要的  
-联 indispensable  _/ˌɪndɪˈspensəbəl◂/_  a.(to,for)必不可少的,必需的  
-联 dependant 美dependent  _/dɪˈpendənt/_  a.依靠的,依赖的; 取决于…的
-  <span class="exa">Jan’s mother was dependent on her for physical care.</span>  
-联 independent  _/ˌɪndɪˈpendənt◂/_  a.(of)独立的,自主的  英美拼写一样  
+
 
 忘 advocate  _/ˈædvəkeɪt/_  v.拥护,提倡 n.拥护者; 辩护律师 SYN proponent  
 忘 proponent  _/prəˈpəʊnənt/_  n.支持者,拥护者,辩护者  
@@ -527,15 +521,19 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 析 exquisite  _/ɪkˈskwɪzət/_  
 析 elegant  _//_  
 
-析 stale  _/steɪl/_  (食物)不新鲜的,变质的; 厌倦的; 令人厌倦的  
+析 stale  _/steɪl/_  a.(食物)不新鲜的,变质的; 缺乏新鲜感的,厌倦的,令人厌倦的  
 析 rotten  _/ˈrɑːtn/_  a.腐烂的,腐朽的  
 析 rot  _/rɒt $ rɑːt/_  v./n.(使)变质
   <span class="exp">rot is less formal than decay and is more common in everyday English.</span>
   <span class="exp">同时作为腐烂理解时, rot 变质先发生, 再 decay 腐烂</span>  
 析 decay  _/dɪˈkeɪ/_  v./n.腐烂; 衰减,衰退
   <span class="exp">to be slowly destroyed by a natural chemical process – use this especially about natural things such as wood or plants, or about teeth</span>  
-析 spoil  _/spɔɪl/_  v.损坏,溺爱; 使(食物)变坏   if food spoils, it starts to decay.  
-析 ruin  _/ˈruːən, ˈruːɪn/_  v.毁灭; (使)破产 n.毁灭; (pl.)废墟    to spoil something completely and permanently  
+析 spoil  _/spɔɪl/_  v.弄糟,损坏; 溺爱; 使(食物)变坏  SYN ruin
+  <span class="exp">spoil 较其他几项语义更广 + 更正式 + 日常使用更少</span>
+
+析 spoil  _/spɔɪl/_  v.弄糟,损坏; 溺爱; 使(食物)变坏  SYN ruin  
+析 ruin  _/ˈruːən, ˈruːɪn/_  v.毁灭; (使)破产 n.毁灭; (pl.)废墟
+  <span class="exp">to spoil something completely and permanently</span>  
 析 wreck  _/rek/_  n.失事的船(或飞机); 损毁的建筑 v.(船等)失事,遇难  
 析 destroy  _/dɪˈstrɔɪ/_  v.破坏,摧毁,消灭  
 析 flatten  _/ˈflætn/_  v.夷平(建筑、城镇或植物); 把…弄平  
@@ -543,8 +541,8 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 析 peasant  _/ˈpezənt/_  n.农民(没钱)  
 析 farmer  _/ˈfɑːmə/_  n.农场主; 农民(有钱)  
 
-析 adopt  _/əˈdɒpt $ əˈdɑːpt/_  vt.采用,采取; 收养(当子女)  
-析 foster  _/ˈfɒstə/_  vt.寄养,代养 a.寄养的  without becoming his or her legal parents  
+析 adopt  _/əˈdɒpt $ əˈdɑːpt/_  vt.采用,采取; 领养,收养(当子女)  
+析 foster  _/ˈfɒstə/_  vt.寄养,代养 a.寄养的 <span class="exp">without becoming his or her legal parents</span>  
 
 析 maid  _/meɪd/_  n.女仆; (old use)少女,处女 old maid 老处女  
 析 maiden  _/ˈmeɪdn/_  n.少女,处女 a.未婚的  SYN damsel  
@@ -629,7 +627,7 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 析 precipice  _/ˈpresəpəs/_  n.悬崖,峭壁; 险境,绝境   a very steep and dangerous cliff  
 析 ridge  _/rɪdʒ/_  n.山脊    a long narrow area of high ground, especially at the top of a mountain  
 析 peak  _/piːk/_  n.山顶,顶峰 a.高峰的    the top of a mountain.(peak time 高峰期的)  
-析 summit  _/ˈsʌmət, ˈsʌmɪt/_  n.峰会,首脑会议; 山峰,峰顶 SYN peak,比peak多个峰会的意义  
+析 summit  _/ˈsʌmət, ˈsʌmɪt/_  n.峰会,首脑会议; 山峰,峰顶 SYN peak <span class="exp">比 peak 多个峰会的意义</span>  
 
 析 calculate  _/ˈkælkjəleɪt, ˈkælkjʊleɪt/_  v.计算; 估算 这个就是要"算"  
 析 estimate  _/ˈestəmət, ˈestɪmət/_  v./n.估计,估价 n.估算单; 预算书 重在"估",基于现有资料尽量准确地猜测.
@@ -640,7 +638,8 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 析 assess  _/əˈses/_  v.根据标准来评估,评价
   <span class="exp">to judge especially by using a fixed set of standards. Assess is often used about measuring students’ abilities and performance</span>  
 析 appraise  _/əˈpreɪz/_  formal v.评价,评估 根据比较优缺点作出评价 
-  <span class="exp">to judge especially by comparing their good and bad points</span>  
+  <span class="exp">to judge especially by comparing their good and bad points</span>
+  <span class="exa">Greenpeace has been invited to appraise the environmental costs of such an operation.</span>  
 析 appraisal  _/əˈpreɪzəl/_  n.评价,评估  
 
 析 barber  _/ˈbɑːbə $ ˈbɑːrbər/_  n.为男性理发的男理发师
@@ -651,16 +650,21 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 
 析 counsel  _/ˈkaʊnsəl/_  v./n.劝告,忠告 n.辩护人,法律顾问  
 析 lawyer  _/ˈlɔːjə $ ˈlɒːjər/_  n.律师  
-析 attorney  _/əˈtɜːni $ -ɜːr-/_  n.(美国)律师  NAmE a lawyer. Attorney sounds more formal than lawyer  
+析 attorney  _/əˈtɜːni $ -ɜːr-/_  n.(美国)律师  NAmE a lawyer.
+  <span class="exp">Attorney sounds more formal than lawyer</span>  
 析 advocate  _/ˈædvəkeɪt/_  n.辩护律师  
 
-析 agreement  _/əˈɡriːmənt/_  n.协定; 协议; 承诺; 合约   常指两个或多个当事人之间达成的谅解、理解后定的协议  
-析 convention  _/kənˈvenʃən/_  n.(国家,首脑等之间的)公约,协议,协定   常用于“国际公约”尤指处理某件具体事务的公约
+析 agreement  _/əˈɡriːmənt/_  n.协定; 协议; 承诺; 合约
+  <span class="exp">常指两个或多个当事人之间达成的谅解、理解后定的协议</span>  
+析 convention  _/kənˈvenʃən/_  n.(国家,首脑等之间的)公约,协议,协定
+  <span class="exp">常用于“国际公约”尤指处理某件具体事务的公约</span>
   <span class="exa">eg. the Geneva Convention 日内瓦公约</span>  
-析 treaty  _/ˈtriːti/_  n.(国家之间的)条约,协定    指的是国与国之间正式的、当事国签订并批准的条约  
-析 pact  _/pækt/_  n.合同,条约,公约,协定   近来 pact 常代替 treaty, 但在重要性和约束力上不如 treaty  
+析 treaty  _/ˈtriːti/_  n.(国家之间的)条约,协定
+  <span class="exp">指的是国与国之间正式的、当事国签订并批准的条约</span>  
+析 pact  _/pækt/_  n.合同,条约,公约,协定
+  <span class="exp">近来 pact 常代替 treaty, 但在重要性和约束力上不如 treaty</span>
 
-析 velocity  _/vəˈlɒsəti/_  n.速度; 速率[科技用词] 矢量
+析 velocity  _/vəˈlɒsəti/_  n.速度; 速率 [科技用词] 矢量
   <span class="exp">专业词汇,物理上表示速度的v就是velocity的缩写,是一个矢量,当然是同时表示方向和速度</span>  
 析 speed  _/spiːd/_  n.速度 v.前进; 加速  
 
@@ -668,12 +672,15 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 析 herd  _/hɜːd/_  n.牧群,兽群 v.放牧,驱赶  重在"牧"+兽群  
 析 crowd  _/kraʊd/_  n.人群,民众  a crowd of people
 
-析 blast  _/blɑːst $ blæst/_  n./v.爆炸    A blast is a _big explosion_, especially one caused by a bomb.  
+析 blast  _/blɑːst $ blæst/_  n./v.爆炸
+  <span class="exp">A blast is a _big explosion_, especially one caused by a bomb.</span>  
 析 explosion  _/ɪkˈspləʊʒən/_  n.爆炸,爆发  
 析 burst  _/bɜːrst/_ v. 使爆裂,使胀破
 
-析 strap  _/stræp/_  n.皮带,带子 v.用带子系(或绑、捆、扎) 由韧性材料制成的长的窄带,如皮带,皮鞭  
-析 strip  _/strɪp/_  v.剥,剥去 n.窄条; 商业街  通常有同样宽度的长而狭窄的条片  
+析 strap  _/stræp/_  n.皮带,带子 v.用带子系(或绑、捆、扎)
+  <span class="exp">由韧性材料制成的长的窄带,如皮带,皮鞭</span>  
+析 strip  _/strɪp/_  v.剥,剥去 n.窄条; 商业街
+  <span class="exp">通常有同样宽度的长而狭窄的条片</span>  
 析 stripe  _/straɪp/_  n.条纹,线条; 臂章  
 析 streak  _/striːk/_  n.条痕 v.在…上留下条纹(或条痕) 如车轮印  
 
@@ -683,8 +690,10 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 
 析 outlook  n. 景色,风光; 世界观,人生观; 展望,前景  
 析 scenery  _/ˈsiːnəri/_  n.风景,风光; 舞台布景  指某地总的自然风景或景色  
-析 scene  _/siːn/_  n.(给人以某种印象的)景象,场景; (电影)镜头; (戏剧、书的)场面,片段 多指某一特定或具体场面所表示的“景色”、“场景”等  
-析 view  _/vjuː/_  n.视野; 风景; 观察; 见解; 照片 vt.观察; 认为  view常指从远处或高处看到的scenery的一部分,有时可与scene互换  
+析 scene  _/siːn/_  n.(给人以某种印象的)景象,场景; (电影)镜头; (戏剧、书的)场面,片段
+  <span class="exp">多指某一特定或具体场面所表示的“景色”、“场景”等</span>  
+析 view  _/vjuː/_  n.视野; 风景; 观察; 见解; 照片 vt.观察; 认为
+  <span class="exp">view常指从远处或高处看到的scenery的一部分,有时可与scene互换</span>
 
 析 consist  _/kənˈsɪst/_  v.(in)存在于; (of)由...组成/构成 整体+consists of+部分的全体  
 析 constitute  _/ˈkɒnstətjuːt,-tɪ-/_  v.组成,构成; 设立(委员会、政府等) 部分的全体+constitute+整体  
@@ -708,25 +717,29 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 
 析 clerk  _/klɑːk $ klɜːrk/_  n.职员,办事员; 店员  
 析 staff  _/stɑːf $ stæf/_  n.(一组织的)全体工作人员; (全体工作人员中的)部分成员  a new member of staff  
-析 crew  _/kruː/_  n.全体船员,全体乘务员; (有专门技术的)一组工作人员  He joined the crew of a large fishing boat.  
+析 crew  _/kruː/_  n.全体船员,全体乘务员; (有专门技术的)一组工作人员
+  <span class="exa">He joined the crew of a large fishing boat.</span>  
 联 faculty  _/ˈfækəlti/_  n.(大学、学院或院系的)全体教员
 
 析 revenue  _/ˈrevənjuː/_  n.财政收入,税收; (公司、组织的)收入  
-析 income  _/ˈɪŋkʌm, ˈɪn-/_  n.收益,所得; (个人的)收入  会计上revenue指收入income指盈利  
+析 income  _/ˈɪŋkʌm, ˈɪn-/_  n.收益,所得; (个人的)收入  会计上 revenue 指收入 income 指盈利  
 
 析 admit  _/ədˈmɪt/_  vt.常指不情愿地承认,供认; 准许...进入,准许...加入  to agree unwillingly that something is true  
 析 confess  _/kənˈfes/_  v.坦白,忏悔,供认,承认  In everyday English, people usually say admit rather than confess  
-析 concede  _/kənˈsiːd/_  vt.(勉强)承认; 认输  formal to admit something in a discussion or argument  
+析 concede  _/kənˈsiːd/_  vt.(勉强)承认; 认输  formal. to admit something in a discussion or argument  
 析 acknowledge  _/əkˈnɒlɪdʒ/_  vt.承认事实,局面等; 告知(信件等的)收到; 答谢  formal
   <span class="exp">to say that something is true or that a situation exists</span>  
 析 confession  _/kənˈfeʃən/_  n.承认,坦白,忏悔  
 
-析 company  _/ˈkʌmpəni/_  n.公司; 陪伴   an organization that makes or sells something, or provides a service  
-析 enterprise  _/ˈentəpraɪz $ -tər-/_  n.常指小型企业; 创业; 进取心  
-析 firm  _/fɜːm $ fɜːrm/_  n.商号 a.坚固的; 坚决的    a company, especially one that provides a service rather than producing goods  
-析 corporation  _/ˌkɔːpəˈreɪʃən/_  n.大企业; (英国某些大城市的)市政委员会   a large company that often includes several smaller companies  
+析 company  _/ˈkʌmpəni/_  n.公司; 陪伴
+  <span class="exp">an organization that makes or sells something, or provides a service</span>  
+析 enterprise  _/ˈentəpraɪz $ -tər-/_  n.常指_小型_企业; 创业; 进取心  
+析 firm  _/fɜːm $ fɜːrm/_  n._商_号 a.坚固的; 坚决的
+  <span class="exp">a company, especially one that provides a service rather than producing goods</span>  
+析 corporation  _/ˌkɔːpəˈreɪʃən/_  n._大_企业; (英国某些大城市的)市政委员会   a large company that often includes several smaller companies  
 析 subsidiary  _/səbˈsɪdiəri/_  n.子公司 a.辅助的; 次要的   a company that is owned by a larger company  
-析 business  _/ˈbɪznəs, ˈbɪznɪs/_  n.商业,生意; 商铺; 事务,业务,职责   a company – often used when talking about a company that employs only a small number of people  
+析 business  _/ˈbɪznəs, ˈbɪznɪs/_  n.商业,生意; _商铺_; 事务,业务,职责
+  <span class="exp">a company – often used when talking about a company that employs only a small number of people</span>
 
 析 dispute  _/dɪˈspjuːt, ˈdɪspjuːt/_  n.争论,争端 v.质疑 _in dispute_ 有争端/纠纷   a public or legal argument about something, especially one which continues for a long time  
 析 argument  _/ˈɑːɡjəmənt/_  n.争论(吵),辩论; 理由; 质疑    a situation in which people speak angrily to each other because they disagree about something  
@@ -912,8 +925,11 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 联 hostage  _/ˈhɒstɪdʒ $ ˈhɑː-/_  n.人质  host+age表名词→把客人[留住]→人质  
 
 联 temperature  _/ˈtemprətʃə, ˈtemprɪtʃə/_  n.温度,体温; 热度  
-联 Fahrenheit  _/ˈfærənhaɪt/_  a.华氏温标的; 华氏的  
-联 Centigrade  _/ˈsentəɡreɪd, ˈsentɪ-/_  n./a.摄氏温度计(的); 百分度(的)  
+联 Celsius  _/ˈselsiəs/_  n./a.摄氏度  
+联 Centigrade  _/ˈsentəɡreɪd, ˈsentɪ-/_  n./a.摄氏温度计(的); 百分度(的)
+  <span class="exp">Centigrade is a scale for measuring temperature, in which water freezes at 0 degrees and boils at 100 degrees.</span>
+  <span class="exp">现在已经被 Celsius 取代... It was not until February 1985 that the forecasts issued by the BBC switched from "centigrade" to "Celsius".</span>  
+联 Fahrenheit  _/ˈfærənhaɪt/_  a.华氏温标的; 华氏的
 
 联 flesh  _/fleʃ/_  n.肉体; 果肉  
 联 fresh  _/freʃ/_  a.新鲜的,无经验的  
@@ -1040,9 +1056,11 @@ a mark that is difficult to remove, especially one made by a dark liquid
 
 联 temp  _/temp/_  n.临时工  
 联 temporary  _/ˈtempərəri/_  a.暂时的,临时的  
-联 temper  _/ˈtempə $ -ər/_  n.脾气 v.使缓和 [P]in a temper 或 lose your temper发脾气  
-联 tempt  _/tempt/_  v.诱惑,引诱  
+联 temper  _/ˈtempə $ -ər/_  n.脾气 v.使缓和 [Phrase] in a temper 或 lose your temper 发脾气  
+联 tempt  _/tempt/_  v.吸引(无好坏的偏向性); 怂恿,引诱(做不该做的)  
 联 temptation  _/tempˈteɪʃən/_  n.引诱,诱惑; 诱惑物  
+联 induce  _/ɪnˈdjuːs/_  v.劝说; 导致
+  <span class="exp">More than 4,000 teachers were induced to take early retirement.</span>  
 
 联 applause  _/əˈplɔːz/_  n.鼓掌; 喝彩  
 联 applaud  _/əˈplɔːd/_  vt.鼓掌欢迎; 赞同 vi.鼓掌欢迎,欢呼  
@@ -1549,6 +1567,12 @@ to shake slightly in a way that you cannot control, especially because you are f
 联 literary  _/ˈlɪtərəri/_  a.文学上的  
 联 literature  _/ˈlɪtərətʃə/_  n.文学,文学作品  
 
+联 dispensable  _/dɪˈspensəbəl/_  a.可有可无的; 不重要的  
+联 indispensable  _/ˌɪndɪˈspensəbəl◂/_  a.(to,for)必不可少的,必需的  
+联 dependant 美dependent  _/dɪˈpendənt/_  a.依靠的,依赖的; 取决于…的
+  <span class="exa">Jan’s mother was dependent on her for physical care.</span>  
+联 independent  _/ˌɪndɪˈpendənt◂/_  a.(of)独立的,自主的  英美拼写一样  
+
 
 ## 派
 
@@ -1578,7 +1602,7 @@ to shake slightly in a way that you cannot control, especially because you are f
 派 initiative  _/ɪˈnɪʃətɪv/_  n.主动权; 主动性; 倡议  
 
 派 jewel  _/ˈdʒuːəl/_  n.宝石 a valuable stone, such as a diamond  
-派 jewellery 美jewelry  _/ˈdʒuːəlri/_  n.(总称)珠宝  
+派 jewelry BrE jewellery _/ˈdʒuːəlri/_  n.(总称)珠宝  
 
 派 identical  _/aɪˈdentɪkəl/_  a.(to.with)同一的,同样的  
 派 identity  _/aɪˈdentəti,-tɪti/_  n.身份; 本体; 特征  
@@ -1620,7 +1644,7 @@ to shake slightly in a way that you cannot control, especially because you are f
 派 infinite  _/ˈɪnfənət, ˈɪnfɪnət/_  a.无限的,无穷的 n.无限  
 
 派 utility  _/juːˈtɪləti, juːˈtɪlɪti/_  n.功用,效用; 公共事业  
-派 utilise 美-ze  _/ˈjuːtəlaɪz, ˈjuːtɪlaɪz/_  vt.利用,使用  
+派 utilize BrE -se  _/ˈjuːtəlaɪz, ˈjuːtɪlaɪz/_  vt.利用,使用  
 
 派 hate  _/heɪt/_  v.憎恨; 不喜欢 n.恨,憎恶  
 派 hatred  _/ˈheɪtrəd, ˈheɪtrɪd/_  n.憎恨,憎恶,怨恨  
@@ -1711,7 +1735,7 @@ to shake slightly in a way that you cannot control, especially because you are f
 派 criticism  _/ˈkrɪtəsɪzəm, ˈkrɪtɪ-/_  n.批评; 评论性的文章,评论  
 
 派 necessity  _/nəˈsesəti/_  n.必要,必然性; 必需品  OPP luxury  
-派 necessary  _/ˈnesəsəri, ˈnesɪsəri/_  a.必需的,必要的; 必然的 n.necessaries必需品  
+派 necessary  _/ˈnesəsəri, ˈnesɪsəri/_  a.必需的,必要的; 必然的 _necessaries_ 必需品  
 
 派 reservation  _/ˌrezəˈveɪʃən $ -zər-/_  n.保留,保留意见; 预定,预订  
 派 reserve  _/rɪˈzɜːv/_  v.保留,储备; 预定 n.储备(物); 储藏量; 替补队员; 预备役  
@@ -1726,7 +1750,7 @@ to shake slightly in a way that you cannot control, especially because you are f
 派 mechanic  _/mɪˈkænɪk/_  n.技工,机修工  
 派 mechanical  _/mɪˈkænɪkəl/_  a.机械的  
 
-派 emphasise 美-size  _/ˈemfəsaɪz/_  v.强调  
+派 emphasize BrE -sise  _/ˈemfəsaɪz/_  v.强调  
 派 emphasis  _/ˈemfəsəs, ˈemfəsɪs/_  n.重点; 强调; 重读  
 
 派 prospect  _/ˈprɒspekt/_  n.可能性; 预期; 前景 v.勘探  
@@ -1752,7 +1776,8 @@ to shake slightly in a way that you cannot control, especially because you are f
 派 dinner  _/ˈdɪnə/_  n.正餐,宴会  
 
 派 consequent  _/ˈkɒnsəkwənt,-sɪ-/_  a.作为结果的  
-派 consequence  _/ˈkɒnsəkwəns,-sɪ-/_  n.结果,后果   something important that happens as the result of a decision or action  
+派 consequence  _/ˈkɒnsəkwəns,-sɪ-/_  n.结果,后果
+  <span class="exp">something important that happens as the result of a decision or action</span>  
 
 派 oppose  _/əˈpəʊz/_  v.反对,阻扰  
 派 opposite  _/ˈɒpəzət, ˈɒpəzɪt/_  a.对面的,相对的,相反的 n.对立面  
@@ -1783,7 +1808,7 @@ to shake slightly in a way that you cannot control, especially because you are f
 
 派 accommodate  _/əˈkɒmədeɪt/_  v.为…提供住宿  
 派 accommodation  _/əˌkɒməˈdeɪʃən/_  n.住处,住所  
-In everyday English,people usually say somewhere to live/stay rather than accommodation.  
+  <span class="exp">In everyday English, people usually say somewhere to live/stay rather than accommodation.</span>
 
 派 cultivate  _/ˈkʌltəveɪt, ˈkʌltɪveɪt/_  v.耕作,种植  
 派 culture  _/ˈkʌltʃə/_  n.文化,文明 v.培养(细菌/细胞)  
@@ -1802,7 +1827,7 @@ In everyday English,people usually say somewhere to live/stay rather than accomm
 派 exhibit  _/ɪɡˈzɪbət, ɪɡˈzɪbɪt/_  v.展出,陈列 n.展览品,陈列品  
 派 exhibition  _/ˌeksəˈbɪʃən, ˌeksɪ-/_  n.展览会; 陈列,展览  
 
-派 insure  _/ɪnˈʃʊə/_  v.为…投保; 使采取预防措施  英ensure 美insure  
+派 insure  _/ɪnˈʃʊə/_  v.为…投保; 使采取预防措施  英 ensure 美 insure  
 派 ensure  _/ɪnˈʃʊə/_  v.确保,保证; 担保  SYN make sure  
 派 insurance  _/ɪnˈʃʊərəns/_  n.保险; 预防措施  
 
