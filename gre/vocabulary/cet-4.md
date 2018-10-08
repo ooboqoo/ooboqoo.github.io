@@ -1,12 +1,13 @@
 # CET-4
 
 <script>
+(function translate () {
   const ps = document.querySelectorAll('#md p')
   for (let p of ps) {
     p.innerHTML = p.innerHTML
       .replace(/(^|<br>)([忘析混错联派类]) ([\w-]+)/g, '$1<span class="tag-class">$2</span> <span class="word">$3</span>')
       .replace(/\b(n|v|vt|vi|a|ad|prep)\./g, '<span class="tag-pos">$&</span>')
-      .replace(/SYN|OPP/g, '<span class="tag-syn">$&</span>')
+      .replace(/SYN|OPP|BrE|NAmE/g, '<span class="tag-syn">$&</span>')
   }
   const exs = document.querySelectorAll('#md p span.exp, #md p span.exa')
   for (let ex of exs) { ex.dataset.txt = ex.innerHTML; ex.innerHTML = '' }
@@ -15,6 +16,7 @@
     const txt = em.textContent
     if (txt[0] === '/' && txt[txt.length - 1] === '/') { em.classList.add('tag-ps') }
   }
+})();
 </script>
 
 <style>
@@ -32,44 +34,40 @@
 
 Jesus 耶稣 Christ 基督 Jesus Christ 耶稣基督(人名) the man who Christians believe was the son of God  
 Christian 基督教徒,基督教的  
-optional subjects 选修课  major 主修课程，专业  
-sewing machine 缝纫机  
+
 gallery  画廊,楼座  
-lucky guy / lucky dog 幸运儿  
-nail polish  指甲油  
-piggy bank  小猪储蓄罐  
+surplus  _/ˈsɜːpləs/_  n.过剩,剩余额; (贸易)顺差; (预算)盈余 a.过剩的,剩余的
+
 scenario(plural scenarios)  _/sɪˈnærioʊ/_  n.场景  
 
 scissors  _/ˈsɪzəz $ -ərz/_  [pl.] 剪子,剪刀  <s>a scissors</s> a pair of scissors  
-rich harvest  大丰收  
-commit suicide  自杀  
+
 swear  _/sweə/_  v.咒骂,诅咒,说脏话; 发誓,郑重声明  
 
-resigned from 辞职  
 vocal  a.大声说出的; 嗓音的,发声的 vocal training 发声训练  
 
+string  
+cord  
+rope  
+
+bow  _/baʊ/_  v.鞠躬; 俯首  _/bəʊ/_  n.弓; 蝴蝶结  
+stoop  弯腰  
+
 析 frustrate  _/ˈfrʌstreɪt/_  v.使沮丧,使愤怒; 挫败
-  <span class="exp">upsets or angers you because you are unable dffdfdfdsfdsfdf sdfdfdfdsfds sdfdsfdsf sdfdsfsdfdf sdfdsfdsfdfdsf dfsdfdsfd sdfsdfsdfsdfsdf sdfsdfsdfsdf to do anything about the problems it creates</span>  
+  <span class="exp">upsets or angers you because you are unable to do anything about the problems it creates</span>  
 析 discourage  v.使泄气,使灰心; 劝阻,打消…的念头  discourage someone from doing something  
 
 reproduce  _/ˌriːprəˈdjuːs/_  v.(动植物)繁殖; 复制 copy  
 mount  _/maʊnt/_  v. 骑上(马、自行车等) n. 山  
-zebra crossing  n. 斑马线  
-
-inference _/ˈɪnfərəns/_ n. 推理; 结论  
 
 promise  n.诺言  a verbal commitment  
 rally  _/ˈræli/_  n.集会  a public meeting to support or oppose someone or something  
-
-
 
 联 emoticon  _/ɪˈmoʊtɪkɑːn/_  A special sign that is used to show an _emotion_ in email and on the Internet.  
 联 emoji  _/ɪˈmoʊdʒi/_  表情图标, 源自日文, 与 emoticon 相似纯属巧合
 
 cargo  _/ˈkɑːɡəʊ/_  n. (轮船、飞机所装载的)货物  
 freight  _/freɪt/_  n. 货运; 货物  
-
-
 
 联 chilli  _/ˈtʃɪli//_  n. 辣椒(长)  
 联 pepper  _/ˈpepə/_  n. 胡椒;甜椒(圆)
@@ -108,8 +106,6 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 忘 auction  _/ˈɔːkʃən $ ˈɒːk-/_  v./n.拍卖  
 忘 sanction  _/ˈsæŋkʃən/_  n.处罚,制裁 v.(正式)认可,准许; 对…实施处罚  
 
-
-
 忘 advocate  _/ˈædvəkeɪt/_  v.拥护,提倡 n.拥护者; 辩护律师 SYN proponent  
 忘 proponent  _/prəˈpəʊnənt/_  n.支持者,拥护者,辩护者  
 
@@ -117,6 +113,7 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 忘 conservative  _/kənˈsɜːvətɪv/_  a.保守的,守旧的 n.保守主义者  
 
 联 contempt  _/kənˈtempt/_  n.轻视,藐视; 受辱,丢脸  
+
 
 忘 convince  _/kənˈvɪns/_  v.(of)使信服,使确信  
 忘 concession  _/kənˈseʃən/_  n.让步,妥协; 特许(权)  
@@ -222,8 +219,7 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 忘 whale  _/weɪl/_  n.鲸  
 忘 diligent  _/ˈdɪlədʒənt, ˈdɪlɪdʒənt/_  a.勤奋的,孜孜不倦的  
 
-忘 plural  _/ˈplʊərəl/_  n.复数,复数形式 a.复数的  
-忘 adjective  _/ˈædʒəktɪv, ˈædʒɪktɪv/_  n.形容词  
+
 
 忘 dye  _/daɪ/_  v.给…染色 n.染料  
 忘 recite  _/rɪˈsaɪt/_  v.背诵,朗诵  
@@ -397,7 +393,7 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 
 混 slip  _/slɪp/_  v.滑倒; 溜走 n.疏忽,口误,笔误  FALL OR SLIDE  
 混 slippery  _/ˈslɪpəri/_  a.滑的,滑溜的  
-混 slide  _/slaɪd/_  v.(使)滑动 n.滑梯; 幻灯片  [past tense and past participle] **slid**  _/slɪd/_  
+混 slide  _/slaɪd/_  v.(使)滑动 n.滑梯; 幻灯片  [past tense and past participle] _slid_  _/slɪd/_  
 
 混 latter  _/ˈlætə $ -ər/_  a.后一半的,接近终了的 n.两者之间的后者 the latter  
 混 later  _/ˈleɪtə $ -ər/_  ad.后来,过后  late的比较级  
@@ -424,13 +420,13 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 联 gratitude  _/ˈɡrætɪtjuːd/_  n.感恩之情,感谢
 
 混 principal  _/ˈprɪnsəpəl/_  a.首要的,最主要的 n.美国中小学校长; 英国大学校长  
-混 principle  _/ˈprɪnsəpəl/_  n.行为准则; 原理 [in principle] 大体上,按道理; [on -] 按照原则  
+混 principle  _/ˈprɪnsəpəl/_  n.行为准则; 原理  _in principle_ 大体上,按道理; _on principle_ 按照原则  
 忘 discipline  _/ˈdɪsəplɪn/_  n.(旨在使行为举止正规的)训练; 自制力,遵守纪律; (一套)规章制度,纪律 v.惩罚; 训练,管教  
 
 混 experience  _/ɪkˈspɪəriəns $ -ˈspɪr-/_  n./vt.经验; 经历; 体验; 阅历  
 混 experiment  _/ɪkˈsperəmənt/_  n.实验; 试验 v.(on)进行实验; 做试验  
 
-混 strike  _/straɪk/_  n./vi.罢工 vt.打,击; 攻击; 给...深刻印象 [过去式,过去分词] struck  _/strʌk/_  
+混 strike  _/straɪk/_  n./vi.罢工 vt.打,击; 攻击; 给...深刻印象 [过去式,过去分词] _struck_  _/strʌk/_  
 混 stroke  _/strəʊk/_  v.抚摸 n.一击/划/笔; 钟声; 中风  
 混 striking  _/ˈstraɪkɪŋ/_  a.显著的; 惹人注目的,容貌出众的  
 
@@ -452,7 +448,7 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 混 council  _/ˈkaʊnsəl/_  n.理事会,委员会,议事机构  
 混 counsel  _/ˈkaʊnsəl/_  v./n.劝告,忠告 n.辩护人,法律顾问  
 
-混 advice  _/ədˈvaɪs/_  n.劝告,忠告,(医生等的)意见  advice为不可数名词  
+混 advice  _/ədˈvaɪs/_  n.[不可数] 劝告,忠告,(医生等的)意见  
 混 advise  _/ədˈvaɪz/_  vt.忠告,劝告,建议; 通知,告知  
 
 混 packet  _/ˈpækət, ˈpækɪt/_  n.小包裹,小捆; 一捆,一扎  packing有图例  
@@ -468,7 +464,7 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 混 quite  _/kwaɪt/_  ad.十分,完全; 相当  
 
 混 launch  _/lɒːntʃ/_  v.发射; 使船下水; 开展活动; 发动袭击等  
-混 lunch  _/lʌntʃ/_  n.午餐  there’s no (such thing as a) free lunch  
+混 lunch  _/lʌntʃ/_  n.午餐 <span class="exa">there’s no (such thing as a) free lunch</span>  
 
 混 rob  _/rɒb $ rɑːb/_  v.(of)抢劫,盗取  
 混 rub  _/rʌb/_  v.擦,摩擦  
@@ -486,7 +482,7 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 混 abroad  _/əˈbrɔːd/_  ad.到国外,在国外; 广为流传地  
 混 aboard  _/əˈbɔːd/_  ad./prep.在船(飞机,车)上  
 
-混 contrary  _/ˈkɒntrəri/_  a.(to)相反的,矛盾的 on the contrary [p]相反地  
+混 contrary  _/ˈkɒntrəri/_  a.(to)相反的,矛盾的 _on the contrary_ 相反地  
 混 contrast  _/ˈkɒntrɑːst/_  n.差异,悬殊 v.(with)对比,对照  
 
 混 drip  _/drɪp/_  v.滴下,漏水 n.滴,水滴 a drop of drip 一滴水滴  
@@ -561,10 +557,12 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 析 barn  _/bɑːn $ bɑːrn/_  n.谷仓,牲口棚  
 
 析 lane  _/leɪn/_  n.乡间的小径; 泳道,跑道,车道,航线; (用于路名)路,巷  
-析 alley  _/ˈæli/_  n.小巷,胡同  a narrow passage or street with buildings or walls on both sides  
+析 alley  _/ˈæli/_  n.小巷,胡同
+  <span class="exp">a narrow passage or street with buildings or walls on both sides</span>  
 析 road  
 析 street  
-析 avenue  _/ˈævɪnjuː/_  大道(尤指林阴大道)  a wide, straight road, especially one with trees on either side.  
+析 avenue  _/ˈævɪnjuː/_  大道(尤指林阴大道)
+  <span class="exp">a wide, straight road, especially one with trees on either side.</span>  
 
 析 fare  _/feə $ fer/_  n.车费,船费  
 析 fee  _/fiː/_  n.服务费; 报酬; 酬金 price value charge  
@@ -593,6 +591,7 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 
 析 gulf  _/ɡʌlf/_  n.海湾    a very large area of sea partly enclosed by land  
 析 bay  _/beɪ/_  n.海湾,(港)湾   an area of sea that is partly enclosed by a curve in the land  
+析 strait  _/streɪt/_  n.海峡,(连接两大海域的)水道  a narrow strip of sea which joins two large areas of sea  
 析 seashore  _/ˈsiːʃɔː/_  n.海岸; 海滨; 海滩    the land along the edge of the sea or ocean  
 析 beach  _/biːtʃ/_  n.海滩,湖滩,河滩    an area of sand, or small stones, beside the sea or a lake  
 析 coast  _/kəʊst/_  n.海岸 coastline海岸线   the land beside or near to the sea or ocean  
@@ -643,7 +642,7 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
   <span class="exp">to judge especially by carefully examining all the information about them. Evaluate is often used about the work of people doing research</span>  
 析 assess  _/əˈses/_  v.根据标准来评估,评价
   <span class="exp">to judge especially by using a fixed set of standards. Assess is often used about measuring students’ abilities and performance</span>  
-析 appraise  _/əˈpreɪz/_  formal v.评价,评估 根据比较优缺点作出评价 
+析 appraise  _/əˈpreɪz/_  formal. v.评价,评估 根据比较优缺点作出评价 
   <span class="exp">to judge especially by comparing their good and bad points</span>
   <span class="exa">Greenpeace has been invited to appraise the environmental costs of such an operation.</span>  
 析 appraisal  _/əˈpreɪzəl/_  n.评价,评估  
@@ -787,9 +786,12 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 析 weakness  _/ˈwiːknəs, ˈwiːknɪs/_  n.弱点; 软弱; 嗜好  
 析 mistake  _/məˈsteɪk, mɪˈsteɪk/_  n.错误,过失,误解 v.弄错; (for)把...误认为  
 
-析 vice-  _/vaɪs/_  用于级别或头衔前表示副的  vice- 着重形容职务  一般来说，职位较高的副职人员多采用vice-,如:president,premier,chairman,minister,governor  
-析 deputy  _/ˈdepjəti, ˈdepjʊti/_  n.副职的,副手,副主管; 执行- deputy着重形容责任  职务稍低的副职人员多用deputy来翻译,如:director,chief,mayor  
-析 associate  _/əˈsəʊʃiət/_  a.准的, 用于等级或头衔前,表示稍有不同或略低,副的,准的   大学教授,研究员,主编.审判长等一般用associate  
+析 vice-  _/vaɪs/_  用于级别或头衔前表示副的  vice- 着重形容职务
+  <span class="exp">一般来说，职位较高的副职人员多采用vice-,如:president,premier,chairman,minister,governor</span>  
+析 deputy  _/ˈdepjəti, ˈdepjʊti/_  n.副职的,副手,副主管; 执行- deputy着重形容责任
+  <span class="exp">职务稍低的副职人员多用deputy来翻译,如:director,chief,mayor</span>  
+析 associate  _/əˈsəʊʃiət/_  a.准的, 用于等级或头衔前,表示稍有不同或略低,副的,准的
+  <span class="exp">大学教授,研究员,主编.审判长等一般用associate</span>  
 析 assitant  _/əˈsɪstənt/_  a.助理的, 用于头衔或职务前,表示级别略低助理的,副的 主要助手,比deputy再低一级  
 
 析 surprise  _/səˈpraɪz/_  v.使诧异,使惊异; 奇袭 n.诧异,惊异  
@@ -969,6 +971,7 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 联 inferior  _/ɪnˈfɪəriə $ -ˈfɪriər/_  a.(质量等)次的; (地位、能力等)低等的 n.下级,晚辈  [-ior表形容词"较…的"  
 联 superior  _/suːˈpɪəriə $ sʊˈpɪriər/_  a.优等的; 上级的 n.上级; 长者; 高手  
 联 infer  _/ɪnˈfɜː $ -ɜːr/_  v.推论,推断  
+联 inference _/ˈɪnfərəns/_ n. 推理; 结论  
 联 refer  _/rɪˈfɜː $ -ɜːr/_  v.参考,查询; 提到,引用,涉及; 提交,上呈  
 
 联 consent  _/kənˈsent/_  v./n.(to)同意,允许,许可   con共同+sent感觉→共同感觉→同意[Sens,sent=feel,表示"感觉"]  
@@ -1017,13 +1020,15 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 联 dread  _/dred/_  v/n.忧虑; 恐惧 a.令人畏惧的  
 
 联 succeed  _/səkˈsiːd/_  v.成功; 继承,接替  
-联 success  _/səkˈses/_  n.成就,成功   Word Family: noun: success,succession,successor;  adjective:successful≠unsuccessful,successive;  verb:succeed;  adverb:successfully≠unsuccessfully  
+联 success  _/səkˈses/_  n.成就,成功
+  <span class="exp">Word Family: noun: success,succession,successor;  adjective:successful≠unsuccessful,successive;  verb:succeed;  adverb:successfully≠unsuccessfully</span>  
 联 successful  _/səkˈsesfəl/_  a.圆满的; 顺利的; 成功的  
 联 succession  _/səkˈseʃən/_  n.一连串,一系列; 继承; 继承权  ced,ceed,cess=go,表示"行走,前进"  
 
 联 apparatus  _/ˌæpəˈreɪtəs/_  n.器械,器具,仪器; 机构,组织  
 联 equipment  _/ɪˈkwɪpmənt/_  n.设备,装备  
-联 facility  _/fəˈsɪləti/_  n.功能; 天赋; 设备,设施 rooms, equipment, or services that are provided for a particular purpose  
+联 facility  _/fəˈsɪləti/_  n.功能; 天赋; 设备,设施
+  <span class="exp">rooms, equipment, or services that are provided for a particular purpose</span>  
 联 appliance  _/əˈplaɪəns/_  n.家用电器,器械,装置; 技术或知识的使用,应用  
 联 instrument  _/ˈɪnstrəmənt/_  n.仪器,器械; 乐器  
 联 instrumental  _/ˌɪnstrəˈmentl◂/_  a.有助益的,有帮助的; 用乐器演奏(而非声乐)的  
@@ -1036,7 +1041,8 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 联 scratch  _/skrætʃ/_  v.给…搔痒; 划伤n.划痕 [P]from scratch 从零开始; 白手起家  
 联 scrape  _/skreɪp/_  v.刮擦 n.刮,擦痕,刮擦声  刮擦(scrape)痒处(itch)叫挠痒(scratch)  
 
-联 repent  _/rɪˈpent/_  v.忏悔,悔悟  repent of sth.  used especially when considering your actions in a religious way  
+联 repent  _/rɪˈpent/_  v.忏悔,悔悟  repent of sth.
+  <span class="exp">used especially when considering your actions in a religious way</span>  
 联 regret  _/rɪˈɡret/_  v.对…感到后悔 n.悔恨; 抱歉; 遗憾  
 
 联 confine  _/kənˈfaɪn/_  vt.限制; 监禁 n.[pl.]限制; 局限    verb  _/kən'faɪn/_  noun confines  _/'kɒnfaɪnz/_  
@@ -1050,7 +1056,7 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 联 stoop  _/stuːp/_  v.弯腰,俯身 n.弯腰,驼背  
 
 联 wing  _/wɪŋ/_  n.翅,翅膀; 翼,机翼; 派别 vt.装以翼  
-联 swing  _/swɪŋ/_  v.摇摆,摇荡,旋转 n.秋千; 摆动   past tense and past participle swung  _/swʌŋ/_  
+联 swing  _/swɪŋ/_  v.摇摆,摇荡,旋转 n.秋千; 摆动  [past tense and past participle] swung  _/swʌŋ/_  
 
 联 burden  _/ˈbɜːdn $ ˈbɜːrdn/_  n.负担,重负 v.使烦恼  
 联 strain  _/streɪn/_  v.拉紧; 紧张; 扭伤; 竭尽全力 n.负担; 压力; 拉紧; 扭伤  
@@ -1099,8 +1105,8 @@ a mark that is difficult to remove, especially one made by a dark liquid
 联 passive  _/ˈpæsɪv/_  a.被动的,消极的 n.被动态  OPP active  
 联 impassive  _/ɪmˈpæsɪv/_  a.喜怒不形于色的; 面无表情的  
 
-联 bacteria  _/bækˈtɪəriə/_  n.细菌(含有害和有益细菌)    该词的单数形式为bacterium,一般用复数  
-联 germ  _/dʒɜːm $ dʒɜːrm/_  n.微生物,细菌(尤指病菌)    微生物,原始生物; 细菌(尤指病原菌,病菌),注意,germ 不包括病毒virus  
+联 bacteria  _/bækˈtɪəriə/_  n.细菌(含有害和有益细菌)<span class="exp">该词的单数形式为bacterium,一般用复数</span>  
+联 germ  _/dʒɜːm $ dʒɜːrm/_  n.微生物,细菌(尤指病菌)<span class="exp">注意 germ 不包括病毒 virus</span>  
 联 virus  _/ˈvaɪərəs/_  n.病毒  
 
 联 converse  _/kənˈvɜːs/_  v.(与…)交谈; (和…)说话 n.相反地言论 talk  
@@ -1127,7 +1133,7 @@ a mark that is difficult to remove, especially one made by a dark liquid
 
 联 conquest  _/ˈkɒŋkwest/_  n.征服,占领,攻克  
 联 triumph  _/ˈtraɪəmf/_  n.(艰辛后的)胜利; 杰出的成就; (成功时)狂喜
-an important victory or success after a difficult struggle  
+  <span class="exp">an important victory or success after a difficult struggle</span>  
 联 conquer  _/ˈkɒŋkə/_  v.占领,征服; 克服,攻克  
 
 联 headmaster  _/ˌhedˈmɑːstə/_  n.英国中小学的男校长 SYN head teacher  
@@ -1137,7 +1143,8 @@ an important victory or success after a difficult struggle
 联 headquarters  _/ˈhedˌkwɔːtəz/_  n.总部; 总公司  abb.HQ 单数集合名词  
 
 联 novel  _/ˈnɒvəl $ ˈnɑː-/_  n.(长篇)小说 a.新奇的,新颖的  
-联 fiction  _/ˈfɪkʃən/_  n.虚构,编造; 小说,幻想   Novel指长篇小说.Fiction,更强调虚构、科幻的故事non-fiction 纪实文学  
+联 fiction  _/ˈfɪkʃən/_  n.虚构,编造; 小说,幻想
+  <span class="exp">novel 指长篇小说 fiction 更强调虚构、科幻的故事 non-fiction 纪实文学</span>  
 联 friction  _/ˈfrɪkʃən/_  n.矛盾,争执; 摩擦力  
 
 联 conserve  _/kənˈsɜːv/_  v.节约; 保存 n.蜜饯 SYN preserve  
@@ -1169,10 +1176,13 @@ an important victory or success after a difficult struggle
 联 representative  _/ˌreprɪˈzentətɪv◂/_  n.代表,代理人 a.(of)典型的,有代表性的  
 
 联 slogan  _/ˈsləʊɡən/_  n.口号,标语  
-联 solemn  _/ˈsɒləm/_  a.庄严的,郑重的; 严肃的   very serious because of an important or sad occasion or ceremony  
-联 grave  _/ɡreɪv/_  n.坟墓 a.严肃的,庄重的   written quiet and very serious – used especially about the way people look when something important or worrying happens  
+联 solemn  _/ˈsɒləm/_  a.庄严的,郑重的; 严肃的
+  <span class="exp">very serious because of an important or sad occasion or ceremony</span>  
+联 grave  _/ɡreɪv/_  n.坟墓 a.严肃的,庄重的  written
+  <span class="exp">quiet and very serious – used especially about the way people look when something important or worrying happens</span>  
 联 serious  _/ˈsɪəriəs/_  a.认真的,严肃的; 严重的,危急的  
-联 earnest  _/ˈɜːnəst, ˈɜːnɪst/_  a.诚挚的; 真诚的   very serious and sincere – often used about someone who is young and not very experienced  
+联 earnest  _/ˈɜːnəst, ˈɜːnɪst/_  a.诚挚的; 真诚的
+  <span class="exp">very serious and sincere – often used about someone who is young and not very experienced</span>  
 
 联 despise  _/dɪˈspaɪz/_  v.鄙视; 藐视; 看不起  
 联 defiance  _/dɪˈfaɪəns/_  n.违抗; 蔑视; 挑战  
@@ -1211,7 +1221,7 @@ an important victory or success after a difficult struggle
 联 transit  _/ˈtrænsət, ˈtrænsɪt/_  n.运输,运送 a.中转的,临时的  
 联 transition  _/trænˈzɪʃən/_  v/n.转变; 过渡; 变迁  
 联 transport  _/ˈtrænspɔːt/_  v.运输,运送,搬运 n.运输; 运输系统,运载工具  
-联 transportation  _/ˌtrænspɔːˈteɪʃən $ -spər-/_  n.运输; 交通工具; 运输系统  名词英国用transport 美国用transportation  
+联 transportation BrE transport  _/ˌtrænspɔːˈteɪʃən $ -spər-/_  n.运输; 交通工具; 运输系统  
 联 transfer  _/trænsˈfɜː $ -ˈfɜːr/_  vt./n.转移; 转换; 转让; 过户; 迁移; 改乘  
 联 transmit  _/trænzˈmɪt $ træns-/_  v.发射信号; 传播; 传导(声、电等)  emit  
 联 transmission  _/trænzˈmɪʃən/_  n.传送; 传播; 传染; 汽车变速器  SYN broadcast  
@@ -1570,7 +1580,8 @@ to shake slightly in a way that you cannot control, especially because you are f
 联 basin  _/ˈbeɪsən/_  n.盆,脸盆; 内海,盆地  
 联 bowl  _/bəʊl $ boʊl/_  n.碗(状物),钵  
 
-联 literacy  _/ˈlɪtərəsi/_  n.读写能力,识字  have some problems with literacy and numeracy  在识字和算术上..  
+联 literacy  _/ˈlɪtərəsi/_  n.读写能力,识字
+  <span class="exa">have some problems with literacy and numeracy  在识字和算术上..</span>  
 联 literary  _/ˈlɪtərəri/_  a.文学上的  
 联 literature  _/ˈlɪtərətʃə/_  n.文学,文学作品  
 
@@ -1589,7 +1600,8 @@ to shake slightly in a way that you cannot control, especially because you are f
 派 embassy  _/ˈembəsi/_  n.大使馆  
 派 ambassador  _/æmˈbæsədə/_  n.大使  // 注意 `a-` 开头  
 
-派 consult  _/kənˈsʌlt/_  v.请教,向...咨询,找...商量; 查阅,查看    In everyday English, people usually say ask someone, or see someone, rather than consult someone  
+派 consult  _/kənˈsʌlt/_  v.请教,向...咨询,找...商量; 查阅,查看
+  <span class="exp">In everyday English, people usually say ask someone, or see someone, rather than consult someone</span>  
 派 consultant  _/kənˈsʌltənt/_  n.会诊医师; 顾问  
 
 派 conscious  _/ˈkɒnʃəs/_  a.(of)意识到的; 关注的; 清醒的  SYN aware OPP unconscious  
@@ -1631,7 +1643,7 @@ to shake slightly in a way that you cannot control, especially because you are f
 派 influential  _/ˌɪnfluˈenʃəl◂/_  a.有影响的; 有权势的  
 派 influence  _/ˈɪnfluəns/_  n.(on)影响,感化; 势力,权势 v.影响,感化  
 
-派 bitter  _/ˈbɪtə $ -ər/_  a.味道苦的; 辛酸的; 猛烈的,充满敌意的  [Phrase]to the bitter end 坚持到底  
+派 bitter  _/ˈbɪtə $ -ər/_  a.味道苦的; 辛酸的; 猛烈的,充满敌意的  _to the bitter end_ 坚持到底  
 派 bitterly  _/ˈbɪtəli $ -ər-/_  ad.强烈地,激烈地,极为愤恨、憎恶等  
 
 派 fantasy  _/ˈfæntəsi/_  n.幻想,空想  
@@ -1667,7 +1679,7 @@ to shake slightly in a way that you cannot control, especially because you are f
 派 survivor  _/səˈvaɪvə/_  n.幸存者; 生还者  
 
 派 nuclear  _/ˈnjuːkliə/_  a.原子核的; 核能的; 核武器的  
-派 nucleus  _/ˈnjuːkliəs/_  n.核,核心,原子核  pl.nuclei  
+派 nucleus  _/ˈnjuːkliəs/_  n.核,核心,原子核  pl. nuclei _/-kliaɪ/_ 
 
 派 literary  _/ˈlɪtərəri/_  a.文学上的,文学的  
 派 literature  _/ˈlɪtərətʃə/_  n.文学,文学作品,文献  
@@ -1696,7 +1708,7 @@ to shake slightly in a way that you cannot control, especially because you are f
 派 investigate  _/ɪnˈvestəɡeɪt/_  v.调查; 审查 noun investigation  
 
 派 media  _/ˈmiːdiə/_  n.媒体,传播工具 Media is a plural of medium  
-派 medium  _/ˈmiːdiəm/_  n.(pl.media)方法,媒介 a.中等的  
+派 medium  _/ˈmiːdiəm/_  n.(pl. media)方法,媒介 a.中等的  
 
 派 invade  _/ɪnˈveɪd/_  vt.入侵,侵略,侵袭 attack  
 派 invasion  _/ɪnˈveɪʒən/_  n.入侵,侵略,侵犯  
@@ -1814,7 +1826,7 @@ to shake slightly in a way that you cannot control, especially because you are f
 派 presentation  _/ˌprezənˈteɪʃən/_  n.外观; 陈述; 表演  
 
 派 accommodate  _/əˈkɒmədeɪt/_  v.为…提供住宿  
-派 accommodation  _/əˌkɒməˈdeɪʃən/_  n.住处,住所  
+派 accommodation  _/əˌkɒməˈdeɪʃən/_  n.住处,住所
   <span class="exp">In everyday English, people usually say somewhere to live/stay rather than accommodation.</span>
 
 派 cultivate  _/ˈkʌltəveɪt, ˈkʌltɪveɪt/_  v.耕作,种植  
@@ -1852,8 +1864,8 @@ to shake slightly in a way that you cannot control, especially because you are f
 派 voluntary  _/ˈvɒləntəri/_  a.自愿的,志愿的  
 派 volunteer  _/ˌvɒlənˈtɪə/_  n.志愿者  
 
-派 behave  _/bɪˈheɪv/_  v.表现; 举止得体; 物体的运动 behave yourself  
-派 behaviour 美-ior  _/bɪˈheɪvjə $ -ər/_  n.行为,举止; 科学领域中的运动方式  
+派 behave  _/bɪˈheɪv/_  v.表现; 举止得体; 物体的运动 _behave yourself_  
+派 behavior BrE behaviour  _/bɪˈheɪvjə $ -ər/_  n.行为,举止; 科学领域中的运动方式  
 
 派 mature  _/məˈtʃʊə/_  a.成熟的,熟的; 成年人的 v.(使)成熟  
 派 premature  _/ˌpriːməˈtʃʊr/_  a.不成熟的; 早产的  
@@ -1870,7 +1882,7 @@ to shake slightly in a way that you cannot control, especially because you are f
 派 consumption  _/kənˈsʌmpʃən/_  n.消费(量); (资源的)消耗  
 
 派 evident  _/ˈevədənt, ˈevɪ-/_  a.明显的,清楚的  
-派 evidence  _/ˈevədəns, ˈevɪ-/_  n.证据 [P]be in - 显眼,显而易见  
+派 evidence  _/ˈevədəns, ˈevɪ-/_  n.证据 _be in evidence_ 显眼,显而易见  
 
 派 reflect  _/rɪˈflekt/_  v.反射,反映; 反省,沉思  
 派 reflection  _/rɪˈflekʃən/_  n.映像,倒影; 反省  
@@ -1889,14 +1901,14 @@ to shake slightly in a way that you cannot control, especially because you are f
 派 absence  _/ˈæbsəns/_  n.不在,缺席; 缺乏,不存在  
 派 absent  _/ˈæbsənt/_  a.不在的,缺席的; 心不在焉的  
 
-派 occasion  _/əˈkeɪʒən/_  n.时刻,时机,场合; 仪式,庆典  on occasion 偶尔,间或  
+派 occasion  _/əˈkeɪʒən/_  n.时刻,时机,场合; 仪式,庆典  _on occasion_ 偶尔,间或  
 派 occasional  _/əˈkeɪʒənəl/_  a.偶尔的,间或的 ad. occasionally  
 
 派 except  _/ɪkˈsept/_  [介]除了…之外  
 派 exceptation  _/ɪkˈsepʃən/_  n.例外,除外  
 
 派 defend  _/dɪˈfend/_  v.防御,保卫; 替…辩护,为…辩解; 卫冕  
-派 defence 美defense  _/dɪˈfens/_  n.防御,保卫; 辩护,辩解; (足球、曲棍球等运动中的)防守队员  
+派 defense BrE defence  _/dɪˈfens/_  n.防御,保卫; 辩护,辩解; (足球、曲棍球等运动中的)防守队员  
 
 派 simple  _/ˈsɪmpəl/_  a.简单的; 单纯的,直率的  
 派 simply  _/ˈsɪmpli/_  ad.简单地; 只不过; 仅仅; 纯粹  
@@ -1927,7 +1939,8 @@ to shake slightly in a way that you cannot control, especially because you are f
 派 moisture  _/ˈmɔɪstʃə/_  n.潮气,湿气,水分  
 联 damp  _/dæmp/_  a.潮湿的,湿气重的 n.潮气 v.弄湿  
 
-派 inhabit  _/ɪnˈhæbət, ɪnˈhæbɪt/_  v.居住于; 栖居在 live; come from; reside; grow up if a group of people or animals inhabit an area, they live there. Used especially in written descriptions  
+派 inhabit  _/ɪnˈhæbət, ɪnˈhæbɪt/_  v.居住于; 栖居在 live; come from; reside; grow up
+  <span class="exp">if a group of people or animals inhabit an area, they live there. Used especially in written descriptions</span>  
 派 inhabitant  _/ɪnˈhæbɪtənt/_  n.居民  
 
 派 resist  _/rɪˈzɪst/_  v.抵抗,反抗; 抵制  
@@ -1935,6 +1948,9 @@ to shake slightly in a way that you cannot control, especially because you are f
 
 
 ## 类
+
+类 plural  _/ˈplʊərəl/_  n.复数,复数形式 a.复数的  
+类 adjective  _/ˈædʒəktɪv, ˈædʒɪktɪv/_  n.形容词  
 
 类 grandparent  _/ˈɡrænˌpeərənt/_  n.(外)祖父母  one of the parents of your mother or father  
 类 maternal  _/məˈtɜːnl/_  a.母亲的,母性的; 母系的 maternal grandfather 外公  
@@ -1946,8 +1962,10 @@ to shake slightly in a way that you cannot control, especially because you are f
 类 brother  _/ˈbrʌðə $ -ər/_  n.兄弟  兄妹用younger elder  
 类 sister  _/ˈsɪstə $ -ər/_  n.姐妹  
 类 cousin  _/ˈkʌzən/_  n.同辈表亲(或堂亲) the child of your uncle or aunt  
-类 second cousin   n.远房堂/表兄弟/姐妹    Your second cousins are the children of your parents' first cousins.  
-类 sister-in-law   n.姑子; 姨子; 嫂子; 弟媳   the sister of your husband or wife;  your brother's wife;  the wife of your husband or wife's brother  
+类 second cousin   n.远房堂/表兄弟/姐妹
+  <span class="exp">Your second cousins are the children of your parents' first cousins.</span>  
+类 sister-in-law   n.姑子; 姨子; 嫂子; 弟媳
+  <span class="exp">the sister of your husband or wife;  your brother's wife;  the wife of your husband or wife's brother</span>  
 
 类 cattle  _/ˈkætl/_  n.牛 cows and bulls kept on a farm for their meat or milk  
 类 bull  _/bʊl/_  n.公牛(未阉割)  
@@ -1983,52 +2001,54 @@ to shake slightly in a way that you cannot control, especially because you are f
 类 bisexual  _/baɪˈsekʃuəl/_  a.双性恋的  男女通吃  
 
 类 toilet  _/ˈtɔɪlət, ˈtɔɪlɪt/_  n.抽水马桶,便池; (英)卫生间  
-类 lavatory  _/ˈlævətəri $ -tɔːri/_  n.厕所,盥洗室    formal a room with a toilet in it. In American English lavatory is used mainly for toilets in a public building or on a plane. In British English it is used both about public toilets and toilets in people’s houses:  
+类 lavatory  _/ˈlævətəri $ -tɔːri/_  n.厕所,盥洗室 formal.
+  <span class="exp">a room with a toilet in it. In American English lavatory is used mainly for toilets in a public building or on a plane. In British English it is used both about public toilets and toilets in people’s houses.</span>  
 类 restroom  _/ˈrestruːm/_  n.(美)公共卫生间  
 类 bathroom  _/ˈbɑːθrʊm/_  n.浴室; 盥洗室,卫生间  
 
-类 theatre 美theater  _/ˈθɪətə/_  n.戏院,剧场; 戏剧表演  
-类 metre 美meter  _/ˈmiːtə $ -ər/_  n.米; 仪表  
-类 milli-metre 美-ter  _/mɪlə, mɪlɪ/_  n.毫米 mm  
-类 centimetre 美-ter  _/-tə-,ˈsentɪˌmiːtə/_  n.厘米 cm  
-类 kilometre 美-ter  _/ˈkɪləˌmiːtə 美 kɪˈlɑːmətər/_  n.千米,公里  
-类 centre 美-ter  _/ˈsentə $ -ər/_  n.中心,中央,中间  
-类 litre 美liter  _/ˈliːtə $ -ər/_  n.(单位)升  
-类 fibre 美fiber  _/ˈfaɪbə $ -ər/_  n.纤维; 构造; 纤维制品  
+类 theater BrE theatre  _/ˈθɪətə/_  n.戏院,剧场; 戏剧表演  
+类 meter BrE metre  _/ˈmiːtə $ -ər/_  n.米; 仪表  
+类 millimeter BrE millimetre  _/mɪlə, mɪlɪ/_  n.毫米 mm  
+类 centimeter BrE centimetre  _/-tə-,ˈsentɪˌmiːtə/_  n.厘米 cm  
+类 kilometer BrE kilometre  _/ˈkɪləˌmiːtə 美 kɪˈlɑːmətər/_  n.千米,公里  
+类 center BrE centre  _/ˈsentə $ -ər/_  n.中心,中央,中间  
+类 liter BrE litre  _/ˈliːtə $ -ər/_  n.(单位)升  
+类 fiber BrE fibre  _/ˈfaɪbə $ -ər/_  n.纤维; 构造; 纤维制品  
 
-类 vapour 美vapor  _/ˈveɪpə $ -ər/_  n.水汽; 蒸汽; 潮气  
-类 rumour 美rumor  _/ˈruːmə $ -ər/_  n.谣言; 流言; 传闻  
-类 mould 美mold  _/məʊld/_  n.模具,铸型v.浇铸,塑造  
-类 behaviour 美-ior  _/bɪˈheɪvjə $ -ər/_  n.行为,举止; 科学领域中的运动方式  
-类 favourite 美favorite  _/ˈfeɪvərət -ɪt/_  a.最喜爱的,最喜欢的  
-类 favourable 美favorable  _/ˈfeɪvərəbəl/_  a.赞许的,有利的,讨人喜欢的  
+类 vapor BrE vapour  _/ˈveɪpə $ -ər/_  n.水汽; 蒸汽; 潮气  
+类 rumor BrE rumour  _/ˈruːmə $ -ər/_  n.谣言; 流言; 传闻  
+类 mold BrE mould  _/məʊld/_  n.模具,铸型v.浇铸,塑造  
+类 behavior BrE behaviour  _/bɪˈheɪvjə $ -ər/_  n.行为,举止; 科学领域中的运动方式  
+类 favorite BrE favourite  _/ˈfeɪvərət -ɪt/_  a.最喜爱的,最喜欢的  
+类 favorable BrE favourable  _/ˈfeɪvərəbəl/_  a.赞许的,有利的,讨人喜欢的  
 
-类 enrol 美enroll  _/ɪnˈrəʊl/_  v.招收[成员]; 招生登记入学; 注册课程  
-类 instal 美install  _/ɪnˈstɔːl/_  v.安装,设置,安置; 使就职,任命  
-类 marvellous 美-elous  _/ˈmɑːvələs/_  a.绝妙的; 非凡的; 不可思议的   extremely good in a way that impresses you or makes you very pleased  
-类 jewellery 美jewelry  _/ˈdʒuːəlri/_  n.(总称)珠宝  
+类 enroll BrE enrol  _/ɪnˈrəʊl/_  v.招收[成员]; 招生登记入学; 注册课程  
+类 install BrE instal  _/ɪnˈstɔːl/_  v.安装,设置,安置; 使就职,任命  
+类 marvelous BrE marvellous  _/ˈmɑːvələs/_  a.绝妙的; 非凡的; 不可思议的  
+类 jewelry BrE jewellery  _/ˈdʒuːəlri/_  n.(总称)珠宝  
 
-类 summarise 美-ze  _/ˈsʌməraɪz/_  v.总结; 概括; 概述  SYN sum up  
-类 emphasise 美-ze  _/ˈemfəsaɪz/_  v.强调  
-类 licence 美-se  _/ˈlaɪsəns/_  n.执照,证书,许可证  
-类 practise 美-ce  _/ˈpræktəs, ˈpræktɪs/_  v.练习  n.英美都用practice  In British English, the verb is always spelled practise (see separate entry). In American English, both noun and verb are spelled practice  
-类 analyse 美-ze  _/ˈænəl-aɪz/_  v.分析  
-类 utilise 美-ze  _/ˈjuːtəlaɪz, ˈjuːtɪlaɪz/_  vt.利用,使用  
-类 criticise 美-ze  _/ˈkrɪtəsaɪz/_  v.批评,指责  
-类 criticise 美-ze  _/ˈkrɪtəsaɪz/_  v.批评,指责  
-类 sympathise 美-ze  _/ˈsɪmpəθaɪz/_  v.(with)同情; 赞同,支持  
-类 civilisation 美-za-  _/ˌsɪvəl-aɪˈzeɪʃən/_  n.文明  
-类 defence 美defense  _/dɪˈfens/_  n.防御,保卫; 辩护,辩解; (足球、曲棍球等运动中的)防守队员  
-类 fertilizer 英-ser  _/ˈfɜːtəlaɪzə/_  n.肥料,化肥  
+类 license BrE -ce  _/ˈlaɪsəns/_  n.执照,证书,许可证  
+类 defense BrE -ce  _/dɪˈfens/_  n.防御,保卫; 辩护,辩解; (足球、曲棍球等运动中的)防守队员  
+类 practice BrE -se  _/ˈpræktəs, ˈpræktɪs/_  v.练习  n.英美都用 practice
+  <span class="exp">In British English, the verb is always spelled practise (see separate entry). In American English, both noun and verb are spelled practice</span>  
+类 summarize BrE -se  _/ˈsʌməraɪz/_  v.总结; 概括; 概述  SYN sum up  
+类 emphasize BrE -se  _/ˈemfəsaɪz/_  v.强调  
+类 analyze BrE -se  _/ˈænəl-aɪz/_  v.分析  
+类 utilize BrE -se  _/ˈjuːtəlaɪz, ˈjuːtɪlaɪz/_  vt.利用,使用  
+类 criticize BrE -se  _/ˈkrɪtəsaɪz/_  v.批评,指责  
+类 criticize BrE -se  _/ˈkrɪtəsaɪz/_  v.批评,指责  
+类 sympathize BrE -se  _/ˈsɪmpəθaɪz/_  v.(with)同情; 赞同,支持  
+类 civilization BrE -sa-  _/ˌsɪvəl-aɪˈzeɪʃən/_  n.文明  
+类 fertilizer BrE -ser  _/ˈfɜːtəlaɪzə/_  n.肥料,化肥  
 
-类 kilogramme 美kilogram  _/ˈkɪləɡræm/_  n.千克,公斤  
-类 programme 美program  _/ˈprəʊɡræm/_  n.节目,计划,规划,程序  
-类 dialogue 美dialog  _/ˈdaɪəlɒɡ $ -lɒːɡ/_  n.对话,谈话  
-类 catalogue 美catalog  _/ˈkætəlɒɡ $ -lɒːɡ/_  n.目录(册)  
+类 kilogram BrE kilogramme  _/ˈkɪləɡræm/_  n.千克,公斤  
+类 program BrE programme  _/ˈprəʊɡræm/_  n.节目,计划,规划,程序  
+类 dialog BrE dialogue  _/ˈdaɪəlɒɡ $ -lɒːɡ/_  n.对话,谈话  
+类 catalog BrE catalogue  _/ˈkætəlɒɡ $ -lɒːɡ/_  n.目录(册)  
 
-类 plough 美plow  _/plaʊ/_  v.犁[地]; 耕地  
-类 maths 美math  _/mæθs/_  n.数学,同mathematics  
-类 aero plane 美airplane  _/ˈeərəpleɪn $ ˈerə-/_  n.飞机  
+类 plow BrE plough  _/plaʊ/_  v.犁(地); 耕地  
+类 math BrE maths  _/mæθs/_  n.数学 同 mathematics  
+类 airplane BrE aeroplane  _/ˈeərəpleɪn $ ˈerə-/_  n.飞机  
 
 
 

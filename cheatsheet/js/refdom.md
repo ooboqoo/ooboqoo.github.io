@@ -187,14 +187,23 @@ The following properties and methods can be used on all HTML elements:
 
 ||
 -----------------------|------------------------------------------------------
-_element_.accessKey    | Sets or returns the accesskey attribute of an element
-_element_.attributes   | Returns a NamedNodeMap of an element's attributes
-_element_.childElementCount | Returns the number of child elements an element has
-_element_.childNodes   | Returns a collection of an element's child nodes (including text and comment nodes)
-_element_.children     | Returns a collection of an element's child element (excluding text and comment nodes)
+_element_.id           | Sets or returns the value of the id attribute of an element
 _element_.classList    | Returns the class name(s) of an element
 _element_.className    | Sets or returns the value of the class attribute of an element
-_element_.contentEditable | Sets or returns whether the content of an element is editable or not
+_element_.dataset      | 
+_element_.innerHTML    | Sets or returns the content of an element
+_element_.outerHTML    | 
+_element_.textContent  | Sets or returns the textual content of a node and its descendants
+_element_.innerText    | 
+_element_.title           | Sets or returns the value of the title attribute of an element
+_element_.style           | Sets or returns the value of the style attribute of an element
+_element_.tabIndex        | Sets or returns the value of the tabindex attribute of an element
+_element_.tagName         | Returns the tag name of an element
+_element_.ownerDocument   | Returns the root element (document object) for an element
+|
+_element_.offsetParent | Returns the offset container of an element
+_element_.scrollLeft      | Sets or returns the number of pixels an element's content is scrolled horizontally
+_element_.scrollTop       | Sets or returns the number of pixels an element's content is scrolled vertically
 _element_.clientHeight | 元素的 padding box (content box + padding) 的高度
 _element_.clientWidth  | 元素的 padding box (content box + padding) 的宽度
 _element_.offsetHeight | 元素的 border box (padding box + border) 的高度
@@ -205,35 +214,33 @@ _element_.offsetLeft   | 左上角相对于 offsetParent 的水平偏移量
 _element_.offsetTop    | 左上角相对于 offsetParent 的垂直偏移量
 _element_.scrollWidth  | Returns the entire width of an element, including padding
 _element_.scrollHeight | Returns the entire height of an element, including padding
-_element_.offsetParent | Returns the offset container of an element
-_element_.dir          | Sets or returns the value of the dir attribute of an element
-_element_.firstChild   | Returns the first child node of an element
-_element_.firstElementChild  | Returns the first child element of an element
-_element_.id           | Sets or returns the value of the id attribute of an element
-_element_.innerHTML    | Sets or returns the content of an element
-_element_.outerHTML    | 
+|
+_element_.accessKey    | Sets or returns the accesskey attribute of an element
+_element_.attributes   | Returns a NamedNodeMap of an element's attributes
+_element_.contentEditable | Sets or returns whether the content of an element is editable or not
 _element_.isContentEditable  | Returns true if the content of an element is editable, otherwise false
-_element_.lang         | Sets or returns the value of the lang attribute of an element
-_element_.lastChild    | Returns the last child node of an element
-_element_.lastElementChild   | Returns the last child element of an element
-_element_.namespaceURI       | Returns the namespace URI of an element
-_element_.nextSibling        | Returns the next node at the same node tree level
-_element_.nextElementSibling | Returns the next element at the same node tree level
+|
 _element_.nodeName        | Returns the name of a node
 _element_.nodeType        | Returns the node type of a node
 _element_.nodeValue       | Sets or returns the value of a node
-_element_.ownerDocument   | Returns the root element (document object) for an element
+_element_.childElementCount | Returns the number of child elements an element has
+_element_.childNodes   | Returns a collection of an element's child nodes (including text and comment nodes)
+_element_.children     | Returns a collection of an element's child element (excluding text and comment nodes)
+|
 _element_.parentNode      | Returns the parent node of an element
 _element_.parentElement   | Returns the parent element node of an element
+_element_.firstChild   | Returns the first child node of an element
+_element_.firstElementChild  | Returns the first child element of an element
+_element_.lastChild    | Returns the last child node of an element
+_element_.lastElementChild   | Returns the last child element of an element
 _element_.previousSibling | Returns the previous node at the same node tree level
 _element_.previousElementSibling | Returns the previous element at the same node tree level
-_element_.scrollLeft      | Sets or returns the number of pixels an element's content is scrolled horizontally
-_element_.scrollTop       | Sets or returns the number of pixels an element's content is scrolled vertically
-_element_.style           | Sets or returns the value of the style attribute of an element
-_element_.tabIndex        | Sets or returns the value of the tabindex attribute of an element
-_element_.tagName         | Returns the tag name of an element
-_element_.textContent     | Sets or returns the textual content of a node and its descendants
-_element_.title           | Sets or returns the value of the title attribute of an element
+_element_.nextSibling        | Returns the next node at the same node tree level
+_element_.nextElementSibling | Returns the next element at the same node tree level
+|
+_element_.dir          | Sets or returns the value of the dir attribute of an element
+_element_.lang         | Sets or returns the value of the lang attribute of an element
+_element_.namespaceURI       | Returns the namespace URI of an element
 
 ||
 ----------------------------------|----------------------------------------------

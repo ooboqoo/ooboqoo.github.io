@@ -1,8 +1,12 @@
 # SQL 速查表
 
+<style>#md h4 { color: #c33; } #md h4 small { color: #000; }</style>
+<script>ooboqoo.contentsRegExp = /H[123]/;</script>
+
 https://www.w3schools.com/sql/sql_insert.asp
 
 笔记主要基于 ANSI SQL，但很多地方带有很浓的 MySQL 色彩。
+
 
 ## 增删改查
 
@@ -524,7 +528,6 @@ MySQL: SELECT ProductName,UnitPrice*(UnitsInStock+IFNULL(UnitsOnOrder,0)) FROM P
 ```
 
 
-
 ## 函数 Functions
 
 与大多数其他计算机语言一样，SQL 也可以用函数来处理数据。利用 DBMS 提供的函数，可以方便高效地完成一些功能。但问题是，每个 DBMS 提供的函数都不尽相同，使用函数将严重影响代码的可移植性。
@@ -558,7 +561,3 @@ SELECT ProductName, Price FROM Products WHERE Price > (SELECT AVG(DISTINCT Price
 SELECT SUM(Quantity) AS TotalItemsOrdered FROM OrderDetails;
 SELECT COUNT(*) AS num_items, MIN(prod_price) AS price_min FROM Products;  -- 组合使用聚集函数
 ```
-
-
-<style>#md h4 { color: #c33; } #md h4 small { color: #000; }</style>
-<script>ooboqoo.contentsRegExp = /H[123]/;</script>
