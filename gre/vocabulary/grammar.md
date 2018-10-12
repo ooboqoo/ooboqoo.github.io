@@ -164,7 +164,7 @@ So he won't pay his bills, won't he? We'll see about it.  // 有威胁的意思
   * **派生** Derivation  通过加前缀和后缀构成另一个词  
   * **合成** Compounding  由两个或更多词构成一个词 <span class="exa">wood + cut -> woodcut 木刻</span>
 
-英语还有一次次要的构词法，如：
+英语还有一些次要的构词法，如：
   * **截短法** Clipping  截取一个词的部分构成新词 <span class="exa">bicycle -> cycle</span>
   * **混合** Blending  两个词各取部分构成新词 <span class="exa">Europe + Asia -> Eurasia 欧亚大陆</span>
   * **缩写** Abbreviation  <span class="exa">British Broadcasting Corporation -> BBC</span>
@@ -344,7 +344,7 @@ There's _a beauty_ in simplicity.  朴实之中有一种美。
 
 专有名词前一般不加冠词，因为它本身就是特指的。但有许多特殊情况：
   * 在某些地理名词前要加定冠词：江、河、海、洋，山脉、群岛，海峡、海湾; 但湖名前一般不加
-  * 由普通名词构成的专有名词很多要加 the：某些国名及政治组织名称，某些机构、学校、建筑物等的名词，某些报刊杂志名
+  * 由普通名词构成的专有名词很多要加 the，如，某些国名及政治组织名称，某些机构、学校、建筑物等的名词，某些报刊杂志名
   * 以下这类名词前通常不加冠词：多数街名，多数广场名，车站、机场、公园、桥梁名，大学名，节日名，多数杂志名
   * 人名前一般不加冠词，但在一些特殊情况下也可以加
 
@@ -382,7 +382,7 @@ There's _a beauty_ in simplicity.  朴实之中有一种美。
   * 通知说明 <span class="exa">Cut along (the) dotted line. 沿虚线剪开。</span>
   * 提纲 <span class="exa">(The) Causes of World War II: massive re-armament, (the) invasion...</span>
   * 剧本提示
-  * 书名 <span class="exa">(The BBC English Dictionary)</span>
+  * 书名 <span class="exa">(The) BBC English Dictionary</span>
 
 
 ## 代词
@@ -398,13 +398,83 @@ There's _a beauty_ in simplicity.  朴实之中有一种美。
   * 关系代词 Relative Pronouns
   * 不定代词 Indefinite Pronouns
 
+严格地讲，代词是代替名词的，在句子中起名词的作用，可用作：主语、宾语、表语、同位语、呼语，偶作宾语的补语。
 
+### 人称代词和物主代词
 
+格/人称/数 | 单I | 单II | 单III        | 复I | 复II | 复III
+-----------|-----|------|--------------|-----|------|--------
+主格       | I   | you  | he, she, it  | we  | you  | they
+宾格       | me  | you  | him, her, it | us  | you  | them
 
-  
+类型/词义  | 我的 | 你的  | 他(她,它)的    | 我们的 | 你们的 | 他们的
+-----------|------|-------|----------------|--------|--------|--------
+形容词型   | my   | your  | his, she, its  | our    | you    | their
+名词型     | mine | yours | his, hers, its | ours   | yours  | theirs
 
+### 自身代词和相互代词
 
+自身代词也称反身代词(Reflexive Pronouns)。  
+自身代词主要用作宾语；也常用作介词宾语；有时用作主语或宾语的同位语；有时还可用作表语，间或还可用作主语。
 
+```
+单数    myself    yourself   himself, herself, itself   onself
+复数  ourselves  yourselves         themselves
+```
+
+相互代词只有两个(如下)，可表示两个人或几个人之间的相互关系。
+
+```
+one another    each other
+```
+
+### 指示代词
+
+指示代词有四个(如下)，在句子中用作：定语、主语、宾语或介词宾语、偶尔用作表语。
+
+```
+this  that  these  those
+```
+
+### 疑问代词和连接代词
+
+疑问代词有下面这些：
+
+```
+who  whom  whose  what  which
+```
+
+连接代词与疑问代词同形，引导各种从句。  
+who(m) what which 都可以和 `ever` 构成连接代词，可在句中引导状语从句。
+
+### 关系代词
+
+关系代词有如下这些：
+
+```
+who  whom  whose  that  which
+```
+
+它们都是用来引导定语从句的。这类代词都起着三重作用：
+  * 代表前面的名词
+  * 把从句和它所修饰的词连接起来
+  * 在从句中也担任一个成分
+
+### 不定代词
+
+不定代词可分作两类：
+
+```
+// 由 body, one, thing 构成的合成代词
+somebody   anybody   everybody   nobody
+someone    anyone    everyone    no one
+something  anything  everything  nothing
+
+// 兼作代词和限定词的词
+all      another  any     both  each
+either   few      little  many  much
+neither  none     other   some
+```
 
 
 
