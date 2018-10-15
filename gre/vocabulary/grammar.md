@@ -477,4 +477,62 @@ neither  none     other   some
 ```
 
 
+## 数词和量词
+
+### 基数词
+
+基数词 Cardinal Numerals 指表示数目的词。下面是最基本的基数词，其他数目都由这些基数词构成。
+
+|||
+---------|--------------|------------|-------------------------------
+1 one    | 11 eleven    | 10 ten     | 100 a hundred
+2 two    | 12 twelve    | 20 twenty  | 1,000 a thousand
+3 three  | 13 thirteen  | 30 thirty  | 1,000,000 a million 百万
+4 four   | 14 fourteen  | 40 forty   | 1,000,000,000 a billion 十亿
+5 five   | 15 fifteen   | 50 fifty   |
+6 six    | 16 sixteen   | 60 sixty   |
+7 seven  | 17 seventeen | 70 seventy |
+8 eight  | 18 eighteen  | 80 eighty  |
+9 nine   | 19 nineteen  | 90 ninety  |
+
+除了上表列出的词外，其他基数词构成的方法如下
+  * 21-29 - 先说 “几十”，再说 “几”，中间要加连字号
+  * 101-999 - 先说 “几百”，再加 and，再加末尾两位数或末位数
+  * 1000 以上的词 - 先从后向前数，每三位数加一个逗号，用这个方法把数目分作若干段，再一段一段念
+
+```
+902         nine hundred and two
+819         eight hundred and nineteen
+4,007       four thousand and seven
+8,021       eight thousand and twenty-one
+13,849      thirteen thousand, eight hundred and forty-nine
+970,000,000 nine hundred and seventy million
+```
+
+一些数学公式的读法如下
+
+```
+7 + 4 = 11  Seven plus four is eleven
+12 - 5 = 7  Twelve minus five is seven
+6 * 8 = 48  Six times eight (Six multiplied by eight) is forty-eight
+24 / 6 = 4  Twenty-four divided by six is four
+a > b  a is more than b
+a < b  a is less than b
+a ≈ b  a approximately equals b
+a ≠ b  a is not equal to b
+```
+
+### 序数词
+
+
+### 分数词
+
+
+
+### 量词
+
+
+
+
+
 
