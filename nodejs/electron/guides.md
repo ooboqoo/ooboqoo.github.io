@@ -7,6 +7,8 @@
 
 **IPC** (Inter-Process Communication) Electron 使用 IPC 来在 main 和 renderer 进程之间传递 JSON 信息。
 
+**RPC** (Remote Procedure Call) 远程过程调用，客户机发送一个调用信息到服务器，服务器根据调用信息执行任务并返回结果。
+
 **libcc** (libchromiumcontent) 包含 Chromium Content module 及其所有依赖项 (例如, Blink、 V8 等) 的共享链接库。
 
 **native modules** 原生模块 (Node.js 里叫 addons)，是一些使用 C/C++ 编写的能够在 Node.js 中加载的模块，使用跟 Node.js 的内置模块无差异。主要为 Node.js 中的 JS 代码提供调用 C++ 代码的接口。
@@ -27,6 +29,8 @@ Electron 将 Chromium 和 Node.js 合并到同一个 runtime，让用户通过 H
 Electron 里 Node.js 和 Chromium 共享同一个 V8 实例--通常是 Chromium 在用的版本。大多数情况下这能正常工作但有时候还是需要为 Node.js 打补丁(这可能会影响到 Node.js addons)。
 
 为了保持 Electron 的小巧(文件体积)和可持续性开发(以防依赖库和API泛滥)，Electron 限制了所使用的核心项目的数量。比如只用了 Chromium 的渲染库而不是其全部组件。这使得升级 Chromium 更加容易，但也意味着 Electron 缺少了 Google Chrome 里的一些浏览器相关的特性。添加到 Electron 的新功能应该主要是原生 API。如果可以的话，一个功能应该尽可能的成为一个 Node.js 模块。
+
+Electron 可以让你使用纯 JavaScript 调用丰富的原生(操作系统) APIs 来创造桌面应用。你可以把它看作一个专注于桌面应用的 Node.js 的变体，而不是 Web 服务器。这不意味着 Electron 是某个图形用户界面（GUI）库的 JavaScript 版本。相反，Electron 使用 web 页面作为它的 GUI，所以你能把它看作成一个被 JavaScript 控制的，精简版的 Chromium 浏览器。
 
 
 ## Electron 应用结构
@@ -73,6 +77,100 @@ Electron 同时在主进程和渲染进程中暴露了所有 Node.js 的接口�
   * 你可以在你的应用程序中使用 Node.js 的模块
     * 使用 npm 模块，在项目中 `npm i` 即可引用
     * 原生 Node.js 模块，需要在编译后才能使用，具体见 [使用 Node 原生模块](https://electronjs.org/docs/tutorial/using-native-node-modules)
+
+
+## 分发应用
+
+下载 Electron 后，将你自己的应用放到 _electron/Electron.app/Contents/Resources/app/_ 或 _electron/resources/app_
+
+```txt
+electron/resources/app
+  ├── package.json
+  ├── main.js
+  └── index.html
+```
+
+你还可以通过打包你的应用为一个 _asar_ 文件以避免暴露你的源代码。使用 _app.asar_ 替换原 _app_ 目录即可。
+
+### asar
+
+对于绝大多数 Node API 和 Web API，可以直接从 asar 中读文件，相当于一个虚拟目录，但也正因为不是真实的目录，有部分 API 无法正常工作。
+
+```js
+// Node API
+const fs = require('fs')  // 这里的 fs 已经被包装了一层，如果想直接读 app.asar 则需要 require('original-fs')
+fs.readFileSync('/path/to/app.asar/version.txt')
+
+// Web API
+$.get('file:///path/to/app.asar/version.txt', data => console.log(data))
+```
+
+
+## 调试
+
+### 调试主进程
+
+```bash
+electron --inspect .
+```
+
+### 调试渲染进程
+
+Electron 支持多数 Chrome DevTools 扩展程序，可手动添加扩展，也可借助工具 [electron-devtools-installer](https://github.com/MarshallOfSound/electron-devtools-installer)
+
+```js
+// 添加 vue-devtools (1. ready 后才能添加  2. addDevToolsExtension 是 BrowserWindow 的静态方法)
+app.on('ready', () => {
+  BrowserWindow.addDevToolsExtension('D:\\vue-devtools\\4.1.5_0')
+})
+```
+
+
+## 键盘快捷键
+
+### 本地快捷键
+
+使用 `Menu` 模块来配置快捷键，只有在 app 处于焦点状态时才可以触发快捷键。
+
+```js
+const menu = new Menu()
+menu.append(new MenuItem({
+  label: 'Open DevTools', accelerator: 'F12',  // 即使隐藏外框，快捷键仍然有效
+  click: (menuItem, browserWindow, event) => { browserWindow.webContents.openDevTools() }
+}))
+Menu.setApplicationMenu(menu)
+```
+
+### 全局快捷键
+
+当应用程序不处于焦点状态时，你可以使用 `globalShortcut` 模块来检测键盘事件
+
+```js
+const {app, globalShortcut} = require('electron')
+app.on('ready', () => {
+  globalShortcut.register('CommandOrControl+Y', () => {
+    // Do stuff when Y and either Command/Control is pressed.
+  })
+})
+```
+
+### 浏览器器窗口内快捷键
+
+你可以监听渲染进程中 `window` 对象的 `keyup` 和 `keydown` 事件。
+
+```js
+window.addEventListener('keyup', doSomething, true)
+```
+
+
+## 更多原生功能
+
+### 任务栏的进度条
+
+```js
+const win = new BrowserWindow()
+win.setProgressBar(0.5)  // 值域 [0, 1]
+```
 
 
 ## 常见问题 FAQ
@@ -139,62 +237,4 @@ let win = new BrowserWindow({
 var fs = require('fs')         // 在 webpack 打包时处理，到运行时 fs 变为一个空对象(是空对象么，没记清楚)
 var fs = window.require('fs')  // 在 webpack 打包是不动，运行时 fs 为正常的 Node.js fs 模块
 ```
-
-
-## 键盘快捷键
-
-```js
-const menu = new Menu()
-menu.append(new MenuItem({
-  label: 'Open DevTools', accelerator: 'F12',  // 即使隐藏外框，快捷键仍然有效
-  click: (menuItem, browserWindow, event) => { browserWindow.webContents.openDevTools() }
-}))
-Menu.setApplicationMenu(menu)
-```
-
-
-## globalShortcut 快捷键
-
-注：windows 下不允许注册 F12 作为开启 DevTools 的快捷键，只能注册 Ctrl+Shift+I
-
-可用的功能键
-
-```txt
-Command (缩写为 Cmd)
-Control (缩写为 Ctrl)
-CommandOrControl (缩写为 CmdOrCtrl，在 Windows 和 Linux 下为 Ctrl 键，在 macOS 下为 Cmd 键)
-Alt
-Option (只在 macOS 下存在)
-AltGr
-Shift
-Super (Windows 和 Linux 下为 Windows 键，macOS 下为 Cmd 键)
-```
-
-可用的普通按键
-
-```txt
-0 - 9  A - Z  F1 - F24
-类似~, !, @, #, $的标点符号
-Plus  Space  Tab  Backspace  Delete  Insert  Return (等同于 Enter)  Escape (缩写为 Esc)
-Up, Down, Left and Right  Home 和 End  PageUp 和 PageDown  PrintScreen
-VolumeUp, VolumeDown 和 VolumeMute
-MediaNextTrack、MediaPreviousTrack、MediaStop 和 MediaPlayPause
-```
-
-demo
-
-```js
-const {app, globalShortcut} = require('electron')
-app.on('ready', () => {
-  globalShortcut.register('CommandOrControl+Y', () => {
-    // Do stuff when Y and either Command/Control is pressed.
-  })
-})
-```
-
-
-
-
-
-
 

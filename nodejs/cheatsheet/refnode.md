@@ -42,18 +42,46 @@ path.resolve(__dirname, './a')  // "e:\GitHub\testlab\nodejs\module\a"
 
 `process` 对象是一个全局对象，可以在任何地方访问到它。它是 `EventEmitter` 的一个实例。
 
-|||
-|--------------------|---------------------------------------------------------------------------------
-| process.argv       | 一个包含命令行参数的数组，`garv[0]` 为 `process.execPath` 即 `node.exe` 的完整路径
-| process.env        | 读取环境变量，这个对象是可写的，但是更改仅限于当前进程，不会实际写入系统配置文件
-| process.argv0      | the original value of argv[0] passed when Node.js starts，正常都为 `'node'`
-| process.cwd()      | 返回当前目录 string
-| process.config     | 默认为编译 Node 时的配置，此对象可读写，可扩展或完整替换来存放自定义配置信息
-| process.stdin      | 标准输入
-| process.stdout     | 标准输出
-| process.versions   | 包含 Node 和相关依赖的版本信息
-| process.nextTick(cb[,...args]) | `setTimeout(fn, 0)` 类似，但执行时间更靠前，具体参看文档
-| process.chdir(dir) | 切换工作目录
+||
+-------------------|---------------------------------------------------------------------------------
+process.argv       | 一个包含命令行参数的数组，`garv[0]` 为 `process.execPath` 即 `node.exe` 的完整路径
+process.env        | 读取环境变量，这个对象是可写的，但是更改仅限于当前进程，不会实际写入系统配置文件
+process.argv0      | the original value of argv[0] passed when Node.js starts，正常都为 `'node'`
+process.config     | 默认为编译 Node 时的配置，此对象可读写，可扩展或完整替换来存放自定义配置信息
+process.versions   | 包含 Node 和相关依赖的版本信息
+process.cwd()      | 返回当前目录 string
+process.chdir(dir) | 切换工作目录
+process.nextTick(cb[,...args]) | `setTimeout(fn, 0)` 类似，但执行时间更靠前，具体参看文档
+|
+process.send(message)     | 父进程起本子进程带 IPC 时有效
+process.on('message', cb) | 
+process.stdin      | 标准输入
+process.stdout     | 标准输出
+process.stderr     | 标准错误输出
+
+
+## Child Process 子进程
+
+||
+------------------------------------|-----------------
+cp.spawn(cmd, args?, opts?)         | 不支持回调函数
+cp.exec(cmd, opts? cb?)             | 新建一个 shell 执行 cmd，执行完调用 cb: (stdout, stderr) => { }
+cp.execFile(file, args?, opts?, cb) | 不用启动独立的 shell，相对 `exec` 来说更加轻量级
+cp.fork(modulePath, args?, opts?)   | 新建一个 Node.js 进程执行模块(即只能是 js 文件)，带 IPC
+
+child_process 是一个比较重要的模块，通过它可以实现创建多线程，来利用多核 CPU。这个模块提供了四个创建子进程的函数: `spawn` `exec` `execFile` `fork`，其中 `spawn` 是最原始的创建子进程的函数，剩下的三个是对这个函数不同程度的封装。
+
+```js
+const { spawn, spawnSync } = require('child_process').spawnSync
+
+let ls = spawnSync('ls', ['-lh', '/usr'])
+console.log(`stderr: ${ls.stderr.toString()}`)
+console.log(`stdout: ${ls.stdout.toString()}`)
+
+ls = spawn('ls', ['-lh', '/usr'])
+ls.stdout.on('data', data => console.log(`stdout: ${data}`))
+ls.stderr.on('data', data => console.log(`stderr: ${data}`))
+```
 
 
 ## Modules 模块
@@ -283,33 +311,6 @@ export interface Hash extends NodeJS.ReadWriteStream {
   digest(): Buffer;                                // 计算哈希值
   digest(encoding: "latin1"|"hex"|"base64"): string;
 }
-```
-
-
-## Child Processes 子进程
-
-child_process是node一个比较重要的模块，通过它可以实现创建多线程，来利用多核CPU。
-
-这个模块提供了四个创建子进程的函数。
-
-spawn、exec、execFile、fork。
-
-spawn是最原始的创建子进程的函数，剩下的三个是对这个函数不同程度的封装。
-
-spawn不支持回调函数。
-
-fork只能执行js文件。例如fork('./child.js');
-
-总结一下：当你想要从子进程返回大量数据时使用spawn，如果只是返回简单的状态信息，那么使用exec。
-
-exec和execFile均支持回调函数。区别就是后者不用启动独立的shell，相对来说更加轻量级。我们拿execFile举例说明（打开存放在固定位置的bat文件，执行文件的命令行）（亲测通过）：
-
-```js
-const spawn = require( 'child_process' ).spawnSync;
-const ls = spawn( 'ls', [ '-lh', '/usr' ] );
-
-console.log( `stderr: ${ls.stderr.toString()}` );
-console.log( `stdout: ${ls.stdout.toString()}` );
 ```
 
 
