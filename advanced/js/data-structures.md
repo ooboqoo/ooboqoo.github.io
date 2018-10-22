@@ -74,26 +74,18 @@ C 和 Java 中的数组大小是固定的，且只能有一种类型，因此可
 
 对于链表，因为本身就不是连续的空间，所以可以直接插入，但是查找需要遍历，虽有多种树结构来减小查找复杂度，但都是有副作用的，比如普通链表利于遍历但不利于指定查找，哈希表利于指定查找不利于遍历。
 
-综上，数组利于查找，链表利于插入是对的。
-
-但是此数组非彼数组，php，js 等脚本语言的数组并非传统意义的数组，他们都是用链表模拟的，所以要看具体语言实现。
-
-----
-
-具体到 Chrome，初始化变量时 Array(999999) 与 Array(9) 的内存消耗还是有明显差别的，且 pop 与 shift 的执行效率差距也很大，所以也不能简单认为是链表，底层实现估计是传统数组结合哈希表实现的。
-
-----
-
 作为一种基本的数据结构，数组通常是连续分布的空间，直接通过索引存取数据速度非常快，因为只需要算内存地址就找到了。但这确实是静态语言，像 C/C++/C#/Java 之类的实现。动态语言，解释性的语言，其实现就不一定是用数组了，可能是用链表，也可能是用哈希表，或者其它。
 
-JavaScript 中的实现我没去研究过，估计 ECMAScript-262 里也不会对实现的具体的要求。不过 JavaScript 引擎众多，实现也有可能各不相同。我个人认为，对 JavaScript 的网页端来说，性能其实不那么重要，一般一个网页上多用个几十毫秒，少用个几十毫秒是感觉不出来的。不过对于服务端来说，性能累积效应就需要考虑了，但也不是说觉得哪里性能不好就去优化，而是要先感觉，再实测，确实是性能瓶颈，再去优化
+JavaScript 中的实现我没去研究过，估计 ECMAScript-262 里也不会对实现的具体的要求。不过 JavaScript 引擎众多，实现也有可能各不相同。我个人认为，对 JavaScript 的网页端来说，性能其实不那么重要。不过对于服务端来说，性能累积效应就需要考虑了，但也不是说觉得哪里性能不好就去优化，而是要先感觉，再实测，确实是性能瓶颈，再去优化。
+
+注: 具体到 Chrome，初始化变量时 `Array(999999)` 与 `Array(9)` 的内存消耗还是有明显差别的，且 `pop` 与 `shift` 的执行效率差距也很大，所以也不能简单认为是链表，底层实现估计是传统数组结合哈希表实现的。
 
 
 ## 栈 Stack
 
 我们可以在数组的任意位置上删除和添加元素，然后，有时我们还需要一种在添加或删除元素时有更多控制的数据结构。栈和队列是两种类似于数组，但在添加和删除元素时更为可控的数据结构。
 
-栈是一种遵从后进后出 LIFO 原则的有序集合。
+栈是一种遵从后进先出 LIFO 原则的有序集合。
 
 栈也被用在编程语言的编译器和内存中保存变量、方法调用等。
 
@@ -247,7 +239,8 @@ class LinkedList {
       node.next = current;
       this._head = node;
     } else {
-      while (index++ < position) { previous = current; current = current.next; }
+      // while (index++ < position) { previous = current; current = current.next; } 语法高亮有问题
+      while (index < position) { previous = current; current = current.next; index++; }
       node.next = current;
       previous.next = node;
     }
@@ -260,7 +253,8 @@ class LinkedList {
     if (position === 0) {
       head = current.next;
     } else {
-      while (index++ < position) { previous = current; current = current.next; }
+      // while (index++ < position) { previous = current; current = current.next; } 语法高亮有问题
+      while (index < position) { previous = current; current = current.next; index++; }
       previous.next = current.next;  // 跳过 current 从而移除它
     }
     this._length--;
@@ -295,7 +289,7 @@ class LinkedList {
 
 ### 双向链表 Doubly LinkedList
 
-双向链表和普通链表的区别在于，在普通链表中，一个节点只有链向下一个节点的链接，而在双向链表中，链接是双向的：一个链向下一个元素，另一个链向前一个元素。
+在普通链表中，一个节点只有链向下一个节点的链接，而双向链表的链接是双向的：一个链向下一个元素，另一个链向前一个元素。
 
 双向链表提供了两种迭代列表的方法：从头到尾，或者反过来。我们也可以访问一个特定节点的下一个或前一个元素，在单向链表中，如果迭代列表时错过了要找的元素，就只能回到起点重新开始迭代了。
 
@@ -326,7 +320,7 @@ class DoublyLinkedList {
       current.next = this._tail = node;
       node.prev = current;
     } else {
-      while (index++ < position) { previous = current; current = current.next; }
+      while (index < position) { previous = current; current = current.next; index++; }
       node.next = current;
       previous.next = node;
       current.prev = node;
@@ -347,7 +341,7 @@ class DoublyLinkedList {
       this._tail = current.prev;
       this._tail.next = null;
     } else {
-      while (index++ < position) { previous = current; current = current.next; }
+      while (index < position) { previous = current; current = current.next; indexx++; }
       previous.next = current.next;  // 跳过 current 从而移除它
       current.next.prev = previous;
     }
@@ -365,11 +359,12 @@ class DoublyLinkedList {
 循环链表与链表之间唯一的区别在于，最后一个元素的 next 指向链表的第一个元素。  
 双向循环链表的第一个元素的 prev 指向最后一个元素，而最后一个元素的 next 指向第一个元素。
 
+
 ## 集合 Set
 
 集合是由一组无序且唯一(即不能重复)的项组成的，你可以把集合想象成一个既没有重复元素，也没有顺序概念的数组。
 
-注：ES6 的 Set 类遍历时是有顺序的(按添加顺序)，我们这里实现的是没有顺序的。
+注：ES6 的 `Set` 类遍历时是有顺序的(按添加顺序)。
 
 ```js
 class Set {
@@ -424,13 +419,13 @@ class Set {
 ```
 
 
-## 字典和散列表 Map &AMP; HashMap
+## 字典和散列表 Map &amp; HashMap
 
 集合、字典和散列表都可以存储不重复的值。在集合中，我们关注的是值本身，并把它当作主要元素。在字典和散列表中，我们以键值对的形式来存储数据，但两种数据结构的实现方式又略有不同。
 
 ### 字典
 
-与 Set 类相似，ES6 同样包含了一个 Map 类实现，即我们所说的字典。
+与 `Set` 类相似，ES6 同样包含了一个 `Map` 类实现，即我们所说的字典。
 
 ```js
 class Dictionary {
@@ -454,7 +449,7 @@ class Dictionary {
 ### 散列表
 
 > 不管是从性能还是使用便利性，真心觉得这东西在 JS 里没鸟用，直接使用 `{}` 或者 `Object.create(null)` 反而更好吧。  
-> 看到 hashmap.js 通过包装 {} 实现了 ES6 的 "值-值" 存储功能，这对于 ES5 的码农还有点现实意义。
+> 看到 hashmap.js 通过包装 `{}` 实现了 ES6 的 "值-值" 存储功能，这对于 ES5 的码农还有点现实意义。
 
 散列算法的作用是尽可能快地在数据结构中找到一个值。普通的数据结构中，我们为了找到一个值，需要遍历整个数据结构来找到它，但如果使用散列函数，就知道值的具体位置，因此能够快速检索到该值。散列函数的作用是给定一个键值，然后返回值在表中的地址。
 
