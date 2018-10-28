@@ -165,6 +165,8 @@ Duplicates in raw headers are handled in the following ways, depending on the he
 
 ## Net 网络
 
+The `net` module provides an asynchronous network API for creating stream-based _TCP_ or _IPC_ servers `net.createServer()` and clients `net.createConnection()`.
+
 
 ## DNS 域名服务
 

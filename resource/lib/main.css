@@ -60,6 +60,10 @@ strong, b {
   color: #c00;
 }
 
+i, em {
+  color: #90a;
+}
+
 table {
   width: 100%;
 }
