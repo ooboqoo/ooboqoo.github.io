@@ -114,6 +114,24 @@ $.get('file:///path/to/app.asar/version.txt', data => console.log(data))
 electron --inspect .
 ```
 
+注：只有通过敲命令打开 Electron 才能在命令行窗口看到 `console.log()` 的输出内容，直接双击打开无法看到控制台输出。
+
+如果追求更好的调试体验，可以通过 ipc 模块将内容输出到渲染进程的控制台，具体操作如下:
+
+```js
+// main.js
+console.log = (...args) => {
+  mainWindow.webContents.send('electron-main-log', args)
+}
+setInterval(() => console.log(123, '456', [7, 8, 9]), 3000)
+
+// render.js
+const electron = require('electron')
+electron.ipcRenderer.on('electron-main-log', (event, args) => {
+  console.log('[main.js log] ', ...args)
+})
+```
+
 ### 调试渲染进程
 
 Electron 支持多数 Chrome DevTools 扩展程序，可手动添加扩展，也可借助工具 [electron-devtools-installer](https://github.com/MarshallOfSound/electron-devtools-installer)
@@ -182,6 +200,8 @@ https://electronjs.org/docs/faq
 在网页(渲染进程)间共享数据最简单的方法是使用 HTML5 API，如 WebStorage 和 IndexedDB。
 
 还可以用 Electron 的 IPC 机制来实现数据共享。将数据存在主进程的某个全局变量中，然后在多个渲染进程中使用 `remote` 模块来访问它。
+
+特别注意：因为使用的是 IPC 通讯，所以支持传递可序列化内容，即不支持传递 Function 这些类型信息
 
 ```js
 // In the main process.
