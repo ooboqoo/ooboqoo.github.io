@@ -176,6 +176,23 @@ const debounce = (fn, ms = 0) => {
   };
 };
 
+// 节流函数，在某一个时间段内，只执行一次
+const throttle = (fn, wait = 200) => {
+  let lastFn, lastTime = Date.now() - wait
+  return function (...args) {
+    if (Date.now() - lastTime >= wait) {
+      clearTimeout(lastFn)
+      fn.apply(context, args)
+      lastTime = Date.now()
+    } else {
+      lastFn = setTimeout(function () {
+        fn.apply(context, args)
+        lastTime = Date.now()
+      }, Math.max(wait - (Date.now() - lastTime), 0))
+    }
+  }
+}
+
 const defer = (fn, ...args) => setTimeout(fn, 1, ...args);
 
 const delay = (fn, wait, ...args) => setTimeout(fn, wait, ...args);
@@ -197,7 +214,6 @@ partial
 partialRight
 runPromisesInSeries
 sleep
-throttle
 times
 uncurry
 unfold
