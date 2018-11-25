@@ -158,7 +158,7 @@ $ yarn
 $ yarn install
 ```
 
-#### 解决进度条显示 bug
+**解决进度条显示 bug**
 
 https://www.zhihu.com/question/54238202/answer/150468100
 
@@ -197,4 +197,43 @@ npm                                       | Yarn
 推荐下载安装包安装，据说会自动设置 Path。我 `npm install yarn` 后费好大劲才找到 global 地址 `%USERPROFILE%\AppData\Local\Yarn\config\global\node_modules\.bin` 然后还得手动去设置 `PATH` 变量(设置完不用重启系统，重启终端即可)。
 
 
+## npm 发包指南
 
+https://www.jianshu.com/p/01df21c71407
+
+> 发布和更新包要保证上传地址和下载地址是同一个仓库地址
+
+写好的包往哪儿发，主要就两个地方：NPM 仓库 和 公司内部搭建的私有仓库。
+
+往哪个仓库发布包也叫做设置上传/发布地址。这个过程记录在 _package.json_ 文件中。
+
+```js
+// package.json
+"publishConfig": {
+    "registry": "http://npm.example.com"
+}
+```
+
+在 NPM 官网注册账号获取 账户名 密码 和 邮箱，如果是私有仓库，让管理员直接给你账号信息。
+
+发布包前，需要先登录，当然每次登陆比较麻烦，可以直接在 _.npmrc_ 文件中配好。
+
+```bash
+$ npm login
+```
+
+_.npmrc_
+
+```txt
+_auth="YWRtaW46YWRtaW4xMjM="   # 通过转 账户:密码 为 base64 得到 `btoa('admin:admin123')`
+email=xxxx@qq.com
+registry=http://npm.example.com
+```
+
+通过以上步骤，就可以发包了。这个过程可能是遇到问题最多的地方，如果失败了，检查下 _.npmrc_ 文件，看下 `registry` 设置跟自己要发布的目标仓库是否一致。
+
+```bash
+$ npm publish
+```
+
+更新包和发布包操作步骤类似，唯一的区别是要修改下 _package.json_ 中的 `version` 字段。

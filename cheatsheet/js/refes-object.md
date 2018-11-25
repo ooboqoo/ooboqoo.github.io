@@ -486,6 +486,12 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <h5 class="es3">date.setUTCMilliseconds() <span>根据世界时设置 Date 对象中的毫秒 (0 ~ 999)。</span></h5>
 </div>
 
+```js
+new Date(value)
+new Date(dateString)
+new Date(year, monthIndex, day?, hours?, minutes?, seconds?, milliseconds?)
+```
+
 
 ## <span class="es6">Promise</span>
 

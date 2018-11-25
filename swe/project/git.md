@@ -202,6 +202,8 @@ $ git branch -m [<oldbranch>] <newbranch>  # 重命名分支
 $ git branch --set-upstream master origin/next  # 手动建立本地 master 与 origin/next 间的追踪关系
 $ git fetch -p  # 当删除远程分支后，本地还是能看到 origin/branchname，就可以通过这条命令删除
 
+$ git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d  # 批量删本地已合分支
+
 # checkout 切换分支或恢复工作目录文件
 $ git checkout <branch-name>    # 切换到某个分支
 $ git checkout HEAD~2           # 往回退2个commit，这对于快速查看项目旧版本来说非常有用
