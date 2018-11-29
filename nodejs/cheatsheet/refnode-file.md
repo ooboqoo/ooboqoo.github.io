@@ -125,6 +125,17 @@ decoder.write(buffer): string
 
 与 `buffer.toString()` 的区别是，对于不完整的输入，`decoder.write()` 只会返回完整的部分，对于不完整的部分，会等待下次录入完整信息后再输出，而不像 `toString()` 直接出乱码。
 
+```js
+const { StringDecoder } = require('string_decoder')
+const decoder = new StringDecoder('utf8')
+
+const buf = Buffer.from('中文')
+decoder.write(buf.slice(0, 4))  // '中'
+decoder.write(buf.slice(4))     // '文'
+decoder.write(buf.slice(0, 2))  // ''
+decoder.end()                   // 乱码
+```
+
 
 ## Stream 流
 
@@ -439,7 +450,7 @@ fs.chown(path, uid, gid, callback)                       fs.chownSync()         
 fs.utimes(path, atime, mtime, callback)                  fs.utimesSync()        // touch
     fs.futimes(fd, atime, mtime, callback)                   fs.futimesSync()
 fs.access(path[, mode], callback)                        fs.accessSync()        // ls -l
-fs.exists(path, callback)                                fs.existsSync()        // ls
+fs.exists(path, callback) @deprecated                        fs.existsSync()        // ls
 fs.mkdir(path[, mode], callback)                         fs.mkdirSync()         // mkdir
     fs.mkdtemp(prefix[, options], callback)                  fs.mkdtempSync()
 fs.link(existingPath, newPath, callback)                 fs.linkSync()          // link
@@ -458,9 +469,9 @@ fs.realpath.native(path[, options], callback)            fs.realpathSync.native(
 fs.createReadStream(path[, options])
 fs.createWriteStream(path[, options])
 
-fs.readFile(path[, options], callback)                   fs.readFileSync()
-fs.writeFile(file, data[, options], callback)            fs.writeFileSync()
-fs.appendFile(file, data[, options], callback)           fs.appendFileSync()
+fs.readFile(pathOrfd[, options], callback)               fs.readFileSync()
+fs.writeFile(pathOrfd, data[, options], callback)        fs.writeFileSync()
+fs.appendFile(pathOrfd, data[, options], callback)       fs.appendFileSync()
 
 fs.open(path, flags[, mode], callback)                          fs.openSync()
 fs.close(fd, callback)                                          fs.closeSync()
@@ -491,21 +502,22 @@ fs.realpathSync('./nodejs/module/a')     // Error: ENOENT: no such file or direc
 
 |||
 |----------------|----------------------------------------------------------------------------
-| fs.createReadStream(path, [opts])   | 创建并返回一个 ReadStream 对象
-| fs.createWriteStream(path, [opts])  | 创建并返回一个 WriteStream 对象
+| fs.createReadStream(path, opts?)   | 创建并返回一个 ReadStream 对象
+| fs.createWriteStream(path, opts?)  | 创建并返回一个 WriteStream 对象
 
 |||
 |-----------------------------------------------------|----------------------------------------------
-| fs.readFile(filename, [options], callback)          | 异步读取一个文件的全部内容
-| fs.writeFile(filename, data, [options], callback)   | 异步将数据写入一个文件，原内容会被覆盖
-| fs.appendFile(filename, data, [options], callback)  | 异步地将数据添加到一个文件的尾部，如文件不存在会新建
+| fs.readFile(pathOrfd, options?, callback)          | 异步读取一个文件的全部内容
+| fs.writeFile(pathOrfd, data, options?, callback)   | 异步将数据写入一个文件，原内容会被覆盖
+| fs.appendFile(pathOrfd, data, options?, callback)  | 异步地将数据添加到一个文件的尾部，如文件不存在会新建
+| fs.truncate(path, len?, callback)                  | 异步清空一个文件的内容
 
 |||
 |------------------------------------------------------------|---------------------------------------
-| fs.open(path, flags, [mode], callback)                     | 打开一个文件，并提供句柄供进一步操作
+| fs.open(path, flags, mode?, callback)                      | 打开一个文件，并提供句柄供进一步操作
 | fs.read(fd, buffer, offset, length, position, callback)    | 从文件指针 fd 读取数据
-| fs.write(fd, buffer, offset, length[, position], callback) | 从缓存中读取数据并写入文件
-| fs.write(fd, data[, position[, encoding]], callback)       | 向文件中写入字符串
+| fs.write(fd, buffer, offset, length, position?, callback)  | 从缓存中读取数据并写入文件
+| fs.write(fd, data, position?, encoding?, callback)         | 向文件中写入字符串
 | fs.fsync(fd, callback)                                     | 将文件缓冲同步到磁盘
 | fs.close(fd, callback)                                     | 关闭文件句柄
 
@@ -515,7 +527,7 @@ fs.realpathSync('./nodejs/module/a')     // Error: ENOENT: no such file or direc
 
 `callback(err, bytesRead, buffer)`: 分别为错误对象，读取的字节数 和 缓冲区。
 
-##### fs.write(fd, buffer, offset, length[, position], callback)
+##### fs.write(fd, buffer, offset, length, position?, callback)
 
 从 `buffer` 的 `offset` 位置读取 `length` 字节的 buffer, 并向 `fd` 指针指向的文件从 `position`
 位置写入内容。

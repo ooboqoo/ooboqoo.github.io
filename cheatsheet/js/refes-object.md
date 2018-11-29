@@ -302,6 +302,9 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <h5 class="es6">Number.MIN_SAFE_INTEGER <span>-- `=== -2 ** 53 + 1`</span></h5>
 </div>
 
+```js
+[10, 10, 10].map(parseInt)  // [5, NaN, 2]
+```
 
 ## String
 
