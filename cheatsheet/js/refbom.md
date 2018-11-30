@@ -158,3 +158,13 @@ s.key(_index_)       | 返回第 index 条记录的键名，出界就返回 `nul
 s.getItem(_keyName_) | 返回键名对应的记录 (string 类型)，如果 key 不存在就返回 `null`
 s.setItem(_key_, _value_) | 新建或修改记录，注意该方法可能抛异常(当存储空间不够时，异或是...)，返回 `undefind`
 s.removeItem(_keyName_)   | 移除一条记录，不管有没有记录被移除，该方法始终返回 `undefined`
+
+## Console
+
+||
+-----------------------------------|----------------------------------------
+console.log()                      | 
+||
+console.time(label='default')      | 开启一个计时器(以记录一段操作的耗时)
+console.timeEnd(label='default')   | 结束一个计时器并在控制台打印结果(只打印无返回)
+

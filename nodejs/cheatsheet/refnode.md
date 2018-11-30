@@ -52,6 +52,8 @@ process.versions   | 包含 Node 和相关依赖的版本信息
 process.cwd()      | 返回当前目录 string
 process.chdir(dir) | 切换工作目录
 process.nextTick(cb[,...args]) | `setTimeout(fn, 0)` 类似，但执行时间更靠前，具体参看文档
+process.hrtime(time?)          | 返回格式 `[seconds, nanoseconds]`，在 Performance API 导入前用于获取精确时间
+process.hrtime.bigint()        | 返回一个 bigint，v10.7.0 新加，只表示一个相对于某个时间点(非1970-1-1)的值
 |
 process.send(message)     | 父进程起本子进程带 IPC 时有效
 process.on('message', cb) | 
