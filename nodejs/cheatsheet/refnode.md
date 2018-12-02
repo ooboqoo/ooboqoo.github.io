@@ -16,7 +16,7 @@ https://nodejs.org/en/docs/
 | require.cache     | 模块在引入时会缓存到该对象。通过删除该对象的键值，下次调用 `require` 时会重新加载相应模块
 | process           | 进程对象
 | console           | 控制台
-| Buffer            | 类，提供数据缓存相关功能
+| Buffer            | 用于处理8位字节流
 | __dirname         | [String] 当前执行脚本所在目录的目录名
 | __filename        | [String] 当前所执行代码文件的完整绝对路径
 |                   | `setTimeout(cb, ms)` `clearTimeout(t)` `setInterval(cb, ms)` `clearInterval(t)` `setImmediate(cb)`
@@ -51,9 +51,10 @@ process.config     | 默认为编译 Node 时的配置，此对象可读写，�
 process.versions   | 包含 Node 和相关依赖的版本信息
 process.cwd()      | 返回当前目录 string
 process.chdir(dir) | 切换工作目录
-process.nextTick(cb[,...args]) | `setTimeout(fn, 0)` 类似，但执行时间更靠前，具体参看文档
+process.nextTick(cb, ...args?) | `setTimeout(fn, 0)` 类似，但执行时间更靠前，具体参看文档
 process.hrtime(time?)          | 返回格式 `[seconds, nanoseconds]`，在 Performance API 导入前用于获取精确时间
 process.hrtime.bigint()        | 返回一个 bigint，v10.7.0 新加，只表示一个相对于某个时间点(非1970-1-1)的值
+process.exit(code?)| 退出 node.js 进程
 |
 process.send(message)     | 父进程起本子进程带 IPC 时有效
 process.on('message', cb) | 
@@ -74,7 +75,7 @@ cp.fork(modulePath, args?, opts?)   | 新建一个 Node.js 进程执行模块(�
 child_process 是一个比较重要的模块，通过它可以实现创建多线程，来利用多核 CPU。这个模块提供了四个创建子进程的函数: `spawn` `exec` `execFile` `fork`，其中 `spawn` 是最原始的创建子进程的函数，剩下的三个是对这个函数不同程度的封装。
 
 ```js
-const { spawn, spawnSync } = require('child_process').spawnSync
+const { spawn, spawnSync } = require('child_process')
 
 let ls = spawnSync('ls', ['-lh', '/usr'])
 console.log(`stderr: ${ls.stderr.toString()}`)
@@ -100,7 +101,7 @@ ls.stderr.on('data', data => console.log(`stderr: ${data}`))
 |-------------------------------------|--------------------------------------------------------
 | require.main                        | 指向入口模块 which file is run directly from Node.js
 | require.cache                       |
-| require.resolve(request[, options]) | 
+| require.resolve(request, options?)  | 
 | require.resolve.paths(request)      | 
 
 |||
@@ -150,7 +151,7 @@ require.main === module  // 判断一个文件是否是被直接执行
 
 |||
 |------------------------------------|--------------------------------------
-| emitter.emit(eventName[, ...args]) | 根据 listener 注册顺序同步逐项调用，指定的参数将传给每个 listener，有 listener 返回 true 无则返回 false
+| emitter.emit(eventName, ...args?)  | 根据 listener 注册顺序同步逐项调用，指定的参数将传给每个 listener，有 listener 返回 true 无则返回 false
 
 注：所有添加、删除 listener 的方法都返回 `EventEmitter` 以支持链式操作。  
 注：最佳实践，始终注册 `'error'` 事件的监听器，否则会导致 Node.js 应错误而退出。  
@@ -175,14 +176,14 @@ myEmitter.emit('event')
 
 |||
 |-----------------------------|------------------------------------------
-| path.basename(path[, ext])  | 返回路径的最后部分
+| path.basename(path, ext?)   | 返回路径的最后部分
 | path.dirname(path)          | 返回目录（即去掉最后部分）
 | path.extname(path)          | 返回文件扩展名（带`.`）
-| path.resolve([path[, ...]]) | 根据提供的多个路径或路径片段计算最终**绝对路径**
+| path.resolve(...pathSegments) | 根据提供的多个路径或路径片段计算最终**绝对路径**
 | path.normalize(path)        | 规范化路径字符串，主要用于去掉 `..` `.` 并规范 `\` `/`
 | path.format(pathObject)     | 根据提供的 obj 输出格式化后的路径字符串
 | path.parse(path)            | 根据提供的路径字符串返回解析后的 obj
-| path.join([path[, ...]])    | 连接路径片段
+| path.join(...paths)         | 连接路径片段
 | path.isAbsolute(path)       | 判断是否是绝对路径
 | path.relative(from, to)     | 计算两个给定路径间的相对路径
 

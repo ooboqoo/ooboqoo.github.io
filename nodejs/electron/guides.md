@@ -132,6 +132,9 @@ electron.ipcRenderer.on('electron-main-log', (event, args) => {
 })
 ```
 
+如需要打断点调试，可安装 Chrome NIM 插件，自动监控 WebSocket 并打开调试界面。如需在启动时调试 main.js 则需要 `--inspect-brk` 加 `debugger` 配合。
+
+
 ### 调试渲染进程
 
 Electron 支持多数 Chrome DevTools 扩展程序，可手动添加扩展，也可借助工具 [electron-devtools-installer](https://github.com/MarshallOfSound/electron-devtools-installer)
