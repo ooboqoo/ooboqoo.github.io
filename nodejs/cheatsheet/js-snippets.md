@@ -177,14 +177,14 @@ const debounce = (fn, ms = 0) => {
 };
 
 // 节流函数，在某一个时间段内，只执行一次
-const throttle = (fn, wait = 200) => {
+const throttle = (fn, wait = 200, context = window) => {
   let lastFn, lastTime = Date.now() - wait
   return function (...args) {
     if (Date.now() - lastTime >= wait) {
-      clearTimeout(lastFn)
       fn.apply(context, args)
       lastTime = Date.now()
     } else {
+      clearTimeout(lastFn)
       lastFn = setTimeout(function () {
         fn.apply(context, args)
         lastTime = Date.now()

@@ -237,3 +237,16 @@ $ npm publish
 ```
 
 更新包和发布包操作步骤类似，唯一的区别是要修改下 _package.json_ 中的 `version` 字段。
+
+```bash
+$ npm unpublish <pkgname>  # 撤销发布，需要在24小时内完成操作
+$ npm deprecate <pkgname>  # 更好的一个做法，是声明遗弃
+```
+
+
+## npm 私有仓库搭建
+
+https://verdaccio.org/
+
+
+

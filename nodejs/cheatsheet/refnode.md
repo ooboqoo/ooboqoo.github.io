@@ -47,6 +47,7 @@ path.resolve(__dirname, './a')  // "e:\GitHub\testlab\nodejs\module\a"
 process.argv       | 一个包含命令行参数的数组，`garv[0]` 为 `process.execPath` 即 `node.exe` 的完整路径
 process.env        | 读取环境变量，这个对象是可写的，但是更改仅限于当前进程，不会实际写入系统配置文件
 process.argv0      | the original value of argv[0] passed when Node.js starts，正常都为 `'node'`
+process.exepath    | 启动 node 的应用的完整应用路径
 process.config     | 默认为编译 Node 时的配置，此对象可读写，可扩展或完整替换来存放自定义配置信息
 process.versions   | 包含 Node 和相关依赖的版本信息
 process.cwd()      | 返回当前目录 string
@@ -55,6 +56,8 @@ process.nextTick(cb, ...args?) | `setTimeout(fn, 0)` 类似，但执行时间更
 process.hrtime(time?)          | 返回格式 `[seconds, nanoseconds]`，在 Performance API 导入前用于获取精确时间
 process.hrtime.bigint()        | 返回一个 bigint，v10.7.0 新加，只表示一个相对于某个时间点(非1970-1-1)的值
 process.exit(code?)| 退出 node.js 进程
+|
+process.kill(pid, signal?) | 
 |
 process.send(message)     | 父进程起本子进程带 IPC 时有效
 process.on('message', cb) | 
