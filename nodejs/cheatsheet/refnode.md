@@ -87,6 +87,26 @@ ls.stderr.on('data', data => console.log(`stderr: ${data}`))
 ```
 
 
+## OS 操作系统
+
+只列了部分 API，注意这里的基本都是方法
+
+|||
+|------------------------|-------------------------------------------------------------------------------
+| os.platform()          | [string] 平台名, 同 `process.platform`，取值 `'win32'` `'darwin'` `'linux'` 等
+| os.homedir()           | [string] 用户主目录
+|||
+| os.EOL                 | [string] 行末标记 (POSIX `\n`) (Win `\r\n`)
+| os.freemem()           | [integer] 空闲系统内存，返回表示字节数的整数
+| os.totalmem()          | [integer] 所有系统内存，返回表示字节数的整数
+| os.tmpdir()            | [string] 默认临时文件目录
+| os.hostname()          | [string] 主机名
+| os.loadavg()           | [Array] 返回一个数组，包含1, 5, 15分钟平均负载，Win 系统下始终为 `[0, 0, 0]`
+| os.type()              | [string] 操作系统名 `'Linux'` `Darwin` `Windows_NT` 等
+| os.uptime()            | [number] 开机秒数，Win 平台下带小数部分
+| os.userInfo([options]) | [Object] 返回当前有效用户的信息
+
+
 ## Modules 模块
 
 |||

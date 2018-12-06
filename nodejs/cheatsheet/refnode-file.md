@@ -469,9 +469,9 @@ fs.realpath.native(path[, options], callback)            fs.realpathSync.native(
 fs.createReadStream(path[, options])
 fs.createWriteStream(path[, options])
 
-fs.readFile(pathOrfd[, options], callback)               fs.readFileSync()
-fs.writeFile(pathOrfd, data[, options], callback)        fs.writeFileSync()
-fs.appendFile(pathOrfd, data[, options], callback)       fs.appendFileSync()
+fs.readFile(pathOrFd[, options], callback)               fs.readFileSync()
+fs.writeFile(pathOrFd, data[, options], callback)        fs.writeFileSync()
+fs.appendFile(pathOrFd, data[, options], callback)       fs.appendFileSync()
 
 fs.open(path, flags[, mode], callback)                          fs.openSync()
 fs.close(fd, callback)                                          fs.closeSync()
@@ -494,6 +494,8 @@ fs.unwatchFile(filename[, listener])
   * 一些带 `l` 前缀的变异版，如果碰到 symbolic link 则返回软链接本身的信息
 
 ```js
+fs.access('./any/path', fs.constants.F_OK, err => { console.log(err ? 'not exist' : 'exists') })
+fs.accessSync('etc/passwd', fs.constants.R_OK | fs.constants.W_OK)  // 存在返回 undefined; 不存在抛异常
 fs.realpathSync('./nodejs/module/a.js')  // 'E:\\GitHub\\testlab\\nodejs\\module\\a.js'
 fs.realpathSync('./nodejs/module/a')     // Error: ENOENT: no such file or directory
 ```
@@ -507,9 +509,9 @@ fs.realpathSync('./nodejs/module/a')     // Error: ENOENT: no such file or direc
 
 |||
 |-----------------------------------------------------|----------------------------------------------
-| fs.readFile(pathOrfd, options?, callback)          | 异步读取一个文件的全部内容
-| fs.writeFile(pathOrfd, data, options?, callback)   | 异步将数据写入一个文件，原内容会被覆盖
-| fs.appendFile(pathOrfd, data, options?, callback)  | 异步地将数据添加到一个文件的尾部，如文件不存在会新建
+| fs.readFile(pathOrFd, options?, callback)          | 异步读取一个文件的全部内容
+| fs.writeFile(pathOrFd, data, options?, callback)   | 异步将数据写入一个文件，原内容会被覆盖
+| fs.appendFile(pathOrFd, data, options?, callback)  | 异步地将数据添加到一个文件的尾部，如文件不存在会新建
 | fs.truncate(path, len?, callback)                  | 异步清空一个文件的内容
 
 |||
@@ -544,8 +546,8 @@ Note that it is unsafe to use fs.write multiple times on the same file without w
 | fs.exists(path, callback)   | 已废弃，使用 `fs.stat()` 或 `fs.access()` 替代。<span class="mark">[注]</span>
 | fs.mkdir(path[, mode], callback)         | 新建一个目录
 | fs.mkdtemp(prefix[, options], callback)  | 新建一个目录，目录名为 prefix 加 6位随机字符
-| fs.link(existingPath, newPath, callback) ||
-| fs.access(path[, mode], callback)        ||
+| fs.link(existingPath, newPath, callback) | 创建指向文件的硬连接
+| fs.access(path[, mode], callback)        | 检查文件的存取权限
 | fs.utimes(path, atime, mtime, callback)  | 改变文件的系统时间戳，有点 `touch` 的感觉
 
 注：在读写操作前不应该去检查文件是否存在，因为即使检查了，当实际操作时还是可能已经改变了状态。
@@ -577,25 +579,6 @@ Note that it is unsafe to use fs.write multiple times on the same file without w
 | fs.FSWatcher   | 此类的实例具有 Event: 'change'; Event: 'error'; watcher.close()
 | fs.watch(filename[, options][, listener])  | 监控指定 路径/文件 的变化，该方法在不同系统中的行为差异较大
 
-
-## OS 操作系统
-
-只列了部分 API，注意这里的基本都是方法
-
-|||
-|------------------------|-------------------------------------------------------------------------------
-| os.platform()          | [string] 平台名, 同 `process.platform`，取值 `'win32'` `'darwin'` `'linux'` 等
-| os.homedir()           | [string] 用户主目录
-|||
-| os.EOL                 | [string] 行末标记 (POSIX `\n`) (Win `\r\n`)
-| os.freemem()           | [integer] 空闲系统内存，返回表示字节数的整数
-| os.totalmem()          | [integer] 所有系统内存，返回表示字节数的整数
-| os.tmpdir()            | [string] 默认临时文件目录
-| os.hostname()          | [string] 主机名
-| os.loadavg()           | [Array] 返回一个数组，包含1, 5, 15分钟平均负载，Win 系统下始终为 `[0, 0, 0]`
-| os.type()              | [string] 操作系统名 `'Linux'` `Darwin` `Windows_NT` 等
-| os.uptime()            | [number] 开机秒数，Win 平台下带小数部分
-| os.userInfo([options]) | [Object] 返回当前有效用户的信息
 
 <style>
   td:first-Child { color: red; }
