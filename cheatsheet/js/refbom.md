@@ -163,8 +163,21 @@ s.removeItem(_keyName_)   | 移除一条记录，不管有没有记录被移除�
 
 ||
 -----------------------------------|----------------------------------------
-console.log()                      | 
+console.log(...args)               | 输出一段信息 [注]
+console.dir(obj)                   | 查看某个对象的属性，试试 `log` 和 `dir` 一个 HTML 元素看看差别
+console.table(data, columns?)      | 以表格形式展现数据，data 必须为对象或数组
+console.assert(assertion, ...args) | 断言失败打印错误，断言成功就啥都不做
 ||
 console.time(label='default')      | 开启一个计时器(以记录一段操作的耗时)
 console.timeEnd(label='default')   | 结束一个计时器并在控制台打印结果(只打印无返回)
 
+注： 格式说明符 Summary of formatting specifiers
+
+||
+:--------:|----------------------------------------------------------
+`%s`      | Element which substitutes is converted to a string
+`%d` `%i` | Element which substitutes is converted to an integer
+`%f`      | Element which substitutes is converted to a float
+`%o`      | Element is displayed with optimally useful formatting
+`%O`      | Element is displayed with generic JavaScript object formatting
+`%c`      | Applies provided CSS
