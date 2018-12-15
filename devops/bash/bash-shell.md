@@ -64,7 +64,7 @@ Quoting is used to remove the special meaning of certain characters or words to 
 
 ```bash
 $ echo $var / ${var}                   # 两种显示变量的方式
-$ work="/var/www/html/project/p2file"  # 设定变量时中间不能有空格
+$ work="/var/www/html/project/p2file"  # 设定变量时中间不能有空格, CMD 下要以 set 开头，而 Bash 下不带 set
 $ unset work                           # 删除变量；
 $ export work                          # 导出为环境变量
 $ env                   # 查看环境变量

@@ -1,3 +1,7 @@
+<script>
+  ooboqoo.contentsRegExp = /H[123]/;
+</script>
+
 # Visual Studio Code
 
 > 相关资源： https://github.com/Microsoft/vscode-tips-and-tricks Youtube 有带 1 小时视频
@@ -45,116 +49,81 @@ export {}
 
 ## 插件使用
 
-### GitLens
+#### GitLens
 
 极大地增强了 git 的功能，强！
 
-### Beautify
+#### TypeScript TSLint Plugin
 
-vscode 虽然内置了 js-beautify，但功能被缩减很多，像 scss 文件就不支持，所以还得装这个。
+该插件用于对 _.ts_ 文件进行规范检查，不建议用于 _.js_ 文件。该插件不涉及类型检查。
 
-### Angular 2 TypeScript Snippets
-
-Type part of a snippet, press enter, and the snippet unfolds.
-
-TypeScript Snippets
-
-```txt
-ng2-bootstrap       // Angular 2 bootstrapping, for main.ts
-ng2-component       // Angular 2 component
-ng2-component-root  // Angular 2 root app component
-ng2-http-get        // Angular 2 http.get with Rx Observable
-ng2-module          // Angular 2 module
-ng2-module-root     // Angular 2 root app module
-ng2-pipe            // Angular 2 pipe
-ng2-routing         // Angular 2 routing
-ng2-service         // Angular 2 service
-ng2-subscribe       // Angular 2 Rx Observable subscription
-```
-
-HTML Snippets
-
-```
-ng2-ngClass
-ng2-ngFor
-ng2-ngIf
-ng2-ngModel
-ng2-routerLink
-ng2-ngStyle
-ng2-ngSwitch
-```
-
-### React code snippets
-
-这个插件用的人比较多，但是 snippet prefix 前缀设置有问题(太短)，想使用需要关闭智能提示:
-
-```
-  "editor.tabCompletion": true,
-  "editor.quickSuggestions": {"other": false, "comments": false, "strings": false },
-```
-
-觉得需要改造一下，或者自己定义 https://code.visualstudio.com/docs/editor/userdefinedsnippets
-
-### Debugger for Chrome
-
-Supported features
-
-* Setting breakpoints, including in source files when source maps are enabled
-* Stepping, including with the buttons on the Chrome page
-* The Locals pane
-* Debugging eval scripts, script tags, and scripts that are added dynamically
-* Watches
-* Console
-
-Unsupported scenarios
-
-* Debugging web workers
-* Any features that aren't script debugging.
-
-问题处理 -- 无法连接 Chrome：`Chrome启动图标右击 -> 属性 -> 目标` 修改为   
-`"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222`
-
-感觉直接在编辑器下断点、查看调用堆栈、以及查看变量都比较方便；`watch` 项用于监控变量，需要手动输入变量名，调试过程会实时监控该变量。
-
-> 其实这里的功能，Chrome 都有，在浏览器调试，需要先找到代码再调试，但不用切换；在编辑器调试，不用找代码，但调试过程中需要在浏览器与编辑器之间切换，总体感觉还不如直接在浏览器中调试。
-
-### vscode-tslint
-
-使用该插件之前需要先全局安装好 TSLint。
-
-使用说明：http://palantir.github.io/tslint/usage/rule-flags/
+使用该插件之前需要先全局安装好 TSLint。 且项目下要有 _tsconfig.json_ 或 _jsconfig.json_ 才生效。
 
 创建配置文件：
 ```bash
-tslint --init
+$ tslint --init
 ```
 
-单文件修改配置(只能开关某项设置，没有办法调整设置值)：
-```ts
-/* tslint:disable:quotemark */
-```
+_tsconfig.json_
 
-### TODO Paser
-
-功能描述：列出项目中的 `Todo` 待完成项，支持单行或多行中的 `TODO:` `Todo:` 标记。
-
-使用：列出当前项目的待完成项清单 `F1 > Parse TODOs (all files)`.
-
-设置：
-
-```js
+```json
 {
-  "TodoParser": {
-    "include": ["ts"],
-    "folderExclude": ["node_modules", ".vscode"],
-    "only": ["app/win"],
+  "extends": ["tslint:recommended"],
+  "rules": {
+    "semicolon": [true, "never"],
+    "quotemark": [true, "single"],
+    "no-console": [false],
+    "ordered-imports": [false]
   }
 }
 ```
 
-### angular2-inline
+单文件修改配置(只能开关某项设置，没有办法调整设置值) https://palantir.github.io/tslint/usage/rule-flags/
+```ts
+/* tslint:disable:quotemark */
+```
 
-提供 angular2 内嵌模板的语法高亮。
+#### ESLint
+
+该插件用于对 _.js_ 文件进行规范检查。
+
+```bash
+$ npm i -g eslint eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-standard
+```
+_.eslintjs_
+
+```js
+module.exports = {
+  "root": true,
+  "extends": "standard",
+  "rules": {
+    "object-curly-spacing": ["off"]
+  }
+}
+```
+
+#### Beautify
+
+vscode 虽然内置了 js-beautify，但功能被缩减很多，像 scss 文件就不支持，所以还得装这个。
+
+#### Debugger for Chrome
+
+如果出现无法连接 Chrome 的情况就添加下启动参数 `--remote-debugging-port=9222`
+
+其实这里的功能，Chrome 都有，在浏览器调试，需要先找到代码再调试，但不用切换；在编辑器调试，不用找代码，但调试过程中需要在浏览器与编辑器之间切换，总体感觉还不如直接在浏览器中调试。
+
+#### React code snippets
+
+这个插件用的人比较多，但是 snippet prefix 前缀设置有问题(太短)，想使用需要关闭智能提示:
+
+```json
+{
+  "editor.tabCompletion": true,
+  "editor.quickSuggestions": {"other": false, "comments": false, "strings": false},
+}
+```
+
+觉得需要改造一下，或者自己定义 https://code.visualstudio.com/docs/editor/userdefinedsnippets
 
 
 ## Editor
@@ -182,70 +151,8 @@ tslint --init
 
 #### Folding
 
-### Debugging
 
-> 所有这里的功能，只是 Chrome DevTools 功能的一部分(仅针对 Chrome 调试)
-> 部分参考视频 https://www.youtube.com/watch?v=-q1z8BPFItw
-
-#### Breakpoints
-
-Breakpoints can be toggled by clicking on the editor margin.
-Finer breakpoint control (enable/disable/reapply) can be done in the Debug view's BREAKPOINTS section.
-
-#### Conditional Breakpoints
-
-条件断点：先正常设置断点，然后在断点上右击 -> 编辑断点 就可以设置条件断点了。条件断点目前支持 ‘表达式’ 和 ‘命中次数’ 两种方式。
-
-#### Function Breakpoints
-
-Instead of placing breakpoints directly in source code, a debugger can support creating breakpoints by specifying a function name.
-
-#### Data inspection
-
-Variables can be inspected in the VARIABLES section of the Debug view or by hovering over their source in the editor.
-
-Variables and expression evaluation is relative to the selected stack frame in the CALL STACK section.
-
-Variables and expressions can also be evaluated and watched in the Debug view WATCH section.
-
-#### Using Console - Chrome
-
-console.log() / console.clear()  
-console.assert(expression, object)  
-console.table()  
-同时输入多行命令：`Shift + Enter`
-使用代码片段：`Sources -> Snippets` 右击某条 snippet 选 run 即可执行  
-实时编辑：通过开发工具，我们可以实时改变样式，DOM 结构，另外，在调试断点处暂停时，还可以通过在控制台输入命令，**变更代码运行环境**(就是在断点处可以实时插入调试代码，如改变变量值啥的)。
-
-#### Debug actions
-
-* Continue: continues code execution until we encounter another breakpoint
-* Step Over: step through code line-by-line to get insights into how each line affects the variables being updated. Should your code call another function, the debugger won't jump into its code, instead stepping over so that the focus remains on the current function(scope).
-* Step Into: like Step Over, however clicking Step into at the function call will cause the debugger to move its execution to the first line in the functions definition.
-* Step Out: having stepped into a function, clicking this will cause the remainder of the funciton definiton to be run and the debugger will move its execution to the parent function.
-
-#### `debugger` 关键字
-
-The debugger keyword stops the execution of JavaScript, and calls (if available) the debugging function.
-
-This has the same function as setting a breakpoint in the debugger.
-
-If no debugging is available, the debugger statement has no effect.
-
-使用 debugger 关键字设置断点，效果同在调试器中设置断点。如果调试器处于打开状态，代码运行到 `debugger;` 时会中断，如果没开调试器，则会被忽略。
-
-> 2016/11/8 调试时，碰到断点代码与实际代码错位的问题，ts 转 js 然后又 webpack 结果调试时差了 4行(这次问题出在 webpack 配置 devtool: 'eval-cheap-module-source-map' 改 'source-map' 后运行正常，估计是 angular2 templateUrl 导致的问题)，这问题很坑，调试器整个都不能正常工作，使用 debugger 可以快速发现到底有没有错行，或者是错了几行。
-> 
-> 错行导致的另外一个问题是，代码旁边的变量计算结果备注，或者是当鼠标移动到代码上时的显示结果，会出现偏差。具体情况是，结果是根据实际代码执行情况实时计算的(跟此时在 console 里输入变量的返回结果是一样的)，而代码定位器与实际代码执行进度不同，结果会出现怪异的结果：
-> ```ts
-> let a = 1;  // 计算结果 a = undefined, 这与代码表面期望结果不符，令人费解
-> // some other code, 调试器指针处于这一行，而实际运行连上一行都还没执行
-> ```
-
-
-## Customization
-
-### User and Workspace Settings
+## 配置 - Settings
 
 ```json
 {
@@ -264,7 +171,6 @@ If no debugging is available, the debugger statement has no effect.
   },
   "vsicons.dontShowNewVersionMessage": true,
   "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\usr\\bin\\bash.exe",
-  "javascript.validate.enable": false,
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
@@ -275,21 +181,24 @@ If no debugging is available, the debugger statement has no effect.
   "gitlens.statusBar.alignment": "left",
   "gitlens.statusBar.format": "${authorAgoOrDate} · ${message}",
   "gitlens.statusBar.dateFormat": "YYYYMMDD",
+
+  // 视情况采用
   "vim.useCtrlKeys": false,
   "vim.startInInsertMode": true,
   "vim.useSystemClipboard": true,
 
-  // 视情况采用
   "git.autorefresh": false,  // 这个开着的话，每次刷新会触发 webpack-dev-server 编译
-  "flow.runOnEdit": false    // 安装 flow 插件后，如果开启输入检测，会很卡
+
+  "javascript.implicitProjectConfig.checkJs": true,  // JS 中开启 TS 语法校验，个人项目开，多人项目关
 }
 ```
 
-### Key Bindings 快捷键大本营
+## 配置 - 快捷键 Key Bindings
 
 ```js
-{ "key": "f1",                    "command": "workbench.action.showCommands" },
-{ "key": "ctrl+shift+p",          "command": "workbench.action.showCommands" },
+{"key": "f1",           "command": "workbench.action.showCommands" },
+{"key": "ctrl+shift+p", "command": "workbench.action.showCommands"},
+{"key": "ctrl+shift+j", "command": "editor.action.joinLines", "when": "editorTextFocus"},
 ```
 
 #### Basic Editing
@@ -308,7 +217,7 @@ If no debugging is available, the debugger statement has no effect.
 `Ctrl+]`           | Indent Line       | editor.action.indentLines
 `Ctrl+[`           | Outdent Line      | editor.action.outdentLines
 `Ctrl+/`           | Toggle Line Comment | editor.action.commentLine
-`Ctrl+Delete`      | 删除一个单词        | 。
+`Ctrl+Delete`      | 删除一个单词        | 
 
 #### Rich Languages Editing
 
@@ -368,9 +277,8 @@ If no debugging is available, the debugger statement has no effect.
 `Ctrl+单击` `Ctrl+\`  | 在右栏打开         | 
 `Ctrl+双击`  | 新开一栏打开文件   | 
 
-#### Customizing Shortcuts
 
-File > Preferences > Keyboard Shortcuts.
+## 配置 - 其他
 
 ### Display Language
 
@@ -378,9 +286,3 @@ File > Preferences > Keyboard Shortcuts.
 
 ### Color Themes
 
-
-## LANGUAGES
-
-### Markdown
-
-Markdown Preview：`Ctrl+Shift+v` 预览；`Ctrl+K V` 侧栏预览

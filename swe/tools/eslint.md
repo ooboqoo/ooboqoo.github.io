@@ -2,6 +2,10 @@
 
 http://eslint.org/
 
+> *ESLint VS TSLint VS Prettier*
+> * ESLint 检查 js 文件的代码分格（可自动修复 Formatting rules 但无法修复 Code-quality rules）
+> * TSLint 检查 ts 文件的代码风格
+> * Prettier 自动格式化代码（只处理 Formatting rules 但不负责 Code-quality rules）
 
 ## 工具使用
 

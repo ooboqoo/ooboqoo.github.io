@@ -82,11 +82,13 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
   border-radius: 4px;
 }
 
-.hljs.lang-js::after, .hljs.javascript::after {
+.hljs.lang-js::after,
+.hljs.javascript::after {
   content: "js";
 }
 
-.hljs.lang-ts::after, .hljs.typescript::after {
+.hljs.lang-ts::after,
+.hljs.typescript::after {
   content: "ts";
 }
 
@@ -94,51 +96,69 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
   content: "json";
 }
 
-.hljs.lang-html::after, .hljs.html::after {
+.hljs.lang-html::after,
+.hljs.html::after {
   content: "html";
 }
 
-.hljs.lang-css::after, .hljs.css::after {
+.hljs.lang-css::after,
+.hljs.css::after {
   content: "css";
 }
 
-.hljs.lang-less::after, .hljs.less {
+.hljs.lang-less::after,
+.hljs.less {
   content: "less";
 }
 
-.hljs.lang-scss::after, .hljs.lang-sass::after,
-.hljs.scss::after, .hljs.sass::after {
+.hljs.lang-scss::after,
+.hljs.lang-sass::after,
+.hljs.scss::after,
+.hljs.sass::after {
   content: "sass";
 }
 
-.hljs.lang-bash::after, .hljs.lang-sh::after, .hljs.bash::after {
+.hljs.lang-bash::after,
+.hljs.lang-sh::after,
+.hljs.bash::after {
   content: "sh";
 }
 
-.hljs.lang-diff::after, .hljs.diff::after {
+.hljs.lang-diff::after,
+.hljs.diff::after {
   content: "diff";
 }
 
-.hljs.lang-sql::after, .hljs.sql::after {
+.hljs.lang-sql::after,
+.hljs.sql::after {
   content: "sql";
 }
 
-.hljs.lang-java::after, .hljs.java::after {
+.hljs.lang-java::after,
+.hljs.java::after {
   content: "java";
 }
 
-.hljs.lang-kt::after, .hljs.kt::after {
+.hljs.lang-kt::after,
+.hljs.kt::after {
   content: "kt";
 }
 
-.hljs.lang-scala::after, .hljs.scala::after {
+.hljs.lang-scala::after,
+.hljs.scala::after {
   content: "sc";
 }
 
-.hljs.lang-php::after, .hljs.php::after {
+.hljs.lang-php::after,
+.hljs.php::after {
   content: "php";
 }
 
-.hljs.lang-go::after, .hljs.go::after {
+.hljs.lang-go::after,
+.hljs.go::after {
   content: "go";
+}
+
+.hljs.lang-yaml::after {
+  content: "yaml";
 }

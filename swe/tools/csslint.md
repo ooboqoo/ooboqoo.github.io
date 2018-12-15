@@ -1,4 +1,31 @@
-# CSSLint
+# CSSLint &amp; SassLint
+
+
+## Sass Lint
+
+```bash
+$ npm install -g sass-lint
+```
+
+_.sass-lint.yml_
+
+```yaml
+rules:
+  indentation:
+    - 2
+    -
+      size: 2
+  # https://github.com/sasstools/sass-lint/blob/master/docs/rules/property-sort-order.md
+  property-sort-order:
+    - 1
+    -
+      order: 'smacss'
+```
+
+注：属性顺序清单 https://github.com/sasstools/sass-lint/blob/develop/lib/config/property-sort-orders/smacss.yml
+
+
+## CSSLint
 
 https://github.com/CSSLint/csslint/wiki/Rules
 

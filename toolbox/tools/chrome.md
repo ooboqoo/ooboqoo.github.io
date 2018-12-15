@@ -190,3 +190,65 @@ Audits工具非常智能，它会告诉你如何优化页面，告诉你应该�
 ### Console
 
 Console应该都很熟悉了吧？经常会以为少写了’}’而报语法错误。当然它的功能远不止这些。点击这里查看更多
+
+
+### Debugging
+
+> 所有这里的功能，只是 Chrome DevTools 功能的一部分(仅针对 Chrome 调试)
+> 部分参考视频 https://www.youtube.com/watch?v=-q1z8BPFItw
+
+#### Breakpoints
+
+Breakpoints can be toggled by clicking on the editor margin.
+Finer breakpoint control (enable/disable/reapply) can be done in the Debug view's BREAKPOINTS section.
+
+#### Conditional Breakpoints
+
+条件断点：先正常设置断点，然后在断点上右击 -> 编辑断点 就可以设置条件断点了。条件断点目前支持 ‘表达式’ 和 ‘命中次数’ 两种方式。
+
+#### Function Breakpoints
+
+Instead of placing breakpoints directly in source code, a debugger can support creating breakpoints by specifying a function name.
+
+#### Data inspection
+
+Variables can be inspected in the VARIABLES section of the Debug view or by hovering over their source in the editor.
+
+Variables and expression evaluation is relative to the selected stack frame in the CALL STACK section.
+
+Variables and expressions can also be evaluated and watched in the Debug view WATCH section.
+
+#### Using Console - Chrome
+
+console.log() / console.clear()  
+console.assert(expression, object)  
+console.table()  
+同时输入多行命令：`Shift + Enter`
+使用代码片段：`Sources -> Snippets` 右击某条 snippet 选 run 即可执行  
+实时编辑：通过开发工具，我们可以实时改变样式，DOM 结构，另外，在调试断点处暂停时，还可以通过在控制台输入命令，**变更代码运行环境**(就是在断点处可以实时插入调试代码，如改变变量值啥的)。
+
+#### Debug actions
+
+* Continue: continues code execution until we encounter another breakpoint
+* Step Over: step through code line-by-line to get insights into how each line affects the variables being updated. Should your code call another function, the debugger won't jump into its code, instead stepping over so that the focus remains on the current function(scope).
+* Step Into: like Step Over, however clicking Step into at the function call will cause the debugger to move its execution to the first line in the functions definition.
+* Step Out: having stepped into a function, clicking this will cause the remainder of the funciton definiton to be run and the debugger will move its execution to the parent function.
+
+#### `debugger` 关键字
+
+The debugger keyword stops the execution of JavaScript, and calls (if available) the debugging function.
+
+This has the same function as setting a breakpoint in the debugger.
+
+If no debugging is available, the debugger statement has no effect.
+
+使用 debugger 关键字设置断点，效果同在调试器中设置断点。如果调试器处于打开状态，代码运行到 `debugger;` 时会中断，如果没开调试器，则会被忽略。
+
+> 2016/11/8 调试时，碰到断点代码与实际代码错位的问题，ts 转 js 然后又 webpack 结果调试时差了 4行(这次问题出在 webpack 配置 devtool: 'eval-cheap-module-source-map' 改 'source-map' 后运行正常，估计是 angular2 templateUrl 导致的问题)，这问题很坑，调试器整个都不能正常工作，使用 debugger 可以快速发现到底有没有错行，或者是错了几行。
+> 
+> 错行导致的另外一个问题是，代码旁边的变量计算结果备注，或者是当鼠标移动到代码上时的显示结果，会出现偏差。具体情况是，结果是根据实际代码执行情况实时计算的(跟此时在 console 里输入变量的返回结果是一样的)，而代码定位器与实际代码执行进度不同，结果会出现怪异的结果：
+> ```ts
+> let a = 1;  // 计算结果 a = undefined, 这与代码表面期望结果不符，令人费解
+> // some other code, 调试器指针处于这一行，而实际运行连上一行都还没执行
+> ```
+
