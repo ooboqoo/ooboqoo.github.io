@@ -24,6 +24,30 @@ rules:
 
 注：属性顺序清单 https://github.com/sasstools/sass-lint/blob/develop/lib/config/property-sort-orders/smacss.yml
 
+### 局部禁用某些规则
+
+```scss
+// 整个文件内都禁用某些规则 ---------------
+// sass-lint:disable border-zero, quotes
+p {
+  border: none; // No lint reported
+  content: "hello"; // No lint reported
+}
+
+// 在某个块内禁用一些规则 -----------------
+p {
+  // sass-lint:disable-block border-zero
+  border: none; // No result reported
+}
+
+// 禁用某个规则后再次开启校验 --------------
+// sass-lint:disable border-zero
+p {
+  border: none; // No result reported
+}
+// sass-lint:enable border-zero
+```
+
 
 ## CSSLint
 

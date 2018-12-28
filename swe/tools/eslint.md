@@ -89,5 +89,8 @@ ESLint 读取配置文件时，跟 CSS 很类似，会逐层往上查找配置�
 
 https://eslint.org/docs/user-guide/configuring
 
+### 临时更改某些规则
 
-
+```js
+/* eslint quotes: ["error", "double"], curly: 2 */
+```

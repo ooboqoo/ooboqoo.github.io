@@ -9,5 +9,6 @@ optional subjects 选修课  major 主修课程，专业
 sewing machine 缝纫机  
 zebra crossing  n. 斑马线  
 
+purely coincidental  纯属巧合  
 
 
