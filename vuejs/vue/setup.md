@@ -62,3 +62,14 @@ module.exports = {
   },
 }
 ```
+
+#### 其他
+
+**单文件中 template 内取消某项校验**
+
+https://github.com/vuejs/eslint-plugin-vue/issues/260
+
+```html
+<!-- eslint-disable-next-line vue/no-v-html -->
+<div class="markdown" v-html="markdown" />
+```
