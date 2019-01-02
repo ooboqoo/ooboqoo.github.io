@@ -162,3 +162,7 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
 .hljs.lang-yaml::after {
   content: "yaml";
 }
+
+.hljs.lang-py::after {
+  content: "py";
+}

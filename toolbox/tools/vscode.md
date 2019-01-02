@@ -156,40 +156,37 @@ vscode 虽然内置了 js-beautify，但功能被缩减很多，像 scss 文件�
 
 ```json
 {
-  "window.zoomLevel": 0,
-  "breadcrumbs.enabled": true,
-  "editor.tabSize": 2,
-  "editor.rulers": [100],
-  "editor.renderWhitespace": "boundary",
-  "editor.detectIndentation": false,
-  "workbench.iconTheme": "vscode-icons",
-  "workbench.activityBar.visible": false,  // 关闭左侧导航条
-  "workbench.statusBar.feedback.visible": false,
-  "workbench.colorCustomizations": {
-    "statusBar.background": "#1E1E1E",
-    "statusBar.border": "#444",
-  },
-  "vsicons.dontShowNewVersionMessage": true,
-  "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\usr\\bin\\bash.exe",
-  "git.autofetch": true,
-  "git.confirmSync": false,
-  "git.enableSmartCommit": true,
-  "gitlens.keymap": "none",
-  "gitlens.codeLens.authors.enabled": false,
-  "gitlens.codeLens.recentChange.enabled": false,
-  "gitlens.currentLine.enabled": false,
-  "gitlens.statusBar.alignment": "left",
-  "gitlens.statusBar.format": "${authorAgoOrDate} · ${message}",
-  "gitlens.statusBar.dateFormat": "YYYYMMDD",
-
-  // 视情况采用
-  "vim.useCtrlKeys": false,
-  "vim.startInInsertMode": true,
-  "vim.useSystemClipboard": true,
-
-  "git.autorefresh": false,  // 这个开着的话，每次刷新会触发 webpack-dev-server 编译
-
-  "javascript.implicitProjectConfig.checkJs": true,  // JS 中开启 TS 语法校验，个人项目开，多人项目关
+"window.zoomLevel": 0,
+"breadcrumbs.enabled": true,
+"editor.tabSize": 2,
+"editor.rulers": [100],
+"editor.renderWhitespace": "boundary",
+"editor.detectIndentation": false,
+"workbench.iconTheme": "vscode-icons",
+"workbench.activityBar.visible": false,  // 关闭左侧导航条
+"workbench.statusBar.feedback.visible": false,
+"workbench.colorCustomizations": {
+  "statusBar.background": "#1E1E1E",
+  "statusBar.border": "#444",
+},
+"vsicons.dontShowNewVersionMessage": true,
+"terminal.integrated.shell.windows": "C:\\Program Files\\Git\\usr\\bin\\bash.exe",
+"git.autofetch": true,
+"git.confirmSync": false,
+"git.enableSmartCommit": true,
+"gitlens.keymap": "none",
+"gitlens.codeLens.authors.enabled": false,
+"gitlens.codeLens.recentChange.enabled": false,
+"gitlens.currentLine.enabled": false,
+"gitlens.statusBar.alignment": "left",
+"gitlens.statusBar.format": "${authorAgoOrDate} · ${message}",
+"gitlens.statusBar.dateFormat": "YYYYMMDD",
+// 视情况采用
+"vim.useCtrlKeys": false,
+"vim.startInInsertMode": true,
+"vim.useSystemClipboard": true,
+"git.autorefresh": false,  // 这个开着的话，每次刷新会触发 webpack-dev-server 编译
+"javascript.implicitProjectConfig.checkJs": true,  // JS 中开启 TS 语法校验，个人项目开，多人项目关
 }
 ```
 

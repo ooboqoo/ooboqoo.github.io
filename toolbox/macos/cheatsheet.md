@@ -83,11 +83,11 @@ cmd+tab | Alt+Tab | 切换应用
 
 键盘按键
 
-||
--------------------------------|------
-ctrl+a / opt+left / cmd+Left   | Home
-ctrl+e / opt+right / cmd+right | End
-fn+delete                      | Delete
+|||
+----------|--------|-------
+ctrl+a    | Home   | `opt+left` 按词左跳  `cmd+Left` 跳到行首(非空格处)
+ctrl+e    | End    | `opt+right` 按词右跳  `cmd+right` 跳到行尾
+fn+delete | Delete | 
 
 其他重要功能快捷键
 

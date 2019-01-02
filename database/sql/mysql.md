@@ -23,6 +23,15 @@ $ systemctl start/stop/restart mariadb    # 启动/停止/重启 MariaDB
 $ systemctl status mariadb                # 查看服务状态信息
 ```
 
+#### macOS
+
+```bash
+$ brew install mariadb
+$ mysql.server start           # 单次启动
+$ brew services start mariadb  # 配置开机启动
+$ mysql -u root
+```
+
 ### 初始环境设定
 
 #### 配置编码
