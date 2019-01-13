@@ -26,23 +26,25 @@
 | False    | Boolean value, result of comparison operations
 | None     | Represents a null value
 |||
-| as       | To create an alias
-| assert   |  For debugging
-| class    | To define a class
 | def      | To define a function
-| del      | To delete an object
-| except   | Used with exceptions, what to do when an exception occurs
-| from     | To import specific parts of a module
-| global   | To declare a global variable
-| import   | To import a module
-| lambda   | To create an anonymous function
-| nonlocal | To declare a non-local variable
-| pass     | A null statement, a statement that will do nothing
-| raise    | To raise an exception
 | return   | To exit a function and return a value
-| try      | To make a try...except statement
-| with     | Used to simplify exception handling
+| lambda   | To create an anonymous function
 | yield    | To end a function, returns a generator
+| from     | To import specific parts of a module
+| import   | To import a module
+| as       | To create an alias
+| class    | To define a class
+|||
+| try      | To make a try...except statement
+| except   | Used with exceptions, what to do when an exception occurs
+| raise    | To raise an exception
+| with     | Used to simplify exception handling
+|||
+| global   | To declare a global variable
+| nonlocal | To declare a non-local variable
+| assert   |  For debugging
+| del      | To delete an object
+| pass     | A null statement, a statement that will do nothing
 
 
 ## Built in Functions
