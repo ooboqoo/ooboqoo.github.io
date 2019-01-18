@@ -37,6 +37,9 @@ Vim Cheat Sheet https://vim.rtorr.com/
 |:----------|:-------------------------------------
 | `%`       | 跳到与当前括号相匹配的括号
 | `{` `}`   | 在段落、函数、块间跳转
+| `H`       | 移动到屏幕顶部 High
+| `M`       | 移动到屏幕中间 Middle
+| `L`       | 移动到屏幕底部 Low
 
 滚动屏幕
 
@@ -52,7 +55,7 @@ Vim Cheat Sheet https://vim.rtorr.com/
 |||
 |:-----------|:-------------------------------------
 | `v`, `V`   | `v` 是行内选择；`V` 是行选择
-| `Ctrl`+`v` | Visual Block 块选择，按 `I` 或 `A` 进入多光标编辑模式
+| `Ctrl`+`v` | Visual Block 块选择，按 `i` 或 `a` 进入多光标编辑模式
 
 注：进入多光标编辑模式时，只会在首行显示输入内容，编辑完成后按 esc 键才能看到效果。想删除的话，会直观很多，选中直接 x。
 
@@ -61,12 +64,25 @@ Vim Cheat Sheet https://vim.rtorr.com/
 | `o`   | 在选择块两头跳转
 
 |||
-|:------|:-----------------------
-| `aw`  | a word
+|:------|:----------------------------------------------
+| `aw`  | a word and whitespace after
+| `aW`  | a word (including punctuation) and whitespace after
 | `ab`  | a block with ()
 | `aB`  | a block with {}
+| `iw`  | word
+| `iW`  | word (including punctuation)
 | `ib`  | inner block with ()
 | `iB`  | inner block with {}
+
+|||
+|:------|:------------------------------------------------------
+| `ip`  | current paragraph
+| `ap`  | current paragraph and whitespace after
+| `i<bracket>` | inside the matching brackets ``` '"`({[< ```
+| `a<bracket>` | outside the matching brackets ``` '"`({[< ```
+| `it`  | inside XML tag
+| `at`  | outside XML tag
+| `ii`  | inside indentation level
 
 #### 查找与替换
 
@@ -164,8 +180,8 @@ Vim Cheat Sheet https://vim.rtorr.com/
 
 |||
 |:----------|:-------------------------------------
-| `:sp [filename]` / `:vsplit`  | 水平分割窗口，如提供 filename 则新窗口显示该文件。vsplit 为垂直分割
-| `[Ctrl]+w+` h/j/k/l ←/↓/↑/→ q | 按下该组合键后松开，就可以用方向键在窗口之间移动。q 为关闭窗口。
+| `:sp [filename]` / `:vsp`     | 水平分割窗口，如提供 filename 则新窗口显示该文件。`:vsplit` 为垂直分割
+| `[Ctrl]+w+` h/j/k/l ←/↓/↑/→ q | 按下该组合键后松开，就可以用方向键在窗口之间移动。`q` 为关闭窗口。
 
 
 ## 配置
