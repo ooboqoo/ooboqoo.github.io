@@ -34,6 +34,39 @@ message = 'Hello' + ' ' + 'world'
 
 # 非打印字符
 print('Languages:\n\tPython\n\tJavaScript')
+
+# 不转义
+print(r'1\t2')  # 输出 1\t2
+```
+
+#### 字符编码
+
+搞清楚了 ASCII Unicode 和 UTF-8 的关系，我们就可以总结一下现在计算机系统通用的字符编码工作方式：在计算机内存中，统一使用 Unicode 编码，当需要保存到硬盘或者需要传输的时候，就转换为 UTF-8 编码。
+
+```py
+>>> ord('A')
+65
+>>> ord('中')
+20013
+>>> chr(66)
+'B'
+>>> chr(25991)
+'文'
+>>> 'ABC'.encode('ascii')
+b'ABC'
+>>> '中文'.encode('utf-8')
+b'\xe4\xb8\xad\xe6\x96\x87'
+>>> b'ABC'.decode('ascii')
+'ABC'
+>>> b'\xe4\xb8\xad\xe6\x96\x87'.decode('utf-8')
+'中文'
+```
+
+#### 格式化
+
+```py
+print('%2d-%02d' % (3, 1))
+print('%.2f' % 3.1415926)
 ```
 
 ### 数字
@@ -159,6 +192,8 @@ else:
 
 ### 字典
 
+dict 全称 dictionary，在其他语言中也称为 map，使用键-值（key-value）存储，具有极快的查找速度。
+
 ```py
 alien_0 = {'color': 'green', 'points': 5}  # 外星人入侵啦
 # 访问字典的值
@@ -171,6 +206,23 @@ alien_0['y_position'] = 25
 alien_0['color'] = 'yellow'
 # 删除键值对
 del alien_0['points']
+```
+
+如果key不存在，dict就会报错：要避免key不存在的错误，有两种办法，一是通过in判断key是否存在：二是通过dict提供的get()方法，如果key不存在，可以返回None，或者自己指定的value
+要删除一个key，用pop(key)方法，对应的value也会从dict中删除：
+
+```py
+>>> d = {'Michael': 95, 'Bob': 75, 'Tracy': 85}
+>>> d['Thomas']  # 报错
+>>> 'Thomas' in d
+False
+>>> d.get('Thomas')
+>>> d.get('Thomas', -1)
+-1
+>>> d.pop('Bob')
+75
+>>> d
+{'Michael': 95, 'Tracy': 85}
 ```
 
 遍历字典
@@ -206,6 +258,19 @@ aliens = [alien_0, alien_1, alien_2, ...]
 for alien in aliens[0:3]:
     if alien['color'] == 'green':
       # ...
+```
+
+### set
+
+set 和 dict 类似，也是一组 key 的集合，但不存储 value。
+
+```py
+>>> s1 = set([1, 2, 3])
+>>> s1.add(4)
+>>> s1.remove(2)
+>>> s2 = set([2, 3, 4])
+>>> s1 & s2  # 求交集
+>>> s1 | s2  # 求并集
 ```
 
 
@@ -698,3 +763,25 @@ class TestAnonymousSurvey(unittest.TestCase):
 
 unittest.main()
 ```
+
+
+## 直接执行脚本
+
+在 windows 下无法直接运行 _.py_ 文件，但在 Mac 和 Linux 下是可以的
+
+_hello.py_
+
+```py
+#!/usr/bin/env python3
+
+print("Hello world!")
+```
+
+```bash
+chmod a+x hello.py  # 添加可执行权限
+./hello             # 此处直接运行脚本文件
+```
+
+
+
+
