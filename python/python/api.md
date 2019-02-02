@@ -51,56 +51,46 @@
 
 |||
 |---------------|----------------------------------------------
-| str()         | Returns a string object
 | type()        | Returns the type of an object
 | sorted()      | Returns a sorted list
 | reversed()    | Returns a reversed iterator
 | len()         | Returns the length of an object
 | range()       | Returns a sequence of numbers, starting from 0 and increments by 1 (by default)
-| bool()        | Returns the boolean value of the specified object
 | print()       | Prints to the standard output device
+| input()       | Allowing user input
+| open()        | Opens a file and returns a file object
+| help()        | Executes the built-in help system
 |||
-| bytes()       | Returns a bytes object
+| bool()        | Returns the boolean value of the specified object
 | int()         | Returns an integer number
 | float()       | Returns a floating point number
 | list()        | Returns a list
-| set()         | Returns a new set object
-| dict()        | Returns a dictionary (Array)
 | tuple()       | Returns a tuple
+| dict()        | Returns a dictionary (Array)
+| set()         | Returns a new set object
 | iter()        | Returns an iterator object
+| slice()       | Returns a slice object
 | object()      | Returns a new object
+| frozenset()   | Returns a frozenset object
 |||
-| all()         | Returns True if all items in an iterable object are true
-| any()         | Returns True if any item in an iterable object is true
+| dir()         | Returns a list of the specified object's properties and methods
+| property()    | Gets, sets, deletes a property
+| vars()        | Returns the `__dict__` property of an object
+| zip()         | Returns an iterator, from two or more iterators
+| memoryview()  | Returns a memory view object
+| next()        | Returns the next item in an iterable
+| repr()        | Returns a readable version of an object
+|||
+| str()         | Returns a string object
+| bytes()       | Returns a bytes object
 | ascii()       | Returns a readable version of an object. Replaces none-ascii characters with escape character
 | chr()         | Returns a character from the specified Unicode code.
 | bin()         | Returns the binary version of a number
 | bytearray()   | Returns an array of bytes
-| callable()    | Returns True if the specified object is callable, otherwise False
-| classmethod() | Converts a method into a class method
-| compile()     | Returns the specified source as an object, ready to be executed
-| complex()     | Returns a complex number
-| delattr()     | Deletes the specified attribute (property or method) from the specified object
-| dir()         | Returns a list of the specified object's properties and methods
-| divmod()      | Returns the quotient and the remainder when argument1 is divided by argument2
-| enumerate()   | Takes a collection (e.g. a tuple) and returns it as an enumerate object
-| eval()        | Evaluates and executes an expression
-| exec()        | Executes the specified code (or object)
-| filter()      | Use a filter function to exclude items in an iterable object
-| format()      | Formats a specified value
-| frozenset()   | Returns a frozenset object
-| getattr()     | Returns the value of the specified attribute (property or method)
-| globals()     | Returns the current global symbol table as a dictionary
-| hasattr()     | Returns True if the specified object has the specified attribute (property/method)
-| hash()        | Returns the hash value of a specified object
-| help()        | Executes the built-in help system
 | hex()         | Converts a number into a hexadecimal value
-| id()          | Returns the id of an object
-| input()       | Allowing user input
-| isinstance()  | Returns True if a specified object is an instance of a specified object
-| issubclass()  | Returns True if a specified class is a subclass of a specified object
-| locals()      | Returns an updated dictionary of the current local symbol table
-| map()         | Returns the specified iterator with the specified function applied to each item
+| oct()         | Converts a number into an octal
+| ord()         | Convert an integer representing the Unicode of the specified character
+| format()      | Formats a specified value
 |||
 | abs()         | Returns the absolute value of a number
 | min()         | Returns the smallest item in an iterable
@@ -109,18 +99,34 @@
 | pow()         | Returns the value of x to the power of y
 | round()       | Rounds a numbers
 |||
-| memoryview()  | Returns a memory view object
-| next()        | Returns the next item in an iterable
-| oct()         | Converts a number into an octal
-| open()        | Opens a file and returns a file object
-| ord()         | Convert an integer representing the Unicode of the specified character
-| property()    | Gets, sets, deletes a property
-| repr()        | Returns a readable version of an object
+| hash()        | Returns the hash value of a specified object
+| hasattr()     | Returns True if the specified object has the specified attribute (property/method)
+| getattr()     | Returns the value of the specified attribute (property or method)
 | setattr()     | Sets an attribute (property/method) of an object
-| slice()       | Returns a slice object
+| delattr()     | Deletes the specified attribute (property or method) from the specified object
+|||
+| all()         | Returns True if all items in an iterable object are true
+| any()         | Returns True if any item in an iterable object is true
+| map()         | Returns the specified iterator with the specified function applied to each item
+| filter()      | Use a filter function to exclude items in an iterable object
+|||
+| callable()    | Returns True if the specified object is callable, otherwise False
+| eval()        | Evaluates and executes an expression
+| exec()        | Executes the specified code (or object)
 | @staticmethod() | Converts a method into a static method
-| vars()        | Returns the `__dict__` property of an object
-| zip()         | Returns an iterator, from two or more iterators
+|||
+| classmethod() | Converts a method into a class method
+| compile()     | Returns the specified source as an object, ready to be executed
+| complex()     | Returns a complex number
+| divmod()      | Returns the quotient and the remainder when argument1 is divided by argument2
+| enumerate()   | Takes a collection (e.g. a tuple) and returns it as an enumerate object
+| locals()      | Returns an updated dictionary of the current local symbol table
+| globals()     | Returns the current global symbol table as a dictionary
+| id()          | Returns the id of an object
+| isinstance()  | Returns True if a specified object is an instance of a specified object
+| issubclass()  | Returns True if a specified class is a subclass of a specified object
+
+
 
 
 ## String Methods

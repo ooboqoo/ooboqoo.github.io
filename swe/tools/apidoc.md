@@ -64,3 +64,36 @@ $ drakov -f apiary.md -p 3000
 ```
 
 
+## 接口设计
+
+
+软件接口设计中的版本兼容问题处理 https://blog.csdn.net/phoenixhdf/article/details/80513075  
+如何优雅的管理APP多个接口版本 https://www.cnblogs.com/luciferZ/p/6945509.html  
+
+### 接口版本
+
+小迭代以参数 `ver` 形式标识版本，大迭代以路径 `api.com/v2/list` 或子域名区分
+
+小改动或者新加功能的，数据库结构和API程序一般是可以兼容多版本的，所以不用强制升级，可以做到多版本共存。
+尽量采用数据库层面新增字段和API的方式，应用程序层面就可以兼容了。
+如果是大改动，底层数据结构都不兼容，那只能提示强制升级了。如果是强制升级，就不会有多版本共存的问题了，
+也不会有多套数据库，也不会存在数据同步的问题。 
+
+### 区分客户端
+
+添加 `platform` 字段区分
+
+### 参数优化
+
+Java 中参数处理行为
+
+```java
+// key 不存在时
+jsonObject.get("key")             // null
+(String) jsonObject.get("key")    // null
+jsonObject.get("key").toString()  // 异常
+jsonObject.getString("key")       // 异常
+```
+
+
+

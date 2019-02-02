@@ -68,3 +68,8 @@ MySQL Explain详解 https://www.cnblogs.com/xuanzhi201111/p/4175635.html
 8. 分页操作时，必须保证其limit的高效，能够迅速定位到起始页。
 9. 所写的SQL，必须了解其执行计划，明确该SQL的有效执行。
 10. 线上禁止在业务繁忙的时间进行大批量数据更新。
+
+
+## 其他
+
+如何书写优雅漂亮的 SQL 脚本  https://www.cnblogs.com/kerrycode/archive/2010/08/16/1800334.html

@@ -178,6 +178,19 @@ https://support.apple.com/zh-cn/HT204216
 
 ## 应用配置
 
+### Dock
+
+复制下面的代码到终端中（PS：Command+V是在终端里粘贴的按键）
+
+```bash
+# 取消自动隐藏动画
+defaults write com.apple.dock autohide-time-modifier -float 0; killall Dock    # 取消动画
+defaults write com.apple.dock autohide-time-modifier -float 0.7; killall Dock  # 恢复动画
+# 取消鼠标响应延时
+defaults write com.apple.Dock autohide-delay -float 0; killall Dock  # 取消延时
+defaults delete com.apple.Dock autohide-delay; killall Dock          # 恢复延时
+```
+
 ### 词典配置
 
 欧陆词典免费版，把我 GoldenDict 的 柯林斯高阶 拷到词典目录下的 dic 目录下能读取，其他位置不来

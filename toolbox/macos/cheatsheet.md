@@ -146,9 +146,12 @@ ctrl+V | Move down one page
 ### Sublime
 
 ||
---------------|-------------------
-ctrl+shift+up | 向上多选
-ctrl+shift+Dn | 向下多选
+----------------|-------------------
+ctrl+shift+up   | 向上多选
+ctrl+shift+down | 向下多选
+ctrl+cmd+up     | 上移一行 swap_line_up
+ctrl+cmd+down   | 下移一行 swap_line_down
+ctrl+shift+K    | 删除整行
 
 ## 命令行
 
