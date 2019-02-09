@@ -50,9 +50,7 @@ str.rstrip() # 返回去除末尾空白后的字符串，原字符串不动
 
 #### 字符编码
 
-Python3 的字符串使用 Unicode 编码，直接支持多语言。当 `str` 和 `bytes` 互相转换时，需要指定编码。最常用的编码是 UTF-8。
-
-Python 的字符串类型是 `str`，在内存中以 Unicode 表示。如果要在网络上传输或保存到磁盘，就需要把 `str` 变为以字节为单位的 `bytes`。
+Python 的字符串类型是 `str`，在内存中以 Unicode 表示，支持多语言。如果要在网络上传输或保存到磁盘，就需要把 `str` 转为以字节为单位的 `bytes`，通常采用 UTF-8 编码。
 
 ```py
 >>> ord('A')
@@ -198,9 +196,9 @@ del alien_0['points']  # 无返回值
 alien_0.pop('points')  # 会返回 key 对应的 value
 
 # key 不存在
-alien_0['not_exist_key']      # KeyError: 'not_exist_key'
-alien_0.get('not_exist_key')  # None
-'not_exist_key' in alien_0    # False
+alien_0['none_exist_key']      # KeyError: 'none_exist_key'
+alien_0.get('none_exist_key')  # None
+'none_exist_key' in alien_0    # False
 ```
 
 #### 遍历字典
@@ -212,17 +210,17 @@ user_0 = {
     'last': 'fermi',
 }
 
+for key in user_0:  # 同 .keys()
+    print(key)
+
 for key in user_0.keys():
     print(key)
 
-for key in user_0:  # 可省略 .keys()
-    print(key)
+for value in user_0.values():
+    print(value)
 
 for key, value in user_0.items():
     print(key + '\t' + value)
-
-for value in user_0.values():
-    print(value)
 
 sorted(user_0.key())  # ['first', 'last', 'username']  # 排序
 set(user_0.values())  # {'enrico', 'fermi', 'efermi'}  # 集合
@@ -267,7 +265,7 @@ age = 12
 if age < 4:
     price = 0
 elif age < 18:
-    price=5
+    price = 5
 elif age < 65:
     price = 10
 else:
@@ -291,18 +289,11 @@ for value in range(1, 5): print(value); print(value ** 2)
 ### while 循环
 
 ```py
-# for 循环
-sum = 0
-for x in range(101):
-    sum = sum + x
-print(sum)
-
-# while 循环
 sum = 0
 n = 99
 while n > 0:
-    sum = sum + n
-    n = n - 2
+    sum += n
+    n -= 2
 print(sum)
 ```
 
@@ -347,7 +338,7 @@ while current_number < 10:
     print(current_number)  # 输出 1\n3\n5\n7\n9
 ```
 
-for 循环时一种遍历列表的有效方式，但在 for 循环中不应修改列表，否者将导致 Python 难以跟踪其中的元素。要在遍历列表的同时对其进行修改，可使用 while 循环。
+for 循环是一种遍历列表的有效方式，但在 for 循环中不应修改列表，否者将导致 Python 难以跟踪其中的元素。要在遍历列表的同时对其进行修改，可使用 while 循环。
 
 ```py
 # 在列表之间移动元素
@@ -370,3 +361,113 @@ PEP8建议每级缩进都使用四个空格，这既可提高可读性，又留�
 
 很多 Python 程序员都建议每行不超过80字符。PEP8还建议注释的行长都不超过72字符，因为有些工具为大型项目自动生成文档时，会在每行注释开头添加格式化字符。
 
+
+## 高级特性
+
+### 切片
+
+取一个 list 或 tuple 的部分元素是非常常见的操作，Python 提供了切片 slice 操作符，能大大简化这种操作。
+
+```py
+# list 切片
+digits = [1, 2, 3, 4, 5]
+digits[1:3]  # [2, 3]
+digits[:2]   # [1, 2]
+digits[2:]   # [3, 4, 5]
+digits[-3:]  # [3, 4, 5]
+new_list = digits[:]  # 复制列表
+
+# tuple 切片
+(0, 1, 2, 3, 4, 5)[:3]  # (0, 1, 2)
+
+# str 切片
+'ABCDEFG'[:3]   # 'ABC'
+'ABCDEFG'[::2]  # 'ACEG'
+```
+
+### 迭代
+
+list 这种数据类型虽然有下标，但很多其他数据类型是没有下标的，但是，只要是可迭代对象，无论有无下标，都可以迭代。
+Python 中，迭代是通过 `for ... in` 来完成的。
+
+```py
+# 迭代字典
+d = {'a': 1, 'b': 2, 'c': 3}
+for key in d:
+     print(key)
+for value in d.values():
+    print(value)
+for k, v in d.items():
+    print(k, v)
+
+# 迭代字符串
+for ch in 'ABC':
+     print(ch)
+
+# 判断是否是可迭代对象
+from collections import Iterable
+isinstance('abc', Iterable)   # True
+isinstance([1,2,3], Iterable) # True
+isinstance(123, Iterable)     # False
+
+# enumerate 函数可以把一个list变成 索引-元素 对
+for i, value in enumerate(['A', 'B', 'C']):
+     print(i, value)
+
+for x, y in [(0, 'A'), (1, 'B'), (2, 'C')]:
+     print(x, y)
+```
+
+### 列表生成式
+
+运用列表生成式，可以快速生成 list，可以通过一个 list 推导出另一个 list，而代码却十分简洁。
+
+```py
+list(range(1, 11))             # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+[x * x for x in range(1, 11)]  # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+[x * x for x in range(1, 11) if x % 2 == 0]  # [4, 16, 36, 64, 100]
+[m + n for m in 'ABC' for n in 'XY']         # ['AX', 'AY', 'BX', 'BY', 'CX', 'CY']
+d = {'x': 'A', 'y': 'B', 'z': 'C' }
+[k + '=' + v for k, v in d.items()]  # ['y=B', 'x=A', 'z=C']
+```
+
+### 迭代器
+
+* 凡是可作用于 `for` 循环的对象都是 `Iterable` 类型；
+* 凡是可作用于 `next()` 函数的对象都是 `Iterator` 类型，它们表示一个惰性计算的序列；
+* 集合数据类型 `list` `dict` `str` 等是 `Iterable` 但不是 `Iterator`，不过可以通过 `iter()` 函数获得一个 `Iterator`；
+* Python 的 `for` 循环本质上就是通过不断调用 `next()` 函数实现的
+
+`Iterator` 对象表示的是一个数据流，可以被 `next()` 函数调用并不断返回下一个数据，直到没有数据时抛出 `StopIteration` 错误。可以把这个数据流看做是一个有序序列，但我们却不能提前知道序列的长度，只能不断通过 `next()` 函数实现按需计算下一个数据，所以 `Iterator` 的计算是惰性的，只有在需要返回下一个数据时它才会计算。
+
+```py
+isinstance(iter([]), Iterator)     # True
+isinstance(iter('abc'), Iterator)  # True
+```
+
+### 生成器 generator
+
+生成器都是 `Iterator` 对象
+
+```py
+# generator
+g = (x * x for x in range(10))
+next(g)
+
+for n in g:
+     print(n)
+
+# generator function
+def odd():
+    print('step 1')
+    yield 1
+    print('step 2')
+    yield(3)
+    print('step 3')
+    yield(5)
+g_odd = odd()
+next(g_odd)  # 1
+next(g_odd)  # 3
+next(g_odd)  # 5
+next(g_odd)  # 报错 StopIteration
+```
