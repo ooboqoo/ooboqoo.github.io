@@ -317,7 +317,10 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 忘 reconcile  _/ˈrekənsaɪl/_  v.使和好,使和解; 调和,协调两种信仰、事实或要求  
 忘 breed  _/briːd/_  n.品种,血统 v.动物繁殖  
 忘 revolve  _/rɪˈvɒlv/_  v.围绕,以…为中心; 围绕…旋转  SYN rotate  
+
 忘 condense  _/kənˈdens/_  v.压缩,精简(尤指文章或讲话); 使冷凝  
+联 refine  _/rɪˈfaɪn/_  v.提炼,精炼; 改善,改进
+
 忘 spin  _/spɪn/_  v./n.旋转  
 忘 tile  _/taɪl/_  n.瓷砖; 瓦片  
 忘 symptom  _/ˈsɪmptəm/_  n.(疾病的)症状; (不好事情的)征兆  
@@ -373,6 +376,10 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 
 混 soap  _/səʊp/_  n.肥皂  
 混 soup  _/suːp/_  n.汤  
+
+混 cream  _/kriːm/_  n.奶油; 护肤霜  
+混 scream  _/skriːm/_  v.尖叫  
+联 shriek  _/ʃriːk/_  v.尖叫  
 
 混 sheer  _/ʃɪə/_  a.纯粹的; 陡峭的; 极薄的  
 混 shear  _/ʃɪə/_  v.剪(羊毛),修剪 n.(尤指修剪篱笆用的)大剪刀  
@@ -873,6 +880,7 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 联 cushion  _/ˈkʊʃən/_  n.垫子,软垫 put on a chair, sofa etc  
 联 pillow  _/ˈpɪləʊ/_  n.枕头  
 联 pillar  _/ˈpɪlə $ -ər/_  n.柱,台柱,栋梁  
+联 column  _/ˈkɒləm/_  n.圆形石柱; (人或动物排成的)队,纵行; (字典、报纸或图表的)栏  
 
 联 lick  _/lɪk/_  vt.舔  
 联 tongue  _/tʌŋ/_  n.舌头  
@@ -1310,6 +1318,7 @@ change, alter, convert, modify, transfigure, transform, transmogrify, transmute
 联 predict  _/prɪˈdɪkt/_  v.预言,预测,预告  
 联 prophesy  _/ˈprɒfəsaɪ, -fɪ-/_  v.预言,预告
   <span class="exp">to say that something will happen because you feel that it will, or by using special religious or magical powers</span>  
+联 foretell  _/fɔːˈtel/_  v.预言,预知,预测  
 联 forecast  _/ˈfɔːkɑːst/_  v/n.预测,预报  
 联 anticipate  _/ænˈtɪsəpeɪt/_  v.预期,预料,预计  except  
 

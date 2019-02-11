@@ -490,4 +490,153 @@ isinstance(d, Dog) and isinstance(d, Animal)  # True
 
 ### 面向对象高级编程
 
+#### 使用 `__slots__`
 
+Python 允许我们动态地添加实例和类属性，如果我们想要限制实例的属性，在定义class的时候，定义一个特殊的 `__slots__`变量，来限制该class实例能添加的属性：
+
+```py
+class Student(object):
+    __slots__ = ('name', 'age') # 用tuple定义允许绑定的属性名称
+```
+
+使用 `__slots__` 要注意，`__slots__` 定义的属性仅对当前类实例起作用，对继承的子类是不起作用的。
+
+#### 使用 `@property`
+
+内置的 `@property` 装饰器负责把一个方法变成属性调用。广泛应用在类定义中，可以让调用者写出简短的代码，同时保证对参数进行必要的检查。
+
+```py
+class Student(object):
+
+    @property
+    def birth(self):
+        return self._birth
+
+    @birth.setter
+    def birth(self, value):
+        self._birth = value
+
+    @property                # 没有设置 @age.setter 所以是自读属性
+    def age(self):
+        return 2015 - self._birth
+```
+
+#### 多重继承
+
+通过多重继承，一个子类就可以同时获得多个父类的所有功能。
+
+```py
+class Bird(Animal):
+    pass
+
+class Runnable(object):
+    def run(self):
+        print('Running...')
+
+class Flyable(object):
+    def fly(self):
+        print('Flying...')
+
+class Ostrich(Bird, Runnable):
+    pass
+
+class Parrot(Mammal, Flyable):
+    pass
+```
+
+在设计类的继承关系时，通常，主线都是单一继承下来的，例如，Ostrich 继承自 Bird。但是，如果需要“混入”额外的功能，通过多重继承就可以实现，比如，让 Ostrich 除了继承自 Bird 外，再同时继承 Runnable。这种设计通常称之为 **MixIn**。
+
+为了更好地看出继承关系，我们把 `Runnable` 和 `Flyable` 改为 `RunnableMixIn` 和 `FlyableMixIn`。
+
+#### 定制类
+
+Python 的 class 允许定义许多定制方法，可以让我们非常方便地生成特定的类。
+
+`__len__()` 方法我能让 class 作用于 `len()` 函数。  
+`__str__()` 返回用户看到的字符串，而 `__repr__()` 返回程序开发者看到的字符串。  
+`__iter__()` 如果一个类想被用于 for...in 循环，就必须实现一个 `__iter__()` 方法，该方法返回一个迭代对象。  
+
+```py
+class Student(object):
+    def __init__(self, name):
+        self.name = name
+    def __str__(self):
+        return 'Student object (name=%s)' % self.name
+    __repr__ = __str__
+```
+
+`__getitem__()` 方法动态返回一个元素。  
+`__getattr__()` 方法动态返回一个属性。  
+`__call__()` 任何类只要定义改方法，就可以直接对实例进行调用。  
+
+```py
+class Student():
+    lists = ['a', 'b', 'c']
+    def __getitem__(self, n):
+        return self.lists[n]
+    def __getattr__(self, attr):
+        if attr == 'score':
+            return 0
+    def __call__(self):
+        print('My name is %s' % self.name)
+
+me = Student()
+print(me[1])  # 'b'
+
+me.score = 99
+print(me.score) # 99
+del me.score
+print(me.score) # 0
+
+me.name = 'gavin'
+me()  # 'gavin'
+```
+
+#### 使用枚举类
+
+```py
+@unique
+class Gender(Enum):
+    Male = 0
+    Female = 1
+
+class Student(object):
+    def __init__(self, name, gender):
+        self.name = name
+        self.gender = gender
+
+# 测试:
+bart = Student('Bart', Gender.Male)
+if bart.gender == Gender.Male:
+    print('测试通过!')
+else:
+    print('测试失败!')
+```
+
+#### 使用元类
+
+动态语言和静态语言最大的不同，就是函数和类的定义，不是编译时定义的，而是运行时动态创建的。
+
+`type()` 函数既可以返回一个对象的类型，又可以创建出新的类型。
+
+```py
+def fn(self, name='world'):
+    print('Hello, %s.' % name)
+Hello = type('Hello', (object,), dict(hello=fn))  # 创建 Hello 类
+h = Hello()
+h.hello()
+Hello, world.
+```
+
+除了使用 `type()` 动态创建类以外，要控制类的创建行为，还可以使用**元类** metaclass。
+
+```py
+# metaclass是类的模板，所以必须从`type`类型派生
+class ListMetaclass(type):
+    def __new__(cls, name, bases, attrs):
+        attrs['add'] = lambda self, value: self.append(value)
+        return type.__new__(cls, name, bases, attrs)
+
+class MyList(list, metaclass=ListMetaclass):
+    pass
+```

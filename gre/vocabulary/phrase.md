@@ -11,4 +11,7 @@ zebra crossing  n. 斑马线
 
 purely coincidental  纯属巧合  
 
+Let's play _hide and seek_  捉迷藏
+
+
 
