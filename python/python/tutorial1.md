@@ -351,6 +351,37 @@ while unconfirmed_users:
     confirmed_users.append(current_user)
 ```
 
+### 正则表达式
+
+由于 Python 的字符串本身也用 `\` 转义，所以强烈建议使用 `r` 前缀，就不用考虑转义的问题了。
+
+```py
+>>> import re
+>>> re.match(r'^\d{3}\-\d{3,8}$', '010-12345')
+<_sre.SRE_Match object; span=(0, 9), match='010-12345'>
+>>> re.match(r'^\d{3}\-\d{3,8}$', '010 12345')
+
+# 切分字符串
+>>> 'a b   c'.split(' ')
+['a', 'b', '', '', 'c']
+
+# 分组
+>>> m = re.match(r'^(\d{3})-(\d{3,8})$', '010-12345')
+>>> m.group(0)
+'010-12345'
+>>> m.group(1)
+'010'
+>>> m.group(2)
+'12345'
+
+# 预编译
+>>> re_telephone = re.compile(r'^(\d{3})-(\d{3,8})$')
+>>> re_telephone.match('010-12345').groups()
+('010', '12345')
+>>> re_telephone.match('010-8086').groups()
+('010', '8086')
+```
+
 ### 风格指南
 
 PEP8

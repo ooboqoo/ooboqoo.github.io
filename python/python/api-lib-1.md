@@ -1,4 +1,37 @@
-# API-标准库—常见
+# 速查手册 - 标准库
+
+https://docs.python.org/3.7/library/index.html
+
+
+### collections
+
+```py
+from collections import OrderedDict
+favorite_languages = OrderedDict()
+```
+
+
+### datetime
+
+Basic date and time types
+
+```py
+>>> from datetime import datetime
+>>> now = datetime.now() # 获取当前datetime
+>>> print(now)
+2015-05-18 16:28:07.198690
+>>> print(type(now))
+<class 'datetime.datetime'>
+```
+
+
+### random
+
+```py
+from random import randit
+x = randint(1, 6)
+```
+
 
 ### json
 

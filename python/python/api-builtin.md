@@ -128,7 +128,6 @@
 
 
 
-
 ## String Methods
 
 > Note: All string methods returns new values. They do not change the original string.
