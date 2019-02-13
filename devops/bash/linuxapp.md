@@ -42,7 +42,7 @@ HTTPie: a CLI, cURL-like tool for humans. 极好的 curl 替代工具，就是�
 
 ### `rsync` 远程文件同步
 
-rsync - a fast, versatile, remote (and local) file-copying tool
+rsync - a fast, versatile, remote (and local) file-copying tool  (可以看成是 `cp` 的变异版本)
 
 ```bash
 Pull: rsync [OPTION...] [USER@]HOST:SRC... [DEST]
