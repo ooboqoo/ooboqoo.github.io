@@ -15,6 +15,35 @@ Python 是一种解释型的脚本语言，开发效率高，所以非常适合�
 
 ### WSGI 接口
 
+无论多么复杂的Web应用程序，入口都是一个WSGI处理函数。HTTP请求的所有输入信息都可以通过 `environ` 获得，HTTP响应的输出都可以通过 `start_response()` 加上函数返回值作为Body。
+
+复杂的Web应用程序，光靠一个WSGI函数来处理还是太底层了，我们需要在WSGI之上再抽象出Web框架，进一步简化Web开发。
+
+*hello.py*
+
+```py
+def application(environ, start_response):
+    start_response('200 OK', [('Content-Type', 'text/html')])
+    body = '<h1>Hello, %s!</h1>' % (environ['PATH_INFO'][1:] or 'web')
+    return [body.encode('utf-8')]
+```
+
+*server.py*
+
+```py
+from wsgiref.simple_server import make_server
+from hello import application
+
+# 创建一个服务器，IP地址为空，端口是8000，处理函数是application:
+httpd = make_server('', 8000, application)
+print('Serving HTTP on port 8000...')
+# 开始监听HTTP请求:
+httpd.serve_forever()
+```
+
+上面的 application() 函数就是符合WSGI标准的一个HTTP处理函数，它接收两个参数：
+  * environ：一个包含所有HTTP请求信息的dict对象；
+  * start_response：一个发送HTTP响应头的函数。注意Header只能发送一次，也就是只能调用一次 start_response() 函数。接收两个参数，一个是HTTP响应码，一个是一组list表示的HTTP Header，每个Header用一个包含两个str的tuple表示。
 
 ### Web 框架
 
@@ -78,7 +107,7 @@ if __name__ == '__main__':
     app.run()
 ```
 
-在 Jinja2 模板中，我们用 `{{ name }}` 表示一个需要替换的变量；用 `{% ... %}` 表示指令。
+在 Jinja2 模板中，我们用 `{{ name }}` 表示一个需要替换的变量；用 `{% ... %}` 表示指令。 <i style="display: none;">{% %}</i>
 
 *templates/form.html*
 
