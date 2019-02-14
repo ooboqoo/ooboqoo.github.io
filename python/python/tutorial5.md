@@ -107,7 +107,7 @@ if __name__ == '__main__':
     app.run()
 ```
 
-在 Jinja2 模板中，我们用 `{{ name }}` 表示一个需要替换的变量；用 `{% ... %}` 表示指令。 <i style="display: none;">{% %}</i>
+在 Jinja2 模板中，我们用 `{{ name }}` 表示一个需要替换的变量；用 `{% ... %}` 表示指令。
 
 *templates/form.html*
 
