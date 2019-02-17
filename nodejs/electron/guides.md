@@ -134,6 +134,7 @@ electron.ipcRenderer.on('electron-main-log', (event, args) => {
 
 如需要打断点调试，可安装 Chrome NIM 插件，自动监控 WebSocket 并打开调试界面。如需在启动时调试 main.js 则需要 `--inspect-brk` 加 `debugger` 配合。
 
+注: Node.js 直接启动 js 并开启调试时，如 `node --inspect server.js`，`console.log()` 会在终端和调试窗口同时打印内容。
 
 ### 调试渲染进程
 

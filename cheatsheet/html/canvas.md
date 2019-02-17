@@ -123,6 +123,7 @@ globalCompositeOperation | Sets or returns how a new image are drawn onto an exi
 
 ||
 ----------|--------------------------------------------------------------------------------------------------
+canvas    | 获取对应的 DOM 对象
 save()    | 保存(push) Context 的当前状态，含 transformation matrix / clipping region / dash list / 设置项 [注]
 restore() | 恢复(pop)最近一次保存的 Context 状态
 
