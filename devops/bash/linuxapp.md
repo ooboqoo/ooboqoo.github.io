@@ -105,10 +105,10 @@ User root
 
 #### `scp` 安全远程拷贝
 
-scp — secure copy (remote file copy program), scp = ssh + rcp
+scp — secure copy (remote file copy program), scp = ssh + rcp, copies files between hosts on a network.
 
 ```bash
-# scp [-pr] [ssh options] [[user@]host1:]file1 ... [[user@]host2:]file2
+$ scp [-pr] [ssh options] [[user@]host1:]file1 ... [[user@]host2:]file2
   # -p 保留文档存取时间及权限信息，用 -P 指定连接端口，这与 ssh 稍有区别
   # -r 递归拷贝
 

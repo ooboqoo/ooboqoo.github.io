@@ -16,7 +16,8 @@ $ sudo systemctl restart NetworkManager
 ```
 
 ```text
-127.0.0.1    a.com    # 访问 a.com 时访问映射地址ip 127.0.0.1
+127.0.0.1    a.com            # 访问 a.com 时访问映射地址ip 127.0.0.1
+127.0.0.1    abc.com def.com  # 多个网址映射到一个 IP 时可这么写
 ```
 
 
