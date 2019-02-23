@@ -1,5 +1,16 @@
 # 杂碎知识点
 
+#### 闭包中的 DOM 变量引用丢失
+
+20190223 闭包中的指向DOM的变量可能会跟赋值时相对应的节点脱钩，但赋值到 window 下不会丢失引用。具体待确认。
+
+```js
+function init (dom) {
+  window.dom = dom
+  return () => window.dom === dom  // 可能出现的 false 的场景: window.open 的子窗口传递元素给父窗口
+}
+```
+
 #### sessionStorage
 
 每个 tab 页的 sessionStorage 都是独立的，无法通过 sessionStorage 实现标签页之间的通信。可以利用 `localStorage` 以及监听 `window` 上 `storage` 事件来解决。

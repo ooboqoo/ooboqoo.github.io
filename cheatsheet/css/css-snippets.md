@@ -234,6 +234,65 @@ To enforce the width, you may try to change the table-layout property to "fixed"
   </style>
 </div>
 
+tip 弹框效果(因为需要出统一的边框效果，所以实现跟上面有细微差异)
+
+```css
+.triangle-popover {
+  position: absolute;
+  display: block;
+  margin-top: 10px;
+  margin-left: -60px;
+  padding: 10px;
+  width: 180px;
+  border-radius: 6px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px 0 rgba(0,0,0,0.2);
+}
+.triangle-popover:before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: -5px;
+  left: 50%;
+  margin-left: -10px;
+  transform: rotate(-45deg);
+  border-width: 10px;
+  border-style: solid;
+  border-color: #fff #fff transparent transparent;
+  box-shadow: 5px -5px 10px -5px rgba(0,0,0,0.2);
+}
+```
+
+<div class="demo">
+  <div class="triangle-popover">tip 提示框</div>
+  <style>
+  .triangle-popover {
+    position: relative;
+    display: block;
+    padding: 10px;
+    width: 180px;
+    border-radius: 6px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px 0 rgba(0,0,0,0.2);
+  }
+  .triangle-popover:before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -5px;
+    left: 50%;
+    margin-left: -10px;
+    transform: rotate(-45deg);
+    border-width: 10px;
+    border-style: solid;
+    border-color: #fff #fff transparent transparent;
+    box-shadow: 5px -5px 10px -5px rgba(0,0,0,0.2);
+  }
+  </style>
+</div>
+
 ### Truncate text
 
 当文本过长时隐藏超出部分，并在尾部添加 …

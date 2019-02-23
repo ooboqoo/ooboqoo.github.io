@@ -1,5 +1,6 @@
 # Centos 7
 
+
 ## HTTP 服务器
 
 ```bash
@@ -15,23 +16,65 @@ $ systemctl start httpd
 $ firewall-cmd --permanent --add-service=http
 ```
 
+
 ## SSH 设置
 
 ```bash
 $ firewall-cmd --permanent --add-port=3300/tcp  # 先开放端口，不然下次登不进去了
 $ firewall-cmd --permanent --list-port          # 查看永久开放的端口情况
-$ vim /etc/ssh/sshd_config  # 修改配置文件
+$ vim /etc/ssh/sshd_config  # 修改配置文件(参见下文)
 $ systemctl restart sshd    # 重启 SSH 服务
 ```
 
+*/etc/ssh/sshd_config* 或 *~/.ssh/config*
+
 ```bash
-# Vultr 东京只能用默认 22端口，改了就连不了了，比较坑
-Port 3300
+# man ssg_config
+
+Port 3300  # Vultr 东京只能用默认 22 端口，改了就连不了了
 Protocol 2
 
 AuthorizedKeysFile .ssh/authorized_keys
 PasswordAuthentication no
 ```
+
+### RDP Tunnel
+
+RDP客户端 --外网--> 中转服务器 --内网--> 被控端(无外网IP)
+
+```bash
+# RDP客户端
+$ ssh -L 1234:192.168.1.10:3389 root@45.33.1.0 -N
+  #           被控机内网IP           中转服务器外网IP
+  # -L [bind_address:]port:host:hostport  指定转发规则
+  # 含义: 所有到本地 1234 端口的流量都由 1.2.3.4 服务器转发到 192.168.1.10:3389
+$ mstsc localhost:1234
+```
+
+RDP客户端 --外网--> 中转服务器 --外网--> 被控端(无外网IP) &nbsp; // reverse SSH tunnel
+
+```bash
+# 中转服务器
+$ vim /etc/ssh/sshd_config
+  # 添加或修改为 GatewayPorts yes
+$ systemctl reload ssh.service
+
+# 被控端
+$ ssh -R 443:127.0.0.1:8080 root@45.33.1.0 -N
+  # 含义: 所有到 45.33.1.0 服务器 443 端口的流量都转发到本机的 8080 端口
+$ ssh root@45.33.1.0 -R 443:127.0.0.1:8080 -R 80:127.0.0.1:8080  # 同时转发多个端口
+```
+
+### 网页代理
+
+用户电脑 --外网--> 中转服务器 --外网--> 代理服务器(无外网IP) --代理--> 目的网站
+
+```bash
+# ... (重复配置项暂略)
+# 代理服务器执行
+$ ssh root@45.33.1.0 -R 443:localhost:1080 -R 80:localhost:1080 -N
+```
+
 
 ## ShadowSocks
 
