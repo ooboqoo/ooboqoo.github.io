@@ -84,23 +84,29 @@ $ ssh -p 28379 root@104.128.85.201
 
 #### 配置
 
+_~/.ssh/config_
+
 ```ini
-# ~/.ssh/config
-# accelerate login process
-GSSAPIAuthentication no
+Host *
+    Protocol 2
+    TCPKeepAlive yes
+    ServerAliveInterval 15
+    ServerAliveCountMax 6
+    Compression yes
 
-# persist connection for scp, is seems not work
-ControlPersist 4h
+  # Enable persistent connection multiplexing
+    ControlMaster auto
+    # ControlPath ~/.ssh/tmp/%r@%h:%p  # not work in Windows!
+    ControlPersist 1h
 
-# multi-link share, just a try, it seems not work
-ControlMaster auto
+  # ssh will load this key by default, remove the '#' when using other key name
+    # IdentityFile ~/.ssh/id_rsa
 
-# after these configuration, can connect the host by "ssh centos"
+# Connect the host using "ssh centos"
 Host centos
-HostName 104.128.85.201
-Port 28379
-# IdentityFile ~/.ssh/id_rsa  # ssh will load this key by default
-User root
+    HostName 104.128.85.201
+    Port 28379
+    User root
 ```
 
 #### `scp` 安全远程拷贝
