@@ -44,7 +44,7 @@ RDP(Remote Desktop Protocol)客户端 --外网--> 中转服务器 --内网--> �
 
 ```bash
 # RDP客户端
-$ ssh -L 1234:192.168.1.10:3389 root@45.33.1.0 -N
+$ ssh -L 1234:192.168.1.10:3389 root@45.33.0.1 -N
   #           被控机内网IP           中转服务器外网IP
   # -L [bind_address:]port:host:hostport  指定转发规则
   # 含义: 所有到本地 1234 端口的流量都由 1.2.3.4 服务器转发到 192.168.1.10:3389
@@ -55,10 +55,10 @@ $ mstsc localhost:1234
 
 ```bash
 # 受控端
-$ ssh 45.33.1.0 -R 80:localhost:3389 -N
+$ ssh 45.33.0.1 -N -R 8989:localhost:3389  # 8989 可任意更换其他端口，中转服务器内部中转用
 
 # RDP客户端
-$ ssh 45.33.1.0 -L 3389:localhost:80 -N
+$ ssh 45.33.0.1 -N -L 3389:localhost:8989
 $ mstsc localhost
 ```
 
@@ -71,9 +71,9 @@ $ vim /etc/ssh/sshd_config
 $ systemctl reload ssh.service
 
 # 被控端
-$ ssh -R 443:127.0.0.1:8080 root@45.33.1.0 -N
-  # 含义: 所有到 45.33.1.0 服务器 443 端口的流量都转发到本机的 8080 端口
-$ ssh root@45.33.1.0 -R 443:127.0.0.1:8080 -R 80:127.0.0.1:8080  # 同时转发多个端口
+$ ssh -R 443:127.0.0.1:8080 root@45.33.0.1 -N
+  # 含义: 所有到 45.33.0.1 服务器 443 端口的流量都转发到本机的 8080 端口
+$ ssh root@45.33.0.1 -R 443:127.0.0.1:8080 -R 80:127.0.0.1:8080  # 同时转发多个端口
 ```
 
 ### 网页代理
@@ -81,10 +81,31 @@ $ ssh root@45.33.1.0 -R 443:127.0.0.1:8080 -R 80:127.0.0.1:8080  # 同时转发�
 用户电脑 --外网--> 中转服务器 --外网--> 代理服务器(无外网IP) --代理--> 目的网站
 
 ```bash
-# ... (重复配置项暂略)
+# 中转服务器
+$ vim /etc/ssh/sshd_config
+  # 添加或修改为 GatewayPorts yes
+
 # 代理服务器执行
-$ ssh root@45.33.1.0 -R 443 -R 80 -N  # 只指定端口会自动创建 socks5 代理
-$ curl --socks5 localhost:443 http://ifconfig.io  # 验证 socks5 代理设置
+$ ssh root@45.33.0.1 -f -N -R 1086
+
+# 用户电脑执行
+$ ssh root@45.33.0.1 -N -L 1086:localhost:1086
+$ curl --socks5 localhost:1086 http://ifconfig.io  # 验证 socks5 代理设置
+
+# 用户端 Git 设置 https://gist.github.com/laispace/666dd7b27e9116faece6
+$ git config --global http.https.github.com.proxy socks5h://localhost:1086  # http://
+$ vim ~/.ssh/config                                                         # ssh://
+  # Host github.com
+  # ProxyCommand nc -X 5 -x localhost:1086 %h %p  # 刚开始 127.0.0.1 不来换成 localhost 好了
+  # ProxyCommand connect -S 127.0.0.1:1086 %h %p  # 上面那行 Linux 用，这行在 Windows 下用
+```
+
+用户电脑(访问外网部分受限) ----> 中转服务器(即代理服务器，可访问受限网站) ----> 目的网站
+
+```bash
+# 用户电脑
+$ ssh root@45.33.0.1 -f -N -D 1086  # 在本机 1086 端口开 socks5 代理
+$ curl --socks5 localhost:1086 http://ifconfig.io  # 验证 socks5 代理设置
 ```
 
 
