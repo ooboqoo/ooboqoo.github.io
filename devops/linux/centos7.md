@@ -98,6 +98,7 @@ $ vim ~/.ssh/config                                                         # ss
   # Host github.com
   # ProxyCommand nc -X 5 -x localhost:1086 %h %p  # 刚开始 127.0.0.1 不来换成 localhost 好了
   # ProxyCommand connect -S 127.0.0.1:1086 %h %p  # 上面那行 Linux 用，这行在 Windows 下用
+$ ALL_PROXY=socks5://localhost:1086 git clone https://github.com/some/one.git  # 单次使用
 ```
 
 用户电脑(访问外网部分受限) ----> 中转服务器(即代理服务器，可访问受限网站) ----> 目的网站
