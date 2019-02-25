@@ -90,13 +90,13 @@ _~/.ssh/config_
 Host *
     Protocol 2
     TCPKeepAlive yes
-    ServerAliveInterval 15
-    ServerAliveCountMax 6
+    ServerAliveInterval 60
+    ServerAliveCountMax 4
     Compression yes
 
   # Enable persistent connection multiplexing
     ControlMaster auto
-    # ControlPath ~/.ssh/tmp/%r@%h:%p  # not work in Windows!
+    ControlPath ~/.ssh/tmp/%r@%h:%p  # not work in Windows!
     ControlPersist 1h
 
   # ssh will load this key by default, remove the '#' when using other key name

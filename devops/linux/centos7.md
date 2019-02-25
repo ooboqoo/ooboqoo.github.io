@@ -19,6 +19,8 @@ $ firewall-cmd --permanent --add-service=http
 
 ## SSH 设置
 
+The SSH protocol (also referred to as Secure Shell) is a method for secure remote login from one computer to another.
+
 ```bash
 $ firewall-cmd --permanent --add-port=3300/tcp  # 先开放端口，不然下次登不进去了
 $ firewall-cmd --permanent --list-port          # 查看永久开放的端口情况
@@ -36,6 +38,10 @@ Protocol 2
 
 AuthorizedKeysFile .ssh/authorized_keys
 PasswordAuthentication no
+
+# 防止连接中断: 每 60s 发送一个空包，连续4次没收到响应就认为断了
+ServerAliveInterval 60
+ServerAliveCountMax 4
 ```
 
 ### RDP Tunnel
@@ -48,7 +54,7 @@ $ ssh -L 1234:192.168.1.10:3389 root@45.33.0.1 -N
   #           被控机内网IP           中转服务器外网IP
   # -L [bind_address:]port:host:hostport  指定转发规则
   # 含义: 所有到本地 1234 端口的流量都由 1.2.3.4 服务器转发到 192.168.1.10:3389
-$ mstsc localhost:1234
+$ mstsc localhost:1234  # Remote Desktop Connection (Microsoft Terminal Services Client)
 ```
 
 以下方案在 ALIYUN 跑通
