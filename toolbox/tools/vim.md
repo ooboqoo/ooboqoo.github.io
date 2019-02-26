@@ -120,7 +120,6 @@ Vim Cheat Sheet https://vim.rtorr.com/
 | `"+p`      | 粘贴系统剪贴板内容
 | `"0p`      | 粘贴最近一次 `y` 的内容, 最近一次 `y` 的内容始终放在 `0` register 内
 
-
 可视化模式下
 
 |||
@@ -139,7 +138,6 @@ Vim Cheat Sheet https://vim.rtorr.com/
 | `[Ctrl]+r` | 重做。重做上一个操作 redo
 | `n.`       | 再做。小数点符号，重复前一个操作1次/n次
 
-
 #### 进入编辑模式
 
 |||
@@ -157,7 +155,6 @@ Vim Cheat Sheet https://vim.rtorr.com/
 | `:wq!`          | 保存后退出，有异常不提醒
 | `:w[filename]`  | 将文件另存到 filename
 | `: !command`    | 暂时离开 vim 到命令行执行命令。例 `:! ls /home`
-
 
 #### vim 环境的更改
 
@@ -191,20 +188,32 @@ Vim Cheat Sheet https://vim.rtorr.com/
 
 ## 配置
 
+_/etc/vimrc_ 或 _~/.vimrc_
+
 ```txt
 set t_Co=256        " 256 color support
 set tabstop=4       " The width of a TAB is set to 4. Still it is a \t.
-set shiftwidth=4    " Indents will have a width of 4
-set softtabstop=4   " Sets the number of columns for a TAB
+
 set expandtab       " Expand TABs to spaces
-set list            " Display invisible characters
+set shiftwidth=2    " Indents will have a width of 2
+set softtabstop=2   " Sets the number of columns for a TAB
+
+set list            " Display invisible characters    unset `:set nolist`
 set listchars=tab:\|-,trail:~,extends:>,precedes:<  " :help listchars - for details
 hi SpecialKey ctermfg=7  " :help hi - for details of highlight
 ```
 
 `"` 此文件中的双引号为注释符号，set 前面 `:` 有没有都一样，一般都不加。 
 
+
 ## 使用笔记
+
+#### 查看帮助信息
+
+```txt
+:h shiftwidth
+:help
+```
 
 #### vim 共分3种模式：
 
@@ -215,10 +224,6 @@ hi SpecialKey ctermfg=7  " :help hi - for details of highlight
 #### vim 环境设置与记录
 
 `~/.viminfo` 记录了操作记录，vim 会自行创建并利用此文件。
-
-`/etc/vimrc` 放置了整体 vim 的设置值，不建议修改此文件。
-
-`~/.vimrc` 一般是不存在的，如果你要配置，得手动创建。
 
 #### 正则替换中的大小写转换
 
