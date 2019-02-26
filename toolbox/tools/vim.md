@@ -233,6 +233,35 @@ hi SpecialKey ctermfg=7  " :help hi - for details of highlight
 ```
 
 
+## Plugin
+
+手动安装 NERDTree 示例: 
+
+```bash
+$ git clone --depth 1 https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
+# https://stackoverflow.com/questions/8467424  `printf` has more consistent behavior than `echo -e`
+$ printf "set runtimepath^=~/.vim/bundle/nerdtree\nmap <F3> :NERDTreeToggle<CR>" >> ~/.vimrc
+```
+
+
+## Vim 8
+
+```bash
+$ git clone https://github.com/vim/vim.git
+$ cd vim
+# 覆盖安装
+$ ./configure  --enable-pythoninterp=yes  # 可能缺依赖 yum install ncurses-devel.x86_64
+$ make && make install
+$ cp src/vim /usr/bin
+# 不覆盖安装
+$ ./configure --prefix=$HOME/.local && make && make install
+$ alias vim='~/.local/bin/vim'
+$ echo "alias vim='~/.local/bin/vim'" >> ~/.bashrc
+
+$ vim --version
+```
+
+
 ## vimdiff
 
 http://vimdoc.sourceforge.net/htmldoc/diff.html
