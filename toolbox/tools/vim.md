@@ -110,15 +110,20 @@ Vim Cheat Sheet https://vim.rtorr.com/
 |||
 |:-----------|:-------------------------------------
 | `nx`, `nX` | `x` 向后删除(剪切)一个 / n个字符，`X` 向前删除一个字符
-| `ndd`      | 删除(剪切)整行 / n行 delete
+| `ndd`      | 删除(剪切)整行 / n行 &nbsp; delete
 | `d1G` `dG` `d0` `d$` `dw` | 结合定位符快速删除(剪切)多行或多个字符
-| `nyy`      | 复制整行 / 向下复制 n行 yank 拉,拽
+| `nyy`      | 复制整行 / 向下复制 n行 &nbsp; yank 拉,拽
 | `y1G` `yG` `y0` `y$` `yw` | 结合定位符快速复制多行或多个字符
-| `p`, `P`   | `p` 在光标后粘贴，`P` 在光标前粘贴
+| `p`, `P`   | `p` 在光标后粘贴，`P` 在光标前粘贴 &nbsp; put
 |||
 | `"+y`      | 复制到系统剪贴板, `+` 是系统剪贴板的 register 名
 | `"+p`      | 粘贴系统剪贴板内容
 | `"0p`      | 粘贴最近一次 `y` 的内容, 最近一次 `y` 的内容始终放在 `0` register 内
+
+```txt
+格式: [OPERATOR]<NUMBER>[MOTION]
+示例:     d        2       w      // 连续删除两个单词
+```
 
 可视化模式下
 
@@ -144,7 +149,7 @@ Vim Cheat Sheet https://vim.rtorr.com/
 |:----------|:-------------------------------------
 | `i`, `I`  | 进入插入模式 insert，`i` 在光标处插入，`I` 在行首非空格处开始插入
 | `a`, `A`, `ea` | 进入插入模式 append，`a` 在光标后插入，`ea` 在单词末尾插入，`A` 在行尾插入
-| `o`, `O`  | `o` 另起一行插入，`O` 行前插入
+| `o`, `O`  | `o` 另起一行插入 open，`O` 行前插入
 | `r`, `R`  | 进入替换模式 replace
 | `[Esc]`   | 退出编辑模式
 
@@ -152,7 +157,7 @@ Vim Cheat Sheet https://vim.rtorr.com/
 
 |||
 |:----------------|:-------------------------------------
-| `:wq!`          | 保存后退出，有异常不提醒
+| `:wq!`          | 保存后退出，有异常不提醒 &nbsp; write and quit
 | `:w[filename]`  | 将文件另存到 filename
 | `: !command`    | 暂时离开 vim 到命令行执行命令。例 `:! ls /home`
 
@@ -213,6 +218,8 @@ hi SpecialKey ctermfg=7  " :help hi - for details of highlight
 ```txt
 :h shiftwidth
 :help
+
+$ vimtutor  # 直接在命令行敲此命令查看 Vim 自带的教程
 ```
 
 #### vim 共分3种模式：
@@ -245,8 +252,31 @@ hi SpecialKey ctermfg=7  " :help hi - for details of highlight
 ```bash
 $ git clone --depth 1 https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
 # https://stackoverflow.com/questions/8467424  `printf` has more consistent behavior than `echo -e`
-$ printf "set runtimepath^=~/.vim/bundle/nerdtree\nmap <F3> :NERDTreeToggle<CR>" >> ~/.vimrc
+$ printf "set runtimepath^=~/.vim/bundle/nerdtree\nmap <F3> :NERDTreeToggle<cr>" >> ~/.vimrc
 ```
+
+### NERDTree
+
+进入当前目录的树形界面，通过小键盘"上下"键，能移动选中的目录或文件。目录前面有"+"号，按Enter会展开目录，文件前面是"-"号，按Enter会在右侧窗口展现该文件的内容，并光标的焦点focus右侧。"ctr+w+h"光标focus左侧树形目录，"ctrl+w+l"光标focus右侧文件显示窗口。多次按"ctrl+w"，光标自动在左右侧窗口切换。光标focus左侧树形窗口，按"？"弹出NERDTree的帮助，再次按"？"关闭帮助显示。输入":q"回车，关闭光标所在窗口。
+
+NERDTree 提供了丰富的键盘操作方式来浏览和打开文件，介绍一些常用的快捷键：
+  * 和编辑文件一样，通过h j k l移动光标定位
+  * 打开关闭文件或者目录，如果是文件的话，光标出现在打开的文件中
+  * go 效果同上，不过光标保持在文件目录里，类似预览文件内容的功能
+  * i和s可以水平分割或纵向分割窗口打开文件，前面加g类似go的功能
+  * t 在标签页中打开
+  * T 在后台标签页中打开
+  * p 到上层目录
+  * P 到根目录
+  * K 到同目录第一个节点
+  * J 到同目录最后一个节点
+  * m 显示文件系统菜单（添加、删除、移动操作）
+  * ? 帮助
+  * q 关闭
+
+
+
+
 
 
 ## Vim 8

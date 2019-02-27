@@ -3,6 +3,8 @@
 
 ## 常用命令
 
+https://ss64.com/nt/
+
 ```bash
 $ explorer  # 资源管理器
 $ start iexplore  # 打开 IE，注意直接打 iexplore 没用，而且注意最后不带 r

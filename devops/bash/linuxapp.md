@@ -24,6 +24,10 @@ $ curl -H "Content-Type: application/json" -X POST -d '{"username":"admin"}' htt
 $ bash <(curl -s http://domain/path/to/script.sh)
 $ curl http://domain/path/to/script.sh | bash -s arg1 arg2  # bash supports "-s" to read from stdin
 $ curl --silent --location https://rpm.nodesource.com/setup_7.x | bash -  # NodeJS 安装实例
+
+# 作为下载工具使用
+$ curl example.com -o com.html example.net -o net.html
+$ curl http://{site,host}.host[1-5].com -o "#1_#2"
 ```
 
 `man bash` 摘取的一些重要注释：

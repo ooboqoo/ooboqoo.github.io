@@ -255,6 +255,11 @@ $ git remote add <仓库别名> <网址>  # 添加远程仓库
 $ git remote rm <仓库别名>          # 删除一个仓库别名，并一同删除本地的相关分支内容和配置
 $ git remote show <仓库别名>        # 查看远程仓库的详细信息
 $ git remote rename <原仓库名> <新仓库名>  # 修改指向远程仓库的别名
+
+# 建立跟踪关系
+$ git branch -u origin/current-branch-name
+$ git push -u origin current-branch-name
+
 # 实现一个 git push 同时推送到多个远程仓库
 $ git remote set-url --add --push origin git://original/repo.git
 $ git remote set-url --add --push origin git://another/repo.git
