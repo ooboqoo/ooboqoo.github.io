@@ -90,6 +90,34 @@ alias ll="ls -lA"
 
 再附一篇教程：https://www.ibm.com/developerworks/linux/library/l-tip-prompt/
 
+
+## 软件包管理
+
+|               | CentOS                | Ubuntu
+|---------------|-----------------------|-------------------
+| 更新软件包列表 | 每次运行 yum 时自动执行 | `apt update`
+| 从仓库安装软件 | `yum install package` | `apt install package`
+| 安装本地软件包 | `rpm -i pkg.rpm`      | `dpkg -i pkg.deb`
+| 删除软件包     | `rpm -e package`      | `apt remove package`
+| 升级软件包     | `yum update`          | `apt upgrade`
+| 升级整个系统   | `yum upgrade`         | `apt dist-upgrade`
+
+```bash
+$ apt update             # 更新仓库列表
+$ apt upgrade            # 升级现有软件包
+$ apt install <pkgname>  # 安装新软件包
+
+$ apt show <pkgname>     # 查看软件包详细信息
+$ apt search <pattern>   # 搜索软件包
+
+$ apt check        # 检查是否存在有问题的依赖关系
+$ apt purge        # 彻底删除软件包(含配置文件)
+$ apt autoremove   # 仅删除不需要再次下载的软件包
+$ apt clean        # 删除本地缓存的所有升级包
+$ apt autoclean    # 删除本地缓存中无用的软件包
+```
+
+
 ## 系统服务
 
 实现某种 service 的程序称之为 daemon(守护进程)，启动 daemon 的进程通常会在服务名称之后加个 `d`。
@@ -156,6 +184,8 @@ $ systemctl start leanote.service
 
 ## 防火墙管理
 
+### CentOS
+
 官方文档：[RedHat 7 安全指南 - 中文版](https://access.redhat.com/documentation/zh-CN/Red_Hat_Enterprise_Linux/7/html/Security_Guide/sec-Using_Firewalls.html)
 
 FirewallD 提供了动态防火墙管理工具，不需要重启整个防火墙便可应用更改。拥有运行时配置和永久配置选项。它也支持允许服务或者应用程序直接添加防火墙规则的接口。 配置采用图形化管理工具 `firewall-config` 和命令行工具 `firewall-cmd`
@@ -174,6 +204,14 @@ $ firewall-cmd --state // 檢查防火牆狀態
 $ firewall-cmd --get-service // 在 FirewallD 的服務名稱
 $ firewall-cmd --query-service ssh //查詢服務的啟用狀態
 $ firewall-cmd --list-all // 查询开启的服务，简单明了
+```
+
+### Ubuntu
+
+```bash
+$ ufw app list
+$ ufw allow 'Nginx HTTP'
+$ ufw status
 ```
 
 
@@ -210,7 +248,3 @@ $ ip link set down eht1  # 关闭某个指定的网络接口
 $ ip route show          # 查看路由表
 $ ss -tp                 # 查看所有 tcp 端口，并显示使用的进程名 
 ```
-
-
-## SELinux 管理
-

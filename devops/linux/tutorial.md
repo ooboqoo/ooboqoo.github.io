@@ -1,7 +1,13 @@
 # Linux 学习笔记
 
+Ubuntu is probably better for Linux beginners because it’s easier to set up and use.  
+Debian is probably better for experienced users who want full control.  
+CentOS is probably better for businesses who want a more stable and secure Linux distro.
+
 
 ## 目录结构
+
+http://www.pathname.com/fhs/
 
 ```txt
 bin    用户命令目录 contains the essential user binaries (programs)

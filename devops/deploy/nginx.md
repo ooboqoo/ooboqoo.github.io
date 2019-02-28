@@ -15,7 +15,8 @@ $ systemctl start nginx php-fpm   # 先进行配置，然后执行此命令启�
 $ nginx                                     # 启动
 $ nginx -s [stop | quit | reload | reopen]  # 启动后就可以通过 -s 执行后续操作了
 
-$ tail /var/log/nginx/error.log  # 查看错误日志
+$ tail /var/log/nginx/error.log   # 查看错误日志
+$ tail /var/log/nginx/access.log  # 查看普通日志
 ```
 
 
@@ -31,7 +32,7 @@ http {
     server {
         listen       80 default_server;
         listen       [::]:80 default_server;
-        server_name  www.ngapps.cn;
+        server_name  ngapps.cn www.ngapps.cn;
         root         /var/www/ooboqoo.github.io;
 
         # Load configuration files for the default server block.

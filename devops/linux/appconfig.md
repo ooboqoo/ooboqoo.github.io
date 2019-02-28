@@ -17,6 +17,19 @@ $ firewall-cmd --permanent --add-service=http
 ```
 
 
+## MySQL 数据库
+
+```bash
+$ apt install mysql-server
+
+$ systemctl status mysql  # 查看是否启动
+$ systemctl enable mysql  # 配置开机启动
+$ systemctl start/stop/restart mysql  # 启动/停止/重启 MySQL
+
+
+```
+
+
 ## SSH 设置
 
 The SSH protocol (also referred to as Secure Shell) is a method for secure remote login from one computer to another.
@@ -211,5 +224,3 @@ $ firewall-cmd --reload
 $ firewall-cmd --list-all
 $ firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT_direct 1 -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 30 --hitcount 4 -j REJECT --reject-with tcp-reset
 ```
-
-
