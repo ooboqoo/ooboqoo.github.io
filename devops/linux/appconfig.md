@@ -1,4 +1,4 @@
-# Centos 7
+# Linux 应用配置
 
 
 ## HTTP 服务器
@@ -32,7 +32,7 @@ $ systemctl start/stop/restart mysql  # 启动/停止/重启 MySQL
 
 ## SSH 设置
 
-The SSH protocol (also referred to as Secure Shell) is a method for secure remote login from one computer to another.
+The SSH protocol (also called Secure Shell) is a method for secure remote login from one computer to another.
 
 ```bash
 $ firewall-cmd --permanent --add-port=3300/tcp  # 先开放端口，不然下次登不进去了

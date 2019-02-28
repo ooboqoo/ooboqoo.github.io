@@ -9,6 +9,11 @@ CentOS is probably better for businesses who want a more stable and secure Linux
 
 http://www.pathname.com/fhs/
 
+|          | shareable                  | unshareable
+|----------|----------------------------|--------------------
+| static   | /usr  /opt                 | /etc  /boot
+| variable | /var/mail  /var/spool/news | /var/run  /var/lock
+
 ```txt
 bin    用户命令目录 contains the essential user binaries (programs)
 sbin   系统管理命令(供超级用户使用)目录 contains essential system administration binaries
