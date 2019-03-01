@@ -25,8 +25,6 @@ $ apt install mysql-server
 $ systemctl status mysql  # 查看是否启动
 $ systemctl enable mysql  # 配置开机启动
 $ systemctl start/stop/restart mysql  # 启动/停止/重启 MySQL
-
-
 ```
 
 
@@ -59,40 +57,35 @@ ServerAliveCountMax 4
 
 ### RDP Tunnel
 
+```bash
+$ ssh
+  # -L local port forwarding
+  # -R remote port forwarding
+  # -D dynamic port forwarding
+  # -N 
+  # -f 
+```
+
 RDP(Remote Desktop Protocol)客户端 --外网--> 中转服务器 --内网--> 被控端(无外网IP)
 
 ```bash
 # RDP客户端
 $ ssh -L 1234:192.168.1.10:3389 root@45.33.0.1 -N
   #           被控机内网IP           中转服务器外网IP
-  # -L [bind_address:]port:host:hostport  指定转发规则
-  # 含义: 所有到本地 1234 端口的流量都由 1.2.3.4 服务器转发到 192.168.1.10:3389
+  # 含义: 所有到本地 1234 端口的流量都由 45.33.0.1 服务器转发到 192.168.1.10:3389 (这时一个根服务器同一个内网的机子)
 $ mstsc localhost:1234  # Remote Desktop Connection (Microsoft Terminal Services Client)
-```
-
-以下方案在 ALIYUN 跑通
-
-```bash
-# 受控端
-$ ssh 45.33.0.1 -N -R 8989:localhost:3389  # 8989 可任意更换其他端口，中转服务器内部中转用
-
-# RDP客户端
-$ ssh 45.33.0.1 -N -L 3389:localhost:8989
-$ mstsc localhost
 ```
 
 RDP客户端 --外网--> 中转服务器 --外网--> 被控端(无外网IP) &nbsp; // reverse SSH tunnel
 
 ```bash
-# 中转服务器
-$ vim /etc/ssh/sshd_config
-  # 添加或修改为 GatewayPorts yes
-$ systemctl reload ssh.service
+# 受控端
+$ ssh 45.33.0.1 -N -R 8989:localhost:3389  # 8989 可任意更换其他端口，中转服务器内部中转用
+  # 含义: 所有到 45.33.0.1 服务器 8989 端口的流量都转发到本机的 3389 端口
 
-# 被控端
-$ ssh -R 443:127.0.0.1:8080 root@45.33.0.1 -N
-  # 含义: 所有到 45.33.0.1 服务器 443 端口的流量都转发到本机的 8080 端口
-$ ssh root@45.33.0.1 -R 443:127.0.0.1:8080 -R 80:127.0.0.1:8080  # 同时转发多个端口
+# RDP客户端
+$ ssh 45.33.0.1 -N -L 3389:localhost:8989
+$ mstsc localhost
 ```
 
 ### 网页代理
@@ -100,32 +93,40 @@ $ ssh root@45.33.0.1 -R 443:127.0.0.1:8080 -R 80:127.0.0.1:8080  # 同时转发�
 用户电脑 --外网--> 中转服务器 --外网--> 代理服务器(无外网IP) --代理--> 目的网站
 
 ```bash
-# 中转服务器
-$ vim /etc/ssh/sshd_config
-  # 添加或修改为 GatewayPorts yes
-
 # 代理服务器执行
-$ ssh root@45.33.0.1 -f -N -R 1086
+$ ssh root@45.33.0.1 -f -N -R 2086
 
 # 用户电脑执行
-$ ssh root@45.33.0.1 -N -L 1086:localhost:1086
-$ curl --socks5 localhost:1086 http://ifconfig.io  # 验证 socks5 代理设置
+$ ssh root@45.33.0.1 -N -L 2086:localhost:2086
+$ curl --socks5 localhost:2086 http://ifconfig.io  # 验证 socks5 代理设置
 
 # 用户端 Git 设置 https://gist.github.com/laispace/666dd7b27e9116faece6
-$ git config --global http.https.github.com.proxy socks5h://localhost:1086  # http://
+$ git config --global http.https.github.com.proxy socks5h://localhost:2086  # http://
 $ vim ~/.ssh/config                                                         # ssh://
   # Host github.com
-  # ProxyCommand nc -X 5 -x localhost:1086 %h %p  # 刚开始 127.0.0.1 不来换成 localhost 好了
-  # ProxyCommand connect -S 127.0.0.1:1086 %h %p  # 上面那行 Linux 用，这行在 Windows 下用
-$ ALL_PROXY=socks5://localhost:1086 git clone https://github.com/some/one.git  # 单次使用
+  # ProxyCommand nc -X 5 -x localhost:2086 %h %p  # 刚开始 127.0.0.1 不来换成 localhost 好了
+  # ProxyCommand connect -S 127.0.0.1:2086 %h %p  # 上面那行 Linux 用，这行在 Windows 下用
+$ ALL_PROXY=socks5://localhost:2086 git clone https://github.com/some/one.git  # 单次使用
 ```
 
 用户电脑(访问外网部分受限) ----> 中转服务器(即代理服务器，可访问受限网站) ----> 目的网站
 
 ```bash
 # 用户电脑
-$ ssh root@45.33.0.1 -f -N -D 1086  # 在本机 1086 端口开 socks5 代理
-$ curl --socks5 localhost:1086 http://ifconfig.io  # 验证 socks5 代理设置
+$ ssh root@45.33.0.1 -f -N -D 2086  # 在本机21086 端口开 socks5 代理
+$ curl --socks5 localhost:2086 http://ifconfig.io  # 验证 socks5 代理设置
+```
+
+任意外网用户 --公网--> 中转服务器 ----> 自己在内网搭建的网站
+
+```bash
+# 中转服务器
+$ vim /etc/ssh/sshd_config
+  # 添加或修改为 GatewayPorts yes  # 出于安全考虑，默认不开放此选项，只有中转服务器内部的请求才会被中转
+$ systemctl reload ssh.service
+
+# 内网的网站服务器
+$ ssh root@45.33.0.1 -R 443:localhost:8080 -R 80:localhost:8080  # 同时转发多个端口
 ```
 
 
