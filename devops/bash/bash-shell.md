@@ -202,6 +202,10 @@ $ npm ls --depth=0   # 不带空格，工作正常
 # 错误用法
 $ npm ls --depth= 0  # xx 选项和参数间带空格，无效
 
+$ git bash --depth 1  # ok
+$ git bash --depth=1  # ok
+$ git bash --depth1   # xx
+
 # 短选项和其参数之间的空格可选
 $ du -d 1  # ok
 $ du -d1   # ok

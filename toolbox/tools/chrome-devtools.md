@@ -51,5 +51,8 @@ profileEnd(name?)  //
 **拷贝 HTML**  在 Elements 面板选中一个元素，然后 `Ctrl + c` 搞定
 
 
-
+```js
+// https://medium.freecodecamp.org/mutating-objects-what-will-be-logged-in-the-console-ffb24e241e07
+console.log(obj) // 查看对象时，点击展开 expand 时才会求值 lazy evaluate ，然后才固定下来 snapshotted
+```
 

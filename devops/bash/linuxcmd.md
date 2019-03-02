@@ -166,7 +166,7 @@ $ userdel [-r] username  # -r 连同用户的主文件夹也一起删除
 
 通常，我们要删除一个账号，可以手动将 /etc/passwd /etc/shadow 里面的该账号取消即可。
 
-另外，其实用户如果在系统上操作过一陈子的话，该用户在系统内可能会含有其他文件，可以先执行 find / -user uname 查出整个系统内属于 uname 的文件，然后再进行删除。
+另外，其实用户如果在系统上操作过一陈子的话，该用户在系统内可能会含有其他文件，可以先执行 find / -user username 查出整个系统内属于 username 的文件，然后再进行删除。
 
 #### `groupadd` 新增用户组
 
@@ -186,7 +186,7 @@ $ groupadd [-g gid][-r]  # -g 直接指定用户组；-r 新建系统用户组
 `jobs`         | 查看当前有多少在后台运行的命令
 `ps -ef`       | 列出系统中正在运行的进程 processes snapshot
 `fg [%jobnum]` | 将后台中的命令调至前台继续运行
-`bg [%jobnum]` | 将一个在后台暂停的命令，变成继续执行
+`bg [%jobnum]` | 将当前作业移到后台执行，或将一个后台暂停的任务切换为运行
 `kill`         | 发送信号给一个或多个进程（经常用来杀死一个进程）
 `top`          | linux下的任务管理器 h 帮助 q 退出 k+PID 结束进程 table of process
 

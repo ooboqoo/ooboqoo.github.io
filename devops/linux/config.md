@@ -37,7 +37,8 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # User specific aliases and functions
-alias ll="ls -lA"
+alias ll='ls -lA'
+alias gitpush='git add . && git commit -m "update" && git push $*'
 ```
 
 
@@ -80,10 +81,6 @@ export PS1="\[\e[0;32m\]\u@\h \W $ \[\e[m\]"  # 自定义提示符 `man bash` �
   # \e[  – Indicates the beginning of color prompt
   # x;ym – Indicates color code. Use the color code values mentioned below.
   # \e[m – indicates the end of color prompt
-
-# ~/.bashrc
-alias cp="cp -i"
-alias ll="ls -lA"
 ```
 
 详细的终端颜色配置说明 http://misc.flogisoft.com/bash/tip_colors_and_formatting
