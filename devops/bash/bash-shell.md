@@ -24,16 +24,98 @@ http://www.gnu.org/software/bash/manual/html_node/index.html
 Quoting is used to remove the special meaning of certain characters or words to the shell.
 
 ||
--------|--------------
+-------|----------------------------------------------------
  `\`   | 转义单个字符
  `''`  | 单引号内的所有内容都会被认为是普通字符串
  `""`  | 双引号内的字符串仅 `$` <code>\`</code> `\` 保留特殊含义
 
+```bash
+# Escape Character
+$ echo $HOME\n\n12\\3       # 打印 /Users/gavinnn12\3
+
+# Single Quotes
+$ echo '$HOME\n\n12\\3'     # 打印 $HOME\n\n12\\3
+
+# Double Quotes
+$ echo "$HOME\n\n12\\3"     # 打印 /Users/gavin\n\n12\3
+
+# ANSI-C Quoting
+$ echo $'$HOME\n\n12\\3'    # 打印 $HOME<空行>12\3
+
+# Locale-Specific Translation
+$ echo $"??"              # 用法不详
+```
+
+
 #### Comments
 
-`#` 及其后(在同一行内)的内容被视为注释
+`#` 及其后(在同一行内)的内容被视为注释。在交互模式下注释(默认)无效。
 
 ### Shell Commands
+
+`|` 管道  
+`;` 命令分隔 `newline` 命令分隔  
+`&` 开子shell执行(即后台执行)  
+`&&` 前个命令成功才会持续后一个命令 `||` 前一个命令失败才执行后一个命令
+
+#### Compound Commands
+
+Looping Constructs
+
+```bash
+until test-commands; do consequent-commands; done
+
+while test-commands; do consequent-commands; done
+
+for name [ [in [words ...] ] ; ] do commands; done
+
+for (( expr1 ; expr2 ; expr3 )) ; do commands ; done
+
+break   continue
+```
+
+Conditional Constructs
+
+```bash
+if test-commands; then
+  consequent-commands;
+[elif more-test-commands; then
+  more-consequents;]
+[else alternate-consequents;]
+fi
+
+case word in
+  [ [(] pattern [| pattern]...) command-list ;;]...
+esac
+
+select name [in words ...]; do commands; done
+```
+
+```bash
+echo -n "Enter the name of an animal: "
+read ANIMAL
+echo -n "The $ANIMAL has "
+case $ANIMAL in
+  horse | dog | cat) echo -n "four";;
+  man | kangaroo ) echo -n "two";;
+  *) echo -n "an unknown number of";;
+esac
+echo " legs."
+```
+
+Grouping Commands
+
+#### Coprocesses &amp; GNU Parallel
+
+```bash
+coproc [NAME] command [redirections]
+```
+
+`parallel`  can replace `xargs` or feed commands from its input sources to several different instances of Bash.
+
+```bash
+ls | parallel mv {} destdir
+```
 
 ### Shell Functions
 

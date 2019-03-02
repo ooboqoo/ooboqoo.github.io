@@ -4,10 +4,12 @@
 
 ### `curl` 调试利器
 
+client-side URL transfers
+
 内置的请求发送工具，一般用于模拟请求，测试 API。chrome 开发工具可以直接复制为 curl，很多 API 接口文档直接提供 curl 命令。默认输出 stdout，便于 pipe 到其他命令(常见的一句话安装 `curl xxx | bash`)。
 
 ```bash
-$ curl "http://www.baidu.com"      # 下载文件到本地
+$ curl "http://www.baidu.com"
   # -i --include    输出包含头部信息
   # -I --head       只显示头部信息
   # -v --verbose    显示详细解析过程，查看网址对应的 IP 很方便

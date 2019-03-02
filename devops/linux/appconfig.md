@@ -39,17 +39,24 @@ $ vim /etc/ssh/sshd_config  # 修改配置文件(参见下文)
 $ systemctl restart sshd    # 重启 SSH 服务
 ```
 
-*/etc/ssh/sshd_config* 或 *~/.ssh/config*
+服务器配置 */etc/ssh/sshd_config* (配置项说明 `man sshd_config`)
 
 ```bash
-# man ssg_config
+# man sshd_config
 
 Port 3300  # Vultr 东京只能用默认 22 端口，改了就连不了了
 Protocol 2
 
+ClientAliveInterval 60
+ClientAliveCountMax 4
+
 AuthorizedKeysFile .ssh/authorized_keys
 PasswordAuthentication no
+```
 
+客户端配置 *~/.ssh/config* (配置项说明 `man ssh_config`)
+
+```bash
 # 防止连接中断: 每 60s 发送一个空包，连续4次没收到响应就认为断了
 ServerAliveInterval 60
 ServerAliveCountMax 4
