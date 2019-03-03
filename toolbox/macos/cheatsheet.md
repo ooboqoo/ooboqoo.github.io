@@ -87,6 +87,8 @@ cmd+tab | Alt+Tab | 切换应用
 ----------|--------|-------
 ctrl+a    | Home   | `opt+left` 按词左跳  `cmd+Left` 跳到行首(非空格处)
 ctrl+e    | End    | `opt+right` 按词右跳  `cmd+right` 跳到行尾
+ctrl+b    | Left   | 左移一个字符 back
+ctrl+f    | Right  | 右移一个字符 forth
 fn+delete | Delete | 
 
 其他重要功能快捷键

@@ -80,11 +80,11 @@ $ sudo easy_install pip
 ```
 
 
-## 控制台细调
+## Terminal 微调
 
 macOS 中每开启一个终端，都会去调用 .bash_profile，所以在 .bash_profile 中并没有像 Linux 一样默认导入 .bashrc 配置项。所以将配置都放 .bash_profile 是可行的，但如果在 bash 中启动一个子 bash，这时就不会去加载 .bash_profile 中内容了。所以最好还是跟 Linux 习惯对其为好。
 
-.bash_profile
+*.bash_profile*
 
 ```sh
 # 自定义提示符 `man bash` 可查看详细说明
@@ -97,8 +97,18 @@ if [ -f ~/.bashrc ]; then
 fi
 ```
 
-.bashrc
+*.bashrc*
 
 ```sh
 alias ll="ls -l"
+```
+
+### 升级 Bash
+
+因为证书原因，macOS 中的 bash 版本一直停留在2007年发布的 v3 版，自己用还是升级到 v5 吧。
+
+```bash
+$ brew install bash
+$ sudo vim /etc/shells         # 追加 /usr/local/bin/bash 这样添加白名单后新 bash 才能作为 login shell
+$ chsh -s /usr/local/bin/bash  # 修改默认 shell
 ```

@@ -119,18 +119,143 @@ ls | parallel mv {} destdir
 
 ### Shell Functions
 
+```bash
+name () compound-command [ redirections ]
+
+function name [()] compound-command [ redirections ]
+```
+
+```bash
+foo () {
+> echo line1
+> echo line2
+> }
+# foo () { echo line1; echo line2; }
+foo  # 打印 line1\nline2
+
+unset -f foo
+foo  # command not found
+```
+
+`local`
+
+```bash
+func1 () {
+  local var='func1 local'
+  func2
+}
+func2 () {
+  echo "In func2, var = $var"  # var 的值为 'func1 local'
+}
+var=global
+func1
+```
+
 ### Shell Parameters
 
+```
+name=[value]
+```
+
+#### Positional Parameters
+
+```bash
+foo () { echo $1 ${10}; }           # $ 仅适用于1位数字时，${} 则一直适用
+foo a1 a2 a3 a4 a5 a6 a7 a8 a9 a10  # 打印 a1 a10
+```
+
+#### Special Parameters
+
+下面是一些特殊参数，这些参数都是只读的
+
+|||
+|------|---------------------------
+| `$*` | the positional parameters, starting from one.
+| `$@` | 
+| `$#` | 
+| `$?` | 
+| `$-` | 
+| `$$` | 当前 shell 进程的 ID
+| `$!` | 
+| `$0` | the name of the shell or shell script
+| `$_` | 文档看不太懂, 实测是最近一次控制台打印的值
+
 ### Shell Expansions
+
+The order of expansions is: brace expansion; tilde expansion, parameter and variable ex-
+pansion, arithmetic expansion, and command substitution (done in a left-to-right fashion);
+word splitting; and filename expansion.
+
+Brace Expansion
+
+```bash
+$ echo a{d,c,b}e  # 打印 ade ace abe
+```
+
+Tilde Expansion
+
+```bash
+$ echo ~/foo  # $HOME/foo
+$ ~gavin/foo  # /user/gavin/foo
+$ ~+/foo      # $PWD/foo
+```
+
+Shell Parameter Expansion
+
+```bash
+$ string=01234567890abcdefgh
+$ echo ${string:7}      # 7890abcdefgh
+$ echo ${string:7:2}    # 78
+$ echo ${string:7:-2}   # 7890abcdef
+$ echo ${string: -7}    # bcdefgh
+$ echo ${string: -7:-2} # bcdef
+
+$ set -- 01234567890abcdefgh
+$ echo ${1:7}           # 7890abcdefgh
+
+$ array[0]=01234567890abcdefgh
+$ echo ${array[0]:7}    # 7890abcdefgh
+
+$ array=(0 1 2 3 4 5 6 7 8 9 0 a b c d e f g h)
+$ echo ${array[@]:7:2}  # 7 8
+```
+
+Command Substitution `$(command)` or `'command'`
+
+```bash
+$ echo pwd $(pwd)    # pwd /root
+```
+
+Arithmetic Expansion `$(( expression ))`
+
+```bash
+$ echo $((1 + 9/2))  # 5
+```
+
+Process Substitution
+
+Word Splitting
+
+Filename Expansion
 
 ### Redirections
 
 ### Executing Commands
 
-### Shell Scripts
+
+## Shell Builtin Commands
 
 
-#### 常用快捷键
+## Shell Variables
+
+
+## Bash Features
+
+
+## Job Control
+
+
+## Command Line Editing
 
 |||
 |-----------|------------------
@@ -138,6 +263,38 @@ ls | parallel mv {} destdir
 | ctrl+l    | 清屏
 | ctrl+a    | 跳到行首
 | ctrl+e    | 跳到行尾
+| ctrl+f    | 右移一个字符
+| ctrl+b    | 左移一个字符
+| alt+f     | 右移一个单词
+| alt+b     | 左移一个单词
+
+### vi 模式
+
+https://github.com/pkrumins/bash-vi-editing-mode-cheat-sheet/
+
+```bash
+$ set -o vi  # 切换默认的 emacs 模式到 vi 模式
+```
+
+默认 vi 模式下无法区分当前处于编辑模式还是正常模式，可通过设置 Readline 的配置 _.inputrc_ 解决:
+
+```
+# requires >= Bash 4.3
+set show-mode-in-prompt on
+```
+
+在正常模式按 `v` 可输入大段命令并在保存时执行，默认用的 nano 编辑器，可设置 `EDITOR=vim` 或 `VISUAL=vi` 换成 vim。
+
+
+
+
+
+### Shell Scripts
+
+
+#### 常用快捷键
+
+
 
 
 #### 变量功能
