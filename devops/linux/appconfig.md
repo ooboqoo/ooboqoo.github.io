@@ -232,3 +232,95 @@ $ firewall-cmd --reload
 $ firewall-cmd --list-all
 $ firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT_direct 1 -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 30 --hitcount 4 -j REJECT --reject-with tcp-reset
 ```
+
+
+## V2Ray
+
+https://www.v2ray.com/
+
+### 主机选择
+
+检查 IP 是否被封(选能用的) https://ipcheck.need.sh/  
+查看路由详情(选速度快的) https://tools.ipip.net/traceroute.php  
+
+### 服务器
+
+```bash
+$ bash <(curl -L -s https://install.direct/go.sh)
+$ vim /etc/v2ray/config.json
+```
+
+基本设置
+
+```json
+{
+  "inbounds": [{
+    "port": 10086,  
+    "protocol": "vmess",
+    "streamSettings": {
+      "network": "kcp"  // 可能更快，也可能彻底被封或不稳定
+    },
+    "settings": {
+      "clients": [
+        {
+          "id": "bcfb353f-57ad-4478-8c86-101fa56a1e1c",
+          "level": 1,
+          "alterId": 128  // 使用的 alterID 数量（越大越不容易被识别，但消耗越大）
+        }
+      ]
+    }
+  }]
+}
+```
+
+动态端口
+
+```json
+{
+  "inbounds": [{
+    // ...
+    // 动态改变通信的端口，对抗对长时间大流量端口的限速封锁，也可能更快被封
+    "detour": {
+        "to": "vmess-detour-10000"
+    }
+  }],
+  "inboundDetour": [
+    {
+      "protocol": "vmess",
+      "port": "10000-10020",
+      "tag": "vmess-detour-10000",
+      "settings": {},
+      "allocate": {
+        "strategy": "random",
+        "concurrency": 3,
+        "refresh": 5
+      },
+      "streamSettings": {
+        "network": "kcp"
+      }
+    }
+  ]
+}
+```
+
+### 客户端
+
+Windows https://github.com/2dust/v2rayN/releases  
+Android https://github.com/2dust/v2rayNG/releases  
+macOS https://github.com/Cenmrev/V2RayX/releases
+
+V2RayX 安装稍微麻烦点，会提示要额外安装个小工具，然后还需要手动设置下开机自启动 `系统设置 -> 用户与组 -> 登录项`，另外 PAC 文件只包含了很少几个网址，需要从其他端拷贝一份，并修改以下内容
+
+```js
+var proxy = "SOCKS5 127.0.0.1:1081; SOCKS5 127.0.0.1:1081; DIRECT;"
+```
+
+### 相关文章
+
+IP 被墙检测及解决办法(SSR中文网) https://ssr.tools/772  
+SSR 项目介绍 http://www.ttlsa.com/news/popular-science-about-shadowsocks/
+
+候选供应商(要是封杀厉害就买现成的) https://justmysocks.net/  
+
+
+
