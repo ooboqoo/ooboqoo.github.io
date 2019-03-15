@@ -130,6 +130,30 @@ server {
 }
 ```
 
+#### 签发本地开发用证书
+
+https://www.linode.com/docs/security/ssl/create-a-self-signed-tls-certificate/
+
+```bash
+openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365
+  -nodes -subj '/CN-localhost'
+  -out local.crt -keyout local.key
+```
+
+_cert/config.js_
+
+```js
+const fs = require("fs")
+module.exports = {
+  cert: fs.readFileSync(__dirname + '/local.cert'),
+  key: fs.readFileSync(__dirname + '/local.key')
+}
+```
+
+```bash
+$ live-server --https=cert/config
+```
+
 ### 启用 gzip 压缩
 
 新建 /etc/nginx/conf.d/gzip.conf 并添加以下内容：

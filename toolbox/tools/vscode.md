@@ -8,43 +8,9 @@
 
 ## 类型检查
 
-#### js 项目类型检查报错
+### JavaScript 文件类型检查
 
-文档：[Type Checking and Quick Fixes for JavaScript Files](https://code.visualstudio.com/docs/languages/javascript#_type-checking-and-quick-fixes-for-javascript-files) / 
-[Global Variables and Type Checking](https://code.visualstudio.com/docs/languages/javascript#_global-variables-and-type-checking)
-
-只要安装 `@types` 下的包就不会再有报错，如果只是个别全局变量啥的，可以在项目根目录添加以下两个文件解决：
-
-```js
-// jsconfig.json
-{
-    "compilerOptions": { },
-    "exclude": [
-        "node_modules",
-        "**/node_modules/*"
-    ]
-}
-```
-
-```js
-// global.d.ts
-declare var anyGlobalVar: any;
-declare interface Window {
-    FileReader: any
-}
-
-// 方案2, 模块写法，前一种无效可试试这种方案，但官方文档用的第一种
-declare global {
-    var define;
-    var require;
-    var angular;
-    var $;
-    interface Window {  // vscode有提示只有在模块内才支持对 Window 的扩展
-        urlParams: any;
-    }
-}
-export {}
-```
+具体参见 TypeScript [JS 类型检查](/es-ts/#!ts/09-check-js.md) 章节
 
 
 ## 插件使用
