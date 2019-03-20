@@ -5,7 +5,7 @@
 随着 TypeScript 和 ES6 里引入了类，在一些场景下我们需要额外的特性来支持标注或修改类及类成员。  
 Decorators 提供了一种在类声明及类成员上使用元编程语法 meta-programming syntax 添加标注的方式。
 
-修饰器目前处在[建议征集的第一阶段](https://github.com/wycats/javascript-decorators/blob/master/README.md)，TypeScript 以实验性特性的形式提供了支持。  
+修饰器目前处在[建议征集的第二阶段](https://github.com/tc39/proposal-decorators)，TypeScript 以实验性特性的形式提供了支持。  
 若要启用实验性的修饰器特性，你必须在命令行或 `tsconfig.json` 里启用 `experimentalDecorators` 编译器选项。
 
 ## 修饰器

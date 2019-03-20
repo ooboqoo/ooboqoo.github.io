@@ -1,9 +1,116 @@
 # JavaScript 编码规范
 
-Google 基于 ES6 出的最新编码规范：https://google.github.io/styleguide/jsguide.html   
-50k stars 的编码规范：https://github.com/airbnb/javascript
+Google’s ES6 Style Guide: https://google.github.io/styleguide/jsguide.html  
+Airbnb JavaScript Style Guide: https://github.com/airbnb/javascript  
+JavaScript Standard Style Guide: https://github.com/standard/standard
 
 以下为自己采用的编码规范，每个规范会注明出处。
+
+## 命名规范  Naming Conventions
+
+https://medium.freecodecamp.org/javascript-naming-conventions-dos-and-don-ts-99c0e2fdd78a?gi=6fd69ae402f7
+
+> Most of these conventions are not for you today, but instead, for you and the people reading your code tomorrow.
+
+使用具描述性的名字  Use meaningful names.
+
+```js
+getUserPosts
+
+// bad  含义过于宽泛，不精确
+getUserData
+getUserInfo
+
+// bad  不要用单个单词的变量，当然如果只在很小的范围内使用的临时变量除外
+global.d = new Date()
+```
+
+用词应尽量精简，无法精简长些也无妨，不能为了精简而放弃语义  When in doubt, favor descriptive over concise.
+
+```js
+findUserByNameOrEmail
+setUserLoggedInTrue
+
+// bad  选词应该尽量精简，但必须保证语义的确定性
+findUser
+```
+
+```js
+getUserFriend
+
+// bad  FromDatabase 提供了多少附加信息? 这种可以精简掉
+getUserFriendFromDataBase
+```
+
+保证动词的统一性  Use consistent verbs per concept.
+
+`get` `set` `read` `create` `add` `update` `reset` `delete` `remove`
+
+```js
+getQuestion
+getUserPosts
+getUsers
+
+// bad  有很多近意动词，选一个一直用，不要变来变去
+getQuestion
+returnUsers
+retrieveUsers
+```
+
+布尔值的命名 Make booleans that read well in if-then statements.
+
+```js
+carIsSedan
+home.wasSold
+
+// bad
+sedan
+home.sold
+```
+
+类名用名词 Use nouns for class names.
+
+```js
+class Car { }
+new UserFriend()
+
+// bad  类本来就是一类事物的抽象，加动词干啥
+class MakeCar { }
+```
+
+两个字母的缩率词都大写，大于两个则改驼峰  Capitialize two-letter acronyms.
+
+```js
+let IO
+let modifiedIO
+
+// bad
+let newOTC
+let getUserIo
+```
+
+常量可以采用全大写的形似，但普通的 `const` 修饰的变量不应该大写  Capitalize constant values (if you want).
+
+```js
+const HOURS_IN_DAY = 24
+const USER_AGE = 30
+
+// bad  下面这些并不是常量，只是不会修改的变量
+const USER = foundUser
+const TODAY = new Date()
+```
+
+下划线是有特点意义的不要乱用  Avoid underscores in your names.
+
+```js
+this._myPrivateMethod = function () { }
+
+// bad
+const _someGlobalVar = 1
+```
+
+其他时候都统一用小驼峰形似 Use (lower) camelCase for everything else.
+
 
 ## Spaces, wrapping, and indentation
 

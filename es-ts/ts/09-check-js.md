@@ -1,58 +1,8 @@
 # JavaScript 文件类型检查
 
-https://medium.com/@trukrs/type-safe-javascript-with-jsdoc-7a2a63209b76
-
-```js
-/** @type {number} */
-var x
-
-class C {
-  constructor() {
-    /** @type {number | undefined} */
-    this.prop = undefined
-    /** @type {number | undefined} */
-    this.count
-  }
-}
-
-/** @type {{a: number}} */
-var obj = { a: 1 }
-
-/** @param {...number} args */
-function sum(/* numbers */) { }
-
-/** @enum {number} */
-const JSDocState = {
-  BeginningOfLine: 0,
-  SawAsterisk: 1,
-  SavingComments: 2,
-}
-
-```
-
-类型定义及跨文件复用
-
-_aa.js_
-
-```js
-/**
- * 服务端下发的音视频服务配置信息
- * @typedef {Object<string, any>} Config
- * @property {string} key  某KEY
- * @property {number} id   某ID
- */
-```
-
-_bb.js_
-
-```js
-/**
- * @typedef {import('aa').Config} Config
- */
-
-/** @param {Config} config */
-function foo (config) { }
-```
+http://usejsdoc.org/index.html  
+https://medium.com/@trukrs/type-safe-javascript-with-jsdoc-7a2a63209b76  
+https://github.com/google/closure-compiler/wiki/Annotating-JavaScript-for-the-Closure-Compiler
 
 
 ## VSCode
@@ -76,6 +26,8 @@ https://github.com/Microsoft/TypeScript/wiki/JsDoc-support-in-JavaScript
 
 `@type`
 
+http://usejsdoc.org/tags-type.html
+
 ```js
 /** @type {Window} */
 var win
@@ -86,18 +38,23 @@ var promisedString
 /** @type {HTMLElement} */
 var myElement = document.querySelector(selector)
 
-/** @type {string | boolean} */
+/** @type {string|boolean} */
 var sb
+
+/** @type {?number} nullable type */
+/** @type {!number} non-nullable type */
 
 /** @type {number[]} */
 var arr
 
 /** @type {Object.<string, any>}  specify object using standard JSDoc syntax*/
 var obj1
-/** @type {{[x: string]: any}}  specify object using Typescript syntax*/
+/** @type {Object<string, any>}  specify object using Closure syntax*/
 var obj2
-/** @type {{a: string, b: number}}  specify object literal types*/
+/** @type {{[x: string]: any}}  specify object using Typescript syntax*/
 var obj3
+/** @type {{a: string, b: number}}  specify object literal types*/
+var obj4 = {a: 'me', b: 123}
 
 /** @type {Function} */
 var fn1
@@ -106,23 +63,33 @@ var fn2
 /** @type {(s: string, b: boolean) => number}  Typescript syntax */
 var sfn3
 
+/**
+ * @param {number} [foo]    JSDoc's syntax for optional parameters
+ * @param {number} [foo=1]
+ * @param {number=} foo     Closure's syntax for optional argument
+ */
+function (foo) { }
+
+/** @param {...number} num */
+function sum (...nums) { return nums.reduce((a, b) => a += b, 0) }
+
 // Casts ===========================================================
 
-/** @type {number | string} */
+/** @type {number|string} */
 var numberOrString = Math.random() < 0.5 ? "hello" : 100
 var typeAssertedNumber = /** @type {number} */ (numberOrString)
 
 // Import types ====================================================
 'This syntax is Typescript-specific and differs from the JSDoc standard'
 
-/** @param p { import("./a").Pet } */
+/** @param {import("./a").Pet} p */
 function walk(p) { }
 
-/** @typedef Pet { import("./a").Pet } */
+/** @typedef {import("./a").Pet} Pet */
 /** @type {Pet} */
 var myPet
 
-/** @type {typeof import("./a").x }  直接导入一个变量的类型*/
+/** @type {typeof import("./a").x}  直接导入一个变量的类型*/
 var x = require("./a").x
 ```
 
