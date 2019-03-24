@@ -17,7 +17,7 @@ Vuex 使用单一状态树，用一个对象就包含了全部的应用层级状
 
 我们可以使用 `mapState` 辅助函数帮助我们生成计算属性，让你少按几次键。
 
-mapState 函数返回的是一个对象，借助对象展开运算符，可以方便地将改对象合并入 `computed` 对象。
+mapState 函数返回的是一个对象，借助对象展开运算符，可以方便地将该对象合并入 `computed` 对象。
 
 使用 Vuex 并不意味着你需要将所有的状态放入 Vuex。如果有些状态严格属于单个组件，最好还是作为组件的局部状态。
 
@@ -339,6 +339,19 @@ modules: {
 
 ##### 带命名空间的绑定函数
 
+```js
+new Vue({
+  methods: {
+    ...mapActions('moduleA', ['fooInModuleA']),
+    ...mapActions(['moduleA/barInModuleA']),
+    testit () {
+      this.fooInModuleA()
+      this['moduleA/barInModuleA']()
+    }
+  }
+})
+```
+
 #### 模块动态注册
 
 在 store 创建之后，你可以使用 `store.registerModule` 方法注册模块：
@@ -481,3 +494,15 @@ methods: {
 }
 ```
 
+
+## Flux &amp; Redux
+
+https://code-cartoons.com/a-cartoon-guide-to-flux-6157355ab207
+
+Flux
+
+![](https://cdn-images-1.medium.com/max/800/1*fWBaUg9-_1-V5M2YQBWhWg.png)
+
+Redux
+
+![](https://cdn-images-1.medium.com/max/800/1*Je2mow8mjYLngXreGGlIEg.png)

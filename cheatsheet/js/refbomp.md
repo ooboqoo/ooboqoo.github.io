@@ -119,6 +119,64 @@ socket.addEventListener('message', function (event) { console.log('Message from 
 
 ## Fetch
 
+```ts
+interface Body {
+    readonly body: ReadableStream<Uint8Array> | null;
+    readonly bodyUsed: boolean;
+    arrayBuffer(): Promise<ArrayBuffer>;
+    blob(): Promise<Blob>;
+    formData(): Promise<FormData>;
+    json(): Promise<any>;
+    text(): Promise<string>;
+}
+```
+```ts
+interface Request extends Body {
+    readonly cache: RequestCache;
+    readonly credentials: RequestCredentials;
+    readonly destination: RequestDestination;
+    readonly headers: Headers;
+    readonly integrity: string;
+    readonly isHistoryNavigation: boolean;
+    readonly isReloadNavigation: boolean;
+    readonly keepalive: boolean;
+    readonly method: string;
+    readonly mode: RequestMode;
+    readonly redirect: RequestRedirect;
+    readonly referrer: string;
+    readonly referrerPolicy: ReferrerPolicy;
+    readonly signal: AbortSignal;
+    readonly url: string;
+    clone(): Request;
+}
+
+declare var Request: {
+    prototype: Request;
+    new(input: RequestInfo, init?: RequestInit): Request;
+}
+```
+```ts
+interface Response extends Body {
+    readonly headers: Headers;
+    readonly ok: boolean;
+    readonly redirected: boolean;
+    readonly status: number;
+    readonly statusText: string;
+    readonly trailer: Promise<Headers>;
+    readonly type: ResponseType;
+    readonly url: string;
+    clone(): Response;
+}
+
+declare var Response: {
+    prototype: Response;
+    new(body?: BodyInit | null, init?: ResponseInit): Response;
+    error(): Response;
+    redirect(url: string, status?: number): Response;
+};
+```
+
+
 最简单的用法
 
 ```js
@@ -145,7 +203,6 @@ headers.delete('X-My-Custom-Header')
 
 // Request ===========================
 // 属性在新建时赋值后就不可更改  method  url  headers  body  credentials  ...
-// 
 const request = new Request('/some-url', {
   method: 'post',
   headers: {
