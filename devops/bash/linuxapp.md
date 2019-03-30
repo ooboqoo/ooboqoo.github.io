@@ -64,6 +64,8 @@ $ rsync -avzP --delete -e 'ssh -i /home/git/.ssh/id_rsa' /opt/project/dist/ dev@
 
 ### `crond` 计划任务服务
 
+> Systemd 也能设置定时任务，而且明显胜过 crond。
+
 ```bash
 $ systemctl enable crond.service  # 设置 cron 服务开机启动
 $ systemctl start crond.service   # 立即启动 cron 服务

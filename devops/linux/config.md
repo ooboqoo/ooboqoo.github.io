@@ -178,6 +178,40 @@ $ systemctl enable leanote.service
 $ systemctl start leanote.service
 ```
 
+### 设置定时任务
+
+Linux 系统通常都使用 cron 设置定时任务，但是 Systemd 也有这个功能，而且优点显著。
+
+**单元 Unit** 是 Systemd 的最小功能单位，是单个进程的描述。一个个小的单元互相调用和依赖，组成一个庞大的任务管理系统。
+
+由于 Systemd 要做的事情太多，导致单元有很多不同的种类，大概一共有12种。举例来说，Service 单元负责后台服务，Timer 单元负责定时器，Slice 单元负责资源的分配。
+
+每个单元都有一个单元描述文件，它们分散在三个目录:
+  * __/lib/systemd/system__ 系统默认的单元文件
+  * __/etc/systemd/system__ 用户安装的软件的单元文件
+  * __/usr/lib/systemd/system__ 用户自己定义的单元文件
+
+```bash
+# 查看所有 Timer 单元
+$ systemctl list-unit-files --type timer
+
+# 查看所有正在运行的定时器
+$ systemctl list-timers
+
+# 创建定时器，具体可参考 /lib/systemd/system/certbot.timer 和 /lib/systemd/system/certbot.service
+$ vim /usr/lib/systemd/system/mytimer.timer
+
+# 控制命令
+$ systemctl start   mytimer.timer  # 启动定时器
+$ systemctl stop    mytimer.timer  # 关闭定时器
+$ systemctl status  mytimer.timer  # 查看定时器状态
+$ systemctl enable  mytimer.timer  # 设置开机自启动
+$ systemctl disable mytimer.timer  # 取消开机自启动
+
+# 日志命令
+$ journalctl -u mytimer.timer
+```
+
 
 ## 防火墙管理
 

@@ -107,6 +107,25 @@ $ certbot certonly --webroot -w /var/www/example -d e.com -d www.e.com -w /var/w
 $ certbot renew --dry-run   # 测试能否自动更新证书
 # 添加包含左侧命令到一个 cron or systemd job 建议每天随机运行2次
 $ certbot renew --quiet --post-hook "nginx -s reload"
+# 新装的 certbot 已经默认配置好了定时更新任务，可通过以下方法确认
+$ systemctl list-unit-files --type timer
+```
+
+手动配置 systemd 定时任务更新证书:
+
+```
+$ vim /lib/systemd/system/certbot.timer
+
+[Unit]
+Description=Run certbot twice daily
+
+[Timer]
+OnCalendar=*-*-* 00,12:00:00
+RandomizedDelaySec=43200
+Persistent=true
+
+[Install]
+WantedBy=timers.target
 ```
 
 然后更新 Nginx 配置文件，添加

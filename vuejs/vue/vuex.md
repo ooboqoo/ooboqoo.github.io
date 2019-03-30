@@ -337,6 +337,18 @@ modules: {
 
 若需要在带命名空间的模块注册全局 action，你可添加 `root: true`，并将这个 action 的定义放在函数 handler 中。
 
+```js
+foo: {
+  namespaced: true,
+  actions: {
+    someAction: {
+      root: true,
+      handler (namespacedContext, payload) { ... }  // -> 'someAction'
+    }
+  }
+}
+```
+
 ##### 带命名空间的绑定函数
 
 ```js
