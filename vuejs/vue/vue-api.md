@@ -113,15 +113,22 @@ export default {
   // props 对象形式允许配置高级选项
   props: {
     // 检测类型
+    width: Number,
     height: [Number, String],
     // 检测类型 + 其他验证
+    name: {
+      type: String,
+      required: true,
+      validator: name => ['lucy', 'amber'].includes(name)
+    },
     age: {
       type: Number,
       default: 0,
-      required: true,
-      validator: function (value) {
-        return value >= 0
-      }
+      validator: value => value >= 0
+    },
+    tags: {
+      type: Array,
+      validator: tags => tags.every(tag => typeof tag === 'string' && tag.length > 3)
     }
   },
   data: function () {

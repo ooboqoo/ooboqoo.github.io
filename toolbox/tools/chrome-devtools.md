@@ -38,8 +38,8 @@ unmonitor(func)  // 停止监控指定函数
 monitorEvents(object, events?: [string])  // 在指定对象上发生指定事件时，打印 Event 对象
 unmonitorEvents(object, events?)          // 停止针对指定对象和事件的事件监控
 
-profile(name?)     // 
-profileEnd(name?)  // 
+profile(name?)     // 启动一个带有可选标签的 JavaScript CPU 分析会话
+profileEnd(name?)  // 停止当前分析会话，并将报告输出到 JavaScript Profile 面板
 ```
 
 **命令换行(暂不执行)**  在控制台中按 Shift + Enter 以开始一个新行

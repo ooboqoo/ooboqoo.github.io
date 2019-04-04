@@ -159,17 +159,33 @@ s.getItem(_keyName_) | 返回键名对应的记录 (string 类型)，如果 key 
 s.setItem(_key_, _value_) | 新建或修改记录，注意该方法可能抛异常(当存储空间不够时，异或是...)，返回 `undefind`
 s.removeItem(_keyName_)   | 移除一条记录，不管有没有记录被移除，该方法始终返回 `undefined`
 
+
 ## Console
 
 ||
 -----------------------------------|----------------------------------------
+console.error(...args)             | 打印一条错误消息
+console.warn(...args)              | 打印一条警告
 console.log(...args)               | 输出一段信息 [注]
-console.dir(obj)                   | 查看某个对象的属性，试试 `log` 和 `dir` 一个 HTML 元素看看差别
+console.info(...args)              | 基本同 console.log
+console.debug(...args)             | 基本同 console.log, 输出级别为 verbose
+console.dir(object)                | 查看某个对象的属性，试试 `log` 和 `dir` 一个 HTML 元素看看差别
 console.table(data, columns?)      | 以表格形式展现数据，data 必须为对象或数组
 console.assert(assertion, ...args) | 断言失败打印错误，断言成功就啥都不做
+console.trace(object)              | 打印当前位置的调用堆栈信息 stack trace
 ||
 console.time(label='default')      | 开启一个计时器(以记录一段操作的耗时)
 console.timeEnd(label='default')   | 结束一个计时器并在控制台打印结果(只打印无返回)
+console.profile(label?)            | 启动一个带有可选标签的 JavaScript CPU 配置文件
+console.profileEnd()               | 停止当前分析会话，并将报告输出到 JavaScript Profile 面板
+console.timeStamp(label?)          | 在录制会话期间向 Timeline 添加一个事件
+||
+console.clear()                    | 清空控制台内容
+console.count(label)               | 计算 label 的消息打印了多少条
+console.dirxml(object)             | 输出 object 子级元素的 XML 表示形式
+console.group(...args)             | 创建(展开的)消息组
+console.groupCollapsed(...args)    | 创建(折叠的)消息组
+console.groupEnd(...args)          | 结束消息组
 
 注： 格式说明符 Summary of formatting specifiers
 
@@ -181,3 +197,16 @@ console.timeEnd(label='default')   | 结束一个计时器并在控制台打印�
 `%o`      | Element is displayed with optimally useful formatting
 `%O`      | Element is displayed with generic JavaScript object formatting
 `%c`      | Applies provided CSS
+
+```js
+console.log('foo')
+console.log('foo123')
+console.count('foo')  // 1
+```
+
+```js
+console.group('消息组示例')
+console.log('a')
+console.warn('b')
+console.groupEnd()
+```
