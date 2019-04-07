@@ -219,15 +219,19 @@ SELECT order_num, COUNT(*) AS item_num FROM order_item
 
 ### 子查询 (SELECT...)
 
+子查询 subquery 即嵌套在其他查询中的查询。正常应使用联结，一般 DBMS 处理联结远比处理子查询要快地多。
+
 ```sql
-/* 利用子查询进行过滤 */
-SELECT cust_id FROM order WHERE order_num IN (
-    SELECT order_num FROM order_item WHERE prod_id = 'RGAN01'  -- 先执行子查询，完成后再执行父查询
+/* SUBQUERY 利用子查询进行过滤, 示例: 列出订购物品 TNT2 的所有客户信息 */
+SELECT cust_name, cust_contact FROM customer WHERE cust_id IN (
+  SELECT cust_id FROM orders WHERE order_num IN (
+    SELECT order_num FROM order_item WHERE prod_id = 'TNT2'  -- 先执行子查询再执行父查询
+  )
 );
-/* 作为计算字段使用子查询，正常应使用联结，一般 DBMS 处理联结远比处理子查询要快地多。 */
-SELECT cust_name, cust_state, (
-    SELECT COUNT(*) FROM order WHERE order.cust_id = customer.cust_id
-) AS order_num FROM customer ORDER BY cust_name;
+/* DEPENDENT SUBQUERY 作为计算字段使用子查询，示例: 显示每个客户的订单总数 */
+SELECT cust_id, cust_name, (
+  SELECT COUNT(*) FROM orders WHERE orders.cust_id = customer.cust_id  -- 先执行父查询再执行子查询
+) AS order_count FROM customer ORDER BY cust_id;
 ```
 
 ### 表联结 JOIN
@@ -243,37 +247,40 @@ SELECT column_name(s) FROM table1 INNER JOIN table2 ON table1.col_name = table2.
 ```sql
 /* 等值联结 */
 SELECT vend_name, prod_name, prod_price
-    FROM vendor, product WHERE vendor.vend_id = product.vend_id;
+FROM vendor, product
+WHERE vendor.vend_id = product.vend_id;
 /* 内联结 */
 SELECT vend_name, prod_name, prod_price
-    FROM vendor INNER JOIN product ON vendor.vend_id = product.vend_id;
+FROM vendor INNER JOIN product
+  ON vendor.vend_id = product.vend_id;
 /* 多表联结 */
-SELECT prod_name, vend_name, prod_price, quantity FROM order_item, product, vendor
-    WHERE product.vend_id = vendor.vend_id AND order_item.prod_id = product.prod_id;
+SELECT prod_name, vend_name, prod_price, quantity
+FROM order_item, product, vendor
+WHERE product.vend_id = vendor.vend_id
+  AND order_item.prod_id = product.prod_id;
 ```
 
 #### 自联结
 
-自联结其实是内联结的一种特殊用法。
+自联结其实是内联结的一种特殊用法，通常用来替代从相同表中检索数据时使用的子查询语句(通常自联结效率比子查询高)。
 
 ```sql
-SELECT c1.cust_id, c1.cust_name, c1.cust_contact FROM customer AS c1, customer AS c2
-    WHERE c1.cust_name = c2.cust_name AND c2.cust_contact = 'Jim Jones';
+/* 找出 TNT1 这个产品的供应商所供应的所有产品(可能 TNT1 出现了质量问题，需要排查该供应商的所有产品) */
+SELECT p1.prod_id, p1.prod_name
+FROM product AS p1, product AS p2
+WHERE p1.vend_id = p2.vend_id AND p2.prod_id = 'TNT1';
 ```
 
 #### 外联结
 
-* LEFT JOIN 跟 
+`LEFT OUTER JOIN` 内联结 + 左边表中没有关联的行  
+`RIGHT OUTER JOIN` 内联结 + 右边表中没有关联的行
 
 ```sql
-SELECT column_name(s) FROM table1 LEFT JOIN table2 ON table1.column_name=table2.column_name;
-SELECT column_name(s) FROM table1 RIGHT JOIN table2 ON table1.column_name=table2.column_name;
-```
-
-#### RIGHT JOIN
-
-```sql
-
+/* 检索所有客户及每个客户下的订单数量 */
+SELECT customer.cust_id, customer.cust_name, COUNT(order.order_num) AS order_count
+FROM customer LEFT OUTER JOIN `order` ON customer.cust_id = order.cust_id
+GROUP BY customer.cust_id;
 ```
 
 ### 组合查询 UNION
@@ -307,76 +314,6 @@ INSERT INTO table2 (column_name(s)) SELECT column_name(s) FROM table1;
 
 ```sql
 INSERT INTO customer (CustomerName, Country) SELECT SupplierName, Country FROM Suppliers WHERE Country='Germany';
-```
-
-
-## Administer
-
-#### 命令行批处理
-
-```bash
-# mysql -u root -p < filename.sql
-```
-
-```sql
-source file_name.sql
-```
-
-#### CREATE/DROP DATABASE
-
-```sql
-CREATE DATABASE database_name;
-
-DROP DATABASE database_name;
-```
-
-```sql
-CREATE USER username[@hostname]  [IDENTIFIED BY 'password'];
-```
-
-#### SHOW
-
-```sql
-SHOW DATABASES [like_or_where]
-SHOW TABLES [FROM database][like_or_where]
-SHOW COLUMS FROM table [FROM database][like_or_where]
-SHOW INDEX FROM table [FROM database]
-SHOW GRANTS FOR user
-DESCRIBE table [column]
-```
-
-```sql
-show databases;  -- 显示数据库列表
-show tables;     -- 显示当前数据库内的列表
-show columns from <table_name>;  -- 显示当前表的列
-describe <table_name>;           -- 效果同上
-show grants;    -- 显示授予用户的权限
-```
-
-#### GRANT
-
-```sql
-GRANT privileges [columns] ON item TO user_name [IDENTIFIED BY 'password']  
-  [REQUIRE ssl_options] [WITH [GRANT OPTION | limit_options] ]
-```
-
-#### REVOKE
-
-```sql
-REVOKE privileges [(columns)] ON item FROM user_name;
-REVOKE ALL PRIVILEGES, GRANT FROM user_name;
-```
-
-#### LOAD DATA INFILE
-
-```sql
-LOAD DATA INFILE "filename" INTO TABLE tablename;
-```
-
-#### OPTIMIZE
-
-```sql
-OPTIMIZE TABLE tablename;
 ```
 
 

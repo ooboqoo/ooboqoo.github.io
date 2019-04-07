@@ -19,6 +19,7 @@
 **行 row** - 表中的一个记录 record
 
 **主键 primary key** - 一列或一组列，其值能够唯一标识表中的每一行。(*唯一*、*非 NULL*) + (不可改、不重用)  
+**外键 foreign key** - 某个表中的一列，它包含另一个表的主键值，定义了两个表之间的关系。
 
 ### SQL
 
@@ -201,7 +202,7 @@ WHERE Vendors.vend_id = Products.vend_id;
 /* 内联结 */
 SELECT vend_name, prod_name, prod_price
 FROM Vendors INNER JOIN Products
-ON Vendors.vend_id = Products.vend_id;
+  ON Vendors.vend_id = Products.vend_id;
 ```
 
 #### WHERE 子句的重要性
@@ -214,7 +215,7 @@ ON Vendors.vend_id = Products.vend_id;
 
 #### 内联结
 
-等值联结，它基于两个表之间的相等测试。这种联结也称为内联结。但两种联结写法稍有差异，虽效果相同。
+等值联结，它基于两个表之间的相等测试。这种联结也称为内联结。
 
 ### 13.1 使用表别名
 

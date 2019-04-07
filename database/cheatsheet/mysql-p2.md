@@ -1,6 +1,76 @@
 # MySQL 速查表2
 
 
+## Administer
+
+#### 命令行批处理
+
+```bash
+$ mysql -u root -p < filename.sql
+```
+
+```sql
+SOURCE file_name.sql
+```
+
+#### CREATE/DROP DATABASE
+
+```sql
+CREATE DATABASE database_name;
+
+DROP DATABASE database_name;
+```
+
+```sql
+CREATE USER username[@hostname]  [IDENTIFIED BY 'password'];
+```
+
+#### SHOW
+
+```sql
+SHOW DATABASES [like_or_where]
+SHOW TABLES [FROM database][like_or_where]
+SHOW COLUMS FROM table [FROM database][like_or_where]
+SHOW INDEX FROM table [FROM database]
+SHOW GRANTS FOR user
+DESCRIBE table [column]
+```
+
+```sql
+show databases;  -- 显示数据库列表
+show tables;     -- 显示当前数据库内的列表
+show columns from <table_name>;  -- 显示当前表的列
+describe <table_name>;           -- 效果同上
+show grants;    -- 显示授予用户的权限
+```
+
+#### GRANT
+
+```sql
+GRANT privileges [columns] ON item TO user_name [IDENTIFIED BY 'password']  
+  [REQUIRE ssl_options] [WITH [GRANT OPTION | limit_options] ]
+```
+
+#### REVOKE
+
+```sql
+REVOKE privileges [(columns)] ON item FROM user_name;
+REVOKE ALL PRIVILEGES, GRANT FROM user_name;
+```
+
+#### LOAD DATA INFILE
+
+```sql
+LOAD DATA INFILE 'filename' INTO TABLE table_name;
+```
+
+#### OPTIMIZE
+
+```sql
+OPTIMIZE TABLE table_name;
+```
+
+
 ## 数据类型
 
 #### 串数据类型 Text types:
