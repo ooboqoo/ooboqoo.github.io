@@ -69,8 +69,8 @@ $ ssh
   # -L local port forwarding
   # -R remote port forwarding
   # -D dynamic port forwarding
-  # -N 
-  # -f 
+  # -N don't start a shell/command
+  # -f fork 后台运行
 ```
 
 RDP(Remote Desktop Protocol)客户端 --外网--> 中转服务器 --内网--> 被控端(无外网IP)

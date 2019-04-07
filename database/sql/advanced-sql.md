@@ -4,6 +4,8 @@ MySQL Explain详解 https://www.cnblogs.com/xuanzhi201111/p/4175635.html
 
 ## SQL 规范
 
+https://github.com/alibaba/p3c
+
 ### 一、基础规范
 
 1. 表存储引擎必须使用InnoDB。
@@ -22,7 +24,7 @@ MySQL Explain详解 https://www.cnblogs.com/xuanzhi201111/p/4175635.html
 3. **列名**：采用驼峰命名，如`userName`。
 4. 库备份必须以bak为前缀，以日期为后缀。
 
-## 三、设计规范
+### 三、设计规范
 
 1. 所有表必须有注释，描述该表作用。
 2. 除通用列外的其它列必须有注释，描述该列作用。
