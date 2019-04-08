@@ -176,6 +176,48 @@ SELECT cust_name, cust_state, (
 
 SQL 最强大的功能之一就是能在数据查询中执行联结。很好地理解联结及其语法是学习 SQL 的极为重要的部分。
 
+[文氏图演示，一图看懂表联结:](https://www.w3xue.com/exp/article/20191/19727.html)
+
+```sql
+CREATE TABLE `a` (`id` INT(6) NOT NULL AUTO_INCREMENT, `mark` CHAR(8) NOT NULL, PRIMARY KEY (`id`));
+CREATE TABLE `b` (`id` INT(6) NOT NULL AUTO_INCREMENT, `mark` CHAR(8) NOT NULL, PRIMARY KEY (`id`));
+
+INSERT INTO a VALUES (1, 'ab'), (2, 'a');
+INSERT INTO b VALUES (1, 'ab'), (3, 'b');
+
+/* INNER JOIN */
+SELECT a.id AS a_id, a.mark AS a_mark, b.id AS b_id, b.mark AS b_mark
+FROM a INNER JOIN b ON a.mark = b.mark;
+
+/* LEFT JOIN */
+SELECT a.id AS a_id, a.mark AS a_mark, b.id AS b_id, b.mark AS b_mark
+FROM a LEFT JOIN b ON a.mark = b.mark;
+
+/* RIGHT JOIN */
+SELECT a.id AS a_id, a.mark AS a_mark, b.id AS b_id, b.mark AS b_mark
+FROM a RIGHT JOIN b ON a.mark = b.mark;
+
+/* FULL OUTER JOIN (MySQL 不直接支持，通过 UNION 模拟实现) */
+SELECT * FROM a LEFT  JOIN b ON a.mark = b.mark
+UNION
+SELECT * FROM a RIGHT JOIN b ON a.mark = b.mark;
+
+/* LEFT JOIN EXCLUDING INNER JOIN */
+SELECT a.id AS a_id, a.mark AS a_mark, b.id AS b_id, b.mark AS b_mark
+FROM a LEFT JOIN b ON a.mark = b.mark
+WHERE b.mark IS NULL;
+
+/* RIGHT JOIN EXCLUDING INNER JOIN */
+SELECT a.id AS a_id, a.mark AS a_mark, b.id AS b_id, b.mark AS b_mark
+FROM a RIGHT JOIN b ON a.mark = b.mark
+WHERE a.mark IS NULL;
+
+/* FULL OUTER JOIN EXCLUDING INNER JOIN */
+SELECT * FROM a LEFT  JOIN b ON a.mark = b.mark WHERE b.mark IS NULL
+UNION ALL
+SELECT * FROM a RIGHT JOIN b ON a.mark = b.mark WHERE a.mark IS NULL;
+```
+
 ### 联结
 
 #### 关系表
@@ -223,11 +265,6 @@ FROM Vendors INNER JOIN Products
 SELECT cust_name FROM Customers AS C, Orders AS O WHERE C.cust_id = O.cust_id
 ```
 
-注：Oracle 中没有 AS 关键字，直接指定列名即可，上面的语句，到 Oracle 中的写法：
-
-```sql
-SELECT cust_name FROM Customers C, Orders O WHERE C.cust_id = O.cust_id
-```
 
 ### 13.2 使用不同类型的联结
 
@@ -270,6 +307,39 @@ SELECT C.*, O.order_num, O.order_date, OI.prod_id, OI.quantity, OI.item_price
 
 ## 组合查询
 
+利用 UNION 可把多条查询的结果作为一条组合查询返回。使用 UNION 可极大地简化复杂的 WHERE 子句，简化从多个表中检索数据的工作。
+
+组合查询通常称为 **并 union** 或 **复合查询 compound query**。
+
+有两种情况下需要使用组合查询：
+  * 在单个查询中从不同的表返回类似结构的数据
+  * 对单个表执行多个查询，按单个查询返回数据
+
+```sql
+/* 找出单价小于5的物品 + 供应商 1001 和 1002 生产的所有物品 */
+SELECT vend_id, prod_id, prod_price FROM product WHERE prod_price < 5
+UNION
+SELECT vend_id, prod_id, prod_price FROM product WHERE vend_id IN (1001, 1002);
+/* 或采用单条 SELECT 语句 */
+SELECT vend_id, prod_id, prod_price FROM product
+WHERE prod_price < 5 OR vend_id IN (1001, 1002);
+```
+
+#### UNION ALL 与 UNION
+
+`UNION` 会从查询结果集中自动去除重复的行，它的行为与单条 SELECT 语句中使用多个 WHERE 子句条件一样。  
+如果需要每个条件的匹配行全部出现(包括重复行)，则必须使用 `UNION ALL`。
+
+#### 对组合结果排序
+
+在用 `UNION` 查询时，只能使用一条 `ORDER BY` 子句，它必须出现在最后一条 SELECT 语句之后。对于结果集，不存在用一种方式排序一部分，而有用另一种方式排序另一部分的情况。
+
+```sql
+SELECT vend_id, prod_id, prod_price FROM product WHERE prod_price < 5
+UNION
+SELECT vend_id, prod_id, prod_price FROM product WHERE vend_id IN (1001, 1002)
+ORDER BY vend_id, prod_price;
+```
 
 ## 全文本搜索
 

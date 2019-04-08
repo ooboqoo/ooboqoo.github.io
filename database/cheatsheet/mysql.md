@@ -64,11 +64,14 @@ UPDATE customer SET contact_name='Alfred', city='Hamburg' WHERE customer_name='A
 #### INSERT INTO <small>插入记录</small>
 
 ```sql
-/* INSERT */
+/* INSERT INTO ... VALUES ...*/
 INSERT INTO table_name [(columns, ...)] VALUES (values, ...);
 
-/* INSERT SELECT */
-INSERT INTO table_name [(columns, ...)] SELECT columns, ... FROM table_name, ... [WHERE ...];
+/* INSERT INTO ... SELECT ... FROM ... */
+INSERT INTO table_name [(columns, ...)] SELECT columns, ... FROM table_name [WHERE ...];
+
+/* SELECT ... INTO ... FROM ... */
+SELECT column_name(s) INTO new_table_name [IN externaldb] FROM original_table_name;
 ```
 
 ```sql
@@ -83,6 +86,11 @@ INSERT INTO table2 (column_name(s)) SELECT column_name(s) FROM table1;  -- 插�
 INSERT INTO customer (customer_name, city, country) VALUES
   ('Cardinal', 'Stavanger', 'Norway'),
   ('Gavin', 'Shanghai', 'China');
+
+INSERT INTO customer (cust_name, country)
+SELECT supplier_name, country FROM supplier WHERE country = 'Germany';
+
+SELECT cust_name, contact_name AS contact INTO bak_customer_2013 FROM customer;
 ```
 
 #### DELETE FROM <small>删除记录</small>
@@ -283,7 +291,10 @@ FROM customer LEFT OUTER JOIN `order` ON customer.cust_id = order.cust_id
 GROUP BY customer.cust_id;
 ```
 
-### 组合查询 UNION
+### 组合查询/并 UNION
+
+`UNION` 会对结果进行去重，而 `UNION ALL` 不会去重。  
+使用 `UNION` 组合查询时只能出现一个 `ORDER BY` 子句。
 
 ```sql
 SELECT column_name(s) FROM table1 UNION (ALL) SELECT column_name(s) FROM table2;
@@ -292,26 +303,8 @@ SELECT column_name(s) FROM table1 UNION (ALL) SELECT column_name(s) FROM table2;
 PS: UNION returns only distinct values, and UNION ALL returns duplicate values also
 
 ```sql
-SELECT City, Country FROM customer WHERE Country='Germany' UNION ALL
-SELECT City, Country FROM Suppliers WHERE Country='Germany' ORDER BY City;
-```
-
-#### SELECT INTO (used to create backup copies of tables)
-
-```sql
-SELECT column_name(s) INTO new_table_name [IN externaldb] FROM original_table_name;
-```
-
-```sql
-SELECT CustomerName, ContactName AS NewName INTO customerBackup2013 FROM customer;
-```
-
-#### INSERT INTO SELECT
-
-```sql
-INSERT INTO table2 (column_name(s)) SELECT column_name(s) FROM table1;
-```
-
-```sql
-INSERT INTO customer (CustomerName, Country) SELECT SupplierName, Country FROM Suppliers WHERE Country='Germany';
+SELECT city, country FROM customer WHERE country='Germany'
+UNION ALL
+SELECT city, country FROM supplier WHERE country='Germany'
+ORDER BY city;
 ```
