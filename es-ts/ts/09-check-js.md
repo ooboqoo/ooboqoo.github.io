@@ -1,4 +1,4 @@
-# JavaScript 文件类型检查
+# JavaScript 类型检查
 
 http://usejsdoc.org/index.html  
 https://medium.com/@trukrs/type-safe-javascript-with-jsdoc-7a2a63209b76  
@@ -168,17 +168,20 @@ const Math = {
 
 ```
 
-### 类型检查报错解决
+## 类型检查报错解决
 
-文档：[Type Checking and Quick Fixes for JavaScript Files](https://code.visualstudio.com/docs/languages/javascript#_type-checking-and-quick-fixes-for-javascript-files) / 
-[Global Variables and Type Checking](https://code.visualstudio.com/docs/languages/javascript#_global-variables-and-type-checking)
+https://code.visualstudio.com/docs/languages/javascript
+
+### 全局变量
 
 只要安装 `@types` 下的包就不会再有报错，如果只是个别全局变量啥的，可以在项目根目录添加以下两个文件解决：
 
 ```js
 // jsconfig.json
 {
-    "compilerOptions": { },
+    "compilerOptions": {
+      "checkJs": true    // 官方文档说这项是默认添加的，实际没有，花了很多时间才发现这一点
+    },
     "exclude": [
         "node_modules",
         "**/node_modules/*"
@@ -187,24 +190,19 @@ const Math = {
 ```
 
 ```js
-// global.d.ts
+// globals.d.ts
 declare var anyGlobalVar: any;
 declare interface Window {
     FileReader: any
 }
-
-// 方案2, 模块写法，前一种无效可试试这种方案，但官方文档用的第一种
-declare global {
-    var define;
-    var require;
-    var angular;
-    var $;
-    interface Window {  // vscode有提示只有在模块内才支持对 Window 的扩展
-        urlParams: any;
-    }
-}
-export {}
 ```
 
+### 特定文件或行
 
+```js
+// @ts-ignore
+console.log('不会检查这一行')
 
+// @ts-nochek
+console.log('上面这一行放文件顶部，ts 就不会检查这个文件')
+```

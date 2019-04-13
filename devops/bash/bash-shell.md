@@ -257,23 +257,15 @@ Filename Expansion
 
 ## Command Line Editing
 
-|||
-|-----------|------------------
-| ctrl+r    | 搜索命令历史
-| ctrl+l    | 清屏
-| ctrl+a    | 跳到行首
-| ctrl+e    | 跳到行尾
-| ctrl+f    | 右移一个字符
-| ctrl+b    | 左移一个字符
-| alt+f     | 右移一个单词
-| alt+b     | 左移一个单词
-
 ### vi 模式
 
 https://github.com/pkrumins/bash-vi-editing-mode-cheat-sheet/
 
+Bash 默认用的 emacs 模式(该模式下快捷键参考 Emacs 笔记)，必要时可切换到 vi 模式。
+
 ```bash
-$ set -o vi  # 切换默认的 emacs 模式到 vi 模式
+$ set -o vi     # 切换默认的 emacs 模式到 vi 模式
+$ set -o emacs  # 切换回默认的 emacs 模式
 ```
 
 默认 vi 模式下无法区分当前处于编辑模式还是正常模式，可通过设置 Readline 的配置 _.inputrc_ 解决:
@@ -285,17 +277,7 @@ set show-mode-in-prompt on
 
 在正常模式按 `v` 可输入大段命令并在保存时执行，默认用的 nano 编辑器，可设置 `EDITOR=vim` 或 `VISUAL=vi` 换成 vim。
 
-
-
-
-
 ### Shell Scripts
-
-
-#### 常用快捷键
-
-
-
 
 #### 变量功能
 
