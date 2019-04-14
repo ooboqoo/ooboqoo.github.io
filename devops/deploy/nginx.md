@@ -151,6 +151,8 @@ server {
 
 #### 签发本地开发用证书
 
+https://letsencrypt.org/docs/certificates-for-localhost/  
+https://github.com/FiloSottile/mkcert  
 https://www.linode.com/docs/security/ssl/create-a-self-signed-tls-certificate/
 
 ```bash

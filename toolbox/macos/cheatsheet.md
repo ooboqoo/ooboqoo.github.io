@@ -106,7 +106,7 @@ cmd+,         | 打开当前应用的偏好设置
 
 ### Finder
 
-Finder 里没有剪切功能，使用 cmd+C 再 opt+cmd+V 来实现剪切
+Finder 里没有剪切功能，使用 cmd+C 再 opt+cmd+V 来实现剪切，在菜单栏 Edit 展开时按下 opt 键就能看到 Move Iterm Here 这一选项。
 
 ### Safari
 
