@@ -123,3 +123,46 @@ https://github.com/jbtronics/CrookedStyleSheets/blob/master/README.md
 ```
 
 
+## 数据上传
+
+### 页面关闭前统一返回数据
+
+http://www.ruanyifeng.com/blog/2019/04/user-tracking.html
+
+#### AJAX
+
+数据发回服务器的常见做法是，将收集好的用户数据，放在 `unload` 事件里面，用 AJAX 请求发回服务器。但是，异步 AJAX 在 unload 事件里面不一定能成功，因为网页已经处于卸载中，浏览器可能发送，也可能不发送。有几种解决的方案：
+  * 改成同步 AJAX 请求。这种方法最大的问题在于，浏览器逐步将不允许在主线程上面，使用同步 AJAX。
+  * unload 事件里面，必须有一些很耗时的同步操作。这样就能留出足够的时间，保证异步 AJAX 能够发送成功。
+  * setTimeout 延迟页面卸载以保证异步请求发送成功。
+
+#### 反弹追踪
+
+所谓"反弹追踪"，就是网页跳转时，先跳到一个或多个中间网址，以便收集信息，然后再跳转到原来的目标网址。谷歌和百度现在都是这样做，点击搜索结果时，会反弹多次，才跳到目标网址。
+
+```html
+<a id="target" href="https://baidu.com">click</a>
+<script>
+  const theLink = document.getElementById('target');
+  theLink.addEventListener('click', function (event) {
+    event.preventDefault();
+    window.location.href = '/jump?url=' + 
+      encodeURIComponent(theLink.getAttribute('href'));
+  });
+</script>
+```
+
+#### Beacon API
+
+上面这些做法，都会延缓网页卸载，严重影响用户体验。
+
+为了解决网页卸载时，异步请求无法成功的问题，浏览器特别实现了一个 Beacon API，允许异步请求脱离当前主线程，放到浏览器进程里面发出，这样可以保证一定能发出。
+
+```js
+window.addEventListener('unload', function (event) {
+  navigator.sendBeacon('/log', 'foo=bar')
+})
+```
+
+上面代码中，navigator.sendBeacon()方法可以保证，异步请求一定会发出。第一个参数是请求的网址，第二个参数是发送的数据。
+
