@@ -301,6 +301,12 @@ $ git push origin :tagname          # 删除远端标签
 $ git checkout -b version2 v2.0.0
 ```
 
+```bash
+$ git tag -l | xargs git tag -d  # 批量删除本地标签
+$ git fetch                      # 拉取远端标签
+$ git tag -l | xargs -n 1 git push --delete origin  # 批量删除远端标签
+```
+
 ### 其他操作
 
 ```bash

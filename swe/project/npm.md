@@ -1,4 +1,4 @@
-# NPM &amp; Yarn
+# NPM & Yarn
 
 ## NPM
 
@@ -41,6 +41,10 @@ $ npm config delete proxy  # 删除代理，恢复直连模式
 ```
 
 ```bash
+# npm view [<@scope>/]<name>[@<version>] [<field>[.<subfield>]...]
+$ npm view vue           # 查看包信息 aliases: info, show, v
+$ npm info vue versions  # 只查看包信息中的 versions 字段的详细信息
+
 $ npm home vue    # 打开项目主页
 $ npm repo react  # 打开项目代码仓库
 $ npm bugs react  # 打开项目 Issues 页
@@ -198,6 +202,21 @@ npm                                       | Yarn
 
 
 ## npm 发包指南
+
+```bash
+$ npm publish  # 推送新版到仓库，version 取自 package.json 中的 version 字段
+$ npm publish --tag dev  # 推送版本并添加 tag，如果 tag 已存在会更新到当前版本
+
+# npm version [<newversion> | major | minor | patch | prerelease | ...]
+# 更新版本号，npm version 操作会自动 commit 但不会自动 push 和 publish
+$ npm version patch  # 更新补丁版本号，package.json 中 version 的补丁版本号会递增
+$ npm version patch -m "Upgrade to %s for reasons"
+
+$ npm dist-tag add <pkg-name>@<version> <tag-name>  # 给已发布的版本添加 tag，该操作直接修改 registry
+
+# npm unpublish [<@scope>/]<pkg>[@<version>]
+$ npm unpublish <package-name> -f  # 从仓库删除整个包，在私有仓库这么干是OK的
+```
 
 https://www.jianshu.com/p/01df21c71407
 
