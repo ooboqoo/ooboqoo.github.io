@@ -46,3 +46,28 @@ script:
 
 https://docs.gitlab.com/ee/ci/yaml/
 
+```yaml
+variables:
+  NPM_REGISTRY: "npm.example.com"
+  NPM_AUTH_TOKEN: "Ddrwerwejkhkdf=="
+
+stages:
+  - deploy
+
+deploy-tags:
+  stage: deploy
+  only:
+    - tags
+  script:
+    - source build.sh
+
+deploy-branch:
+  stage: deploy
+  only:
+    - branches
+  script:
+    - mkdir dist
+    - cp package.json index.js dist
+    - cp -r src dist
+    - npm publish dist --force --tag dev
+```

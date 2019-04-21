@@ -19,76 +19,142 @@ http://www.gnu.org/software/bash/manual/html_node/index.html
 6. Executes the command.
 7. Optionally waits for the command to complete and collects its exit status.
 
-#### Quoting
+#### 字符串 Quoting
 
 Quoting is used to remove the special meaning of certain characters or words to the shell.
 
 ||
--------|----------------------------------------------------
- `\`   | 转义单个字符
- `''`  | 单引号内的所有内容都会被认为是普通字符串
- `""`  | 双引号内的字符串仅 `$` <code>\`</code> `\` 保留特殊含义
+|-------|----------------------------------------------------
+| `\`   | 转义单个字符
+| `''`  | 单引号内的所有内容都会被认为是普通字符串
+| `""`  | 双引号内的字符串仅 `$` <code>\`</code> `\` 保留特殊含义
 
 ```bash
 # Escape Character
+# 没有用引号包裹的 \ 表示保留紧随字符的字面意义，当用在行尾时取消换行执行功能
 $ echo $HOME\n\n12\\3       # 打印 /Users/gavinnn12\3
 
-# Single Quotes
+# Single Quotes    ''
+# 单引号内的所有内容都会被认为是普通字符串，字符串内无法出现 '
 $ echo '$HOME\n\n12\\3'     # 打印 $HOME\n\n12\\3
 
-# Double Quotes
+# Double Quotes    ""
+# 双引号内的字符串仅 $ ` \ 保留特殊含义，\ 仅在 $ ` " \ newline 前才被认为是转义符
 $ echo "$HOME\n\n12\\3"     # 打印 /Users/gavin\n\n12\3
 
-# ANSI-C Quoting
+# ANSI-C Quoting    $''
+# 根据 ANSI C 标准处理特殊字符，如 \b \n \t \nnn \xHH
 $ echo $'$HOME\n\n12\\3'    # 打印 $HOME<空行>12\3
 
-# Locale-Specific Translation
-$ echo $"??"              # 用法不详
+# Locale-Specific Translation    $""
+# 当 locale 是 C 或 POSIX 时会忽略前置 $
+$ echo $"$HOME\n\n12\\3"
 ```
 
-
-#### Comments
+#### 注释 Comments
 
 `#` 及其后(在同一行内)的内容被视为注释。在交互模式下注释(默认)无效。
 
+没有多行注释。如需临时注释大段代码，可以用一对花括号括起来，定义成一个函数，以起到和注释一样的效果。
+
 ### Shell Commands
 
-`|` 管道  
-`;` 命令分隔 `newline` 命令分隔  
-`&` 开子shell执行(即后台执行)  
-`&&` 前个命令成功才会持续后一个命令 `||` 前一个命令失败才执行后一个命令
+#### 简单命令 Simple Commands
 
-#### Compound Commands
+命令分隔(结束)符 `;` `newline`
 
-Looping Constructs
+#### 管道 Pipelines
 
 ```bash
-until test-commands; do consequent-commands; done
-
-while test-commands; do consequent-commands; done
-
-for name [ [in [words ...] ] ; ] do commands; done
-
-for (( expr1 ; expr2 ; expr3 )) ; do commands ; done
-
-break   continue
+[time [-p]] [!] command1 [ | or |& command2 ] …
 ```
 
-Conditional Constructs
+管道符 `|` `|&` (`|&` 会同时传递 stderr，即相当于 `2>&1` 的简写)  
+
+#### 命令串 Lists of Commands
+
+A list is a sequence of one or more pipelines separated by one of the operators `;` `&` `&&` `||`, and optionally terminated by one of `;` `&` `newline`.
+
+`&` 开子 shell 执行命令(即后台执行)  
+`&&` 前个命令成功才会持续后一个命令  
+`||` 前一个命令失败才执行后一个命令  
+`;` 不考虑指令间的相关性，连续执行指令
+
+#### 复合命令 Compound Commands
+
+##### 循环结构 Looping Constructs
 
 ```bash
+# until
+until test-commands; do consequent-commands; done
+# while
+while test-commands; do consequent-commands; done
+# for
+for name [ [in [words ...] ] ; ] do commands; done
+# for
+for (( expr1 ; expr2 ; expr3 )) ; do commands ; done  # ) ; 中间的空格不能省
+# break  continue
+```
+
+不定循环
+
+```bash
+while [[ "$yn" != "yes" -a "yn" != "YES" ]]
+do
+  read -p "Please input yes/YES to stop this program: " yn
+done
+
+until [ "$yn" != "yes" -o "yn" != "YES" ]
+do
+  read -p "Please input yes/YES to stop this program: " yn
+done
+```
+
+固定循环
+
+```bash
+users=$(cut -d ':' -f1 /etc/passwd)
+for username in $users
+do
+  id $username
+done
+
+for char in a b c; do echo $char; done
+for (( i=1; i<5; i++ )) ; do echo $i; done
+```
+
+##### 条件结构 Conditional Constructs
+
+```bash
+# if
 if test-commands; then
   consequent-commands;
 [elif more-test-commands; then
   more-consequents;]
 [else alternate-consequents;]
 fi
-
+# case
 case word in
   [ [(] pattern [| pattern]...) command-list ;;]...
 esac
-
+# select
 select name [in words ...]; do commands; done
+```
+
+```bash
+(( expression ))  # let "expression"
+[[ expression ]]
+( expression )
+! expression
+expression1 && expression2
+expression1 || expression2
+```
+
+```bash
+if [[ $(diff package.json ../package.json) != '' ]]; then
+  cp -f package.json ../package.json
+  npm install
+fi
 ```
 
 ```bash
@@ -103,9 +169,14 @@ esac
 echo " legs."
 ```
 
-Grouping Commands
+##### Grouping Commands
 
-#### Coprocesses &amp; GNU Parallel
+```bash
+( list )   # 新开一个 subshell 来执行命令
+{ list; }  # 在当前 shell 执行命令，list 后面必须带 `;` 或 `newline`
+```
+
+#### Coprocesses & GNU Parallel
 
 ```bash
 coproc [NAME] command [redirections]
@@ -119,22 +190,27 @@ ls | parallel mv {} destdir
 
 ### Shell Functions
 
-```bash
-name () compound-command [ redirections ]
+Shell functions are a way to group commands for later execution using a single name for the group. They are executed just like a "regular" command. Shell functions are executed in the current shell context; no new process is created to interpret them.
 
+```bash
+# 格式1  省略 function 关键字
+name () compound-command [ redirections ]
+# 格式2  使用 function 关键字
 function name [()] compound-command [ redirections ]
+# 删除函数定义
+$ unset -f name
 ```
 
 ```bash
-foo () {
+$ foo () {
 > echo line1
 > echo line2
 > }
 # foo () { echo line1; echo line2; }
-foo  # 打印 line1\nline2
+$ foo  # 打印 line1\nline2
 
-unset -f foo
-foo  # command not found
+$ unset -f foo
+$ foo  # command not found
 ```
 
 `local`
@@ -182,17 +258,15 @@ foo a1 a2 a3 a4 a5 a6 a7 a8 a9 a10  # 打印 a1 a10
 
 ### Shell Expansions
 
-The order of expansions is: brace expansion; tilde expansion, parameter and variable ex-
-pansion, arithmetic expansion, and command substitution (done in a left-to-right fashion);
-word splitting; and filename expansion.
+The order of expansions is: brace expansion; tilde expansion, parameter and variable expansion, arithmetic expansion, and command substitution (done in a left-to-right fashion); word splitting; and filename expansion.
 
-Brace Expansion
+#### Brace Expansion
 
 ```bash
 $ echo a{d,c,b}e  # 打印 ade ace abe
 ```
 
-Tilde Expansion
+#### Tilde Expansion
 
 ```bash
 $ echo ~/foo  # $HOME/foo
@@ -200,7 +274,18 @@ $ ~gavin/foo  # /user/gavin/foo
 $ ~+/foo      # $PWD/foo
 ```
 
-Shell Parameter Expansion
+#### Shell Parameter Expansion
+
+|                      | 参数存在并非 null | 参数存在但是 null | 参数不存在
+|----------------------|------------------|------------------|-------------
+| `${parameter:-word}` | ${parameter}     | word             | word
+| `${parameter-word}`  | ${parameter}     | null             | word
+| `${parameter:=word}` | ${parameter}     | assign word      | assign word
+| `${parameter=word}`  | ${parameter}     | null             | assign word
+| `${parameter:?word}` | ${parameter}     | error, exit      | error, exit
+| `${parameter?word}`  | ${parameter}     | null             | error, exit
+| `${parameter:+word}` | word             | null             | null
+| `${parameter+word}`  | word             | word             | null
 
 ```bash
 $ string=01234567890abcdefgh
@@ -220,13 +305,17 @@ $ array=(0 1 2 3 4 5 6 7 8 9 0 a b c d e f g h)
 $ echo ${array[@]:7:2}  # 7 8
 ```
 
-Command Substitution `$(command)` or `'command'`
+#### Command Substitution
+
+`$(command)` or `` `command` ``
 
 ```bash
 $ echo pwd $(pwd)    # pwd /root
 ```
 
-Arithmetic Expansion `$(( expression ))`
+#### Arithmetic Expansion
+
+`$(( expression ))`
 
 ```bash
 $ echo $((1 + 9/2))  # 5
@@ -240,7 +329,27 @@ Filename Expansion
 
 ### Redirections
 
+`>` `>|` `<` `>>` `<<` `<>` `<<<`
+
+3.6.1 Redirecting Input  
+3.6.2 Redirecting Output  
+3.6.3 Appending Redirected Output  
+3.6.4 Redirecting Standard Output and Standard Error  
+3.6.5 Appending Standard Output and Standard Error  
+3.6.6 Here Documents  
+3.6.7 Here Strings  
+3.6.8 Duplicating File Descriptors  
+3.6.9 Moving File Descriptors  
+3.6.10 Opening File Descriptors for Reading and Writing
+
 ### Executing Commands
+
+3.7.1 Simple Command Expansion  
+3.7.2 Command Search and Execution  
+3.7.3 Command Execution Environment  
+3.7.4 Environment  
+3.7.5 Exit Status  
+3.7.6 Signals
 
 
 ## Shell Builtin Commands
@@ -277,20 +386,12 @@ set show-mode-in-prompt on
 
 在正常模式按 `v` 可输入大段命令并在保存时执行，默认用的 nano 编辑器，可设置 `EDITOR=vim` 或 `VISUAL=vi` 换成 vim。
 
+在 emacs 模式下按 `C-xC-e` 也可输入大段命令，具体参阅 man 中的 edit-and-execute-command 部分。
+
+
+## 待整理
+
 ### Shell Scripts
-
-#### 变量功能
-
-为了与自定义变量区分，环境变量通常以大写字符来表示：PATH HOME MAIL SHELL
-
-```bash
-$ echo $var / ${var}                   # 两种显示变量的方式
-$ work="/var/www/html/project/p2file"  # 设定变量时中间不能有空格, CMD 下要以 set 开头，而 Bash 下不带 set
-$ unset work                           # 删除变量；
-$ export work                          # 导出为环境变量
-$ env                   # 查看环境变量
-$ set                   # 查看所有变量(环境变量+自定义变量)
-```
 
 #### bash 环境配置
 
@@ -315,23 +416,6 @@ $ set                   # 查看所有变量(环境变量+自定义变量)
 |:-----:|--------------------------------------------
 | `^C`  | intr 终止目前的命令 interrupt
 | `^D`  | eof 输入结束（end of file）
-| `^U`  | kill 删除整行命令 erase the current line
-
-#### 通配符与特殊符号
-
-在 bash 的操作环境中有一个非常有用的功能，那就是通配符 wildcard，它使我们处理数据更加方便。
-
-| | |
-|:------:|----------------------------------------------------------------------------------------
-| `*`    | 代表 0个到无穷多个字符
-| `?`    | 代表单个字符
-| `[]`   | 代表一个字符，如 `[abc]` 表示abc其中的一个字符；`[0-9]` 代表数字 `[^ab]` 表示ab字符以外的任意字符
-
-```bash
-$ ls /etc/cron*    # 找出以 cron 开头的文件
-$ ls /etc/*[0-9]*  # 找出至少包含单个数字的文件
-$ ls /etc/[^a-z]*  # 找出不是小写字母开头的文件
-```
 
 bash 中常见的特殊符号汇总：
 
@@ -352,7 +436,7 @@ bash 中常见的特殊符号汇总：
 | `" "`  | 双引号，具有变量置换功能
 | `` ` ` ``   | 反单引号，包含的命令优先执行，执行结果加入原命令继续执行。`$()`效果相同，更为推荐使用
 | `( )`  | 1. 命令替换 `$(cmd)` 或<br> 2. 命令块，重新开一个子 shell 执行内部命令块
-| `{ }`  | 1. 变量原型 `${var}` 或<br> 2. 命令块，在当前 shell 执行，第一个命令和左括号之间必须要有一个空格<br> 3. 扩展表达式，`echo file.{png,jpg}` 展开成 file.png file.jpg; `echo {1..5}` 展开成 1 2 3 4 5
+| `{ }`  | 1. 变量原型 `${var}` 或<br> 2. 命令块，在当前 shell 执行，第一个命令和左括号之间必须要有一个空格<br> 3. 扩展表达式
 
 ```bash
 $ find /home -name .bashrc > list_right 2> list_error  # 将 stdout stderr 分别存到不同文件
@@ -370,14 +454,6 @@ $ cat > catfile << "eofdd"
 带空格的文件夹处理：1 使用转义'\ ' 2 使用引号。
 
 命令里哪里加空格哪里不加：一般主命令 和 选项命令 以及后面的参数之间都有空格。
-
-#### 一次输入多个命令
-
-想一次执行多个指令，一种方法是采用 shell 脚本，而又一个方法是，一次性输入多个指令。
-
-* `;` 不考虑指令间的相关性，连续执行指令
-* `&&` 前一个指令执行成功才执行下一个指令
-* `||` 前一个指令执行失败才执行下一个指令
 
 ##### 指令回传值
 

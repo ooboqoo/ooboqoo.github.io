@@ -15,23 +15,30 @@ Shell script 是利用 shell 的功能所写的程序，将一些 shell 的语�
 http://linux.vbird.org/linux_basic/0320bash.php#variable_var
 
 ```bash
-name="gavin"  # 定义变量，没有前导`$`符号，变量名和等号之间不能有空格（这点可能与常见编程语言都不一样）
-echo $name    # 使用变量，方式1: 变量名前加`$`，省掉了可选的花括号，但应付不了 `echo $nameotherwords` 这种场景
-echo ${name}  # 使用变量，方式2: 采用 `${ }`，添加了可选的花括号，`${name}otherwords`，推荐用这种方式
-name="ivan"   # 重定义变量
-echo $name      # 打印 ivan
-echo ${name:-123} # "Parameter Expansion" 如果 $name 不存在就返回 123
+$ name="gavin"  # 定义变量，没有前导`$`符号，变量名和等号之间不能有空格（这点可能与常见编程语言都不一样）
+$ echo $name    # 使用变量，省掉了可选的花括号，`$nameotherwords` 无法正确解析
+$ echo ${name}  # 使用变量，添加了可选的花括号，`${name}otherwords`，推荐用这种方式
+$ name="ivan"       # 重定义变量
+$ echo $name        # 打印 ivan
+$ echo ${name:-123} # "Parameter Expansion" 如果 $name 不存在就返回 123
 ```
 
 注：引用变量时，变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界。
+
+```bash
+$ unset work                           # 删除变量；
+$ export work                          # 导出为环境变量
+$ env                   # 查看环境变量
+$ set                   # 查看所有变量(环境变量+自定义变量)
+```
 
 #### 变量的设定规则
 
 * 定义变量时，变量与变量内容以一个等号 `=` 来连结，**变量名和等号之间不能有空格**
 * 变量名称只能是英文字母与数字，但是开头字符不能是数字
-* 变量内容若含有空白字符可使用双引号 `"` 或单引号 `'`，双引号内的特殊字符保留其原意，单引号内的特殊字符则只按一般字符(纯文字)处理
+* 变量内容若含有空白字符可使用双引号 `"` 或单引号 `'`，双引号内的特殊字符有效，单引号内的特殊字符作为纯文本处理
 * 可用转义字符 `\` 将特殊符号(如 换行, 空格, `$`, `\`, `'` 等)变成一般字符
-* 在一串指令的执行中，还需要藉由其他额外的指令所提供的信息时，可以使用反单引号`` `指令` ``或`$(指令)`。
+* 在一串指令的执行中，还需要藉由其他额外的指令所提供的信息时，可以使用反单引号`` `指令` `` 或 `$(指令)`。
 * 若该变量需要在其他子程序执行，则需要以 `export` 来使变量变成环境变量，如 `export PATH`。<br>通常大写字符为系统预设变量，自行设定变量可以使用小写字符，方便判断(纯粹依照使用者兴趣与嗜好) 
 * 取消变量的方法为用 `unset 变量名称`
 
@@ -43,12 +50,12 @@ echo ${name:-123} # "Parameter Expansion" 如果 $name 不存在就返回 123
 
 #### 用户输入、数组 与 声明
 
-`read` 指令用于接收用于录入信息，格式为：
+`read` 指令用于接收用户录入信息，格式为：
 
 ```bash
 $ read [-pt] variableName
-  -p 后面可以接提示信息
-  -t 用于指定等待的秒数，默认一直等待
+  -p  prompt 后面可以接提示信息
+  -t  timeout 用于指定等待的秒数，默认一直等待
 ```
 
 ```bash
@@ -60,7 +67,8 @@ echo -e "\nYour full name is: $firstname $lastname"
 `declare` / `typeset` 两者功能是一样的，用于声明变量的类型
 
 ```bash
-$ declare [-aixr] variable
+# Set variable values and attributes.
+$ declare [-aAfFgilnrtux] [-p] [name[=value] ...]
   -a ：将后面名为 variable 的变量定义成为数组 (array) 类型
   -i ：将后面名为 variable 的变量定义成为整数数字 (integer) 类型
   -x / +x ：用法与 export 一样，就是将后面的 variable 变成环境变量；+x 用于把变为环境变量的普通变量变回来
@@ -103,35 +111,14 @@ shift 3
 echo "Total parameter number is ==> $#"  # 此处输出为 1
 ```
 
-#### Parameter Expansion
+#### 环境变量
 
-|                      | 参数存在并非 null  | 参数存在但是 null | 参数不存在
-|----------------------|--------------------|-------------------|-------------
-| `${parameter:-word}` | ${parameter}       | word              | word
-| `${parameter-word}`  | ${parameter}       | null              | word
-| `${parameter:=word}` | ${parameter}       | assign word       | assign word
-| `${parameter=word}`  | ${parameter}       | null              | assign word
-| `${parameter:?word}` | ${parameter}       | error, exit       | error, exit
-| `${parameter?word}`  | ${parameter}       | null              | error, exit
-| `${parameter:+word}` | word               | null              | null
-| `${parameter+word}`  | word               | word              | null
-
-
-### 注释
-
-```bash
-# This line is a comment.
-echo "hello"  # Comments may also occur following the end of a command.
-    # Comments may also follow whitespace at the beginning of a line.
-    #+ and the following + sign helps to indicate the line break.
-```
-
-sh 里没有多行注释，只能每一行加一个#号。如果在开发过程中，遇到大段代码需要临时注释起来，可以把这段要注释的代码用一对花括号括起来，定义成一个函数，没有地方调用这个函数，这块代码就不会执行，达到了和注释一样的效果。
+为了与自定义变量区分，环境变量通常以大写字符来表示：PATH HOME MAIL SHELL
 
 ### 其他语法
 
 |||
-|--------|---------------------------------------------------------------------------------
+|---------|---------------------------------------------------------------------------------
 | `.`     | 与 `source` 命令一样，从文件中读取并执行命令。
 | `:`     | 该命令什么都不做，但执行后会返回一个正确的退出代码，即 exit 0。比如用在 if 语句中。
 | `( )`   | 在子 shell 中执行命令块（多个命令组合组成的命令组）。
@@ -139,19 +126,6 @@ sh 里没有多行注释，只能每一行加一个#号。如果在开发过程�
 | `[ ]`   | `[]` 比较符号与 `test` 命令一样，用于比较值以及检查文件类型。
 | `[[ ]]` | `[[]]` 可以说是 `[]` 的增强版，它能够将多个 `test` 命令支持的测试组合起来，<br>如：`[[ (-d "$HOME") && (-w "$HOME") ]]`
 | `(( ))` | 专门来做数值运算，如果表达式求值为 0，则设置退出状态为 1；如果求值为非 0 值，则设置为 0。算术只对整数进行。<br>如：`i=99;((i++));echo $i` `echo $((2**3))` <br>注意：使用 (( )) 时，不需要空格分隔各值和运算符，使用 [] 和 [[ ]] 时需要用空格分隔各值和运算符。
-
-#### Brace expansion
-
-```bash
-ls file{1,2,3,4,5}.txt    # 等效于：
-ls file1.txt file2.txt file3.txt file4.txt file5.txt
-```
-
-#### 数值运算
-
-```bash
-echo $((1 + 2 * 3))   # 格式：$((计算式))
-```
 
 ### 执行方式的区别
 
@@ -231,36 +205,6 @@ function printit() {
   echo "Your choice is $1"  # 这个指向的是函数的第1个参数
 }
 printit $2                  # 这个指向的是脚本的第2个参数
-```
-
-### 循环
-
-#### 不定循环
-
-```bash
-while [ "$yn" != "yes" -a "yn" != "YES" ]
-do
-  read -p "Please input yes/YES ti stop this program: " yn
-done
-
-until [ "$yn" != "yes" -o "yn" != "YES" ]
-do
-  read -p "Please input yes/YES ti stop this program: " yn
-done
-```
-
-#### 固定循环
-
-```bash
-users=$(cut -d ':' -f1 /etc/passwd)
-for username in $users
-do
-  id $username
-done
-
-for (( i=1; i<5; i++ )) do
-  echo $i
-done
 ```
 
 ### 调试

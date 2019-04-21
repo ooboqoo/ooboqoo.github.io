@@ -227,9 +227,10 @@ https://www.jianshu.com/p/01df21c71407
 往哪个仓库发布包也叫做设置上传/发布地址。这个过程记录在 _package.json_ 文件中。
 
 ```js
-// package.json
-"publishConfig": {
+{
+  "publishConfig": {
     "registry": "http://npm.example.com"
+  }
 }
 ```
 
@@ -260,6 +261,20 @@ $ npm publish
 ```bash
 $ npm unpublish <pkgname>  # 撤销发布，需要在24小时内完成操作
 $ npm deprecate <pkgname>  # 更好的一个做法，是声明遗弃
+```
+
+### .npmignore
+
+使用 _.npmignore_ 文件，可在发包时屏蔽一些文件，但只要存在这个文件，原先 _.gitignore_ 的文件会被打包(如果没有 _.npmignore_ 文件时，_.gitignore_ 声明的文件时不会被打包的)，所以这个文件还是存在一定隐患的。最好的方法是采用白名单方式，即，在 _package.json_ 文件中通过 `files` 字段来显示声明发包时需要包含的文件。
+
+```json
+{
+  "name": "my-pkg-name",
+  "main": "./lib/index.js",
+  "files": [
+    "/lib"
+  ]
+}
 ```
 
 

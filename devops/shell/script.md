@@ -88,4 +88,4 @@ Bash 是 Bourne shell 的替代品，属 GNU Project，二进制文件路径通�
 
 #### 环境兼容性
 
-如果你的脚本是提供给别的用户使用，使用 sh 或者 bash，你的脚本将具有最好的环境兼容性，perl 很早就是 linux 标配了，python 这些年也成了一些 linux 发行版的标配，而 Mac OS 更是默认安装了 perl、python、ruby、php、java 等主流编程语言。
+如果你的脚本是提供给别的用户使用，使用 sh 或者 bash，你的脚本将具有最好的环境兼容性，perl 很早就是 linux 标配了，python 这些年也成了一些 linux 发行版的标配，而 macOS 更是默认安装了 perl、python、ruby、php、java 等主流编程语言。

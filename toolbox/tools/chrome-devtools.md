@@ -50,9 +50,37 @@ profileEnd(name?)  // 停止当前分析会话，并将报告输出到 JavaScrip
 
 **拷贝 HTML**  在 Elements 面板选中一个元素，然后 `Ctrl + c` 搞定
 
-
 ```js
 // https://medium.freecodecamp.org/mutating-objects-what-will-be-logged-in-the-console-ffb24e241e07
 console.log(obj) // 查看对象时，点击展开 expand 时才会求值 lazy evaluate ，然后才固定下来 snapshotted
 ```
 
+
+## Network
+
+### Network log
+
+右击标题栏可以自定义显示项目
+
+* Size 大栏查看时，上方为实际传输(压缩后，不含上传流量，含响应头)的数据大小，下方浅色为实际内容(解压后的、不含头部内容的)大小(即响应头中 content-length 值)
+* Time 大栏查看时，上方时长包含 Stalled 及后续时长总和，下方浅色时长为 Content Download 消耗时长
+
+### Filter
+
+支持普通字符串、正则(如 `/.*\.[cj]s+$/`)，以及根据特定[属性](https://developers.google.com/web/tools/chrome-devtools/network-performance/reference#filter-by-property)过滤。
+
+支持 negative filter 如 `-main.css` 会屏蔽 main.css 文件。
+
+除了在过滤输入框过滤记录外，对按资源类型过滤进行了强化，直接点右侧那排类型就可实现过滤。注，类型可多选，按 ctrl 键单击添加。
+
+
+
+### Settings/Network
+
+* Enable request blocking
+* Color-code resource types - 该项开启后，查看 Waterfall 时 时长banner 上会有时长数字提示
+* Force ad blocking on this site
+
+### 
+
+panel 面板  pane 窗格  drawer 活动工具栏
