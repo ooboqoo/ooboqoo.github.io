@@ -144,6 +144,13 @@ $ bash sh02.sh
 $ test -e /dmtsai && echo "exist" || echo "Not exist"  # 具体用法见 man test
 ```
 
+```bash
+# 判断空字符串(可以含空格)
+$ empty_str="  "
+$ test -z $(echo ${empty_str}) && echo "empty" || echo "not empty"
+$ [[ -z "${empty_str// }" ]] && echo "empty" || echo "not empty"  # ${var/pattern/string}
+```
+
 #### 利用判断符号 `[]`
 
 判断符号等同于 `test` 命令，只是以一种更为直观的形式展现。

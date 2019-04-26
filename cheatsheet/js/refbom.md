@@ -199,7 +199,7 @@ console.groupEnd(...args)          | 结束消息组
 `%c`      | Applies provided CSS
 
 ```js
-console.log('%c%s', 'color: red;', 'something error...')  // %c CSS  %s String
+console.log('%c%s', 'color: red;', 'something error...')  // %c CSS  %s string
 ```
 
 ```js

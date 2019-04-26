@@ -17,7 +17,7 @@ http://arachnoid.com/linux/shell_programming.html
 #### 最常见 test.sh 示例：
 
 ```bash
-#!/bin/sh                      # 指定脚本解释器，其他常见的还有 /bin/bash /usr/bin/php
+#!/bin/bash                    # 指定脚本解释器，其他常见的还有 /bin/sh /usr/bin/php
 cd ~                           # 常规系统命令
 mkdir anydir
 cd anydir

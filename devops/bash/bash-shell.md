@@ -280,6 +280,8 @@ $ ~+/foo      # $PWD/foo
 
 #### Shell Parameter Expansion
 
+https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html
+
 |                      | 参数存在并非 null | 参数存在但是 null | 参数不存在
 |----------------------|------------------|------------------|-------------
 | `${parameter:-word}` | ${parameter}     | word             | word
@@ -290,6 +292,32 @@ $ ~+/foo      # $PWD/foo
 | `${parameter?word}`  | ${parameter}     | null             | error, exit
 | `${parameter:+word}` | word             | null             | null
 | `${parameter+word}`  | word             | word             | null
+
+`${parameter:offset}`  
+`${parameter:offset:length}`  
+
+`${!prefix*}`  
+`${!prefix@}`  
+
+`${!name[@]}`  
+`${!name[*]}`  
+
+`${#parameter}` 返回字符串长度，效果同 `echo -n $str | wc -m` 或 ``echo $((`wc -m <<< $str` - 1))``
+
+`${parameter#word}`  
+`${parameter##word}`  
+
+`${parameter%word}`  
+`${parameter%%word}`  
+
+`${parameter/pattern/string}`  
+
+`${parameter^pattern}`  
+`${parameter^^pattern}`  
+`${parameter,pattern}`  
+`${parameter,,pattern}`  
+
+`${parameter@operator}`  
 
 ```bash
 $ string=01234567890abcdefgh
