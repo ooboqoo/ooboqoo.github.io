@@ -199,6 +199,10 @@ console.groupEnd(...args)          | 结束消息组
 `%c`      | Applies provided CSS
 
 ```js
+console.log('%c%s', 'color: red;', 'something error...')  // %c CSS  %s String
+```
+
+```js
 console.log('foo')
 console.log('foo123')
 console.count('foo')  // 1

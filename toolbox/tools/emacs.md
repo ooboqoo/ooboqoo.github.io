@@ -34,3 +34,12 @@ https://www.gnu.org/software/emacs/
 |-----------|------------------
 | ctrl+l    | 清屏
 | C-xC-e    | 开编辑器编辑命令，保存后批量执行
+
+### Emacs
+
+|||
+|-----------|------------------
+| C-xC-s    | Save File
+| C-x k     | Close File
+| C-xC-c    | Quit Emacs
+| C-z       | Suspend Emacs

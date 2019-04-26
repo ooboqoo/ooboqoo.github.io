@@ -158,6 +158,10 @@ fi
 ```
 
 ```bash
+if [ 1=1 ]; then echo 1=1; echo true; fi
+```
+
+```bash
 echo -n "Enter the name of an animal: "
 read ANIMAL
 echo -n "The $ANIMAL has "

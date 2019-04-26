@@ -114,7 +114,9 @@ Named character classes
 
 Basic vs Extended Regular Expressions
 
-In basic regular expressions the meta-characters `?` `+` `{` `|` `(` and `)` lose their special  meaning; instead use the backslashed versions `\?` `\+` `\{` `\|` `\(` and `\)`.
+BRE 和 ERE 都是基于早期的 UNIX grep 发展而来，BRE 注重后向兼容，而 ERE 则更接近现代其他正则规范的写法。
+
+In basic regular expressions the meta-characters `?` `+` `{` `|` `(` and `)` lose their special meaning; instead use the backslashed versions `\?` `\+` `\{` `\|` `\(` and `\)`.
 
 
 ## grep & sed & awk

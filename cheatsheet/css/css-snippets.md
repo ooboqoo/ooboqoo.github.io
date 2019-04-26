@@ -143,6 +143,15 @@ Here are the rules for percentages on vertical items:
   </style>
 </div>
 
+#### Flex 方案+
+
+<div class="demo">
+  <div style="display: flex; height: 100px; border:1px solid gray;">
+    <div style="margin: auto; border: 1px solid red;">margin: auto 同时搞定水平、垂直居中
+    </div>
+  </div>
+</div>
+
 #### `table-cell` 方案
 
 注：`vertical-align` 只在两种环境内有效：
@@ -376,6 +385,20 @@ CSS 中的默认值：常用的 `initial` `default` `auto` 或者 `inherit`，�
 }
 ```
 
+### Disable mouse events
+
+使用 `pointer-events` 属性可禁用 CSS & JS 鼠标相关动作效果。[使用示例](https://www.trysmudford.com/blog/fade-out-siblings-css-trick/)
+
+```css
+.parent {
+  pointer-events: none;
+}
+
+.parent > * {
+  pointer-events: auto;
+}
+```
+
 ### Sibling fade
 
 ```css
@@ -396,6 +419,30 @@ span {
   <style>
     .sibling-fade span { padding: 0 1rem; transition: opacity 0.2s; }
     .sibling-fade:hover span:not(:hover) { opacity: 0.5; }
+  </style>
+</div>
+
+### Focus Within
+
+The `:focus-within` pseudo-class matches elements that either themselves match `:focus` or that have descendants which match `:focus`. (Edge x Chrome 60+)
+
+```css
+form {
+  border: 1px solid gray;
+}
+form:focus-within {
+  background: #eee;
+}
+```
+
+<div class="demo">
+  <form class="focus-within">
+    <label>姓名：<input></label>
+    <label>性别：<input></label>
+  </div>
+  <style>
+    .focus-within { padding: 10px; border: 1px solid gray; }
+    .focus-within:focus-within { background: #eee; }
   </style>
 </div>
 
