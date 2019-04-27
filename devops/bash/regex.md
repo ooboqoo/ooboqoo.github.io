@@ -121,13 +121,26 @@ In basic regular expressions the meta-characters `?` `+` `{` `|` `(` and `)` los
 
 ## grep & sed & awk
 
-### `grep`
+### `grep` 过滤
 
-grep 的四种工作模式
-  * -G, --basic-regexp
-  * -E, --extended-regexp
-  * -P, --perl-regexp
-  * -F, --fixed-strings
+grep (**g**lobally search a **r**egular **e**xpression and **p**rint) - print lines matching a pattern  
+是强大的文本搜索工具，使用正则表达式搜索文本，并打印匹配行。
+
+```bash
+$ grep [OPTIONS] PATTERN [FILE...]
+  # -G, --basic-regexp
+  # -E, --extended-regexp
+  # -P, --perl-regexp
+  # -F, --fixed-strings
+
+  # -i, --ignore-case
+  # -v, --invert-match
+
+  # -c, --count
+  # --color[=WHEN], --colour[=WHEN]
+
+  # -n, --line-number
+```
 
 ```bash
 $ dmesg | grep -n -A3 -B2 --color=auto 'eth'  # 显示行号；并显示关键字所在行前2行和后3行；关键字高亮
@@ -136,15 +149,41 @@ $ grep -n 'the' rege.txt
   # '^the' '^[[:lower:]]' '\.$' '^$' 'g..d' 'o\{2\}' 'go\{2,5\}g' 'go\{2,\}g'
 ```
 
-### `sed` 工具
+### `sed` 编辑
+
+stream editor for filtering and transforming text
 
 sed 本身也是一个管道命令，可以分析 stdin 的，而且 sed 还可以将数据进行替换、删除、新增、选取特定行等的功能。
+
+```bash
+$ sed [OPTION]... {script-only-if-no-other-script} [input-file]...
+  # -i[SUFFIX], --in-place[=SUFFIX]  edit files in place (makes backup if SUFFIX supplied)
+  # -E, -r, --regexp-extended  use extended regular expressions in the script
+
+# 插入
+$ sed
+
+# 替换行
+$ sed [地址范围]/p  # 打印指定的地址范围
+$ sed [地址范围]/d  # 删除指定的地址范围
+
+# 替换字符串
+$ sed 's/被替换字符串/新字符串/g'
+$ sed "[地址范围]/s/pattern1/pattern2/"  # 替换指定地址范围内的第一个匹配项
+$ sed [地址范围]/y/pattern1/pattern2/
+```
+
+
+
+
+
+
 
 ```bash
 $ sed -i "s/\"version\": *\"[0-9.]\+\"/\"version\": \"${CI_COMMIT_TAG}\"/" package.json
 ```
 
-### `awk` 好用的数据处理工具
+### `awk` 统计分析
 
 ### `diff`
 
@@ -155,4 +194,56 @@ $ diff [-bBi] from-file to-file  # 比较新旧两个文件
 $ diff /etc/rc3.d/ /etc/rc5.d/   # 比较两个目录，会自动比较两个目录下的同名文件的内容
 $ diff -Naur passwd.old passwd.new > passwd.patch  # 制作补丁文件
 $ patch -p0 < passwd.patch       # 将 passwd.old 更新成 passwd.new
+```
+
+
+## 应用: 日志分析
+
+日志是我们排查问题的一个重要依据。线上日志堆积的长度往往远超我们一行行浏览的耐性极限，需要借助一些手段来辅助高效地从日志中查找问题。下文会从查找日志，筛选日志和统计日志3个方面层层递进来简述日志文件查看中一些常用手段。
+
+### 日志查看
+
+查找文件内容的常用命令方法
+
+```bash
+$ grep "被查找的字符串" 文件名     # 从文件内容查找匹配指定字符串的行
+$ grep –e "正则表达式" 文件名      # 从文件内容查找与正则表达式匹配的行
+$ grep –i "被查找的字符串" 文件名  # 查找时不区分大小写
+$ grep -c "被查找的字符串" 文件名  # 统计匹配的行数
+$ grep –v "被查找的字符串" 文件名  # 查找不匹配指定字符串的行
+
+# 从根目录开始查找所有扩展名为 .log 的文本文件，并找出包含 ERROR 的行
+$ find / -type f -name "*.log" | xargs grep "ERROR"
+# 如果需要查找的内容包含特殊符号，比如 $ 等，grep 要加参数 -F
+$ find ./ -name "*.php" | xargs grep -F '要查找的内容'
+```
+
+### 日志处理
+
+精简日志内容 sed
+
+```bash
+sed
+```
+
+对记录进行排序 sort
+
+```bash
+sort
+```
+
+统计日志相关记录数 awk
+
+```bash
+awk
+```
+
+### 日志规范化
+
+制定合理的日志文件输出规范，以便于后续分析处理，以下格式供参考
+
+```txt
+2019-04-27 08:29:49.598 INFO [Record]: 开始启动录音插件
+2019-04-27 09:25:55.658 WARN [Record]: 启动录音耗时 3s
+2019-04-27 09:25:55.606 ERROR [Record]: 结束录音失败, error.message, error.stack
 ```

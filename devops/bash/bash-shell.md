@@ -233,11 +233,11 @@ func1
 
 ### Shell Parameters
 
-```
-name=[value]
-```
-
 #### Positional Parameters
+
+|||
+|-------------|---------------------------------------------------------------------------------------------
+| `$N` `${N}` | `$1` `$2` ... the positional parameters, starting from one 当 N 超过一位时必须使用 `${N}` 格式
 
 ```bash
 foo () { echo $1 ${10}; }           # $ 仅适用于1位数字时，${} 则一直适用
@@ -249,16 +249,31 @@ foo a1 a2 a3 a4 a5 a6 a7 a8 a9 a10  # 打印 a1 a10
 下面是一些特殊参数，这些参数都是只读的
 
 |||
-|------|---------------------------
-| `$*` | the positional parameters, starting from one.
-| `$@` | 
-| `$#` | 
-| `$?` | 
-| `$-` | 
-| `$$` | 当前 shell 进程的 ID
-| `$!` | 
-| `$0` | the name of the shell or shell script
-| `$_` | 文档看不太懂, 实测是最近一次控制台打印的值
+|------|---------------------------------------------------------------------------------------------
+| `$0` | the name of the shell or shell script, 如 `echo $0` 打印 "-bash" 或者脚本名
+| `$*` | the positional parameters 包含所有参数的长字符串
+| `$@` | the positional parameters 包含所有参数的数组
+| `$#` | the number of positional parameters in decimal 参数个数
+||
+| `$?` | the exit status of the most recently executed foreground pipeline
+| `$_` | the last argument to the previous simple command executed in the foreground 上条命令的最后一个参数
+| `$-` | the current option flags as specified upon invocation
+| `$$` | the process ID of the shell 当前 shell 进程的 ID
+| `$!` | the process ID of the job most recently placed into the background
+
+```bash
+#!/bin/bash
+# ./test.sh aa bb cc
+
+for a in "a b c"; do echo -n $a"+"; done  # a b c+
+for a in a b c; do echo -n $a"+"; done    # a+b+c+
+
+for a in "$*"; do echo -n $a"+"; done  # aa bb cc+
+for a in $*; do echo -n $a"+"; done    # aa+bb+cc+
+
+for a in "$@"; do echo -n $a"+"; done  # aa+bb+cc+
+for a in $@; do echo -n $a"+"; done    # aa+bb+cc+
+```
 
 ### Shell Expansions
 
