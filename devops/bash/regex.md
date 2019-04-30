@@ -153,7 +153,7 @@ $ grep -n 'the' rege.txt
 
 stream editor for filtering and transforming text
 
-sed 本身也是一个管道命令，可以分析 stdin 的，而且 sed 还可以将数据进行替换、删除、新增、选取特定行等的功能。
+sed 可以将数据进行替换、删除、新增、选取特定行等。
 
 ```bash
 $ sed [OPTION]... {script-only-if-no-other-script} [input-file]...
