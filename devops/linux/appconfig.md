@@ -144,9 +144,13 @@ https://shadowsocks.org/en/download/servers.html
 
 ```bash
 # 安装
-$ yum install python-setuptools
-$ easy_install pip
-$ pip install shadowsocks
+# Debian / Ubuntu
+$ apt install python-pip
+$ pip install git+https://github.com/shadowsocks/shadowsocks.git@master
+
+# CentOS
+$ yum install python-setuptools && easy_install pip
+$ pip install git+https://github.com/shadowsocks/shadowsocks.git@master
 
 # 配置开机自动启动，并先手动启动服务
 $ vi /lib/systemd/system/ss.service  # 内容在后面
@@ -158,16 +162,6 @@ $ firewall-cmd --permanent --add-port=443/tcp
 
 # 查看日志
 $ less /var/log/shadowsocks.log
-```
-
-### GitHub 安装方式
-
-通过以上方法安装的版本是 2.8.2，经过了一年，master 分支上已经有更新，如果想装最新版，可以试试 GitHub 安装方式：
-
-```bash
-$ git clone https://github.com/shadowsocks/shadowsocks.git
-$ cd shadowsocks
-$ python setup.py
 ```
 
 ### 自启动配置文件
@@ -191,9 +185,9 @@ After=network.target
 # 注意：[Service] 的启动、重启、停止命令全部要求使用绝对路径
 [Service]
 Type=forking
-ExecStart=/usr/bin/ssserver -p 443 -k myPassword --fast-open -d start
-ExecReload=/usr/bin/ssserver -d restart
-ExecStop=/usr/bin/ssserver -d stop
+ExecStart=/usr/local/bin/ssserver -p 443 -k myPassword --fast-open -d start
+ExecReload=/usr/local/bin/ssserver -d restart
+ExecStop=/usr/local/bin/ssserver -d stop
 
 # [Install] 服务安装的相关设置
 # 设置为多用户，对应原来的 runlevel 3
@@ -213,7 +207,7 @@ WantedBy=multi-user.target
         "8503": "password3"
     },
     "method": "aes-256-cfb",
-    "fast_open": false,
+    "fast_open": true,
     "timeout": 300
 }
 ```
@@ -221,7 +215,7 @@ WantedBy=multi-user.target
 然后再更新上面的自启动配置文件：
 
 ```txt
-ExecStart=/usr/bin/ssserver -c /etc/shadowsocks.json -d start
+ExecStart=/usr/local/bin/ssserver -c /etc/shadowsocks.json -d start
 ```
 
 再配置防火墙：
@@ -248,6 +242,8 @@ https://www.v2ray.com/
 ```bash
 $ bash <(curl -L -s https://install.direct/go.sh)
 $ vim /etc/v2ray/config.json
+$ systemctl start v2ray
+$ systemctl status v2ray
 ```
 
 基本设置
