@@ -21,3 +21,14 @@ $ sudo systemctl restart NetworkManager
 ```
 
 
+### 定时任务跑 .sh 脚本
+
+只要 Windows 下安装了 Cygwin 就可执行 .sh 脚本。搜索并打开任务计划程序，按提示设置即可。
+
+_runtask.sh_
+
+```bash
+#!/bin/bash
+printf "abc123\n" >> /d/test.txt
+```
+

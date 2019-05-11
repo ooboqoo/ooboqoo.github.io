@@ -24,3 +24,51 @@ $ sudo mkswap /var/swapfile           # 将文件格式化成 swap 格式
 $ sudo swapon /var/swapfile           # 立即启用新建 swap 文件
 ```
 
+### `find` 删除过期文件
+
+```bash
+# 查找 30 天内没修改过的文件
+$ find /var/log -type f -mtime +30 -print
+
+# 删除 30 天内没修改过的文件(以下三选一)
+$ find /var/log -type f -mtime +30 -delete
+```
+
+#### `find` 用法
+
+```
+find [-H] [-L] [-P] [-D debugopts] [-Olevel] [starting-point...] [expression]
+```
+
+An expression is composed of a sequence of things: Tests, Actions, Global options, Positional options, Operators.
+
+```
+# TESTS
+  +n     for greater than n,
+  -n     for less than n,
+   n      for exactly n.
+
+  -atime  Last Access Time
+  -ctime  Last Change Time
+  -mtime  Last Modify Time
+
+  -{a,c,m}time <n>       n * day
+  -{a,c,m}newer <file>   compare with file
+  -{a,c,m}min <n>        n * minutes
+
+  -type
+  -name
+```
+
+```
+# ACTIONS
+  -delete
+  -exec command ;
+  -exec command {} +
+```
+
+
+
+
+
+

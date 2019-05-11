@@ -16,7 +16,6 @@
       border-bottom-width: 0;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
     }
-    #header a::before { content: ""; }
     main {
       left: 0;
       width: 100%;
@@ -24,17 +23,16 @@
       margin-top: 40px !important;
       padding: 1rem 5%;
     }
-    main a { color: inherit; }
     @media (min-width: 1210px) {
       main { max-width: 1210px; margin:auto;}
     }
-    p {
+    main p {
       border-bottom: 1px solid #ccc;
     }
-    a { display: block; padding-top: .5rem; }
-    a.initial { display: initial; padding-top: initial; border-bottom: initial; }
-    a:hover { background-color: #eee; }
-    a::before { padding-right: .5em; content: "\260D"; }
+    main a { display: block; padding-top: .5rem; color: inherit; }
+    main a.initial { display: initial; padding-top: initial; border-bottom: initial; }
+    main a:hover { background-color: #eee; }
+    main a::before { padding-right: .5em; content: "\260D"; }
   </style>
   <title>Gavin 的前端笔记</title>
 </head>
@@ -44,7 +42,7 @@
   <main>
     <blockquote>
       <p>本前端笔记源码托管于 <a href="https://github.com/ooboqoo/ooboqoo.github.io" class="initial">https://github.com/ooboqoo/ooboqoo.github.io</a></p>
-      <p>可以通过 <a href="https://ooboqoo.github.io" class="initial">https://ooboqoo.github.io</a> 或者 <a href="http://www.ngapps.cn" class="initial">http://www.ngapps.cn</a> (速度可能更快些) 访问本站。</p>
+      <p>可以通过 <a href="http://www.ngapps.cn" class="initial">https://ngapps.cn</a> (速度更快) 或者 <a href="https://ooboqoo.github.io" class="initial">https://ooboqoo.github.io</a> 访问本站。</p>
       <p>注：站点主导航条平时都隐藏在页面顶部，鼠标移到页面顶部即可调出导航条。</p>
     </blockquote>
 
@@ -98,8 +96,8 @@
     }
 
     ajax('/header.html', function (text) {
-      var elem_header = document.getElementById("header");
-      elem_header.innerHTML = /<div[\s\S]*?<\/div>/.exec(text)[0] + '</div>';
+      header.innerHTML = text;
+      header.removeChild(backEnd);
     });
   </script>
 </body>

@@ -235,18 +235,22 @@ function isMobile() {
   ajax('/header.html', function (text) {
     elem_header.innerHTML = text;
     var links = elem_header.getElementsByTagName("a");
-    var a, p, temp;
+    var a, p, temp, cat, url;
     for (var i = 0, length = links.length; i < length; i++) {
       a = links[i];
       if (window.location.href.indexOf(a.href) !== -1 && a.className.indexOf('btn') === -1) {
         a.className = "active";
         p = a.parentElement.parentElement;
+        cat = p.id;
+        url = localStorage.getItem(cat === 'backEnd' ? 'frontEnd' : 'backEnd');
         delete p.style.display;
+        localStorage.setItem(cat, a.getAttribute('href'));
+        if (url) { p.getElementsByClassName('btn')[0].href = url; }
         temp = p;
         while (temp = temp.previousElementSibling) { temp.style.display = 'none'; }
         temp = p;
         while (temp = temp.nextElementSibling) { temp.style.display = 'none'; }
-        return;
+        break;
       }
     }
   });

@@ -246,10 +246,15 @@ $ systemctl start v2ray
 $ systemctl status v2ray
 ```
 
-基本设置
+#### 基本设置
 
 ```json
 {
+  "log": {
+    "loglevel": "warning",
+    "access": "/var/log/v2ray/access.log",  // 这项最好不要配，占用磁盘空间+有暴露访问记录风险
+    "error": "/var/log/v2ray/error.log"
+  },
   "inbounds": [{
     "port": 10086,  
     "protocol": "vmess",
@@ -269,7 +274,21 @@ $ systemctl status v2ray
 }
 ```
 
-动态端口
+#### 开启 BBR 加速
+
+```bash
+# 检查内核是否已开启 BBR
+$ sysctl net.ipv4.tcp_available_congestion_control
+net.ipv4.tcp_available_congestion_control = bbr cubic reno
+# 查看当前配置
+$ sysctl net.ipv4.tcp_congestion_control
+# 如果不是 bbr 就设置 TCP BBR
+$ echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+$ echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+$ sysctl -p
+```
+
+#### 配置动态端口
 
 ```json
 {

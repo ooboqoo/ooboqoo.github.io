@@ -14,9 +14,13 @@ $ regedit   # 注册表编辑器
 
 $ where     # 查找命令位置
 $ ipconfig  # 显示本机网络信息
+$ netstat -n  # 查看端口占用
 
 $ start /b 服务名  # 在后台运行服务
-$ mklink /H <destination> <source>  # 带 /H 建立硬连接，不带则建立软连接
+$ mklink /h <destination> <source>  # 带 /h 建立硬连接，不带则建立软连接
+
+$ tasklist  # 获取当前任务列表
+$ taskkill /f /im notepad.exe /t  # 强制结束记事本及其子进程
 ```
 
 #### `mstsc` 远程桌面
