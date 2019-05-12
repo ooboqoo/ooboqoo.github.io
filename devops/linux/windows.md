@@ -25,6 +25,8 @@ $ sudo systemctl restart NetworkManager
 
 只要 Windows 下安装了 Cygwin 就可执行 .sh 脚本。搜索并打开任务计划程序，按提示设置即可。
 
+如果只是开机启动还有个更简单的方法: Win+R, 然后将脚本扔进去就行。
+
 _runtask.sh_
 
 ```bash
