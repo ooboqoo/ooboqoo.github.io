@@ -224,3 +224,26 @@ http {
 }
 ```
 
+### 反向代理与负载均衡
+
+https://juejin.im/entry/57fb07b0816dfa0056c0ada8
+
+正向代理与反向代理: 正向代理是为客户端做代理，代替客户端去访问服务器，而反向代理是为服务器做代理，代替服务器接受客户端请求～
+
+```
+http {
+    upstream my_cluster {                # upstream模块，在此配服务器集群
+        ip_hash;  # 用户第一次访问后就跟服务器绑定
+        server 127.0.0.1:9001 down;     # 暂不参与负载
+        server 127.0.0.1:9002 backup;   # 其它非backup机器down或忙时才启用
+        server 127.0.0.1:9003 weight=2; # 值越大负载的权重就越大
+        server 127.0.0.1:9004 max_fails=2 fail_timeout=60s;
+    }
+    server {
+        listen 8080;
+        location / {
+            proxy_pass http://my_cluster; # 配置反向代理
+        }
+    }
+}
+```
