@@ -7,6 +7,23 @@ $ npm install -g npm  # 更新 npm 自身
 $ npm -v              # 查看 npm 版本
 $ npm root -g         # 查看全局 node_modules 文件夹位置
 
+# 查看软件包信息
+$ npm view primeng versions | grep 2.0. # 查看软件包的版本信息
+    # aliases: info, show, v
+$ npm info vue versions  # 只查看 versions 详细信息
+$ npm ls <pkg>  # 查看安装的软件包信息
+
+# 软件包安装 - 不同方式安装
+$ npm install --registry http://registry.cnpmjs.org angular-cli  # 单次指定源安装
+$ npm install git+https://github.com/<repo-owner>/<repo>.git[#branch]
+$ npm install git+ssh://git@github.com/<repo-owner>/<repo>.git[#branch]
+$ npm install git://github.com/<repo-owner>/<repo>.git[#branch]
+
+$ npm install               # 安装所有依赖包
+$ npm install --production  # 只安装产品依赖
+$ npm uninstall --save lodash  # 卸载软件包并从 package.json 中移除
+
+# 软件包更新
 $ npm list --depth=0        # 列出安装的软件包, 注意与 `git clone depth 1` 区分
 $ npm outdated              # 列出过时的包
 $ npm update                # 更新本地软件包
@@ -14,41 +31,38 @@ $ npm update --save-dev && npm update --save  # 更新本地包并将最新版�
 $ npm update --save-dev     # 仅更新 devDependencies 包并相应更新 package.json
 $ npm update --save         # 更新 dependencies 和 devDependencies 包并更新 package.json
     # 如果没有先 --save-dev 就执行这条命令，会更新 devDependencies 下的包，然后版本信息会写到 dependencies 下
-$ npm install               # 安装所有依赖包
-$ npm install --production  # 只安装产品依赖
-$ npm uninstall --save lodash  # 卸载软件包并从 package.json 中移除
-$ npm view primeng versions | grep 2.0. # 查看软件包的版本信息 aliases: info, show, v
 
-$ npm install --registry http://registry.cnpmjs.org install angular-cli  # 单次指定源安装
-$ npm install <githubname>/<githubrepo>[#<commit-ish>]  # 通过 GitHub 仓库安装，例：
-$ npm install git+https://github.com/mishoo/UglifyJS2.git#harmony
-
+# 配置管理
 $ npm config ls -l  # 查看所有设置项(含默认设置)
 $ npm config get registry  # 查看源设置
 $ npm config set registry https://registry.npm.taobao.org/  # 设置淘宝源
 $ npm config set registry https://registry.npmjs.org/       # 还原默认源
 $ npm config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/ # 解决天朝 node-sass 安装报错
 $ npm config set package-lock false  # 去掉烦人的 package-lock.json，也可单项目配置 package.json 中加 `"lock": false`
+$ npm config set cache /e/npm-cache --global  # 这个文件日积月累会很大，不放 C 盘
 
-# 直接通过 github 地址安装
-$ npm install git+https://github.com/<repo-owner>/<repo>.git[#branch]
-$ npm install git+ssh://git@github.com/<repo-owner>/<repo>.git[#branch]
-$ npm install git://github.com/<repo-owner>/<repo>.git[#branch]
+# 缓存管理
+$ npm cache clean  # 手动清理缓存
 
 # 设置代理
 $ npm config set proxy http://127.0.0.1:1080  # 通过代理安装
 $ npm config delete proxy  # 删除代理，恢复直连模式
-```
 
-```bash
-# npm view [<@scope>/]<name>[@<version>] [<field>[.<subfield>]...]
-$ npm view vue           # 查看包信息 aliases: info, show, v
-$ npm info vue versions  # 只查看包信息中的 versions 字段的详细信息
-
+# 其他常用命令
 $ npm home vue    # 打开项目主页
 $ npm repo react  # 打开项目代码仓库
 $ npm bugs react  # 打开项目 Issues 页
 ```
+
+### `npm install` 详解
+
+> `npm i` 对已安装包的处理原则：只要本地已经安装有符合要求的版本，就不更新。即，每次运行命令会先检查所有软件包版本，如果不符合要求就会重新安装符合要求的最新软件包，如果符合，就不会再安装一遍，即使存在更新版本的符合要求的软件包。
+
+如果项目依赖特定版本，`npm i` 时会更新到相应版本，但如果操作过 `npm publish -f` 覆盖版本内容，`npm i` 不会去更新。
+
+如果已经安装了 1.1.1，且带 `^` 依赖，如果有 1.1.2，`npm i` 时并不会更新
+
+手动 `npm i <pkg>@<tag>` 时，即使使用过 `npm publish -f` 覆盖版本内容，也会重新安装
 
 
 ## 版本规范

@@ -242,7 +242,7 @@ function isMobile() {
         a.className = "active";
         p = a.parentElement.parentElement;
         cat = p.id;
-        url = localStorage.getItem(cat === 'backEnd' ? 'frontEnd' : 'backEnd');
+        url = localStorage.getItem(cat === 'back-end' ? 'front-end' : 'back-end');
         delete p.style.display;
         localStorage.setItem(cat, a.getAttribute('href'));
         if (url) { p.getElementsByClassName('btn')[0].href = url; }

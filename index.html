@@ -97,7 +97,7 @@
 
     ajax('/header.html', function (text) {
       header.innerHTML = text;
-      header.removeChild(backEnd);
+      header.removeChild(document.getElementById('back-end'));
     });
   </script>
 </body>
