@@ -216,6 +216,7 @@ $ git merge origin/master       # 将刚拉取下来的 master 合并到本地�
 $ git merge topic               # 合并 topic 分支内容到当前分支
 $ git merge --no-ff future-name # 合并 future 分支到 master 分支，且不允许 fast-forward
 $ git merge -e                  # 提交前暂停供编辑 message
+$ git merge --abort             # 有冲突暂停时，可回撤整个操作，效果同 `git reset --merge`
 ```
 
 ### 远程同步
