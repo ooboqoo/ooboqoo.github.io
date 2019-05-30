@@ -374,6 +374,40 @@ CSS 中的默认值：常用的 `initial` `default` `auto` 或者 `inherit`，�
 }
 ```
 
+### Overlay Scrollbar
+
+让滚动条浮在内容上面，而不占用内容空间。
+
+```css
+.overlay-scrollbar {
+  /* webkit */
+  overflow: overlay;
+  /* IE10+ */
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+```
+
+定制滚动条样式(仅 webkit 适用)
+
+```css
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #999;
+}
+```
+
 
 ## Interactivity
 
