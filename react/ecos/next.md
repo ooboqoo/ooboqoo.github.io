@@ -156,42 +156,13 @@ const Index = () => (
 export default Index
 ```
 
-以上为第一种创建布局的方式 Page content as a prop，还有一种方式是 Layout as a Higher Order Component
+常见的创建布局的方式有两种：
+* Page content as a prop
+* Layout as a Higher Order Component
+
+#### Page content as a prop
 
 _components/MyLayout.js_ V2
-
-```js
-import Header from './Header'
-
-const layoutStyle = {
-  margin: 20,
-  padding: 20,
-  border: '1px solid #ddd'
-}
-
-const withLayout = Page => {
-  return () => (
-    <div style={layoutStyle}>
-      <Header />
-      <Page />
-    </div>
-  )
-}
-
-export default withLayout
-```
-
-_pages/index.js_ V5
-
-```js
-import withLayout from '../components/MyLayout'
-
-const Page = () => <p>Hello Next.js</p>
-
-export default withLayout(Page)
-```
-
-_components/MyLayout.js_ V3
 
 ```js
 import Header from './Header'
@@ -214,7 +185,7 @@ const Layout = props => {
 export default Layout
 ```
 
-_pages/index.js_ V6
+_pages/index.js_ V5
 
 ```js
 import Layout from '../components/MyLayout'
@@ -224,6 +195,42 @@ const indexPageContent = <p>Hello Next.js</p>
 export default function Index () {
   return <Layout content={indexPageContent} />
 }
+```
+
+#### Layout as a Higher Order Component
+
+
+_components/MyLayout.js_ V3
+
+```js
+import Header from './Header'
+
+const layoutStyle = {
+  margin: 20,
+  padding: 20,
+  border: '1px solid #ddd'
+}
+
+const withLayout = Page => {
+  return () => (
+    <div style={layoutStyle}>
+      <Header />
+      <Page />
+    </div>
+  )
+}
+
+export default withLayout
+```
+
+_pages/index.js_ V6
+
+```js
+import withLayout from '../components/MyLayout'
+
+const Page = () => <p>Hello Next.js</p>
+
+export default withLayout(Page)
 ```
 
 

@@ -182,7 +182,7 @@ https://support.apple.com/zh-cn/HT204216
 | Cortana              | Siri                      | ||
 
 
-## 应用配置
+## 系统配置
 
 ### Dock
 
@@ -195,6 +195,27 @@ defaults write com.apple.dock autohide-time-modifier -float 0.7; killall Dock  #
 # 取消鼠标响应延时
 defaults write com.apple.Dock autohide-delay -float 0; killall Dock  # 取消延时
 defaults delete com.apple.Dock autohide-delay; killall Dock          # 恢复延时
+```
+
+### 自定义键盘
+
+修改某个按键的行为：安装 Karabiner-Elements 再配置即可。
+
+修改 Home 和 End 键行为：
+
+_~/Library/KeyBindings/DefaultKeyBinding.dict_
+
+```
+{
+  "\UF729"  = moveToBeginningOfParagraph:; // home
+  "\UF72B"  = moveToEndOfParagraph:; // end
+  "$\UF729" = moveToBeginningOfParagraphAndModifySelection:; // shift-home
+  "$\UF72B" = moveToEndOfParagraphAndModifySelection:; // shift-end
+  "^\UF729" = moveToBeginningOfDocument:; // ctrl-home
+  "^\UF72B" = moveToEndOfDocument:; // ctrl-end
+  "^$\UF729" = moveToBeginningOfDocumentAndModifySelection:; // ctrl-shift-home
+  "^$\UF72B" = moveToEndOfDocumentAndModifySelection:; // ctrl-shift-end
+}
 ```
 
 ### 词典配置

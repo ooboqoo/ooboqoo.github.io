@@ -322,13 +322,15 @@ $ sysctl -p
 
 Windows https://github.com/2dust/v2rayN/releases  
 Android https://github.com/2dust/v2rayNG/releases  
-macOS https://github.com/Cenmrev/V2RayX/releases
+macOS https://github.com/yanue/V2rayU/releases  
 
-V2RayX 安装稍微麻烦点，会提示要额外安装个小工具，然后还需要手动设置下开机自启动 `系统设置 -> 用户与组 -> 登录项`，另外 PAC 文件只包含了很少几个网址，需要从其他端拷贝一份，并修改以下内容
+V2RayX 安装稍微麻烦点，会提示要额外安装个小工具，然后还需要手动设置下开机自启动 `系统设置 -> 用户与组 -> 登录项`，另外 PAC 文件只包含了很少几个网址，需要从其他端拷贝一份，并添加一行：
 
 ```js
-var proxy = "SOCKS5 127.0.0.1:1081; SOCKS5 127.0.0.1:1081; DIRECT;"
+var proxy = "SOCKS5 127.0.0.1:1081; SOCKS 127.0.0.1:1081; DIRECT;"
 ```
+
+V2RayU 是个新项目，貌似比 V2RayX 好用。
 
 ### 相关文章
 
