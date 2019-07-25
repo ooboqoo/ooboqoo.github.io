@@ -23,6 +23,8 @@ $ go get -u -v github.com/ramya-rao-a/go-outline
 $ go get -u -v <其他分析工具>
 ```
 
+还有一种更激进更终极的解决方法是，直接在 .bash_profile 中配好代理，然后 `Ctrl+Shif+P` 并 `Go: Install/Update Tools`。
+
 
 ## 代码结构 Code organization
 
@@ -34,7 +36,6 @@ $ go get -u -v <其他分析工具>
 * Each package consists of one or more Go source files in a single directory.
 * The path to a package's directory determines its import path.
 
-Most Go programmers keep all their Go source code and dependencies in a single workspace. Note that this differs from other programming environments in which every project has a separate workspace and workspaces are closely tied to version control repositories.  
 绝大多数 GO 程序员都将他们全部的 GO 源代码及依赖放置到单个工作区中，这种代码组织方式跟其他语言开发习惯有所不同。
 
 ### 工作区 Workspaces
@@ -77,6 +78,68 @@ $ export PATH=$PATH:$(go env GOPATH)/bin  # 便于执行新编译的文件
 ### Import paths
 
 An _import path_ is a string that uniquely identifies a package. A package's _import path_ corresponds to its location inside a workspace or in a remote repository.
+
+### Your first program
+
+```bash
+$ mkdir $(go env GOPATH)/src/github.com/ooboqoo/hello
+```
+
+_hello.go_
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, world.")
+}
+```
+
+```bash
+$ go install github.com/ooboqoo/hello
+$ ~/go/bin/hello  # 运行可执行文件
+```
+
+### Your first library
+
+```bash
+$ mkdir ~/go/src/github.com/ooboqoo/stringutil
+```
+
+_reverse.go_
+
+```go
+package stringutil
+
+func Reverse(s string) string {
+    r := []rune(s)
+    for i, j := 0, len(r)-1; i < len(r)/2; i, j = i+1, j-1 {
+        r[i], r[j] = r[j], r[i]
+    }
+    return string(r)
+}
+```
+
+```bash
+$ go build
+```
+
+_~/go/src/github.com/ooboqoo/hello/hello.go_
+
+```go
+package main
+
+import (
+    "fmt"
+    "github.com/ooboqoo/stringutil"
+)
+
+func main() {
+    fmt.Println(stringutil.Reverse("!oG ,olleH"))
+}
+```
 
 ### Package names
 

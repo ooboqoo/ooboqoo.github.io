@@ -1,5 +1,7 @@
 # Go Modules
 
+https://blog.golang.org/using-go-modules  
+https://juejin.im/post/5c9c8c4fe51d450bc9547ba1
 
 A module is a collection of Go packages stored in a file tree with a go.mod file at its root.
 
@@ -42,7 +44,7 @@ $ go mod init       # 初始化模块，即新建 go.mod 文件
 $ go test   # PASS
 ```
 
-如果一个模块包含子模块，子模块是不需要 go.mod 文件的，只需要在根目录放置一份即可。
+如果一个模块包含子模块，子模块是不需要 go.mod 文件的，只需要在根目录放置一份即可。子目录的依赖都会组织在根目录的 go.mod 文件里。
 
 
 ## Adding a dependency

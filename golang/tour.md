@@ -5,21 +5,39 @@
 
 ### Packages, variables, and functions
 
+#### Packages
+
+Go 应用 由 包 组成，并从 main 包的 main 方法开始执行。
+
+按照惯例，包名 package name 就是 导入路径 import path 的最后一个元素。如 `math/rand` 的包名就是 `rand`。
+
+#### Imports
+
+```go
+import "fmt"
+
+// 导入多个包时推荐这种写法
+import (
+  "fmt"
+  "math/rand"
+)
+
+// 当然这样写也是允许的
+import "fmt"
+import "math/rand"
+```
+
 #### Exported names
 
-In Go, a name is exported if it begins with a capital letter. For example, `Pizza` is an exported name, but `pizza` not.
-
-When importing a package, you can refer only to its exported names. Any "unexported" names are not accessible from outside the package.
+首字母大写的名字都会导出，外部可见，首字母小写则不导出。 如 `Pizza` 就是 exported name, 而 `pizza` 则是 unexported name.
 
 #### Functions
 
-When two or more consecutive named function parameters share a type, you can omit the type from all but the last.
-
-For example, we shortened `x int, y int` to `x, y int`
+当多个参数类型相同时，前面的类型声明可省略，保留最后一个即可。如 `x int, y int` 可写成 `x, y int`。
 
 #### Multiple results
 
-A function can return any number of results.
+一个函数可返回多个结果：
 
 ```go
 func swap(x, y string) (string, string) {
@@ -33,14 +51,6 @@ func main() {
 ```
 
 #### Named return values
-
-Go's return values may be named. If so, they are treated as variables defined at the top of the function.
-
-These names should be used to document the meaning of the return values.
-
-A return statement without arguments returns the named return values. This is known as a "naked" return.
-
-Naked return statements should be used only in short functions, as with the example shown here. They can harm readability in longer functions.
 
 ```go
 func split(sum int) (x, y int) {
@@ -56,13 +66,9 @@ func main() {
 
 #### Variables
 
-The `var` statement declares a list of variables; as in function argument lists, the type is last.
-
-A `var` statement can be at package or function level. We see both in this example.
-
 ```go
 var c, python, java bool
-var i, j int = 1, 2  // 声明变量并立即赋值时，类型声明可省略
+var i, j = 1, 2  // 声明变量并立即赋值时，类型声明可省略
 
 func main() {
   var i int
@@ -72,9 +78,7 @@ func main() {
 
 #### Short variable declarations
 
-__Inside a function__, the `:=` short assignment statement can be used in place of a `var` declaration with implicit type.
-
-Outside a function, every statement begins with a keyword (`var` `func` and so on) and so the `:=` construct is not available.
+在一个函数体内，`:=` 可替换原 `var` declaration with implicit type. 但在函数体外无法使用，老老实实用 `var` `func` and so on
 
 #### Basic types
 
@@ -97,9 +101,30 @@ float32 float64
 complex64 complex128
 ```
 
+```go
+package main
+
+import (
+  "fmt"
+  "math/cmplx"
+)
+
+var (
+  ToBe   bool       = false
+  MaxInt uint64     = 1<<64 - 1
+  z      complex128 = cmplx.Sqrt(-5 + 12i)
+)
+
+func main() {
+  fmt.Printf("Type: %T Value: %v\n", ToBe, ToBe)     // Type: bool Value: false
+  fmt.Printf("Type: %T Value: %v\n", MaxInt, MaxInt) // Type: uint64 Value: 18446744073709551615
+  fmt.Printf("Type: %T Value: %v\n", z, z)           // Type: complex128 Value: (2+3i)
+}
+```
+
 #### Zero values
 
-Variables declared without an explicit initial value are given their zero value.
+未赋初始值的变量都会或得对应的 zero value：
   * `0` for numeric types
   * `false` for the boolean type
   * `""` (the empty string) for strings
@@ -108,7 +133,7 @@ Variables declared without an explicit initial value are given their zero value.
 
 The expression `T(v)` converts the value `v` to the type `T`.
 
-Unlike in C, in Go assignment between items of different type requires an explicit conversion.
+Go 不像 C，所有类型转换必须显式转换。
 
 ```go
 i := 42
@@ -119,11 +144,11 @@ u := uint(f)
 
 #### Type inference
 
-When declaring a variable without specifying an explicit type (either by using the `:=` syntax or `var =` expression syntax), the variable's type is inferred from the value on the right hand side.
+当声明变量并赋初始值时，Go 能够从 值 推测出变量的类型，此时类型声明可省略。
 
 #### Constants
 
-Constants are declared like variables, but with the `const` keyword. Constants cannot be declared using the `:= ` syntax.
+常量只能使用 `const` 声明，无法使用 `:=` 简写语法。(常量用全小写名也可以，这里首字母大写是惯例么？)
 
 ```go
 const (

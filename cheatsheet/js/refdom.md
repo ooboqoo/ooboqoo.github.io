@@ -376,6 +376,9 @@ https://developer.mozilla.org/en-US/docs/Web/Events
   <tr><td>onmouseup</td><td>The event occurs when a user releases a mouse button over an element</td><td>2</td></tr>
 </table>
 
+注: `mouseout` 的触发时机 1 移出当前元素 2 移出内部元素(鼠标还在当前元素范围内) 3 从当前元素移入内部元素
+
+
 ### Keyboard Events
 
 |||

@@ -84,7 +84,7 @@ Vim Cheat Sheet https://vim.rtorr.com/
 | `at`  | outside XML tag
 | `ii`  | inside indentation level
 
-#### 查找与替换
+### 查找与替换
 
 |||
 |:----------|:-------------------------------------
@@ -103,7 +103,7 @@ Vim Cheat Sheet https://vim.rtorr.com/
 
 注：在 Visual 模式下直接 `:s/old/new/` 会替换选中部分中所有 "old" 为 "new"。
 
-#### 剪切、复制、粘贴
+### 剪切、复制、粘贴
 
 正常模式下
 
@@ -134,7 +134,13 @@ Vim Cheat Sheet https://vim.rtorr.com/
 | `d`     | 删除
 | `~`     | 大小写切换
 
-#### 操作
+移动行
+
+上移一行 `ddkP` 或 `:move -1`  
+下移一行 `ddp` 或 `:move +1`
+
+
+### 操作
 
 |||
 |:-----------|:-------------------------------------
