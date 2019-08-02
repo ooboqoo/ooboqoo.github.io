@@ -101,6 +101,10 @@ vscode 虽然内置了 js-beautify，但功能被缩减很多，像 scss 文件�
 #### Multiple Selections
 
 `Ctrl+D` 选中一个词  
+`Ctrl+F2` 选中当前页的所有匹配文本  
+`Ctrl+Shift+左右箭头` 逐词选择文本  
+`Ctrl+Shift+Home/End` 选择左侧/右侧所有内容  
+`Ctrl+Backspace` / `Ctrl+Delete` 逐词删除  
 
 #### Shrink/expand selection
 
