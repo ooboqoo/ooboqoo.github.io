@@ -2,9 +2,9 @@
 
 ## 语法速查表 Syntax Cheatsheet:
 
-#### 内联元素 Span Elements
+### 内联元素 Span Elements
 
-##### 强调 Phrase Emphasis
+#### 强调 Phrase Emphasis
 
 ```md
 *italic*   **bold**
@@ -12,7 +12,7 @@ _italic_   __bold__
 _You **can** combine them_
 ```
 
-##### 链接 Links
+#### 链接 Links
 
 单行定义方式 Inline:
 ```md
@@ -34,16 +34,16 @@ An [example][id]. Then, anywhere else in the doc, define the link:
 [id]: /url/to/img.jpg "Title"
 ```
 
-##### 行内代码 Code Spans
+#### 行内代码 Code Spans
 
 ```md
 `code` spans are delimited by backticks.
 You can include literal backticks like `` `this` ``.
 ```
 
-#### 块级元素 Block Elements
+### 块级元素 Block Elements
 
-##### 段落 Paragraphs and line breaks
+#### 段落 Paragraphs and line breaks
 
 ```md
 
@@ -51,14 +51,14 @@ A paragraph separated by one or more blank lines.
 
 ```
 
-##### 手动换行 Manual Line Breaks
+#### 手动换行 Manual Line Breaks
 
 ```md
 Roses are red,□□□  // End a line with two or more spaces
 Violets are blue.
 ```
 
-##### 标题 Headers
+#### 标题 Headers
 
 atx-style (closing #'s are optional): 推荐使用这种风格
 
@@ -78,7 +78,7 @@ Header 2
 ```
 采用这种风格，前面必须有空行分隔，否则会被解释为普通文本，而 “---” 会被解释为 `<hr>`
 
-##### 区块引用 Blockquotes
+#### 区块引用 Blockquotes
 
 ```md
 > Email-style angle brackets are used for blockquotes.
@@ -92,7 +92,7 @@ Header 2
 >     echo "And here's some example code.";
 ```
 
-##### 列表 Lists
+#### 列表 Lists
 
 有序列表 Ordered, without paragraphs:
 
@@ -125,7 +125,7 @@ Header 2
 原版标准使用1个tab或4个空格来定义列表嵌套。  
 GitHub 规定用2个空格嵌套（You can create nested lists by indenting lines by two spaces.）
 
-##### 预格式化代码块 Preformatted Code Blocks
+#### 预格式化代码块 Preformatted Code Blocks
 
 Indent every line of a code block by at least 4 spaces or 1 tab.
 
@@ -137,7 +137,7 @@ This is a normal paragraph:
     code with no indent
 ```
 
-##### 水平分割线 Horizontal Rules
+#### 水平分割线 Horizontal Rules
 
 Three or more hyphens/dashes, asterisks, or underscores on a line (space
 separators are optional):
@@ -148,9 +148,9 @@ _ _ _
 - - - -
 ```
 
-#### Miscellaneous
+### Miscellaneous
 
-##### Backslash Escapes
+#### Backslash Escapes
 
 Markdown allows you to use backslash escapes to generate literal characters
 which would otherwise have special meaning in Markdown’s formatting syntax.
@@ -170,13 +170,13 @@ _   underscore
 !   exclamation mark
 ```
 
-##### Automatic linking for URLs
+#### Automatic linking for URLs
 
 Any URL (like http://www.github.com/) will be automatically converted into a clickable link.
 
-#### GitHub Flavored Markdown
+### GitHub Flavored Markdown
 
-##### Syntax highlighting
+#### Syntax highlighting
 
 ```md
 ```javascript
@@ -186,7 +186,7 @@ function test() {
 `` `
 ```
 
-##### Tables
+#### Tables
 
 ```md
 | Tables        | Are           | Cool  |
@@ -206,7 +206,7 @@ function test() {
 | cmd  | description
 ```
 
-##### Task lists
+#### Task lists
 
 ```md
 - [x] Finish my changes
@@ -214,23 +214,55 @@ function test() {
 - [ ] Open a pull request
 ```
 
-##### Autolinked references and URLs
+#### Autolinked references and URLs
 
 ```md
 [##](https://help.github.com/articles/autolinked-references-and-urls/)
 ```
 
-##### Using emoji
+#### Using emoji
 
 ```md
 :EMOJICODE:
 @octocat :+1: This PR looks great - it's ready to merge! :shipit:
 ```
 
-##### Strikethrough
+#### Strikethrough
+
 ```md
 ~~Scratch this.~~    // Strikethrough uses two tildes
 ```
+
+### 流程图
+
+```flow
+s=>start: 开始
+e=>end: 结束
+o=>operation: 操作
+sr=>subroutine: 子程序
+c=>condition: 判断
+io=>inputoutput: 输入/输出
+
+s->o->c
+c(yes)->io->e
+c(no)->sr(right)->o
+```
+
+流程图的语法大体分为两部分： 流程图元素定义部分 + 连接流程图元素部分
+
+定义元素的语法： `tag=>type: content:>url`
+
+* tag     标签，连接元素时会用到，名称可以任意
+* type    类型，有6种：`start` `end` `operation` `condition` `inputoutput` `subroutine`
+* content 文本，冒号与文本之间一定要有个空格
+* url     链接地址，点击文本可跳到指定页面
+
+连接流程图元素的语法比较简单
+
+* 使用 `->` 来连接两个元素
+* 对于 condition 类型，有 `yes` `no` 两个分支，如 `c(yes)` `c(no)`
+* 元素可以制定分支走向，默认向下，也可以用 `right` 指向右边，如 `sr(right)`
+
 
 ## 语法介绍 Markdown Syntax
 
@@ -313,11 +345,12 @@ tags in the HTML output. For example, this input:
 
 *   Magic
 ```
-```md
-&lt;ul>
-&lt;li>&lt;p>Bird&lt;/p>&lt;/li>
-&lt;li>&lt;p>Magic&lt;/p>&lt;/li>
-&lt;/ul>
+
+```html
+<ul>
+  <li><p>Bird</p></li>
+  <li><p>Magic</p></li>
+</ul>
 ```
 
 ##### 单个列表项内存在多个段落的情况
