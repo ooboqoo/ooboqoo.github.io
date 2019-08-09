@@ -235,6 +235,8 @@ function test() {
 
 ### 流程图
 
+https://github.com/adrai/flowchart.js
+
 ```flow
 s=>start: 开始
 e=>end: 结束
@@ -250,7 +252,7 @@ c(no)->sr(right)->o
 
 流程图的语法大体分为两部分： 流程图元素定义部分 + 连接流程图元素部分
 
-定义元素的语法： `tag=>type: content:>url`
+定义元素的语法： `tag=>type: content:>url` `nodeName=>nodeType: nodeText[|flowstate][:>urlLink]`
 
 * tag     标签，连接元素时会用到，名称可以任意
 * type    类型，有6种：`start` `end` `operation` `condition` `inputoutput` `subroutine`
