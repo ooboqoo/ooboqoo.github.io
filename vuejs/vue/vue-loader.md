@@ -102,9 +102,43 @@ sass-loader 支持一个 `data` 选项，这个选项允许你在所有被处理
 </style>
 ```
 
+```html
+<style lang="scss" scoped>
+.root /deep/ img { }
+</style>
+```
+
 ### 动态生成的内容
 
 通过 `v-html` 创建的 DOM 内容不受 scoped 样式影响，但是你仍然可以通过深度作用选择器为他们设置样式。
+
+### 转换效果示例
+
+```html
+<div class="root">
+  <div class="sub"></div>
+  <img src="https://path/to/image">
+</div>
+
+<!-- 转后的样子 -->
+<div data-v-4e8006bd class="root">
+  <div data-v-4e8006bd class="sub"></div>
+  <img data-v-4e8006bd src="https://path/to/image">
+</div>
+```
+
+```css
+.root { }
+.root .sub { }
+.root >>> img { }
+.root .sub >>> img { }
+
+/* 转后的样子 */
+.root[data-v-4e8006bd] { }
+.root .sub[data-v-4e8006bd] { }
+.root[data-v-4e8006bd] >>> img { }
+.root .sub[data-v-4e8006bd] >>> img { }
+```
 
 
 ## CSS Modules
