@@ -222,6 +222,8 @@ function test() {
 
 #### Using emoji
 
+图标编码表 https://gist.github.com/rxaviers/7360908
+
 ```md
 :EMOJICODE:
 @octocat :+1: This PR looks great - it's ready to merge! :shipit:

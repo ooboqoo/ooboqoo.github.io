@@ -1,69 +1,130 @@
 # Jasmine
 
-https://jasmine.github.io/2.4/introduction.html
+https://jasmine.github.io
 
-## 概述
-
-Jasmine 是一套 Javascript 行为驱动开发框架（BDD），干净简洁，表达力强且易于组织，不依赖于其他任何框架和 DOM，可运行于 Node.js，浏览器端或移动端。
+Jasmine is a Behavior Driven Development testing framework for JavaScript. It does not rely on browsers, DOM, or any JavaScript framework. Thus it's suited for websites, Node.js projects, or anywhere that JavaScript can run.
 
 ```js
-describe("A suite", function () {                          // describe 定义测试组
+describe("A suite", function() {                         // describe 定义测试组
   it("contains spec with an expectation", function () {  // it       定义测试
-    expect(true).toBe(true);                           // expect   定义断言
+    expect(true).toBe(true);                             // expect   定义断言
   });
 });
 ```
 
-### 基本概念
 
-#### 测试组 Suites
-测试组使用全局的 Jasmine 函数 `describe` 创建。`describe` 接受两个参数，一个字符串和一个函数。字符串是这个测试组的名字，用于描述测试内容，函数则是这个测试组的具体实现。
+## API
 
-#### 测试 Specs
-测试使用全局的 Jasmine 函数 `it` 创建。和 describe 一样接受两个参数，一个字符串和一个函数。一个测试可以包含多个断言 expectations 来测试代码。只有全部断言通过，测试才会通过。
+### 全局变量 Global
 
-由于 `describe` 和 `it` 块实质上都是函数，可以包含任何的可执行代码。Javascript 的作用域规则也是适用的，所以 describe 内定义的变量，其内部所有的 it 都能访问到。
-
-#### 断言 Expectations
-断言由 `expect` 函数创建。接受一个参数，用于设置测试的预期值。断言的结果只能是 true 或 false。
-
-#### 匹配函数 Matchers
-每个 Matcher 实现一个“期望值”和“实际值”的布尔判断，Jasmine 会根据 Mather 判断 expectation 是 true 还是 false，然后决定 spec 是通过还是失败。所有 Matcher 可以通过 `not` 执行否定判断。
+```
+describe(description, specDefinitions)   Create a group of specs (often called a suite)
+fdescribe(description, specDefinitions)  A focused `describe`
+xdescribe(description, specDefinitions)  A temporarily disabled `describe`
+it(description, testFunction?, timeout?) If testFunction is not provided the test will be pending
+fit(description, testFunction, timeout?) A focused `it`
+xit(description, testFunction?)          A temporarily disabled `it`
+expect(actual) → {matchers}              Create an expectation for a spec
+expectAsync(actual) → {async-matchers}   Create an asynchronous expectation for a spec
+fail(error?)                             Explicitly mark a spec as failed
+pending(message?)                        Mark a spec as pending, expectation results will be ignored
+beforeAll(fn?, timeout?)  Run some shared setup once before all of the specs in the `describe` are run
+afterAll(fn?, timeout?)   Run some shared teardown once after all of the specs in the `describe` are run
+beforeEach(fn?, timeout?) Run some shared setup before each of the specs
+afterEach(fn?, timeout?)  Run some shared teardown after each of the specs
+spyOn(obj, methodName) → {Spy}           Install a spy onto an existing object
+spyOnAllFunctions(obj) → {Object}        Installs spies on all writable and configurable properties
+spyOnProperty(obj, propertyName, accessType?) → {Spy}
+          Install a spy on a property installed with `Object.defineProperty` onto an existing object
+```
 
 ### 内置匹配函数
 
-* `toBe` 全等 ===
-* `toEqual` 对原始值、对象进行字面量比较，有点像 QUnit 的 deepEqual()
-* `toMatch` 正则匹配
-* `toBeDefined` 已声明且赋值，即非 `undefined`
-* `toBeUndefined` 未定义，即 `undefined`
-* `toBeNull` 匹配 null
-* `toBeTruthy` 匹配 true
-* `toBeFalsy` 匹配 false
-* `toContain` 数组中是否包含元素
-* `toBeLessThan` 小于
-* `toBeGreaterThan` 大于
-* `toBeCloseTo` 数值比较时定义精度，先四舍五入后再比较
-* `toThrow` 判断是否抛 exception
-* `toThrowError` 判断是否抛出 **特定** 的例外
+```stylus
+toBe(expected)     全等 `===`
+toEqual(expected)  原始值同 toBe；对象采用深比较
 
-### `fail` 函数
+toBeInstanceOf(expected)
+toContain(expected)  可用于数组或字符串
+toMatch(expected)    正则匹配
 
-通过 `fail` 函数可以人为制造一个失败项，函数可以接受一个字符串(说明错误信息) 或者 Error 对象作为参数。
+toBeTrue()  即 `=== true`
+toBeTruthy()
+toBeFalse()
+toBeFalsy()
 
-```js
-describe("A spec using the fail function", function() {
-  var foo = function(x, callBack) { if (x) { callBack(); } };
-
-  it("should not call the callBack", function() {
-    foo(false, function() { fail("Callback has been called"); });
-  });
-});
+toBeDefined()    即 `!== undefined`
+toBeUndefined()  即 `=== undefined`
 ```
 
-### 代码组织
+```
+toBeGreaterThan(expected)
+toBeGreaterThanOrEqual(expected)
+toBeLessThan(expected)
+toBeLessThanOrEqual(expected)
+toBeCloseTo(expected, precision?)  数值比较，precision 定义四舍五入的精度
+toBeNaN()  即 `NaN`
+toBePositiveInfinity()
+toBeNegativeInfinity()
+```
 
-#### 初始化与清理
+```
+toThrow(expected?)
+toThrowError(expected?, message?)
+toThrowMatching(predicate)
+```
+
+```
+toHaveBeenCalled()
+toHaveBeenCalledBefore(expected)
+toHaveBeenCalledTimes(expected)
+toHaveBeenCalledWith()
+```
+
+```
+withContext(message) → {matchers}  给测试失败时添加一些额外的信息
+nothing()
+toHaveClass(expected)  DOM 元素是否包含某给类名
+```
+
+```js
+expect('10')toBe(10);      // fail
+expect('10').toEqual(10);  // fail
+expect({age: 33}).toEqual({age: 33});  // pass
+expect({age: 33}).toBe({age: 33});     // fail
+
+expect("my string").toMatch(/string$/);  // pass
+
+expect(null).toBeDefined();  // pass
+```
+
+
+## 基本概念
+
+https://jasmine.github.io/tutorials/your_first_suite
+
+#### 测试组 Suites
+
+测试组使用全局的 Jasmine 函数 `describe` 创建。`describe` 接受两个参数，一个字符串和一个函数。字符串是这个测试组的名字，用于描述测试内容，函数则是这个测试组的具体实现。
+
+#### 测试 Specs
+
+测试使用全局的 Jasmine 函数 `it` 创建。和 `describe` 一样接受两个参数，一个字符串和一个函数。一个测试可以包含多个断言 expectations 来测试代码。只有全部断言通过，测试才会通过。
+
+由于 `describe` 和 `it` 块实质上都是函数，可以包含任何的可执行代码。Javascript 的作用域规则也是适用的，所以 `describe` 内定义的变量，其内部所有的 `it` 都能访问到。
+
+#### 断言 Expectations
+
+断言由 `expect` 函数创建。接受一个参数，用于设置测试的预期值 actual。
+
+#### 匹配函数 Matchers
+
+每个 Matcher 实现一个期望值 expected 和实际值 actual 的布尔判断，Jasmine 会根据 Mather 判断 expectation 是 true 还是 false，然后决定 spec 是通过还是失败。所有 Matcher 可以通过 `not` 执行否定判断。
+
+
+## 代码组织
+
+### 初始化与清理
 
 为避免非不要地重复“初始化和清理”代码，Jasmine 提供了几个全局函数：
 
@@ -102,34 +163,56 @@ describe("A spec using beforeAll and afterAll", function() {
 });
 ```
 
-#### `this` 关键字
+### `this` 关键字
 
 每个测试的 `beforeEach` / `it` / `afterEach` 都共享一个空对象，可以通过 `this` 关键字访问该对象，以实现几个方法间的信息共享。而测试之间(即 `it` 之间)的空对象都是相互隔离的。
 
-#### 测试组嵌套
+### 测试组嵌套
 
 `describe` 代码块支持嵌套，从而构成 `describe` 树，以更好地组织测试结构。
 
 ```js
-describe("测试嵌套describe：level1", function() {
-  var foo;
-  beforeEach(function() { alert('level1：Setup'); });
-  afterEach(function() { alert('level1：Teardown'); });
-  it("level1：测试", function() { alert('level1：测试'); });
+describe("describe: level1", function() {
+  beforeEach(function() { console.log('level1: Setup'); });
+  afterEach(function() { console.log('level1: Teardown'); });
+  it("level1: Spec", function() { console.log('level1: Spec'); });
 
-  describe("测试嵌套describe:level2", function() {  // 特别要注意的是，执行这个 describe 时上面的 beforeEach
-    beforeEach(function() { alert('level2：Setup'); });                           // 和 afterEach 还是有效的
-    afterEach(function() { alert('level2：Teardown'); });
-    it("level2：测试", function() { alert('level2：测试'); });
+  describe("describe: level2", function() {  // 特别要注意的是，执行这个 describe 时上面的 beforeEach
+    beforeEach(function() { console.log('level2: Setup'); });  // 和 afterEach 还是有效的
+    afterEach(function() { console.log('level2: Teardown'); });
+    it("level2: Spec", function() { console.log('level2: Spec'); });
+  });
+});
+
+// level1: Setup
+// level1: Spec
+// level1: Teardown
+// level1: Setup
+//   level2: Setup
+//   level2: Spec
+//   level2: Teardown
+// level1: Teardown
+```
+
+### 禁用测试组
+
+`xdescribe` 关键字定义的测试组将被忽略，适合临时取消一组测试。xdescribe = x + describe
+
+### `fail` 函数
+
+通过 `fail` 函数可以人为制造一个失败项，函数可以接受一个字符串(说明错误信息) 或者 Error 对象作为参数。
+
+```js
+describe("A spec using the fail function", function() {
+  var foo = function(x, callBack) { if (x) { callBack(); } };
+
+  it("should not call the callBack", function() {
+    foo(false, function() { fail("Callback has been called"); });
   });
 });
 ```
 
-#### 禁用测试组
-
-`xdescribe` 关键字定义的测试组将被忽略，适合临时取消一组测试。xdescribe = x + describe
-
-#### 待完善项 pending
+### 待完善项 pending
 
 带完善项，即一个测试没有内容或内容不完整，需要补充。测试执行时，待完善项会显示在报告中并注明，共有3种形式：
 
@@ -147,7 +230,7 @@ describe("Pending specs", function() {
 });
 ```
 
-### 监视函数 Spies
+## 监视函数 Spies
 
 Jasmine 有一类被称为 spies 的测试替身函数 [test double](http://xunitpatterns.com/Test%20Double.html) functions。一个监视函数 spy 不仅可以作为被监视函数的替身(供调用)，而且还能跟踪被监视函数的调用情况(包括调用时的参数)。
 
@@ -161,7 +244,8 @@ Error: Spies must be created in a before function or a spec
 > 翻译时，一会函数，一会对象，感觉有点乱，理解这种混乱首先需要理解 “函数是第一型对象” 的基本概念。  
 > 分析行为时，作为函数翻译更加直观；而读取跟踪信息时，作为对象翻译更直观。
 
-#### 专有匹配函数
+### 专有匹配函数
+
 监视函数拥有 3 个专有的匹配函数：
 
 ```js
@@ -177,7 +261,8 @@ describe("A spy", function() {
 });
 ```
 
-#### 调用策略
+### 调用策略
+
 监视函数还可以附加调用策略来定义其行为：
 
 * `and.callThrough()` - 默认只监视函数的调用情况，被监视函数不执行，加上此函数就会实际执行被监视函数
@@ -209,7 +294,7 @@ describe("A spy, when configured to fake a series of return values", function() 
 });
 ```
 
-#### calls 属性
+### calls 属性
 
 可以通过 calls 属性来读取具体的跟踪信息：
 
@@ -248,7 +333,7 @@ describe("A spy", function() {
 });
 ```
 
-#### 手动创建 spy
+### 手动创建 spy
 
 * `createSpy` - 创建单个 spy
 * `createSpyObj` - 创建包含多个 spy 的对象
@@ -258,7 +343,7 @@ whatAmI = jasmine.createSpy('whatAmI');  // function createSpy(name, originalFn)
 tape = jasmine.createSpyObj('tape', ['play', 'pause', 'stop']);  // function createSpyObj(baseName, methodNames)
 ```
 
-### jasmine 命名空间下的方法
+## jasmine 命名空间下的方法
 
 这几个方法提供了特定的匹配算法，下节还将介绍自定义匹配算法。
 
@@ -280,7 +365,7 @@ expect({foo: 'bar'}).toEqual({foo: jasmine.stringMatching(/^bar$/)});
 expect({foo: 'foobarbaz'}).toEqual({foo: jasmine.stringMatching('bar')});
 ```
 
-### 自定义匹配算法
+## 自定义匹配算法
 
 自定义 asymmetricMatch 函数，这跟自定义匹配函数有点差别，应该理解为自定义匹配算法。
 
@@ -307,7 +392,7 @@ describe("custom asymmetry", function() {
 });
 ```
 
-### 模拟时钟
+## 模拟时钟
 
 Jasmine Clock 对测试与时间相关的代码提供了支持。此模拟时钟会替换实际系统时钟，从而实现对时间相关代码的人工干预。
 
@@ -340,7 +425,7 @@ describe("模拟时钟", function(){
 });
 ```
 
-### 异步测试
+## 异步测试
 
 Jasmine 同样支持对异步操作的测试。
 
@@ -389,6 +474,7 @@ describe("异步测试 --", function () {
 ```
 
 源码里找出些信息，有助于理解：
+
 ```js
 this.beforeEach = function(beforeEachFunction, timeout) {  // 源代码说明 timeout 一直都存在
   currentDeclarationSuite.beforeEach({
@@ -399,25 +485,10 @@ this.beforeEach = function(beforeEachFunction, timeout) {  // 源代码说明 ti
 QueueRunner.prototype.run = function(queueableFns, recursiveIndex) {
   if (queueableFn.fn.length > 0) { attemptAsync(queueableFn); return; }
   else { attemptSync(queueableFn); }  // 带参数就执行异步测试操作，不带参就执行普通测试操作
-}
+};
 ```
 
 ## 内置匹配函数 Included Matchers
-
-* `toBe` 全等 ===
-* `toEqual` 对原始值、对象进行字面量比较，有点像 QUnit 的 deepEqual()
-* `toMatch` 正则匹配
-* `toBeDefined` 已声明且赋值，即非 `undefined`
-* `toBeUndefined` 未定义，即 `undefined`
-* `toBeNull` 匹配 null
-* `toBeTruthy` 匹配 true
-* `toBeFalsy` 匹配 false
-* `toContain` 数组中是否包含元素
-* `toBeLessThan` 小于
-* `toBeGreaterThan` 大于
-* `toBeCloseTo` 数值比较时定义精度，先四舍五入后再比较
-* `toThrow` 判断是否抛 exception
-* `toThrowError` 判断是否抛出 **特定** 的例外
 
 ```js
 describe("Included matchers:", function() {
