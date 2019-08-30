@@ -1,84 +1,86 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/resource/lib/normalize.css">
+<link rel="stylesheet" href="/resource/lib/main.css">
+<link rel="stylesheet" href="/resource/lib/vs.css">
+<title>电子书</title>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/resource/lib/normalize.css">
-  <link rel="stylesheet" href="/resource/lib/main.css">
-  <link rel="stylesheet" href="/resource/lib/vs.css">
-  <title>电子书</title>
-</head>
-
-<body>
-  <div id="header"></div>
-  <nav id="sidemenu">
-    <div id="togglemenu">菜<br>单<br><span>&gt;</span><span>&lt;</span></div>
+<div id="header"></div>
+<nav id="sidemenu">
+  <div id="togglemenu">菜<br>单<br><span>&gt;</span><span>&lt;</span></div>
+  <div>
+    <!-- 以下内容需手动填入 -->
+    <h2>ES6 入门</h2>
     <div>
-      <!-- 以下内容需手动填入 -->
-      <h2>ES6 入门</h2>
-      <div>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/README.md">前言</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/intro.md">ECMAScript 6简介</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/let.md">let 和 const 命令</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/destructuring.md">变量的解构赋值</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/string.md">字符串的扩展</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/regex.md">正则的扩展</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/number.md">数值的扩展</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/function.md">函数的扩展</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/array.md">数组的扩展</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/object.md">对象的扩展</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/symbol.md">Symbol</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/set-map.md">Set 和 Map 数据结构</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/proxy.md">Proxy</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/reflect.md">Reflect</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/promise.md">Promise 对象</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/iterator.md">Iterator 和 for...of 循环</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/generator.md">Generator 函数语法</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/generator-async.md">Generator 的异步应用</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/async.md">async 函数</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/class.md">Class 的基本语法</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/class-extends.md">Class 的继承</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/decorator.md">Decorator</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/module.md">Module 的语法</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/module-loader.md">Module 的加载实现</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/style.md">编程风格</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/spec.md">读懂规格</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/arraybuffer.md">二进制数组</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/proposals.md">最新提案</a>
-        <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs/reference.md">参考链接</a>
-      </div>
-      <h2 class="collapse">Understanding ES6</h2>
-      <div style="display: none;">
-        <a href="understandinges6/00-Introduction.md">Introduction</a>
-        <a href="understandinges6/01-Block-Bindings.md">Block-Bindings</a>
-        <a href="understandinges6/02-Strings-and-Regular-Expressions.md">Strings-and-Regular-Expressions</a>
-        <a href="understandinges6/03-Functions.md">Functions</a>
-        <a href="understandinges6/04-Objects.md">Objects</a>
-        <a href="understandinges6/05-Destructuring.md">Destructuring</a>
-        <a href="understandinges6/06-Symbols.md">Symbols</a>
-        <a href="understandinges6/07-Sets-And-Maps.md">Sets-And-Maps</a>
-        <a href="understandinges6/08-Iterators-And-Generators.md">Iterators-And-Generators</a>
-        <a href="understandinges6/09-Classes.md">Classes</a>
-        <a href="understandinges6/10-Arrays.md">Arrays</a>
-        <a href="understandinges6/11-Promises.md">Promises</a>
-        <a href="understandinges6/12-Proxies-and-Reflection.md">Proxies-and-Reflection</a>
-        <a href="understandinges6/13-Modules.md">Modules</a>
-        <a href="understandinges6/A-Other-Changes.md">Other-Changes</a>
-        <a href="understandinges6/B-ECMAScript-7.md">ECMAScript-7</a>
-      </div>
+      <a href="//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/README.md">前言</a>
+      <a href="es6tutorial/intro.md">ECMAScript 6简介</a>
+      <a href="es6tutorial/let.md">let 和 const 命令</a>
+      <a href="es6tutorial/destructuring.md">变量的解构赋值</a>
+      <a href="es6tutorial/string.md">字符串的扩展</a>
+      <a href="es6tutorial/regex.md">正则的扩展</a>
+      <a href="es6tutorial/number.md">数值的扩展</a>
+      <a href="es6tutorial/function.md">函数的扩展</a>
+      <a href="es6tutorial/array.md">数组的扩展</a>
+      <a href="es6tutorial/object.md">对象的扩展</a>
+      <a href="es6tutorial/object-methods.md">对象的新增方法</a>
+      <a href="es6tutorial/symbol.md">Symbol</a>
+      <a href="es6tutorial/set-map.md">Set 和 Map 数据结构</a>
+      <a href="es6tutorial/proxy.md">Proxy</a>
+      <a href="es6tutorial/reflect.md">Reflect</a>
+      <a href="es6tutorial/promise.md">Promise 对象</a>
+      <a href="es6tutorial/iterator.md">Iterator 和 for...of 循环</a>
+      <a href="es6tutorial/generator.md">Generator 函数的语法</a>
+      <a href="es6tutorial/generator-async.md">Generator 的异步应用</a>
+      <a href="es6tutorial/async.md">async 函数</a>
+      <a href="es6tutorial/class.md">Class 的基本语法</a>
+      <a href="es6tutorial/class-extends.md">Class 的继承</a>
+      <a href="es6tutorial/module.md">Module 的语法</a>
+      <a href="es6tutorial/module-loader.md">Module 的加载实现</a>
+      <a href="es6tutorial/style.md">编程风格</a>
+      <a href="es6tutorial/spec.md">读懂规格</a>
+      <a href="es6tutorial/async-iterator.md">异步遍历器</a>
+      <a href="es6tutorial/arraybuffer.md">ArrayBuffer</a>
+      <a href="es6tutorial/proposals.md">最新提案</a>
+      <a href="es6tutorial/decorator.md">Decorator</a>
+      <a href="es6tutorial/reference.md">参考链接</a>
     </div>
-    <!-- 手动填入到此结束 -->
-  </nav>
-  <div id="tools"><div id="outline">索引</div><div id="mark" style="display: none;">增/删标记</div></div>
-  <main>
-    <article id="md"></article>
-  </main>
-  <iframe id="html" frameborder="0" width="100%" scrolling="no"></iframe>
-  <script src="/resource/lib/main.js"></script>
-  <script src="/resource/lib/marked.js"></script>
-  <script src="/resource/lib/highlight.pack.js"></script>
-  <script src="/resource/lib/touch.js"></script>
-</body>
-
-</html>
+    <script>
+      const es6tutorial = '//raw.githubusercontent.com/ruanyf/es6tutorial/gh-pages/docs'
+      const links = document.querySelector('h2+div').querySelectorAll('a')
+      Array.from(links).slice(1).forEach(link => {
+        const decodedUrl = link.getAttribute('href').replace('es6tutorial', es6tutorial)
+        link.setAttribute('href', decodedUrl)
+      })
+    </script>
+    <h2 class="collapse">Understanding ES6</h2>
+    <div style="display: none;">
+      <a href="understandinges6/00-Introduction.md">Introduction</a>
+      <a href="understandinges6/01-Block-Bindings.md">Block-Bindings</a>
+      <a href="understandinges6/02-Strings-and-Regular-Expressions.md">Strings-and-Regular-Expressions</a>
+      <a href="understandinges6/03-Functions.md">Functions</a>
+      <a href="understandinges6/04-Objects.md">Objects</a>
+      <a href="understandinges6/05-Destructuring.md">Destructuring</a>
+      <a href="understandinges6/06-Symbols.md">Symbols</a>
+      <a href="understandinges6/07-Sets-And-Maps.md">Sets-And-Maps</a>
+      <a href="understandinges6/08-Iterators-And-Generators.md">Iterators-And-Generators</a>
+      <a href="understandinges6/09-Classes.md">Classes</a>
+      <a href="understandinges6/10-Arrays.md">Arrays</a>
+      <a href="understandinges6/11-Promises.md">Promises</a>
+      <a href="understandinges6/12-Proxies-and-Reflection.md">Proxies-and-Reflection</a>
+      <a href="understandinges6/13-Modules.md">Modules</a>
+      <a href="understandinges6/A-Other-Changes.md">Other-Changes</a>
+      <a href="understandinges6/B-ECMAScript-7.md">ECMAScript-7</a>
+    </div>
+  </div>
+  <!-- 手动填入到此结束 -->
+</nav>
+<div id="tools"><div id="outline">索引</div><div id="mark" style="display: none;">增/删标记</div></div>
+<main>
+  <article id="md"></article>
+</main>
+<iframe id="html" frameborder="0" width="100%" scrolling="no"></iframe>
+<script src="/resource/lib/main.js"></script>
+<script src="/resource/lib/marked.js"></script>
+<script src="/resource/lib/highlight.pack.js"></script>
+<script src="/resource/lib/touch.js"></script>

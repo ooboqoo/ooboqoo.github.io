@@ -3,13 +3,123 @@
 https://zhuanlan.zhihu.com/p/28247899  
 https://trends.google.com/trends/explore?date=today%2012-m,today%2012-m,today%2012-m&geo=,,&q=Mocha,Jest,Jasmine
 
-### 为什么选择 Jest
-
 Jest 是 Facebook 出品的一个测试框架，相对其他测试框架，其一大特点就是就是内置了常用的测试工具，比如自带断言、测试覆盖率工具，实现了开箱即用。
 
 而作为一个面向前端的测试框架，Jest 可以利用其特有的快照测试功能，通过比对 UI 代码生成的快照文件，实现对 React 等常见框架的自动测试。
 
 此外， Jest 的测试用例是并行执行的，而且只执行发生改变的文件所对应的测试，提升了测试速度。
+
+
+## API
+
+
+### Except
+
+```text
+expect.extend(matchers)
+expect.anything()
+expect.any(constructor)
+expect.arrayContaining(array)
+expect.assertions(number)
+expect.hasAssertions()
+expect.not.arrayContaining(array)
+expect.not.objectContaining(object)
+expect.not.stringContaining(string)
+expect.not.stringMatching(string | regexp)
+expect.objectContaining(object)
+expect.stringContaining(string)
+expect.stringMatching(string | regexp)
+expect.addSnapshotSerializer(serializer)
+```
+
+```text
+expect(value)
+  .not
+  .resolves
+  .rejects
+    .toXxxXxx()
+
+.toBe(value)           `Object.is`
+.toEqual(value)        `Object.is` + 对象深比较
+.toStrictEqual(value)  深比较时会考虑：属性值为undefined与不带属性不等；会比较Class类型 obj.constructor.name
+
+.toBeUndefined()
+.toBeDefined()
+.toBeNull()
+
+.toBeTruthy()   `Boolean(value)`
+.toBeFalsy()    `Boolean(value)`
+
+.toContain(item)       可用于数组或字符串
+.toContainEqual(item)  当数组成员是对象时，会对对象进行深比较
+.toMatch(regexpOrString)  适用于字符串
+.toMatchObject(object)    适用于对象
+.toHaveLength(number)
+.toHaveProperty(keyPath, value?)
+.toBeInstanceOf(Class)  即`instanceof()`
+
+.toBeGreaterThan(number)
+.toBeGreaterThanOrEqual(number)
+.toBeLessThan(number)
+.toBeLessThanOrEqual(number)
+.toBeCloseTo(number, numDigits?)
+.toBeNaN()
+
+.toMatchSnapshot(propertyMatchers?, hint?)
+.toMatchInlineSnapshot(propertyMatchers?, inlineSnapshot)
+
+.toThrow(error?) / .toThrowError(error?)
+.toThrowErrorMatchingSnapshot(hint?)
+.toThrowErrorMatchingInlineSnapshot(inlineSnapshot)
+
+.toHaveBeenCalled()
+.toHaveBeenCalledTimes(number)
+.toHaveBeenCalledWith(arg1, arg2, ...)
+.toHaveBeenLastCalledWith(arg1, arg2, ...)
+.toHaveBeenNthCalledWith(nthCall, arg1, arg2, ....)
+
+.toHaveReturned()
+.toHaveReturnedTimes(number)
+.toHaveReturnedWith(value)
+.toHaveLastReturnedWith(value)
+.toHaveNthReturnedWith(nthCall, value)
+```
+
+```js
+describe('The difference of `toBe` `toEqual` and `toStrictEqual`', () => {
+  const obj1 = { name: 'object' }
+  const obj2 = { name: 'object' }
+  const obj3 = { name: 'object', age: undefined }
+
+  test('toBe: almost the same with `Object.is`', () => {
+    expect(obj1).not.toBe(obj2)
+  })
+
+  test('toEqual: `Object.is` plus deep equality', () => {
+    expect(obj1).toEqual(obj3)
+  })
+
+  test('toStrictEqual: a more strict `toEqual`', () => {
+    expect(obj1).toStrictEqual(obj2)
+    expect(obj1).not.toStrictEqual(obj3)
+  })
+})；
+```
+
+```js
+test('understand `toContain` and `toContainEqual`', () => {
+  const obj = { key: 'value' }
+  const arr = [obj]
+  expect(arr).toContain(obj)
+  expect(arr).not.toContain({ key: 'value' })
+  expect(arr).toContainEqual({ key: 'value' })
+
+  expect('123').toContain(2)
+  expect('123').toContain('2')
+  expect('123').not.toContainEqual(2)
+  expect('123').toContainEqual('2')
+});
+```
 
 
 ## Introduction
