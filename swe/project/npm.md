@@ -1,5 +1,35 @@
 # NPM & Yarn
 
+
+npm                                       | Yarn
+----------------------------------------- | -------------------------------------
+`npm install`                             | `yarn install`
+ (N/A)                                    | `yarn install --no-lockfile`
+ (N/A)                                    | `yarn install --pure-lockfile`
+ ||
+`npm install [package]`                   | `yarn add [package]`
+`npm install --save-dev [package]`        | `yarn add [package] [--dev/-D]`
+ (N/A)                                    | `yarn add [package] [--peer/-P]`
+`npm install --save-optional [package]`   | `yarn add [package] [--optional/-O]`
+`npm install --save-exact [package]`      | `yarn add [package] [--exact/-E]`
+ (N/A)                                    | `yarn add [package] [--tilde/-T]`
+ ||
+`npm uninstall [package]`                 | (N/A)
+`npm uninstall --save [package]`          | `yarn remove [package]`
+`npm uninstall --save-dev [package]`      | `yarn remove [package]`
+`npm uninstall --save-optional [package]` | `yarn remove [package]`
+||
+`npm install --global [package]`          | `yarn global add [package]`
+||
+`npm update [package]`                    | `yarn upgrade [package]`
+||
+`npm list`                                | `yarn list`
+`npm outdated`                            | `yarn outdated`
+`npm info <package>`                      | `yarn info <package>`
+`npm bin`                                 | `yarn bin`
+`npm cache clean`                         | `yarn cache clean`
+
+
 ## NPM
 
 ```bash
@@ -184,33 +214,12 @@ https://www.zhihu.com/question/54238202/answer/150468100
 CHCP 65001   # 修改代码页编码改为 utf-8
 ```
 
+### 安装
 
-### NPM 及 Yarn 命令
-
-https://yarnpkg.com/en/docs/migrating-from-npm
-
-npm                                       | Yarn
------------------------------------------ | -------------------------------------
-`npm install`                             | `yarn install`
- (N/A)                                    | `yarn install --flat`
- (N/A)                                    | `yarn install --har`
- (N/A)                                    | `yarn install --no-lockfile`
- (N/A)                                    | `yarn install --pure-lockfile`
-`npm install [package]`                   | (N/A)
-`npm install --save [package]`            | `yarn add [package]`
-`npm install --save-dev [package]`        | `yarn add [package] [--dev/-D]`
- (N/A)                                    | `yarn add [package] [--peer/-P]`
-`npm install --save-optional [package]`   | `yarn add [package] [--optional/-O]`
-`npm install --save-exact [package]`      | `yarn add [package] [--exact/-E]`
- (N/A)                                    | `yarn add [package] [--tilde/-T]`
-`npm install --global [package]`          | `yarn global add [package]`
-`npm rebuild`                             | `yarn install --force`
-`npm uninstall [package]`                 | (N/A)
-`npm uninstall --save [package]`          | `yarn remove [package]`
-`npm uninstall --save-dev [package]`      | `yarn remove [package]`
-`npm uninstall --save-optional [package]` | `yarn remove [package]`
-`npm cache clean`                         | `yarn cache clean`
-`npm ci`                                  | `yarn upgrade`
+```bash
+# macOS 下升级 yarn
+$ brew upgrade yarn
+```
 
 推荐下载安装包安装，据说会自动设置 Path。我 `npm install yarn` 后费好大劲才找到 global 地址 `%USERPROFILE%\AppData\Local\Yarn\config\global\node_modules\.bin` 然后还得手动去设置 `PATH` 变量(设置完不用重启系统，重启终端即可)。
 

@@ -120,19 +120,17 @@ interface Deck {
 
 JavaScript 里函数根据传入不同的参数而返回不同类型的数据是很常见的，但 JS 里没有重载这个概念。
 
-TypeScript 里允许通过给同一个函数提供多个函数类型定义来进行函数重载。
+TypeScript 里允许通过提供多个函数类型定义来进行函数重载(但也仅仅是类型系统支持重载，具体业务实现只能有一份)。
 
-TypeScript 查找重载列表，尝试使用第一个重载定义。如果匹配的话就使用这个。因此，为了让编译器能够选择正确的检查类型，在定义重载的时候，一定要把最精确的定义放在最前面。
+TypeScript 从前往后查找重载列表，为了让编译器能(更快地)选择正确的检查类型，定义重载时请把最精确的定义放在前面。
 
 ```ts
 enum suits {'hearts', 'spades', 'clubs', 'diamonds'};
 
 function pickCard(x: string): number;           // 重载定义1
 function pickCard(x: number): string;           // 重载定义2
-function pickCard(x): any { return suits[x]; }  // 实际 JS 代码
+function pickCard(x): any { return suits[x]; }  // 具体实现只能有一份
 
 let result1: number = pickCard('spades');
 let result2: string = pickCard(2);
 ```
-
-注意，`function pickCard(x): any` 并不是重载列表的一部分，因此这里只有两个重载：一个是接收对象另一个接收数字。以其它参数调用 pickCard 会产生错误。

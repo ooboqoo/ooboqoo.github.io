@@ -58,8 +58,8 @@ x[6] = true;    // Error, 'boolean' isn't 'string | number'
 
 ```ts
 enum Color {Red = 1, Green = 128, Blue};
-console.log(Color[128])   // Green
-console.log(Color.Green)  // 128
+console.log(Color[128])  // Green
+console.log(Color.Blue)  // 129
 ```
 
 ### Any 任意值

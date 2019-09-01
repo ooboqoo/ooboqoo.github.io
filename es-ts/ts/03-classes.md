@@ -65,9 +65,9 @@ var Person = (function () {
     }
     Person.getRace = function () { return 'static method'; };
     Person.prototype.getRace = function () { return Person.race; };
+    Person.race = 'human';
     return Person;
 }());
-Person.race = 'human';
 ```
 
 ## 继承
@@ -309,15 +309,10 @@ let point3d: Point3d = {x: 1, y: 2, z: 3};
 
 ### 类方法中的闭包 
 
-与 ES6 定义不同，TypeScript 的 Class 定义内部是不允许出现 `const` `let` 字段的，如果类方法需要闭包功能来存储一些特定 **中间变量** 时，可能需要添加一个附加的 **属性** 来存储此变量，但这样做不是很妥：
+类定义内部是不允许出现 `const` `let` 字段的，如果类方法需要闭包功能来存储一些特定 **中间变量** 时，可尝试以下方法：
 
-1. 本身中间变量从概念上来说并不属于 类的一个属性；
-2. 像在 Angular 这些框架中使用时，属性的变更会引起变更检测，影响整体性能 （待考）
-
-经过思考，觉得在 **类定义的外部** 引入一个 `const CACHE = { }` 来存放这些计算中的中间变量比较合适，其特点是：
-
-1. 不需要在类上添加无意义的属性，概念上更加符合实际；
-2. 这些中间变量的变更不会引起 Angular 的变更检测；
-3. 这个 CACHE 会在类的 **实例之间共享信息**，如果要求实现实例间的隔离，那么只能通过添加 属性 来解决
-
-与此方法相似的是，通过添加静态属性来解决，但静态属性只存在于 TS 中，ES6 并不支持，另外从概念上来理解，也不是很好，所以不用。
+* 使用命名规范定义私有属性 `_privatePropertyName`，ES3 就支持
+* 使用 TypeScript 的 `private` 定义私有属性，仅 TypeScript 下适用
+* 借助 ESNext 的私有属性定义，这个还得等等
+* 借助 ES6 WeakMap 或 Symbol 实现，但代码看着不够优雅
+* 在**类定义的外部**定义一个 `const CACHE = {}` 来存放中间变量，注意这个 CACHE 会在类的**实例之间共享信息**
