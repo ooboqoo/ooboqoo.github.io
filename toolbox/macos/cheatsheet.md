@@ -155,6 +155,11 @@ ctrl+cmd+up     | 上移一行 swap_line_up
 ctrl+cmd+down   | 下移一行 swap_line_down
 ctrl+shift+K    | 删除整行
 
+### 其他
+
+Shift+鼠标滚轮 可实现左右滚动。
+
+
 ## 命令行
 
 ```bash

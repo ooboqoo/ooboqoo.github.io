@@ -2,27 +2,37 @@
 
 ## 多个编辑器快捷键对比：
 
-|  功能        |  现用快捷键   |    Sublime3   |    VS Code   |   IntelliJ
-| ----------- | ------------- | ------------- | ------------ | ---------------
-| 向下复制行   | Ctrl+Shift+D  |     same      | Shift+Alt+Dn |    Ctrl+D
-| 删除当前行   | Ctrl+Shift+K  |     same      |     same     |    Ctrl+Y
-| 上移一行     | Ctrl+Shift+Up |     same      |    Alt+Up    | Ctrl+Shift+Up 语句<br>Alt+Shift+Up 行
-| 下移一行     | Ctrl+Shift+Dn |     same      |    Alt+Dn    | Ctrl+Shift+Dn 语句<br>Alt+Shift+Dn 行
-| 合并行       | Ctrl+Shift+J  |    Ctrl+J     |     N/A      |     same
-| 添加光标     |     Alt+BL    |    Ctrl+BL    |     same     |     same
-| 向上添加光标 |     Alt+Up    |   Shift+BR    | Ctrl+Shift+Alt+Up |     N/A
-| 向下添加光标 |     Alt+Dn    |   Shift+BR    | Ctrl+Shift+Alt+Dn |     N/A
-| 增加缩进     |     Ctrl+]    |     same      |     same     |     Tab
-| 减少缩进     |     Ctrl+[    |     same      |     same     |   Shift+Tab
-| 折叠代码块   | Ctrl+Shift+{  |     same      |     same     | same 前选到代码块开始处
-| 展开代码块   | Ctrl+Shift+}  |     same      |     same     | same 前选到代码块结尾处
-| 行注释切换   |     Ctrl+/    |     same      |     same     |     same
-| 格式化代码   |               |               | Shift+Alt+F  | Ctrl+Alt+L
-| 命令面板     | Ctrl+Shift+P  |     same      |     same     | Ctrl+Shift+A
-| 命令面板     | Ctrl+Shift+O  |      ?        |     same     | ?
-| 快速搜索     |     Ctrl+P    |     same      |     same     | Navigate Menu
-| 切换终端     |     Ctrl+`    |     same      |     same     |   Alt+F12
-| 重命名       |       F2      |               |     same     | Shift+F6
+macOS    | Icon | Windows | Remark
+---------|:----:|---------|---------
+command  |  ⌘   |   Win   |
+option   |  ⌥   |   Alt   |
+shift    |  ⇧   |         |
+control  |  ⌃   |         |
+caps lock|  ⇪   |         | 中/英
+fn       |      |         |
+
+
+|  功能        |  macOS  | 现用快捷键   |    Sublime3   |    VS Code   |  IntelliJ
+| ----------- | ------------- |------------- | ------------- | ------------ | ---------------
+| 向下复制行   | ⌥⇧↓ | Ctrl+Shift+D  |     same      | Shift+Alt+Dn |    Ctrl+D
+| 删除当前行   | ⌘X  | Ctrl+Shift+K  |     same      |     same     |    Ctrl+Y
+| 上移一行     | ⌥↑  | Ctrl+Shift+Up |     same      |    Alt+Up    | Ctrl+Shift+Up 语句<br>Alt+Shift+Up 行
+| 下移一行     | ⌥↓  | Ctrl+Shift+Dn |     same      |    Alt+Dn    | Ctrl+Shift+Dn 语句<br>Alt+Shift+Dn 行
+| 合并行       | ^J  | Ctrl+Shift+J  |    Ctrl+J     |     N/A      |     same
+| 添加光标     | ⌥BL |   Alt+BL      |    Ctrl+BL    |     same     |     same
+| 向上添加光标 | ⌥⌘↑ |   Alt+Up       |   Shift+BR    | Ctrl+Shift+Alt+Up |     N/A
+| 向下添加光标 | ⌥⌘↓ |   Alt+Dn       |   Shift+BR    | Ctrl+Shift+Alt+Dn |     N/A
+| 增加缩进     |     |   Ctrl+]      |     same      |     same     |     Tab
+| 减少缩进     |     |    Ctrl+[     |     same      |     same     |   Shift+Tab
+| 折叠代码块   |     | Ctrl+Shift+{  |     same      |     same     | same 前选到代码块开始处
+| 展开代码块   |     | Ctrl+Shift+}  |     same      |     same     | same 前选到代码块结尾处
+| 行注释切换   | ⌘/  |  Ctrl+/       |     same      |     same     |     same
+| 格式化代码   |     |               |               | Shift+Alt+F  | Ctrl+Alt+L
+| 命令面板     |     | Ctrl+Shift+P  |     same      |     same     | Ctrl+Shift+A
+| 命令面板     |     | Ctrl+Shift+O  |      ?        |     same     | ?
+| 快速搜索     | ⌘P  |   Ctrl+P      |     same      |     same     | Navigate Menu
+| 切换终端     | ^\` |   Ctrl+\`     |     same      |     same     |   Alt+F12
+| 重命名       | F2  |    F2         |               |     same     | Shift+F6
 
 快速跳转、选择类快键键可减少鼠标操作，更多操作请查询 "转到" 或 "Navigate" 目录
 
