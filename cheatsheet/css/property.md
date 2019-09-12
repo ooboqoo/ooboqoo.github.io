@@ -2,26 +2,26 @@
 
 ### CSS Functions
 
-|||
-------------------|------------------------------------------------------------|-----
-attr(attr-name)   | 获取属性名对应的值，注意属性名不能加引号，否则无效         | 2
-calc(expression)  | Allows you to perform calculations to determine CSS property values | 3
-linear-gradient() | Creates an "image" which represents a linear gradient of colors | 3
-radial-gradient() | Creates an "image" which represents a radial gradient of colors | 3
-repeating-linear-gradient() | Creates an "image" consisting of repeating gradients  | 3
+||||
+----------------------------|---------------------------------------------------------------------|---
+attr(attr-name)             | 获取属性名对应的值，注意属性名不能加引号，否则无效                        | 2
+calc(expression)            | Allows you to perform calculations to determine CSS property values | 3
+linear-gradient()           | Creates an "image" which represents a linear gradient of colors     | 3
+radial-gradient()           | Creates an "image" which represents a radial gradient of colors     | 3
+repeating-linear-gradient() | Creates an "image" consisting of repeating gradients                | 3
 repeating-radial-gradient() | Automatically repeats the color stops infinitely in both directions | 3
 
 ### Color Properties
 
-|||
----------|-------------------------------------------|-----
+||||
+---------|-------------------------------------------|---
 color    | 颜色                                      | 1
-opacity  | 子元素的 opacity 无法覆盖父元素的 opacity | 3
+opacity  | 子元素的 opacity 无法覆盖父元素的 opacity    | 3
 
 ### Background and Border Properties
 
-|||
-------------------|----------------------------------------------------------------|-----
+||||
+------------------|----------------------------------------------------------------|---
 background        | 各项标准顺序 `color` `image` `repeat` `attachment` `position` `size` `origin` `clip` | 1
 background-color  | Specifies the background color of an element | 1
 background-image  | 背景图 `none` `url()` element gradient etc.  | 1
@@ -66,8 +66,8 @@ background-position: right 35% bottom 5px;
 
 ### Basic Box Properties
 
-|||
------------|-----------------------------------------------------------------------------------|-----
+||||
+-----------|-----------------------------------------------------------------------------------|---
 display    | `block` `inline-block` `table` `flex` `inline-flex` `grid` `list-item`            | 1
 position   | `static` `relative` `absolute` `fixed`                                            | 2
 top        | Specifies the top position of a positioned element                                | 2
@@ -104,8 +104,8 @@ min-height    | Sets the minimum height of an element  | 2
 
 ### Flexible Box Layout
 
-|||
-----------------|------------------------------------------------------------------------|-----
+||||
+----------------|------------------------------------------------------------------------|---
 justify-content | 水平方向对齐 `center` `start` `space-between` `space-around` etc.      | 3
 align-content   | 垂直方向对齐 `stretch` `center` `start` etc.                           | 3
 align-items     | Specifies the alignment for items inside a flexible container          | 3
@@ -132,7 +132,7 @@ order          | Sets the order of the flexible item, relative to the rest  | 3
 
 ### Grid Layout
 
-||
+|||
 -----------|-------------------------------------------------------------------------------------------------------
 grid       | 
 grid-auto-rows    | Specifies a default row size
@@ -156,11 +156,11 @@ grid-column-start | Specifies where to start the grid item
 
 ### Text Properties
 
-|||
-----------------|-------------------------------------------------------------------------------------|----
-text-align      | 指定文本水平对齐方式 `left` `right` `center` `justify`。垂直对齐用 `vertical-align` | 1
-text-justify    | `text-align: justify;` 时具体对齐行为 `none` `auto` `inter-word` `inter-character`  | 3
-text-align-last | `text-align: justify;` 时最后一行的对齐行为 `right`/`end` `center` `left`/`start`   | 3
+||||
+----------------|-------------------------------------------------------------------------------------|---
+text-align      | 指定文本水平对齐方式 `left` `right` `center` `justify`。垂直对齐用 `vertical-align`     | 1
+text-justify    | `text-align: justify;` 时具体对齐行为 `none` `auto` `inter-word` `inter-character`    | 3
+text-align-last | `text-align: justify;` 时最后一行的对齐行为 `right`/`end` `center` `left`/`start`      | 3
 ||
 white-space | 如何处理空白 `normal`不留换 `nowrap`不留不换 `pre`留不换 `pre-line`不留换 `pre-wrap`留换 | 1
 word-break  | 是否/如何断行 `normal`(词尾插入换行) `break-all`(单词内插入) `keep-all`(即使中日韩也不换行) `break-word`(仅在单词长度超过行宽时才在单词内插入换行) | 3
@@ -180,8 +180,8 @@ hanging-punctuation  | Specifies whether a punctuation character may be placed o
 
 ### Text Decoration Properties
 
-|||
-------------------------|------------------------------------------------------|-----
+||||
+------------------------|------------------------------------------------------|---
 text-decoration         | `none` `underline` `overline` `line-through` 等      | 1
 text-decoration-color   | Specifies the color of the text-decoration           | 3
 text-decoration-style   | Specifies the style of the line in a text decoration | 3
@@ -191,8 +191,8 @@ text-underline-position | Specifies the position of the underline which is set u
 
 ### Font Properties
 
-|||
--------------|-------------------------------------------------|-----
+||||
+-------------|-------------------------------------------------|---
 font         | Sets all the font properties in one declaration | 1
 font-family  | Specifies the font family for text | 1
 font-size    | Specifies the font size of text    | 1
@@ -216,30 +216,30 @@ font-language-override | Controls the usage of language-specific glyphs in a typ
 
 ### Writing Modes Properties
 
-| Property | Description | CSS
-|----------|-------------|----------
-| direction | Specifies the text direction/writing direction | 2
-| unicode-bidi | Used together with the directionproperty to set or return whether the text should be overridden to support multiple languages in the same document | 2
-| text-orientation | Defines the orientation of the text in a line | 3
-| text-combine-upright | Specifies the combination of multiple characters into the space of a single character | 3
-| writing-mode | | 3
+||||
+-----------------|------------------------------------------------|---
+direction        | Specifies the text direction/writing direction | 2
+unicode-bidi     | Used together with the directionproperty to set or return whether the text should be overridden to support multiple languages in the same document                   | 2
+text-orientation | Defines the orientation of the text in a line  | 3
+text-combine-upright | Specifies the combination of multiple characters into the space of a single character | 3
+writing-mode     |                                                | 3
 
 ### Table Properties
 
-| Property | Description | CSS
-|----------|-------------|----------
-| border-collapse | 是否折叠表格边框，默认 `separate` 一般都用 `collapse` | 2
-| border-spacing | 配合 `border-collapse: separate;` 使用，指定单元格边框间距 | 2
-| caption-side | 指定表格标题位于 `top` 还是 `bottom` | 2
-| empty-cells | 配合 `border-collapse: separate;` 使用，指明单元格内容为空时的是否显示边框和背景 | 2
-| table-layout | 当指定列宽时，默认 `auto` 还是会受内容影响的，如要求浏览器严格按照指定值渲染，就得用 `fixed` | 2
+||||
+----------------|---------------------------------------------------------|---
+border-collapse | 是否折叠表格边框，默认 `separate` 一般都用 `collapse`      | 2
+border-spacing  | 配合 `border-collapse: separate;` 使用，指定单元格边框间距 | 2
+caption-side    | 指定表格标题位于 `top` 还是 `bottom`                      | 2
+empty-cells     | 配合 `border-collapse: separate;` 使用，指明单元格内容为空时的是否显示边框和背景          | 2
+table-layout    | 当指定列宽时，默认 `auto` 还是会受内容影响的，如要求浏览器严格按照指定值渲染，就得用 `fixed` | 2
 
 注：非表格元素可通过设置 `display` 属性为 `table` `table-row` `table-cell` 来实现表格布局。
 
 ### Lists and Counters Properties
 
-||
-------------------|-------------------------------------------------------|-----
+||||
+------------------|-------------------------------------------------------|---
 list-style        | Sets all the properties for a list in one declaration | 1
 list-style-image  | Specifies an image as the list-item marker            | 1
 list-style-position | Specifies if the list-item markers should appear inside or outside the content flow | 1
@@ -257,8 +257,8 @@ counters(name, string) | 获取嵌套的计数值 | 2
 
 ### Transform Properties
 
-|||
---------------------|-----------------------------------------------------------|-----
+||||
+--------------------|-----------------------------------------------------------|---
 transform           | Applies a 2D or 3D transformation to an element           | 3
 transform-origin    | Allows you to change the position on transformed elements | 3
 transform-style     | Specifies how nested elements are rendered in 3D space    | 3
@@ -268,8 +268,8 @@ backface-visibility | Defines whether or not an element should be visible when n
 
 ### Animation Properties
 
-|||
---------------------------|-------------------------------------------------------------------------------------|-----
+||||
+--------------------------|-------------------------------------------------------------------------------------|---
 @keyframes                | 定义整个动画中的关键帧(顺序见示例)                                                  | 3
 animation                 | 指定所有动画配置项(不含 `animation-play-state` `animation-fill-mode`)的快捷属性     | 3
 animation-delay           | 指定动画等待时长，当为负数时，如 `-2s`，会跳过前 2s 的动画                          | 3
@@ -298,8 +298,8 @@ animation-timing-function: ease, step-start, cubic-bezier(0.1, 0.7, 1.0, 0.1);
 
 ### Transitions Properties
 
-|||
----------------------------|---------------------------------------------------------------------|-----
+||||
+---------------------------|---------------------------------------------------------------------|---
 transition                 | A shorthand property for setting the four transition properties     | 3
 transition-property        | Specifies the name of the CSS property the transition effect is for | 3
 transition-duration        | Specifies how many seconds or milliseconds a transition effect takes to complete | 3
@@ -308,24 +308,24 @@ transition-delay           | Specifies when the transition effect will start    
 
 ### Basic User Interface Properties
 
-| Property | Description | CSS
-|----------|-------------|----------
-| box-sizing | width height 值是否包含 padding+margin，可选 `content-box` `border-box` IE8+支持 | 3
-| content | Used with the :before and :after pseudo-elements, to insert generated content | 2
-| cursor | 定制光标样式，不支持动态gif <span class="mark">[注1]</span> | 2
-| resize | Specifies whether or not an element is resizable by the user | 3
-| nav-index | Specifies the tabbing order for an element | 3
-| nav-left | Specifies where to navigate when using the arrow-left navigation key | 3
-| nav-right | Specifies where to navigate when using the arrow-right navigation key | 3
-| nav-up | Specifies where to navigate when using the arrow-up navigation key | 3
-| nav-down | Specifies where to navigate when using the arrow-down navigation key | 3
-| outline | Sets all the outline properties in one declaration | 2
-| outline-color | Sets the color of an outline | 2
-| outline-style | Sets the style of an outline | 2
-| outline-width | Sets the width of an outline | 2
-| outline-offset | Offsets an outline, and draws it beyond the border edge | 3
-| text-overflow | 指明当内容超出容器时如何显示，最常见用法：<span class="mark">[注2]</span> | 3
-| ime-mode | Controls the state of the input method editor for text fields | 3
+||||
+-----------|-------------------------------------------------------------------------------|---
+box-sizing | width height 值是否包含 padding+margin，可选 `content-box` `border-box` IE8+支持 | 3
+content    | Used with the :before and :after pseudo-elements, to insert generated content | 2
+cursor     | 定制光标样式，不支持动态gif <span class="mark">[注1]</span>              | 2
+resize     | Specifies whether or not an element is resizable by the user          | 3
+nav-index  | Specifies the tabbing order for an element                            | 3
+nav-left   | Specifies where to navigate when using the arrow-left navigation key  | 3
+nav-right  | Specifies where to navigate when using the arrow-right navigation key | 3
+nav-up     | Specifies where to navigate when using the arrow-up navigation key    | 3
+nav-down   | Specifies where to navigate when using the arrow-down navigation key  | 3
+outline    | Sets all the outline properties in one declaration                    | 2
+outline-color  | Sets the color of an outline | 2
+outline-style  | Sets the style of an outline | 2
+outline-width  | Sets the width of an outline | 2
+outline-offset | Offsets an outline, and draws it beyond the border edge              | 3
+text-overflow  | 指明当内容超出容器时如何显示，最常见用法：<span class="mark">[注2]</span> | 3
+ime-mode       | Controls the state of the input method editor for text fields        | 3
 
 ```css
 注1  cursor: url(one.svg), url(two.svg) 5 5, progress;  // 自定义光标好多高级玩法
@@ -334,90 +334,90 @@ transition-delay           | Specifies when the transition effect will start    
 
 ### Multi-column Layout Properties
 
-| Property | Description | CSS
-|----------|-------------|----------
-| columns | A shorthand property for setting column-width and column-count | 3
-| column-count | Specifies the number of columns an element should be divided into | 3
-| column-rule | A shorthand property for setting all the column-rule-* properties | 3
-| column-rule-color | Specifies the color of the rule between columns | 3
-| column-rule-style | Specifies the style of the rule between columns | 3
-| column-rule-width | Specifies the width of the rule between columns | 3
-| column-fill | Specifies how to fill columns | 3
-| column-gap | Specifies the gap between the columns | 3
-| column-span | Specifies how many columns an element should span across | 3
-| column-width | Specifies the width of the columns | 3
-| break-after | Specifies the page-, column-, or region-break behavior after the generated box | 3
-| break-before | Specifies the page-, column-, or region-break behavior before the generated box | 3
-| break-inside | Specifies the page-, column-, or region-break behavior inside the generated box | 3
-| widows | Sets the minimum number of lines that must be left at the top of a page when a page break occurs inside an element | 2
+||||
+------------------|-------------------------------------------------------------------|---
+columns           | A shorthand property for setting column-width and column-count    | 3
+column-count      | Specifies the number of columns an element should be divided into | 3
+column-rule       | A shorthand property for setting all the column-rule-* properties | 3
+column-rule-color | Specifies the color of the rule between columns          | 3
+column-rule-style | Specifies the style of the rule between columns          | 3
+column-rule-width | Specifies the width of the rule between columns          | 3
+column-fill       | Specifies how to fill columns                            | 3
+column-gap        | Specifies the gap between the columns                    | 3
+column-span       | Specifies how many columns an element should span across | 3
+column-width      | Specifies the width of the columns                       | 3
+break-after       | Specifies the page-, column-, or region-break behavior after the generated box  | 3
+break-before      | Specifies the page-, column-, or region-break behavior before the generated box | 3
+break-inside      | Specifies the page-, column-, or region-break behavior inside the generated box | 3
+widows            | Sets the minimum number of lines that must be left at the top of a page when a page break occurs inside an element | 2
 
 ### Paged Media
 
-| Property | Description | CSS
-|----------|-------------|----------
-| orphans | Sets the minimum number of lines that must be left at the bottom of a page when a page break occurs inside an element | 2
-| page-break-after | Sets the page-breaking behavior after an element | 2
-| page-break-before | Sets the page-breaking behavior before an element | 2
-| page-break-inside | Sets the page-breaking behavior inside an element | 2
+||||
+------------------|---------------------------------------------------|---
+orphans           | Sets the minimum number of lines that must be left at the bottom of a page when a page break occurs inside an element | 2
+page-break-after  | Sets the page-breaking behavior after an element  | 2
+page-break-before | Sets the page-breaking behavior before an element | 2
+page-break-inside | Sets the page-breaking behavior inside an element | 2
 
 ### Generated Content for Paged Media
 
-| Property | Description | CSS
-|----------|-------------|----------
-| marks | Adds crop and/or cross marks to the document | 3
-| quotes | Sets the type of quotation marks for embedded quotations | 2
+||||
+-------|----------------------------------------------------------|---
+marks  | Adds crop and/or cross marks to the document             | 3
+quotes | Sets the type of quotation marks for embedded quotations | 2
 
 ### Filter Effects Properties
 
-| Property | Description | CSS
-|----------|-------------|----------
-| filter | Defines effects (e.g. blurring or color shifting) on an element before the element is displayed | 3
+||||
+----------|-------------------------------------------------------------------------------------------------|---
+filter    | Defines effects (e.g. blurring or color shifting) on an element before the element is displayed | 3
 
 ### Image Values and Replaced Content
 
-||
-----------|-------------|----------
+||||
+------------------|----------------------------------------------------------------|---
 image-orientation | Specifies a rotation in the right or clockwise direction that a user agent applies to an image (This property is likely going to be deprecated and its functionality moved to HTML) | 3
-image-rendering | Gives a hint to the browser about what aspects of an image are most important to preserve when the image is scaled | 3
-image-resolution | Specifies the intrinsic resolution of all raster images used in/on the element | 3
-object-fit | 替换元素如何填充到容器 `fill`(拉升填充，默认) `contain`(包含，留白) `cover`(覆盖) `none`(原尺寸) `scale-down`(contain/none 取最小值) | 3
-object-position | 替换元素的定位设置，值参考 `background-position` | 3
+image-rendering   | Gives a hint to the browser about what aspects of an image are most important to preserve when the image is scaled | 3
+image-resolution  | Specifies the intrinsic resolution of all raster images used in/on the element | 3
+object-fit        | 替换元素如何填充到容器 `fill`(拉升填充，默认) `contain`(包含，留白) `cover`(覆盖) `none`(原尺寸) `scale-down`(contain/none 取最小值) | 3
+object-position   | 替换元素的定位设置，值参考 `background-position` | 3
 
 注：在理解 `object-fit` 和 `object-position` 的时候，可以或多或少映射 `background-size` 和 `background-position`。
 
 ### Masking Properties
 
-| Property | Description | CSS
-|----------|-------------|----------
-| mask     | mask-type   | 3
+||||
+------|-------------|---
+mask  | mask-type   | 3
 
 ### Speech Properties
 
-| Property | Description | CSS
-|----------|-------------|----------
-| mark | A shorthand property for setting the mark-before and mark-after properties | 3
-| mark-after | Allows named markers to be attached to the audio stream | 3
-| mark-before | Allows named markers to be attached to the audio stream | 3
-| phonemes | Specifies a phonetic pronunciation for the text contained by the corresponding element | 3
-| rest | A shorthand property for setting the rest-before and rest-after properties | 3
-| rest-after | Specifies a rest or prosodic boundary to be observed after speaking an element's content | 3
-| rest-before | Specifies a rest or prosodic boundary to be observed before speaking an element's content | 3
-| voice-balance | Specifies the balance between left and right channels | 3
-| voice-duration | Specifies how long it should take to render the selected element's content | 3
-| voice-pitch | Specifies the average pitch (a frequency) of the speaking voice | 3
-| voice-pitch-range | Specifies variation in average pitch | 3
-| voice-rate | Controls the speaking rate | 3
-| voice-stress | Indicates the strength of emphasis to be applied | 3
-| voice-volume | Refers to the amplitude of the waveform output by the speech synthesises | 3
+||||
+---------------|----------------------------------------------------------------------------|---
+mark           | A shorthand property for setting the mark-before and mark-after properties | 3
+mark-after     | Allows named markers to be attached to the audio stream | 3
+mark-before    | Allows named markers to be attached to the audio stream | 3
+phonemes       | Specifies a phonetic pronunciation for the text contained by the corresponding element | 3
+rest           | A shorthand property for setting the rest-before and rest-after properties | 3
+rest-after     | Specifies a rest or prosodic boundary to be observed after speaking an element's content | 3
+rest-before    | Specifies a rest or prosodic boundary to be observed before speaking an element's content | 3
+voice-balance  | Specifies the balance between left and right channels | 3
+voice-duration | Specifies how long it should take to render the selected element's content | 3
+voice-pitch    | Specifies the average pitch (a frequency) of the speaking voice | 3
+voice-pitch-range | Specifies variation in average pitch | 3
+voice-rate     | Controls the speaking rate | 3
+voice-stress   | Indicates the strength of emphasis to be applied | 3
+voice-volume   | Refers to the amplitude of the waveform output by the speech synthesises | 3
 
 ### Marquee Properties
 
-| Property | Description | CSS
-|----------|-------------|----------
-| marquee-direction | Sets the direction of the moving content | 3
-| marquee-play-count | Sets how many times the content move | 3
-| marquee-speed | Sets how fast the content scrolls | 3
-| marquee-style | Sets the style of the moving content | 3
+||||
+-------------------|------------------------------------------|---
+marquee-direction  | Sets the direction of the moving content | 3
+marquee-play-count | Sets how many times the content move     | 3
+marquee-speed      | Sets how fast the content scrolls        | 3
+marquee-style      | Sets the style of the moving content     | 3
 
 <style>
   td:first-child { color: #f33; white-space: nowrap; }

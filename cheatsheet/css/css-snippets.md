@@ -348,8 +348,11 @@ tip 弹框效果(因为需要出统一的边框效果，所以实现跟上面有
 ### Reset all styles
 
 ```css
-.reset-all-styles { all: initial; }
+.reset-all-styles { all: initial; }  /* initial  unset */
 ```
+
+`initial` 直接重置 The initial CSS keyword applies the initial value of a property to an element.  
+`unset` 先尝试继承 The unset CSS keyword is the combination of the initial and inherit keywords.
 
 CSS 中的默认值：常用的 `initial` `default` `auto` 或者 `inherit`，但具体设置项差异较大，拿 `display` 举例
 
