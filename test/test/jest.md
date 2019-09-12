@@ -12,23 +12,45 @@ Jest 是 Facebook 出品的一个测试框架，相对其他测试框架，其�
 
 ## API
 
+### Globals
+
+```text
+beforeAll(fn, timeout)
+afterAll(fn, timeout)
+beforeEach(fn, timeout)
+afterEach(fn, timeout)
+
+describe(name, fn)
+describe.each(table)(name, fn, timeout)
+describe.only(name, fn)
+describe.only.each(table)(name, fn)
+describe.skip(name, fn)
+describe.skip.each(table)(name, fn)
+
+test(name, fn, timeout)
+test.each(table)(name, fn, timeout)
+test.only(name, fn, timeout)
+test.only.each(table)(name, fn)
+test.skip(name, fn)
+test.skip.each(table)(name, fn)
+test.todo(name)
+```
 
 ### Except
 
 ```text
-expect.extend(matchers)
-expect.anything()
-expect.any(constructor)
-expect.arrayContaining(array)
 expect.assertions(number)
 expect.hasAssertions()
+
+expect.anything()
+expect.any(constructor)
+
 expect.not.arrayContaining(array)
 expect.not.objectContaining(object)
 expect.not.stringContaining(string)
 expect.not.stringMatching(string | regexp)
-expect.objectContaining(object)
-expect.stringContaining(string)
-expect.stringMatching(string | regexp)
+
+expect.extend(matchers)
 expect.addSnapshotSerializer(serializer)
 ```
 
@@ -46,11 +68,10 @@ expect(value)
 .toBeUndefined()
 .toBeDefined()
 .toBeNull()
-
 .toBeTruthy()   `Boolean(value)`
 .toBeFalsy()    `Boolean(value)`
 
-.toContain(item)       可用于数组或字符串
+.toContain(item)       用于数组或字符串(不过字符串用 toMatch 更合适)
 .toContainEqual(item)  当数组成员是对象时，会对对象进行深比较
 .toMatch(regexpOrString)  适用于字符串
 .toMatchObject(object)    适用于对象
@@ -103,7 +124,7 @@ describe('The difference of `toBe` `toEqual` and `toStrictEqual`', () => {
     expect(obj1).toStrictEqual(obj2)
     expect(obj1).not.toStrictEqual(obj3)
   })
-})；
+});
 ```
 
 ```js
@@ -121,10 +142,104 @@ test('understand `toContain` and `toContainEqual`', () => {
 });
 ```
 
+### Mock Functions
+
+```text
+mockFn.mock.calls
+mockFn.mock.results
+mockFn.mock.instances
+mockFn.mockClear()
+mockFn.mockReset()
+mockFn.mockRestore()
+
+mockFn.mockImplementation(fn)
+mockFn.mockImplementationOnce(fn)
+
+mockFn.getMockName()
+mockFn.mockName(value)
+
+mockFn.mockReturnThis()
+mockFn.mockReturnValue(value)
+mockFn.mockReturnValueOnce(value)
+mockFn.mockResolvedValue(value)
+mockFn.mockResolvedValueOnce(value)
+mockFn.mockRejectedValue(value)
+mockFn.mockRejectedValueOnce(value)
+```
+
+### Jest Object
+
+```text
+jest.fn(implementation)
+jest.spyOn(object, methodName)
+jest.spyOn(object, methodName, accessType?)
+
+jest.disableAutomock()
+jest.enableAutomock()
+
+jest.genMockFromModule(moduleName)
+jest.mock(moduleName, factory, options)
+jest.unmock(moduleName)
+jest.doMock(moduleName, factory, options)
+jest.dontMock(moduleName)
+jest.setMock(moduleName, moduleExports)
+jest.requireActual(moduleName)
+jest.requireMock(moduleName)
+jest.resetModules()
+jest.isolateModules(fn)
+
+jest.isMockFunction(fn)
+
+jest.clearAllMocks()
+jest.resetAllMocks()
+jest.restoreAllMocks()
+
+jest.useFakeTimers()
+jest.useRealTimers()
+jest.runAllTicks()
+jest.runAllTimers()
+jest.runAllImmediates()
+jest.advanceTimersByTime(msToRun)
+jest.runOnlyPendingTimers()
+jest.advanceTimersToNextTimer(steps)
+jest.clearAllTimers()
+jest.getTimerCount()
+jest.setTimeout(timeout)
+jest.retryTimes()
+```
+
 
 ## Introduction
 
 ### Setup and Teardown
+
+```js
+beforeAll(() => console.log('1 - beforeAll'))
+afterAll(() => console.log('1 - afterAll'))
+beforeEach(() => console.log('1 - beforeEach'))
+afterEach(() => console.log('1 - afterEach'))
+test('', () => console.log('1 - test'))
+describe('Scoped / Nested block', () => {
+  beforeAll(() => console.log('2 - beforeAll'))
+  afterAll(() => console.log('2 - afterAll'))
+  beforeEach(() => console.log('2 - beforeEach'))
+  afterEach(() => console.log('2 - afterEach'))
+  test('', () => console.log('2 - test'))
+})
+;
+// 1 - beforeAll
+// 1 - beforeEach
+// 1 - test
+// 1 - afterEach
+// 2 - beforeAll
+// 1 - beforeEach
+// 2 - beforeEach
+// 2 - test
+// 2 - afterEach
+// 1 - afterEach
+// 2 - afterAll
+// 1 - afterAll
+```
 
 #### describe 和 test 块内代码的执行顺序
 
@@ -132,34 +247,34 @@ test('understand `toContain` and `toContainEqual`', () => {
 
 ```js
 describe('outer', () => {
-  console.log('describe outer-a');
+  console.log('describe outer-a')
 
   describe('describe inner 1', () => {
-    console.log('describe inner 1');
+    console.log('describe inner 1')
     test('test 1', () => {
-      console.log('test for describe inner 1');
-      expect(true).toEqual(true);
-    });
-  });
+      console.log('test for describe inner 1')
+      expect(true).toEqual(true)
+    })
+  })
 
-  console.log('describe outer-b');
+  console.log('describe outer-b')
 
   test('test 1', () => {
-    console.log('test for describe outer');
-    expect(true).toEqual(true);
-  });
+    console.log('test for describe outer')
+    expect(true).toEqual(true)
+  })
 
   describe('describe inner 2', () => {
-    console.log('describe inner 2');
+    console.log('describe inner 2')
     test('test for describe inner 2', () => {
-      console.log('test for describe inner 2');
-      expect(false).toEqual(false);
-    });
-  });
+      console.log('test for describe inner 2')
+      expect(false).toEqual(false)
+    })
+  })
 
-  console.log('describe outer-c');
-});
-
+  console.log('describe outer-c')
+})
+;
 // describe outer-a
 // describe inner 1
 // describe outer-b

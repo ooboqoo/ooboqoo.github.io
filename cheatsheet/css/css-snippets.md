@@ -248,16 +248,15 @@ tip 弹框效果(因为需要出统一的边框效果，所以实现跟上面有
 ```css
 .triangle-popover {
   position: absolute;
-  display: block;
+  display: inline-block;
   margin-top: 10px;
   margin-left: -60px;
   padding: 10px;
-  width: 180px;
   border-radius: 6px;
   background-color: #fff;
   box-shadow: 0 2px 10px 0 rgba(0,0,0,0.2);
 }
-.triangle-popover:before {
+.triangle-popover::before {
   content: '';
   position: absolute;
   width: 0;
@@ -273,31 +272,112 @@ tip 弹框效果(因为需要出统一的边框效果，所以实现跟上面有
 }
 ```
 
-<div class="demo">
-  <div class="triangle-popover">tip 提示框</div>
+<div class="demo" style="padding: 50px 10px;">
+  <span class="popover-demo-item">
+    <span class="triangle-popover popover-top">top</span>
+    <span class="triangle-popover popover-left">left</span>
+    .
+    <span class="triangle-popover popover-bottom">bottom</span>
+    <span class="triangle-popover popover-right">right</span>
+  </span>
+  <span class="popover-demo-item">
+    <span class="triangle-popover popover-top">top<br>toptop</span>
+    <span class="triangle-popover popover-left">left</span>
+    MMMMMMMM
+    <span class="triangle-popover popover-bottom">bottom<br>bottom</span>
+    <span class="triangle-popover popover-right">right</span>
+  </span>
+  <span class="popover-demo-item">
+    <span class="triangle-popover popover-top">top</span>
+    <span class="triangle-popover popover-left">left</span>
+    MMMM<br>MMMM
+    <span class="triangle-popover popover-bottom">bottom</span>
+    <span class="triangle-popover popover-right">right</span>
+  </span>
+  <span class="popover-demo-item">yellow<span class="triangle-popover popover-right popover-yellow">tip 提示框</span></span>
   <style>
-  .triangle-popover {
+  .popover-demo-item {
     position: relative;
-    display: block;
-    padding: 10px;
-    width: 180px;
+    display: inline-block;
+    margin: 0 60px;
+    border: 1px solid;
+  }
+  .triangle-popover {
+    position: absolute;
+    display: inline-block;
+    padding: 0 5px;
     border-radius: 6px;
     background-color: #fff;
     box-shadow: 0 2px 10px 0 rgba(0,0,0,0.2);
+    white-space: nowrap;
   }
-  .triangle-popover:before {
+  .triangle-popover::after {
     content: '';
     position: absolute;
     width: 0;
     height: 0;
+    border-style: solid;
+    border-color: #fff #fff transparent transparent;
+  }
+  .triangle-popover.popover-top {
+    transform: translate(-50%, -100%);
+    margin-top: -10px;
+    margin-left: -50%;
+  }
+  .triangle-popover.popover-top::after {
+    top: 100%;
+    left: 50%;
+    margin-top: -14px;
+    margin-left: -10px;
+    transform: rotate(135deg);
+    border-width: 10px;
+    box-shadow: 5px -5px 10px -5px rgba(0,0,0,0.2);
+  }
+  .triangle-popover.popover-bottom {
+    bottom: -35px;
+    transform: translate(-50%, 50%);
+    margin-left: -50%;
+  }
+  .triangle-popover.popover-bottom::after {
     top: -5px;
     left: 50%;
     margin-left: -10px;
     transform: rotate(-45deg);
     border-width: 10px;
-    border-style: solid;
-    border-color: #fff #fff transparent transparent;
     box-shadow: 5px -5px 10px -5px rgba(0,0,0,0.2);
+  }
+  .triangle-popover.popover-left {
+    left: 0;
+    transform: translateX(-100%);
+    margin-left: -10px;
+  }
+  .triangle-popover.popover-left::after {
+    top: 50%;
+    margin-top: -4px;
+    transform: rotate(45deg);
+    border-width: 5px;
+  }
+  .triangle-popover.popover-right {
+    transform: translateX(10px);
+  }
+  .triangle-popover.popover-right::after {
+    left: -4px;
+    top: 50%;
+    margin-top: -4px;
+    transform: rotate(-135deg);
+    border-width: 5px;
+  }
+  .triangle-popover.popover-small::after {
+    
+  }
+  .triangle-popover.popover-yellow {
+    color: #666;
+    background-color: #fff9e4;
+    border: 1px solid #EE6723;
+  }
+  .triangle-popover.popover-yellow::after {
+    border-color: #fff9e4 #fff9e4 transparent transparent;
+    box-shadow : 1px -1px 0px 0px #EE6723;
   }
   </style>
 </div>

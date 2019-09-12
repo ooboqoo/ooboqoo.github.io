@@ -62,6 +62,7 @@ strong, b {
 
 i, em {
   color: #90a;
+  font-style: normal;
 }
 
 table {
