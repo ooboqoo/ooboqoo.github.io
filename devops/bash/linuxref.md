@@ -32,3 +32,12 @@ $ command && echo "TRUE" || echo "FALSE"
 ## 语法
 
 
+
+## 综合应用
+
+统计项目中 CSS 样式用了多少 `font-size` 属性
+
+```bash
+$ grep -r font-size . | wc -l
+```
+

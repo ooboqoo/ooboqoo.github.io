@@ -723,6 +723,8 @@ $i: 6;
 
 ## 6 混入 Mixins
 
+注：Sass 的写法还支持简写 `=` 换 `@mixin`, `+` 换 `@include`，但 SCSS 下并不支持。
+
 ### 6.1 Defining a Mixin: `@mixin`
 
 ### 6.2 Including a Mixin: `@include`
