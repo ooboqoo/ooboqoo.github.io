@@ -4,12 +4,13 @@
 
 ||||
 ----------------------------|---------------------------------------------------------------------|---
-attr(attr-name)             | 获取属性名对应的值，注意属性名不能加引号，否则无效                        | 2
+attr(attr-name)             | 获取属性名对应的值，注意属性名不能加引号，否则无效                       | 2
 calc(expression)            | Allows you to perform calculations to determine CSS property values | 3
 linear-gradient()           | Creates an "image" which represents a linear gradient of colors     | 3
 radial-gradient()           | Creates an "image" which represents a radial gradient of colors     | 3
 repeating-linear-gradient() | Creates an "image" consisting of repeating gradients                | 3
 repeating-radial-gradient() | Automatically repeats the color stops infinitely in both directions | 3
+hsl() hsla() rgba() rgb()   |                                                                     | 3
 
 ### Color Properties
 

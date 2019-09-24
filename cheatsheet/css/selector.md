@@ -106,6 +106,7 @@ Selector | Example | Example description | CSS
 -------------- | -------------------| ------------------- | ---
  :focus        | input:focus        |                     | 2
  :checked      | input:checked      |                     | 3
+ :indeterminate | input:indeterminate |                   | 3
  :enabled      | input:enabled      |                     | 3
  :disabled     | input:disabled     |                     | 3
  :valid        | input:valid        |                     | 3
