@@ -3,6 +3,10 @@
 
 ## CSS2 进阶
 
+`display: inline-block;` 元素间的空白间隙
+
+移除空格，使用 margin 负值，font-size letter-spacing word-spacing
+
 
 ## CSS3
 

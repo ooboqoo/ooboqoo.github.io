@@ -3,6 +3,8 @@
 
 ## 模板语法
 
+指令完整格式: `v-指令名:指令参数亦即被操作属性.修饰符=值`
+
 ```html
 <!-- 文本插值，不支持在属性中使用 -->
 <div id="app">{{ message }}</div>
@@ -15,8 +17,13 @@
 <span v-bind:title="message">完整写法</span>
 <span :title="message">简写</span>
 
+<!-- 类和样式绑定 -->
+<div :class="{ active: isActive }"></div>
+<div :style="{ color: activeColor }"></div>
+
 <!-- 表单双向绑定 -->
 <input v-model="message">
+<input v-model.lazy="message">              <!-- `lazy` 在 'change' 时而非 'input' 时更新 -->
 <input v-model.number="age" type="number">  <!-- `number` 修饰符自动将输入转为数值类型 -->
 <input v-model.trim="msg">                  <!-- `trim` 修饰符自动过滤输入的首尾空白字符 -->
 
@@ -102,6 +109,37 @@ Vue 为最常用的按键提供了别名：
 <input v-model.trim="msg">                  <!-- 自动过滤输入的首尾空白字符 -->
 ```
 
+### 插槽
+
+```html
+// BaseLayout.vue
+<div class="container">
+  <header>
+    <slot name="header"></slot>
+  </header>
+  <main>
+    <slot></slot>
+  </main>
+  <footer>
+    <slot name="footer"></slot>
+  </footer>
+</div>
+
+// 使用
+<base-layout>
+  <template v-slot:header>  <!-- v-slot 只能用在 template 上 -->
+    <h1>Here might be a page title</h1>
+  </template>
+
+  <p>A paragraph for the main content.</p>
+  <p>And another one.</p>
+
+  <template #footer>  <!-- 缩写形式 -->
+    <p>Here's some contact info</p>
+  </template>
+</base-layout>
+```
+
 
 ## 选项
 
@@ -184,7 +222,7 @@ export default {
 ```
 
 ```js
-var vm = new Comp({
+var vm = new Component({
   propsData: {      // 创建实例时传递 props，主要作用是方便测试
     msg: 'hello'
   },

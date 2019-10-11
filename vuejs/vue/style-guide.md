@@ -10,19 +10,21 @@
 
 ### 事件名应该始终用小写
 
-如 `ontouchcancel` `onloadedmetadata` 不要有大小写，或者分割线 <s>myEvent</s> <s>my-event</s>
+* 事件名不存在任何自动化的大小写转换，监听的事件名必须与触发的事件名完全匹配
+* 在 DOM 模板中 `@myEvent` 会被自动转换为 `@myevent` (因为 HTML 大小写不敏感)，导致 `myEvent` 不可能被监听到
 
-> Vue 内置的一些事件使用了 `my-event` `update:foo`的形式，统一下也可以，但绝对不要用驼峰形式的事件名。
+基于以上两点，事件名推荐使用 小写连写(个人推荐，跟 DOM 规范保持一致) 或 `kebab-case`( Vue 官方推荐，可读性好) 的形式，如 `myevent` `my-event`。当然，还是有很多人用 `myEvent` 这种形式，正常使用都用的单文件组件，其实也未尝不可。
 
 ```js
 Vue.component('child-comp', {
-  template: `<button @click="emitEvent">触发事件</button>`,
-  methods: { emitEvent () { this.$emit('anyName') } }
+  methods: { emitEvent () { this.$emit('anyName') } },
+  template: '<button @click="emitEvent">触发事件</button>'
+
 })
 Vue.component('parent-comp', {
-  // `anyname` `any-name` 都不工作，Vue 的提示是错误的
-  template: `<child-comp @anyName="eventHandler"></child-comp>`,
-  methods: { eventHandler () { alert('works') } }
+  // `anyname` `any-name` 都不工作
+  methods: { eventHandler () { alert('works') } },
+  template: '<child-comp @anyName="eventHandler"></child-comp>'
 })
 ```
 

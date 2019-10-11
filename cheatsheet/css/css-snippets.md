@@ -639,3 +639,37 @@ form:focus-within {
 rgba     | IE9+
 Flexbox  | IE11+ (IE10+ `-ms-`)
 
+
+## Chrome
+
+chrome 下给自动填充的表单添加黄色背景
+
+```css
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+  background-color: #FAFFBD;
+}
+```
+
+老版使用小于 12px 字体
+
+```css
+.smaller-than-12px {
+  -webkit-text-size-adjust: none;
+}
+```
+
+让页面字体变清晰，变细
+
+```css
+* {
+  -webkit-font-smoothing: antialiased;
+}
+```
+
+## 移动端
+
+解决 `pisition: fixed;` 无效问题
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+```

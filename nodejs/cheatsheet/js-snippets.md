@@ -226,10 +226,13 @@ unfold
 ```js
 bindAll
 
-// 此深拷贝写法简单，但性能不好
+// 此深拷贝写法简单，但性能不好，另外，所有 JSON 不支持的内容都会被丢弃：
+// * undefined 和 function 类型的字段会被丢弃
+// * 类实例会转成普通对象，原型链信息会丢失
+// * Date Set Map 等对象会被转换成字符串
 const deepClone = obj => JSON.parse(JSON.stringify(obj));
 
-// 深拷贝，支持对象和数组，性能好
+// 深拷贝，支持对象和数组，性能好。但没处理 null 和新的数据类型(如 Set 等)
 const deepClone = obj => {
   let clone = Object.assign({}, obj);
   Object.keys(clone).forEach(
