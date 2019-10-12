@@ -241,7 +241,7 @@ function isMobile() {
       if (window.location.href.indexOf(a.href) !== -1 && a.className.indexOf('btn') === -1) {
         a.className = "active";
         p = a.parentElement.parentElement;
-        cat = p.id;
+        cat = p.id || 'front-end';
         url = localStorage.getItem(cat === 'back-end' ? 'front-end' : 'back-end');
         delete p.style.display;
         localStorage.setItem(cat, a.getAttribute('href'));
