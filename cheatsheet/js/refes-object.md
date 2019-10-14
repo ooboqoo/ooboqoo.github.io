@@ -553,6 +553,40 @@ Reflect 只是一个内置对象，不是构造函数，提供了一个读取系
 <tr><td><code>construct</code></td><td>Calling a function with <code>new</code></td><td><code>Reflect.construct()</code></td></tr>
 </table>
 
+```js
+const handler = {
+  getPrototypeOf()    { /* A trap for Object.getPrototypeOf */ },
+  setPrototypeOf()    { /* A trap for Object.setPrototypeOf */ },
+  isExtensible()      {   /* A trap for Object.isExtensible */ },
+  preventExtensions() { /* A trap for Object.preventExtensions */ },
+  getOwnPropertyDescriptor() { /* A trap for Object.getOwnPropertyDescriptor */ },
+  defineProperty()    { /* A trap for Object.defineProperty */ },
+  has()               { /* A trap for the in operator */ },
+  get()               { /* A trap for getting property values */ },
+  set()               { /* A trap for setting property values */ },
+  deleteProperty()    { /* A trap for the delete operator */ },
+  ownKeys()           { /* A trap for Object.getOwnPropertyNames and Object.getOwnPropertySymbols */ },
+  apply()             { /* A trap for a function call */ },
+  construct()         { /* A trap for the new operator */ }
+}
+```
+
+<div class="dl">
+  <h5>Reflect.get(target, propertyKey, receiver?) <span>-- 可选的 receiver 参数可指定 getter 里的 this 的值</span></h5>
+  <h5>Reflect.get(target, propertyKey, value, receiver?) <span>-- 可选的 receiver 参数可指定 getter 里的 this 的值</span></h5>
+  <h5>Reflect.ownKeys(target) <span>-- <small>Object.getOwnPropertyNames(target).concat(Object.getOwnPropertySymbols(target))</small></span></h5>
+  <h5>Reflect.has(target, propertyKey) <span>-- works like <code>in</code> operator</span></h5>
+  <h5>Reflect.apply(target, thisArgument, argumentsList) <span>-- </span></h5>
+  <h5>Reflect.construct(target, argumentsList[, newTarget]) <span>-- <small>new target(...args)</small></span></h5>
+  <h5>Reflect.defineProperty(target, propertyKey, attributes) <span>-- </span></h5>
+  <h5>Reflect.deleteProperty(target, propertyKey) <span>-- </span></h5>
+  <h5>Reflect.getOwnPropertyDescriptor(target, propertyKey) <span>-- </span></h5>
+  <h5>Reflect.getPrototypeOf(target) <span>-- </span></h5>
+  <h5>Reflect.setPrototypeOf(target, prototype) <span>-- </span></h5>
+  <h5>Reflect.preventExtensions(target) <span>-- </span></h5>
+  <h5>Reflect.isExtensible(target) <span>-- </span></h5>
+</div>
+
 
 ## Globals
 
