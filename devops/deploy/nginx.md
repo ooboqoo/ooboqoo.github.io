@@ -1,6 +1,5 @@
 # Nginx
 
-
 ## 安装
 
 ```bash
@@ -73,6 +72,7 @@ http {
 }
 ```
 
+
 ### location
 
 https://nginx.org/en/docs/http/ngx_http_core_module.html#location
@@ -94,6 +94,7 @@ location [=|~|~*|^~] /uri/ { … }
   * 其次是按文件中顺序的正则匹配
   * 最后是交给通用匹配`/`
   * 匹配成功即停止匹配
+
 
 ### 部署 HTTPS
 
@@ -131,12 +132,14 @@ WantedBy=timers.target
 然后更新 Nginx 配置文件，添加
 
 ```
-listen 443 ssl;
-server_name ngapps.cn www.ngapps.cn;
-root  /var/www/ngapps.cn;
+server {
+    listen 443 ssl;
+    server_name ngapps.cn www.ngapps.cn;
+    root  /var/www/ngapps.cn;
 
-ssl_certificate      /etc/letsencrypt/live/ngapps.cn/fullchain.pem;
-ssl_certificate_key  /etc/letsencrypt/live/ngapps.cn/privkey.pem;
+    ssl_certificate      /etc/letsencrypt/live/ngapps.cn/fullchain.pem;
+    ssl_certificate_key  /etc/letsencrypt/live/ngapps.cn/privkey.pem;
+}
 ```
 
 还可以更进一步，将所有到 80 端口的普通访问进行跳转
@@ -146,6 +149,18 @@ server {
     listen 80;
     server_name ngapps.cn www.ngapps.cn;
     return 301 https://$server_name$request_uri;
+}
+```
+
+#### HTTP/2
+
+配置好 HTTPS 再配 HTTP2 就太简单了
+
+```
+server {
+    listen 443 ssl http2;  # 就是在 https 的配置基础上加一个 http2 就完了
+    server_name ngapps.cn www.ngapps.cn;
+    # ...
 }
 ```
 
@@ -175,6 +190,7 @@ module.exports = {
 $ live-server --https=cert/config
 ```
 
+
 ### 启用 gzip 压缩
 
 新建 /etc/nginx/conf.d/gzip.conf 并添加以下内容：
@@ -196,8 +212,6 @@ gzip_types text/plain text/css application/json application/javascript applicati
 # You should see content-encoding: gzip
 curl -H "Accept-Encoding: gzip" -I http://www.ngapps.cn/
 ```
-
-### 配置 Combo 合并请求
 
 
 ### WebSocket 代理
@@ -223,6 +237,7 @@ http {
     }
 }
 ```
+
 
 ### 反向代理与负载均衡
 

@@ -28,7 +28,8 @@ npm                                       | Yarn
 `npm info <package>`                      | `yarn info <package>`
 `npm bin`                                 | `yarn bin`
 `npm cache clean`                         | `yarn cache clean`
-
+||
+`npx <package>`                           | `yarn <package>`
 
 ## NPM
 

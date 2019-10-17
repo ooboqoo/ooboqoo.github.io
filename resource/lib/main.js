@@ -390,15 +390,14 @@ function isMobile() {
   // 图片双击预览
   document.addEventListener('dblclick', event => {
     if (event.target.tagName !== 'IMG') return
-    const fragment = document.createDocumentFragment()
     const template = document.createElement('template')
+    const fragment = template.content
     const img = event.target
     template.innerHTML = `
-      <div style="display: flex; position: fixed; top: 0; left: 0; z-index: 999;
+      <div style="display: flex; position: fixed; top: 0; left: 0; z-index: 999; overflow: auto;
                   width: 100vw; height: 100vh; background: rgba(0,0,0,.5)">
         <img src=${img.src} style="margin: auto;">
       </div>`
-    fragment.appendChild(template.content)
     fragment.querySelector('img').addEventListener('dblclick', e => {
       e.stopPropagation()
       document.body.removeChild(e.target.parentElement)
