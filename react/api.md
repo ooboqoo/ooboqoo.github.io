@@ -81,6 +81,81 @@ tabIndex target title type useMap value width wmode wrap
 
 
 
+### Hook API
+
+`useState`
+
+```js
+const [state, setState] = useState(initialState)
+// 此函数只在初始渲染时被调用
+const [state, setState] = useState(() => { someExpensiveComputation...; return initialState })
+
+setState(newState)
+setState(prevState => { someComputation...; return newState })
+// 与 class 组件中的 setState 方法不同，useState 不会自动合并更新对象
+setState(prevState => ({...prevState, ...updatedValues}))
+```
+
+`useEffect`
+
+```js
+// 组件渲染完成后执行副作用操作
+useEffect(didUpdate)
+// 如果副作用是需要清理的，只要返回清理函数，React 会自动处理
+useEffect(() => {
+  const subscription = props.source.subscribe()
+  return () => { subscription.unsubscribe() }
+})
+// 条件执行，只有特定依赖发生变化时才执行副作用
+useEffect(didUpdate, [count, ...])
+// 在所有的 DOM 变更之后，在组件渲染前，同步执行副作用操作
+useLayoutEffect(didUpdate)
+```
+
+`useContext`
+
+```js
+const themes = {light: ..., dark: ...}
+const ThemeContext = React.createContext(themes.light)
+
+function App() {
+  return (
+    <ThemeContext.Provider value={themes.dark}>
+      <ThemedButton />
+    </ThemeContext.Provider>
+  )
+}
+
+
+function ThemedButton() {
+  const theme = useContext(ThemeContext)
+  return (
+    <button style={{ background: theme.background, color: theme.foreground }}>
+      I am styled by theme context!
+    </button>
+  )
+}
+```
+
+以下介绍的 Hook，有些是上一节中基础 Hook 的变体，有些则仅在特殊情况下会用到。
+
+
+useReducer
+useCallback
+useMemo
+useRef
+useImperativeHandle
+
+
+useLayoutEffect
+
+它和 useEffect 的结构相同，区别只是调用时机不同。
+
+
+useDebugValue
+
+
+
 
 <style>
   td:first-child { color: red; }

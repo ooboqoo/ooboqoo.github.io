@@ -2,7 +2,7 @@
 
 ## 消息队列和事件循环
 
-<img src="images/browser/event-loop.png" >
+<img src="images/browser/event-loop.png">
 
 
 <ul>
