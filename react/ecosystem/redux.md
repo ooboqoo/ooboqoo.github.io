@@ -28,18 +28,24 @@ $ npm install --save-dev redux-devtools  # 开发者工具
 
 Redux 有五个 API，分别是：
 
-* `createStore(reducer, [initialState])`
-* `combineReducers(reducers)`
-* `applyMiddleware(...middlewares)`
+* `createStore(reducer, preloadedState?: Function, enhancer?: Function)`  核心 API
+* `combineReducers(reducers)`  核心 API
+* `applyMiddleware(...middlewares)`  
 * `bindActionCreators(actionCreators, dispatch)` - 这个 API 有点鸡肋，实现了自动 `dispatch(ActionCreator(XXX))`
-* `compose(...functions)`
+* `compose(...functions)`  工具方法 compose(f1, f2, f3) 返回 (..args) => f1(f2(f3(...args)))
 
 `createStore` 生成的 `store` 有四个 API，分别是：
 
-* `getState()`
-* `dispatch(action)`
-* `subscribe(listener)`
-* `replaceReducer(nextReducer)`
+* `store.getState()`  获取 state
+* `store.dispatch(action)`  派发一个 Action 以调用 Reducer 生成新的 state
+* `store.subscribe(listener)`  state 变更后会 listener(state)
+* `store.replaceReducer(nextReducer)`  将 rootReducer 换成新的，顺带 state 也会根据新的 nextReducer 更新一波
+
+```ts
+type State = any
+type Action = {type: string, [x: string]: any}
+type Reducer = (state: State, action: Action) => State
+```
 
 ### Reducer 写法
 
@@ -166,49 +172,94 @@ function printStateMiddleware(middlewareAPI) { // 记为【锚点-1】，中间�
 
 ```html
 <!DOCTYPE html>
-<html>
-<head>
-  <script src="https://unpkg.com/redux@3.6.0/dist/redux.min.js"></script>
-</head>
-<body>
+<script src="https://unpkg.com/redux@4.0.4/dist/redux.min.js"></script>
+
 <script>
-/** Action Creators */
-function inc() {return { type: 'INCREMENT' }; }
-function dec() {return { type: 'DECREMENT' }; }
+const {createStore, combineReducers, bindActionCreators, applyMiddleware, compose} = Redux
 
-function reducer(state, action) {
-  state = state || { counter: 0 };
+const ActionTypes = {
+  INCREMENT: 'INCREMENT',
+  DECREMENT: 'DECREMENT',
 
+  ADD_TODO: 'ADD_TODO',
+  REMOVE_TODO: 'REMOVE_TODO'
+}
+
+let nextTodoId = 0
+
+// ActionCreators
+function inc() {
+  return { type: ActionTypes.INCREMENT }
+}
+
+function dec() {
+  return { type: ActionTypes.DECREMENT }
+}
+
+const addTodo = text => ({
+  type: ActionTypes.ADD_TODO,
+  id: nextTodoId++,
+  text
+})
+
+const removeTodo = id => ({
+  type: ActionTypes.REMOVE_TODO,
+  id
+})
+
+// Reducers
+function counterReducer(state = 0, action) {
   switch (action.type) {
     case 'INCREMENT':
-      return { counter: state.counter + 1 };
+      return state + 1
     case 'DECREMENT':
-      return { counter: state.counter - 1 };
+      return state - 1
     default:
-      return state;
+      return state
   }
 }
 
-function printStateMiddleware(middlewareAPI) {
-  return function (dispatch) {
-    return function (action) {
-      console.log('dispatch 前：', middlewareAPI.getState());
-      var returnValue = dispatch(action);
-      console.log('dispatch 后：', middlewareAPI.getState(), '\n');
-      return returnValue;
-    };
-  };
+const todosReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_TODO':
+      return [...state, {id: nextTodoId++, text: action.text}]
+    case 'REMOVE_TODO':
+      return [...state].filter(todo => todo.id !== action.id)
+    default:
+      return state
+  }
 }
 
-var store = Redux.createStore(
-  reducer,
-  Redux.applyMiddleware(printStateMiddleware)
+const rootReducer = combineReducers({
+  counter: counterReducer,
+  todos: todosReducer
+})
+
+// Middleware
+function logger(store) {
+  return next => action => {
+    console.log('will dispatch', action)
+    const result = next(action)
+    console.log('state after dispatch', store.getState())
+    return result
+  }
+}
+
+// enable Redux DevTools Extension
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+var store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(logger))
 )
 
-store.dispatch(inc());
-store.dispatch(inc());
-store.dispatch(dec());
+store.dispatch(inc())
+store.dispatch(inc())
+store.dispatch(dec())
+
+var comp = bindActionCreators({addTodo, removeTodo}, store.dispatch)
+comp.addTodo('Learn Redux')
+comp.addTodo('Learn React')
+comp.removeTodo(nextTodoId - 1)
 </script>
-</body>
-</html>
 ```

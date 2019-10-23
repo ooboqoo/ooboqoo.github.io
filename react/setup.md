@@ -3,6 +3,8 @@
 
 ## create-react-app
 
+https://create-react-app.dev/
+
 ```bash
 $ npm i -g create-react-app
 $ create-react-app react-demo
@@ -14,9 +16,25 @@ $ yarn start
 这样一个初始的项目就跑起来了，如果需要更加精细的调整配置项，可以 `yarn eject` 然后再手动修改配置。
 
 
-## 自定义配置
+## Typescript
 
-### Babel 配置
+https://create-react-app.dev/docs/adding-typescript/
+
+To start a new Create React App project with TypeScript
+
+```bash
+$ yarn create react-app my-app --typescript
+```
+
+To add TypeScript to a Create React App project
+
+```bash
+$ yarn add typescript @types/node @types/react @types/react-dom @types/jest
+```
+
+Next, rename any file to be a TypeScript file (e.g. src/index.js to src/index.tsx)
+
+## Babel 配置
 
 https://babeljs.io/docs/setup/#installation
 
@@ -36,7 +54,7 @@ $ yarn add --dev babel-core babel-preset-env babel-preset-react babel-preset-sta
 ```
 
 
-### Webpack 配置
+## Webpack 配置
 
 ```bash
 $ yarn add --dev webpack webpack-dev-server extract-text-webpack-plugin
@@ -81,7 +99,7 @@ module.exports = {
 ```
 
 
-### ESLint 配置
+## ESLint 配置
 
 ```bash
 $ npm i -g eslint babel-eslint eslint-plugin-babel eslint-plugin-react

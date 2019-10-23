@@ -31,6 +31,7 @@ npm                                       | Yarn
 ||
 `npx <package>`                           | `yarn <package>`
 
+
 ## NPM
 
 ```bash
@@ -94,6 +95,21 @@ $ npm bugs react  # 打开项目 Issues 页
 如果已经安装了 1.1.1，且带 `^` 依赖，如果有 1.1.2，`npm i` 时并不会更新
 
 手动 `npm i <pkg>@<tag>` 时，即使使用过 `npm publish -f` 覆盖版本内容，也会重新安装
+
+
+## Yarn
+
+```bash
+# 更换淘宝源
+$ yarn confit get registry
+$ yarn config set registry 'https://registry.npm.taobao.org'
+
+# yarn create
+$ yarn create react-app my-app --typescript
+# 等效于
+$ yarn global add create-react-app
+$ create-react-app my-app --typescript
+```
 
 
 ## 版本规范
