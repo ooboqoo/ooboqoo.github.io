@@ -14,7 +14,6 @@ https://github.com/kenberkeley/redux-simple-tutorial/blob/master/redux-advanced-
 $ npm install --save redux               # 
 $ npm install --save react-redux         # React 绑定库
 $ npm install --save-dev redux-devtools  # 开发者工具
-
 ```
 
 要点：

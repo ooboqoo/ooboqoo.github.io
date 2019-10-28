@@ -1,8 +1,10 @@
 # Typechecking With PropTypes
 
+https://reactjs.org/docs/typechecking-with-proptypes.html
+
 As your app grows, you can catch a lot of bugs with typechecking. For some applications, you can use JavaScript extensions like Flow or TypeScript to typecheck your whole application. But even if you don't use those, React has some built-in typechecking abilities.
 
-`PropTypes` exports a range of validators that can be used to make sure the data you receive is valid. When an invalid value is provided for a `prop`, a warning will be shown in the JavaScript console. For performance reasons, `propTypes` is only checked in development mode.
+`PropTypes` exports a range of validators that can be used to make sure the data you receive is valid. When an invalid value is provided for a `prop`, a warning will be shown in the JavaScript console. For performance reasons, `propTypes` is *only checked in development mode*.
 
 ### PropTypes
 
@@ -19,11 +21,14 @@ MyComponent.propTypes = {
   optionalString: PropTypes.string,
   optionalSymbol: PropTypes.symbol,
 
-  // Anything can be rendered: numbers, strings, elements or array / fragment containing these types.
+  // Anything can be rendered: numbers, strings, elements or (array/fragment) containing these types.
   optionalNode: PropTypes.node,
 
-  // A React element.
+  // A React element (ie. <MyComponent />).
   optionalElement: PropTypes.element,
+
+  // A React element type (ie. MyComponent).
+  optionalElementType: PropTypes.elementType,
 
   // You can also declare that a prop is an instance of a class. This uses JS's instanceof operator.
   optionalMessage: PropTypes.instanceOf(Message),
@@ -48,6 +53,12 @@ MyComponent.propTypes = {
   optionalObjectWithShape: PropTypes.shape({
     color: PropTypes.string,
     fontSize: PropTypes.number
+  }),
+
+  // An object with warnings on extra properties
+  optionalObjectWithStrictShape: PropTypes.exact({
+    optionalProperty: PropTypes.string,
+    requiredProperty: PropTypes.number.isRequired
   }),
 
   // You can chain any of the above with `isRequired` to make sure a warning is shown if it's missing.
@@ -81,7 +92,7 @@ MyComponent.propTypes = {
 
 With `PropTypes.element` you can specify that only a single child can be passed to a component as children.
 
-```
+```jsx
 class MyComponent extends Component {
   static propTypes = {children: PropTypes.element.isRequired};
   render() {
@@ -94,7 +105,7 @@ class MyComponent extends Component {
 
 You can define default values for your props by assigning to the special `defaultProps` property:
 
-```
+```jsx
 class Greeting extends Component {
   static defaultProps = {name: 'Stranger'};
   render() {

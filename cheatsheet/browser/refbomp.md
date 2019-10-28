@@ -34,14 +34,13 @@ xhr.getResponseHeader(_name_)|
 
 ```js
 function showHint(str) {
-  var xmlhttp
-  if (window.XMLHttpRequest) { xmlhttp = new XMLHttpRequest() }
-  else { xmlhttp = new ActiveXObject("Microsoft.XMLHTTP") }    // code for IE6, IE5
-  xmlhttp.open("GET", "gethint.php?q=" + str, true);
-  xmlhttp.send()
-  xmlhttp.onreadystatechange = function () {
-    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-      document.getElementById("txtHint").innerHTML = xmlhttp.responseText
+  const xhr = new XMLHttpRequest()
+
+  xhr.open("GET", "gethint.php?q=" + str, true)
+  xhr.send()
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      document.getElementById("txtHint").innerHTML = xhr.responseText
     }
   }
 }
@@ -119,6 +118,12 @@ socket.addEventListener('message', function (event) { console.log('Message from 
 
 ## Fetch
 
+https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch
+
+```ts
+declare function fetch(input: Request | string, init?: RequestInit): Promise<Response>;
+```
+
 ```ts
 interface Body {
     readonly body: ReadableStream<Uint8Array> | null;
@@ -180,6 +185,8 @@ declare var Response: {
 最简单的用法
 
 ```js
+// fetch 只会 reject 网络错误 network error 而不会 reject HTTP错误(如 404 等)
+// HTTP errors 需要自己在 then() 中检查 Response.ok and/or Response.status
 fetch('any/url').then(res => res.json()).catch(err => console.error(err))
 ```
 
@@ -208,7 +215,7 @@ const request = new Request('/some-url', {
   headers: {
     'Content-type': 'application:/x-www-form-urlencoded'
   },
-  body: 'name=amber&age=18'
+  body: 'name=amber&age=18'  //  请求参数多可以用 FormData
 })
 
 // Response ==========================

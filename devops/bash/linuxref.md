@@ -41,3 +41,8 @@ $ command && echo "TRUE" || echo "FALSE"
 $ grep -r font-size . | wc -l
 ```
 
+批量删除除了某一个文件以外的所有文件
+
+```bash
+$ ls | grep -v myfile.js | xargs rm
+```

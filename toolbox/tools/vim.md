@@ -34,37 +34,33 @@ Vim Cheat Sheet https://vim.rtorr.com/
 | `;`  / `,`  | 重复前一个 f F t T 操作，`,` 为反向操作
 
 |||
-|:----------|:-------------------------------------
-| `%`       | 跳到与当前括号相匹配的括号
+|:-----------|:-------------------------------------
+| `%`        | 跳到与当前括号相匹配的括号
 | `{`, `}`   | 在段落、函数、块间跳转
-| `H`       | 移动到屏幕顶部 High
-| `M`       | 移动到屏幕中间 Middle
-| `L`       | 移动到屏幕底部 Low
+| `H`        | 移动到屏幕顶部 High
+| `M`        | 移动到屏幕中间 Middle
+| `L`        | 移动到屏幕底部 Low
 
 滚动屏幕
 
 |||
 |:------------------------|:-------------------------------------
 | `zz`                    | 移动屏幕使光标居中
-| `Ctrl`+`e` / `Ctrl`+`y` | 滚动一行，光标不动。`e` 可记为 Extra，`y` 就是死计了
-| `Ctrl`+`b` / `Ctrl`+`f` | 滚动一屏
-| `Ctrl`+`d` / `Ctrl`+`u` | 滚动半屏
+| `[Ctrl]+e` / `[Ctrl]+y` | 滚动一行，光标不动。`e` 可记为 Extra，`y` 就是死计了
+| `[Ctrl]+b` / `[Ctrl]+f` | 滚动一屏
+| `[Ctrl]+d` / `[Ctrl]+u` | 滚动半屏
 
 ### 选择文本
 
 |||
 |:-----------|:-------------------------------------
-| `v`, `V`   | `v` 是行内选择；`V` 是行选择
-| `Ctrl`+`v` | Visual Block 块选择，按 `i` 或 `a` 进入多光标编辑模式
+| `v`, `V`   | `v` 是行内选择 Visual Mode；`V` 是行选择 Visual Line Mode
+| `[Ctrl]+v` | Visual Block Mode 块选择，按 `i` 或 `a` 进入多光标编辑模式
 
-注：进入多光标编辑模式时，只会在首行显示输入内容，编辑完成后按 esc 键才能看到效果。想删除的话，会直观很多，选中直接 x。
-
-|||
-|:------|:-----------------------
-| `o`   | 在选择块两头跳转
+注：进入多光标编辑模式时，只会在首行显示输入内容，编辑完成后按 esc 键才能看到效果。删除时不会有这样的问题。
 
 |||
-|:------|:----------------------------------------------
+|:------|:-------------------------------
 | `aw`  | a word and whitespace after
 | `aW`  | a word (including punctuation) and whitespace after
 | `ab`  | a block with ()
@@ -73,9 +69,7 @@ Vim Cheat Sheet https://vim.rtorr.com/
 | `iW`  | word (including punctuation)
 | `ib`  | inner block with ()
 | `iB`  | inner block with {}
-
 |||
-|:------|:------------------------------------------------------
 | `ip`  | current paragraph
 | `ap`  | current paragraph and whitespace after
 | `i<bracket>` | inside the matching brackets ``` '"`({[< ```
@@ -83,6 +77,8 @@ Vim Cheat Sheet https://vim.rtorr.com/
 | `it`  | inside XML tag
 | `at`  | outside XML tag
 | `ii`  | inside indentation level
+|||
+| `o`   | 当有内容被选中时，在选择块两头跳转
 
 ### 查找与替换
 
@@ -105,7 +101,7 @@ Vim Cheat Sheet https://vim.rtorr.com/
 
 ### 剪切、复制、粘贴
 
-正常模式下
+#### 正常模式下
 
 |||
 |:-----------|:-------------------------------------
@@ -125,20 +121,19 @@ Vim Cheat Sheet https://vim.rtorr.com/
 示例:     d        2       w      // 连续删除两个单词
 ```
 
-可视化模式下
+移动行(上述命令的综合应用)
+
+上移一行 `dd`+`kP` 或 `:move -1`  
+下移一行 `dd`+`p` 或 `:move +1`
+
+#### 可视化模式下
 
 |||
-|:--------|:-------------------------------------
+|:---------|:-------------------------------------
 | `<`, `>` | 缩进调整
-| `y`     | 复制
-| `d`     | 删除
-| `~`     | 大小写切换
-
-移动行
-
-上移一行 `ddkP` 或 `:move -1`  
-下移一行 `ddp` 或 `:move +1`
-
+| `y`      | 复制
+| `d`      | 删除
+| `~`      | 大小写切换
 
 ### 操作
 
@@ -195,6 +190,38 @@ Vim Cheat Sheet https://vim.rtorr.com/
 |:----------|:-------------------------------------
 | `:sp [filename]` / `:vsp`     | 水平分割窗口，如提供 filename 则新窗口显示该文件。`:vsplit` 为垂直分割
 | `[Ctrl]+w+` h/j/k/l ←/↓/↑/→ q | 按下该组合键后松开，就可以用方向键在窗口之间移动。`q` 为关闭窗口。
+
+
+## VSCodeVim
+
+#### 光标操作
+
+因为禁用了 `[Ctrl]+v`，无法通过 Vim 操作进入块编辑模式，所以需要借助 VSCode 自身的多光标功能。
+
+|||
+|------------------|---------------------------------------------------
+| `[CtrlCmd]+单击` | 添加一个光标(在原有光标点基础上，光标位置任意)
+| `[Alt]+拖动`     | 在列方向上添加连续的光标(是新开一块区域，原有光标点取消)
+| `opt+cmd+↑ / ↓` | 向上 或 向下添加多个光标， 发现在 INSERT 下无效，要切到 NORMAL 才行
+|||
+| `[Ctrl]+u`       | 取消一个光标操作，如果是单个光标点就会回退到上次光标位置
+|||
+| `CtrlCmd+d`       | 增加选中下一个匹配文本
+| `CtrlCmd+F2`      | 选中当前页的所有匹配文本
+
+### 配置
+
+```json
+{
+  "vim.startInInsertMode": true,
+  "vim.mouseSelectionGoesIntoVisualMode": false,
+  "vim.useCtrlKeys": false,  // 如果开启，就可以使用 Ctrl+V 进入 Visual Block Mode
+  "vim.handleKeys": {
+    "<D-c>": false,  // 解决 macOS 下复制会跳出插入模式
+    "<D-v>": false   // windows 下要相应改成 <C-v>
+  },
+}
+```
 
 
 ## 配置

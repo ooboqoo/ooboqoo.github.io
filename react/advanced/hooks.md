@@ -39,7 +39,9 @@ React 没有提供将可复用性行为附加到组件的途径。你也许会�
 
 在多数情况下，不可能将组件拆分为更小的粒度，因为状态逻辑无处不在。这也给测试带来了一定挑战。同时，这也是很多人将 React 与状态管理库结合使用的原因之一。但这往往会引入了很多抽象概念，需要你在不同的文件之间来回切换，使得复用变得更加困难。
 
-#### 难以理解的 class
+#### 难以理解的类
+
+this 指向困扰
 
 ### 渐进策略
 
@@ -72,7 +74,7 @@ function ExampleWithManyStates() {
 
 `useState` 与 `this.setState` 之间的差异
 * useState 不会把新的 state 和旧的 state 进行合并
-* 传递的传输 state 不一定要是一个对象
+* 给 useState 传递的 state 可以是任意类型，而 this.setState 只能是一个对象
 
 ### 函数式更新
 
@@ -139,6 +141,7 @@ function Example() {
     <div>
       <p>You clicked {count} times</p>
       <button onClick={() => setCount(count + 1)}>Click me</button>
+      <button onClick={() => setCount(c => c + 1)}>Click me</button>  // setCount 支持回调函数
     </div>
   )
 }
@@ -351,6 +354,7 @@ componentDidUpdate(prevProps, prevState) {
 这是很常见的需求，所以它被内置到了 useEffect 的 Hook API 中。如果某些特定值在两次重渲染之间没有发生变化，你可以通知 React 跳过对 effect 的调用，只要传递数组作为 useEffect 的第二个可选参数即可：
 
 ```js
+// 这个时候跟 Vue.js 的 watch 很像
 useEffect(() => {
   document.title = `You clicked ${count} times`;
 }, [count]); // 仅在 count 更改时更新
@@ -374,6 +378,8 @@ useEffect(() => {
 如果你在接触 Hook 前已经对 context API 比较熟悉，那应该可以理解，useContext(MyContext) 相当于 class 组件中的 `static contextType = MyContext` 或者 `<MyContext.Consumer>`。
 
 useContext(MyContext) 只是让你能够读取 context 的值以及订阅 context 的变化。你仍然需要在上层组件树中使用 <MyContext.Provider> 来为下层组件提供 context。
+
+注意不要滥用 Context，因为它会破坏你的组件独立性。
 
 ```jsx
 const themes = {
@@ -427,7 +433,17 @@ function ThemedButton() {
 const [state, dispatch] = useReducer(reducer, initializerArg, initializer?)
 ```
 
-在某些场景下，`useReducer` 会比 `useState` 更适用，例如 state 逻辑较复杂且包含多个子值，或者下一个 state 依赖于之前的 state 等。并且，使用 `useReducer` 还能给那些会触发深更新的组件做性能优化，因为你可以向子组件传递 dispatch 而不是回调函数 。
+某些场景下，`useReducer` 会比 `useState` 更适用，如 *state 逻辑较复杂且包含多个子值* ，或是下一个 state 依赖于之前的 state 。并且，使用 `useReducer` 还能给那些会触发深更新的组件做性能优化，因为你可以 *向子组件传递 dispatch* 而不是回调函数。
+
+* Redux: Global state management for user, auth, etc.
+* useReducer: Complex local state where dispatch is often passed to children as well.
+* useState: Simple local state where the setter is seldom passed to children.
+
+I use all of above.
+
+* 全局共享状态，方便调试和维护，用 Redux
+* 简单的组件状态用 useState
+* 复杂的组件状态，需要对此状态进行多种类型的操作，或者需要向子组件传递 setter 时，用 useReducer。特别是不同的子组件需要对复杂状态进行不同操作时，使用 dispatch 可以让子组件的操作意图更加明确。
 
 ```js
 const initialState = {count: 0};
@@ -461,7 +477,31 @@ function Counter() {
 
 `useCallback(fn, deps)` 相当于 `useMemo(() => fn, deps)`。
 
+```jsx
+const Foo = memo(function Foo(props) {
+  console.log('Foo render')
+  // 这里必须显式绑定，在外层绑定不起作用，这个跟 Vue.js 行为不一样
+  return <div onClick={props.onClick}>Me Foo</div>
+})
+
+const App = () => {
+  const [count, setCount] = useState(0)
+  // 没套 useCallback 的话，传递的函数句柄每次渲染都会变化，从而导致 Foo 重复渲染
+  const clickFoo = useCallback(() => console.log('Foo Clicked'), [])
+  return (
+    <div>
+      <button onClick={() => setCount(count + 1)}>Add({count})</button> // 在 DOM 上无需 useCallback
+      <Foo onClick={clickFoo} />                                        // 传递给子组件就要套 useCallback
+    </div>
+  )
+}
+```
+
 ### useMemo
+
+`memo()`·限制一个组件是否重复渲染，而 `useMemo()` 则是限制一个函数是否重复执行。
+
+`useMemo()` 和 `useEffect()` 的第二个参数逻辑是相同的，不同的是，`useMemo` 是有返回值的，在渲染之前执行，而 `useEffect` 则是在渲染之后执行。
 
 把“创建”函数和依赖项数组作为参数传入 `useMemo`，它仅会在某个依赖项改变时才重新计算 memoized 值。这种优化有助于避免在每次渲染时都进行高开销的计算。
 
@@ -469,7 +509,16 @@ function Counter() {
 
 如果没有提供依赖项数组，`useMemo` 在每次渲染时都会计算新的值。
 
+```jsx
+// 这个跟 Vue.js 中的 computed 很像
+const double = useMemo(() => count * 2, [count])
+```
+
 ### useRef
+
+* 获取子组件或者 DOM 节点的句柄。无法获取函数子组件的 ref，必须是类组件，所以完全取代暂时还不现实
+* 渲染周期之间共享数据的存储。state 也可以跨渲染周期保存，但会触发重新渲染，而 ref 不会触发重新渲染
+* Ref 的 `current` 的值可以随便修改，但 Ref 对象本身不可扩展属性 `Object.isExtensible(ref) === false`
 
 useRef 返回一个可变的 ref 对象，其 `.current` 属性被初始化为传入的参数 initialValue。返回的 ref 对象在组件的整个生命周期内保持不变。
 
@@ -524,9 +573,15 @@ function Foo () {
 
 ### useLayoutEffect
 
-其函数签名与 useEffect 相同，但它会在 *所有的 DOM 变更之后* *同步* 调用 effect。可以使用它来读取 DOM 布局并同步触发重渲染。在浏览器执行绘制之前，useLayoutEffect 内部的更新计划将被同步刷新。
+It fires synchronously after all DOM mutations. We recommend starting with useEffect first and only tring useLayoutEffect if that causes a problem.
+
+Your code runs immediately *after the DOM has been updated*, but *before* the browser has had a chance to *paint those changes* (the user doesn't actually see the updates until after the browser has repainted).
+
+其函数签名与 useEffect 相同，但它会在 *所有的 DOM 变更之后 同步* 调用 effect。可以使用它来读取 DOM 布局并同步触发重渲染。*在浏览器执行绘制之前*，useLayoutEffect 内部的更新计划将被同步刷新。
 
 `useLayoutEffect` 与 `componentDidMount`、`componentDidUpdate` 的调用阶段是一样的。
+
+`useLayoutEffect` 会阻塞浏览器主线程，里面的所有修改都会在下次渲染时体现。而 `useEffect` 会先让出主线程，将任务添加到事件队列中等候执行。（具体看 DevTools / Performance / Main 的 Task 就好，放大看一眼就明白了）
 
 如果你使用服务端渲染...
 
@@ -683,6 +738,15 @@ function Foo() {
     ]
     Nodes: [span]
     Location: {fileName: "/Users/gavin/GitHub/train-ticket/src/index.js", lineNumber: 18}
+```
+
+如果使用了自定义 Hook，那么大概是这个样子的：
+
+```txt
+{id: null, isStateEditable: false, name: "Count", value: undefined, subHooks: [
+  {id: 0, isStateEditable: true, name: "State", value: 4, subHooks: Array(0)}
+  {id: 1, isStateEditable: false, name: "Effect", subHooks: Array(0), value: ƒ}
+]}
 ```
 
 ### 生命周期方法如何迁移到 Hook

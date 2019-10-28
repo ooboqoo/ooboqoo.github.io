@@ -92,36 +92,6 @@ vscode 虽然内置了 js-beautify，但功能被缩减很多，像 scss 文件�
 觉得需要改造一下，或者自己定义 https://code.visualstudio.com/docs/editor/userdefinedsnippets
 
 
-## Editor
-
-### The Basic
-
-### Editing Evolved
-
-#### Multiple Selections
-
-`Ctrl+D` 选中一个词  
-`Ctrl+F2` 选中当前页的所有匹配文本  
-`Ctrl+Shift+左右箭头` 逐词选择文本  
-`Ctrl+Shift+Home/End` 选择左侧/右侧所有内容  
-`Ctrl+Backspace` / `Ctrl+Delete` 逐词删除  
-
-#### Shrink/expand selection
-
-`Shift+Alt+Left` and `Shift+Alt+Right`
-
-#### Column (box) text selection
-
-多行编辑: `Ctrl+Alt+Up` or `Ctrl+Alt+Down` 或 `Ctrl+Shift+Alt+Up` or `Ctrl+Shift+Alt+Down`  
-`Alt+Click` 添加一个活动光标  `Shift+Alt+Click` (从光标起始点到点击处)添加多个(连续)光标  
-
-#### Undo cursor position
-
-`Ctrl+U`
-
-#### Folding
-
-
 ## 配置 - Settings
 
 ```json
@@ -132,28 +102,40 @@ vscode 虽然内置了 js-beautify，但功能被缩减很多，像 scss 文件�
 "editor.rulers": [100],
 "editor.renderWhitespace": "boundary",
 "editor.detectIndentation": false,
-"workbench.iconTheme": "vscode-icons",
 "workbench.activityBar.visible": false,  // 关闭左侧导航条
 "workbench.statusBar.feedback.visible": false,
 "workbench.colorCustomizations": {
   "statusBar.background": "#1E1E1E",
   "statusBar.border": "#444",
 },
-"vsicons.dontShowNewVersionMessage": true,
+"explorer.confirmDelete": false,
+"explorer.confirmDragAndDrop": false,
 "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\usr\\bin\\bash.exe",
+"terminal.integrated.shell.osx": "/bin/zsh",
 "git.autofetch": true,
 "git.confirmSync": false,
 "git.enableSmartCommit": true,
+"git.promptToSaveFilesBeforeCommit": "always",
 "gitlens.keymap": "none",
 "gitlens.codeLens.authors.enabled": false,
 "gitlens.codeLens.recentChange.enabled": false,
 "gitlens.currentLine.enabled": false,
 "gitlens.statusBar.alignment": "left",
-"gitlens.statusBar.format": "${authorAgoOrDate} · ${message}",
+"gitlens.statusBar.format": "${author}, ${agoOrDate} · ${message}",
 "gitlens.statusBar.dateFormat": "YYYYMMDD",
-// 视情况采用
-"vim.useCtrlKeys": false,
+"gitlens.showWhatsNewAfterUpgrades": false,
 "vim.startInInsertMode": true,
+"vim.useCtrlKeys": false,
+"vim.handleKeys": {
+  "<D-c>": false,  // 解决 macOS 下复制会跳出插入模式
+  "<D-v>": false   // windows 下要相应改成 <C-v>
+},
+"vim.mouseSelectionGoesIntoVisualMode": false,
+"prettier.semi": false,
+"prettier.singleQuote": true,
+"prettier.trailingComma": "es5",
+
+// 视情况采用
 "vim.useSystemClipboard": true,
 "git.autorefresh": false,  // 这个开着的话，每次刷新会触发 webpack-dev-server 编译
 "javascript.implicitProjectConfig.checkJs": true,  // JS 中开启 TS 语法校验，个人项目开，多人项目关

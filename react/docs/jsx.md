@@ -1,18 +1,14 @@
 # JSX In Depth
 
-JSX 其实只是 `React.createElement(component, props, ...children)` 的语法糖。可以使用[在线Babel编译器](https://babeljs.io/repl/#?babili=false&evaluate=true&lineWrap=false&presets=es2015%2Creact%2Cstage-0&targets=&browsers=&builtIns=false&debug=false&code=)查看编译输出。
+https://reactjs.org/docs/jsx-in-depth.html
 
-```
-<MyButton color="blue" shadowSize={2}>
-  Click Me
-</MyButton>
+JSX 其实只是 `React.createElement(component, props, ...children)` 的语法糖。可以使用[在线Babel编译器](https://babeljs.io/repl/#?presets=react)查看编译过程。
+
+```jsx
+<MyButton color="blue" shadowSize={2}>Click Me</MyButton>
 
 // 编译后得到
-React.createElement(
-  MyButton,
-  {color: 'blue', shadowSize: 2},
-  'Click Me'
-)
+React.createElement(MyButton, {color: 'blue', shadowSize: 2}, 'Click Me')
 ```
 
 
@@ -30,12 +26,13 @@ JSX 标记的开头部分指明了 React 元素类型。首字母大写的类型
 
 使用 `.` 运算符时，不管字母是否大写，都没有问题，如 `Comps.Comp` `Comps.comp` `comps.Comp` `comps.comp`
 
-```
+```jsx
 const MyComponents = {
   DatePicker: function DatePicker(props) {
     return <div>Imagine a {props.color} datepicker here.</div>;
   }
 }
+import * as MyComponents from './MyComponents'  // 或者这样，文件内定义了多个 export
 
 function BlueDatePicker() {
   return <MyComponents.DatePicker color="blue" />;
@@ -46,7 +43,7 @@ function BlueDatePicker() {
 
 为了区分 built-in 元素和自定义元素，React 规定，所有自定义组件首字母必须大写。两者的编译结果是不同的。
 
-```
+```jsx
 <Hello />  编译为  React.createElement(Hello, null);
 <hello />  编译为  React.createElement("hello", null);
 ```
@@ -55,7 +52,7 @@ function BlueDatePicker() {
 
 当需要在运行时动态确定组件时，须确保符合 "首字母大写" 的规范，必要时可以通过中间变量转换。
 
-```
+```jsx
 const components = {
   photo: PhotoStory,
   video: VideoStory
@@ -71,7 +68,7 @@ function Story(props) {
 
 JSX 中有多种指定 `props` 的形式：用 `{}` 包裹的JS 表达式；或者是字符串。
 
-```
+```jsx
 <MyComponent message="hello world" />
 <MyComponent message={'hello world'} />
 ```
@@ -80,14 +77,14 @@ JSX 中有多种指定 `props` 的形式：用 `{}` 包裹的JS 表达式；或�
 
 如果一个属性没有赋值，那么默认就是 true，这跟 HTML 的默认行为保持了一致。
 
-```
+```jsx
 <MyTextBox autocomplete />
 <MyTextBox autocomplete={true} />
 ```
 
 React 把 ES6 的扩展符 `...` 拓展到了对象上(未来会加入ES标准，目前为 stage3)，指定对象属性时可以用到，特别是传递已有 props 时非常方便。
 
-```
+```jsx
 const props = {firstName: 'Gavin', lastName: 'Wang'};
 <Greeting {...props} />
 ```
@@ -97,7 +94,7 @@ const props = {firstName: 'Gavin', lastName: 'Wang'};
 
 组件开始标记和关闭标记中间的部分内容，会以 `props.children` 属性传递给组件。有多种指定 children 的形式。
 
-```
+```jsx
 // 字符串
 <MyComponent>Hello world!</MyComponent>
 
@@ -135,7 +132,7 @@ function ListOfTenThings() {
 
 另外，`false` `null` `undefined` `true` 这些也是合法的 children，实际会被直接忽略，所以下面这些效果都是一样的。
 
-```
+```jsx
 <div />
 <div></div>
 <div>{false}</div>

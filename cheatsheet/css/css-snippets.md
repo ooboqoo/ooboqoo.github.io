@@ -629,6 +629,50 @@ form:focus-within {
   </style>
 </div>
 
+### 抖动提醒
+
+```css
+@keyframes wiggle {
+  2% {transform: translateX(3px) rotate(2deg); }
+  4% {transform: translateX(-3px) rotate(-2deg); }
+  6% {transform: translateX(3px) rotate(2deg); }
+  8% {transform: translateX(-3px) rotate(-2deg); }
+  10% {transform: translateX(2px) rotate(1deg); }
+  12% {transform: translateX(-2px) rotate(-1deg); }
+  14% {transform: translateX(2px) rotate(1deg); }
+  16% {transform: translateX(-2px) rotate(-1deg); }
+  18% {transform: translateX(1px) rotate(0); }
+  20% {transform: translateX(-1px) rotate(0); }
+}
+```
+
+<div class="demo">
+  <a class="wiggle-button">More(每隔 5s 抖一抖)</a>
+  <style>
+    .wiggle-button {
+      display: inline-block;
+      padding: 5px 10px;
+      color: #333;
+      border: 1px solid #ccc;
+      animation: wiggle 5s linear infinite;
+      will-change: transform;
+    }
+    @keyframes wiggle {
+      2% {transform: translateX(3px) rotate(2deg); }
+      4% {transform: translateX(-3px) rotate(-2deg); }
+      6% {transform: translateX(3px) rotate(2deg); }
+      8% {transform: translateX(-3px) rotate(-2deg); }
+      10% {transform: translateX(2px) rotate(1deg); }
+      12% {transform: translateX(-2px) rotate(-1deg); }
+      14% {transform: translateX(2px) rotate(1deg); }
+      16% {transform: translateX(-2px) rotate(-1deg); }
+      18% {transform: translateX(1px) rotate(0); }
+      20% {transform: translateX(-1px) rotate(0); }
+    }
+  </style>
+</div>
+
+
 
 ## Other
 

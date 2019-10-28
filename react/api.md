@@ -139,18 +139,28 @@ function ThemedButton() {
 
 以下介绍的 Hook，有些是上一节中基础 Hook 的变体，有些则仅在特殊情况下会用到。
 
-
 useReducer
-useCallback
-useMemo
+
+useCallback 用于给子组件传递函数
+
+```jsx
+const handlerForChildComponent = useCallback(() => { /* ... */ }, [])
+```
+
+useMemo 用于获取计算属性，依赖值不变化就没必要每次渲染都重新计算一遍
+
+```jsx
+const double = useMemo(() => count * 2, [count])
+```
+
 useRef
+
+
+
+
 useImperativeHandle
 
-
-useLayoutEffect
-
-它和 useEffect 的结构相同，区别只是调用时机不同。
-
+useLayoutEffect  它和 useEffect 的结构相同，区别只是调用时机不同。
 
 useDebugValue
 
