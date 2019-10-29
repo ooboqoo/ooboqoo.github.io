@@ -32,6 +32,14 @@ https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script
 
 附：`crossorigin="anonymous"` 这个到底是咋回事？https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes
 
+### crossorigin 属性
+
+```html
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+```
+
+这是 BootstrapCDN 的引用链接，有两个额外的属性 `integrity` `crossorigin`, `integrity` 用于校验资源完整性，`crossorigin` 则告诉浏览器请求资源时不要传 Cookie 信息。详细介绍见 [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes)
 
 ### XMLHttpRequest
 
