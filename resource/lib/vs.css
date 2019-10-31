@@ -118,6 +118,10 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
   content: "sass";
 }
 
+.hljs.language-dart::after {
+  content: "dart";
+}
+
 .hljs.language-bash::after,
 .hljs.language-sh::after,
 .hljs.bash::after {
