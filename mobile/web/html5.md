@@ -93,7 +93,7 @@ Service Worker 是一段运行在浏览器后台进程的脚本，独立于当�
 
 ### LocalStorage 和 SessionStorage
 
-在 HTML5 之前，Web 应用程序通用的数据储存方案一般通过 Cookie 实现，不过有如下弊端：
+在 HTML5 之前，Web 应用通用的数据储存方案一般通过 Cookie 实现，不过有如下弊端：
   * 大小受限，标准浏览器下单个 Cookie 允许的大小是 4KB
   * 消耗性能，当前域下的所有 HTTP 请求都会携带这些 Cookie 数据
 
@@ -101,7 +101,7 @@ Service Worker 是一段运行在浏览器后台进程的脚本，独立于当�
 
 HTML5 的本地存储为每个网站分配的空间大小是 5MB。
 
-LocalStorage 和 SessionStorage 的区别是，前者会一直存储在本地，而后者则存活在当前页面(不同tab页间也不共享)的生命周期中，一旦页面关闭，储存的数据也自动消失。
+LocalStorage 和 SessionStorage 的区别是，前者会一直存储在本地，而后者则存活在当前页面(*不同tab页间也不共享*)的生命周期中，一旦页面关闭，储存的数据也自动消失。
 
 ### IndexedDB
 
@@ -109,7 +109,7 @@ IndexedDB 是一个事务型数据库系统，同时也是一个基于 JavaScrip
 
 与 LocalStorage 不同的是，IndexedDB 可以存储大量结构化的数据，并且使用基于索引的高效 API 检索。
 
-IndexedDB 所有 API 操作均为异步模式，虽然规范定义了同步版本，但没有浏览器进行实现。
+IndexedDB 所有 API 操作均为 *异步* 模式，虽然规范定义了同步版本，但没有浏览器进行实现。
 
 ## 图像效果
 
@@ -195,28 +195,26 @@ socket.addEventListener('close',   event => console.log(event.data));
 
 ### WebRTC
 
-WebRTC 全称 Web Real-Time Communication，即 Web 实时通信，能够为浏览器和移动网页应用提供实时的语音或者视频通话功能。
+WebRTC 全称 Web Real-Time Communication，即 Web 实时通信，能够为桌面和移动网页应用提供实时语音或视频通话功能。
 
 WebRTC 现今已然成为 Web 端最为重要的多媒体通信解决方案，可以不依赖浏览器插件(如 Flash)实现基于浏览器建立音视频和数据传输，为 Web 开发者提供了丰富多彩的实时多媒体功能。实时通信的背后是一系列的复杂技术，包含音视频采集、编解码、网络传输等，但是有了 WebRTC 之后，开发者只需要关注几个简单的 JS API 即可。WebRTC 目前虽未普及到所有的浏览器中，但是已经被应用在很多项目和产品上了。
 
 WebRTC 包含以下几个主要的 API
   * MediaDevices 提供了查询和访问媒体输入设备的方法
-  * RTCPeerConnection 提供建立点和点之间连接的方法，并维护和监听连接
-  * RTCDataChannel 可用于点和点之间双向传输任意数据的网络通道
+  * RTCPeerConnection 提供建立点对点之间连接的方法，并维护和监听连接
+  * RTCDataChannel 可用于点对点之间双向传输任意数据的网络通道
 
 ## 其他常用特性
 
 ### History API 与单页应用
 
-单页应用 SPA / Single Page Application 是指 Web 应用可以无刷新在不同的页面间切换，并且页面访问记录会被浏览器保存，从而支持浏览器的前进、后退和刷新等操作。
+单页应用 SPA(Single Page Application) 是指 Web 应用可以无刷新在不同的页面间切换，并且页面访问记录会被浏览器保存，从而支持浏览器的前进、后退和刷新等操作。
 
-HTML5 在 History 对象上新增了 `pushSate` 和 `replaceState`，配合在 window 对象上新增的 `popState` 事件使用，可以实现单页应用功能。
+HTML5 在 History 对象上新增了 `pushSate` 和 `replaceState`，配合在 window 对象上新增的 `popState` 事件，可以实现单页应用功能。
 
-### Drag 和 Drop
+### Drag & Drop
 
-在没有提供 Drag & Drop 功能之前，开发者需要通过元素的 `mousedown` `mousemove` `mouseup` 等事件来实现拖放和拖拽效果。HTML5 新增的 Drag 和 Drop 功能不仅另外提供了一套规范的事件格式，而且还支持桌面文件到浏览器的拖放，大大简化了开发复杂度。
-
-注意： `dragover` 事件中必须阻止浏览器默认行为，否则后续的 `drop` 事件将不会被触发。因为浏览器默认是不允许将可拖拽元素放置到另外的元素上了。
+在没有提供 Drag & Drop 功能之前，开发者需要通过元素的 `mousedown` `mousemove` `mouseup` 等事件来实现拖放和拖拽效果。HTML5 新增的 Drag & Drop 功能不仅提供了一套规范的事件格式，而且还支持桌面文件到浏览器的拖放，大大简化了开发复杂度。
 
 ### 利用 Web Workers 加速应用计算
 

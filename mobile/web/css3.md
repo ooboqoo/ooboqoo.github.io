@@ -2,20 +2,21 @@
 
 CSS3 作为 CSS 技术的升级版本，经历多年的发展，已经在移动端被广泛使用，比如圆角、透明度、阴影、动画、响应式等功能。
 
+
 ## 认识 CSS3
 
 ### 什么是 CSS3
 
-CSS 全称 Cascading Style Sheets，中文意思是层叠样式表，是一种用来用来布局和美化网页的样式表语言。之所以称之为层叠样式表，是因为当同一个 HTML 元素被多个样式表定义时，所有的样式表会根据一定的规则层叠为一个新的样式表。
+CSS 全称 Cascading Style Sheets，即 层叠样式表，是一种用来布局和美化网页的样式表语言。之所以称之为层叠样式表，是因为当同一个 HTML 元素被多个样式表定义时，所有的样式表会根据一定的规则层叠为一个新的样式表。
 
-与之前版本 CSS 不同的是，CSS3被划分为多个模块，每个模块都有独立规范，每个模块都有各自独立的创作者和发布时间表，并且模块之间互不依赖。因为每个模块都被独立地标准化，从形式上来说，已经不存在 CSS3 自身标准。
+与之前版本不同的是，CSS3 被划分为多个模块，每个模块都有独立规范，每个模块都有各自独立的创作者和发布时间表，并且模块之间互不依赖。因为每个模块都被独立地标准化，从形式上来说，已经不存在 CSS3 自身标准。
 
 ### 移动端现状
 
 https://www.w3.org/Style/CSS/current-work  
 https://caniuse.com/#search=calc
 
-通过总体的数据观察，对移动端而言，常用的 CSS3 属性在浏览器的支持程度普遍较高。在移动端开发时，应该尽量使用 CSS3 新属性，提高开发效率及页面性能。
+移动端浏览器对常用的 CSS3 属性的支持程度普遍较高。开发时应该尽量使用 CSS3 新属性，提高开发效率及页面性能。
 
 ### 使用 Modernizr
 
@@ -23,8 +24,8 @@ https://modernizr.com/docs
 
 Modernizr 是一个用于检测用户浏览器的 HTML5 与 CSS3 特性的 JavaScript 库。
 
-原理
 ```js
+// 检测实现原理
 Modernizr.addTest('csscalc', function () {
     var pop = 'width:';
     var value = 'calc(10px)';
@@ -38,48 +39,17 @@ Modernizr.js 被引入后会立即开始检测当前浏览器支持的属性，�
 
 ```html
 <html class="js no-opacity postmessage history csscalc boxshadow">
-<style type="text/css">
-    .no-csscalc {  }
-    .csscalc {  }
+<style>
+    /* CSS 中的用法 */
+    .no-csscalc { /* ... */ }
+    .csscalc { /* ... */ }
 </style>
-<script type="text/javascript">
-    if (Modernizr.csscalc) {  } else {  }
+<script>
+    /* JS 中的用法 */
+    if (Modernizr.csscalc) { /* ... */ } else { /* ... */ }
 </script>
 ```
 
-
-## 选择器
-
-伪类：
-  * 动态伪类 Dynamic pseudo-classes :link :visited :hover :active :focus
-  * 目标伪类 :target
-  * 语言伪类
-  * UI元素状态伪类
-  * 结构性伪类
-  * 否定伪类
-伪元素：
-
-### 优先级和权重
-
-权重决定了 CSS 规则怎样被浏览器解析直到生效，当很多条规则被应用到某个元素上时，最终呈现的效果是按照规则各自的优先级和权重来决定的。
-
-CSS 中的权重分为 4 个级别：
-  * 内联样式
-  * ID 选择器
-  * 类、伪类、属性选择器
-  * 元素、伪元素
-
-权重计算时可以使用 "0,0,0,0" 的形式来表示一个权重，分别对应上面的 4 个级别。
-
-```txt
-*          0,0,0,0
-ul li      0,0,0,2
-ul li.item 0,0,1,2
-```
-
-最后，还有一个特殊的规则就是 `!important`，`!important` 写在 CSS 规则后面，可以将对应的规则提升到最高的权重。
-
-由于浏览器在解析选择器的时候是按照从右到左的顺序进行的，这就导致更多层级选择器嵌套规则在查找时会花费更多的时间，在从右往左的匹配过程中，会有很多规则匹配花费在失败的查找上，因此用更简短、更容易被查找到的选择器是一个好习惯。
 
 ## 响应式开发
 
@@ -168,14 +138,14 @@ footer a {font-size: 10px; margin: 0;}
 
 ### 用 rem 开发响应式设计
 
-CSS 中的计量单位包括 px pt em rem 等，其中 em font size of the element 是相对于当前元素的字体大小的计量单位，而 rem font size of the root element 是指相对于根元素的字体的大小。
+CSS 中的计量单位包括 `px` `pt` `em` `rem` 等，其中 `em` font size of the element 是相对于当前元素的字体大小的计量单位，而 `rem` font size of the root element 是指相对于根元素的字体的大小。
 
-rem 单位主要用于移动 Web 开发，以适配不同尺寸的屏幕。
+`rem` 单位主要用于移动 Web 开发，以适配不同尺寸的屏幕。
 
-rem 单位是相对于网页根元素的字号大小而定，所有实现 rem 布局开发时，首先要做的就是对根元素赋值，那么到底赋多大值才合适呢？这个并没有统一标准，为了便于计算，实例中使用宽度除以10的大小作为根元素字号。另外考虑到横竖屏的变换，在 window 对象添加 resize 事件监听，以在屏幕变换后重置根元素字号。
+`rem` 单位是相对于网页根元素的字号大小而定，所有实现 `rem` 布局开发时，首先要做的就是对根元素赋值，那么到底赋多大值才合适呢？这个并没有统一标准，为了便于计算，实例中使用宽度除以 20 的大小作为根元素字号。另外考虑到横竖屏的变换，在 window 对象添加 `resize` 事件监听，以在屏幕变换后重置根元素字号。
 
 ```html
-<html style="font-size: 20px;">
+<html style="font-size: 16px;">
 ```
 
 ### 多列 Multiple Columns

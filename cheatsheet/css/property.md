@@ -270,17 +270,20 @@ backface-visibility | Defines whether or not an element should be visible when n
 ### Animation Properties
 
 ||||
---------------------------|-------------------------------------------------------------------------------------|---
-@keyframes                | 定义整个动画中的关键帧(顺序见示例)                                                  | 3
+--------------------------|---------------------------------------------------------------------------------|---
+@keyframes                | 定义整个动画中的关键帧(顺序见示例)，动画名采用小驼峰形式(ID区分大小写)                  | 3
+|||
 animation                 | 指定所有动画配置项(不含 `animation-play-state` `animation-fill-mode`)的快捷属性     | 3
-animation-delay           | 指定动画等待时长，当为负数时，如 `-2s`，会跳过前 2s 的动画                          | 3
-animation-direction       | `normal` `reverse`(倒着放) `alternate`(播放多次时切换顺序放) `alternate-reverse`    | 3
-animation-duration        | 指定一个动画循环的时长(秒或毫秒)，如 `6s` `120ms`                                   | 3
-animation-fill-mode       | 指定动画前后样式 `none` `forwards`(播放后保留) `backwards`(等待期展示第一帧) `both` | 3
+animation-name            | Specifies the name of the @keyframes animation          | 3
+animation-duration        | 指定一个动画循环的时长(秒或毫秒)，如 `6s` `120ms`           | 3
+animation-timing-function | 定义动画关键帧切换的执行节奏                               | 3
+|||
+animation-delay           | 指定动画等待时长，当为负数时，如 `-2s`，会跳过前 2s 的动画                           | 3
 animation-iteration-count | 指定动画播放次数，也可以无限播放 `infinite`                 | 3
-animation-name            | Specifies the name of the @keyframes animation              | 3
+animation-direction       | `normal` `reverse`(倒着放) `alternate`(播放多次时切换顺序放) `alternate-reverse`  | 3
+animation-fill-mode       | 指定动画前后样式 `none` `forwards`(播放后保留) `backwards`(等待期展示第一帧) `both` | 3
 animation-play-state      | 通过此属性控制动画 播放`running` 或 暂停`paused`            | 3
-animation-timing-function | 定义动画关键帧切换的执行节奏                                | 3
+
 
 ```css
 /* name | duration | timing-function | delay | iteration-count | direction | fill-mode | play-state */

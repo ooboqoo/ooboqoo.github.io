@@ -109,7 +109,7 @@ function isMobile() {
       var a = document.createElement("a");
       heading.id = id;
       a.href = "#" + id;
-      a.textContent = heading.textContent;
+      a.innerHTML = heading.innerHTML;
       a.className = heading.tagName.toLowerCase();
       contents.appendChild(a);
       index += 1;

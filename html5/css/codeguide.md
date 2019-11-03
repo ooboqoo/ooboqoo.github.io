@@ -4,10 +4,6 @@
 [中文文档 - bootcss.com](http://codeguide.bootcss.com/#css) / 
 [中文文档 - ZoomZhao](http://zoomzhao.github.io/code-guide/) 本笔记在以上内容基础上整理而成。
 
-> **黄金法则**
-> 
-> 始终同意并遵循规范的每一条内容 -- 可以是这里列出的，也可以是你自己的。  
-> 不管有多少人共同参与一个项目，一定要确保每一行代码都像是同一个人编写的。
 
 ### 语法
 

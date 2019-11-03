@@ -296,16 +296,23 @@ function f(x) {
 
 #### 斐波那契数列
 
+斐波那契数列又称黄金分割数列，指的是这样一个数列：1,1,2,3,5,8,13,21,34,55,89...，从第三项开始，每一项都等于前两项之和。
+
+前后两项相除的结果，会逐步接近黄金数 *0.618*，中间隔一个数字相邻的两个数字比率是 *0.382*，炒股里面这两个数字非常重要。
+
 ```js
+/* 返回斐波那契数列的第 n 个值 */
+
 // 非递归方式
-function fib(num) {
-  let n1 = 1, n2 = 1, n = 1;
-  for (let i = 3; i <= num; i++) {
-    n = n1 + n2;
-    n1 = n2;
-    n2 = n;
+function fib(n) {
+  if (n < 1) throw new Error('int large then 0 is required')
+  let pprev = 0, prev = 0, current = 1
+  while (--n) {
+    pprev = prev
+    prev = current
+    current = pprev + prev
   }
-  return n;
+  return current
 }
 
 // 递归方式

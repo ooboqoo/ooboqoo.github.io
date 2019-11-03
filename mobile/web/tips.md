@@ -7,7 +7,7 @@
 https://developer.mozilla.org/zh-CN/docs/Mobile/Viewport_meta_tag
 
 ```html
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
 ```
 
 
@@ -28,9 +28,12 @@ https://developers.google.com/web/updates/2013/12/300ms-tap-delay-gone-away
 
 ```html
 <meta name="viewport" content="width=device-width">
+<!-- 20191101 实测，当内容撑大 window.innerWidth 后(如有长文本未强制换行，导致出现横向滚动条)，
+     300ms 延时又回来了，所以应该避免此类情况出现，当然，如果把用户缩放禁掉，就真的万无一失了，如下 -->
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
 ```
 
-对于无法设置 viewport 或者只想影响特定元素时，也可以使用一下方式，但 Firefox 不支持。
+对于无法设置 viewport 或者只想影响特定元素时，也可以使用以下方式，但 Firefox 不支持。
 
 ```css
 html { touch-action: manipulation; }

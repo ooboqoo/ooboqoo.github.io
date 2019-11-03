@@ -138,3 +138,25 @@ Selector | Example | Example description | CSS
 ::-webkit-scrollbar       | targets the whole scrollbar element.
 ::-webkit-scrollbar-track | targets only the scrollbar track.
 ::-webkit-scrollbar-thumb | targets the scrollbar thumb.
+
+### 优先级和权重
+
+权重决定了 CSS 规则怎样被浏览器解析直到生效，当很多条规则被应用到某个元素上时，最终呈现的效果是按照规则各自的优先级和权重来决定的。
+
+CSS 中的权重分为 4 个级别：
+  * 内联样式
+  * ID 选择器
+  * 类、伪类、属性选择器
+  * 元素、伪元素
+
+权重计算时可以使用 "0,0,0,0" 的形式来表示一个权重，分别对应上面的 4 个级别。
+
+```txt
+*          0,0,0,0
+ul li      0,0,0,2
+ul li.item 0,0,1,2
+```
+
+最后，还有一个特殊的规则就是 `!important`，`!important` 写在 CSS 规则后面，可以将对应的规则提升到最高的权重。
+
+由于浏览器在解析选择器的时候是按照从右到左的顺序进行的，这就导致更多层级选择器嵌套规则在查找时会花费更多的时间，在从右往左的匹配过程中，会有很多规则匹配花费在失败的查找上，因此用更简短、更容易被查找到的选择器是一个好习惯。

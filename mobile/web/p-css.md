@@ -387,3 +387,51 @@ function debounce(idle, func) {
   };
 }
 ```
+
+
+
+## 知识整理
+
+
+
+### 不同像素比下的图片加载
+
+CSS3 媒体查询
+
+```scss
+@mixin bg-image($url) {
+  background-image: url($url);
+  @media (-webkit-min-device-pixcel-ratio: 2) {
+    backgrond-image: url($url + "@2x.png");
+  }
+  @media (-webkit-min-device-pixcel-ratio: 3) {
+    backgrond-image: url($url + "@3x.png");
+  }
+}
+
+.box {
+  @include bg-image("logo")
+  background-size: 30px 18px;
+}
+```
+
+`<img srcset="">`
+
+不支持 `srcset` 属性的老版浏览器会正常显示 `src` 指定的图片，所以不存在兼容性问题。
+
+在线示例 https://webkit.org/demos/srcset/
+
+```html
+<img src="image-1x.png" srcset="image-1x.png 1x, image-2x.png 2x, image-3x.png 3x">  x 语法最先支持
+
+<img src="small.jpg" srcset="medium.jpg 1000w, large.jpg 2000w" alt="yah"> w 语法后支持
+```
+
+
+
+
+
+
+
+
+

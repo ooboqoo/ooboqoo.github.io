@@ -7,6 +7,47 @@
 
 移除空格，使用 margin 负值，font-size letter-spacing word-spacing
 
+#### BFC 及其应用
+
+创建 BFC 的方式有：html根元素；float浮动；绝对定位；overflow 不为 visible；display 为表格布局或弹性布局
+
+BFC 的主要作用是：清除浮动 + 解决垂直方向外边距折叠问题
+
+#### BFC IFC GFC FFC
+
+* BFC(Block formatting contexts) 块级格式上下文
+* IFC(Inline formatting conetexts) 内联格式上下文
+* GFC(GridLayout formatting contexts) 网格布局格式化上下文
+* FFC(Flex formatting contexts) 自适应格式上下文
+
+
+#### `opacity: 0` `visibility: hidden` `display: none` 优劣及各自适用场景
+
+结构
+  * `display:none` 让元素从渲染树中消失
+  * `visibility: hidden` 渲染元素继续占据空间，但内容不可见
+  * `opacity: 0` 虽然表面上看不到内容，但点击事件有效
+
+继承
+  * display 和 opacity 是非继承属性，修改子孙节点对结果无影响
+  * visibility 是继承属性，可通过修改子孙节点的属性让他们显示出来。
+
+性能
+  * display 会引发重排，单次操作耗性能，但后续就不没有这块内容的计算开销了
+  * visibility 和 opacity 只是重绘，性能消耗少
+
+读屏器
+  * 不会读取 display: none 的内容
+  * 会读取 visibility 和 opacity 的内容
+
+动画
+  * display 属性不支持动画
+  * visibility 和 opacity 支持动画
+  * https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties
+
+
+
+
 
 ## CSS3
 

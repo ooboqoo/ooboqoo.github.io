@@ -16,6 +16,8 @@ https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
 | dragleave | container | 拖拽对象从容器离开时触发
 | dragover  | container | 拖动过程中连续触发
 
+注意： `dragover` 事件中必须阻止浏览器默认行为，否则后续的 `drop` 事件将不会被触发。因为浏览器默认是不允许将可拖拽元素放置到另外的元素上的。
+
 ### Interfaces
 
 #### DataTransfer
