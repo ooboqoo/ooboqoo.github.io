@@ -31,6 +31,11 @@ function isMobile() {
   var elem_sidemenu   = document.getElementById("sidemenu");       // 左侧菜单
   var elem_togglemenu = document.getElementById("togglemenu");     // 显示/关闭左侧菜单的按钮
 
+  // index.html 开始逐步清理 iframe，过渡中...
+  if (!elem_html) {
+    elem_html = document.createElement('iframe')
+  }
+
   /**
    * 通过 XMLHttp 下载资源
    * @param {string} src 资源地址

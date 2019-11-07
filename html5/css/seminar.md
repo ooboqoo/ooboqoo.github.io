@@ -190,9 +190,12 @@ Here are the rules for percentages on vertical items:
 
 #### 非表格采用表格布局
 
+采用表格布局比较好的一个场景是，有两列，内容长度不同，但要求高度一致。
+
 ```html
 <div class="table" style="display: table; table-layout: fixed; width: 100%">
   <div class="tr" style="display: table-row">
+    <div class="td" style="display: table-cell;"></div>
     <div class="td" style="display: table-cell;"></div>
   </div>
 </div>

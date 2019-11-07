@@ -350,7 +350,7 @@ form:focus-within {
   <form class="focus-within">
     <label>姓名：<input></label>
     <label>性别：<input></label>
-  </div>
+  </form>
   <style>
     .focus-within { padding: 10px; border: 1px solid gray; }
     .focus-within:focus-within { background: #eee; }
@@ -416,3 +416,36 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   -webkit-font-smoothing: antialiased;
 }
 ```
+
+
+## More
+
+### Stacked Avatar
+
+<div class="demo">
+  <div class="stacked-avatar" style="display: flex;">
+    <span>1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
+  </div>
+  <style>
+    .stacked-avatar > span {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      height: 60px;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      background-color: coral;
+      transition: all .3s;
+    }
+    .stacked-avatar > span:not(:last-child) {
+      margin-right: -24px;
+    }
+    .stacked-avatar > span:hover {
+      margin-right: -3px;
+    }
+  </style>
+</div>

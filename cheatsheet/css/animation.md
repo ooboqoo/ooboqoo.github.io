@@ -29,6 +29,7 @@
       width: 30px;
       height: 30px;
       animation: spin 1.2s linear infinite;
+      will-change: transform;
     }
   </style>
 </div>
@@ -104,7 +105,7 @@
 
 <div class="demo">
   <figure class="fancy-avatar">
-    <img src="https://natours.netlify.com/img/nat-8.jpg" alt="Person on a tour" class="fancy-avatar__img">
+    <img src="./css/images/girl.jpg" alt="Person on a tour" class="fancy-avatar__img">
     <figcaption class="fancy-avatar__caption">Mary Smith</figcaption>
   </figure>
   <div>
@@ -155,8 +156,8 @@
 <div class="demo">
   <div class="bg-video">
     <video class="bg-video__video" autoplay muted loop>
-      <source src="https://natours.netlify.com/img/video.mp4" type="video/mp4">
-      <source src="https://natours.netlify.com/img/video.webm" type="video/webm">
+      <!-- <source src="./css/images/bg-video.mp4" type="video/mp4"> -->
+      <source src="./css/images/bg-video.webm" type="video/webm">
     </video>
     <div>
       <p>更多免费背景资源见 https://coverr.co/</p>
@@ -181,4 +182,91 @@
   </style>
 </div>
 
+### Solid Gradient
+
+```css
+background-image: linear-gradient(
+  105deg,
+  rgba(255, 255, 255, .9) 0%,
+  rgba(255, 255, 255, .9) 50%,
+  transparent 50%
+);
+```
+
+<div class="demo">
+  <div class="solid-gradient" style="height:100px; background-position-y: center;">Some text here...</div>
+  <style>
+    .solid-gradient {
+      background-image: linear-gradient(105deg, rgba(255, 255, 255, .9) 0%, rgba(255, 255, 255, .9) 50%, transparent 50%), url(./css/images/bg-lake.jpg);
+      background-size: 100%;
+    }
+  </style>
+</div>
+
+### Fancy Form
+
+特效1: 输入框底部会根据输入值的校验有效性而变更颜色  
+特效2: 输入框聚焦时提示文案有动效，且不会消失。用到了两个新的 API `input::-webkit-input-placeholder` `input:placeholder-shown`
+
+<div class="demo">
+  <form class="fancy-form" action="#">
+    <div class="fancy-form__group">
+      <input class="fancy-form__input" placeholder="Full Name" required="">
+      <label class="fancy-form__label">Full Name</label>
+    </div>
+    <div class="fancy-form__group">
+      <input type="email" class="fancy-form__input" placeholder="Email address" required="">
+      <label class="fancy-form__label">Email address</label>
+    </div>
+  </form>
+  <style>
+    .fancy-form {
+      padding: 10px;
+      background-color: #f6f6f6;
+    }
+    .fancy-form__group {
+      position: relative;
+      display: inline-block;
+    }
+    .fancy-form__group:not(:last-child) {
+      margin-bottom: 20px;
+    }
+    .fancy-form__input {
+      padding: 5px 20px;
+      transition: border-color .3s;
+      border: none;
+      border-radius: 2px;
+      border-bottom: 3px solid transparent;  /* 防止抖动，且不会触发重排 */
+    }
+    .fancy-form__input:focus {
+      outline: none;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, .1);
+      border-bottom-color: green;
+    }
+    .fancy-form__input:focus:invalid {
+      border-bottom-color: red;
+    }
+    .fancy-form__input::-webkit-input-placeholder {
+      color: gray;
+    }
+    .fancy-form__input:focus::-webkit-input-placeholder {
+      color: gray;
+    }
+    .fancy-form__label {
+      position: absolute;
+      left: 20px;
+      opacity: 1;
+      transform: translateY(40px);
+      transition: transform .2s, opacity .2s;
+      will-change: transform, opacity;
+      color: gray;
+      font-size: small;
+    }
+    .fancy-form__input:placeholder-shown + .fancy-form__label {
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  </style>
+</div>
 

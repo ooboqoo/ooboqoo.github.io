@@ -1,6 +1,15 @@
 # CSS Tips
 
 
+## 小技巧
+
+color 有两个值 `transparent` `currentColor` 非常好用。
+
+`div:active { background: red; }` `:active` 伪元素可以用在 a 以外的元素上哦，添加点击时的效果非常好用。
+
+`z-index` 无效时，加个 `position: relative;` 就好。
+
+
 ## 表格
 
 #### `border`
