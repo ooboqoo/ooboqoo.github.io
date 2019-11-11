@@ -409,7 +409,7 @@ function isMobile() {
     })
     fragment.querySelector('div').addEventListener('click', e => {
       e.stopPropagation()
-      document.body.removeChild(e.target)
+      if (e.target.tagName === 'DIV') document.body.removeChild(e.target)
     })
     document.body.appendChild(fragment)
   })

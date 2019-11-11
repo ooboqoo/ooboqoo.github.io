@@ -207,6 +207,7 @@ class Point {
   }
 
   // 可以定义多个 named constructor，这个玩法有点特殊了
+  // 这种 命名构造函数 的使用方式使得类的实例化过程语义更清晰
   Point.origin() {
     x = 0;
     y = 0;
@@ -399,7 +400,7 @@ assert(colors[2] == Color.blue);
 
 ### mixins
 
-使用 `with` 来添加 mixins
+使用 `with` 来添加 **混入(mixins)**
 
 ```dart
 class Maestro extends Person with Musical, Aggressive, Demented {

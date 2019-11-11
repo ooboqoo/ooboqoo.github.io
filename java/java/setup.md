@@ -98,18 +98,14 @@ $ jar xvf jdk/src.zip          # 也可以采用其他解压工具
 
 文档包含在一个压缩文件中，它是一个独立于 JDK 的压缩文件，可以从 oracle 网站下载。
 
-### Java API 使用方法
+### 在线文档查询
 
-* __谷歌搜索__
-  可以通过谷歌搜索快速查找，如搜索 String java 8 出来第一条就是 https://docs.oracle.com/javase/8/docs/api/java/lang/String.html
+* _谷歌搜索_ 可以通过谷歌搜索快速查找，如搜索 String java 9 出来第一条就是
+  https://docs.oracle.com/javase/8/docs/api/java/lang/String.html
+* _逐级导航查找_ 逐级导航进入文档，步骤：左上选择包，左下选择类，最后在右侧查看具体文档
+* _网址直达_ 如知道查询类的位置，也可以直接修改网址进入，如 java/uitl/Scanner.html
 
-* __逐级导航查找__
-  逐级导航进入文档，步骤：左上选择包，左下选择类，最后在右侧查看具体文档。
-
-* __网址直达__
-  如知道查询类的位置，也可以直接修改网址进入，如想查询 Scanner 类的文档，修改上面 URL 后面的部分为 java/uitl/Scanner.html 即可。
-
-应该慢慢熟悉最常用的包 java.lang java.util java.io java.awt java.swing 有个大概印象之后查询起来会更加得心应手。
+应该慢慢熟悉最常用的包 java.lang java.util java.io 有个大概印象之后查询起来会更加得心应手。
 
 ### 使用集成开发环境 IDEA
 
@@ -150,4 +146,53 @@ $ javac HelloWorld.java  # 必须带后缀
 $ java HelloWorld        # 不能带后缀，否则报错：找不到或无法加载主类 HelloWorld.class
 
 $ javac -encoding UTF-8 XX.java  # 如果碰到编码问题报错，就使用参数解决
+```
+
+## VSCode
+
+VSCode 安装语言支持包后，对于纯粹的 Java 语言练习，要比 IDEA 要好用很多。
+
+* 通过 `cmd + shift + p` 选 "Java: Create Java Project" 新建项目，在项目里写代码能获得诸多 IDE 自动化便利
+* 简单试验直接在 `src` 目录下新建 `.java` 文件练习，他们在 `default` 这个 package 下，保存后会自动编译到 `bin` 目录
+* 如果要写多个相关的 `.java` 文件，那就要新建一个模块 `package`，即在 src 目录下新建一个目录，便于代码组织
+* 运行文件要 `cd bin` 后再 `java mypackage.MyClass`，或者也可以 `java -cp bin mypackage.MyClass`
+* 调试(运行)文件也可以直接按 F5，VSCode 会自动拼接参数，但要先配置好 launch.json
+
+_launch.json_
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Debug Current File",
+      "request": "launch",
+      "mainClass": "${file}"
+    },
+    {
+      "type": "java",
+      "name": "Debug App",
+      "request": "launch",
+      "mainClass": "app.App",
+      "projectName": "play-compiler"
+    }
+  ]
+}
+```
+
+### Eclipse Java 项目结构
+
+```
+|- .settings
+|  \- org.eclipse.jdt.core.prefs
+|- bin                // 字节码文件
+|  \- app
+|     \- App.class
+|- lib                // 放项目依赖的 JAR 文件
+|- src                // 源码
+|  \- app
+|     \- App.java
+|- .classpath         // XML 配置 .class 文件路径信息
+\- .project           // XML 项目配置信息
 ```

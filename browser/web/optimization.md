@@ -262,3 +262,40 @@ Google开始向着更安全网页的方向努力，并且将所有Chrome上的HT
 11.浏览器召集了在座的各位＜div＞＜span＞＜ul＞＜li＞们，“大伙儿收拾收拾行李，咱得重新来过……”，浏览器向服务器请求了新的CSS文件，重新渲染页面。
 
 
+
+### 加载试验
+
+```html
+<!DOCTYPE html>
+<style>
+#app {
+  background-image: url(./very-large-picture.jpg);
+}
+</style>
+
+<div id="app"></div>
+<script>console.log('index-1')</script>
+<script src="app.js"></script>
+<script>console.log('index-2')</script>
+```
+
+_app.js_
+
+```js
+window.addEventListener('DOMContentLoaded', () => console.log('ready'))
+window.addEventListener('load', () => console.log('loaded'))
+
+console.log('app-1')
+const s = document.createElement('script'); s.src = './abb.js'
+document.head.appendChild(s)
+console.log('app-2')
+```
+
+_abb.js_
+
+```js
+console.log('abb')
+```
+
+文件加载顺序：index.html app.js very-large-picture.jpg abb.js
+控制台输出：index-1 app-1 app-2 index-2 ready abb (大图加载完后)loaded
