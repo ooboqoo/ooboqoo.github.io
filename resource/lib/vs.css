@@ -158,9 +158,12 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
   content: "php";
 }
 
-.hljs.language-c::after,
-.hljs.cpp::after {
-  content: "c/c++";
+.hljs.language-c::after {
+  content: "c";
+}
+
+.hljs.language-cpp::after {
+  content: "c++";
 }
 
 .hljs.language-go::after,

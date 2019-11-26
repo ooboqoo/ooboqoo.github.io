@@ -32,9 +32,9 @@ $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/inst
 $ brew install FORMULA...    # 软件安装位置 /usr/local/Cellar/
 $ brew uninstall FORMULA...
 
-$ brew outdated              # 查找是否有更新的软件包
-$ brew update                # 更新 brew 自身
-$ brew upgrade [FORMULA...]  # 更新软件
+$ brew outdated              # 检查安装的软件包是否有新版本
+$ brew update                # 更新 brew 版本 + formulae 信息
+$ brew upgrade [FORMULA...]  # 升级软件包
 $ brew switch                # 在本机安装的多个新老版本软件包之间切换
 
 $ brew unlink vim            # 临时使 vim 失效，即，只去链接不实际卸载

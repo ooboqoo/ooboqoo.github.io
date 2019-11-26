@@ -37,6 +37,26 @@ a:hover::after {
 }
 ```
 
+#### `position: sticky;`
+
+http://www.ruanyifeng.com/blog/2019/11/css-position.html
+
+`static` 是 `position` 属性的默认值。`static` 定位的元素位置由浏览器自主决定，`top` `bottom` `left` `right` 这四个属性无效。
+
+`relative` `absolute` `fixed` 这三个属性值有一个共同点，都是相对于某个基点的定位，不同之处仅仅在于基点不同。
+
+`sticky` 跟前面四个属性值都不一样，它会产生动态效果，很像 `relative` 和 `fixed` 的结合，能够形成"动态固定"的效果。
+
+<div class="demo">
+  <div style="width: 400px; height: 100px; overflow-y: scroll; border: 1px solid #eee;">
+    <p>内容...</p>
+    <div style="position: sticky; top: 0; height: 20px; background-color: #cf0;">position: sticky; top: 0;</div>
+    <p>内容...</p>
+    <p>内容...</p>
+    <p>内容...</p>
+  </div>
+</div>
+
 #### `clip` `clip-path` `mask`
 
 `clip` 属性只支持 rect 一种用法，不够灵活，已经被新的 `clip-path` 取代。

@@ -33,7 +33,7 @@ function isMobile() {
 
   // index.html 开始逐步清理 iframe，过渡中...
   if (!elem_html) {
-    elem_html = document.createElement('iframe')
+    elem_html = document.createElement('iframe');
   }
 
   /**
@@ -81,6 +81,7 @@ function isMobile() {
    * 根据加载的 html 文档的高度动态调整其容器 iframe#html 的高度以免出现滚动条
    */
   function adjustIframeHeight() {
+    if (!elem_html || !elem_html.contentWindow) return
     elem_html.height = elem_html.contentWindow.document.documentElement.scrollHeight;
     setTimeout(function check() {
       var a = elem_html.height;

@@ -27,42 +27,43 @@ main() {
 
 ### 关键字
 
+```text
 null true false 
 
 const final var dynamic void  enum external Function  typedef
 
-class  static   factory    super this  new   get set operator
-extends abstract implements interface
-mixin  with on
+class abstract mixin  interface
+static factory  super this  new  get set operator
+extends implements with
 
-if else switch case break continue default for while do return
+if else  switch case default  for while do  break continue return
 
-in is as assert
+in assert  is as
 
-try catch finally throw rethrow
+try catch finally  throw rethrow  on
 
-import export library show  hide part deferred
+import export  show hide  library part deferred
 
-async  await  yield  sync    covariant
-
+async await  yield  sync  covariant
+```
 
 ### 运算符
 
-|||
---------------|-------------------------------------
-unary postfix | `++` `--` `()` `[]` `.` `?.`
-unary prefix  | `-` `!` `~` `++` `--`
-multiplicative | `*` `/` 求余 `%` 除(取整) `~/` >> `+` `-`
-bitwise        | shift `<<` `>>` `>>>` >> AND `&` >> XOR `^` >> OR `\|` 
+||||||
+---------------|----------------------------------|---------|---------|----------
+unary postfix  | `++` `--` `()` `[]` `.` `?.`
+unary prefix   | `-` `!` `~` `++` `--`
+multiplicative | `*`、除(求商) `/`、求余 `%`、整数商 `~/` | `+` `-`
+bitwise        | shift `<<` `>>` `>>>`           | AND `&` | XOR `^` | OR `\|`
 relational     | `>=` `>` `<=` `<` `==` `!=`
 type test      | `as` `is` `is!`
-logical        | `&&` >> `\|\|`
+logical        | `&&`                            | `\|\|`
 if null        | `??`
 conditional    | `? :`
 cascade        | `..`
 assignment     | `=` `*=` `/=` `+=` `-=` `&=` `^=` etc.
 
-注：运算符的优先级由往下逐条降低，同行之间有先后顺序的，用 `>>` 标示出来了。  
+注：运算符的优先级由往下逐条降低，同行内也有先后顺序的，用单元格分隔开了，优先级高的排前面。  
 注：Dart 下的很多运算符是可以覆写的，`x == y` 其实就是执行了 `x.==(y)`。
 
 ```dart
@@ -206,8 +207,7 @@ class Point {
     this.y = y;
   }
 
-  // 可以定义多个 named constructor，这个玩法有点特殊了
-  // 这种 命名构造函数 的使用方式使得类的实例化过程语义更清晰
+  // 可以定义多个 named constructor，这种 命名构造函数 的使用方式使得类的实例化过程语义更清晰
   Point.origin() {
     x = 0;
     y = 0;
@@ -359,6 +359,12 @@ class EffectiveDoer extends Doer {
 }
 ```
 
+### 接口
+
+Dart 并没有专门定义 Interfaces 的语法，通过定义类或抽象类来隐式地完成接口的定义。
+
+当类作为接口使用时，只保留了接口的形，所有内容都需要被重新实现。（跟 TypeScript 从类中提取出类型信息其实是一个套路）
+
 Every class implicitly defines an interface containing all the instance members of the class and of any interfaces it implements.
 
 ```dart
@@ -497,7 +503,7 @@ T first<T>(List<T> ts) {
 
 ```dart
 import 'dart:html';               // 引用内部模块
-import 'package:test/test.dart';  // 倒入外部包
+import 'package:test/test.dart';  // 导入外部包
 ```
 
 当导入的多个包之间出现标识符冲突时，可以添加 library prefix
@@ -573,6 +579,6 @@ void main() {
 
 Use metadata to give additional information about your code. A metadata annotation begins with the character @, followed by either a reference to a compile-time constant (such as deprecated) or a call to a constant constructor.
 
-Two annotations are available to all Dart code: @deprecated and @override. For examples of using @override, see Extending a class. Here’s an example of using the @deprecated annotation:
+Two annotations are available to all Dart code: `@deprecated` and `@override`.
 
 Metadata can appear before a library, class, typedef, type parameter, constructor, factory, function, field, parameter, or variable declaration and before an import or export directive. You can retrieve metadata at runtime using reflection.

@@ -5,8 +5,8 @@
 
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link
 
-* `<link rel="preload">` 提前声明当前页面要用的资源，让浏览器*马上*开始下载作业
-* `<link rel="prefetch">` 后面页面要用的，让浏览器在*空闲*时先准备好
+* `<link rel="preload">` 提前声明当前页面要用的资源，让浏览器 *马上* 开始下载作业
+* `<link rel="prefetch">` 后面页面要用的，让浏览器在 *空闲* 时先准备好
 
 #### `<link rel="stylesheet">`
 
@@ -30,8 +30,6 @@ https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script
 * 通过 `document.createElement('script')` 插入的脚本默认 `async="true"`
 * 如果改成 `async="false"` ...
 
-附：`crossorigin="anonymous"` 这个到底是咋回事？https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes
-
 ### crossorigin 属性
 
 ```html
@@ -39,7 +37,7 @@ https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 ```
 
-这是 BootstrapCDN 的引用链接，有两个额外的属性 `integrity` `crossorigin`, `integrity` 用于校验资源完整性，`crossorigin` 则告诉浏览器请求资源时不要传 Cookie 信息。详细介绍见 [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes)
+这是 BootstrapCDN 的引用链接，有两个额外的属性 `integrity` `crossorigin`。`integrity` 用于校验资源完整性，如果不匹配浏览器会阻止脚本运行。`crossorigin` 则告诉浏览器请求资源时不要传 Cookie 信息。详见 [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes)
 
 ### XMLHttpRequest
 

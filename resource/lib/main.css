@@ -89,6 +89,7 @@ code {
   color: #c00;
   background-color: #f3f6f6;
   border-radius: .25em;
+  vertical-align: 2px;
 }
 
 ul, ol {
@@ -417,6 +418,7 @@ td > span.mark {
 
 #sidemenu h2, #sidemenu h3 {
   font-family: "Microsoft YaHei", sans-serif;
+  user-select: none;
 }
 
 #sidemenu h2 {
@@ -588,7 +590,6 @@ p > .mark {
 /* special definition for widescreen */
 @media (min-width: 1210px) {
   body {
-    position: relative;
     width: 1210px;
     margin: auto;
   }
