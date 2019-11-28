@@ -1,4 +1,6 @@
-# 开发与调试
+# 开发调试
+
+https://developer.android.com/studio/debug/
 
 ## 常用调试命令
 
@@ -91,6 +93,13 @@ internal debugging:
  reconnect device         kick connection from device side to force reconnect
 ```
 
+
+## 真机调试
+
+### 手机开启调试模式
+
+"设置 Settings" >> "开发者选项 Developer options" >> "USB 调试 USB debugging" 中开启调试模式。如果没有找到 "开发者选项"，就到 "设置 Settings" >> "关于手机 About phone" >> "编译编号 Build number" 连续点击几下直到系统出提示，就可显示此选项。
+ 
 
 ## Android Virtual Device
 

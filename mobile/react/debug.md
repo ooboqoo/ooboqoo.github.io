@@ -1,33 +1,9 @@
-# 环境配置与调试
+# 开发调试
 
 
-## 环境配置
+## Android
 
-### Android SDK
-
-React Native 要求 Android Studio 2.0 或更高版本。
-
-```bash
-$ android sdk
-```
-
-选择并安装 3个必选项目 (目前 RN 编译基于 Android 6.0)
-  * Tools -> Android SDK Build-tools 23.0.1
-  * Android 6.0 (API 23) -> SDK Platform 23
-  * Extras -> Android Support Repository
-
-其他配置项参见 Android-SDK 配置笔记。
-
-### Xcode
-
-安装很简单，直接在苹果商店下，4.5G，下载中途暂停了就得从头开始，安装后占用 10G，装好后，开发所需的东东都在了。
-
-
-## 调试
-
-### Android
-
-#### 编译并下载到手机
+### 编译并下载到手机
 
 ```bash
 $ react-native init xxxproject  # 这一步奇慢，百度后换下淘宝源就很快了
@@ -37,7 +13,7 @@ $ react-native run-android      # 这一步，编译完成后会报 "无法安�
 $ adb install ./android/app/build/outputs/apk/app-debug.apk  # 只要连好手机开启 debug 就安装到手机了
 ```
 
-#### 调试步骤
+### 调试步骤
 
 1. 你的设备通过USB数据线连接到电脑上，并开启USB调试
 2. `react-native start` 启动开发服务器(即时编译器)
@@ -51,21 +27,23 @@ $ adb install ./android/app/build/outputs/apk/app-debug.apk  # 只要连好手�
 1. 调出开发者菜单，选 Dev Settings -> Debug server host for device.
 2. 输入开发服务器的 IP 和端口，如 `192.168.1.101:8081`
 
-### iOS
+
+## iOS
 
 ```bash
 $ react-native run-ios  # 会自动启动虚拟机开始开发，这一点比安卓开发的体验好
 ```
 
-### APP 内操作
 
-#### 自动刷新
+## APP 内操作
+
+### 自动刷新
 
 选择开发菜单中的 "Enable Live Reload" 可以开启自动刷新，这样可以节省你开发中的时间。
 
 更神奇的是，通过开启 "Hot Reloading" 选项，在刷新时还可以保持应用的当前运行状态。
 
-#### 红屏和黄屏
+### 红屏和黄屏
 
 应用内的报错会以全屏红色显示在应用中，我们称为红屏 red box 报错。你可以使用 `console.error()` 来手动触发红屏错误。
 
@@ -87,7 +65,7 @@ console.ignoredYellowBox = ['Warning: ...'];
 
 数组中的字符串就是要屏蔽的警告的开头的内容。（例如上面的代码会屏蔽掉所有以Warning开头的警告内容）
 
-#### 访问控制台日志
+### 访问控制台日志
 
 在运行RN应用时，可以在终端中运行如下命令来查看控制台的日志：
 
@@ -98,12 +76,12 @@ $ react-native log-android
 
 此外，你也可以在 iOS 模拟器的菜单中选择 `Debug → Open System Log...` 来查看。如果是 Android 应用，还可以通过在终端命令行里运行 `adb logcat *:S ReactNative:V ReactNativeJS:V` 命令来查看。
 
-#### 性能监测
+### 性能监测
 
 你可以在开发者菜单中选择 "Pref Monitor" 选项以开启一个悬浮层，其中会显示应用的当前帧数。
 
 
-### 调试问题及注意项
+## 调试问题及注意项
 
 * 当连接了多个设备(含模拟器)，一些操作可能会失败，所以调试最好只连接一台设备。
 * 在真机上运行时可能会遇到白屏的情况，请找到并开启 "悬浮窗权限"。
@@ -113,7 +91,8 @@ $ react-native log-android
 * 大部分现代安卓设备已经没有硬件 Menu 按键，可以通过摇晃设备来打开 APP 开发者菜单
 * 应用刷新：如果只是修改 JS 代码的话，Reload JS 就够了，如果修改了项目的资源文件或其他代码，那么就要重新打包了。
 
-### Chrome开发者工具
+
+## Chrome开发者工具
 
 在开发者菜单中选择 "Debug JS Remotely" 选项，即可以开始在 Chrome 中调试 JS 代码。点击这个选项的同时会自动打开调试页面 `http://localhost:8081/debugger-ui`.
 
