@@ -24,6 +24,7 @@ Windows 下按 `F12` macOS 下按 `opt+cmd+I` 进入开发者工具界面。
 
 ### Safari
 
+在 Develop 菜单项下提供了丰富的开发选项，`opt+cmd+I` 可进入 Web Inspector。
 
 ## 代理工具
 

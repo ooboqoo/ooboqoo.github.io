@@ -323,14 +323,7 @@ $ sysctl -p
 Windows https://github.com/2dust/v2rayN/releases  
 Android https://github.com/2dust/v2rayNG/releases  
 macOS https://github.com/yanue/V2rayU/releases  
-
-V2RayX 安装稍微麻烦点，会提示要额外安装个小工具，然后还需要手动设置下开机自启动 `系统设置 -> 用户与组 -> 登录项`，另外 PAC 文件只包含了很少几个网址，需要从其他端拷贝一份，并添加一行：
-
-```js
-var proxy = "SOCKS5 127.0.0.1:1081; SOCKS 127.0.0.1:1081; DIRECT;"
-```
-
-V2RayU 是个新项目，貌似比 V2RayX 好用。
+iOS 需要到美区购买下载 shadowrocket、kitsunebi 之类应用
 
 ### 相关文章
 
@@ -338,6 +331,3 @@ IP 被墙检测及解决办法(SSR中文网) https://ssr.tools/772
 SSR 项目介绍 http://www.ttlsa.com/news/popular-science-about-shadowsocks/
 
 候选供应商(要是封杀厉害就买现成的) https://justmysocks.net/  
-
-
-
