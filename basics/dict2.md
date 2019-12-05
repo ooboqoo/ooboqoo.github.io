@@ -26,14 +26,31 @@ stack discipline 堆栈规则
 garbage collection  
 synchronization 同步  
 coroutine 协程  
-declaration 声明  
-definition 定义  
-data structures and algorithms  
+declaration 声明  declaration refers to places where the nature of the variable is stated but no storage is allocated.  
+definition 定义  definition refers to the place where the variable is created or assigned storage.  
+data structures and algorithms  数据结构和算法  
 notaion (音乐、数学等的)标记系统  
+expression  表达式  combine variables and constants to produce new values.
 
 
-argument 形参  
-parameter 参数  
+argument  形参  
+parameter  参数  
+formal argument  形参  
+actual argument  实参  
+argument list  参数列表  
+
+exponentiation operator  求幂运算符  
+power  幂; 功率,权力  
+
+conventionla  _/kənˈvenʃənəl/_  a.通常的,常规的,传统的  a conventional method, product, practice etc has been used for a long time and is considered the usual type.
+
+allocate  _/ˈæləkeɪt/_  v.分配,分派  
+
+prototype  _/ˈprəʊtətaɪp/_  原型,样本,典型  
+precedence  _/ˈpresɪdəns/_  优先,优先权  
+associativity  _/əˈsəʊʃətɪvɪtɪ/_  [数] 结合性  
+
+routine  程序或子程序  A routine is a computer program, or part of a program, that performs a specific function.  
 
 
 ## ANSI C
