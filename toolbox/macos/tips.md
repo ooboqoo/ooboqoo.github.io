@@ -34,6 +34,10 @@ $ defaults -currentHost delete -globalDomain AppleFontSmoothing
 $ defaults write -g CGFontRenderingFontSmoothingDisabled -bool YES
 ```
 
+#### 4K 屏优化
+
+Preferences > Display > Resolution 选择合适的缩放选项即可。
+
 ##### 微软雅黑
 
 1. 复制 C:\Windows\System\Fonts\msyh.ttf 字体文件到 macOS 下并双击安装字体

@@ -46,19 +46,6 @@ IDE 中相关菜单项介绍
 * Execute 执行 / Run 运行 -- 运行程序
 * Debug 调试 -- 以步进方式执行程序
 
-
-### Hello world
-
-```c
-#include <stdio.h>
-
-int main()
-{
-  printf("Hello World");
-  return 0;
-}
-```
-
 ### 内存模型
 
 <img src="https://media.geeksforgeeks.org/wp-content/uploads/memoryLayoutC.jpg"
@@ -85,15 +72,58 @@ $ cc dummy.c
 $ size a.out  # print the size of the sections in an object file
 ```
 
+### 变量存储类别
+
+C 语言根据 *变量的生存周期* 来划分，可以分为 *静态存储* 方式和 *动态存储*方式。
+
+C语言中 *存储类别* 又分为四类：自动 `auto`、静态 `static`、寄存器的 `register` 和外部的 `extern`。
+
+1. 用关键字 `auto` 定义的变量为自动变量，auto 可以省略，auto 不写则隐含定为“自动存储类别”，属于动态存储方式。
+2. 用 `static` 修饰的为静态变量，如果定义在函数内部的，称之为静态局部变量；如果定义在函数外部，称之为静态外部变量。
+3. 为了提高效率，C 语言允许将局部变量的值放在 CPU 的寄存器中，这种变量叫“寄存器变量”，用关键字 `register` 作声明。
+4. 用 `extern` 声明的变量是外部变量，外部变量的意义是某函数可以调用在该函数之后定义的变量。
+
+**内部变量** 与 **外部变量** (抑或称为局部变量和全局变量)
+Variables may be internal to a function, external but known only within a single source file, or visible to the entire program.
+
+```c
+void func () {
+  static int x = 0;
+  x++;
+  printf("x=%d\n"; x);
+}
+
+int main () {
+  func();  // x=1
+  func();  // x=2
+}
+```
+
+```c
+void func() {
+  register int i;
+}
+```
+
+```c
+// int x;  // 如果存在这行声明，main 内部就可以不用 extern 声明外部变量
+
+int main () {
+  extern int x;  // 这里声明使用的是外部变量
+  printf("extern x=%d\n", x);
+}
+int x = 100;
+```
+
 ### 指针、数组、字符串
 
 数组、字符串、指针 这几个概念揉在一起，特别绕，理解起来还是有难度的，这里做的试验应该能比较清楚地搞懂这几个概念了。  
-特别注意： _`arr` 是数组元素 `arr[0]` 的指针，类型为 `int *`，而 `&arr` 是数组本身的指针，类型为 `int (*)[]`_ 。
+特别注意： _`arr` 是数组元素 `arr[0]` 的指针，类型为 `int *`，而 `&arr` 是数组本身的指针，类型为 `int (*)[n]`_ 。
 
 ```c
 int arr[] = {1, 2, 3, 4};
 printf("%d, %d \n", arr == &arr[0], arr == &arr);
-printf("%d\n", (long)arr);
+printf("%lx\n", arr);
 printf("%lx\n", arr + 1);
 printf("%lx\n", &arr + 1);
 /*
@@ -166,6 +196,13 @@ p_str2     0x7ffeefbff4f8    arr 里的每个元素占了 8B，一个 int 只占
 
 Machine code, also known as **object code**, is often referred to as “ones and zeros”. It is understood by hardware like the processors in our computers. In order to become usable software, object code needs to be made into an executable file.
 
+**initializer list** `{expression, ...}` 这种形式只能存在于 array struct union enum 定义时，是一种特定的语法结构。C 语言中并不存在 列表字面量 之类的用法。
+
+```c
+int a[] = {1, 2, 3, 4};  // OK
+a = {1, 2, 3, 4};        // WRONG: Array type `int [4]` is not assignable
+```
+
 
 ## Types, Operators, and Expressions
 
@@ -179,6 +216,11 @@ Machine code, also known as **object code**, is often referred to as “ones and
 * 一般变量名(variable names) 全部使用小写，而常量符号(symbolic constants) 全部使用大写
 * 标识符的长度最好不要超过 ? 位，当两个标识符前 ? 位相同时会认为是同一个标识符
 * 本地变量倾向于使用短的名字(如循环中的 i)，而外部变量 external variables 则倾向于使用更长的、表意的名字
+
+https://www.gnu.org/software/libc/manual/html_node/Reserved-Names.html
+
+In addition to the names documented in this manual, reserved names include all external identifiers (global functions and variables) that begin with an underscore (‘_’) and all identifiers regardless of use that begin with either two underscores or an underscore followed by a capital letter are reserved names. This is so that the library and header files can define functions, variables, and macros for internal purposes without risk of conflict with names in user programs.
+
 
 ### 2.2 Data Types and Sizes
 
@@ -303,8 +345,8 @@ There is one other kind of constant, the **enumeration constant**. Enumerations(
 
 ```c
 // enum
-enum boolean {NO, YES};
-enum colors {RED = 1, GREEN = 1, BLUE};  // 值可以相同，但名字不能重复，多个 enum 之间也是这种关系
+enum boolean { NO, YES };
+enum colors { RED = 1, GREEN = 1, BLUE };  // 值可以相同，但名字不能重复，多个 enum 之间也是这种关系
 ```
 
 ### 2.4 Declarations
@@ -434,7 +476,7 @@ printf("%s", 4 >= 3 ? "yes" : "no");
 |||
 ---------------------------------------------------------|--------------
 `()` `[]` `->` `.`                                       | left to right
-`!` `~` `++` `--` `+` 正 `-` 负 `*` `&(type)` `sizeof`   | right to left
+`!` `~` `++` `--` `+` 正 `-` 负 `*`取值 `&`取址 `sizeof`   | right to left
 `*` `/` `%`                                              | left to right
 `+` 加 `-` 减                                            | left to right
 `<<` `>>`                                                | left to right
@@ -566,6 +608,10 @@ error:
 
 ## Functions and Program Structure
 
+### 4.1 Basics of Functions
+
+函数就是实现代码逻辑的一个小的单元。C 程序就是执行主函数 main 里的代码，也可以说这个主函数就是 C 语言中的唯一入口。
+
 ```txt
 return-type function-name(argument declarations)
 {
@@ -581,174 +627,24 @@ dummy() {}
 * 函数名称遵循标识符命名规范
 * 自定义函数尽量放在 main 函数之前，否则需先声明 `[数据类型说明] 函数名称 ([参数])`
 
-```c
-#include <stdio.h>
-
-int factorial (int n) {
-  int result;
-  if (n < 0) {
-    return 0;
-  } else if (n == 0 || n == 1) {
-    result = 1;
-  } else {
-    result = factorial(n-1) * n;
-  }
-  return result;
-}
-
-int main () {
-  int n = 5;
-  printf("%d的阶乘=%d", n, factorial(n));
-  return 0;
-}
-```
-
 A program is just a set of definitions of variables and functions. Communication between the functions is by arguments and values returned by the functions, and through external variables. The functions can occur in any order in the source file, and the source program can be split into multiple files, so long as no function is split.
 
 ```c
 double sum, atof(char[]);  // sum 是一个 double 变量，而 atof 是一个返回 double 的函数
 ```
 
-### 形参与实参
-
 函数的形参 arguments 和实参 parameters 具有以下特点：
 * 形参只有在被调用时才分配内存单元，在调用结束时，即刻释放所分配的内存单元。因此，形参只有在函数内部有效。
 * 实参可以是常量、变量、表达式、函数等，在进行函数调用时，它们都必须具有确定的值，以便把这些值传送给形参。
 * 在参数传递时，实参和形参在数量上，类型上，顺序上应严格一致，否则会发生类型不匹配的错误。
-
-### 返回值
 
 函数的返回值要注意以下几点：
 * 函数的值只能通过 return 语句返回主调函数。return 语句的一般形式为： `return 表达式;` 或 `return (表达式);`
 * 函数值的类型和函数定义中函数的类型应保持一致。如果两者不一致，则强转为函数返回类型
 * 没有返回值的函数，返回类型为 void
 
-### 局部与全局
 
-Variables may be internal to a function, external but known only within a single source file, or visible to the entire program.
-
-C语言中的变量，按作用域范围可分为两种，即 **局部变量** 和 **全局变量**。
-
-局部变量也称为内部变量。局部变量是在函数内作定义的，其作用域仅限于函数内。在复合语句中也可定义变量，其作用域仅限于复合语句范围内。
-
-全局变量也称为外部变量，它是在函数外部定义的变量。它不属于哪一个函数，它属于一个源程序文件。其作用域是整个源程序。
-
-```c
-#include <stdio.h>
-
-int x = 77;
-
-void foo()
-{
-  printf("foo(): x=%d\n", x); // 77
-}
-
-int main()
-{
-  int x = 10;
-  if (x > 0)
-  {
-    int x = 100;
-    x /= 2;
-    printf("if语句内, x=%d\n", x); // 50
-  }
-  printf("main方法内, x=%d\n", x); // 10
-  foo();
-  return 0;
-}
-```
-
-### 变量存储类别
-
-C语言根据 *变量的生存周期* 来划分，可以分为静态存储方式和动态存储方式。
-* *静态存储*方式：是指在程序运行期间分配固定的存储空间的方式。静态存储区中存放了在整个程序执行过程中都存在的变量，如全局变量。
-* *动态存储*方式：是指在程序运行期间根据需要进行动态的分配存储空间的方式。动态存储区中存放的变量是根据程序运行的需要而建立和释放的，通常包括：函数形参；自动变量；函数调用时的现场保护和返回地址等。
-
-C语言中 *存储类别* 又分为四类：自动 `auto`、静态 `static`、寄存器的 `register` 和外部的 `extern`。
-
-1、用关键字 `auto` 定义的变量为自动变量，auto 可以省略，auto 不写则隐含定为“自动存储类别”，属于动态存储方式。
-
-2、用 `static` 修饰的为静态变量，如果定义在函数内部的，称之为静态局部变量；如果定义在函数外部，称之为静态外部变量。
-
-```c
-void func () {
-  static int x = 0;
-  x++;
-  printf("x=%d\n"; x);
-}
-int main () {
-  func();  // x=1
-  func();  // x=2
-}
-```
-
-注意：静态局部变量属于静态存储类别，在静态存储区内分配存储单元，在程序整个运行期间都不释放；静态局部变量在编译时赋初值，即只赋初值一次；如果在定义局部变量时不赋初值的话，则对静态局部变量来说，编译时自动赋初值0（对数值型变量）或空字符（对字符变量）。
-
-3、为了提高效率，C语言允许将局部变量的值放在CPU中的寄存器中，这种变量叫“寄存器变量”，用关键字 `register` 作声明。
-
-```c
-void func() {
-  register int i;
-}
-```
-
-注意：只有局部自动变量和形参可以作为寄存器变量；一个计算机系统中的寄存器数目有限，不能定义任意多个寄存器变量；局部静态变量不能定义为寄存器变量。
-
-4、用 `extern` 声明的变量是外部变量，外部变量的意义是某函数可以调用在该函数之后定义的变量。
-
-```c
-// int x;  // 如果存在这行声明，main 内部就可以不用 extern 声明外部变量
-
-int main () {
-  extern int x;  // 这里声明使用的是外部全局变量
-  printf("extern x=%d\n", x);
-}
-int x = 100;
-```
-
-### 内部函数与外部函数
-
-C语言中不能被其他源文件调用的函数称为 **内部函数**，由 `static` 关键字来定义，因此又被称为 **静态函数**。
-
-能被其他源文件调用的函数称为 **外部函数**，用 `extern` 定义。没有指定作用范围时系统默认为外部函数，因此 `extern` 可省略。
-
-```c
-static [数据类型] 函数名([参数])
-
-extern [数据类型] 函数名([参数])
-```
-
-_say.c_
-
-```c
-#include <stdio.h>
-void say() {
-  printf("I love you.\n");
-}
-```
-
-_hello.c_
-
-```c
-#include "say.c"
-int main () {
-  say();
-}
-```
-
-
-#### 程序结构
-
-简单来说，一个C程序就是由若干头文件和函数组成。
-
-`#include <stdio.h>` 是一条预处理命令，即通知C语言编译系统在正式编译之前需做一些预处理工作。
-
-函数就是实现代码逻辑的一个小的单元。
-
-C程序就是执行主函数 main 里的代码，也可以说这个主函数就是C语言中的唯一入口。在最新的C标准中，main 函数前的类型为 int 而不是 void。
-
-
-### 4.3 External Variables
+### 4.3 External Variables 外部变量
 
 A C program consists of a set of external objects, which are either variables or functions. The adjective "external" is used in constrast to "internal", which describes the arguments and variables defined inside functions. *External variables are defined outside of any function*, and are thus potentially available to many functions. Functions themselves are always external, because *C does not allow functions to be defined inside other functions*.
 
@@ -756,21 +652,23 @@ If a large number of variables must be shared among functions, external variable
 
 ### 4.4 Scope Rules
 
+The functions and external variables that make up a C program need not all be compiled at the same time; the source text of the program may be ketpt in serveral files, and previously compiled routines may be loaded from lobraries.
+
 There must *be only one definition of an external variable among all the files* that make up the source program; other files may contain `extern` declarations to access it.
 
 ```c
-// file1.c
+// file1.c 定义外部变量
 int sp;  // 这个 definition 会实际影响 run-time 行为
 double val[10];  // 内存是在这里分配的
 ```
 
 ```c
-// file2.c
+// file2.c 使用外部变量
 extern int sp;  // 这个 declaration 只影响 compiler，对实际 run-time 行为无影响
-extern double val[];  // 此处数组长度是可选的，因为这里不涉及到分配内存
+extern double val[];  // 此处数组长度是可选的，因为这里不涉及分配内存
 ```
 
-真正到运行 main 时，所有的外部变量都已经初始化好了，对 main 来说都是可见的，所以 `$ cc file1.c file2.c` 时文件的顺序无关紧要。
+运行主函数 `main()` 时，所有的外部变量都已经初始化好了，所以 `$ cc file1.c file2.c` 时文件的顺序无关紧要。
 
 ### 4.5 Header Files
 
@@ -836,7 +734,7 @@ printf("%d\n", count());  // 12
 
 The `register` declaration can only be applied to automatic variables and to the formal parameters of a function.
 
-实际使用时没啥效果，`register` 被 C++ 给废了。
+对于实际大型项目没多大现实意义，`register` 被 C++ 给废了。
 
 ### 4.11 The C Preprocessor
 
@@ -898,9 +796,125 @@ A similar style can be used to avoid including files multiple times.
 #include HDR  // 根据不同的 SYSTEM 值导入不同的文件
 ```
 
+
 ## Pointers and Arrays
 
-生活中我们经常会用到容器，比如我们去超市购物需要使用购物袋装购买的商品。同样我们在程序中也需要容器，只不过该容器有点特殊，它在程序中是一块连续的、大小固定并且里面的数据类型一致的内存空间，它还有个好听的名字叫数组。可以将数组理解为大小固定，所放物品为同类的一个购物袋，在该购物袋中的物品是按一定顺序放置的。
+A pointer is a variable that *contains the address* of a variable.  
+Pointers and arrays are closely related.  
+理解指针的关键在于两个字 *内存*，一切变量操作都是操作内存块，`*p` 就是操作 `p` 变量(也对应了一个内存区块)记录的地址所对应的内存区块(另外一个内存区块)。
+
+### 5.1 Pointers and Addresses
+
+A pointer is a group of cells (often four or eight) that can *hold an address*.
+
+The unary operator `&` only applies to objects in memory: variables and array elements. It cannot be applied to expressions, constants, or `register` variables.
+
+The unary operator `*` is the indirection or dereferencing operator; when applied to a pointer, it accesses the object the pointer points to.
+
+Every pointer *points to a specific data type*.
+
+```c
+int x = 1, y = 2, z[10];
+int *ip;  // ip is a pointer to int, or we can say *ip have a value of int
+
+ip = &x;     // ip now points to x
+y = *ip;     // y is now 1
+*ip = 0;     // x is now 0
+ip = &z[0];  // ip now points to z[0]
+
+++*ip;
+(*ip)++;  // 这里的括号不能省，因为 * 和 ++ 都是右结合的
+```
+
+### 5.2 Pointers and Function Arguments
+
+Since *C  passes arguments to functions by value*, there is no direct way for the called function to alter a variable in the calling function. Pointer arguments enable a function to access and change objects in the function that called it.
+
+其实 C 里的指针，跟 JS 里的引用还是非常相近的两个概念。在 JS 中函数内的副作用是一种反模式，但各有千秋，一个注重可维护性，一个注重性能。高级语言适合大项目，开发效率高、可维护性好；而低级语言注重运行效率，但开发效率低。没有最好的语言，只有适用于特定领域的语言。
+
+```c
+int x = 1, y = 2;
+void xx_swap(int x, int y) { /* 这里不管你怎么搞，外面的 x 和 y 的值都不会变 */ }
+void swap(int *px, int *py) {/* 这个就能实现外面的 x 和 y 的值的交换，这个比 JS 里引用的概念还要厉害些 */
+  int temp = *px;
+  *px = *py;  // 这完完全全就是直接在操纵内存块
+  *py = temp;
+}
+swap(&x, &y);  // 调用的时候得传递地址哦，但是还是传的值，只不过这个值是内存地址，而不是地址所对应内存块中的内容
+```
+
+### 5.3 Pointers and Arrays
+
+By definition, the value of a variable or expression of type array is the address of element zero of the array, i.e. the name of an array is a synonym 同义词 for the location of the initial element.
+
+Rather more surprising is the fact that a reference to `a[i]` can also be written as `*(a+i)`. In evaluating `a[i]`, C converts it to `*(a+i)` immediately, the two forms are equivalent.
+
+There is one difference between an array name and a pointer that must be kept in mind. A pointer is a variable, so `pa=a` and `pa++` are legal. But *an array name is not a variable*, constructions like `a=pa` and `a++` are illegal.
+
+When an array name is passed to a function, what is passed is the location of the initial element, within the called function, this argument is a local variable, and so an array name parameter is a pointer.
+
+```c
+// 根据定义，这两者是等效的
+int *pa = &a[0];
+int *pa = a;
+
+pa[i] 等效于 *(pa+i)
+&a[i] 等效于 a+i
+
+// 以下两种数组形参的写法也是等效的，选用那种形式，可以根据情况选择
+bar(char s[]) { char a = s[1]; }
+bar(char *s) { char a = *(a+1); }
+
+// 传递子数组 subarray
+bar(&s[2]);
+bar(s+2);  // 然后函数内还可以 s[-2] 访问函数外的那个 s[0]
+
+
+// 数组名不是变量名，但传递到函数内，就是局部变量了
+a++;  /* WRONG */
+foo(int *pa) {
+  pa++;  /* OK */
+}
+```
+
+### 5.9 Pointers vs. Multi-demensional Arrays
+
+多维数组的定义格式
+
+```txt
+数据类型 数组名称[常量表达式1][常量表达式2]...[常量表达式n];`
+```
+
+多维数组的初始化与一维数组的初始化类似也是分两种
+
+```txt
+数据类型 数组名称[常量表达式1][常量表达式2]...[常量表达式n] = {{值1,..,值n},...,{值1,..,值n}};
+
+数据类型 数组名称[常量表达式1][常量表达式2]...[常量表达式n];
+数组名称[下标1][下标2]...[下标n] = 值;
+```
+
+```c
+int arr[][2] = {{0, 1}, {2, 3}, {4, 5}};
+
+int r, c;
+for (r = 0; r < 3; r++) {
+  for (c = 0; c < 2; c++)
+    printf("%d ", arr[r][c]);
+  printf("\n");
+}
+```
+
+Newcomers to C are sometimes confused about the difference between *a two-dimensional array* and *an array of pointers*.
+
+```c
+int a[10][20];  // 二维数组，立即分配 200 个 int 的连续空间
+int *b[10];     // 存放 10 个指针的一维数组
+```
+
+### 数组
+
+数组是一块连续的、大小固定并且里面的数据类型一致的内存空间。
 
 C语言中的数组初始化有三种形式
 
@@ -915,13 +929,13 @@ C语言中的数组初始化有三种形式
 ```
 
 注意：
-  * C语言的数组长度一经声明，长度无法改变，并且C语言并不提供计算数组长度的方法
+  * C 语言的数组长度一经声明，长度无法改变，并且 C 语言并不提供计算数组长度的方法
   * 数组的下标均以 `0` 开始
   * 数组在初始化的时候，数组内元素的个数不能大于声明的数组长度
   * 第一种初始化方式，元素个数小于数组的长度时，多余的数组元素初始化为 `0`
   * 声明数组但未初始化时，静态 static 和外部 extern 类型的元素值 `0`，自动 auto 类型的元素值不确定
 
-### 遍历数组
+遍历数组
 
 C语言没有检查数组长度改变或者数组越界的机制，如数组越界，编译运行都不报错，但结果不可控。
 
@@ -934,27 +948,9 @@ for (i = 0; i < 4; i++)  // 当 i 为 3 时，运行不会报错，值随机
 }
 ```
 
-### 数组作为函数参数
+### 字符串
 
-数组作为函数参数时注意以下事项：
-1. 数组名作为函数实参传递时，函数定义中的形参既可以指定长度也可以不指定长度。
-2. 数组元素作为函数实参传递时，数组元素类型必须与形参数据类型一致。
-
-```c
-void printArr (int arr[3])
-{
-  int i = 0;
-  for (; i < 3; i++)
-    printf("%d\n", arr[i]);
-}
-
-int arr[] = {0, 1, 2, 3, 4};
-printArr(arr);
-```
-
-### 字符串与数字
-
-在C语言中，是没有办法直接定义字符串数据类型的，但是我们可以使用数组来定义我们所要的字符串。一般有以下两种格式：
+在 C 语言中，是没有办法直接定义字符串数据类型的，但是我们可以使用数组来定义我们所要的字符串。一般有以下两种格式：
 
 ```c
 char 字符串名称[长度] = "字符串值";
@@ -968,79 +964,431 @@ char 字符串名称[长度] = {'字符1', '字符2', ..., '字符n', '\0'};
 
 在输出字符串的时候要使用：`printf("%s", 字符数组名字);` 或者 `puts(字符数组名字);`。
 
-```c
-void say (char string[])
-{
-  printf("%s\n", string);
-}
+### 5.10 Command-line Arguments
 
-int main ()
-{
-  char string[] = "我shi卖报的小行家";
-  say(string);
-  return 0;
-}
-```
+additionally, the standard requires that `argv[argc]` be a null pointer.
 
-#### 字符串函数
+A common convention for C programs on UNIX systems is that an argument that begins with a minus sign introduces an optional flag or parameter.
 
-常用的字符串函数
+### 5.11 Pointers to Functions
 
-||||
-|----------------|--------------------------|---------------------
-| strlen(s)      | 获得字符串的长度(单位字节) | strlen("abc")  // 3
-| strcmp(s1, s2) | 比较字符串                | strcmp("ab", "ac")  // -1
-| strcpy(s1, s2) | 字符串拷贝                | strcpy(s1, "abc")
-| strcat(s1, s2) | 拼接字符串                | strcat(s1, "abc")
-| atoi(s1)       | 字符串转整数              | atoi("100")  // 100
+In C, *a function itself is not a variable*, but it is possible to define pointers to functions, which can be assigned, placed in arrays, passed to functions, returned by functions, and so on.
 
-使用字符串函数注意以下事项：
-  * `strlen()` 获取的长度不包括 `'\0'` 而且汉字和字母的长度是不一样的
-  * `strcmp()` 会把字符串先转换成ASCII码再进行比较,返回的结果为 `0` 相等 `1` s1比s2大 `-1` s1比s2小
-  * `strcpy()` 拷贝之后会覆盖原来字符串且不能对字符串常量进行拷贝
-  * `strcat()` 在使用时s1与s2指的内存空间不能重叠，且s1要有足够的空间来容纳要复制的字符串
-
-### 多维数组
-
-多维数组的定义格式
-
-```
-数据类型 数组名称[常量表达式1][常量表达式2]...[常量表达式n];`
-```
-
-多维数组的初始化与一维数组的初始化类似也是分两种
-
-```
-数据类型 数组名称[常量表达式1][常量表达式2]...[常量表达式n] = {{值1,..,值n},...,{值1,..,值n}};
-
-数据类型 数组名称[常量表达式1][常量表达式2]...[常量表达式n];
-数组名称[下标1][下标2]...[下标n] = 值;
-```
-
-多维数组初始化要注意：第一种必须指定列的维数；第二种必须同时指定行和列的维数。
+Since they are known to be functions, the `&` operator is not necessary, in the same way that it is not needed before an array name.
 
 ```c
-int arr1[][2] = {{0, 1}, {2, 3}, {4, 5}};
-int r, c;
-for (r = 0; r < 3; r++)
-{
-  for (c = 0; c < 2; c++)
-    printf("%d ", arr[r][c]);
-  printf("\n");
+void printline(char *str) {
+  printf("%s\n", str);
+}
+
+void hello(void (*printline)(char *)) {
+  printline("hello");
+}
+
+int main () {
+  hello(printline);
 }
 ```
 
+### 5.12 Complicated Declarations
+
+```c
+int *f();  // `f` is a function returning pointer to `int`
+int (*f)();  // `pf` is a pointer to function returning `int`
+```
 
 ## Structures
 
+Structures help to organize complicated data, particularly in large programs, because they permit a group of related variables to be treated as a unit instead of as separate entities.
+
+A **structure member** or **tag** and an ordinary variable can have the same name without conflict, since they can always be distinguished by context.
+
+```c
+struct point {  // structure tag
+  int x;        // member
+  int y;
+};              // 带 ;
+
+struct point pt = {0, 0};  // 初始化时可以直接这么写，后面就得逐个对成员赋值了
+pt.x = 1;
+pt.y = 1;
+```
+
+*A struct declaration defines a type*, it describes a template or the shape of a structure.
+
+The right brace that terminates the list of members may be followed by a list of variables, just as for any basic type.
+
+```c
+struct { int type; ... } x, y, z;
+x.type = 1;
+```
+
+### 6.2 Structures and Functions
+
+```c
+struct point makepoint(int x, int y)
+{
+  struct point temp;
+  temp.x = x;
+  temp.y = y;
+  return temp;
+}
+
+// add two points
+struct point addpoint(struct point p1, struct point p2)
+{
+  p1.x += p2.x;  // p1 还是传递的值，所以直接改 p1 不会对外部参数影响
+  p1.y += p2.y;
+  return p1;
+}
+```
+
+If a large structure is to be passed to a function, it is generally more efficient to pass a pointer than to *copy* the whole structure. Structure pointers are just like pointers to ordinary variables.
+
+Pointers to structures are so frequently used that an alternative notation is provided as a *shorthand*. If `p` is a pointer to a structure, then `p->member_of_struct` refers to the particular member.
+
+The structure operators `.` and `->`, together with `()` for function calls and `[]` for subscripts, are at the top of the precedence hierarchy and thus bind very tightly.
+
+```c
+struct point top = makepoint(1, 1);
+struct point *p_top = &top;
+
+printf("top: { x: %d, y: %d }\n", (*p_top).x, (*p_top).y);
+printf("top: { x: %d, y: %d }\n", p_top->x, p_top->y);
+```
+
+### 6.3 Arrays of Structures
+
+案例：统计一个 xx.c 源文件中出现的关键字数量。
+
+```c
+struct key {
+  char *word;
+  int count;
+};
+
+struct key keytable[] = {
+  // 这里的 key.word 要以升序排列，对特定 key 进行操作时需要用 binsearch 来查找下标
+  { "char", 0 },
+  { "double", 0 },
+  "int", 0,
+  "long", 0,      // 单组的 {} 是可选的，这其实也揭示了 struct 在内存中的真实情况
+  // ...
+};
+```
+
+C provides a *compile-time* unary operator called `sizeof` that can be used to compute the size of any object. Strictly `sizeof` produces an unsigned integer value whose type, `size_t`, is defined in the header `<stddef.h>`.
+
+A `sizeof` can not be used in a `#if` line, because the preprocessor does not parse `type` names. But the expression in the `#define` is not evaluated by the preprocessor, so the code here is legal.
+
+```c
+// 利用宏来自动计算数组的长度
+#define NKEYS (sizeof keytable / sizeof(struct key))  // 或
+#define NKEYS (sizeof keytable / sizeof keytab[0])
+```
+
+### 6.5 Self-referential Structures
+
+案例：统计一个文件中每个词出现的次数。因为文件里到底存在哪些词事先是不清楚的，原先基于数组的操作，从算法效率上看已经无法胜任了，这里需要用到树这种数据结构。
+
+```c
+struct tnode {  // tree node
+  char *word;
+  int count;
+  struct tnode *left;
+  struct tnode *right;
+};
+// 
+```
+
+It is illegal for a structure to contain an instance of itself, but declare a member to be a pointer to this type is totally legal.
+
+```c
+// wfc.c -- word frequency count
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+#define MAXWORD 100
+
+struct tnode {  // tree node
+  char *word;
+  int count;
+  struct tnode *left;
+  struct tnode *right;
+};
+struct tnode *addtree(struct tnode *, char *);
+void treeprint(struct tnode *);
+int getword(char *, int);
+
+int main()
+{
+  // todo
+}
+
+// add a node with w, at or below p
+struct tnode *addtree(struct tnode *p, char *w)
+{
+  int cond;
+  if (p == NULL) {
+    p = talloc();
+    p->word = strdup(w);
+    p->count = 1;
+    p->left = p->right = NULL;
+  } else if ((cond = strcmp(w, p->word)) == 0)
+    p->count++;
+  else if (cond < 0)
+    p->left = addtree(p->left, w);
+  else
+    p->right = addtree(p-right, w);
+  return p;
+}
+
+// make a tnode
+struct tnode *talloc(void)
+{
+  return (struct tnode *) malloc(sizeof(struct tnode));
+}
+
+// make a duplicate of s
+char *strdup(char *s)
+{
+  char *p;
+  p = (char *) malloc(strlen(s)+1);
+  if (p != NULL)
+    strcpy(p, s);
+  return p;
+}
+
+// in-order print of tree *p
+void treeprint(struct tnode *p)
+{
+  if (p == NULL) return;
+  treeprint(p->left);
+  printf("%4d %s\n", p-count, p->word);
+  treeprint(p->right);
+}
+```
+
+### 6.7 Typedef
+
+C provides a facility called `typedef` for creating new data type names. For example, the declaration `typedef int Length;` makes the name `Length` a synonym 同义词 for int.
+
+Syntactically, `typedef` is like the storage calsses `extern` `static` ect. We have used *capitalized names* for `typedef`s to make them stand out.
+
+`typedef` is like `#define`, except it is interpreted by the compiler.
+
+Besides purely aesthetic 审美的 issues, there are two main reasons for using typedefs.
+* to parameterize a program against portability problems, e.g. `size_t` `ptrdiff_t`.
+* to provide better documentation for a program.
+
+```c
+typedef char *String;
+
+String s = "`String` now is the synonym for `char *`";
+```
+
+```c
+typedef struct tnode *Treeptr;
+typedef struct tnode { /* member declarations */ } Treenode;
+
+Treenode any = { /* members */ };
+
+Treeptr talloc(void)
+{
+  return (Treeptr) malloc(sizeof(Treenode));
+}
+```
+
+### 6.8 Unions
+
+Unions provide a way to manipulate different kinds of data in a single area of storage. A union is a single variable that can legitimately hold any one of several types.
+
+It is the programmer's responsibility to keep track of which type is currently stored in a union, members of a union are accessed as `union_name.member` or `union_name->member` just as for structures.
+
+I effect, a union is a structure in which all members have offset zero from the base, the structure is big enough to hold the "widest" member. The same operations are permitted on unions as on structures: assignment to or copying as a unit, taking the address, and accessing a member.
+
+A union may only be initialized with a value of the type of its first member.
+
+```c
+union u_tag {
+  int ival;
+  float fval;
+  char *sval;
+} u = { 1 };
+
+printf("%d\n", u.ival);  // 1
+u.sval = "a string";
+printf("%d, %s\n", u.ival, u.sval);  // 4002, a string
+
+union u_tag *pu = &u;
+printf("%s\n", pu->sval);
+```
+
+### 6.9 Bit-fields
+
+The usual way this is done is to define a set of "masks" corresponding to the relevant bit position, as in
+
+```c
+#define KEYWORD  01  // 0000 0001
+#define EXTERNAL 02  // 0000 0010
+#define STATIC   04  // 0000 0100
+// 或
+enum { KEYWORD = 01, EXTERNAL = 02, STATIC = 04 };
+```
+
+The numbers must be powers of 2. Then accessing the bits becomes a matter of "bit-fiddling" with the shifting, masking, and complementing operators.
+
+```c
+flags |= EXTERNAL | STATIC;     // turn on the EXTERNAL and STATIC bits in flags
+flags &= ~(EXTERNAL | STATIC);  // turn them off
+if ((flags & (EXTERNAL | STATIC)) == 0)  // is true if both bits are off
+```
+
+Although these idioms are readily mastered, as an alternative C offers the capability of defining and accessing fields within a word directly rather than by bitwise logical operators. A *bit-field* or *field* for shot, is a set of adjacent bits within a single implementation and access is based on structures. Almost everything about fields is implementation-dependent.
+
+```c
+struct {
+  unsigned int is_keyword : 1;  // the number following the colon represents the field width in bits
+  unsigned int is_extern  : 1;
+  unsigned int is_static  : 1;
+} flags;
+
+flags.is_extern = flags.is_static = 1;  // turn the bits on
+flags.is_extern = flags.is_static = 1;  // turn the bits off
+if (flags.is_extern == 0 && flags.is_static == 0)  // test them
+```
+
 
 ## Input and Output
+
+### 7.1 Standard Input and Output
+
+Many programs read only one input stream and write only one output stream; for such programs, input and output with `getchar` `putchar`, and `printf` may be entirely adequate, and is certainly enough to get started.
+
+`int getchar(void)` returns the next input character each time it is called, or `EOF` when it encounters end of file. The symbolic constant `EOF` is defined in `<stdio.h>`, which value is typically -1.
+
+`int putchar(int)` puts the character on the *standard output*, which is by default the screen. It returns the character written, or `EOF` if an error occurs.
+
+```bash
+# Shell 自带的一些跟输入输出相关的功能
+$ myprogram <infile.txt
+$ otherprogram | myprogram
+
+$ myprogram | anotherprogram
+$ myprogram >outfile.txt
+
+# 示例：利用 cat 可以为一些没有文件读取功能的程序提供便利
+$ cat any.c | myecho
+```
+
+```c
+#include <stdio.h>
+#include <ctype.h>
+
+main()
+{
+  int c;
+  wihle ((c = getchar()) != EOF)
+    putchar(tolower(c));
+}
+```
+
+### 7.5 File Acess
+
+`cat` is used for printing files on the screen, and as a general-purpose input collector for programs that do not have the capability of accessing files by name.
+
+
+```c
+#include <stdio.h>
+int main()
+{
+  FILE *fp;  // fp is a pointer to a FILE, called the file pointer
+  char *name = "";
+  char *mode = "";  // "r" read  "w" write  "a" append  "b" binary
+  fp = fopen(name, mode);
+}
+```
+
+### 7.6 Error Handling
+
+If the output is going into a file or into another program via a pipline, the error message goes onto `stdout` will disappearing down a pipeline or into an output file. Output written on `stderr` normally appears on the screen even if the standard output is redirected.
+
+Function `exit()` terminates program execution when it is called. `exit` calls `fclose` for each open output file to flush out any buffered output. Within `main`, `return expr` is equivalent to `exit(expr)`. `exit` has the advantage that it can be called from other functions.
+
+`int ferror(FILE *fp)` returns non-zero if an error occurred on the stream fp. `int feof(FILE *fp)` is analogous to `ferror`, it returns non-zero if end-of-file has occurred on the specified file.
+
+```c
+// cat: concatenate files, version 2
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, const char *argv[])
+{
+  FILE *fp;
+  void filecopy(FILE *, FILE *);
+  const char *prog = argv[0];
+
+  if (argc == 1)
+    filecopy(stdin, stdout);
+  else
+    while (--argc)
+      if ((fp = fopen(*++argv, "r")) == NULL) {
+        fprintf(stderr, "%s: can't open %s\n", prog, *argv);
+        exit(1);
+      } else {
+        filecopy(fp, stdout);
+        fclose(fp);
+      }
+  if (ferror(stdout)) {
+    fprintf(stderr, "%s: error writing stdout\n", prog);
+    exit(2);
+  }
+  exit(0);
+}
+
+void filecopy(FILE *ifp, FILE *ofp)
+{
+  int c;
+  while ((c = getc(ifp)) != EOF)
+    putc(c, ofp);
+}
+```
 
 
 ## The UNIX System Interface
 
 
+The UNIX operationg system provides its services through a set of *system calls*, which are in effect functions within the operating system that may be called by user programs.
 
+### 8.1 Input and Output
 
+```c
+#include <fcntl.h>
+int fd;
+int open(char *name, int flags, int perms);
+
+fd = open(name, flags, perms);  // flags: O_RDONLY, O_WRONLY, O_EDWR
+
+int creat(char *name, int perms);
+```
+
+### 8.2 File System
+
+In the UNIX file system, there are nine bits of permission information associated with a file that control read, write and execute access for the owner of the file, for the owner's group, and for all others. Thus a three-digit octal number is convenient for specifying the permissions.
+
+```txt
+permission: 0755    111 101 101
+// read, write, and execute permission for the owner
+// read and execute permission for the group and everyone else
+```
+
+A directory is a file that contains a list of filenames and some indication of where they are located.
+
+### 8.3 Storage Allocation
+
+allocation 分配
+alignment 对齐
+free 释放
 
 

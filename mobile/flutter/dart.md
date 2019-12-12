@@ -63,7 +63,7 @@ conditional    | `? :`
 cascade        | `..`
 assignment     | `=` `*=` `/=` `+=` `-=` `&=` `^=` etc.
 
-注：运算符的优先级由往下逐条降低，同行内也有先后顺序的，用单元格分隔开了，优先级高的排前面。  
+注：运算符的优先级由上往下逐条降低，同行内也有先后顺序的，用单元格分隔开了，优先级高的排前面。  
 注：Dart 下的很多运算符是可以覆写的，`x == y` 其实就是执行了 `x.==(y)`。
 
 ```dart
@@ -227,7 +227,7 @@ class Person {
 
 class Employee extends Person {
   String name;
-  // 这里的 this.name 被称为 initializer，会先用 super 和 函数体执行
+  // 这里的 this.name 被称为 initializer，会先于 super 和 函数体执行
   Employee(this.name) : super() {  // 调用 super() 的写法
     // ...
   };  
@@ -565,6 +565,8 @@ main() {
 
 ### Typedefs
 
+A **typedef** or **function-type alias** gives a function type a name.
+
 ```dart
 typedef Compare<T> = int Function(T a, T b);
 
@@ -582,3 +584,4 @@ Use metadata to give additional information about your code. A metadata annotati
 Two annotations are available to all Dart code: `@deprecated` and `@override`.
 
 Metadata can appear before a library, class, typedef, type parameter, constructor, factory, function, field, parameter, or variable declaration and before an import or export directive. You can retrieve metadata at runtime using reflection.
+

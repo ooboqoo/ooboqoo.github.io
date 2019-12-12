@@ -1,23 +1,30 @@
-# 词汇表
+# 词汇表 - 语言规范
 
-## Programming
+<style>
+  strong { color:#C00; }
+  i, em { font-style: normal; font-family:"lucida sans unicode", arial, sans-serif; color: #0aa; }
+  span { color: #999; }
+</style>
 
-__syntax__  _/ˈsɪntæks/_  n.句法规则, 句法  
-__semantic__  _/sɪˈmæntɪk/_  a.语义的  
-__literal__  _/ˈlɪtərəl/_  原义的, 字面上的, 直译的  -- 编程翻译为 "字面量"
-__space__  空白  
-__character__  字符  
-__string__  字符串  
-__integer__  _/ˈɪntɪdʒə/_  n.整数  
-__fraction__  _/ˈfrækʃən/_  n.分数  
-__exponent__  _/ɪkˈspəʊnənt/_  n.指数  
-__expression__  _/ɪkˈspreʃən/_  表达式  
-__statement__  语句; 陈述  
-__escaped character__  转义字符  
-__block__  代码块  
+__lexical__  _/ˈleksɪkəl/_  a.词汇的  
+__syntax__  _/ˈsɪntæks/_  n. 句法规则, 句法  
+__semantic__  _/sɪˈmæntɪk/_  a. 语义的  
+__literal__  _/ˈlɪtərəl/_  原义的, 字面上的, 直译的; [计] 字面量, 字面值  
+__statement__  n. 陈述, 声明; [计] 语句  
+__expression__  _/ɪkˈspreʃən/_  表达式  <span>combine variables and constants to produce new values.</span>  
 __clause__  分句, 从句, 子句  
-__disruptive statement__  中断语句  
-__variable__  _/ˈveəriəbəl/_  n.变量 a.多变的  
+__block__  代码块  
+
+__operator__  _/ˈɒpəreɪtə/_  n. 技工, 操作员; 经营者, 运营商; [计] 操作符, 算子  
+__operand__  _/ˈɒpərænd/_  n. [计] 操作数, 运算对象  
+
+
+
+
+
+
+
+## 编译原理
 
 __JIT__  运行时动态编译  
 __AOT__  预编译(静态编译)  
@@ -46,36 +53,22 @@ __目标语言 object language | target language__
 
 __目标程序 object program | target program__  编译程序翻译源程序而得到的结果程序称为目标程序, 书写该程序的语言称为目标语言。
 
-##### 中间语言 | 中间表示 Intermediate language | representation
+__中间语言 intermediate language__  
+__中间表示 intermediate representation__  
 
 在进行了语法分析和语义分析阶段的工作之后，有的编译程序将源程序变成一种内部表示形式，这种内部表示形式叫做中间语言或中间表示或中间代码。所谓“中间代码”是一种结构简单、含义明确的记号系统，这种记号系统复杂性介于源程序语言和机器语言之间，容易将它翻译成目标代码。另外，还可以在中间代码一级进行与机器无关的优化。
 
-__令牌 token__
-
-__标识符 identifier__
-
-__保留字 reserved word__
-
-__关键字 keyword__
-
-__字面量 literal__
-
-__原始值类型 primitive type__
-
-__数据属性 data property__
-
-__访问器属性 accessor property__
-
-__引用 reference__
-
-__严格模式 strict mode__
+__令牌 token__  
+__标识符 identifier__  
+__保留字 reserved word__  
+__关键字 keyword__  
+__字面量 literal__  
+__原始值类型 primitive type__  
+__数据属性 data property__  
+__访问器属性 accessor property__  
+__引用 reference__  
+__严格模式 strict mode__  
 
 __语法糖 syntactic sugar__  它意指那些没有给计算机语言添加新功能，而只是对人类来说更“甜蜜”的语法。语法糖往往给程序员提供了更实用的编码方式，有益于更好的编码风格，更易读。
 
 __蓝图 blueprint__
-
-
-<style>
-  strong { color:#C00; }
-  i, em { font-style: normal; font-family:"lucida sans unicode", arial, sans-serif; }
-</style>

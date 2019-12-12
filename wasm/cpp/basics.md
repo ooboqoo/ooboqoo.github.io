@@ -314,8 +314,8 @@ C 风格字符串具有一种特殊的性质：以空字符(null character)结�
 用双引号括起的字符串字面量隐式地包括结尾的空字符。请注意 `'S'` 跟 `"S"` 之间的区别，`"S"` 不是字符常量，它表示的是两个字符 `'S'` `'\0'` 组成的字符串，进一步说，`"S"` 实际上表示的是字符串所在的内存地址。
 
 ```cpp
-char abc[3] = ['a', 'b', 'c'];        // not a string!
-char abc[4] = ['a', 'b', 'c', '\0'];  // a string
+char abc[3] = {'a', 'b', 'c'};        // not a string!
+char abc[4] = {'a', 'b', 'c', '\0'};  // a string
 
 char abc[] = "abc";  // 现实中初始化一般使用 字符串常量 string constant 或称为 字符串字面值 string literal
 char more[] = "abc" "def";  // 字符串拼接：任何由 空白(空格、制表符、换行符) 分隔的字符串常量都将自动拼接成一个

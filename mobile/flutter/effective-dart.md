@@ -295,46 +295,46 @@ phrase  _/freɪz/_  n.短语,词组
 prose  _/prəʊz/_  n.散文; 白话文  
 proficiency  _/prəˈfɪʃənsi/_  n.(in)精通; 熟练程度  
 brevity  _/ˈbrevɪti/_  n.简洁; 短促  
-terse  a.简洁  
-predicate  谓语  
-auxiliary  助动词  An auxiliary verb (abbreviated aux) is a verb that adds functional or grammatical meaning to the clause in which it appears
+terse  _/tɜːrs/_  a.简短的  A terse statement or comment is brief and unfriendly.  
+predicate  _/ˈpredɪkət/_  n.谓语  the predicate of a clause is the part of it that is not the subject.  
+auxiliary  _/ɔːɡˈzɪljəri/_  n.辅助人员,附属机构; 助动词  In grammar, an auxiliary or auxiliary verb is a verb which is used with a main verb. In English, the basic auxiliary verbs are 'be', 'have', and 'do'. Modal verbs such as 'can' and 'will' are also sometimes called auxiliaries.
 
-terminology  _/ˌtɜːmɪˈnɒlədʒi/  n.学科术语,专门术语  
-abbreviate  
-abbreviation  缩写  
-acronym  首字母缩略词  
+terminology  _/ˌtɜːmɪˈnɒlədʒi/_  n.学科术语,专门术语  
+abbreviate  _/əˈbriːvieɪt/_  v.缩写  
+abbreviation  _/əˌbriːviˈeɪʃən/_  n.缩写词,缩略形式  
+acronym  _/ˈækrənɪm/_  n.首字母缩略词  
 adjacent  _/əˈdʒeɪsənt/_  a.邻近的,毗连的  
-undesirable  a.不良的  
+undesirable  _/ˌʌndɪˈzaɪərəbəl◂/_  a.不受欢迎的,不良的,有害的  
 
-abstraction  抽象  
-precedent  _/ˈpresɪdənt/_  n.先例  
-
+abstraction  _/əbˈstrækʃən/_  n.抽象  
+precedent  _/ˈpresɪdənt/_  n.先例  If there is a precedent for an action or event, it has happened before.  
 redundant  _/rɪˈdʌndənt/_  a.过剩的; 人员因过剩被解雇的
 
 
-asynchrony  
+asynchrony  _/eɪˈsɪŋkrənɪ/_  n.异步  
 
-invocation  调用  
-annotation  n.注解,注释  
+invocation  _/ˌɪnvəˈkeɪʃən/_  n.祷告; 调用  
+annotation  n.注解,评注  
 
 This means the member is syntactically a method, but conceptually it is a property, 这意味着该成员在语法上是一种方法，但从概念上讲是一种属性  
 
 constrain  _/kənˈstreɪn/_  v.约束,限制  
-constraint  _/kənˈstreɪnt/_  n.限制,约束  
+constraint  _/kənˈstreɪnt/_  n.约束,限制  如：添加约束、唯一性约束
+安卓开发中的 约束布局 ConstraintLayout 的出现主要是为了解决布局嵌套的问题，使用添加定位、边距等约束来定位和调整部件
 
-conversion  转换  
-convention  惯例  
+conversion  n.转换  
+convention  n.惯例  
 
 constant  _/ˈkɒnstənt/_  n.常量  
 procedural or functional language  过程式或函数式语言  
-leeway  n.余地,回旋  
-subtle  微妙  
-idempotent  幂等  
-mindset  心态  
+leeway  _/ˈliːweɪ/_  n.自由空间,回旋余地  
+subtle  _/ˈsʌtl/_  a.微妙的,不明显的; 机智狡猾的  
+idempotent  _/aɪˈdemˌpətənt/_  a.幂等的 n.[数]幂等  
+mindset  _/ˈmaɪndset/_  n.思维方式,思想倾向,心态  
 
-reflexive  
-symmetric  
-transitive  
+reflexive pronoun  _/rɪˈfleksɪv/_  反身代词 如 myself  refers back to the subject of the clause  
+symmetrical  _/sɪˈmetrɪkəl/_  symmetric  _/sɪˈmetrɪk/_  a.对称的  
+transitive  _/ˈtrænsɪtɪv/_  a.(动词)及物的  A transitive verb has a direct object.  
 
 
 
