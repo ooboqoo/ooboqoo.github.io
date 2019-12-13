@@ -60,10 +60,9 @@ __namespaces__  命名空间
 __meta-__  _/metə/_  元  -- meta data means data about data  
 __embed__  _/ɪmˈbed/_  v. 使插入,使嵌入  
 __character set__  n. 字符集  
-__author__  _/ˈɔːθə/_  n. 作者 v. 撰写  
-__XML__  n. 可扩展标记语言 EXtensible Markup Language  
+__XML__  可扩展标记语言 EXtensible Markup Language  
 __Transitional__  _/trænˈzɪʃənəl/_  a. (时期)过渡的  
-__DTD__  n.文档类型声明 Document Type Definition  
+__DTD__  文档类型声明 Document Type Definition  
 
 
 ## HTML Form

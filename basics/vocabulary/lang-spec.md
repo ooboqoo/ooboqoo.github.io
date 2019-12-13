@@ -6,22 +6,41 @@
   span { color: #999; }
 </style>
 
+
+## 语法术语
+
 __lexical__  _/ˈleksɪkəl/_  a.词汇的  
 __syntax__  _/ˈsɪntæks/_  n. 句法规则, 句法  
 __semantic__  _/sɪˈmæntɪk/_  a. 语义的  
 __literal__  _/ˈlɪtərəl/_  原义的, 字面上的, 直译的; [计] 字面量, 字面值  
 __statement__  n. 陈述, 声明; [计] 语句  
 __expression__  _/ɪkˈspreʃən/_  表达式  <span>combine variables and constants to produce new values.</span>  
+__express__  _/ɪkˈspres/_  v. 表达 a. 快速的 n. 快车, 快运  
 __clause__  分句, 从句, 子句  
 __block__  代码块  
+__stem__  _/stem/_  v.起源于; 遏制,阻止  n.(植物的)秆,茎; (语法中的)词干  
 
 __operator__  _/ˈɒpəreɪtə/_  n. 技工, 操作员; 经营者, 运营商; [计] 操作符, 算子  
 __operand__  _/ˈɒpərænd/_  n. [计] 操作数, 运算对象  
 
+__serialization__  _/ˌsɪəriəlaɪˈzeɪʃn/_  n. 序列化  
+__decompile__  _/dɪˌkəmˈpaɪl/_  v. 反编译  
 
 
+## 语言基础
 
+### 数据类型
 
+__space__  空白  
+__character__  字符  
+__string__  字符串  
+
+__disruptive statement__  中断语句  
+__escaped character__  转义字符  
+__variable__  _/ˈveəriəbəl/_  n. 变量 a. 多变的  
+__affix__  _/əˈfɪks/_  v. 贴上 n. 词缀  
+
+### 流程控制
 
 
 ## 编译原理

@@ -34,7 +34,7 @@ $ defaults -currentHost delete -globalDomain AppleFontSmoothing
 $ defaults write -g CGFontRenderingFontSmoothingDisabled -bool YES
 ```
 
-#### 4K 屏优化
+##### 4K 屏优化
 
 Preferences > Display > Resolution 选择合适的缩放选项即可。
 
