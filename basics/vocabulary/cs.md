@@ -18,12 +18,23 @@ __closure__  _/ˈkləʊʒə/_   (企业、工厂等的)永久性关闭; (道路�
 
 
 
+__token__  n. 代币, 礼券 a. 象征性的  <span>a token is either a keyword, an identifier, a constant, a string literal, or a symbol 令牌可以是关键字，标识符，常量，字符串或符号</span>  
+__symbol__  符号  <span>a letter, number, or sign that represents a sound, an amount, a chemical substance etc</span>  
+__identifier__  标识符  __identify__ 识别, 分辨出  <span>identifier is a name used to identify a variable, function, or any other user-defined item. An identifier starts with a letter A to Z or a to z or an underscore _ followed by zero or more letters, underscores, and digits (0 to 9).</span>  
+__keyword__  关键字  
+__sign__  标志  
+__mark__  记号  
+
+
+__case-sensitive__  大小写敏感的  
+
 
 ## 通用词汇
 
 
 __data type__  数据类型  
 __fundamental types__  基本数据类型  
+__derived types__  派生类型  
 __union__  _/ˈjuːnjən/_  n. 联盟, 联合体; 工会, 协会  
 __heap__  _/hiːp/_  v. 堆放 [计] 堆  -- JS中用于存放引用类型主体  
 __stack__  _/stæk/_  n. 堆, 一堆 v. 堆积, 堆起 [计] 栈  -- JS中用于存放基本数据类型以及引用类型的指针  
@@ -89,5 +100,10 @@ __namespace__  n. 命名空间
 __clone__  v. 克隆, 复制  
 
 
+__hierarchy__  _/ˈhaɪrɑːki/_  等级体系, 分级结构  
+__hierarchical__  _/haɪˈrɑːkɪkəl/_  a. 等级制度的, 等级森严的  
+__family__  (动植物的)科  
+__genus__  _/ˈdʒiːnəs/_  (动植物的)属  plural __genera__ _/ˈdʒenərə/_  
+__species__  _/ˈspiːʃiːz/_  (动植物的)种, 物种  单复数同形  
 
 
