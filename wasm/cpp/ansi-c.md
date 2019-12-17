@@ -701,7 +701,7 @@ void push(double) { /* ... */ }
 
 ### 4.6 Static Variables
 
-* `static` 可以将 external variables 的作用域限制在同一文件内
+* `static` 可以将 external variables (包含函数名) 的作用域限制在同一文件内
 * `static` 可以将 automatic variables 持久存储
 
 我们发现上面 stack.c 中的 sp 和 val 只在本文件内使用，其他文件中并不会用到，为了让其他文件中也是使用 val 来命名变量，我们可以通过 `static` 修饰符将变量的作用域范围限定在本文件内。

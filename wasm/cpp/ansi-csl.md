@@ -27,66 +27,68 @@ typedef unsigned long size_t;  // result of the `sizeof`
 
 /* Prototypes */
 // printf & scanf
-int printf(const char* restrict format, ...);
-int scanf(const char* restrict format, ...);
+int printf(const char *format, ...);
+int scanf(const char *format, ...);
 
-int sprintf(char* restrict s, const char* restrict format, ...);
-int snprintf(char* restrict s, size_t n, const char* restrict format, ...);    // C99
-int sscanf(const char* restrict s, const char* restrict format, ...);
+int sprintf(char *str, const char *format, ...);
+int snprintf(char *str, size_t n, const char *format, ...);
+int sscanf(const char *str, const char *format, ...);
 
-int fprintf(FILE* restrict stream, const char* restrict format, ...);
-int fscanf(FILE* restrict stream, const char * restrict format, ...);
+int fprintf(FILE *stream, const char *format, ...);
+int fscanf(FILE *stream, const char *format, ...);
 
 // file
-FILE* fopen(const char* restrict filename, const char* restrict mode);
-FILE* freopen(const char* restrict filename, const char * restrict mode, FILE * restrict stream);
-int fclose(FILE* stream);
-int fflush(FILE* stream);
-int remove(const char* filename);
-int rename(const char* old, const char* new);
+FILE* fopen(const char *filename, const char *mode);
+FILE* freopen(const char *filename, const char *mode, FILE *stream);
+int fclose(FILE *stream);
+int fflush(FILE *stream);
+int remove(const char *filename);
+int rename(const char *old, const char *new);
 
-size_t fread(void* restrict ptr, size_t size, size_t nmemb, FILE* restrict stream);
-size_t fwrite(const void* restrict ptr, size_t size, size_t nmemb, FILE* restrict stream);
+// Reads an array of `nmemb` elements, each one with a size of `size` bytes, from the `stream` and stores them in the block of memory specified by `ptr`.
+size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
+// Writes an array of `nmemb` elements, from `ptr` to the current position in the `stream`.
+size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);
 
 int getchar(void);
 int putchar(int c);
-int getc(FILE* stream);
-int putc(int c, FILE* stream);
-int ungetc(int c, FILE* stream);  // `getc` 的反操作
-int fgetc(FILE* stream);
-int fputc(int c, FILE* stream);
+int getc(FILE *stream);
+int putc(int c, FILE *stream);
+int ungetc(int c, FILE *stream);  // `getc` 的反操作
+int fgetc(FILE *stream);
+int fputc(int c, FILE *stream);
 
 // line Input and Output
-char* fgets(char* restrict s, int n, FILE* restrict stream);  // reads the next input line (including the newline) from file stream into the character array s. Normally returns s, on end of file or error it returns NULL.
-int fputs(const char* restrict s, FILE* restrict stream);  // writes a string(which need not contain a newline) to a file, return EOF if an error occurs, and non-negative otherwise
-char* gets(char* s);  // removed in C++14, 不安去，用 `fgets(str, MAX_LIMIT, stdin);` 替换以避免 Buffer Overflow
+char* fgets(char *s, int n, FILE *stream);  // reads the next input line (including the newline) from file stream into the character array s. Normally returns s, on end of file or error it returns NULL.
+int fputs(const char *s, FILE *stream);  // writes a string(which need not contain a newline) to a file, return EOF if an error occurs, and non-negative otherwise
+char* gets(char* s);  // C++14 中被移除, 用 `fgets(str, MAX_LIMIT, stdin);` 替换以避免 Buffer Overflow
 int puts(const char* s);  // similar to `fputs` but operate on `stdout`. Confusingly, `gets` delets the terminal '\n' and `puts` adds it.
 
 FILE* tmpfile(void);
-char* tmpnam(char* s);
+char* tmpnam(char *s);
 
-void setbuf(FILE* restrict stream, char* restrict buf);
-int setvbuf(FILE* restrict stream, char* restrict buf, int mode, size_t size);
+void setbuf(FILE *stream, char *buf);
+int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 
-int vfprintf(FILE* restrict stream, const char* restrict format, va_list arg);
-int vfscanf(FILE* restrict stream, const char* restrict format, va_list arg);  // C99
-int vprintf(const char* restrict format, va_list arg);
-int vscanf(const char* restrict format, va_list arg);                          // C99
-int vsnprintf(char* restrict s, size_t n, const char* restrict format, va_list arg); // C99
-int vsprintf(char* restrict s, const char* restrict format, va_list arg);
-int vsscanf(const char* restrict s, const char* restrict format, va_list arg); // C99
+int vfprintf(FILE *stream, const char *format, va_list arg);
+int vfscanf(FILE *stream, const char *format, va_list arg);
+int vprintf(const char *format, va_list arg);
+int vscanf(const char *format, va_list arg);
+int vsnprintf(char *s, size_t n, const char *format, va_list arg);
+int vsprintf(char *s, const char *format, va_list arg);
+int vsscanf(const char *s, const char *format, va_list arg);
 
 // Error Handling
-int ferror(FILE* stream);
-int feof(FILE* stream);
+int ferror(FILE *stream);
+int feof(FILE *stream);
 
-int fgetpos(FILE* restrict stream, fpos_t* restrict pos);
-int fseek(FILE* stream, long offset, int whence);
-int fsetpos(FILE*stream, const fpos_t* pos);
-long ftell(FILE* stream);
-void rewind(FILE* stream);
-void clearerr(FILE* stream);
-void perror(const char* s);
+int fgetpos(FILE *stream, fpos_t *pos);
+int fseek(FILE *stream, long offset, int whence);
+int fsetpos(FILE *stream, const fpos_t *pos);
+long ftell(FILE *stream);
+void rewind(FILE *stream);
+void clearerr(FILE *stream);
+void perror(const char *s);
 ```
 
 ```c
@@ -126,7 +128,7 @@ A width or precision may be specified as `*`, in which case the value is compute
 The function `sprintf` does the same conversions as `printf` does, but stores the output in a string:
 
 ```c
-int sprintf(char *string, char *format, arg1, arg2, ...);
+int sprintf(char *str, char *format, arg1, arg2, ...);
 ```
 
 ```c
@@ -179,53 +181,159 @@ int main(int argc, char * argv[])
 ```
 
 
+
+## Utility Functions  `stdlib.h`
+
+### Dynamic Memory Management
+
+```c
+// Obtain blocks of memory dynamically (from heap)
+// Return a pointer to `size` bytes of uninitialized storage, or `NULL` when request cannot be satisfied.
+// The type of returned pointer is `void *` which can be cast to be the desired type of data pointer.
+void *malloc(size_t size);
+
+// Return a pointers to enough space for an array of `count` objects of the specified `size`,
+// and initializes all its bits to zero.
+void *calloc(size_t count, size_t size);
+
+// frees the space pointed to by `ptr`
+void free(void *ptr);
+
+// Reallocate memory block, e.g. changes the size of the memory block pointed to by ptr.
+// The content of the memory block is preserved up to the lesser of the new and old sizes,
+// even if the block is moved to a new location.
+// If the new size is larger, the value of the newly allocated portion is indeterminate.
+void *realloc(void *ptr, size_t size);
+```
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+void printArray(int *arr, int size) {
+  printf("[");
+  for (int i = 0; i < size; i++)
+    printf("%d, ", arr[i]);
+  printf("\b\b]\n");
+}
+
+int main() {
+  int *arr = (int *)malloc(sizeof(int) * 6);
+  printArray(arr, 6);
+  free(arr);
+  arr = (int *)calloc(6, sizeof(int));
+  printArray(arr, 6);
+  for (int i = 0; i < 6; i++)
+    arr[i] = i + 1;
+  printArray(arr, 6);
+  arr = realloc(arr, sizeof(int) * 4);
+  printArray(arr, 6); // it should be 4
+  arr = realloc(arr, sizeof(int) * 8);
+  printArray(arr, 8);
+  free(arr);
+}
+/*
+[0, 0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0, 0]
+[1, 2, 3, 4, 5, 6]
+[1, 2, 3, 4, 0, -1073741824]
+[1, 2, 3, 4, 0, -1073741824, 0, -1073741824]
+*/
+```
+
+### Searching and Sorting
+
+```c
+void qsort (void *base, size_t num, size_t size, int (*compar)(const void *, const void *));
+
+void *bsearch(const void *key, const void *base, size_t num, size_t size,
+              int (*compar)(const void *, const void *));
+```
+
+```c
+int compare(const void *a, const void *b) {
+  return (*(int *)a - *(int *)b);
+}
+
+int main() {
+  int values[] = {3, 6, 9, 12, 577, 23};
+  qsort(values, 6, sizeof(int), compare);
+}
+```
+
+### Pseudo-random Sequence Generation
+
+```c
+rand();
+unit32_t acr4random();  // 随机数
+```
+
+### String Conversion
+
+```c
+// 字符串转整数
+atoi("100");  // 100
+```
+
+### Environment
+
+```c
+void abort(void);
+void exit(int status);
+int system(const char *command);  // executes the command contained in the string `command`
+char *getenv(const char *);
+```
+
+
+
 ## String Functions  `string.h`
 
 ```c
 // length
-size_t strlen(const char* s);  // 获取的长度不包括 `'\0'` 而且汉字和字母的长度是不一样的
+size_t strlen(const char *str);  // 获取的长度不包括 `'\0'` 而且汉字和字母的长度是不一样的
 
 // copy 覆盖
-char* strcpy (char* restrict s1, const char* restrict s2);  // copy s2 to s1, including '\0', return s1
-char* strncpy(char* restrict s1, const char* restrict s2, size_t n);  // copy at most n characters
+char *strcpy (char *dst, const char *src);  // copy src to dst, including '\0', return dst
+char *strncpy(char *dst, const char *src, size_t n);  // copy at most n characters
 
 // concatenate 追加
-char* strcat (char* restrict s1, const char* restrict s2);  // concatenate s2 to end of s1
-char* strncat(char* restrict s1, const char* restrict s2, size_t n);  // cat at most n characters
+char *strcat (char *s1, const char *s2);  // concatenate s2 to end of s1
+char *strncat(char *s1, const char *s2, size_t n);  // cat at most n characters
 
 // compare
-int strcmp (const char* s1, const char* s2);  // 逐个转成 ASCII 码比较，返回值记为 s1 - s2
-int strncmp(const char* s1, const char* s2, size_t n);  // compare at most n characters
+int strcmp (const char *s1, const char *s2);  // 逐个转成 ASCII 码比较，返回值记为 s1 - s2
+int strncmp(const char *s1, const char *s2, size_t n);  // compare at most n characters
 
 // character pointer
-const char* strchr(const char* s, int c);  // return pointer to first `c` in `s` or NULL
-      char* strchr(      char* s, int c);
-const char* strrchr(const char* s, int c); // return pointer to last `c` in `s` or NULL
-      char* strrchr(      char* s, int c);
+const char *strchr(const char *s, int c);  // return pointer to first `c` in `s` or NULL
+      char *strchr(      char *s, int c);
+const char *strrchr(const char *s, int c); // return pointer to last `c` in `s` or NULL
+      char *strrchr(      char *s, int c);
 
 // string pointer
-const char* strpbrk(const char* s1, const char* s2);  // first occurrence in s1 of any char of s2
-      char* strpbrk(      char* s1, const char* s2);
-const char* strstr(const char* s1, const char* s2);   // first occurrence of s2 in s1
-      char* strstr(      char* s1, const char* s2);
+const char *strpbrk(const char *s1, const char *s2);  // first occurrence in s1 of any char of s2
+      char *strpbrk(      char *s1, const char *s2);
+const char *strstr(const char *s1, const char *s2);   // first occurrence of s2 in s1
+      char *strstr(      char *s1, const char *s2);
 
-size_t strspn(const char* s1, const char* s2);
-size_t strcspn(const char* s1, const char* s2);
+size_t strspn(const char *s1, const char *s2);
+size_t strcspn(const char *s1, const char *s2);
 
-char* strerror(int errnum);
-char* strtok(char* restrict s1, const char* restrict s2);
+char *strerror(int errnum);
+char *strtok(char *s1, const char *s2);
 
-int strcoll(const char* s1, const char* s2);
-size_t strxfrm(char* restrict s1, const char* restrict s2, size_t n);
+int strcoll(const char *s1, const char *s2);
+size_t strxfrm(char *s1, const char *s2, size_t n);
 ```
 
 ```c
-void* memcpy(void* restrict s1, const void* restrict s2, size_t n);
-void* memmove(void* s1, const void* s2, size_t n);
-int memcmp(const void* s1, const void* s2, size_t n);
-const void* memchr(const void* s, int c, size_t n);
-      void* memchr(      void* s, int c, size_t n);
-void* memset(void* s, int c, size_t n);
+void *memcpy(void *dst, const void *src, size_t n);  // binary copy n bytes from src to dst
+void *memmove(void *dst, const void *src, size_t n); // memcpy() + allowing the dst and src to overlap
+
+int memcmp(const void *s1, const void *s2, size_t n);
+const void *memchr(const void *s, int c, size_t n);
+      void *memchr(      void *s, int c, size_t n);
+void *memset(void *s, int c, size_t n);
 ```
 
 
@@ -245,6 +353,29 @@ int tolower(int c);  // return c converted to lower case
 
 ## Mathematical Functions  `math.h`
 
+```c
+/* Trigonometric Functions */
+double sin(double x);
+
+/* Exponential and Logarithmic Functions */
+double exp(double x);   // the base-e exponential function of x
+double log(double x);   // the natural logarithm of x
+double log10(double x); // the common (base-10) logarithm of x
+
+/* Power Functions */
+double sqrt(double x);  // the square root of x
+double pow(double base, double exponent);  // base raised to the power exponent: base^exponent
+
+/* Rounding and Remainder Functions */
+double ceil(double x);
+double floor(double x);
+double round(double x);
+
+/* Other Functions */
+int abs (int n);
+double fabs (double x);
+```
+
 ```
 sin(x)      正弦函数 sine of x, in radians
 cos(x)      余弦函数 cosine of x, in radians
@@ -257,32 +388,10 @@ sqrt(x)     平方根(x^0.5) square root of x
 fabs(x)     绝对值(|x|) absolute value of x
 ```
 
-## Utility Functions  `stdlib.h`
 
-```c
-// obtain blocks of memory dynamically (from heap)
-void *malloc(size_t size);  // returns a pointer to `size` bytes of uninitialized storage, or NULL if the request can not be satisfied
-void *calloc(size_t count, size_t size);  // returns a pointers to enough space for an array of `count` objects of the specified `size`
-void free(void *ptr);  // frees the space pointed to by `ptr`
-void *realloc(void *ptr, size_t size);
-```
-
-```c
-void abort(void);
-void exit(int status);
-int system(const char *command);  // executes the command contained in the string `command`
-char *getenv(const char *);
-```
-
-```c
-// 字符串转整数
-atoi("100");  // 100
-
-rand();
-unit32_t acr4random();  // 随机数
-```
 
 ## Diagnostics  `assert.h`
+
 
 
 ## Variable Argument Lists  `stdarg.h`
@@ -295,18 +404,17 @@ The header `<stdarg.h>` provides facilities for stepping through a list of funct
 
 void print_int(int, ...);
 
-int main(int argc, char * argv[])
-{
-    print_int(4, 1, 2, 3);
+int main(int argc, const char *argv[]) {
+  print_int(4, 1, 2, 3);
 }
 
 void print_int(int argc, ...) {  // 剩余参数前至少要有一个形参
-    va_list ap;  // va_list: variable arguments list, ap: argument pointer
-    va_start(ap, argc);  // va_start() va_end() 就当是一种格式吧，必须得这么写
-    while (--argc)
-        printf("%d\n", va_arg(ap, int));  // 调用一次 va_arg() 获取一个参数
-    va_end(ap);
-    printf("bye ...\n");
+  va_list ap;  // va_list: variable arguments list, ap: argument pointer
+  va_start(ap, argc);  // va_start() va_end() 就当是一种格式吧，必须得这么写
+  while (--argc)
+    printf("%d\n", va_arg(ap, int));  // 调用一次 va_arg() 获取一个参数
+  va_end(ap);
+  printf("bye ...\n");
 }
 ```
 
@@ -322,4 +430,29 @@ void print_int(int argc, ...) {  // 剩余参数前至少要有一个形参
 
 
 ## Implementation-defined Limits  `limits.h` `float.h`
+
+### Sizes of Integral Types `limits.h`
+
+||||
+-----------|------------------------------------------|------------------------------
+CHAR_BIT   | Number of bits in a char object (byte)   |  8 or greater*
+SCHAR_MIN  | Minimum value of type signed char        | -127 (-2^7+1) or less*
+SCHAR_MAX  | Maximum value of type signed char        | 127 (2^7-1) or greater*
+UCHAR_MAX  | Maximum value of type unsigned char      | 255 (2^8-1) or greater*
+CHAR_MIN   | Minimum value of type char               | SCHAR_MIN or 0
+CHAR_MAX   | Maximum value of type char               | SCHAR_MAX or UCHAR_MAX
+SHRT_MIN   | Minimum value of type short int          | -32767 (-2^15+1) or less*
+SHRT_MAX   | Maximum value of type short int          | 32767 (2^15-1) or greater*
+USHRT_MAX  | Maximum value of type unsigned short int | 65535 (2^16-1) or greater*
+INT_MIN    | Minimum value of type int                | -32767 (-2^15+1) or less*
+INT_MAX    | Maximum value of type int                | 32767 (2^15-1) or greater*
+UINT_MAX   | Maximum value of type unsigned int       | 65535 (2^16-1) or greater*
+LONG_MIN   | Minimum value of type long int           | -2147483647 (-2^31+1) or less*
+LONG_MAX   | Maximum value of type long int           | 2147483647 (2^31-1) or greater*
+ULONG_MAX  | Maximum value of type unsigned long int  | 4294967295 (2^32-1) or greater*
+
+* The actual value depends on the particular system and library implementation.
+
+### Characteristics of Floating-point Types `float.h`
+
 
