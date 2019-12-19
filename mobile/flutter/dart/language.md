@@ -30,7 +30,7 @@ main() {
 ```text
 null true false 
 
-const final var dynamic void  enum external Function  typedef
+const final var dynamic void  Function  enum  typedef
 
 class abstract mixin  interface
 static factory  super this  new  get set operator
@@ -42,9 +42,11 @@ in assert  is as
 
 try catch finally  throw rethrow  on
 
-import export  show hide  library part deferred
+import export  show hide  deferred  library part
 
 async await  yield  sync  covariant
+
+external
 ```
 
 ### 运算符
@@ -54,7 +56,7 @@ async await  yield  sync  covariant
 unary postfix  | `++` `--` `()` `[]` `.` `?.`
 unary prefix   | `-` `!` `~` `++` `--`
 multiplicative | `*`、除(求商) `/`、求余 `%`、整数商 `~/` | `+` `-`
-bitwise        | shift `<<` `>>` `>>>`           | AND `&` | XOR `^` | OR `\|`
+bitwise        | shift `<<` `>>` 无符号右移(删了?)`>>>` | AND `&` | XOR `^` | OR `\|`
 relational     | `>=` `>` `<=` `<` `==` `!=`
 type test      | `as` `is` `is!`
 logical        | `&&`                            | `\|\|`
@@ -98,7 +100,9 @@ Dart is a true object-oriented language, so even functions are objects.
 
 ```dart
 void main () { return exp; }
-void main = () => exp
+void main() => exp;
+void say(String str) => print(str);
+var say = (String str) => print(str);
 ```
 
 可选参数
@@ -154,7 +158,7 @@ try {
 
 ## Classes
 
-Dart is an object-oriented language with classes and mixin-based inheritance. Every object is an instance of a class, and all classes descend from Object. Mixin-based inheritance means that although every class (except for Object) has exactly one superclass, a class body can be reused in multiple class hierarchies.
+Dart is an object-oriented language with classes and mixin-based inheritance. Every object is an instance of a class, and all classes descend from `Object`. Mixin-based inheritance means that although every class (except for `Object`) has exactly one superclass, a class body can be reused in multiple class hierarchies.
 
 ```dart
 class A {
@@ -501,9 +505,13 @@ T first<T>(List<T> ts) {
 
 ## Libraries
 
+Every Dart app (i.e. a `.dart` file) is a **library**. Libraries not only provide APIs, but are a unit of privacy: identifiers that start with an `_` are visible only inside the library.
+
 ```dart
-import 'dart:html';               // 引用内部模块
-import 'package:test/test.dart';  // 导入外部包
+// import URI
+import 'dart:html';               // built-in libraries
+import 'package:test/test.dart';  // libraries provided by a package manager
+import 'helper.dart';             // a file system path
 ```
 
 当导入的多个包之间出现标识符冲突时，可以添加 library prefix
@@ -533,7 +541,24 @@ Lazily loading a library (只有 dart2js 支持，Flutter 不支持)
 
 ```dart
 import 'package:greetings/hello.dart' deferred as hello;
+
+Future greet() async {
+  await hello.loadLibrary();  // now start loading the library
+  hello.printGreeting();
+}
 ```
+
+#### Implementing libraries
+
+See [Create Library Packages]() for advice on how to implement a library package, including:
+
+* How to organize library source code.
+* How to use the `export` directive.
+* When to use the `part` directive.
+* When to use the `library` directive.
+* How to use conditional imports and exports to implement a library that supports multiple platforms.
+
+
 
 
 ## Asynchrony support

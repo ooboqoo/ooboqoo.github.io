@@ -1,6 +1,15 @@
 # Flutter 词汇
 
 
+## Dart
+
+__covariant__  _/koʊˈveriənt/_  a.协变的 n.[数]协变量  
+
+
+
+## Flutter
+
+stateful hot reload  保留状态的热重载  
 
 
 elevation  _/ˌeləˈveɪʃən, ˌelɪˈveɪʃən/_  n.(建筑物)立面,立视图; 海拔  
@@ -9,12 +18,12 @@ elevator  电梯
 
 accent  _/ˈæksənt $ ˈæksent/_  n.口音,腔调; 重音(符号); 重点,强调
 
-responsive
-adaptive
+__responsive__  _/rɪˈspɒnsɪv/_  a. 反应敏捷的, 积极响应的  
+__adaptive__  a. 适应的, 有适应能力的  
 
-constraint  _/kənˈstreɪnt/_  n.约束,限制; 克制  
+__constraint__  _/kənˈstreɪnt/_  n.约束,限制; 克制  
 
-symmetric  _/sɪˈmetrɪk/_  adj.对称的  
+__symmetric__  _/sɪˈmetrɪk/_  adj.对称的  
 
 concrete  _/ˈkɒŋkriːt/_  n.混凝土 a.具体的, 有形的  
 mandatory  _/ˈmændətɔːri/_  a.强制性的  
@@ -37,3 +46,10 @@ latitude
 longitude  
 
 
+### 通用
+
+__ambient__  _/ˈæmbiənt/_  a.环境的, 周围的, 环绕的  ambient computing 环境计算?  
+__pervade__  _/pəˈveɪd/_  v.弥漫, 渗透, 蔓延  
+__wherever__  _/weərˈevə/_  
+__emerging__  _/ɪˈmɜːdʒɪŋ/_  a.新兴的  in an early state of development  
+__thrill__  _//θrɪl/_  n.(突然而强烈的)激动, 狂喜, 恐惧 v.使极度兴奋  __thrills and spills__ 惊险刺激  
