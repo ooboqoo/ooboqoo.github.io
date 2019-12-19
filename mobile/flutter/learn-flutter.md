@@ -39,3 +39,17 @@ state 对象是挂在 Element 上的，而不是 Widget 上。调用 `setState` 
 * Drawers (side muenus) also allow you to switch between different stacks
 * Drawers and other dialogs (e.g. alerts, modal bottom sheet) can be closed via Navigator.pop()
 
+
+### Flutter Interact 2019
+
+When debugging layout issues, the key fields to look at are the size and constraints fields. The constraints flow down the tree, and the sizes flow back up.
+
+
+github/samples
+flutter.dev
+meterial theming
+google fonts
+rive
+
+
+

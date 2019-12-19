@@ -144,7 +144,7 @@ function bar() { console.log(foo.arguments, bar.caller); }
 <h5 class="es3">Array.prototype <span>-- 可以通过该属性给 Array类型 添加公共属性</span></h5>
 <h5 class="es5">Array.isArray() <span>-- 确定某个值是不是数组</span></h5>
 <h5 class="es6">Array.from(arrayLike, mapFn?, thisArg?) <span>-- 根据 arrayLike 创建一个数组</span></h5>
-<h5 class="es6">Array.of(element0, e1?, ..., eN?) <span>-- 创建一个新数组 - 用于替代 Array()</span></h5>
+<h5 class="es6">Array.of(element0, e1?, ..., eN?) <span>-- 创建一个新数组 - 用于替代 <code>Array(length)</code> <code>Array(e1, e2, ...)</code></span></h5>
 </div>
 <div class="dl">
 <h5 class="es3">array.constructor <span>-- 返回创建此数组的函数的引用</span></h5>
@@ -153,9 +153,9 @@ function bar() { console.log(foo.arguments, bar.caller); }
 <div class="dl">
 <h4>Mutator methods -- 修改数组本身</h4>
 <h5 class="es3">array.pop() <span>-- 从数组末尾移除最后一项，然后返回移除的项</span></h5>
-<h5 class="es3">array.push(item1, item2, ...) <span>-- 在数组尾部添加1个或多个元素，并返回新数组的 length</span></h5>
+<h5 class="es3">array.push(item1, item2, ...) <span>-- 在数组尾部添加1个或多个元素，返回新数组的 <code>length</code></span></h5>
 <h5 class="es3">array.shift() <span>-- 移除数组中的第一个项并返回该项</span></h5>
-<h5 class="es3">array.unshift() <span>-- 在数组前端添加1个或多个元素，并返回新数组的 length</span></h5>
+<h5 class="es3">array.unshift() <span>-- 在数组前端添加1个或多个元素，返回新数组的 <code>length</code></span></h5>
 <h5 class="es3">array.splice(start, deleteCount?, item1?, ...) <span>-- 在给定位置删除若干元素并添加一些元素，返回包含被删除元素的数组</span></h5>
 <h5 class="es3">array.sort((a, b) => { }?) <span>-- 按升序排列数组项(默认都当<span style="color: blue;">字符串</span>比较, 故 10 在 2 前面)，提供比较函数可自定义排序</span></h5>
 <h5 class="es3">array.reverse() <span>-- 反转数组项的顺序</span></h5>

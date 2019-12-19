@@ -139,6 +139,8 @@ __thus__  ad. 这样; 因此
 __w/__  with;  __w/o__ without  
 __i.e.__  亦即, 也就是  
 __e.g.__  例如  
+__a.k.a__  also known as  
+__TL;DR;__  too long, don't read
 __expando__  [计] 扩展属性, 附加属性, 可能源于 expandable object property  
 __noop__  [计] 空操作 no operation  
 __nonce__ [计] Number used once 或 Number once 的缩写，密码学中 nonce 是一个只被使用一次随机数值  

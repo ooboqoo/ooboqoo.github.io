@@ -3,6 +3,21 @@
 
 ## State management
 
+https://flutter.dev/docs/development/data-and-backend/state-mgmt/options
+
+Scope        | setState | Scoped Model | BLoC  | Redux
+-------------|----------|--------------|-------|------
+Local State  | No       | Maybe        | YES   | No
+Global State | No       | No           | Maybe | YES
+
+* 本地状态用 `setState`
+* 全局业务状态用 package:redux/redux.dart
+* 应用配置用 package:provider/provider.dart
+* 功能模块状态用 package:scoped_model/scoped_model.dart
+* 异步事件和状态用 Stream + package:rxdart/rxdart.dart
+
+scope_model provider flutter_redux 这些包底层都是依赖 `InheritedWidget` 来实现跨层级部件间的通信的。
+
 ### Think declaratively
 
 Flutter is declarative. This means that Flutter builds its user interface to reflect the current state of your app.
@@ -209,10 +224,34 @@ class MyHomePage extends StatelessWidget {
 ```
 
 
-
 ### Redux
 
-https://flutter.dev/docs/development/data-and-backend/state-mgmt/options
+For dealing with local state BLoC is best recommended, while for Global state, Redux is highly recommended.
+
+### BLoC / Rx
+
+https://pub.dev/packages/rxdart  
+http://reactivex.io/  
+http://flutterdevs.com/blog/bloc-pattern-in-flutter-part-1/  
+
+个人感觉不用太关注 BLoC，Dart 内置的 Stream 倒是可以用起来的，处理用户输入等还是比较方便。
+
+**BLoC** a.k.a <b>B</b>usiness <b>Lo</b>gic <b>C</b>omponents is a design pattern presented from Google at the DartConf 2018.
+Initially, BLoC pattern was conceived to allow the reuse of the very same code independently of the platform: web application, mobile application, back-end. So yeah, this pattern was developed aiming to ease the workload on developers end while developing apps for a different platform with the idea of code reusability.
+
+> Flutter & AngularDart Code Sharing -- 50%  https://youtu.be/PLHln7wHgPE
+>
+> BLoC design guidelines
+> * Inputs and outputs are *simple Streams/Sinks only*
+> * Dependencies must be *injectalbe* and *platform agnostic*
+> * *No platform branching* allowed
+> * Implementation can be whatever you want if you fllow the previous rules
+>
+> UI design guidelines
+> * Each "complex enough" component *has a corresponding BLoC*
+> * Components should send *inputs "as is"*
+> * Components should show *outputs as close as possible to "as is"*
+> * All branching should be based on *simple BLoC boolean outputs*
 
 
 
