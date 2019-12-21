@@ -33,8 +33,8 @@ null true false
 const final var dynamic void  Function  enum  typedef
 
 class abstract mixin  interface
-static factory  super this  new  get set operator
 extends implements with
+super this  new  factory  static  get set operator
 
 if else  switch case default  for while do  break continue return
 
@@ -91,6 +91,64 @@ querySelector('#confirm') // Get an object.
 num (int + double)  bool  String  List  Set  Map  Symbol  Runes
 ```
 
+List
+
+```dart
+var list = [1, 2, 3];
+var list2 = [0, ...list, ...?aNullableList];
+
+var nav = [
+  'Home',
+  if (isTeacher) 'Train',
+  for (var i in fetchedItems) 'NAV-$i'
+];
+```
+
+Set
+
+```dart
+var names = {'a', 'b', 'c'};
+final names = const {'a', 'b', 'c'};
+
+var names = <String>{};  // 前面的 `<String>` 不能省，不然变 Map 的字面量了
+names.add('d');
+names.addAll(anotherSet);
+```
+
+Map
+
+```dart
+// Map<String, String>
+var gifts = {
+  // Key:    Value
+  'first':  'golden rings',
+  'second': 'golden rings'
+};
+
+// Map<int, String>
+var gifts = {
+  1: 'golden rings',
+  2: 'golden rings'
+};
+assert(gifts.length == 2);
+
+var map = {
+  ...aMap,
+  ...?aNullableMap,
+  if (isTrue) 'aKey' : 'aVal',
+  for (var e in aMap) getNewKey(e) : getNewVal(e)
+}
+```
+
+Symbols
+
+You might never need to use symbols, but they’re invaluable for APIs that refer to identifiers by name, because minification changes identifier names but not identifier symbols. Symbol literals are compile-time constants.
+
+```dart
+#symbolName
+```
+
+
 
 ## Functions
 
@@ -100,7 +158,7 @@ Dart is a true object-oriented language, so even functions are objects.
 
 ```dart
 void main () { return exp; }
-void main() => exp;
+main() => exp;  // 所有的返回值类型也是可以省掉的，因为有 type infer，但 `()` 不能省
 void say(String str) => print(str);
 var say = (String str) => print(str);
 ```
@@ -141,7 +199,22 @@ myList.forEach((item) => print('${list.indexOf(item)}: $item'));
 词法作用域 和 闭包
 
 
+
+## Control flow statements
+
+### Asseert
+
+During development, use an assert statement `assert(condition, optionalMessage);` to disrupt normal execution if a boolean condition is false. In production code, assertions are ignored, and the arguments to assert aren’t evaluated.
+
+```dart
+assert(urlString.startsWith('https'), 'URL ($urlString) should start with "https".');
+```
+
+
+
 ## Exceptions
+
+Dart provides `Exception` and `Error` types, as well as numerous predefined subtypes. You can define your own exceptions. However, Dart programs can throw any non-null object as an exception.
 
 ```dart
 try {
@@ -242,7 +315,11 @@ main() {
 }
 ```
 
-Initializer list
+#### Initializer list
+
+Besides invoking a superclass constructor, you can also initialize instance variables before the constructor body runs. Separate initializers with commas.
+
+During development, you can validate inputs by using `assert()` in the initializer list.
 
 ```dart
 class Person {
@@ -253,20 +330,19 @@ class Person {
     this.age = age;
   }
   // 上面的构造函数可以简化成
-  Person({this.name, this.age = 33});
+  Person({this.name, this.age = 33});                // 用法1：直接赋值
 }
 ```
 
 ```dart
 // Initializer list sets instance variables before the constructor body runs.
 Point.fromJson(Map<String, num> json)
-    : x = json['x'],
-      y = json['y'] {
+    : x = json['x'],                                 // 用法2：不能直接赋值，要处理下的情况
+      y = json['y'] {  // The right-hand side of an initializer does not have access to `this`
   print('In Point.fromJson(): ($x, $y)');
 }
 
-// 在开发环境下还可以校验输入，玩法多多
-Point.withAssert(this.x, this.y) : assert(x >= 0) {
+Point.withAssert(this.x, this.y) : assert(x >= 0) {  // 用法3：开发环境下输入校验
   print('In Point.withAssert(): ($x, $y)');
 }
 ```
@@ -372,7 +448,7 @@ Dart 并没有专门定义 Interfaces 的语法，通过定义类或抽象类来
 Every class implicitly defines an interface containing all the instance members of the class and of any interfaces it implements.
 
 ```dart
-class Person {}
+class Person {}  // 如果只打算当接口定义用的话，abstract class 估计是最合适的
 class Impostor implements Person, AnotherInterface {}
 ```
 
@@ -548,17 +624,6 @@ Future greet() async {
 }
 ```
 
-#### Implementing libraries
-
-See [Create Library Packages]() for advice on how to implement a library package, including:
-
-* How to organize library source code.
-* How to use the `export` directive.
-* When to use the `part` directive.
-* When to use the `library` directive.
-* How to use conditional imports and exports to implement a library that supports multiple platforms.
-
-
 
 
 ## Asynchrony support
@@ -568,6 +633,7 @@ Dart libraries are full of functions that return **Future** or **Stream** object
 ```dart
 Future<String> lookUpVersion() async => '1.0.0';
 ```
+
 
 
 ## 其他
@@ -587,6 +653,14 @@ main() {
   print('$out');
 }
 ```
+
+### Isolates
+
+[Dart asynchronous programming: Isolates and event loops](https://medium.com/dartlang/dart-asynchronous-programming-isolates-and-event-loops-bffc3e296a6a)
+
+Most computers, even on mobile platforms, have multi-core CPUs. To take advantage of all those cores, developers traditionally use shared-memory threads running concurrently. However, shared-state concurrency is error prone and can lead to complicated code.
+
+Instead of threads, all Dart code runs inside of isolates. Each isolate has its own memory heap, ensuring that no isolate’s state is accessible from any other isolate.
 
 ### Typedefs
 

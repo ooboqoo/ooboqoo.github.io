@@ -28,13 +28,31 @@ The Dart ecosystem uses packages to share software such as libraries and tools. 
 * pubspec file: The _pubspec.yaml_ file for a library is the same as for an application package.
 * _lib_ directory: the library code lives under the _lib_ directory and is public to other packages. You can create any hierarchy under _lib_, as needed. By convention, implementation code is placed under _lib/src_. Code under _lib/src_ is considered private. To make APIs under _lib/src_ public, you can export _lib/src_ files from a file that’s directly under _lib_. When the `library` directive isn’t specified, a unique tag is generated for each library based on its path and filename. Therefore, we suggest that you omit the `library` directive from your code unless you plan to generate library-level documentation.
 
+```txt
+# a minimum package
+package_name
+  \- pubspec.yaml
+
+# a minimum library package
+package_name
+  |- lib
+  |    \- library_name.dart
+  \- pubspec.yaml
+```
+
 ### Organizing a library package
 
 Library packages are easiest to maintain, extend, and test when you create small, individual libraries, referred to as **mini libraries**. In most cases, each class should be in its own mini library, unless you have a situation where two classes are tightly coupled. 翻译下，就是说一个 _.dart_ 文件里只放一个类定义。
 
-Create a “main” library file directly under lib, lib/your-package-name.dart, that exports all of the public APIs. This allows the user to get all of a library’s functionality by importing a single file. The lib directory might also include other importable, non-src, libraries.
+Create a "main" library file directly under lib, *lib/your_package_name.dart*, that exports all of the public APIs. This allows the user to get all of a library’s functionality by importing a single file. The lib directory might also include other importable, non-src, libraries.
 
 ### Importing library files
+
+```dart
+// 理解 import 和 export 各自的作用
+import 'dart:io';  // stderr 就能在本文件范围内使用，但导入本文件的文件无法使用
+export 'dart:io';  // stderr 不能在本文件范围内使用，但导入本文件的文件可以使用
+```
 
 ### Conditionally importing and exporting library files
 
@@ -50,11 +68,13 @@ export 'src/hw_none.dart' // Stub implementation
 
 ### Glossary of package terms
 
+**library** 正常一个 .dart 文件就是一个 library，但可以用 `part` 使多个文件同属于一个 library
+
 **application package** Opposite to the library package, the application package never depended on themselves. Application packages should check their lockfiles _pubspec.lock_ into source control.
 
 **dependency** Another package that your package relies on. Dependencies are specified in your package's _pubspec.yaml_, and you can use `pub deps` to see the dependency hierarchy.
 
-**library package** A package that other packages can depend on. Library packages can have dependencies on other packages and can be dependencies themselves. They can also include scripts to be run directly. The opposite of a library package is an application package. Don’t check the lockfile  _pubspec.lock_ of a library package into source control. The version constraints of a library package’s immediate dependencies should be as wide as possible while still ensuring that the dependencies will be compatible with the versions that were tested against.
+**library package** A package that other packages can depend on. Library packages can have dependencies on other packages and even themselves. They can also include scripts to be run directly. Don’t check the lockfile  _pubspec.lock_ of a library package into source control. The version constraints of a library package’s immediate dependencies should be as wide as possible while still ensuring compatibility.
 
 **immediate dependency** The dependencies you list in your _pubspec.yaml_ are your package’s immediate dependencies. All other dependencies are **transitive dependencies**.
 
@@ -66,7 +86,7 @@ export 'src/hw_none.dart' // Stub implementation
 
 **source** A kind of place tha pub can get packages from, i.e. pub.dev or some specific Git URL.
 
-**system cache** When pub gets a remote package, it downloads it into a single system cache directory maintained by pub. It defaults to _~/.pub-cache_ or _%APPDATA%\Pub\Cache\bin_. You can specify a different location using the `PUB_CACHE` environment variable. Once packages are in the system cache, pub creates a _.packages_ file that maps each package used by your application to the corresponding package in the cache. You only have to download a given version of a package once and can then reuse it in as many packages as you would like. You can delete and regenerate your _.packages_ file without having to access the network.
+**system cache** When pub gets a remote package, it downloads it into a single system cache directory maintained by pub. It defaults to _~/.pub-cache_ or _%APPDATA%\Pub\Cache\bin_. Once packages are in the system cache, pub creates a _.packages_ file that maps each package used by your application to the corresponding package in the cache. You only have to download a given version of a package once and can then reuse it in any packages.
 
 ### Package layout conventions
 
@@ -128,7 +148,7 @@ documentation         Optional. URL pointing to documentation for the package.
 dependencies          Can be omitted if your package has no dependencies.
 dev_dependencies      Can be omitted if your package has no dev dependencies.
 dependency_overrides  Can be omitted if you do not need to override any dependencies.
-environment           Required as of Dart 2.
+environment           Defaults to an <2.0.0 sdk constraint which we need to explicitly overwrite.
 executables           Optional. Used to put a package’s executables on your PATH.
 publish_to            Optional. Specify where to publish a package.
 ```
