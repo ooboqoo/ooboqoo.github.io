@@ -1,5 +1,38 @@
 # 打包\部署\调试
 
+
+## Flutter
+
+### Change App Launcher Icon & Name
+
+#### App Name
+
+_ios/Runner/Info.plist_
+
+```xml
+<key>CFBundleName</key>
+<string>Your App Name</string>
+```
+
+_android/app/src/main/AndroidManifest.xml_
+
+```xml
+<application
+    android:name="io.flutter.app.FlutterApplication"
+    android:label="Your App Name"
+    android:icon="@mipmap/launcher_icon">
+```
+
+#### App Icon
+
+There are some ways to change the app launcher icon. The easiest way is using the tool [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons).
+
+Android manually replace these files *android/app/src/main/res/mipmap-\<hdpi xhdpi ...\>/launcher_icon.png*.
+
+iOS modify this folder _ios/Runner/Assets.xcassets/AppIcon.appiconset_.
+
+
+
 ## 准备安卓签名文件
 
 ### 签名文件的作用
