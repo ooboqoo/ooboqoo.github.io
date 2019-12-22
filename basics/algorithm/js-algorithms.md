@@ -148,12 +148,13 @@ function quickSort(arr) {
   quick(arr, 0, arr.length - 1);
 
   function quick(arr, left, right) {
-    const index = partition(arr, left, right);  // 分组后，0 到 index-1 的值都比 index 到 length-1 的值小
+    // 一次分组后，左边组的值 <= arr[index]，右边组的值 >= arr[index]，多个相同 arr[index] 会均分到两边
+    const index = partition(arr, left, right);
     if (left < index - 1) { quick(arr, left, index -1); }
     if (index < right) { quick(arr, index, right); }
   }
 
-  // 分组操作，完成后左边组中的值都比右边组中的值小
+  // 分组操作，小于 pivot 的值在左，大于 pivot 的值在右，单个 pivot 的值随机，多个 pivot 值会均分到两边
   function partition(arr, left, right) {
     const pivot = arr[Math.floor((left + right) / 2)];  // 选择主元，可随机选
     while (left <= right) {
