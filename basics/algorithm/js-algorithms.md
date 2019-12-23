@@ -154,13 +154,14 @@ function quickSort(arr) {
     if (index < right) { quick(arr, index, right); }
   }
 
-  // 分组操作，小于 pivot 的值在左，大于 pivot 的值在右，单个 pivot 的值随机，多个 pivot 值会均分到两边
+  // 分组操作，小于 pivot 的值在左，大于 pivot 的值在右，多个 pivot 值会均分到两边
+  // 单个 pivot 值正常情况下在左，但如果是最大值就会跑到右边
   function partition(arr, left, right) {
     const pivot = arr[Math.floor((left + right) / 2)];  // 选择主元，可随机选
     while (left <= right) {
       while (arr[left] < pivot) { left++; }
       while (arr[right] > pivot) { right--; }
-      if (left <= right) {
+      if (left <= right) {  // 如改成 < 则 pivot 在右，但无法跳出外层 while 导致死循环
         [arr[left], arr[right]] = [arr[right], arr[left]];
         left++;
         right--;

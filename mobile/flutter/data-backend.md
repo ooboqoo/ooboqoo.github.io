@@ -228,6 +228,12 @@ class MyHomePage extends StatelessWidget {
 
 For dealing with local state BLoC is best recommended, while for Global state, Redux is highly recommended.
 
+在 React 等单向数据流框架下，Redux 作为一种流行的状态管理的架构风格，已经过多方面的验证，其基本思想和步骤是：
+* 整个页面甚至 APP 是一个巨大的状态机，有一个状态存储 Store ，在某个时刻处于某种状态。
+* 状态是一个简单的树型结构，跟 View Tree 对应。
+* View 操作不能直接修改状态，只能通过发送 Action, 间接改变 Store。
+* Reducer 通过 Action 加上 oldState 获取 newSate，约等于 State = f(action+oldState)。
+
 ### BLoC / Rx
 
 https://pub.dev/packages/rxdart  
