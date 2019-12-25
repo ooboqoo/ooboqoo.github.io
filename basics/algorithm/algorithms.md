@@ -412,6 +412,101 @@ void countingSort(int *a, int n) {
 
 ## 二分查找
 
+二分查找针对的是一个 *有序* 的数据集合，查找思想有点类似分治思想。每次都通过跟区间的中间元素对比，将待查找的区间缩小为之前的一半，直到找到要查找的元素，或者区间被缩小为 0。
+
+二分查找是一种非常高效的查找算法，其时间复杂度就是 O(logn)。这种 **对数时间复杂度** 是一种极其高效的时间复杂度，有时甚至比时间复杂度是常量级 O(1) 的算法还要高效。
+
+二分查找虽然性能优秀，但 *应用场景也比较有限*。底层必须依赖数组，并且还要求数据是有序的。对于较小规模的数据查找，我们直接使用顺序遍历就可以了，二分查找的优势并不明显。二分查找更适合处理静态数据，也就是没有频繁的数据插入、删除操作。
+
+```c
+int bsearch(int *a, int size, int value) {
+  int low = 0;
+  int high = size - 1;
+
+  while (low <= high) {                // 循环条件是 <= 不能写成 <
+    int mid = low + (high - low) / 2;  // 不能写成 `(low + high) / 2`，存在溢出风险
+    if (a[mid] == value)               //     如果要将性能优化到极致，还可以写成 `low + ((high - low) >> 1)`
+      return mid;
+    else if (a[mid] < value)
+      low = mid + 1;
+    else
+      high = mid - 1;
+  }
+
+  return -1;
+}
+```
+
+### 二分查找的变形问题
+
+凡是用二分查找能解决的，绝大部分我们更倾向于用散列表或二叉查找树。即便是二分查找在内存使用上更节省，但是毕竟内存如此紧缺的情况并不多。实际上，*二分查找更适合用在“近似”查找问题*，比如下面这几种变体问题，用其他数据结构就比较难实现了。
+
+不知道你有没有听过这样一个说法：“十个二分九个错”。二分查找虽然原理极其简单，但是想要写出没有 Bug 的二分查找并不容易。(注：个人感觉找到值后直接改成前后遍历确认，就不容易出错了，性能也不会退化到哪去。)
+
+以下求解过程，我们都假设数组是从小到大排序的数组。如 `[1, 3, 4, 5, 6, 8, 8, 8, 11, 18]`
+
+```c
+// 查找第一个值等于给定值的元素
+// 写法1: 过于追求代码的简洁性
+int bsearch(int *a, int size, int value) {
+  int low = 0, hight = size - 1;
+  while (low <= high) {
+    int mid = low + ((high - low) >> 1);
+    if (a[mid] >= value) high = mid - 1;  // 关键处理步骤
+    else low = mid + 1;
+  }
+  return (low < size && a[low] == value) ? low : -1;
+}
+
+// 写法2: 容易理解不容易写 bug
+int bsearch(int *a, int size, int value) {
+  int low = 0, hight = size - 1;
+  while (low <= high) {
+    int mid = low + ((high - low) >> 1);
+    if (a[mid] > value)
+      high = mid + 1;
+    else if (a[mid] < value)
+      low = mid + 1;
+    else {
+      if (mid == 0 || a[mid - 1] != value) return mid;
+      else high = mid - 1;
+    }
+  }
+  return -1;
+}
+```
+
+```c
+// 查找最后一个值等于给定值的元素
+```
+
+```c
+// 查找第一个大于等于给定值的元素
+int bsearch(int *a, int size, int value) {
+  int low = 0;
+  int high = size - 1;
+  while (low <= high) {
+    int mid =  low + ((high - low) >> 1);
+    if (a[mid] >= value) {
+      if ((mid == 0) || (a[mid - 1] < value)) return mid;
+      else high = mid - 1;
+    } else {
+      low = mid + 1;
+    }
+  }
+  return -1;
+}
+```
+
+```c
+// 查找最后一个小于等于给定值的元素
+```
+
+
+
+## 哈希算法
+
+
 
 
 

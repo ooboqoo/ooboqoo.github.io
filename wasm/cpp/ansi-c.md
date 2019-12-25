@@ -58,7 +58,7 @@ A typical memory representation of C program consists of following sections.
 2. **data segment 数据区** 存放全局变量和静态变量
   1. **initialized read-only area** 一般常量和字符串常量
   2. **initialized read-write area** 声明并初始化过的全局变量和静态变量
-  3. **uninitialized data segment** 只声明而未初始化的全局变量和静态变量
+  3. **uninitialized data segment** 只声明而未初始化的全局变量和静态变量，系统赋值 `0`
 3. **heap 堆** 程序允许中动态分配的内存段，可动态扩张或缩减。地址由低位向高位增长
 4. **stack 栈** 存放 automatic variables。地址由高位向低位增长
 
@@ -74,17 +74,16 @@ $ size a.out  # print the size of the sections in an object file
 
 ### 变量存储类别
 
-C 语言根据 *变量的生存周期* 来划分，可以分为 *静态存储* 方式和 *动态存储*方式。
+C 语言根据 *变量的生存周期* 来划分，可以分为 *静态存储* 方式和 *动态存储* 方式。
 
 C语言中 *存储类别* 又分为四类：自动 `auto`、静态 `static`、寄存器的 `register` 和外部的 `extern`。
 
-1. 用关键字 `auto` 定义的变量为自动变量，auto 可以省略，auto 不写则隐含定为“自动存储类别”，属于动态存储方式。
-2. 用 `static` 修饰的为静态变量，如果定义在函数内部的，称之为静态局部变量；如果定义在函数外部，称之为静态外部变量。
-3. 为了提高效率，C 语言允许将局部变量的值放在 CPU 的寄存器中，这种变量叫“寄存器变量”，用关键字 `register` 作声明。
-4. 用 `extern` 声明的变量是外部变量，外部变量的意义是某函数可以调用在该函数之后定义的变量。
+1. 用关键字 `auto` 定义的变量为 **自动变量**，auto 可以省略，auto 不写则隐含定为“自动存储类别”，属于动态存储方式。
+2. 用 `static` 修饰的为 **静态变量**，如果定义在函数内部的，称之为 **静态局部变量**；如果定义在函数外部，称之为 **静态外部变量**。
+3. 为了提高效率，C 语言允许将局部变量的值放在 CPU 的寄存器中，这种变量叫 **寄存器变量**，用 `register` 声明。
+4. 用 `extern` 声明的变量是 **外部变量**，外部变量的意义是某函数可以调用在该函数之后定义的变量。
 
-**内部变量** 与 **外部变量** (抑或称为局部变量和全局变量)
-Variables may be internal to a function, external but known only within a single source file, or visible to the entire program.
+Variables may be internal to a function (称为 内部变量 或 局部变量), external but known only within a single source file (即 静态外部变量), or visible to the entire program (称为 外部变量 或 全局变量).
 
 ```c
 void func () {
@@ -106,44 +105,47 @@ void func() {
 ```
 
 ```c
-// int x;  // 如果存在这行声明，main 内部就可以不用 extern 声明外部变量
+// int x;  // 如果存在这行声明(严格说是 definition，见 4.4)，main 内的声明就不需要了
 
 int main () {
-  extern int x;  // 这里声明使用的是外部变量
+  extern int x;  // 这里声明使用的是外部变量  declaration
   printf("extern x=%d\n", x);
 }
-int x = 100;
+int x = 100;     // 定义变量  definition
 ```
 
 ### 指针、数组、字符串
 
 数组、字符串、指针 这几个概念揉在一起，特别绕，理解起来还是有难度的，这里做的试验应该能比较清楚地搞懂这几个概念了。  
-特别注意： _`arr` 是数组元素 `arr[0]` 的指针，类型为 `int *`，而 `&arr` 是数组本身的指针，类型为 `int (*)[n]`_ 。
+特别注意： _`arr` 是数组元素 `arr[0]` 的指针，类型为 `int *`，而 `&arr` 是数组本身的指针，类型为 `int (*)[n]`_ 。数组名和函数名一样，都不属于变量。
 
 ```c
 int arr[] = {1, 2, 3, 4};
 printf("%d, %d \n", arr == &arr[0], arr == &arr);
-printf("%lx\n", arr);
-printf("%lx\n", arr + 1);
-printf("%lx\n", &arr + 1);
+printf("%p\n", arr);
+printf("%p\n", arr + 1);
+printf("%p\n", &arr + 1);
+printf("%lu\n", sizeof(int));
+printf("%lu\n", sizeof(arr));
 /*
 1, 1
 7ffee6ba6930
-7ffee6ba6934  // + 4
-7ffee6ba6940  // + 16
+7ffee6ba6934  // 30 + 4
+7ffee6ba6940  // 30 + 16
+4
+16
 */
 ```
 
 ```c
 #include <stdio.h>
-int main(int argc, const char *argv[])
-{
+int main(int argc, const char *argv[]) {
   int a = 1;
   int *p_a = &a;
   int **pp_a = &p_a;
 
-  printf("p_a\t%lx\n", (long)p_a);
-  printf("&pp_a\t%lx\n", (long)pp_a);
+  printf("p_a\t%p\n", p_a);
+  printf("&pp_a\t%p\n", pp_a);
 
   char c = 'c';
   char *p_c = &c;
@@ -153,24 +155,24 @@ int main(int argc, const char *argv[])
   char *p_h = str;     // 其实写成 `char* p_h = str;` 这样更好理解
   char **p_str = &str;
 
-  printf("p_h\t%lx\n",  (long)p_h);
-  printf("str\t%lx\n",  (long)str);
-  printf("&str\t%lx\n", (long)&str);
+  printf("p_h\t%p\n", p_h);
+  printf("str\t%p\n", str);
+  printf("&str\t%p\n", &str);
 
   char *arr[] = {"hello", "world"};
   char **p_str1 = arr;
   char **p_str2 = arr + 1; // 指针的 `+ 1` 运算，其实就是取 下一个指针
 
-  char *str1 = arr[0]; // C converts to `*(arr+0)`
+  char *str1 = arr[0];     // C converts to `*(arr+0)`
   char *(*p_arr)[] = &arr; // 这样写已经很古怪了，然后这样直接就无效 `any = arr;`
 
-  printf("arr\t%lx\n",      (long)arr);
-  printf("&arr\t%lx\n",     (long)&arr);
-  printf("&p_arr\t%lx\n",   (long)&p_arr);
-  printf("p_str1\t%lx\n",   (long)p_str1);
-  printf("&p_str1\t%lx\n",  (long)&p_str1);
-  printf("p_str2\t%lx\n",   (long)p_str2);
-  printf("&str1[0]\t%lx\n", (long)&str[0]);
+  printf("arr\t%p\n", arr);
+  printf("&arr\t%p\n", &arr);
+  printf("&p_arr\t%p\n", &p_arr);
+  printf("p_str1\t%p\n", p_str1);
+  printf("&p_str1\t%p\n", &p_str1);
+  printf("p_str2\t%p\n", p_str2);
+  printf("&str1[0]\t%p\n", &str[0]);
 }
 /*
 p_a        0x7ffeefbff4dc
@@ -183,14 +185,14 @@ arr        0x7ffeefbff4f0    `&arr` 与 `arr` 打印是一个效果，但 `arr+1
 &p_arr     0x7ffeefbff478
 p_str1     0x7ffeefbff4f0
 &p_str1    0x7ffeefbff490
-p_str2     0x7ffeefbff4f8    arr 里的每个元素占了 8B，一个 int 只占 1B
+p_str2     0x7ffeefbff4f8    arr 里的每个元素(记录地址的指针)占了 8B
 &str1[0]      0x100000f28
 */
 ```
 
 ### 名词解析
 
-**Libraries 库** are collections of precompiled object files that can be linked to programs. Libraries are usually found in /usr/lib/ in Unix-based systems and end with the extension .a.
+**Libraries 库** are collections of precompiled object files that can be linked to programs. Libraries are usually found in /usr/lib/ in Unix-based systems and end with the extension `.a`.
 
 **Macros 宏** are similar to variables. They are segments of code that are given a name and whenever the name is used in a function it is replaced by the value set in the macro. Macros are created in the source code by using the syntax `#define MACRO value`.
 
@@ -212,7 +214,7 @@ a = {1, 2, 3, 4};        // WRONG: Array type `int [4]` is not assignable
 
 * 标识符是严格区分大小写的
 * 标识符不能是C语言的关键字
-* 通常不要以 `_` 开头，这个一般是保留给库使用的
+* 通常不要以 `_` 开头，库经常会用这种形式的名字。双下划线开头 `__xx` 或 下划线带大写字母开头  `_Xxx` 的就更不要用了。
 * 一般变量名(variable names) 全部使用小写，而常量符号(symbolic constants) 全部使用大写
 * 标识符的长度最好不要超过 ? 位，当两个标识符前 ? 位相同时会认为是同一个标识符
 * 本地变量倾向于使用短的名字(如循环中的 i)，而外部变量 external variables 则倾向于使用更长的、表意的名字
@@ -226,11 +228,11 @@ In addition to the names documented in this manual, reserved names include all e
 
 #### 数据类型
 
-C语言中，数据类型可分为：基本数据类型，构造数据类型，指针类型，空类型四大类。
+C 语言中，数据类型可分为：基本数据类型，构造数据类型，指针类型，空类型四大类。
 
-整型 `int` 字符型 `char` 单精度浮点型 `float` 双精度浮点型 `double`。
+基本数据类型包含：整型 `int` 字符型 `char` 单精度浮点型 `float` 双精度浮点型 `double`。
 
-C语言中不存在字符串变量，字符串只能存在字符数组中。
+C 语言中不存在字符串这种类型，字符串是以 `'\0'` 字符结尾的一个 `char` 数组，但支持直接用 `"any str"` 双引号这种写法。
 
 #### 格式化输出语句
 
@@ -240,8 +242,6 @@ C语言中不存在字符串变量，字符串只能存在字符数组中。
 // 格式: printf("输出格式符", 输出项);
 printf("整数 %d 小数 %f 字符 %c 字符串 %s", 1, 3.45, 'a', "str");
 ```
-
-
 
 |||
 ---------|----------------------------------
@@ -254,11 +254,11 @@ printf("整数 %d 小数 %f 字符 %c 字符串 %s", 1, 3.45, 'a', "str");
 `long`   | `long int` 的简写形式
 `long double` | 
 ||
-`signed ~`   | `char` 或 integer
-`unsigned ~` | `char` 或 integer
+`signed`   | `signed char` `signed` `signed short` `signed long`
+`unsigned` | integer qualifier
 
 There are only a few basic data types in C: `char` `int` `float` `double`.  
-there are a number of qualifiers that can be applied to these basic types. `short` and `long` apply to integers. `signed` or `unsigned` may be applied to char or any interger.Whether plain chars are signed or unsigned is machine-dependent, but printable characters are always positive.
+there are a number of qualifiers that can be applied to these basic types. `short` and `long` apply to integers. `signed` or `unsigned` may be applied to char or any interger.
 
 `short` is often 16 bits, `long` 32 bits, and `int` either 16 or 32 bits. Each compiler is free to choose appropriate sizes for its own hardware. The standard headers _limits.h_ and _float.h_ contain symbolic constants for all of these sizes.
 
@@ -266,8 +266,8 @@ there are a number of qualifiers that can be applied to these basic types. `shor
 #include <stdio.h>
 #include <limits.h>
 #include <float.h>
-int main()
-{
+
+int main() {
   printf("Type\tSize\tMAX\t\t\tMIN\n");
   printf("char\t%d\t%d\t\t\t%d\n", CHAR_BIT / 8, CHAR_MAX, CHAR_MIN);
   printf("int\t%d\t%d\t\t%d\n", (int)sizeof INT_MAX, INT_MAX, INT_MIN);
@@ -300,7 +300,7 @@ An integer constant (整型常量) like `1234` is an `int`. A long constant is w
 
 ```c
 int i = 1234;
-long l2 = 123L;
+long j = 123L;
 char a = 97U;
 unsigned long ul = 123UL;
 ```
@@ -324,7 +324,7 @@ A constant expression is an expression that involves only constants. Such expres
 #define PI 3.14  // 是表达式不是语句，所以没有结尾的分号
 ```
 
-A **string constant**(字符串常量), or **string literal**, is a sequence of zero or more characters surrounded by double quotes, as `"I am s string"`. The qyites are not part of the string, but serve only to delimit it. String constants can be concatenated at compile time.
+A **string constant**(字符串常量), or **string literal**, is a sequence of zero or more characters surrounded by double quotes, as `"I am s string"`. The quotes are not part of the string, but serve only to delimit it. String constants can be concatenated at compile time.
 
 Technically, a string constant is an array of characters. The internal representation of a string has a null character `'\0'` at the end, so the physical storage required is one more than the number of characters written between the quotes.
 
@@ -341,7 +341,7 @@ sizeof "a";  // 2
 strlen("a"); // 1
 ```
 
-There is one other kind of constant, the **enumeration constant**. Enumerations(枚举) provide a convenient way to associate constant values with names, an better alternative to `#define`. An enumeration is a list of constant integer values, the first name in an `enum` has value `0`, the next `1`, and so on.
+There is one other kind of constant, the **enumeration constant**(枚举常量). Enumerations provide a convenient way to associate constant values with names, an better alternative to `#define`. An enumeration is a list of constant integer values, the first name in an `enum` has value `0`, the next `1`, and so on.
 
 ```c
 // enum
@@ -357,7 +357,7 @@ All variables must be declared before use. A declaration specifies a type, and c
 char c, line[1000];
 ```
 
-If the variable in question is not automatic, the initialization is done once only, conceptually before the program starts executing, and the initializer must be a constant expression. `external` and `static` variables are initialized to zero by default. `auto` variables for which there is no explicit initializer have undefined (i.e., garbage) values.
+If the variable in question is not automatic, the initialization is done once only, conceptually before the program starts executing, and the initializer must be a constant expression. *external* and `static` variables are initialized to zero by default. `auto` variables for which there is no explicit initializer have undefined (i.e., garbage) values.
 
 ```c
 int arr[2];
@@ -533,7 +533,7 @@ else
 
 ```txt
 switch(expression) {
-  case const-expr: statements       // 这里是 statements 指多个语句
+  case const-expr: statements       // 这里是 statements 指多个语句，所以不要加 `{ }`
   case const-expr: statements
   default: statements
 }
@@ -581,15 +581,13 @@ continue; // 结束本次循环开始下一次循环
 ```
 
 `for` 结构的相关说明
-  * 表达式1 和 表达式3 可以是一个简单表达式也可以是(以逗号分割的多个表达式组成的)复杂表达式
-  * 表达式2 一般是关系表达式或逻辑表达式，但也可以是数值表达式或字符表达式，只要其值非零，就执行循环体。
+  * expr1 和 expr3 可以是一个简单表达式也可以是(以逗号分割的多个表达式组成的)复杂表达式
+  * expr2 一般是关系表达式或逻辑表达式，但也可以是数值表达式或字符表达式，只要其值非零，就执行循环体。
   * 各表达式中的变量一定要在 for 循环之前定义
 
 ### 3.8 Goto and Labels
 
 goto 语句是一种无条件分支语句。goto 语句通常不用，因为它会造成程序层次不清，不易读不易维护。
-
-C provides the infinitely-abusable(无限滥用的) `goto` statement, and labels to branch to.
 
 The scope of a label is the entire function(所以标签都不带缩进).
 
@@ -597,10 +595,10 @@ The scope of a label is the entire function(所以标签都不带缩进).
 int main() {
   for (;;) {
     for (;;) {
-      if (error) goto error;  // 特殊使用场景示例：利用 goto 跳出多层循环
+      if (error) goto ERROR;  // 特殊使用场景示例：利用 goto 跳出多层循环
     }
   }
-error:
+ERROR:
   cleanup();
 }
 ```
@@ -623,11 +621,11 @@ dummy() {}
 ```
 
 定义函数注意项
-* 数据类型说明可省略，默认是 int 类型函数
+* 数据类型说明可省略，默认是 `int` 类型函数
 * 函数名称遵循标识符命名规范
-* 自定义函数尽量放在 main 函数之前，否则需先声明 `[数据类型说明] 函数名称 ([参数])`
+* 自定义函数尽量放在 `main()` 函数之前，否则需先声明 `[数据类型说明] 函数名称 ([参数]);`
 
-A program is just a set of definitions of variables and functions. Communication between the functions is by arguments and values returned by the functions, and through external variables. The functions can occur in any order in the source file, and the source program can be split into multiple files, so long as no function is split.
+*A program is just a set of definitions of variables and functions.* *Communication between the functions is by arguments and values returned by the functions, and through external variables.* The functions can occur in any order in the source file, and the source program can be split into multiple files, so long as no function is split.
 
 ```c
 double sum, atof(char[]);  // sum 是一个 double 变量，而 atof 是一个返回 double 的函数
@@ -639,46 +637,63 @@ double sum, atof(char[]);  // sum 是一个 double 变量，而 atof 是一个�
 * 在参数传递时，实参和形参在数量上，类型上，顺序上应严格一致，否则会发生类型不匹配的错误。
 
 函数的返回值要注意以下几点：
-* 函数的值只能通过 return 语句返回主调函数。return 语句的一般形式为： `return 表达式;` 或 `return (表达式);`
+* 函数的值只能通过 return 语句返回主调函数
 * 函数值的类型和函数定义中函数的类型应保持一致。如果两者不一致，则强转为函数返回类型
-* 没有返回值的函数，返回类型为 void
+* 没有返回值的函数，返回类型为 `void`
 
 
 ### 4.3 External Variables 外部变量
 
-A C program consists of a set of external objects, which are either variables or functions. The adjective "external" is used in constrast to "internal", which describes the arguments and variables defined inside functions. *External variables are defined outside of any function*, and are thus potentially available to many functions. Functions themselves are always external, because *C does not allow functions to be defined inside other functions*.
+A C program consists of *a set of* external objects, which are either variables or functions. The adjective "external" is used in constrast to "internal", which describes the arguments and variables defined inside functions. *External variables are defined outside of any function*, and are thus potentially available to many functions. Functions themselves are always external, because *C does not allow functions to be defined inside other functions*.
 
 If a large number of variables must be shared among functions, external variables are more convenient and efficient than long argument lists. However, this reasoning should be applied with some caution, for it can have a bad effect on program structure, and lead to programs with too many data connections between functions.
 
 ### 4.4 Scope Rules
 
-The functions and external variables that make up a C program need not all be compiled at the same time; the source text of the program may be ketpt in serveral files, and previously compiled routines may be loaded from lobraries.
+The functions and external variables that make up a C program need not all be compiled at the same time; the source text of the program may be ketpt in serveral files, and previously compiled routines may be loaded from libraries.
 
 There must *be only one definition of an external variable among all the files* that make up the source program; other files may contain `extern` declarations to access it.
 
+> It is important to distinguish between the **declaration** of an external variable and its **definition**. A declaration announces the properties of a variable (primarily its type); a definition also causes storage to be set aside.
+
 ```c
 // file1.c 定义外部变量
-int sp;  // 这个 definition 会实际影响 run-time 行为
-double val[10];  // 内存是在这里分配的
+int sp;          // 这个 definition 会实际影响 run-time 行为
+double val[10];  // 内存是在这里分配的      C 允许重复定义，但最终结果不受影响
 ```
 
 ```c
 // file2.c 使用外部变量
-extern int sp;  // 这个 declaration 只影响 compiler，对实际 run-time 行为无影响
+extern int sp;        // 这个 declaration 只影响 compiler，对实际 run-time 行为无影响
 extern double val[];  // 此处数组长度是可选的，因为这里不涉及分配内存
+```
+
+```c
+// C 会对 external 的 definition 进行特别处理，允许重复定义，但带 initilizer 的只能出现一次
+int i;
+int i;      // OK
+int i = 5;  // OK
+int i = 5;  // ERROR
+
+void foo() {
+  int j;
+  int j;    // ERROR
+}
 ```
 
 运行主函数 `main()` 时，所有的外部变量都已经初始化好了，所以 `$ cc file1.c file2.c` 时文件的顺序无关紧要。
 
 ### 4.5 Header Files
 
-为什么要头文件：每个源文件都要 `extern` 声明所有用到的、在其他文件中定义的外部变量，是不是很麻烦？现在将位于不同源文件中的声明整合到一起，大家在文件头部 `#include` 下这一个头文件就就搞定了。
+为什么要头文件：每个源文件都要用 `extern` 声明所有用到的、在其他文件中定义的外部变量，是不是很麻烦？现在将位于不同源文件中的声明整合到一起，大家在文件头部 `#include` 下这一个头文件就搞定了。
 
 一个项目中用几个头文件合适：可能有人会问，我只关注头文件中的部分内容，这样全部塞到一起真的好么？实际维护多个头文件还是很麻烦的，对于中小规模的项目，一个头文件是最佳选择，碰到大型项目，那就具体问题具体分析吧。
 
+注：头文件被多个文件引用时，重复的变量定义 和 函数声明，只要类型一致，可以正常编译，具体分析见 4.4。
+
 ```c
 // calc.h
-#define NUMBER '0'
+#define NUMBER '0'  // signal that a number was found
 void push(double);
 double pop(void);
 
@@ -701,10 +716,10 @@ void push(double) { /* ... */ }
 
 ### 4.6 Static Variables
 
-* `static` 可以将 external variables (包含函数名) 的作用域限制在同一文件内
+* `static` 可以将 external variables (包含函数) 的作用域限制在同一文件内
 * `static` 可以将 automatic variables 持久存储
 
-我们发现上面 stack.c 中的 sp 和 val 只在本文件内使用，其他文件中并不会用到，为了让其他文件中也是使用 val 来命名变量，我们可以通过 `static` 修饰符将变量的作用域范围限定在本文件内。
+我们发现上面 stack.c 中的 sp 和 val 只在本文件内使用，其他文件中并不会用到，为了让其他文件中也能使用 val 来命名变量，我们可以通过 `static` 修饰符将变量的作用域范围限定在本文件内。
 
 ```c
 // stack.c 修改版
@@ -730,7 +745,7 @@ printf("%d\n", count());  // 12
 
 ### 4.7 Register Variables
 
-`register` 告诉编译器，这个变量被频繁用到，至于怎么优化你编译器自己看着办。
+`register` 告诉编译器，这个变量被频繁用到，最好直接放寄存器，但至于具体怎么优化你编译器自己看着办。
 
 The `register` declaration can only be applied to automatic variables and to the formal parameters of a function.
 
@@ -742,7 +757,7 @@ The `register` declaration can only be applied to automatic variables and to the
 
 #### Macro Substitution
 
-差不多就是一个全局查找替换功能，最大的区别是，被替换对象要是一个独立 token，如定义了 `YES` 则 `"YES"` `YESMAN` 都不受影响。
+近似于全局查找替换，最大的区别是，被替换对象要是一个独立 token，如定义了 `YES` 则 `"YES"` `YESMAN` 都不受影响。
 
 A definition has the form:
 
@@ -769,8 +784,8 @@ square(z + 1); /* 会替换成不是你所期望的 */ square(z + 1 * z + 1);
 It is possible to control preprocessing itself with conditional statements that are evaluated during preprocessing.
 
 ```c
-#if !defined(HDR)
-#define HDR
+#if !defined(_HDR_H)
+#define _HDR_H
 
 /* contents of hdr.h go here */
 
@@ -779,7 +794,7 @@ It is possible to control preprocessing itself with conditional statements that 
 
 ```c
 // 上面第一行还提供了简写用法  #ifdef 和 #ifndef
-#ifndef(HDR)
+#ifndef(_HDR_H)
 ```
 
 A similar style can be used to avoid including files multiple times.
@@ -815,7 +830,7 @@ Every pointer *points to a specific data type*.
 
 ```c
 int x = 1, y = 2, z[10];
-int *ip;  // ip is a pointer to int, or we can say *ip have a value of int
+int *ip;     // ip is a pointer point to int, or we can say *ip have a value of int
 
 ip = &x;     // ip now points to x
 y = *ip;     // y is now 1
@@ -823,7 +838,7 @@ y = *ip;     // y is now 1
 ip = &z[0];  // ip now points to z[0]
 
 ++*ip;
-(*ip)++;  // 这里的括号不能省，因为 * 和 ++ 都是右结合的
+(*ip)++;     // 这里的括号不能省，因为 * 和 ++ 都是右结合的
 ```
 
 ### 5.2 Pointers and Function Arguments
