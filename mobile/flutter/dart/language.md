@@ -56,7 +56,7 @@ external
 unary postfix  | `++` `--` `()` `[]` `.` `?.`
 unary prefix   | `-` `!` `~` `++` `--`
 multiplicative | `*`、除(求商) `/`、求余 `%`、整数商 `~/` | `+` `-`
-bitwise        | shift `<<` `>>` 无符号右移(删了?)`>>>` | AND `&` | XOR `^` | OR `\|`
+bitwise        | (保留符号)shift `<<` `>>` | AND `&` | XOR `^` | OR `\|`
 relational     | `>=` `>` `<=` `<` `==` `!=`
 type test      | `as` `is` `is!`
 logical        | `&&`                            | `\|\|`

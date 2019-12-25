@@ -53,7 +53,7 @@ $ export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 |- build        // 编译后的代码
 |- lib          // 我们自己写的 Dart 代码都在这  ⭐️
 |- test         // 测试文件目录
-|- .gitignore
+|- .gitignore   // 默认内容包含 .idea .vscode build .packages android/部分内容 ios/部分内容  不含 .metadata
 |- .metadata    // Flutter SDK 自动生成
 |- .packages    // Flutter SDK 自动生成
 |- pubspec.lock // 相当于前端的 yarn.lock

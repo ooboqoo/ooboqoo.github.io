@@ -1,17 +1,31 @@
-# Widgests
+# Flutter Widgests
 
 <style>td:first-child { color: red; }</style>
 
+https://flutter.dev/docs/development/ui/widgets
+
+每个可见的组件的设计规范说明看这 https://material.io/components/ 实际设计页面时可以先在这找到组件，并通过链接找到 Flutter 中的实现。
+
+
 ## Core Widgets
 
-|||
-----------------------|----------------------------------------------------------------------
-App Setup             | `MaterialApp` `CupertinoApp`
-Page Setup            | `Scaffold` `CupertinoPageScaffold`
-Layout                | `Container` `Row` `Column`
+Any app can use the widgets library but only Material apps can use the Material Components library.
+
+|          | Material        | Cupertino
+-----------|-----------------|-------------------------------------------------
+App Setup  | `MaterialApp`   | `CupertinoApp`
+Page Setup | `Scaffold`      | `CupertinoPageScaffold`
+Appbar     | `AppBar`        | `CupertinoNavigationBar`
+
+
+
+
+|                     | Standard                    | Material
+----------------------|-----------------------------|---------------------------------------
+Layout                | `Container` `Row` `Column`  |
 Row / Column Children | `Flexible` `Expanded`
-Content Containers    | `Stack` `Card`
-Repeat Elements       | `ListView` `GridView` `ListTile`
+Content Containers    | `Stack`                     | `Card`
+Repeat Elements       |  `ListView` `GridView`      | `ListTile`
 Content Types         | `Text` `Image` `Icon`
 User Input            | `TextField` `RaisedButton` `FlatButton` `GestureDectector` `InkWell`
 
@@ -36,13 +50,27 @@ Scaffold / CupertinoPageScaffold
 * Provides a background, app bar, navigation tabs, etc
 * Only use one scaffold per page!
 
-### Layout
 
 |||
-------------|------------
-Container   | 
-Row         | 
-Column      | 
+-------------|--------------------------------------------------------------------------------------------
+AppBar       | a horizontal bar typically shown at the top of an app
+BottomAppBar | a horizontal bar typically shown at the bottom of an app
+FloatingActionButton | a circular button typically shown in the bottom right corner of the app
+Drawer       | a vertical panel that is typically displayed to the left of the body (and often hidden on phones)
+BottomNavigationBar  | a horizontal array of buttons typically shown along the bottom of the app
+SnackBar     | a temporary notification typically shown near the bottom of the app using the `ScaffoldState.showSnackBar()`
+BottomSheet  | an overlay typically shown near the bottom of the app. A bottom sheet can either be persistent, in which case it is shown using the `ScaffoldState.showBottomSheet()` method, or modal, in which case it is shown using the `showModalBottomSheet()` function
+
+
+
+
+### Layout
+
+||||
+------------|----------|----------------------------------------------------------------------------------
+Container   | Standard | Adds padding, margins, borders, background color, or other decorations to a widget
+Row         | Standard | 
+Column      | Standard | 
 
 Container
 * Extremely versatile widget!
@@ -50,28 +78,70 @@ Container
 * Can take a child (but doesn’t have to) which you also can align in different ways
 * You’ll use this widget quite often
 
+Container
+* Add padding, margins, borders
+* Change background color or image
+* Contains a single child widget, but that child can be a Row, Column, or even the root of a widget tree
+
+```dart
+Widget _buildImageColumn() => Container(
+  decoration: BoxDecoration(color: Colors.black26, ),
+  child: Column(
+    children: [
+      _buildImageRow(1),
+      _buildImageRow(3),
+    ],
+  ),
+);
+```
+
+
 Row / Column
 * Must-use if you need multiple widgets sit next to each other horizontally or vertically
 * Limited styling options => Wrap with a Container (or wrap child widgets) to apply styling
 * Children can be aligned along main-axis and cross-axis (see separate cheat sheet)
+
+The `MainAxisAlignment` and `CrossAxisAlignment` classes offer a variety of constants for controlling alignment.
+
+```dart
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+    Image.asset('images/pic1.jpg'),
+    Image.asset('images/pic2.jpg'),
+  ],
+);
+```
 
 ### Row / Column Children
 
 |||
 ------------|------------
 Flexible    | 
-Expanded    | 
+Expanded    | expands a child of a `Row`, `Column`, or `Flex` so that the child fills the available space
 
 Flexible / Expanded
 * Also see separate cheat sheet attached to lecture about Row / Column / Flexible / Expanded
 * Helps you size the child widgets of Row / Column
 
+```dart
+Row(
+  crossAxisAlignment: CrossAxisAlignment.center,
+  children: [
+    Expanded(child: Image.asset('images/pic1.jpg'), ),
+    Expanded(flex: 2, child: Image.asset('images/pic2.jpg'), ),
+    Expanded(child: Image.asset('images/pic3.jpg'), ),
+  ],
+);
+```
+
+
 ### Content Containers
 
-|||
----------|------------
-Stack    | 
-Card     | 
+||||
+---------|----------|--------------------------------------
+Stack    | Standard | Overlaps a widget on top of another
+Card     | Material | Organizes related info into a box with rounded corners and a drop shadow
 
 Stack
 * Used to position items on top of each other (along the Z axis)
@@ -85,11 +155,14 @@ Card
 
 ### Repeat Elements
 
-|||
-----------|------------
-ListView  | 
-GridView  | 
-ListTile  | 
+`Row` and `Column` are basic primitive widgets for horizontal and vertical layouts—these low-level widgets allow for maximum customization. Flutter also offers specialized, higher level widgets that might be sufficient for your needs. For example, instead of `Row` you might prefer `ListTile`, an easy-to-use widget with properties for leading and trailing icons, and up to 3 lines of text. Instead of `Column`, you might prefer `ListView`, a column-like layout that automatically scrolls if its content is too long to fit the available space.
+
+
+||||
+----------|----------|--------------------------------------
+ListView  | Standard | Lays widgets out as a scrollable list
+GridView  | Standard | Lays widgets out as a scrollable grid
+ListTile  | Material | Organizes up to 3 lines of text, and optional leading and trailing icons, into a row
 
 ListView / GridView
 * Used to output lists (or grids) of items
