@@ -226,29 +226,22 @@ In addition to the names documented in this manual, reserved names include all e
 
 ### 2.2 Data Types and Sizes
 
-#### 数据类型
-
 C 语言中，数据类型可分为：基本数据类型，构造数据类型，指针类型，空类型四大类。
 
-基本数据类型包含：整型 `int` 字符型 `char` 单精度浮点型 `float` 双精度浮点型 `double`。
+There are only a few basic data types in C: `char` `int` `float` `double`.
+
+There are a number of qualifiers that can be applied to these basic types. `short` and `long` apply to integers. `signed` or `unsigned` may be applied to char or any interger.
+
+`short` is often 16 bits, `long` 32 bits, and `int` either 16 or 32 bits. Each compiler is free to choose appropriate sizes for its own hardware. The standard headers _limits.h_ and _float.h_ contain symbolic constants for all of these sizes.
 
 C 语言中不存在字符串这种类型，字符串是以 `'\0'` 字符结尾的一个 `char` 数组，但支持直接用 `"any str"` 双引号这种写法。
 
-#### 格式化输出语句
-
-格式化输出语句，也可以说是占位输出，是将各种类型的数据按照格式化后的类型及指定的位置进行显示。
-
-```c
-// 格式: printf("输出格式符", 输出项);
-printf("整数 %d 小数 %f 字符 %c 字符串 %s", 1, 3.45, 'a', "str");
-```
-
 |||
 ---------|----------------------------------
-`char`   | a single byte
-`int`    | an integer
-`float`  | single-precision floating point
-`double` | double-precision floating point
+`char`   | a single byte 字符型
+`int`    | an integer 整型
+`float`  | single-precision floating point 单精度浮点型
+`double` | double-precision floating point 双精度浮点型
 ||
 `short`  | `short int` 的简写形式
 `long`   | `long int` 的简写形式
@@ -256,11 +249,6 @@ printf("整数 %d 小数 %f 字符 %c 字符串 %s", 1, 3.45, 'a', "str");
 ||
 `signed`   | `signed char` `signed` `signed short` `signed long`
 `unsigned` | integer qualifier
-
-There are only a few basic data types in C: `char` `int` `float` `double`.  
-there are a number of qualifiers that can be applied to these basic types. `short` and `long` apply to integers. `signed` or `unsigned` may be applied to char or any interger.
-
-`short` is often 16 bits, `long` 32 bits, and `int` either 16 or 32 bits. Each compiler is free to choose appropriate sizes for its own hardware. The standard headers _limits.h_ and _float.h_ contain symbolic constants for all of these sizes.
 
 ```c
 #include <stdio.h>
@@ -357,14 +345,14 @@ All variables must be declared before use. A declaration specifies a type, and c
 char c, line[1000];
 ```
 
-If the variable in question is not automatic, the initialization is done once only, conceptually before the program starts executing, and the initializer must be a constant expression. *external* and `static` variables are initialized to zero by default. `auto` variables for which there is no explicit initializer have undefined (i.e., garbage) values.
+If the variable in question is not automatic, *the initialization is done once only*, conceptually before the program starts executing, and the initializer must be a constant expression. external and `static` variables are initialized to zero by default. `auto` variables for which there is no explicit initializer have undefined (i.e., garbage) values.
 
 ```c
 int arr[2];
 printf("%d", arr[0]);  // 每次打印内容随机
 ```
 
-The qualifier `const` can be applied to the declaration of any variable to specify that its value will not be changed. The `const` declaration can also be used with array arguments, to indicate that the function does not change that array.
+The qualifier `const` can be applied to the declaration of any variable to specify that its value will not be changed. The `const` can also be used with array arguments, to indicate that the function does not change that array.
 
 ```c
 const char msg[] = "warning: "; // msg[2] = 'a'; 报错，这里的数组就是不能改了的，跟 JS 里不一样
@@ -482,14 +470,17 @@ printf("%s", 4 >= 3 ? "yes" : "no");
 `<<` `>>`                                                | left to right
 `<` `<=` `>` `>=`                                        | left to right
 `==` `!=`                                                | left to right
-`&`                                                      | left to right
-`^`                                                      | left to right
-`\|`                                                     | left to right
+`&` 按位与                                                | left to right
+`^` 按位异或                                              | left to right
+`\|` 按位或                                               | left to right
 `&&`                                                     | left to right
 `\|\|`                                                   | left to right
 `? :`                                                    | right to left
 `=` `+=` `-=` `*=` `/=` `%=` `&=` `^=` `\|=` `<<=` `>>=` | right to left
 `,`                                                      | left to right
+
+注：这里的 `sizeof` 是个怪胎，其他操作符都是符号，就它特别。还有更怪的是，对于值或变量，可以直接用，如 `sizeof 6`；但碰到类型名，必须带 `()`，如 `sizeof(int)`，否则报错 "Excepted parentheses around type name in sizeof expression"，所以很多人误以为这是个函数。C provides a *compile-time unary operator* called `sizeof` that can be used to compute the size of any object. Strictly `sizeof` produces an unsigned integer value whose type, `size_t`, is defined in the header `<stddef.h>`.
+
 
 ```c
 // 除了上面规定的优先级顺序，还有很多语言没有做规定的情况，此时代码间不应该依赖特定的调用顺序
@@ -525,7 +516,7 @@ expression;
 ```txt
 if (expression)
   statement                        // 可以是 `expression;` 或 `{ expr1; expr2; ... }`
-else if (expression) {
+else if (expression)
   statement
 else
   statement
@@ -533,7 +524,7 @@ else
 
 ```txt
 switch(expression) {
-  case const-expr: statements       // 这里是 statements 指多个语句，所以不要加 `{ }`
+  case const-expr: statements      // 这里是 statements 指多个语句，所以不要加 `{ }`
   case const-expr: statements
   default: statements
 }
@@ -589,7 +580,7 @@ continue; // 结束本次循环开始下一次循环
 
 goto 语句是一种无条件分支语句。goto 语句通常不用，因为它会造成程序层次不清，不易读不易维护。
 
-The scope of a label is the entire function(所以标签都不带缩进).
+The scope of a label is the entire function(所以标签一般都不带缩进).
 
 ```c
 int main() {
@@ -608,7 +599,7 @@ ERROR:
 
 ### 4.1 Basics of Functions
 
-函数就是实现代码逻辑的一个小的单元。C 程序就是执行主函数 main 里的代码，也可以说这个主函数就是 C 语言中的唯一入口。
+函数就是实现代码逻辑的一个小的单元。C 程序就是执行主函数 `main()` 里的代码，也可以说这个主函数就是 C 语言中的唯一入口。
 
 ```txt
 return-type function-name(argument declarations)
@@ -866,7 +857,7 @@ Rather more surprising is the fact that a reference to `a[i]` can also be writte
 
 There is one difference between an array name and a pointer that must be kept in mind. A pointer is a variable, so `pa=a` and `pa++` are legal. But *an array name is not a variable*, constructions like `a=pa` and `a++` are illegal.
 
-When an array name is passed to a function, what is passed is the location of the initial element, within the called function, this argument is a local variable, and so an array name parameter is a pointer.
+When an array name is passed to a function, what is passed is the location of the initial element, within the called function, this argument is a local variable, and so *an array name parameter is a pointer*.
 
 ```c
 // 根据定义，这两者是等效的
@@ -885,7 +876,7 @@ bar(&s[2]);
 bar(s+2);  // 然后函数内还可以 s[-2] 访问函数外的那个 s[0]
 
 
-// 数组名不是变量名，但传递到函数内，就是局部变量了
+// 数组名不是变量名，但传递到函数内，就是局部变量了  ⭐️🍓🌷
 a++;  /* WRONG */
 foo(int *pa) {
   pa++;  /* OK */
@@ -931,10 +922,11 @@ int *b[10];     // 存放 10 个指针的一维数组
 
 数组是一块连续的、大小固定并且里面的数据类型一致的内存空间。
 
-C语言中的数组初始化有三种形式
+C 语言中的数组初始化有三种形式
 
 ```
 数据类型 数组名称[长度n] = {元素1,元素2…,元素n};
+
 数据类型 数组名称[]     = {元素1,元素2…,元素n};
 
 数据类型 数组名称[长度n];
@@ -952,7 +944,7 @@ C语言中的数组初始化有三种形式
 
 遍历数组
 
-C语言没有检查数组长度改变或者数组越界的机制，如数组越界，编译运行都不报错，但结果不可控。
+C 语言没有检查数组长度改变或者数组越界的机制，如数组越界，编译运行都不报错，但结果不可控。
 
 ```c
 int arr[] = {1, 2, 3};
@@ -965,17 +957,15 @@ for (i = 0; i < 4; i++)  // 当 i 为 3 时，运行不会报错，值随机
 
 ### 字符串
 
-在 C 语言中，是没有办法直接定义字符串数据类型的，但是我们可以使用数组来定义我们所要的字符串。一般有以下两种格式：
+在 C 语言中，是没有办法直接定义字符串数据类型的，但是我们可以使用数组来定义我们所要的字符串。
 
 ```c
-char 字符串名称[长度] = "字符串值";
-char 字符串名称[长度] = {'字符1', '字符2', ..., '字符n', '\0'};
-```
+char *str1 = "abc";
+char str2[4] = "abc";  // 长度是 4 哦
+char str3[]= {'a', 'b', 'c', '\0'};  // 最后一个元素必须是 '\0'，不能省的，这是字符串的结束标志
 
-注意:
-  * `[]` 中的长度是可以省略不写的
-  * 第2种方式最后一个元素必须是 `'\0'` 表示字符串的结束标志
-  * 第2种方式不支持中文
+int *arr = {1, 2, 3}  // WRONG  只有字符串支持这么写，普通数组不支持这种写法
+```
 
 在输出字符串的时候要使用：`printf("%s", 字符数组名字);` 或者 `puts(字符数组名字);`。
 
@@ -984,6 +974,18 @@ char 字符串名称[长度] = {'字符1', '字符2', ..., '字符n', '\0'};
 additionally, the standard requires that `argv[argc]` be a null pointer.
 
 A common convention for C programs on UNIX systems is that an argument that begins with a minus sign introduces an optional flag or parameter.
+
+```c
+int main(int argc, char const *argv[]) {
+  while (--argc)
+    printf("%s  ", *++argv); // there is an asterisk in front
+}
+```
+
+```bash
+$ ./echo -abc -d hello
+-abc  -d  hello  
+```
 
 ### 5.11 Pointers to Functions
 
@@ -996,20 +998,25 @@ void printline(char *str) {
   printf("%s\n", str);
 }
 
-void hello(void (*printline)(char *)) {
-  printline("hello");
+void hello(void say(char *)) {
+  say("hello");
+}
+
+void world(void (*say)(char *)) {  // 这样也是可以的，但明显画蛇添足了
+  say("world");
 }
 
 int main () {
   hello(printline);
+  world(printline);
 }
 ```
 
 ### 5.12 Complicated Declarations
 
 ```c
-int *f();  // `f` is a function returning pointer to `int`
-int (*f)();  // `pf` is a pointer to function returning `int`
+int *f();    // `f` is a function returning pointer to `int`
+int (*f)();  // `f` is a pointer to function returning `int`
 ```
 
 ## Structures
@@ -1021,8 +1028,8 @@ A **structure member** or **tag** and an ordinary variable can have the same nam
 ```c
 struct point {  // structure tag
   int x;        // member
-  int y;
-};              // 带 ;
+  int y;        // 是声明语句，末尾带 `;`
+};              // 这里也带 `;`
 
 struct point pt = {0, 0};  // 初始化时可以直接这么写，后面就得逐个对成员赋值了
 pt.x = 1;
@@ -1041,8 +1048,7 @@ x.type = 1;
 ### 6.2 Structures and Functions
 
 ```c
-struct point makepoint(int x, int y)
-{
+struct point makepoint(int x, int y) {
   struct point temp;
   temp.x = x;
   temp.y = y;
@@ -1050,11 +1056,14 @@ struct point makepoint(int x, int y)
 }
 
 // add two points
-struct point addpoint(struct point p1, struct point p2)
-{
-  p1.x += p2.x;  // p1 还是传递的值，所以直接改 p1 不会对外部参数影响
+struct point addpoint(struct point p1, struct point p2) {
+  p1.x += p2.x;  // p1 还是传递的值，所以直接改 p1 不会对外部参数影响  🌟🍓🌹
   p1.y += p2.y;
   return p1;
+}
+
+struct point *addpoint(struct point *p1, struct point *p2) {
+  // 当传递的是指针时，修改结构成员则会影响外部内容，所以要注意区分
 }
 ```
 
@@ -1084,15 +1093,15 @@ struct key {
 
 struct key keytable[] = {
   // 这里的 key.word 要以升序排列，对特定 key 进行操作时需要用 binsearch 来查找下标
-  { "char", 0 },
-  { "double", 0 },
-  "int", 0,
-  "long", 0,      // 单组的 {} 是可选的，这其实也揭示了 struct 在内存中的真实情况
+  {"char", 0},
+  {"double", 0},
+  "int", 0,      // 单组的 {} 是可选的，这其实也揭示了 struct 在内存中的真实情况
+  "long", 0,
   // ...
 };
 ```
 
-C provides a *compile-time* unary operator called `sizeof` that can be used to compute the size of any object. Strictly `sizeof` produces an unsigned integer value whose type, `size_t`, is defined in the header `<stddef.h>`.
+C provides a *compile-time unary operator* called `sizeof` that can be used to compute the size of any object. Strictly `sizeof` produces an unsigned integer value whose type, `size_t`, is defined in the header `<stddef.h>`.
 
 A `sizeof` can not be used in a `#if` line, because the preprocessor does not parse `type` names. But the expression in the `#define` is not evaluated by the preprocessor, so the code here is legal.
 
@@ -1113,7 +1122,6 @@ struct tnode {  // tree node
   struct tnode *left;
   struct tnode *right;
 };
-// 
 ```
 
 It is illegal for a structure to contain an instance of itself, but declare a member to be a pointer to this type is totally legal.
@@ -1136,14 +1144,12 @@ struct tnode *addtree(struct tnode *, char *);
 void treeprint(struct tnode *);
 int getword(char *, int);
 
-int main()
-{
+int main() {
   // todo
 }
 
 // add a node with w, at or below p
-struct tnode *addtree(struct tnode *p, char *w)
-{
+struct tnode *addtree(struct tnode *p, char *w) {
   int cond;
   if (p == NULL) {
     p = talloc();
@@ -1160,14 +1166,12 @@ struct tnode *addtree(struct tnode *p, char *w)
 }
 
 // make a tnode
-struct tnode *talloc(void)
-{
+struct tnode *talloc(void) {
   return (struct tnode *) malloc(sizeof(struct tnode));
 }
 
 // make a duplicate of s
-char *strdup(char *s)
-{
+char *strdup(char *s) {
   char *p;
   p = (char *) malloc(strlen(s)+1);
   if (p != NULL)
@@ -1176,8 +1180,7 @@ char *strdup(char *s)
 }
 
 // in-order print of tree *p
-void treeprint(struct tnode *p)
-{
+void treeprint(struct tnode *p) {
   if (p == NULL) return;
   treeprint(p->left);
   printf("%4d %s\n", p-count, p->word);
@@ -1204,15 +1207,15 @@ String s = "`String` now is the synonym for `char *`";
 ```
 
 ```c
-typedef struct tnode *Treeptr;
-typedef struct tnode { /* member declarations */ } Treenode;
+typedef struct {char *name; int age;} Person;
+Person me = {"gavin", 33};            // 编译时分配内存，存储在栈中
+printf("%s %d\n", me.name, me.age);
 
-Treenode any = { /* members */ };
-
-Treeptr talloc(void)
-{
-  return (Treeptr) malloc(sizeof(Treenode));
-}
+typedef struct {char *name; int age;} *Animal;
+Animal cat = malloc(sizeof(Animal));  // 运行时分配内存，存储在堆中
+cat->name = "tom";
+cat->age = 6;
+printf("%s %d\n", cat->name, cat->age);
 ```
 
 ### 6.8 Unions
@@ -1221,7 +1224,7 @@ Unions provide a way to manipulate different kinds of data in a single area of s
 
 It is the programmer's responsibility to keep track of which type is currently stored in a union, members of a union are accessed as `union_name.member` or `union_name->member` just as for structures.
 
-I effect, a union is a structure in which all members have offset zero from the base, the structure is big enough to hold the "widest" member. The same operations are permitted on unions as on structures: assignment to or copying as a unit, taking the address, and accessing a member.
+In effect, a union is a structure in which all members have offset zero from the base, the structure is big enough to hold the "widest" member. The same operations are permitted on unions as on structures: assignment to or copying as a unit, taking the address, and accessing a member.
 
 A union may only be initialized with a value of the type of its first member.
 
@@ -1281,7 +1284,7 @@ if (flags.is_extern == 0 && flags.is_static == 0)  // test them
 
 Many programs read only one input stream and write only one output stream; for such programs, input and output with `getchar` `putchar`, and `printf` may be entirely adequate, and is certainly enough to get started.
 
-`int getchar(void)` returns the next input character each time it is called, or `EOF` when it encounters end of file. The symbolic constant `EOF` is defined in `<stdio.h>`, which value is typically -1.
+`int getchar(void)` returns the next input character each time it is called, or `EOF` when it encounters end of file. The symbolic constant `EOF` is defined in `<stdio.h>`, which value is typically `-1`.
 
 `int putchar(int)` puts the character on the *standard output*, which is by default the screen. It returns the character written, or `EOF` if an error occurs.
 
@@ -1301,8 +1304,7 @@ $ cat any.c | myecho
 #include <stdio.h>
 #include <ctype.h>
 
-main()
-{
+main() {
   int c;
   wihle ((c = getchar()) != EOF)
     putchar(tolower(c));
@@ -1313,15 +1315,16 @@ main()
 
 `cat` is used for printing files on the screen, and as a general-purpose input collector for programs that do not have the capability of accessing files by name.
 
-
 ```c
 #include <stdio.h>
-int main()
-{
-  FILE *fp;  // fp is a pointer to a FILE, called the file pointer
-  char *name = "";
-  char *mode = "";  // "r" read  "w" write  "a" append  "b" binary
+int main() {
+  FILE *fp;  // fp is a pointer to a FILE, called the "file pointer"
+  char *name = "any.c";
+  char *mode = "r";  // "r" read  "w" write  "a" append  "b" binary
+  char c;
   fp = fopen(name, mode);
+  while ((c = getc(fp)) != EOF)
+    putc(c, stdout);
 }
 ```
 
@@ -1338,16 +1341,15 @@ Function `exit()` terminates program execution when it is called. `exit` calls `
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, const char *argv[])
-{
+int main(int argc, const char *argv[]) {
   FILE *fp;
   void filecopy(FILE *, FILE *);
   const char *prog = argv[0];
 
-  if (argc == 1)
+  if (argc == 1) {
     filecopy(stdin, stdout);
-  else
-    while (--argc)
+  } else {
+    while (--argc) {
       if ((fp = fopen(*++argv, "r")) == NULL) {
         fprintf(stderr, "%s: can't open %s\n", prog, *argv);
         exit(1);
@@ -1355,6 +1357,8 @@ int main(int argc, const char *argv[])
         filecopy(fp, stdout);
         fclose(fp);
       }
+    }
+  }
   if (ferror(stdout)) {
     fprintf(stderr, "%s: error writing stdout\n", prog);
     exit(2);
@@ -1362,8 +1366,7 @@ int main(int argc, const char *argv[])
   exit(0);
 }
 
-void filecopy(FILE *ifp, FILE *ofp)
-{
+void filecopy(FILE *ifp, FILE *ofp) {
   int c;
   while ((c = getc(ifp)) != EOF)
     putc(c, ofp);
