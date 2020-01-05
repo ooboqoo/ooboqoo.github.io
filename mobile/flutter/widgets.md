@@ -27,7 +27,21 @@ Row / Column Children | `Flexible` `Expanded`
 Content Containers    | `Stack`                     | `Card`
 Repeat Elements       |  `ListView` `GridView`      | `ListTile`
 Content Types         | `Text` `Image` `Icon`
-User Input            | `TextField` `RaisedButton` `FlatButton` `GestureDectector` `InkWell`
+User Input            | `Form` `FormField` `GestureDectector` | `TextField` `Radio` `Checkbox` <br> `Switch` `Slider` `InkWell` <br> `IconButton` `RaisedButton` `FlatButton` <br> `DropdownButton` `FloatingActionButton`
+
+
+`SingleChildScrollView`
+
+`ClipRRect`
+ 
+
+`DecoratedBox`
+
+
+`SizedBox`
+
+
+
 
 
 ### App / Page Setup
@@ -71,6 +85,9 @@ BottomSheet  | an overlay typically shown near the bottom of the app. A bottom s
 Container   | Standard | Adds padding, margins, borders, background color, or other decorations to a widget
 Row         | Standard | 
 Column      | Standard | 
+
+
+PS : Some widgets don't have a const constructor at all. Such as Container. But in the case of Container you could simply use a DecoratedBox instead, which is basically what Container use under the hood. The advantage here is that DecoratedBox do have a const constructor.
 
 Container
 * Extremely versatile widget!
@@ -205,8 +222,8 @@ Icon
 TextField       | 
 RaisedButton    | 
 FlatButton      | 
-GestureDetector | 
-InkWell         | 
+GestureDetector | 实现用户交互的功能
+InkWell         | 在 GestureDetector 的基础上添加了视觉反馈
 
 TextField
 * Renders an editable text field where the user can enter (type) information

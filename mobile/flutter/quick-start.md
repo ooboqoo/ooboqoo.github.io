@@ -2,6 +2,9 @@
 
 ### 资源索引
 
+了解手机端每个组件的作用和用法：https://material.io/components/  
+Flutter 下能用的 Icon 列表：https://material.io/resources/icons/  
+
 Flutter1.12  https://medium.com/flutter/announcing-flutter-1-12-what-a-year-22c256ba525d?  
 
 
@@ -65,6 +68,18 @@ $ export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 VSCode 打断点调试代码。使用 DevTools/Inspector 调试界面。
 
 iOS Simulator 下可以用 `cmd + k` 切换软键盘是否可见。
+
+VSCode 下默认不调试外部包，如有需要，在 "Settings > Extensions > Dart Configuration" 中开启 "Debug External Libraries" 选项。
+
+
+### VSCode
+
+`cmd + .` 快速更正 Quick Fixes  
+`F4` Dart: Show Type Hierarchy  
+
+`stless`: `StatelessWidget` snippet  
+`stfull`: `StatefulWidget` snippet  
+`stanim`: snippet `StetefulWidget` with `AnimationController`  
 
 
 ### 问题解决

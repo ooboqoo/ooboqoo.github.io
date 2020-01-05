@@ -263,7 +263,7 @@ class Box {
 * DON’T type annotate initializing formals.
 * DO use `;` instead of `{}` for empty constructor bodies.
 * DON’T use `new`.
-* DON’T use `const` redundantly.
+* DON’T use `const` redundantly. Basically, any place where it would be an error to write `new` instead of `const`, Dart 2 allows you to omit it. 🌟🍓🌹
 
 ```dart
 // bad

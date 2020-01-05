@@ -46,3 +46,11 @@ $ grep -r font-size . | wc -l
 ```bash
 $ ls | grep -v myfile.js | xargs rm
 ```
+
+批量改文件名后缀
+
+```bash
+for f in *.fromext; do mv -- "$f" "${f%.formext}.toext"; done
+```
+
+

@@ -2,6 +2,77 @@
 
 
 
+## Widgets, Styling, Adding Logic
+
+
+## Responsive & Adaptive UIs
+
+
+## Widget & Flutter Internals
+
+
+## Navigation & Multiple Screens
+
+### Navigation & Screens
+
+
+### Pushing & Popping Pages
+
+### Tabs & Drawers
+
+### Passing Data Between Screens
+
+
+## State Management
+
+
+## User Input and Forms
+
+
+## Sending Http Requests
+
+
+## User Authentication
+
+
+## Animations
+
+
+## Using Device Features
+
+
+## Running Native Code
+
+
+## Publishing App
+
+
+
+
+
+
+### What's Flutter
+
+Flutter
+* A SDK(Software Development Kit): Tools to compile your code to native machine code + develop with ease
+* A Framework / Widget Library: Re-usable UI building blocks(= widgets), utility functions, packages
+
+Dart: Focused on frontend (mobile apps, web) user interface (UI) development.
+
+### 
+
+Your App's UI is a Widget Tree!
+
+UI as Code: No Drag & Drop; No Visual Editor; Code only
+
+Not like RN, Flutter does not use platform primitives, Flutter directly controls every pixel which is drawn. 更加可控(转成原生控件的话，Android 支持的 iOS 不一定支持，反之亦然)，对前端开发更加友好(不懂原生开发至少 UI 开发不会受任何影响)。
+
+### Course Structure
+
+
+
+
+
 ## Widget & Flutter Internals
 
 
@@ -38,6 +109,15 @@ state 对象是挂在 Element 上的，而不是 Widget 上。调用 `setState` 
 
 * Drawers (side muenus) also allow you to switch between different stacks
 * Drawers and other dialogs (e.g. alerts, modal bottom sheet) can be closed via Navigator.pop()
+
+
+
+
+
+
+
+
+
 
 
 ### Flutter Interact 2019

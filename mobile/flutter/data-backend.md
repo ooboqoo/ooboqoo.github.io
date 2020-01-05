@@ -13,7 +13,7 @@ Global State | No       | No           | Maybe | YES
 * 本地状态用 `setState`
 * 全局业务状态用 package:redux/redux.dart
 * 应用配置用 package:provider/provider.dart
-* 功能模块状态用 package:scoped_model/scoped_model.dart
+* 功能模块状态用 package:provider/provider.dart 或 package:scoped_model/scoped_model.dart
 * 异步事件和状态用 Stream + package:rxdart/rxdart.dart
 
 scope_model provider flutter_redux 这些包底层都是依赖 `InheritedWidget` 来实现跨层级部件间的通信的。
@@ -119,7 +119,7 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(
     ChangeNotifierProvider(
-      builder: (context) => CartModel(),
+      create: (context) => CartModel(),
       child: MyApp(),
     ),
   );
@@ -133,8 +133,8 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(builder: (context) => CartModel()),
-        Provider(builder: (context) => SomeOtherClass()),
+        ChangeNotifierProvider(create: (context) => CartModel()),
+        Provider(create: (context) => SomeOtherClass()),
       ],
       child: MyApp(),
     ),
@@ -170,7 +170,7 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(
     ChangeNotifierProvider(
-      builder: (context) => Counter(),
+      create: (context) => Counter(),
       child: MyApp(),
     ),
   );
@@ -229,10 +229,12 @@ class MyHomePage extends StatelessWidget {
 For dealing with local state BLoC is best recommended, while for Global state, Redux is highly recommended.
 
 在 React 等单向数据流框架下，Redux 作为一种流行的状态管理的架构风格，已经过多方面的验证，其基本思想和步骤是：
-* 整个页面甚至 APP 是一个巨大的状态机，有一个状态存储 Store ，在某个时刻处于某种状态。
+* 整个页面甚至 APP 是一个 *巨大* 的状态机，有一个状态存储 Store ，在某个时刻处于某种状态。
 * 状态是一个简单的树型结构，跟 View Tree 对应。
 * View 操作不能直接修改状态，只能通过发送 Action, 间接改变 Store。
 * Reducer 通过 Action 加上 oldState 获取 newSate，约等于 State = f(action+oldState)。
+
+注：个人感觉 Redux 的时间复杂度是 O(N)，什么东西都往里塞，性能有影响也不好维护，个人观点是只有真正全局级别的业务状态才往里塞比较好，感觉这块争议也是蛮多的，没仔细研究过。
 
 ### BLoC / Rx
 
@@ -319,7 +321,7 @@ Firebase is a Backend-as-a-Service (BaaS) app development platform that provides
 
 * Storing key-value data on disk, using [shared_preferences](https://flutter.dev/docs/cookbook/persistence/key-value)
 * Store large data you should go with [SQLITE](https://flutter.dev/docs/cookbook/persistence/sqlite)
-* Hou can always use [firebase](https://firebase.google.com/) database which is available offline
+* You can always use [firebase](https://firebase.google.com/) database which is available offline
 * Since we are talking about local storage you can always read and write files to the disk
 
 

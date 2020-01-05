@@ -52,14 +52,14 @@ external
 ### 运算符
 
 ||||||
----------------|----------------------------------|---------|---------|----------
-unary postfix  | `++` `--` `()` `[]` `.` `?.`
-unary prefix   | `-` `!` `~` `++` `--`
-multiplicative | `*`、除(求商) `/`、求余 `%`、整数商 `~/` | `+` `-`
-bitwise        | (保留符号)shift `<<` `>>` | AND `&` | XOR `^` | OR `\|`
-relational     | `>=` `>` `<=` `<` `==` `!=`
-type test      | `as` `is` `is!`
-logical        | `&&`                            | `\|\|`
+---------------|---------------------------------------|---------|---------|----------
+unary postfix  | `exp++` `exp--` `()` `[]` `.` `?.`
+unary prefix   | `-exp` `!exp` `~exp` `++exp` `--exp`
+multiplicative | `*`、除(求商) `/`、整数商 `~/`、求余 `%` | `+` `-`
+bitwise        | (保留符号)shift `<<` `>>`              | AND `&` | XOR `^` | OR `\|`
+relational and type test | `>=` `>` `<=` `<`  `as` `is` `is!`
+equality       | `==` `!=`
+logical        | `&&`                                  | `\|\|`
 if null        | `??`
 conditional    | `? :`
 cascade        | `..`
@@ -67,6 +67,13 @@ assignment     | `=` `*=` `/=` `+=` `-=` `&=` `^=` etc.
 
 注：运算符的优先级由上往下逐条降低，同行内也有先后顺序的，用单元格分隔开了，优先级高的排前面。  
 注：Dart 下的很多运算符是可以覆写的，`x == y` 其实就是执行了 `x.==(y)`。
+
+||||
+-----|----------------------|---------------------------
+`()` | Function application | Represents a function call
+`[]` | List access          | Refers to the value at the specified index in the list
+`.`  | Member access        | Refers to a property of an expression
+`?.` | Conditional member access | Like `.`, but the leftmost operand can be `null`<br>example: `foo?.bar` selects property `bar` from expression `foo` unless `foo` is `null` (in which case the value of `foo?.bar` is `null`)
 
 ```dart
 if (employee is Person) employee.firstName = 'Bob';  // 可以简写成
@@ -163,13 +170,19 @@ void say(String str) => print(str);
 var say = (String str) => print(str);
 ```
 
-可选参数
+可选参数 - 位置参数 positional parameters `[]`
+
+Optional parameters can be either named or positional, but not both.
 
 ```dart
+// 带默认值的可选位置参数 和 不带默认值的可选位置参数 之间的顺序没有要求
+// 只要那个参数位置给值了，就用给的值，否则看有没有默认值，如没有就 null
 String say(String from, String msg, [String device = 'carrier pigeon', String mood]) { /* ... */ }
 ```
 
-命名参数
+可选参数 - 命名参数 named parameters `{}`
+
+Although named parameters are a kind of optional parameter, you can annotate them with `@required` to indicate that the parameter is mandatory. When using `@required`, `import package:meta/meta.dart` first.
 
 ```dart
 void enableFlags({bool bold, bool hidden}) { /* ... */ }
@@ -177,6 +190,8 @@ enableFlags(bold: true, hidden: false);
 ```
 
 参数默认值
+
+If no default value is provided, the default value is `null`.
 
 ```dart
 void enableFlags({bool bold = false, bool hidden = false}) { /* ... */}
@@ -199,12 +214,25 @@ myList.forEach((item) => print('${list.indexOf(item)}: $item'));
 词法作用域 和 闭包
 
 
+main() 函数
+
+```dart
+// args.dart -- example of a command-line app that takes arguments
+void main(List<String> argv) {
+  print(argv);
+  // $ dart args.dart 1 test
+  assert(argv.length == 2);
+  assert(int.parse(argv[0]) == 1);
+  assert(argv[1] == 'test');
+}
+```
+
 
 ## Control flow statements
 
-### Asseert
+### Assert
 
-During development, use an assert statement `assert(condition, optionalMessage);` to disrupt normal execution if a boolean condition is false. In production code, assertions are ignored, and the arguments to assert aren’t evaluated.
+During development, use an assert statement `assert(condition, optionalMessage);` to disrupt normal execution if a boolean condition is false. In production code, assertions are ignored, and the arguments aren’t evaluated.
 
 ```dart
 assert(urlString.startsWith('https'), 'URL ($urlString) should start with "https".');
@@ -231,7 +259,7 @@ try {
 
 ## Classes
 
-Dart is an object-oriented language with classes and mixin-based inheritance. Every object is an instance of a class, and all classes descend from `Object`. Mixin-based inheritance means that although every class (except for `Object`) has exactly one superclass, a class body can be reused in multiple class hierarchies.
+Dart is an object-oriented language with classes and mixin-based inheritance. Every object is an instance of a class, and all classes descend from `Object`. Mixin-based inheritance means that although every class (except for `Object`) has *exactly one superclass*, a class body can be reused in multiple class hierarchies.
 
 ```dart
 class A {
@@ -285,6 +313,7 @@ class Point {
   }
 
   // 可以定义多个 named constructor，这种 命名构造函数 的使用方式使得类的实例化过程语义更清晰
+  // 不好的一点是，跟静态成员的调用写法重了，两者的区别不那么直观
   Point.origin() {
     x = 0;
     y = 0;
@@ -304,9 +333,10 @@ class Person {
 
 class Employee extends Person {
   String name;
-  // 这里的 this.name 被称为 initializer，会先于 super 和 函数体执行
-  Employee(this.name) : super() {  // 调用 super() 的写法
-    // ...
+  int age;
+  // 这里的 this.name 被称为 initializer，会先于 super 和 函数体执行  🌟🍓🌹
+  Employee(this.name, n) : age = n + 10, super() {  // 调用 super() 的写法，
+    // ...                                          // the super must be last in an initializer list
   };  
 }
 
@@ -339,6 +369,7 @@ class Person {
 Point.fromJson(Map<String, num> json)
     : x = json['x'],                                 // 用法2：不能直接赋值，要处理下的情况
       y = json['y'] {  // The right-hand side of an initializer does not have access to `this`
+                       // only static members can be accessed in initializers(the right-hand side)
   print('In Point.fromJson(): ($x, $y)');
 }
 
@@ -433,6 +464,7 @@ abstract class Doer {
 }
 
 class EffectiveDoer extends Doer {
+  @override
   void doSomething() {
     // Provide an implementation, so the method is not abstract here...
   }
@@ -497,7 +529,7 @@ class Maestro extends Person with Musical, Aggressive, Demented {
 }
 ```
 
-To implement a mixin, create a class that extends Object and declares no constructors. Unless you want your mixin to be usable as a regular class, use the mixin keyword instead of class.
+To implement a mixin, create a class that extends Object and declares no constructors. Unless you want your mixin to be usable as a regular class, use the `mixin` keyword instead of `class`.
 
 ```dart
 mixin Musical {
@@ -536,7 +568,7 @@ names.addAll(['Seth', 'Kathy', 'Lars']);
 names.add(42); // Error
 ```
 
-泛型一般用一个大写字母表示，如 `T` type `K` keyType `V` valueType `E` `S`
+泛型一般用一个大写字母表示，如 `T` type `K` keyType `V` valueType `R` returnType `E` `S`
 
 List Set Map 等的字面量可以添加类型约束，如
 
@@ -550,7 +582,7 @@ Using parameterized types with constructors
 var views = Map<int, View>();
 ```
 
-Dart generic types are reified, which means that they carry their type information around at runtime.
+Dart generic types are reified, which means that they carry their type information around at runtime. (这里主要是在跟 TypeScript 做比较)
 
 ```dart
 var names = List<String>();
@@ -581,7 +613,7 @@ T first<T>(List<T> ts) {
 
 ## Libraries
 
-Every Dart app (i.e. a `.dart` file) is a **library**. Libraries not only provide APIs, but are a unit of privacy: identifiers that start with an `_` are visible only inside the library.
+Every Dart app (i.e. a `.dart` file) is a **library**. Libraries not only provide APIs, but are a unit of privacy: identifiers that start with an `_` are visible only inside the library. (可认为是以文件为单位的访问权限控制)
 
 ```dart
 // import URI
@@ -672,13 +704,13 @@ typedef Compare<T> = int Function(T a, T b);
 int sort(int a, int b) => a - b;
 
 void main() {
-  assert(sort is Compare<int>); // True!
+  assert(sort is Compare<int>); // true
 }
 ```
 
 ### Metadata
 
-Use metadata to give additional information about your code. A metadata annotation begins with the character @, followed by either a reference to a compile-time constant (such as deprecated) or a call to a constant constructor.
+Use metadata to give additional information about your code. A metadata annotation begins with the character `@`, followed by either a reference to a compile-time constant (such as deprecated) or a call to a constant constructor.
 
 Two annotations are available to all Dart code: `@deprecated` and `@override`.
 

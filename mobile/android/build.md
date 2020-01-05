@@ -31,6 +31,13 @@ Android manually replace these files *android/app/src/main/res/mipmap-\<hdpi xhd
 
 iOS modify this folder _ios/Runner/Assets.xcassets/AppIcon.appiconset_.
 
+### Permission
+
+_android/app/src/main/AndroidManifest.xml_
+
+```xml
+<uses-permission android:name="android.permission.INTERNET"/>
+```
 
 
 ## 准备安卓签名文件

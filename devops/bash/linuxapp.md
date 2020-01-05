@@ -185,12 +185,15 @@ $ tar -xzvf foo.tgz  # 解压并取出存档内容
 常用参数
 
 ```bash
-$ tar 
-  # -r 追加文件到档案文件末尾
-  # -t 列出档案文件内容
-  # -u 更新文件，如果找不到，就追加到档案末尾
-  # -v verbose 打印详细信息
-  # -f 使用档案文件或设备，这个选项通常是必选的
+$ tar
+  # -x --extract 解压存档
+  # -c --create  新建存档
+  # -t --list    列出存档中的文件内容
+  # -r --append  追加文件到存档文件(非压缩)末尾
+  # -u --update  更新存档(非压缩)中的文件，如找不到就追加到末尾
+
+  # -v --verbose 打印详细信息
+  # -f --file    使用档案文件或设备，这个选项通常是必选的，因为默认操作的是 TAPE
 
 $ zip -q -r -e -m -o '\user\someone\someDir\someFile.zip' '\users\someDir'
   # -q 不显示压缩进度状态
