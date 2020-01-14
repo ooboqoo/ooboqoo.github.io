@@ -45,12 +45,18 @@ class Article {  // 在组件外部定义数据结构，对应 MVC 的 model (�
   title: string;  link: string;  votes: number;
 
   constructor(title: string, link: string, votes?: number) {
-    this.title = title;  this.link  = link;  this.votes = votes || 0;
+    this.title = title;
+    this.link  = link;
+    this.votes = votes || 0;
   }
 
   domain(): string {
-    try {  const link: string = this.link.split('//')[1];  return link.split('/')[0];
-    } catch (err) { return null; }
+    try {
+      const link: string = this.link.split('//')[1];
+      return link.split('/')[0];
+    } catch (err) {
+      return null;
+    }
   }
 
   voteUp(): void { this.votes += 1; }
@@ -68,8 +74,8 @@ class Article {  // 在组件外部定义数据结构，对应 MVC 的 model (�
     <div class="right">
       <a class="h4" href="{{ article.link }}">{{ article.title }}</a>
       <div>({{ article.domain() }})</div>
-      <a class="btn" href (click)="voteUp()"> upvote</a>
-      <a class="btn" href (click)="voteDown()"> downvote</a>
+      <a class="btn" href (click)="voteUp()">upvote</a>
+      <a class="btn" href (click)="voteDown()">downvote</a>
     </div>
     `
 })
