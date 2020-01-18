@@ -15,29 +15,40 @@ https://atomiks.github.io/30-seconds-of-css/
 ### Triangle
 
 ```css
-.triangle {
+.triangle1 {
   width: 0;
   height: 0;
-  border-top: 20px solid #333;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
+  border: 20px solid transparent;
+  border-top-color: #333;
+}
+.triangle2 {
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-color: red gray gray red;
 }
 ```
 
 <div class="demo">
-  <div class="triangle"></div>
+  <div class="triangle1"></div><br>
+  <div class="triangle2"></div> 这一种更好用，可以给三角添加阴影效果，如下面的弹框就需要用到这种箭头<br>
+  <div class="triangle2" style="transform: rotate(77deg) scaleY(0.5) skewX(45deg);"></div> 变一变(transform)还能画个指南针
   <style>
-  .triangle {
+    .triangle1, .triangle2 { display: inline-block; }
+  .triangle1 {
     width: 0;
     height: 0;
-    border-top: 20px solid #333;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
+    border: 20px solid transparent;
+    border-color: gray red green blue;
+  }
+  .triangle2 {
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-color: red gray gray red;
   }
   </style>
 </div>
-
-tip 弹框效果(因为需要出统一的边框效果，所以实现跟上面有细微差异)
 
 ```css
 .triangle-popover {
@@ -367,8 +378,8 @@ form:focus-within {
 ```scss
 .hairline-border {
   box-shadow: 0 0 0 1px;
-  @media (min-resolution: 2dppx) { box-shadow: 0 0 0 .50px; }
-  @media (min-resolution: 3dppx) { box-shadow: 0 0 0 .33px; }
+  @media (min-resolution: 2dppx) { box-shadow: 0 0 0 .50px; }  // 2ddpx <= resolution
+  @media (min-resolution: 3dppx) { box-shadow: 0 0 0 .33px; }  // `min-` 表示 minimal condition
   @media (min-resolution: 4dppx) { box-shadow: 0 0 0 .25px; }
 }
 ```
@@ -449,3 +460,89 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     }
   </style>
 </div>
+
+### Table With Rotated Header
+
+<div class="demo">
+  <table class="table-with-rotated-header">
+    <thead>
+      <tr>
+        <th class="rotated-header" rowspan="2" style="height: 2em;">
+          <div class="rotated-header-text">Vin</div>
+          <div class="rotated-header-decoration"></div>
+        </th>
+        <th class="rotated-header" colspan="3" style="height: 2em;">
+          <div style="transform: translateX(64px);">Sales</div>
+          <div class="rotated-header-decoration" style="transform: skewX(-45deg) translateX(64px);"></div>
+        </th>
+      </tr>
+      <tr>
+        <th class="rotated-header">
+          <div class="rotated-header-text">Year</div>
+          <div class="rotated-header-decoration" style="border-left: none;"></div>
+        </th>
+        <th class="rotated-header">
+          <div class="rotated-header-text">Brand</div>
+          <div class="rotated-header-decoration"></div>
+        </th>
+        <th class="rotated-header">
+          <div class="rotated-header-text">Color</div>
+          <div class="rotated-header-decoration"></div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>dsad231ff</td><td>2012</td><td>VW</td><td>Orange</td></tr>
+      <tr><td>gwregre345</td><td>2011</td><td>Audi</td><td>Black</td></tr>
+      <tr><td>h354htr</td><td>2005</td><td>Renault</td><td>Gray</td></tr>
+    </tbody>
+  </table>
+  <style>
+    .table-with-rotated-header {
+      border-collapse: collapse;
+    }
+
+    .table-with-rotated-header td {
+      padding: 10px 5px;
+      border: 1px solid #ccc;
+    }
+
+    .rotated-header {
+      position: relative;
+      height: 60px;  /* todo: 修改表格高度的同时需要修改 html 里值是 64px 的那两个地方 */
+    }
+
+    .rotated-header .rotated-header-text {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      transform: translate(50%, 50%) rotate(-45deg);
+      transform-origin: 0% 50%;
+      padding-left: 1em;
+    }
+
+    .rotated-header .rotated-header-decoration {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      transform: skewX(-45deg);
+      transform-origin: 0 100%;
+      border: 1px solid gray;
+      border-bottom: none;
+    }
+
+    .rotated-header:not(:first-child) .rotated-header-decoration {
+      border-left: none;
+    }
+
+    /*  */
+    .table-with-rotated-header thead { border-width: 0; background-color: unset; color: inherit; }
+    .table-with-rotated-header th { border: unset; }
+  </style>
+</div>
+

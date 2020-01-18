@@ -168,11 +168,11 @@ converge
 curry
 
 // 去抖函数，确保两次调用之间超过特定时长才真正执行
-const debounce = (fn, ms = 0) => {
+const debounce = (fn, ms = 200, context = window) => {
   let timeoutId;
   return function(...args) {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn.apply(this, args), ms);
+    timeoutId = setTimeout(() => fn.apply(context, args), ms);
   };
 };
 

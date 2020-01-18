@@ -87,6 +87,8 @@ console.log(`stdout: ${ls.stdout.toString()}`)
 ls = spawn('ls', ['-lh', '/usr'])
 ls.stdout.on('data', data => console.log(`stdout: ${data}`))
 ls.stderr.on('data', data => console.log(`stderr: ${data}`))
+
+cp.stdin.write('my data')  // 父子进程间通讯 ———— 写数据
 ```
 
 

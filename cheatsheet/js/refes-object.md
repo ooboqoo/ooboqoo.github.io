@@ -126,6 +126,9 @@ var a = {
 </div>
 
 ```js
+// 跟 `eval` 一样，存在安全和性能问题
+// unlike eval, the Function constructor creates functions which execute in the global scope only.
+// Function 和 new Function() 等效
 var foo = Function('a', 'b, c', 'return a + b + c');  // 运行时求值
 ```
 
@@ -144,7 +147,7 @@ function bar() { console.log(foo.arguments, bar.caller); }
 <h5 class="es3">Array.prototype <span>-- 可以通过该属性给 Array类型 添加公共属性</span></h5>
 <h5 class="es5">Array.isArray() <span>-- 确定某个值是不是数组</span></h5>
 <h5 class="es6">Array.from(arrayLike, mapFn?, thisArg?) <span>-- 根据 arrayLike 创建一个数组</span></h5>
-<h5 class="es6">Array.of(element0, e1?, ..., eN?) <span>-- 创建一个新数组 - 用于替代 <code>Array(length)</code> <code>Array(e1, e2, ...)</code></span></h5>
+<h5 class="es6">Array.of(element0, e1?, ..., eN?) <span>-- 创建一个新数组<br>用于替代 <code>Array(arrayLength)</code> <code>Array(element0, element1[, ..., elementN])</code></span></h5>
 </div>
 <div class="dl">
 <h5 class="es3">array.constructor <span>-- 返回创建此数组的函数的引用</span></h5>
@@ -159,7 +162,7 @@ function bar() { console.log(foo.arguments, bar.caller); }
 <h5 class="es3">array.splice(start, deleteCount?, item1?, ...) <span>-- 在给定位置删除若干元素并添加一些元素，返回包含被删除元素的数组</span></h5>
 <h5 class="es3">array.sort((a, b) => { }?) <span>-- 按升序排列数组项(默认都当<span style="color: blue;">字符串</span>比较, 故 10 在 2 前面)，提供比较函数可自定义排序</span></h5>
 <h5 class="es3">array.reverse() <span>-- 反转数组项的顺序</span></h5>
-<h5 class="es6">array.copyWithin(target, start?, end?) <span>-- 在数组内部浅拷贝其中一段到另一个位置，返回修改后的数组</span></h5>
+<h5 class="es6">array.copyWithin(target, start?, end?) <span>-- 在数组<i>内部</i>浅拷贝其中一段到另一个位置，返回修改后的数组</span></h5>
 <h5 class="es6">array.fill(value, start?, end?) <span>-- 给指定位置填充数值，返回修改后的数组</span></h5>
 
 <h4>Accessor methods -- 只返回信息，不修改数组本身</h4>
@@ -190,6 +193,11 @@ function bar() { console.log(foo.arguments, bar.caller); }
 https://gist.github.com/rauschma/f7b96b8b7274f2e2d8dab899803346c3
 
 ```js
+let arr1 = new Array(7);  // 声明一个长度为7的数组，
+let arr2 = new Array(7, 1);  // 新建数组 [7, 1]
+```
+
+```js
 var arr = ['c', 'd']; arr.unshift('e', 'f');  // 4; arr: [ 'e', 'f', 'c', 'd' ] 注意观察顺序
 ['a'].concat('b', ['c', 'd'])  // [ 'a', 'b', 'c', 'd' ] 参数可以是多个值或数组
 ['a', 'b', 'c', 'd'].copyWithin(0, 2, 4)  // [ 'c', 'd', 'c', 'd' ]
@@ -213,6 +221,8 @@ ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都
   <h5>set.entries() <span>-- 返回键值对的遍历器，实际为 [value, value]</span></h5>
   <h5>set.forEach(cb, thisArg?) <span>-- 使用回调函数遍历每个成员</span></h5>
 </div>
+
+[注] 遍历器可通过 `Array.from()` 转成数组，这样就可以使用诸多数组方法了。
 
 ## <span class="es6">WeakSet</span>
 
@@ -303,8 +313,9 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 </div>
 
 ```js
-[10, 10, 10].map(parseInt)  // [10, NaN, 2]
+['10', '10', '10', '10', '10'].map(parseInt)  // [10, NaN, 2, 3, 4]
 ```
+
 
 ## String
 
@@ -508,6 +519,15 @@ new Date(year, monthIndex, day?, hours?, minutes?, seconds?, milliseconds?)
   <h5>Promise.race(iterable) <span>-- 将多个 Promise 实例包装成一个新的 Promise 实例，返回率先改变的 Promise 实例的返回值</span></h5>
 </div>
 
+```js
+const p = new Promise(function(resolve, reject) {
+  resolve('Success!');
+}).then(function(value) {
+  console.log(value);
+});
+```
+
+
 
 ## <span class="es6">Generator</span>
 
@@ -520,7 +540,7 @@ new Date(year, monthIndex, day?, hours?, minutes?, seconds?, milliseconds?)
 
 ## <span class="es6">Reflection / Proxy</span>
 
-通过 Proxy 可以创建附加了功能拦截的新对象，可以通过添加拦截器来更改系统的默认行为。
+通过 `Proxy` 可以创建附加了功能拦截的新对象，可以通过添加拦截器来更改系统的默认行为。
 
 ```js
 var proxy = new Proxy(target, handler);
@@ -533,7 +553,7 @@ var obj = new Proxy({}, {
 });
 ```
 
-Reflect 只是一个内置对象，不是构造函数，提供了一个读取系统默认方法的接口。同 Math 一样，所含方法都是静态方法。
+`Reflect` 只是一个内置对象，不是构造函数，提供了一个读取系统默认方法的接口。同 `Math` 一样，所含方法都是静态方法。
 
 <table>
 <tr><th>Proxy Trap</th><th>Overrides the Behavior Of</th><th>Default Behavior</th></tr>

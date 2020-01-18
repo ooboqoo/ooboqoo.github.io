@@ -7,7 +7,7 @@ https://juejin.im/post/5c9c3989e51d454e3a3902b6?utm_source=gold_browser_extensio
 
 ### 实现 `new` 操作符
 
-分析: 就是考察对 `new` 操作符背后的原理(即实际都做了写什么工作)的理解。
+分析: 就是考察对 `new` 操作符背后的原理(即实际都做了些什么工作)的理解。
 
 ```js
 function $new (Class) {
@@ -40,18 +40,95 @@ function debounce (func, ms) => { /* 30-seconds-of-code */ }
 function throttle (func, wait, context) => { /* 30-seconds-of-code */ }
 ```
 
+### input 搜索如何防抖，如何处理中文
+
+切换中文输入法时首先会触发 `compositionstart`，然后没打一个拼音字母都会触发 `compositionupdate`，最后填入中文时触发 `compositionend`。
+
+
+
 ### 实现 EventHub
 
 ```js
+class MyEventEmitter {
+  constructor () {
+    this._events = {}
+  }
 
+  on (type, handler) {
+    if (!this._events[type]) {
+      this._events[type] = []
+    }
+    if (typeof handler === 'function') {
+      this._events[type].push(handler)
+    }
+  }
+
+  once (type, handler) {
+    const fn = (...args) => {
+      this.off(type, fn)
+      handler(...args)
+    }
+    this.on(type, fn)
+  }
+
+  off (type, handler) {
+    if (!this._events[type]) return
+    const position = this._events[type].indexOf(handler)
+    if (position !== -1) {
+      this._events[type].splice(position, 1)
+    }
+    if (this._events[type].length === 0) {
+      delete this._events[type]
+    }
+  }
+
+  emit (type, ...args) {
+    if (!this._events[type]) return
+    for (let handler of this._events[type]) {
+      handler(...args)
+    }
+  }
+}
 ```
 
 ### 实现 Promise
 
 ```js
+class Promise {
+  static resolve () {
 
+  }
 
+  static reject () {
+
+  }
+
+  static all () {
+
+  }
+
+  static race () {
+
+  }
+
+  constructor (resolve, reject) {
+
+  }
+
+  then() {
+
+  }
+
+  catch () {
+
+  }
+
+  finally () {
+
+  }
+}
 ```
+
 
 ## 正则
 
@@ -113,4 +190,58 @@ str = "aa<div>test1</div>bb<div>test2</div>cc"
 
 https://github.com/tc39/proposals/blob/master/finished-proposals.md  
 https://www.smashingmagazine.com/2019/02/regexp-features-regular-expressions/
+
+
+### 其他
+
+```js
+// 考察对 parseInt 参数的掌握情况
+['10', '10', '10', '10'].map(parseInt)  // [10, NaN, 2, 3, 4]
+
+// 考察数组默认的排序逻辑
+[3, 15, 8, 29, 102, 22].sort()  // [102, 15, 22, 29, 3, 8]
+
+// 花式创建数组，考察对数组实质的理解
+var arr = {2: 2, 3: 3, length: 4, __proto__: Array.prototype}
+
+
+```
+
+```js
+var a = {}, b = {key: 123}, c = {key: 456};
+a[b] = 'b';  // b 不是 string 也不是 Symbol 就会转成 string
+a[c] = 'c';  // 同 a['[object Object]']
+console.log(a[b]);  // 'c'
+```
+
+
+`a.b.c.d` 和 `a['b']['c']['d']` 哪个性能更高？前者
+
+ES6 代码转成 ES5 代码的思路：将 ES6 的代码转换为 AST 语法树，然后再将 ES6 AST 转为 ES5 AST，再将 AST 转为代码
+
+#### 为什么 for 会比 forEach 性能高
+
+for 循环没有任何额外的函数调用栈和上下文。forEach 函数签名是 `array.forEach(function(currentValue, index, arr), thisValue)`，执行时有诸多参数和上下文，这里可能拖慢性能。
+
+
+
+
+## 其他
+
+### array.sort() 使用的默认比较函数实现
+
+```js
+/* sort 默认的比较函数实现 */
+function compare (a, b) {
+  a = String(a);
+  b = String(b);
+  const minLength = Math.min(a.length, b.length);
+  for (let i = 0; i < minLength; i++) {
+    if (a[i] != b[i]) {
+      return a.charCodeAt(i) - b.charCodeAt(i);  // 如果字符串直接相减，不是数字时就是 NaN
+    }
+  }
+  return a.length - b.length;  // 比较时，值为 -1 a 在前，值为 1 则 b 在前
+}
+```
 

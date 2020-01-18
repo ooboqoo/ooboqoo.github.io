@@ -42,7 +42,7 @@ BFC 的主要作用是：清除浮动 + 解决垂直方向外边距折叠问题
 
 动画
   * display 属性不支持动画
-  * visibility 和 opacity 支持动画
+  * visibility 和 opacity 支持动画(visibility 虽然支持动画，但看不到过渡效果，要和 opacity 配合才能得到预期效果)
   * https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties
 
 

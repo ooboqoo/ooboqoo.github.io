@@ -129,30 +129,5 @@ CSS 模块化更多的是指设计模式
 CSS Modules
 
 
-# Webpack 概述
-
-功能进化
-
-V1
-  * 编译、打包
-  * HMR 模块热更新
-  * 代码风格
-  * 文件处理
-
-V2
-  * Tree Shaking
-  * ESM
-  * 动态 Import
-  * 新的官方文档
-
-V3
-  * Scope Hoisting 作用域提升 - 每个模块都放到一个单一的闭包中，相较以前把所有的模块都放到同一个闭包有明显的运行性能优势。
-  * Magic Comments 配合动态 import 使用
-
-版本迁移
-  V1 到 V2 辩护较大，要改配置文件
-  V2 到 V3 不需要该配置文件
-
-  
 
 

@@ -14,25 +14,7 @@ xhr.setRequestHeader('Cache-Control', 'no-cache')
 
 ### 跨域
 
-http://www.ruanyifeng.com/blog/2016/04/cors.html
-
-```text
-header('Access-Control-Allow-Origin: *')
-
-// 预检请求
-header('Access-Control-Allow-Methods: POST,GET,OPTIONS,DELETE')
-header('Access-Control-Allow-Headers: 服务器支持的所有头信息字段')
-
-// 允许客户端访问额外头部字段(即，除 Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma 外的字段)
-header('Access-Control-Expose-Headers: 允许访问的头部字段列表')
-
-// 发送 Cookie
-服务端
-header('Access-Control-Allow-Origin: 此处不能设为星号，必须指定明确的、与请求网页一致的域名')
-header('Access-Control-Allow-Credentials: true')
-客户端
-xhr.withCredentials = true
-```
+[/browser/#!web/cors.md](/browser/#!web/cors.md)
 
 ### 异步加载 JS 方法
 
