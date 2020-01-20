@@ -1,11 +1,15 @@
 <style>
 .es3::before, .es5::before, .es6::before, .es8::before, .es::before {
   margin-right: 1em; padding: 1px 3px; font-size: .5em; color: #fff; border-radius: .25em; }
+.es::before  { content: "ES?"; background-color: #ccc; }
 .es3::before { content: "ES3"; background-color: #0c3; }
 .es5::before { content: "ES5"; background-color: #9c0; }
 .es6::before { content: "ES6"; background-color: #c30; }
-.es8::before { content: "ES8"; background-color: #c3c; }
-.es::before  { content: "ES?"; background-color: #ccc; }
+.es16::before { content: "E16"; background-color: #c3c; }
+.es17::before { content: "E17"; background-color: #c3c; }
+.es18::before { content: "E18"; background-color: #c3c; }
+.es19::before { content: "E19"; background-color: #c3c; }
+.esn::before { content: "ES+"; background-color: #c3c; }
 h2 { text-align: center; }
 #md .dl::before { content: ""; }
 #md .dl h5 { width: initial; color: #2824bd; }
@@ -351,8 +355,10 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 </div>
 <div class="dl">
 <h5 class="es5">string.trim() <span>-- 删除前置和后缀的所有空格并返回处理后的新字符串</span></h5>
-<h5 class="es">string.trimLeft() <span>-- 删除前置的所有空格并返回处理后的新字符串</span></h5>
-<h5 class="es">string.trimRight() <span>-- 删除后缀的所有空格并返回处理后的新字符串</span></h5>
+<h5 class="es es19">string.{trimStart,trimLeft}() <span>-- 删除前置的所有空格并返回处理后的新字符串</span></h5>
+<h5 class="es es19">string.{trimEnd,trimRight}() <span>-- 删除后缀的所有空格并返回处理后的新字符串</span></h5>
+<h5 class="es es17">string.padStart(length [, padString]) <span>-- 如果字符串小于指定长度就在前面用指定字符串填充</span></h5>
+<h5 class="es es17">string.padEnd(length [, padString]) <span>-- 如果字符串小于指定长度就在后面用指定字符串填充</span></h5>
 </div>
 <div class="dl">
 <h5 class="es3">string.anchor(name) <span>-- 创建一个名为 name 的锚</span></h5>
@@ -361,6 +367,12 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 
 [注1]: `string.match()` 的三种用法 `string.match(/regexp/)` `string.match(/regexp/g)` `string.match() /*无参*/`  
 [注2]: `'abc.jar'.substr(-4) == '.jar'` `'abc.jar'.substring(-4) == 'abc.jar'` `'abc.jar'.slice(-4) == '.jar'`
+
+```js
+'8'.padStart(2, '0')  // '08'
+'abc'.padStart(6, '123456')  // 123abc
+```
+
 
 ## <span class="es6">Symbol</span>
 
@@ -644,6 +656,28 @@ const handler = {
   <h5 class="es3">Number</h5>
   <h5 class="es3">Math</h5>
   <h5 class="es3">Date</h5>
+</div>
+
+
+## <span class="es es17">Atomics</span>
+
+The `Atomics` object provides atomic operations as static methods. They are used with `SharedArrayBuffer` objects.
+
+<div class="dl">
+  <h5>Atomics.add() <span>-- </span></h5>
+  <h5>Atomics.and() <span>-- </span></h5>
+  <h5>Atomics.compareExchange() <span>-- </span></h5>
+  <h5>Atomics.exchange() <span>-- </span></h5>
+  <h5>Atomics.load() <span>-- </span></h5>
+  <h5>Atomics.or() <span>-- </span></h5>
+  <h5>Atomics.store() <span>-- </span></h5>
+  <h5>Atomics.sub() <span>-- </span></h5>
+  <h5>Atomics.xor() <span>-- </span></h5>
+</div>
+<div class="dl">
+  <h5>Atomics.wait() <span>-- </span></h5>
+  <h5>Atomics.notify() <span>-- </span></h5>
+  <h5>Atomics.isLockFree(size) <span>-- </span></h5>
 </div>
 
 <script>
