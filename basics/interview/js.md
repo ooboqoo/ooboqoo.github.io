@@ -129,6 +129,25 @@ class Promise {
 }
 ```
 
+```js
+class Promise {
+  // 返回第一个成功的，全部失败为失败
+  static first (iterable) {
+    let errCount = 0
+    return new Promise(resolve, reject) {
+      for (let it of iterable) {
+        it
+          .then(data => resolve(data))
+          .catch(err => {
+            errCount++
+            if (errCount === iterable.length) reject(err)
+          })
+      }
+    }
+  }
+}
+```
+
 
 ## 正则
 
