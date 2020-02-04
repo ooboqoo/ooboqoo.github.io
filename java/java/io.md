@@ -202,8 +202,8 @@ public interface Serializable { }  // 改接口没有任何内容，它只是一
 ### 实现序列化与反序列化
 
 实现了 Serializable 接口后并不意味着对象可以实现序列化操作，还需要以下两个类的支持：
-    * java.io.ObjectOutputStream 将对象序列化为指定格式的二进制数据
-    * java.io.ObjectInputStream 将序列化的二进制对象信息转换回对象内容
+* java.io.ObjectOutputStream 将对象序列化为指定格式的二进制数据
+* java.io.ObjectInputStream 将序列化的二进制对象信息转换回对象内容
 
 ### `transient` 关键字
 

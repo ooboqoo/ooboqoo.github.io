@@ -1,6 +1,12 @@
 # 开发环境搭建
 
-## IDEA 开发环境搭建
+
+## Tomcat
+
+[/devops/#!deploy/tomcat.md](/devops/#!deploy/tomcat.md)
+
+
+## IntelliJ IDEA CE
 
 ### 创建 JavaWeb 工程
 
@@ -28,6 +34,18 @@ Run -> Edit Configurations -> + -> Tomcat Server -> Local -> Name: Tomcat8.5
 
 注1：要确保勾选了 Plugins -> Tomcat and TomEE Integration，不然看不到 Tomcat Server 设置项。  
 注2：JDK 和 Tomcat 需要先提前安装好。
+
+#### CE 版配置
+
+IntelliJ IDEA Community 版不开发 Tomcat 插件，需要安装社区的 Smart Tomcat 插件。
+
+* Settings -> Plugins 搜索并安装 Smart Tomcat
+* Run -> Edit Configurations -> Smart Tomcat 进行配置
+  * 设置 "Deployment Directory" 为源码中 webapp 目录，如 path/to/project/JavaWebDemo/src/main/webapp
+  * 设置 "Context Path" 为 / 或其他指定 URL 根路径
+  * 修改 "Server Port" 为 3000 或其他端口
+
+完成配置后，点击右上角或左下角的 "运行 Run" 按钮即可启动项目，修改代码后点击 "重新运行 Rerun" 按钮重启即可。
 
 #### 4种配置热部署的方法
 
@@ -130,6 +148,14 @@ index.jsp
 ### 调试+打包
 
 https://www.jetbrains.com/help/idea/developing-a-java-ee-application.html#d123323e460
+
+
+
+## VS Code
+
+
+
+
 
 
 ## Maven 开发环境搭建

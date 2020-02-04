@@ -147,3 +147,4 @@ __nonce__ [计] Number used once 或 Number once 的缩写，密码学中 nonce 
 
 __reinvent the wheel__  _/ˌriːɪnˈvent/_  重新发明轮子, 意为做无谓的重复工作  
 
+__LGTM__  Looks good to me

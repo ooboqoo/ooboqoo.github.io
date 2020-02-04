@@ -2,14 +2,12 @@
 
 http://tomcat.apache.org/tomcat-8.5-doc/index.html
 
-### 安装配置
+## 安装配置
 
 1. 下载并配置好 JRE 或 JDK
 2. 下载 Tomcat http://tomcat.apache.org
 3. 安装 解压即可
 4. 设置环境变量 `CATALINA_HOME` 为 `D:\Program Files\Java\apache-tomcat-8.5.16`
-
-### 启动服务器
 
 CMD 终端输入以下两行中的任意一行命令即可启动服务器，注意不要关闭终端。
 
@@ -23,7 +21,23 @@ $ bin\catalina.bat start
 
 可通过快捷键 `Ctrl+C` 或运行命令 `bin\shutdown.bat` 来关闭服务器
 
-### Tomcat 服务器的目录结构
+### macOS
+
+```bash
+# install Tomcat
+brew update
+brew install tomcat
+
+# 脚本 catalina 用于启动和关闭 tomcat 服务器，是最关键的脚本。Catalina 是一个太平洋小岛的名字
+catalina start  # Start Tomcat manually
+catalina stop   # stop Tomcat manually
+
+brew services start tomcat  # Start Tomcat automatically at Mac Login
+brew services stop tomcat   # stop Tomcat to start automatically at Mac Login
+```
+
+
+## Tomcat 服务器的目录结构
 
 ```text
 tomcat
@@ -32,11 +46,13 @@ tomcat
   |- lib      存放服务器所需的各种 JAR 文件，及第三方依赖
   |- logs     存放日志文件
   |- temp     存放服务器运行时的临时文件
-  |- webapps  存放 javaWeb 应用的目录
+  |- webapps  存放 JavaWeb 应用的目录
   \- work     存放由 JSP 生成的 Servlet 文件
 ```
 
-### Hello World
+
+
+## Hello World
 
 在 webapps 目录下新建立以下目录结构：
 

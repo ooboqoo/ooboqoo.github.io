@@ -1,68 +1,202 @@
-# 基础知识
+# Java 后端开发
+
+http://docs.oracle.com/javase/specs  
+https://javaee.github.io/servlet-spec  
+
+
+
+## 学习指南
+
+https://www.oschina.net/question/12_52027 初学 JavaWeb 开发，请远离各种框架，从 Servlet 开始  
+https://www.zhihu.com/question/21142149 看完这个就知道该学啥该怎么学了
+
+<h5>学习路径</h5>
+
+1. Java 基础
+2. Servlet + JSP + JDBC
+3. SSM (Spring + SpringMVC + Mybatis)
+4. Spring Boot
+
+注：学基础时可以看看廖雪峰的 Java 教程 https://www.liaoxuefeng.com/wiki/1252599548343744
+
+
+
+## Java 概述
+
+https://www.oracle.com/java/
+
+<h5>Java 语言发展史</h5>
+
+* 詹姆斯·高斯林 (James Gosling)
+* SUN (Stanford University Network，斯坦福大学网络公司)
+* Java 咖啡 -> 咖啡生产地 印尼爪哇岛
+
+<h5>Java 语言平台</h5>
+
+* Java SE (Java Platform, Standard Edition) 标准版，面向桌面应用市场
+* Java EE (Java Platform, Enterprise Edition) 企业版，面向服务器市场，包含 Servlet、JSP 等
+* Java ME (Java Platform, Micro Edition) 移动版，面向消费电子产品市场，已被淘汰
+
+<h5>Java 语言版本</h5>
+
+https://en.wikipedia.org/wiki/Java_version_history
+
+||||
+-----------------|----------|--------
+JDK 1.0          | 1996.01 | 
+JDK 1.1          | 1997.02 | 
+J2SE 1.2         | 1998.12 | Java 2 Platform, Standard Edition
+J2SE 1.3         | 2000.05 | 
+J2SE 1.4         | 2002.02 | 
+J2SE 5.0         | 2004.09 | 为了更好地体现版本的语义性，将版本号由 1.5.0 改成了 5.0
+Java SE 6        | 2006.12 | 使用 "Java SE" 替换了 "J2SE"，并删除了版本号尾 ".0"；内部版本号仍沿用 1.6.0
+Java SE 7        | 2011.07 | 
+Java SE 8 (LTS)  | 2014.03 | 
+Java SE 9        | 2017.09 | 以前每 3<sup>+</sup> 年发布一个大版本，从这开始会每6个月出一个主版本
+Java SE 10       | 2018.03 | 
+Java SE 11 (LTS) | 2018.09 | 
+Java SE 17 (LTS) | 2021.09 | 
+
+<h5>Java 语言特点</h5>
+
+Java 并不只是一种语言，它是一个完整的平台，有一个庞大的库。
+
+Java 白皮书中对 Java 特性的描述可用 11 个关键术语进行组织：1 简单性 2 面向对象 3 分布式 4 健壮性 5 安全性 6 体系结构中立 7 可移植性 8 解释型 9 高性能 10 多线程 11 动态性
+
+<h5>常见误解</h5>
+
+Java 理论上能成为适用于所有平台的通用性编程语言，但在实际中，某些领域其他语言有更出色的表现，比如，Objective C 和后来的 Swift 在 iOS 设备上就有着无可取代的地位。浏览器中的处理几乎完全由 JavaScript 掌控。Windows 程序通常都用 C++ 或 C# 编写。Java 在服务器端编程和跨平台客户端应用领域则很有优势。
+
+<h5>运行过程</h5>
+
+* 编译型 源程序 --编译连接--> 可执行程序EXE --执行--> 操作系统
+* Java   源程序 --编译--> 字节码程序 --解释执行--> **解释器** --> 操作系统 
+
+Java 应用是通过 Java虚拟机(JVM) 来实现跨平台运行的。
+
+
 
 ## 杂项知识点
 
-#### Maven 与 Gradle
+<h5>Java 和 JavaScript 下"类"的区别和联系</h5>
 
-虽然两者都是项目工具，但是 Maven 现在已经是行业标准，Gradle是后起之秀，很多人对他的了解都是从 android studio 中得到的，Gradle 抛弃了 Maven 的基于 XML 的繁琐配置，取而代之的采用了领域特定语言 Groovy 的配置，大大简化了构建代码的行数。
+JS 类内调用 变量 和 类属性 是有严格区分的，是否有 `this` 解析结果是完全不一样的。  
+java 类方法内是可以省略 `this` 使用的。
 
-#### Jar 与 War
+JS 类内定义的静态方法，必须通过类名访问，实例只能在原型链向上查找方法。  
+Java 类中的静态方法，可以通过实例或者类名访问。
 
-Java Archive file 通常是开发时要引用通用(JAVA)类，打成包便于存放管理；
+分析：JS 中类名对应的是一个对象，而每个类名又附带了一个专门的原型对象来负责继承；而 Java 中类只对应一块区域。
 
-Web Archive file 是做好一个(web)应用后，通常是网站，打成包部署到容器中。
-将 web 项目以 war 的方式导出后，直接放在 tomcat 容器的 webapps下启动服务，即可运行该项目。
+<h5>Maven 与 Gradle</h5>
+
+两者都是项目工具，Maven 是行业标准，Gradle 是后起之秀。Gradle 抛弃了 Maven 的基于 XML 的繁琐配置，取而代之地采用了领域特定语言 Groovy 的配置，大大简化了构建代码的行数。
+
+<h5>JAR 与 WAR</h5>
+
+Java Archive file 通常是开发时要引用的 Java 通用类，打成包便于存放管理。
+
+Web Archive file 是做好一个 Web 应用后，通常是网站，打成包部署到容器中。将 Web 项目以 WAR 的方式导出后，直接放在 Tomcat 容器的 webapps 目录下启动服务，即可运行该项目。
 
 
 
+## Web 服务器
 
-## HTTP 服务器
+> 名词解释：在互联网架构中，  
+> **Web服务器**，一般指像 Nginx，Apache 这类服务器，他们主要负责解析静态资源。  
+> **应用服务器**，一般指像 Tomcat，Jetty，Resin 这类服务器，主要负责解析动态资源。  
+> 一般都是只有 Web 服务器才能被外网访问，应用服务器只能内网访问。
 
-本人比较喜欢 nginx 跑静态和做负载反向代理，动态 php 还是交给 apache 处理比较稳定，jsp 就交给 tomcat、resin 或 jboss。nginx 跑静态的能力是无与伦比的，是目前 web 服务器里最强的。nginx 和 apache、tomcat、resin 的动静分离配置其实很简单，就几句配置，稳定性也非常好。
+本人比较喜欢 Nginx 跑静态和做反向代理，动态 PHP 还是交给 Apache 处理比较稳定，JSP 就交给 Tomcat 或 Jetty。Nginx 跑静态的能力无与伦比，是目前 Web 服务器里最强的。Nginx 和 Apache、Tomcat 的动静分离配置其实很简单，稳定性也非常好。
 
-### Apache HTTP Server
+### Apache
 
-Apache HTTP Server（简称Apache）是 Apache 软件基金会的一个开放源代码的网页服务器软件，可以在大多数电脑操作系统中运行。由于其跨平台和安全性，被广泛使用，是最流行的Web服务器软件之一。它快速、可靠并且可通过简单的 API 扩充，将 Perl／Python 等解释器编译到服务器中。
+Apache HTTP Server（简称 Apache）由于其跨平台和安全性，被广泛使用，是最流行的 Web 服务器软件之一。它快速、可靠并且可通过简单的 API 扩充，将 Perl、Python 等解释器编译到服务器中。
 
-Apache 支持许多特性，大部分通过编译的模块实现。这些特性从服务器端的编程语言支持到身份认证方案。一些通用的语言接口支持 Perl，Python，Tcl 和 PHP。流行的认证模块包括 mod_access，mod_auth 和 mod_digest。其他的例子有 SSL 和 TLS 支持（mod_ssl），代理服务器（proxy）模块，很有用的URL重写（由 mod_rewrite 实现），定制日志文件（mod_log_config），以及过滤支持（mod_include 和 mod_ext_filter）。
-
-1996年4月以来，Apache 一直是 Internet 上最流行的 HTTP 服务器：1999年5月它在 57% 的网页服务器上运行，到了2005年7月这个比例上升到了 69%。在2005年11月最风光的时候达到接近 70% 的市占率，不过在部分拥有大量域名的主机域名商转换为 微软IIS 平台后，Apache 市占率近年来呈现些微下滑。同时搜索引擎巨擘 Google 自己的网页服务器平台 GWS 推出后（也可说是一种修改版的 Apache），再加上 nginx、Lighttpd 等轻量化网页服务器软件在市场上有一些能见度，这些因素都反应在整体网页服务器市占率的消长，Apache 的市占率就随之滑落。根据Netcraft 在2009年12月的最新统计数据，Apache 的市占率已经降为 53.67％，IIS 降为 18.26％，谷歌网页服务器 13.53％，nginx 8.75％。
+Apache 支持许多特性，大部分通过编译模块实现。一些通用的语言接口支持 Perl，Python，Tcl 和 PHP。流行的认证模块包括 mod_access，mod_auth 和 mod_digest。其他的例子有 SSL 和 TLS 支持(mod_ssl)，代理服务器(proxy)，URL重写(mod_rewrite)，定制日志文件(mod_log_config)，以及过滤支持(mod_include 和 mod_ext_filter)。
 
 ### Nginx
 
-Nginx（发音同engine x）是一个网页服务器，它能反向代理 HTTP, HTTPS, SMTP, POP3, IMAP 的协议链接，以及一个负载均衡器和一个 HTTP 缓存。
+Nginx（发音同 engine x）是一个网页服务器，能反向代理 HTTP, HTTPS, SMTP, POP3, IMAP 等协议的链接，包含一个负载均衡器和一个 HTTP 缓存。Nginx 官方的测试结果能够支持五万个并行连接，在实际运行中可以支持二万至四万个并行连接。
 
-Nginx在官方测试的结果中，能够支持五万个平行连接，而在实际的运作中，可以支持二万至四万个平行链接。
+### Tomcat
 
-自 PHP-5.3.3 起，PHP-FPM 加入到了 PHP 核心，编译时加上 --enable-fpm 即可提供支持。 PHP-FPM 以守护进程在后台运行，Nginx 响应请求后，自行处理静态请求，PHP 请求则经过 fastcgi_pass 交由 PHP-FPM 处理，处理完毕后返回。 Nginx 和 PHP-FPM 的组合，是一种稳定、高效的 PHP 运行方式，效率要比传统的 Apache 和 mod_php 高出不少。
-
-### mod_php、CGI、FastCGI 与 PHP-FPM
-
-mod_php 是在 lamp 体系中最常使用的工作方式，在这种模式下，php 被编译为 apache 的一个内置模块，在启动时加载。当有一个 php 请求过来时，直接在 httpd 进程里完成 php 的解析运行，将结果返回。
-
-CGI 通用网关接口 Common Gateway Interface 是一段程序（可以是Python脚本，PERL脚本，C或者C++程序等）。普通 CGI 的工作流程：apache 收到用户请求，并把请求提交给 CGI 程序，CGI 程序根据请求提交的参数作相应处理，然后输出标准的 html 语句返回给 apache。
-
-web server 收到请求后，会启动对应的 CGI 程序，譬如 PHP 解析器，然后 PHP 解析器会解析 php.ini 文件，初始化执行环境，然后处理请求，返回结果再推出进程。每个请求都需要执行初始化的过程，明显存在性能问题，所有就有了 FastCGI，FastCGI 会先开启一个 master，解析配置文件，初始化执行环境，然后再启动多个 worker，当请求过来时，就传递给 worker 去处理，效率明显提高。
-
-FastCGI 在运行过程中，如果修改了配置文件，必须重启 FastCGI 进程，PHP-FPM（FastCGI Process Manager）就是为解决这个问题而生的，当配置文件修改后，会启动新的 FastCGI 进程来处理新请求，而原有的进程在完成所有响应后再关闭，实现了平滑重启。
-
-Apache 或 Nginx 都可以搭配 PHP-FPM 来实现 PHP 解析。
-
-### Apache Tomcat
-
-Tomcat 是由 Apache 软件基金会下属的 Jakarta 项目开发的一个 **Servlet容器**，按照 Sun Microsystems 提供的技术规范，实现了对 Servlet 和 JavaServer Page (JSP) 的支持。Tomcat 本身也内含了一个 HTTP 服务器，它也可以被视作一个单独的 Web 服务器。Apache Tomcat 包含了一个配置管理工具，也可以通过编辑 XML 格式的配置文件来进行配置。
-
-Tomcat 的 Servlet 引擎通常与 Apache 或者其他 Web 服务器一起工作。除了用于开发过程中的调试以及那些对速度和事务处理只有很小要求的用户，很少会将 Tomcat 单独作为 Web 服务器。但随着版本的更新，正有越来越多的用户将其单独作为 Web 服务器用以那些对速度和可靠性有较高要求的环境中。
+Tomcat 是 Apache 下属的 Jakarta 项目开发的一个 *Servlet 容器*，实现了对 Servlet 和 JSP 的支持。Tomcat 本身也内含了一个 HTTP 服务器，故它也可以被视作一个单独的 Web 服务器。
 
 ### LAMP
 
-LAMP 是指一组通常一起使用来运行动态网站或者服务器的自由软件名称首字母缩写：
-  * Linux，操作系统
-  * Apache，网页服务器
-  * MariaDB 或 MySQL，数据库管理系统（或者数据库服务器）
-  * PHP Perl 或 Python，脚本语言
+LAMP 是指一组通常一起使用来运行动态网站或者服务器的自由软件名称的首字母缩写：
 
-## JavaWeb 基础
+* Linux 操作系统
+* Apache 网页服务器
+* MariaDB 或 MySQL 数据库管理系统（或数据库服务器）
+* PHP、Perl 或 Python 脚本语言
 
-Tomcat 运行在 JVM 之上，它和 HTTP 服务器一样，绑定 IP 地址并监听 TCP 端口，同时还包含以下指责：管理 Servlet 程序的生命周期将 URL 映射到指定的 Servlet 进行处理与 Servlet 程序合作处理 HTTP 请求——根据 HTTP 请求生成 HttpServletResponse 对象并传递给 Servlet 进行处理，将 Servlet 中的 HttpServletResponse 对象生成的内容返回给浏览器虽然 Tomcat 也可以认为是 HTTP 服务器，但通常它仍然会和 Nginx 配合在一起使用：动静态资源分离——运用 Nginx 的反向代理功能分发请求：所有动态资源的请求交给 Tomcat，而静态资源的请求（例如图片、视频、CSS、JavaScript文件等）则直接由 Nginx 返回到浏览器，这样能大大减轻 Tomcat 的压力。负载均衡，当业务压力增大时，可能一个 Tomcat 的实例不足以处理，那么这时可以启动多个 Tomcat 实例进行水平扩展，而 Nginx 的负载均衡功能可以把请求通过算法分发到各个不同的实例进行处理
+### Java Web 服务器实战
+
+Tomcat 运行在 JVM 之上，它和 HTTP 服务器一样，绑定 IP 地址并监听 TCP 端口，同时还包含以下职责：管理 Servlet 程序的生命周期；将 URL 映射到指定的 Servlet 进行处理；与 Servlet 程序合作处理 HTTP 请求——根据 HTTP 请求生成 HttpServletResponse 对象并传递给 Servlet 进行处理，将 Servlet 中的 HttpServletResponse 对象生成的内容返回给浏览器。
+
+虽然 Tomcat 也可以认为是 HTTP 服务器，但通常它仍然会和 Nginx 配合在一起使用。*动静态资源分离* ，运用 Nginx 的反向代理功能分发请求：所有动态资源的请求交给 Tomcat，而静态资源的请求（如图片、视频、CSS、JavaScript文件等）则直接由 Nginx 返回给浏览器，这样就能大大减轻 Tomcat 的压力。*负载均衡* ，当业务压力增大时，可能一个 Tomcat 的实例不足以处理，那么这时可以启动多个 Tomcat 实例进行水平扩展，而 Nginx 的负载均衡功能可以把请求通过算法分发到各个不同的实例进行处理。
+
+
+
+## Java Web 项目之前后端分离
+
+Java Web 项目为什么要放弃 JSP，为什么要前后端解耦？ http://blog.csdn.net/piantoutongyang/article/details/65446892
+
+前后端分离已成为互联网项目开发的标准方式，通过 Nginx + [Node.js +] Tomcat 的方式有效地进行解耦，并且前后端分离会为以后的大型分布式架构、弹性计算架构、微服务架构、多端化服务 (多种客户端，如：浏览器，车载终端，安卓，iOS 等) 打下坚实的基础。这个步骤是系统架构从猿进化成人的必经之路。
+
+其核心是，前端 HTML 页面通过 AJAX 调用后端的 Restful API 接口并使用 JSON 数据进行交互。
+
+### 术业有专攻
+
+以前的 Java Web 项目大多数都是 Java 程序员又当爹又当妈。随着时代的发展，渐渐前后端的界限分的越来越明确。正所谓术业有专攻，一个人如果什么都会，那么他毕竟什么都不精。
+
+后端追求的是：三高(高并发，高可用，高性能)，安全，存储，业务等等。主要精力放在 Java 基础，设计模式，JVM 原理，Spring + SpringMVC 原理及源码，Linux，MySQL 事务隔离与锁机制，MongoDB，HTTP/TCP，多线程，分布式架构(Dubbo，Dubbox，Spring Cloud)，弹性计算架构，微服务架构(Spring Boot + Zookeeper + Docker + Jenkins)，Java 性能优化，以及相关的项目管理等等。
+
+前端追求的是：页面表现，速度流畅，兼容性，用户体验等等。主要精力放在 HTML5，CSS3，Jquery，Angular.js，Bootstrap，React，Vue，Webpack，Less / Sass，Gulp，Node.js，V8 引擎，JavaScript 多线程，模块化，面向切面编程，设计模式，浏览器兼容性，性能优化等等。
+
+### 强耦合的痛点
+
+#### 性能瓶颈
+
+大多数项目在 Java 后端都是分了三层，控制层(Controller / Action），业务层(Service / Manage)，持久层(DAO)。
+
+正常的互联网架构，是都要拆开的，你的web服务器集群，你的应用服务器集群+文件服务器集群+数据库服务器集群+消息队列集群+缓存集群等等。
+
+#### JSP 痛点
+
+1. 动态资源和静态资源全部耦合在一起，服务器压力大，一旦服务器出现状况，前后台一起玩完。
+2. UI 出图后，前端将设计图切成 HTML，再由后端将 HTML 套成 JSP 页面，出错率较高，修改问题时需要双方协同，效率低下。
+3. JSP 必须要在支持 Java 的 Web 服务器里运行，无法使用 Nginx，性能提不上来。
+4. 第一次请求 JSP，必须要在 Web 服务器中编译成 Servlet，第一次运行较慢。
+5. 每次请求 JSP 都是访问 Servlet 输出 HTML 页面，效率没有直接使用 HTML 高。
+6. JSP 内有较多标签和表达式，前端工程师在修改页面时会捉襟见肘，遇到很多痛点。
+7. 如果 JSP 中的内容很多，页面响应会很慢，因为是同步加载。
+8. 需要前端工程师使用 Java 的 IDE，以及需要配置各种后端的开发环境，你们有考虑过前端工程师的感受吗。
+
+
+### 前后端解耦
+
+#### 开发模式的改变
+
+#### 请求方式的改变
+
+
+### 前后端分离的优势
+
+1. 可以实现真正的前后端解耦，前端服务器使用 nginx。前端/WEB服务器放的是css，js，图片等静态资源(甚至还可以css，js)放到特定的文件服务器，前端服务器负责控制页面引用&跳转&路由，前端页面异步调用后端的接口，后端/应用服务器使用tomcat(可看成一个数据提供者)，加快整体响应速度。
+2. 发现bug，可以快速定位是谁的问题，不会出现互相踢皮球的现象。
+3. 在大并发情况下，我可以同时水平扩展前后端服务器。
+4. nginx支持页面热部署，不用重启服务器，前端升级更无缝。
+5. 增加代码的维护性&易读性（前后端耦在一起的代码读起来相当费劲）。
+6. 提升开发效率，因为可以前后端并行开发，而不是像以前的强依赖。
+7. 在nginx中部署证书，外网使用https访问，并且只开放443和80端口，其他端口一律关闭(防止黑客端口扫描)，内网使用http，性能和安全都有保障。
+8. 前端大量的组件代码得以复用，组件化，提升开发效率，抽出来！
+
+
+### 注意点
+
+1. JSP 在大型外网 Java Web 项目中已被淘汰，但对于初学者来说，JSP、Servlet 等相关的 Java Web 基础还是要掌握牢的。
+2. 对于既可以前端做也可以后端做的逻辑，我建议是放到前端。类似于数据校验这种则前后端都要做。
 

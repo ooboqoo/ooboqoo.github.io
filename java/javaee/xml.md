@@ -27,7 +27,7 @@ https://www.w3schools.com/xml/
 * XML 中的多个连续空白会被保留(而 HTML 会将多个空白字符视为一个)
 * XML 的换行用 `LF` 存储(同 Linux，Win 为 CR+LF)
 
-### XML 元素 与 属性
+### 元素 与 属性
 
 An element can contain:
   * text
@@ -37,9 +37,9 @@ An element can contain:
 
 XML elements must follow these naming rules:
   * Element names are case-sensitive
-  * Element names must start with a letter or underscore
+  * Element names must *start with a letter or underscore*
   * Element names cannot start with the letters xml (or XML, or Xml, etc)
-  * Element names can contain letters, digits, hyphens, underscores, and periods
+  * Element names *can contain letters, digits, hyphens, underscores, and periods*
   * Element names cannot contain spaces
   * Any name can be used, no words are reserved (except xml).
 
@@ -76,17 +76,17 @@ XML 是可扩展的，当你向 XML 添加内容时，原有的应用能够正�
 <root xmlns:h="http://www.w3.org/TR/html4/" xmlns:f="https://www.w3schools.com/furniture"></root>
 ```
 
-在元素中使用 `prefix:` 形式的前缀时，必须定义给前缀定义命名空间，命名空间通过元素起始标签的 xmlns 属性添加，格式是 `xmlns:prefix="URI"`。当在元素上定义 xmlns 属性后，其下元素就可以使用该命名空间，所有通常都定义在根元素上。
+在元素中使用 `prefix:` 形式的前缀时，必须给前缀定义命名空间，命名空间通过元素起始标签的 `xmlns` 属性添加，格式是 `xmlns:prefix="URI"`。当在元素上定义 `xmlns` 属性后，其下元素就可以使用该命名空间，所有通常都定义在根元素上。
 
-对于解析器 URI 并没什么特别的用处，仅仅是给了一个唯一的名字罢了。实际使用时，该 URI 通常会指向一个提供该命名空间信息的网址。
+从解析器角度看，URI 仅仅提供了一个唯一的名字。实际使用时，该 URI 通常会指向一个提供该命名空间信息的网址。IDE 可通过 URI 获取到这些信息并提供增强体验。
 
-可以像下面示例一样定义一个没有前缀的命名空间，也就是默认命名空间，这样所有没有前缀的标签都归属该命名空间。
+可以像下面这样定义一个没有前缀的命名空间，也就是 **默认命名空间**，这样所有没有前缀的标签都归属该命名空间。
 
 ```xml
 <table xmlns="http://www.w3.org/TR/html4/"></table>
 ```
 
-### XML 解析器
+### 解析器
 
 IE8(不含)以上的浏览器都内置了 XML 解析器。
 
@@ -105,4 +105,4 @@ xmlDoc = xmlhttp.responseXML;
 
 XPath uses path expressions to select nodes or node-sets in an XML document. These path expressions look very much like the expressions you see when you work with a traditional computer file system.
 
-XPath expressions can be used in JavaScript, Java, XML Schema, PHP, Python, C and C++, and lots of other languages.
+XPath expressions can be used in JavaScript, Java, XML Schema, PHP, Python, C and C++, etc.
