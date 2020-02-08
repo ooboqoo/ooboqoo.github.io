@@ -79,6 +79,8 @@ Java 支持 单行注释、多行注释 以及 文档注释。
 
 变量是利用声明的方式，将内存中某个内存块保留下来以供程序使用。
 
+执行 `int n = 100;`，该语句定义了变量 n，同时赋值为 100，亦即，JVM 在内存中为变量 n 分配一个“存储单元”，填入值100。
+
 所有的变量在使用前必须声明。声明变量的基本格式如下: 
 
 ```text
@@ -86,6 +88,7 @@ type identifier [ = value][, identifier [= value] ...] ;
 ```
 
 Java 语言支持的变量类型有: 类变量 实例变量 和 (方法内的)局部变量。
+
 
 ### 常量
 
@@ -119,16 +122,16 @@ String a = "\u0001";
 
 Java 语言提供了八种基本类型：六种数字类型（四个整数型，两个浮点型），一种字符类型，还有一种布尔型。
 
-| 数据类型      | 大小/位 |  数据范围          | 默认值 | 备注 
-|---------------|---------|--------------------|--------|----------------------------------
-| byte 字节     |     8   | -128  ~ 127        |    0   | 有符号的以二进制补码表示的整数
-| short 短整型  |    16   | -2^15 ~ 2^15-1     |    0   | 有符号的以二进制补码表示的整数
-| int 整型      |    32   | -2^31 ~ 2^31-1     |    0   | 有符号的以二进制补码表示的整数
-| long 长整型   |    64   | -2^64 ~ 2^64-1     |    0   | 有符号的以二进制补码表示的整数
-| float 单精度  |    32   | -3.4E38 ~ 3.4E38   |   0.0  | 单精度、符合 IEEE754 标准的浮点数
-| double 双精度 |    64   | -1.7E308 ~ 1.7E308 |   0.0  | 双精度、符合 IEEE754 标准的浮点数
-| char 字符     |    16   | 0 ~ 255            |'\u0000'| 单个 Unicode 字符
-| boolean 布尔  |    -    | true 或 false      | false  | ||
+数据类型      | 大小/位  |  数据范围          | 默认值 | 备注 
+-------------|---------|--------------------|--------|----------------------------------
+byte 字节     |     8   | -128  ~ 127        |    0   | 有符号的以二进制补码表示的整数
+short 短整型  |    16   | -2^15 ~ 2^15-1     |    0   | 有符号的以二进制补码表示的整数
+int 整型      |    32   | -2^31 ~ 2^31-1     |    0   | 有符号的以二进制补码表示的整数
+long 长整型   |    64   | -2^64 ~ 2^64-1     |    0   | 有符号的以二进制补码表示的整数
+float 单精度  |    32   | -3.4E38 ~ 3.4E38   |   0.0  | 单精度、符合 IEEE754 标准的浮点数
+double 双精度 |    64   | -1.7E308 ~ 1.7E308 |   0.0  | 双精度、符合 IEEE754 标准的浮点数
+char 字符     |    16   | 0 ~ 255            |'\u0000'| 单个 Unicode 字符
+boolean 布尔  |    -    | true 或 false      | false  | ||
 
 注1: 浮点数不能用来表示精确的值，如货币。  
 注2: double 是保存范围最广的数据类型。  
@@ -143,28 +146,86 @@ Java 语言提供了八种基本类型：六种数字类型（四个整数型，
 * 八进制带前缀 `0` (这种表示法容易让人混淆，尽量避免使用)
 * 二进制带前缀 `0b` 或 `0B`
 
-注意，Java 没有无符号 unsigned 形式的 int long short 或 byte
+注: Java *没有无符号 unsigned 形式* 的 int long short 或 byte。  
+注: 整数因为存在范围限制，运算可能产生 *溢出* ，溢出不会报异常，但会产生奇怪的结果。  
+注: 整数 *除 0* 时编译不会报错，但运行时会报异常。  
 
 ```java
-// 数据类型溢出
-int max = Interger.MAX_VALUE;  // 2147483647
-System.out.print(max + 1);     // -2147483648
+// 溢出
+int max = Integer.MAX_VALUE;  // 2147483647
+System.out.print(max + 1);    // -2147483648
 
-// 计算结果与直观期望不符
-System.out.println(9 / 5);     // 结果是 1 而不是 1.8 [分析1]
+// 整型相除结果还是整型
+System.out.println(9 / 5);  // 结果是 1 而不是 1.8
 ```
 
-分析1: 两个 int 类型的变量计算结果还是 int 类型，进行除法运算时，小数点部分会被忽略。
-
-#### 浮点类型
+#### 浮点型
 
 double 数值的精度是 float 类型的两倍，随着硬件成本的降低，开发一般都用 double。
 
-float 数值须带后缀 `f` 或 `F`，double 是默认的，当然也可以加后缀 `d` 或 `D`
+float 数值须带后缀 `f` 或 `F`，double 是默认的，当然也可以加后缀 `d` 或 `D`。
+
+浮点数虽然表示的范围大，但是浮点数常常无法精确表示。如，浮点数 0.1 在计算机中就 *无法精确表示*，因为十进制的 0.1 换算成二进制是一个无限循环小数，所以只能存储一个 0.1 的近似值。但是，0.5 这个浮点数又可以精确地表示。
+
+注: 在线查询工具 http://www.binaryconvert.com/result_float.html
+
+```txt
+9.5f = 2³ x (1 + 0 x 2^-1 + 0 x 2^-2 + 1 x 2^-3 + 1 x 2^-4) 按照 IEEE 754 标准在内存中是这样存储的：
+
+sign(1bit) exponent(8bit)     fraction(23bit)
+0          10000010           00110000000000000000000
+表示正数    表示指数 130-127=3  表示尾数 0011
+
+注：阶码通常使用移码表示，是符号位取反的补码，目的是为了保证浮点数的机器零为全0
+```
+
+浮点数 *强转为整数*，小数部分会被丢掉，如希望四舍五入，可先加 0.5 再强转。如果超出了整型的最大范围，将返回整型的最大值。
 
 ```java
-// 计算结果与直观期望不符
 System.out.println(10.2 * 10.2);  // 结果是 104.039999 而不是 104.04
+
+// 能分析出为啥结果是 5.2 么？答案：先 int 除法运算，然后在转 double 做加法
+1.2 + 24 / 5  // 5.2
+
+// 浮点数 除0 完全是合法的
+0.0 / 0   // NaN
+1.0 / 0   // Infinity
+-1.0 / 0  // -Infinity
+
+// 浮点数强转为整数
+(int) -12.7         // -12
+(int) (12.7 + 0.5)  // 13
+(int) 1.2e20;       // 2147483647
+```
+
+浮点数比较大小
+
+```java
+/** 比较浮点数 */
+public class FloatCmp {
+  private final static Double EPSILON = 0.0000001;  // 公差
+
+  public static void main(String[] args) {
+    double da = 3 * .3333333333;
+    double db = 0.99999992857;
+
+    if (da == db) {
+      System.out.println("Java considers " + da + "==" + db);
+    } else if (equals(da, db, 0.0000001)) {
+      System.out.println("Equal within epsilon " + EPSILON);
+    } else {
+      System.out.println(da + "!=" + db);
+    }
+  }
+
+  public static boolean equals(double a, double b, double eps) {
+    return a == b || Math.abs(a - b) < eps;
+  }
+
+  public static boolean equals(double a, double b) {
+    return equals(a, b, EPSILON);
+  }
+}
 ```
 
 #### 字符型 char
@@ -203,19 +264,19 @@ public class Example014 {
 
 Java 语言支持一些特殊的转义字符序列。
 
-|||
-|----|----------
-| \n | 换行 (0x0a)
-| \r | 回车 (0x0d)
-| \f | 换页符(0x0c)
-| \b | 退格 (0x08)
-| \s | 空格 (0x20)
-| \t | 制表符
-| \\"    | 双引号
-| \\'    | 单引号
-| \\\\   | 反斜杠
-| \ddd   | 八进制字符 (ddd)
-| \uxxxx | 16进制 Unicode 字符 (xxxx)
+||
+-------|----------
+\n     | 换行 (0x0a)
+\r     | 回车 (0x0d)
+\f     | 换页符(0x0c)
+\b     | 退格 (0x08)
+\s     | 空格 (0x20)
+\t     | 制表符
+\\"    | 双引号
+\\'    | 单引号
+\\\\   | 反斜杠
+\ddd   | 八进制字符 (ddd)
+\uxxxx | 16进制 Unicode 字符 (xxxx)
 
 #### 布尔型
 
@@ -237,13 +298,27 @@ Java 里面不允许使用 0 或 1 来填充布尔型变量的内容。
 Site site = new Site("Runoob");
 ```
 
+#### 字符串
+
+和 `char` 类型不同，字符串 `String` 是引用类型，我们用双引号 `"..."` 表示字符串。一个字符串可以存储0个到任意个字符。
+
+从 Java 13 开始，字符串可以用 `"""..."""` 表示多行字符串（Text Blocks）了。多行字符串前面共同的空格会被去掉。
+
 #### 数组
 
-数组一经创建，它的大小就是固定的，可通过 `arr.length` 获取数组长度。
+数组一经创建，它的大小就是固定的，可通过 `arr.length` 获取数组长度。创建数组，所有元素初始化为默认值。
 
 Java 会进行边界检查，运行时，如访问越界，就会抛出异常 java.lang.ArrayIndexOutOfBoundsException。
 
 Java 中二维数组就是一维数组的数组。二维数组内各数组长度可以不一致，但大多数情况下，我们都会使用 MxN 的二维数组。
+
+实际开发中，包装类 `ArrayList` 比数组更为常用。_java.util.Arrays_ 则提供了大量操作数组的工具方法。
+
+```java
+int[] arr1 = new int[5];                        // 只创建数组
+int[] arr2 = new int[] { 68, 79, 91, 85, 62 };  // 创建并赋值
+int[] arr3 = { 68, 79, 91, 85, 62 };            // 创建并赋值(最简化的写法)
+```
 
 ### 类型转换
 
@@ -264,6 +339,8 @@ Java 中二维数组就是一维数组的数组。二维数组内各数组长度
 #### 强制类型转换
 
 条件是转换的数据类型必须是兼容的，格式 `(type) value`
+
+大范围的整数向小范围的整数强转时，高位字节直接被扔掉，仅保留了低位字节。
 
 ```java
 // 强制类型转换的类型溢出问题
@@ -293,7 +370,14 @@ byte num = 100;
 | 赋值运算符 | `=` `+=` `-=` `/=` `%=` 位赋值运算符: `<<=` `>>=` `&=` `^=` <code>&#124;=</code>
 | 其他运算符 | `? :` `()` `instanceof`
 
-注: `&` 和 `|` 同时出现中逻辑运算和位运算中，具体根据使用场景来区分。
+注: `&` 和 `|` 同时出现中逻辑运算和位运算中，通过操作数的类型很容易区分。  
+注: 对 `byte` 和 `short` 类型进行移位时，会先转换为 `int` 再进行位移。  
+注: 浮点数运算和整数运算相比，只能进行加减乘除这些数值计算，不能做位运算和移位运算。  
+
+```java
+-8 >> 1   // -4
+-8 >>> 1  // 2147483644
+```
 
 ### 运算符优先级
 
@@ -318,6 +402,9 @@ byte num = 100;
 注: 没有必要死记优先级，使用 `()` 改变优先级可能是更好的办法。
 
 `>>>` 逻辑右移，左边直接补 0。`>>` 算术右移，符号位保持不变，其他右移，并根据符号位补 0 或 1。
+
+三元运算符也是短路运算。
+
 
 
 ## 语句
@@ -352,36 +439,47 @@ do {
   修改循环结束条件;
 } while (循环判断);
 
-for(初始化; 循环判断; 条件变更) {
+for(初始化; 循环判断; 更新计数器) {
   // 循环内容
 }
 
 // Java5 引入了一种主要用于数组的增强型 for 循环。
-for(声明语句 : 表达式)
-{
-   // 循环内容
+for(声明语句 : 表达式) {
+  // 循环内容
 }
 
 // break 用于终止循环
 // continue 用于跳过本次循环，直接进入下一轮循环
+// 当需要跳出或结束多重循环时，可通过 label 实现，不过完全可以避免使用标签
+public class Main {
+  public static void main(String[] args) {
+    OUT: for (int i = 1;; i++) {
+      for (int j = i;; j++) {
+        if (i > 2) break OUT;
+        if (j > 3) break;
+        System.out.printf("%d, %d\n", i, j);
+      }
+    }
+  }
+}
 ```
 
-```java
-public class Test {
-    public static void main(String args[]) {
-        int[] numbers = {10, 20, 30, 40, 50};
+注：最佳实践，计数器变量定义在 for 循环内部，否则破坏了变量应该把访问范围缩到最小的原则。  
+注：最佳实践，循环体内部不修改计数器，计数器的初始化、判断条件、每次循环后的更新条件统一放到 for() 语句中可以一目了然。
 
-        for (int x : numbers) {
-            System.out.print(x);
-            System.out.print(",");
-        }
-        System.out.print("\n");
-        String[] names = {"James", "Larry", "Tom", "Lacy"};
-        for (String name : names) {
-            System.out.print(name);
-            System.out.print(",");
-        }
+```java
+import java.util.Arrays;
+
+public class Main {
+  public static void main(String args[]) {
+    int[] numbers = {10, 20, 30, 40, 50};
+    for (int x : numbers) {
+      System.out.printf("%d,", x);
     }
+    System.out.print("\n");
+    String[] names = {"James", "Larry", "Tom", "Lacy"};
+    System.out.println(Arrays.toString(names));
+  }
 }
 ```
 
@@ -389,13 +487,13 @@ public class Test {
 
 ```java
 if (布尔表达式 1) {
-   // 如果布尔表达式 1 的值为 true 执行代码
+    // 如果布尔表达式 1 的值为 true 执行代码
 } else if (布尔表达式 2) {
-   // 如果布尔表达式 2 的值为 true 执行代码
+    // 如果布尔表达式 2 的值为 true 执行代码
 } else if (布尔表达式 3) {
-   // 如果布尔表达式 3 的值为 true 执行代码
+    // 如果布尔表达式 3 的值为 true 执行代码
 } else {
-   // 如果以上布尔表达式都不为 true 执行代码
+    // 如果以上布尔表达式都不为 true 执行代码
 }
 
 switch (expression) {
@@ -411,7 +509,67 @@ switch (expression) {
 }
 ```
 
-注：当 if 语句中只有一行代码时，可以省略 `{}`，但不建议这么做。
+注：当 if 语句中只有一行代码时，可以省略 `{}`，但不建议这么做。  
+注：引用类型判断内容相等要使用 `equals()`，注意避免 `NullPointerException`。  
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    int n = 50;
+    if (n >= 60)
+      System.out.println("及格了");
+      System.out.println("恭喜你"); // 注意这条语句不是if语句块的一部分，恭喜你掉坑里了
+    System.out.println("END");
+  }
+}
+```
+
+```java
+if (str != null && str.equals("hello")) {
+  System.out.println("hello");
+}
+```
+
+#### switch 表达式
+
+从 Java 12 开始支持 switch 表达式语法，不但不需要 `break`，还可以直接返回值。
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    String fruit = "orange";
+    int opt = switch (fruit) {
+      case "apple" -> 1;
+      case "pear", "mango" -> 2;
+      default -> {
+        int code = fruit.hashCode();
+        yield code; // yield 的用法，在复杂语句中返回值
+      }
+    };
+    System.out.println("opt = " + opt);
+  }
+}
+```
+
+### 输入和输出
+
+```java
+import java.util.Scanner;
+
+public class Main {
+  public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in); // 创建Scanner对象
+    System.out.print("Input your name: "); // 打印提示
+    String name = scanner.nextLine(); // 读取一行输入并获取字符串
+    System.out.print("Input your age: "); // 打印提示
+    int age = scanner.nextInt(); // 读取一行输入并获取整数
+    System.out.printf("Hi, %s, you are %d\n", name, age); // 格式化输出
+  }
+}
+```
+
+注：详细的格式化参数请参考JDK文档 [java.util.Formatter](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Formatter.html#syntax)
+
 
 
 ## 方法

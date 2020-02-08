@@ -1,28 +1,45 @@
-# Java 新特性
+# Java 版本变更
 
-Java 的发展从 1995 年开始经历了许多过程，但是其中有如下4个最具代表性的 JDK 版本。
-  * 1995年的 JDK1.0，标志着 Java 正式登场
-  * 1998年的 JDK1.2，加入 javax.swing 组件
-  * 2005年的 JDK1.5，引入自动装箱与拆箱、可变参数、泛型、枚举、Annotation 等核心特性，并且这些特性一直被广泛使用
-  * 2014年的 JDK1.8，引入 Lambda 表达式(函数式编程)，同时针对接口定义也有所增强
+https://en.wikipedia.org/wiki/Java_version_history
 
-### 可变参数
+|||||
+-----------------|----------|-|------
+JDK 1.0          | 1996.01 | | 
+JDK 1.1          | 1997.02 | | 
+J2SE 1.2         | 1998.12 | | Java 2 Platform, Standard Edition
+J2SE 1.3         | 2000.05 | | 
+J2SE 1.4         | 2002.02 | `assert` keyword | 
+J2SE 5.0         | 2004.09 | enum, generics, autoboxing etc. | 为了更好地体现版本的语义性，将版本号由 1.5.0 改成了 5.0
+Java SE 6        | 2006.12 | @Override in interfaces | 使用 "Java SE" 替换了 "J2SE"，并删除了版本号尾 ".0"；内部版本号仍沿用 1.6.0
+Java SE 7        | 2011.07 | diamonds, ARM, multi-catch etc. | 
+Java SE 8 (LTS)  | 2014.03 | lambdas, type annotations etc. | 
+Java SE 9        | 2017.09 | modules, private methods in interfaces etc. | 以前每 3<sup>+</sup> 年发布一个大版本，从这开始会每6个月出一个主版本
+Java SE 10       | 2018.03 | local variable type inference | 
+Java SE 11 (LTS) | 2018.09 | local variable syntax for lambda parameters | 
+Java SE 17 (LTS) | 2021.09 | | 
 
-开发中可能会出现这样一种情况：不确定要传递的参数个数。最早的时候，为了解决这个问题，往往需要将多个参数封装为数组。从JDK1.5开始，为了解决这个问题，专门在方法定义上提供了可变参数的概念，语法形式如下：
 
-```java
-返回值类型 方法名称(参数类型 ... 变量) { /* 方法体 */ }
-```
 
-方法在使用可变参数定义后，调用处可以任意传递多个参数，或者直接传递一个数组。而方法本身对于多个参数的处理都统一使用数组进行接收。
+## Java 5
 
-### foreach 循环
+引入 泛型、注解、自动装箱与拆箱、枚举、可变参数 等核心特性，并且这些特性一直被广泛使用。
 
-从 JDK1.5开始，对于数组循环提供了一种简化的写法：
+Tiger added a number of significant new language features:
 
-```java
-for (数据类型 变量 : 数组或集合) { /* 循环体 */ }
-```
+* Generics: provides compile-time (static) type safety for collections and eliminates the need for most typecasts (type conversion)
+* Metadata: also called annotations; allows language constructs such as classes and methods to be tagged with additional data, which can then be processed by metadata-aware utilities
+* Autoboxing/unboxing: automatic conversions between primitive types (such as int) and primitive wrapper classes (such as Integer)
+* Enumerations: the `enum` keyword creates a typesafe, ordered list of values (such as Day.MONDAY, Day.TUESDAY, etc.); previously this could only be achieved by non-typesafe constant integers or manually constructed classes (typesafe enum pattern)
+* Varargs: the last parameter of a method can now be declared using a type name followed by three dots (e.g. `void drawtext(String... lines)`); in the calling code any number of parameters of that type can be used and they are then placed in an array to be passed to the method, or alternatively the calling code can pass an array of that type
+* Enhanced `for each` loop: the for loop syntax is extended with special syntax for iterating over each member of either an array or any `Iterable`, such as the standard Collection classes
+* Improved semantics of execution for multi-threaded Java programs; the new Java memory model addresses issues of complexity, effectiveness, and performance of previous specifications
+* Static imports
+
+There were also the following improvements to the standard libraries:
+
+* Automatic stub generation for RMI objects
+* The concurrency utilities in package java.util.concurrent
+* Scanner class for parsing data from various input streams and buffers
 
 ### 静态导入
 
@@ -32,162 +49,65 @@ for (数据类型 变量 : 数组或集合) { /* 循环体 */ }
 import static 包.类.*;
 ```
 
-### 泛型
 
-利用对象的多态性可以解决方法参数的统一问题，但是随之而来的是一个新问题：向下转型会存在类转换异常，且编译期无法发现。
 
-Java1.5 引入了泛型机制，泛型本质是**参数化类型**，也就是说变量的类型是一个参数，在使用时再指定为具体类型。
+## Java 7
 
-泛型只要指定一次类型，无需向上向下转型，编写代码更方便；同时，指定类型后如有错误，编译期就可发现，更加安全。
+* JVM support for dynamic languages, with the new invokedynamic bytecode under JSR-292, following the prototyping work currently done on the Multi Language Virtual Machine
+* Compressed 64-bit pointers
+* These small language changes (grouped under a project named Coin):
+  * Strings in `switch`
+  * Automatic resource management in try-statement
+  * Improved type inference for generic instance creation, aka the diamond operator `<>`
+  * Simplified varargs method declaration
+  * Binary integer literals
+  * Allowing underscores in numeric literals
+  * Catching multiple exception types and rethrowing exceptions with improved type checking
+* Concurrency utilities under JSR 166
+* New file I/O library adding support for multiple file systems, file metadata and symbolic links. The new packages are _java.nio.file_, _java.nio.file.attribute_ and _java.nio.file.spi_
+* *Timsort* is used to sort collections and arrays of objects instead of merge sort
+* Library-level support for elliptic curve cryptography algorithms
+* An XRender pipeline for Java 2D, which improves handling of features specific to modern GPUs
+* New platform APIs for the graphics features originally implemented in version 6u10 as unsupported APIs
+* Enhanced library-level support for new network protocols, including SCTP and Sockets Direct Protocol
+* Upstream updates to XML and Unicode
+* Java deployment rule sets
+
+
+
+## Java 8
+
+Work on features was organized in terms of JDK Enhancement Proposals (JEPs).
+
+* JSR 335, JEP 126: Language-level support for lambda expressions (officially, lambda expressions; unofficially, closures) under Project Lambda and default methods (virtual extension methods) which allow the addition of methods to interfaces without breaking existing implementations. There was an ongoing debate in the Java community on whether to add support for lambda expressions. Sun later declared that lambda expressions would be included in Java and asked for community input to refine the feature. Supporting lambda expressions also enables functional-style operations on streams of elements, such as MapReduce-inspired transformations on collections. Default methods allow an author of an API to add new methods to an interface without breaking the old code using it. Although it was not their primary intent, default methods also allow multiple inheritance of behavior (but not state).
+* JSR 223, JEP 174: Project Nashorn, a JavaScript runtime which allows developers to embed JavaScript code within applications
+* JSR 308, JEP 104: Annotation on Java types
+* Unsigned integer arithmetic
+* JSR 337, JEP 120: Repeating annotations
+* JSR 310, JEP 150: Date and time API
+* JEP 178: Statically-linked JNI libraries
+* JEP 153: Launch JavaFX applications (direct launching of JavaFX application JARs)
+* JEP 122: Remove the permanent generation
+
+引入 Lambda 表达式(函数式编程) 与 Functional 接口，
+
+接口定义增强
 
 ```java
-calss 类名<泛型标记1, 泛型标记2> {
-  // 类内部使用泛型标记来表示类型
+public interface FilterProcess<T> {
+  // JDK 7 仅支持 全局常量 和 抽象方法
+  public static final String a = "22";
+  boolean process(T t);
+
+  // JDK 8 支持 静态方法 和 默认方法
+  static void haha () { /* ... */ }
+  default void hehe () { /* ... */ }
+
+  // JDK 9 支持 私有方法
+  private void java9() { /* ... */ }
 }
 ```
 
-注1：因为历史原因，实例化对象时，允许不指定泛型类型，系统会采用 Object 类型，此时编译器不会报错但会给出警告。  
-注2：泛型的类型，只能够是引用类型，不能是基本类型。  
-注3：从JDK1.7开始，对泛型操作进行了一些简化，只要在类对象声明时指定了泛型类型，那么实例化对象时不用再重复指定：`Message<Integer> m = new Message();`
-
-#### 类型擦除
-
-Java 的泛型使用了类型擦除机制，以至于 Java 的泛型功能受到限制，只能说是 "伪泛型"。什么叫类型擦除呢？简单的说就是，类型参数只存在于编译期，在运行时，Java 的虚拟机(JVM)并不知道泛型的存在。
-
-类型擦除导致泛型丧失了一些功能，任何在运行期需要知道确切类型的代码都无法工作。
-
-大多数情况下泛型的使用比较简单，但是如果自己编写支持泛型的代码需要对泛型有深入的了解。
-
-#### 通配符
-
-引入泛型技术解决了向下转型所带来的安全隐患，但同时又会产生一个新问题：即便是同一个类，由于设置泛型类型不同，其对象表示的含义也不同，因此不能够直接进行引用传递操作。而在方法定义时，参数类型又不对泛型进行区分，因此需要通配符 `?` 来解决参数传递上造成的新问题。
-
-```java
-// 报错，泛型类型不兼容
-Message<Double> m = new Message<String>();
-
-// 以下这样重载方法不被允许，报错，因为方法重载只要求参数类型不同，而对泛型不做区分
-void foo(Message<String> p) { }
-void foo(Message<Integer> p) { }
-
-// 使用通配符 `?` 解决参数传递问题
-void foo(Message<?> p) { }
-```
-
-##### 无边界通配符
-
-##### 上边界通配符
-
-##### 下边界通配符
-
-#### 泛型接口
-
-泛型不仅可以定义在类中，也可以定义在接口上。定义在接口上的泛型被称为泛型接口。
-
-#### 泛型方法
-
-泛型除了可以应用在类上，也可以应用在方法上。在方法上定义泛型时，这个方法不一定非要在泛型类中定义。
-
-```java
-public static <K, V> void foo(K k, V v) {
-    System.out.println(k.getClass().getSimpleName());
-    System.out.println(v.getClass().getSimpleName());
-}
-public static void main(String[] args) {
-    foo(5, "generic");
-}
-```
-
-### 枚举
-
-枚举是 JDK1.5 增加的一个主要特性，利用枚举可以**简化多例设计模式的定义**。
-
-`enum` 关键字与 `class` 和 `interface` 地位相同，其一样有成员变量、方法、可以实现一个或多个接口，也可以有构造器。
-
-```java
-enum Color {         // 定义枚举类
-  RED, GREEN, BLUE   // 表示此处为实例化对象
-}
-public class Test {
-    public static void main(String[] args) {
-        Color c = Color.GREEN;                // 直接取得枚举对象
-        System.out.println(c.toString());
-        switch(c) {
-            case RED: System.out.println("红"); break;
-            case GREEN: System.out.println("蓝"); break;
-            case BLUE: System.out.println("绿");
-        }
-    }
-}
-```
-
-#### 定义其他结构
-
-```java
-enum Color {
-    RED("红"), GREEN("绿"), BLUE("蓝");  // 定义枚举对象，必须写在首行
-    private String title;                        // 自定义属性
-    Color(String title) { this.title = title; }  // 构造方法不能是 public，默认 private
-    public String toString() { return this.title; } }
-public class Test {
-    public static void main(String[] args) {
-        Color c = Color.GREEN;
-        System.out.println(c.toString());
-    }
-}
-```
-
-
-### Annotation
-
-JDK1.5 引入了注解技术，Annotation 是 Java 中较为复杂的技术，当然，不是使用复杂，而是定义开发非常复杂。要想使用注解，需要容器的支持才能正常工作。
-
-Java SE 里为了方便用户编写代码，提供了3种最为基础的定义： `@Override` `@Deprecated` `@SuppressWarnings`。
-
-#### 注解产生背景
-
-假设有一套程序，由于某些操作需要连接3个不同的服务器，那么此时对于程序的实现就可能有以下3种方式：
-  * 方式一：将所有与配置相关的内容直接写到代码中
-      - 优点：代码编写方便
-      - 缺点：如果服务器地址变更或配置信息增多，则代码维护困难
-  * 方式二：将配置项单独抽取为配置文件
-      - 优点：代码维护方便，配置信息变更时不需要改代码
-      - 缺点：将一些对用户无用的配置信息暴露给用户，用户维护麻烦而且容易改错配置导致程序错误
-  * 方式三：将配置信息写在程序里，但利用一些明显的标记来区分配置信息与程序
-      - 优点：不再需要单独定义配置文件，可以减少代码数量
-      - 缺点：需要容器支持，开发难度较高
-
-以上列出的3种使用方式实际上也是软件开发的演变过程。现代开发中方式二和三使用最为广泛。
-
-#### 准确覆写 `@Override`
-
-当进行方法覆写时，可以添加 `@Override` 注解，如果无法在父类中找到可覆写方法，编译时就会报错。这样可避免代码键入错误。
-
-#### 声明过期操作 `@Deprecated`
-
-在项目初期，可能有一个 foo() 方法非常完善并在大量的项目代码中使用，但后来随着开发技术的发展，foo() 逐步展现出不足和问题，此时有两种解决方案：
-  * 方案一：直接取消 foo() 方法，并给出新的 bar() 方法
-  * 方案二：在新版开发包中保留 foo() 方法，同时通过某种途径告诉开发者此方法有问题，并提供了更好的 bar() 方法
-
-很明显，方案二会更加合适，此时就可以使用 `@Deprecated` 注解来声明过期的不建议使用的方法。
-
-```java
-@Deprecated
-public void oldPrint() {
-    System.out.println("此方法将会在下一版本中删除");
-}
-```
-
-#### 压制警告 `@SuppressWarnings`
-
-如果使用了不安全的操作，程序在编译中一定会出现安全警告，而很多情况下，开发者已经明确地知道这些警告信息却执意使用，此时重复的警告就显得太烦了，此时可以使用 `@SuppressWarnings` 来压制警告。
-
-```java
-@SuppressWarnings({"deprecation"})
-public static void foo() {
-  oldPrint();
-}
-```
 
 ### 接口定义加强
 
@@ -263,3 +183,184 @@ public class Test {
     }
 }
 ```
+
+
+
+## Java 9
+
+* JSR 376: Modularization of the JDK under Project Jigsaw (Java Platform Module System)
+* JEP 222: JShell: The Java Shell (a Java REPL)
+* JEP 295: Ahead-of-time compilation
+* JEP 268: XML catalogs
+* JEP 266: More concurrency updates. It includes a Java implementation of Reactive Streams, including a new Flow class that included the interfaces previously provided by Reactive Streams
+* JEP 193: Variable handles: define a standard means to invoke the equivalents of various java.util.concurrent.atomic and sun.misc.Unsafe operations
+* JEP 282: jlink: The Java Linker: create a tool that can assemble and optimize a set of modules and their dependencies into a custom run-time image. It effectively allows to produce a fully usable executable including the JVM to run it
+* JavaDB was removed from JDK
+* JEP 263: HiDPI graphics: automatic scaling and sizing
+* JEP 254: Compact Strings
+* JEP 213: Milling Project Coin
+  * Allow @SafeVargs on private instance methods
+  * Allow effectively-final variables to be used as resources in the try-with-resources statement
+  * Allow diamond with anonymous classes if the argument type of the inferred type is denotable
+  * Complete the removal, begun in Java SE 8, of underscore from the set of legal identifier names
+  * Support for private methods in interfaces
+
+
+集合 List、Set、Map 都添加了 `of` `copyOf` 方法。`copyOf` 方法会先判断来源集合是不是 `AbstractImmutableList` 类型的，如果是，就直接返回，否则调用 `of` 创建一个新的集合。
+
+```java
+var list = List.of("Java", "Python", "C");
+var copy = List.copyOf(list);
+System.out.println(list == copy);  // true
+
+var list = new ArrayList<String>();
+var copy = List.copyOf(list);
+System.out.println(list == copy);  // false
+```
+
+Stream 增加了4个新方法
+
+Optional 增强
+
+InputStream 增强
+
+
+
+JDK 目录结构变化
+
+```txt
+JDK8:  bin/  db/  include/  jre/  lib/
+JDK9:  bin/  xx   include/  xx    lib/  conf/  jmods/  legal/
+```
+
+JShell 工具，对初学者可能比较有用
+
+模块化
+
+多版本兼容 JAR 包
+
+
+钻石操作符升级
+
+```java
+Map<String, String> map = new HashMap<String, String>();
+
+// JDK 7 后面的数据类型可省略
+Map<String, String> map = new HashMap<>();
+
+// JDK 9 添加了匿名内部类的功能
+Map<String, String> map = new HashMap<>() {
+  // todo...
+}
+```
+
+异常处理
+
+```java
+@Test
+public void test() {
+  InputStreamReader reader = null;
+  try {
+    reader = new InputStreamReader(System.in);
+    reader.read();
+  } catch (IOException e) {
+    e.printStackTrace();
+  } finally {
+    if (reader != null) {
+      try {
+        reader.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+}
+
+// JDK 7
+@Test
+public void test() {
+  try (InputStreamReader reader = new InputStreamReader(System.in)) {
+    reader.read();
+  } catch (IOException e) {
+    e.printStackTrace();
+  }
+}
+
+// JDK 9
+@Test
+public void test() {
+  InputStreamReader reader = new InputStreamReader(System.in);
+  try (reader) {
+    reader.read();
+  } catch (IOException e) {
+    e.printStackTrace();
+  }
+}
+```
+
+
+特殊标示符增加限制
+
+```java
+String _ = "";  // JDK 9 开始非法
+```
+
+
+## Java 10
+
+* JEP 286: Local-variable type inference
+* JEP 317: Experimental Java-based JIT compiler. This is the integration of the Graal dynamic compiler for the Linux x64 platform
+* JEP 310: Application class-data sharing. This allows application classes to be placed in the shared archive to reduce startup and footprint for Java applications
+* JEP 322: Time-based release versioning
+* JEP 307: Parallel full GC for G1
+* JEP 304: Garbage-collector interface
+* JEP 314: Additional Unicode language-tag extensions
+* JEP 319: Root certificates
+* JEP 312: Thread-local handshakes
+* JEP 316: Heap allocation on alternative memory devices
+* JEP 313: Remove the native-header generation tool – javah
+* JEP 296: Consolidate the JDK forest into a single repository
+
+本地变量类型推断
+
+```java
+var str = "Hello";  // 类型推断
+String str = "Hello";
+```
+
+
+
+## Java 11
+
+* JEP 309: Dynamic class-file constants
+* JEP 318: Epsilon: a no-op garbage collector
+* JEP 323: Local-variable syntax for lambda parameters
+* JEP 331: Low-overhead heap profiling
+* JEP 321: HTTP client (standard)
+* JEP 332: Transport Layer Security (TLS) 1.3
+* JEP 328: Flight recorder
+* JEP 333: ZGC: a scalable low-latency garbage collector (Experimental)
+* JavaFX, Java EE and CORBA modules have been removed from JDK
+* JEP 335: Deprecated the Nashorn JavaScript engine
+* Unicode 10.0.0 support (while current version is Unicode 11.0.0, it's only in Java 12)
+
+内嵌 HttpClient API，以前需要通过 Maven 添加依赖引入
+
+增加了一系列的字符串处理方法
+
+```java
+" ".isBlank();  // true
+
+"  abc ".strip();          // 去除首尾空格
+"  abc ".stripTrailing();  // 去除尾部空格
+"  abc ".stripLeading();   // 去除首部空格
+
+"abc".repeat(3);  // "abcabcabc"
+"a\nb\nc".lines().count();  // 3
+```
+
+
+
+## Java 13
+
+

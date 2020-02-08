@@ -45,7 +45,7 @@ https://blog.csdn.net/CSDN2497242041/article/details/102023839
 3. Mybatis
 4. Maven
 5. Log4j  日志系统
-6. Junit 单元测试
+6. JUnit 单元测试
 7. SpringMVC 如何返回 JSON 格式的数据
 8. SpringMVC 使用注解代替复杂的 XML 配置文件
 

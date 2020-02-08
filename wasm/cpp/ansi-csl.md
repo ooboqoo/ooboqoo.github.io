@@ -149,6 +149,8 @@ printf("%-10.5s\n", str);  // "hello     "
 // %6.2f  print as floating point, at least 6 wide and 2 after decimal point
 printf("%3d %4.1f\n", 5, 6.0);  // "  5 6.0"  %4.1f 至少4位宽，其中小数显示1位
 printf("%o", 8);  // "10"
+
+printf("%08X", 17);  // "00000011"  说明：宽度前面加个0，会用0补足宽度
 ```
 
 ### `scanf`

@@ -223,6 +223,7 @@ _~/.m2/settings.xml_ 可用于跨项目配置，而每个项目下的 `.mvn` 目
 ```xml
 <settings xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
+  <!-- IMPORTANT: 这里只是罗列了一级配置类目，如果不需要修改，千万不要往配置文件拷贝这些空类目，会覆盖默认设置!! -->
   <localRepository/>
   <interactiveMode/>
   <usePluginRegistry/>
