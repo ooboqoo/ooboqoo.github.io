@@ -1,174 +1,210 @@
-# 包及访问权限控制
+# 包、模块、访问权限
 
-为了更好地组织类，Java 提供了包机制，用于解决相同类名问题。
+类是 Java 中组织代码的基本单元，这一节学习 Java 是如何组织类的。
+
+
+## 包
+
+为了更好地组织类，Java 提供了包机制，用于解决类名冲突。
+
+包实际上属于 Java 定义的一种 *命名空间*。一个类总是属于某个包，类名只是一个简写，完整的类名是 `包名.类名`。
+
+定义类时，我们需要在第一行声明这个类属于哪个包。没有定义包名的类，它使用的是默认包，但这样非常容易引起类名冲突。
+
+包可以是多层结构，用 `.` 隔开，如 `java.util`，但要注意的是，*包没有父子关系* ，`java.util` 和 `java.util.zip` 是不同的包，两者没有任何继承关系。使用 `import java.util.*;` 导入 `java.util` 包时，并不会导入 `java.util.zip` 下的类。
+
 
 ### 包的作用
 
-将一个大型项目中的类分门别类地存到功能类似的程序里，保存到不同的包中，这样的程序代码更易于维护。同时，将类分割开后，不仅可以避免重名冲突，还多了访问权限控制。
-
-1. 把功能相似或相关的类或接口组织在同一个包中，方便类的查找和使用。
-2. 如同文件夹一样，包也采用了树形目录的存储方式。同一个包中的类名不能重复，不同包中的类名可以相同，当同时调用两个不同包中相同类名的类时，应该加上包名加以区别。因此，包可以避免名字冲突。
-3. 包也限定了访问权限，拥有包访问权限的类才能访问某个包中的类。
+1. *包可以避免类名冲突*，同一个包中的类名不能重复，不同包中的类名可以相同。
+2. 把功能相似或相关的类或接口组织在同一个包中，方便类的查找和使用，*有利于代码的可维护性*。
+3. *增加了一层访问权限控制*。
 
 ### 包的定义
 
-包，其实就是文件夹。包名要求全部小写，一般都是公司的名倒着写。
-包名中不能使用 `-`，但可以用 `_` `.`；可以用数字，但不能以数字开头。  
-在 Java 中使用 `package` 关键字来定义包，此语句必须写在文件首行。  
+包名只能用 小写字母、数字 和 `_` `.`，但不能以数字开头，不能使用 `-`。
 
-```
-// 包名示例
-org.joda.time
-org.joda.time.base
-org.joda.time.format
-```
+包名会对应到储存目录，如果含 `.` 就会拆分成多级目录。
 
+为了避免包名冲突，推荐使用倒置的公司域名，如 `org.apache.commons.log`。
 
-#### javac 手动编译说明
+在 Java 中使用 `package` 关键字来定义包，此语句必须写在文件首行。
 
 ```java
-package com.demo.util;
-public class Message {
-  public void print() {
-    System.out.println("Hello World!");
-  }
+package com.example;
+public class Person {
 }
 ```
 
+### _.java_ 源文件规则
+
+* 一个源文件中只能有一个 `public` 类，可以没有 `public` 类，但实际没这么用的。
+* 一个源文件可以有多个非 `public` 类，但出现非 `public` 类的几率并不高。
+* 文件名必须和 `public` 类名保持一致。
+* 如果一个类定义在某个包中，那么 `package` 语句应该是源文件的首行(注释除外)。
+* 如果源文件包含 `import` 语句，那么应该放在 `package` 语句和类定义之间。
+* `import` 语句和 `package` 语句对源文件中定义的所有类都有效。在同一源文件中，不能给不同的类不同的包声明。
+
+实际项目中，绝大多数情况下都只会在一个源文件中定义一个类，且这个类就是 `public` 类。
+
+### 手动编译
+
+当存在多个包时，手动编译还是会有些麻烦，实际开发时都是交由 IDE 自动处理。
+
+```bash
+$ javac -d ../bin pkg1/Person.java pkg2/Person.java
+```
+
+```txt
+package_demo
+  \- src
+      |- pkg1/Person.java
+      \- pkg2/Person.java
+
+package_demo
+  |- src\...
+  \- bin
+      |- pkg1/Person.class
+      \- pkg2/Person.class
+```
+
+
+
+## 访问权限
+
+### 类的访问权限
+
+类的访问权限只有两种：public(带 `public`) 和 package-private(不带修饰符)，故类名前不支持 `protected` `private` 修饰符。
+
+接口的访问权限同类。
+
+### 类成员的访问权限
+
+类与类之间的可能关系、及对权限的影响：
+* 位于同一个包内：除 `private` 外的成员都能访问。
+* 位于不同的包内：如无继承关系仅能访问 `public` 成员，如有继承关系则还能访问 `protected` 成员。
+* 位于同一个源文件内：对访问权限无影响，按同包处理。
+* 嵌套关系：拥有完全的访问权限。
+* 继承或间接继承某个类(即 祖先 和 子孙 的关系)：同包按同包权限处理，不同包看 `protected`。
+
+以上各种关系根据访问权限不同可以分成4组，权限罗列如下：
+
+| 修饰符     | 当前类  | 同包     | 不同包 + 子孙类  | 不同包  |
+|-----------|:------:|:--------:|:--------------:|:------:|
+| public    |    Y   |     Y    |    Y           |    Y   |
+| protected |    Y   |     Y    |    Y           |    N   |
+| 无        |    Y   |     Y    |    N           |    N   |
+| private   |    Y   |     N    |    N           |    N   |
+
+实际开发中字段声明主要使用 `private` 权限。
+
+方法声明主要使用 `public` 权限，偶尔使用 `protected`。如果需要使用 `private`，推荐放到最后定义。
+
+如果不确定是否需要 `public`，就不声明为 `public`，即 *尽可能少地暴露对外的字段和方法*。
+
+*把方法定义为包级权限有助于测试*，测试类和被测试类位于同一个包，测试代码就可以访问被测试类中除 `private` 外的所有方法。
+
+
+
+## 使用包
+
+在 `pkg4` 中想使用 `pkg1.Person` 类，有2种写法
+* 使用时直接写出完整类名
+* 先 `import pkg1.Pserson;` 然后使用 `Person` 类
+
 ```java
-package com.demo.test;
-import com.demo.util.*;
-public class TestMessage {
+package pkg4;
+
+import pkg1.Person;              // 1. 导入包中的一个类
+import pkg2.*;                   // 2. 导入包内定义的所有类
+
+public class Main {
   public static void main(String[] args) {
-    Message msg = new Message();
-    msg.print();
+    var p1 = new Person();
+    var p2 = new Girl();
+    var p3 = new pkg3.Person();  // 3. 不导包，直接给出完整类名
+  }
+}
+
+```
+
+注：如果需要同时使用两个不同包中的相同类名的类，那么只能导入其中一个，另一个必须写完整类名。
+
+### 编译器如何查找类
+
+Java 编译器最终编译出的 _.class_ 文件只使用完整类名，当编译器遇到一个类名称时：
+* 如果是完整类名，就直接根据完整类名查找类
+* 如果是简单类名，按下面的顺序依次查找
+  * 查找当前包
+  * 查找 `import` 的包是否包含这个类
+  * 查找 _java.lang_ 包是否包含这个类
+* 如果按照上面的规则还无法确定类就编译报错
+
+从上面的过程中可以看出，编译器会自动帮我们导入两个包：_java.lang_ 和 当前类所在的包。
+
+注：自动导入的是 _java.lang_ 包，并不包含 _java.lang.reflect_ 包，它们是不同的两个包。
+
+### 静态导入
+
+还有一种 `import static` 的语法，即静态导入，可以导入一个类的静态字段和静态方法。当然，实际很少使用。
+
+```java
+// 导入 System类 的所有静态字段和静态方法:
+import static java.lang.System.*;
+
+public class Main {
+  public static void main(String[] args) {
+    out.println("Hello, world!");
   }
 }
 ```
+
+
+
+## `classpath` 与 JAR 包
+
+### `classpath` 的作用
+
+`classpath` 是 JVM 用到的一个环境变量，它用来指示 JVM 如何搜索类(即 _.class_ 文件)。
+
+Java 是编译型语言，源码是 _.java_ 文件，而编译后的 _.class_ 文件才是真正可以被 JVM 执行的字节码。JVM 加载类时，通过 `classpath` 配置的 *目录集合* 搜索相应的类文件。
+
+### 设置 `classpath`
+
+在 Windows 系统，目录间用 `;` 分隔，在 Linux 系统，目录间用 `:` 分隔。带空格的目录用 `""` 括起来。
+
+`classpath` 的设定有两种方法：在系统环境变量中设置，或在启动 JVM 时通过参数传入。
 
 ```bash
-$ javac Message.java       # 生成的 class 文件位于当前目录
-$ javac -d . Message.java  # 生成的 class 文件位于当前目录下 com/demo 文件夹下，-d 后面代表当前目录的点不能省略
-$ javac -d . TestMessage.java  # 必须先编译才能再编译 TestMessage.java，否则提示 com.demo.util 不存在
-$ javac -d . *.java            # 手动逐个编译有顺序要求，而使用通配符就可以实现自动编译
-$ java com.demo.test.TestMessage  # 手动运行必须这样输入，其他方式都跑不通
+$ export classpath=path1:path2  # 设置环境变量，不推荐，会污染系统环境
+$ java -cp . com.example.Hello  # 推荐，传参还可用 -classpath 或 --class-path
 ```
+如果没有设置环境变量，也没有传参，那么默认 `classpath` 为 `.` (即当前目录)。在 IDE 中运行 Java 程序，IDE 会根据项目设置自动传入正确的 `-cp` 参数。
 
-### 导包
+另外，网上说的要把 JVM 自带的 _rt.jar_ (包含 `String` `ArrayList` 等核心类) 放入 `classpath` 的说法是不对的，完全多余。
 
-不同包之间要进行互相访问，就需要先导入包。
+### JAR 包
 
-`import` 语句必须位于类定义之前，`package` 语句之后，出现在其他位置编译报错。
+交付项目时，如果我们直接将编译后的目录发给客户，肯定不合适，将目录打个 zip 包，变成一个文件就方便多了。_.jar_ 文件就是这么一个文件，我们可以手动打 zip 包，然后将后缀 _.zip_ 改成 _.jar_ 就完成 JAR 包制作了。
 
-```java
-import java.io.*;  // 载入 java_installation/java/io 路径下的所有类
-```
+JAR 包还可以包含一个特殊的 _META-INF/MANIFEST.MF_ 纯文本文件，可以指定 `Main-Class` 等信息。JVM 会自动读取这个文件，如果存在 `Main-Class`，启动时就无需手动指定主类了。
 
-#### `public class` 与 `class` 的区别
+JAR 包还可以包含其他 JAR 包，这时就要在 _META-INF/MANIFEST.MF_ 里配置 `classpath` 信息。
 
-* `public class` 类名必须与文件名一致，*一个 java 文件中只能存在一个公共类*
-* `class` 类名可以跟文件名不一致，一个 java 文件中可以存在多个普通类
-
-如果一个类需要被不同的包访问，那么一定要使用 `public class` 定义。
-
-实际项目中，绝大多数情况下都只会在一个 java 文件中定义一个类，并且类的声明绝大多数使用的是 `public class` 完成的。
-
-#### 导包时通配符的使用 `*`
-
-使用 `import com.demo.util.*` 可以一次性导入 util 下的所有类，比逐个导入方便。相应地涉及到2个问题：
-
-* 性能问题，其实使用 `包.*` 和 `包.类` 的性能是一样的，使用 `包.*` 时也只加载所需要的类
-* 重名问题，如果导入的包中存在同名类，在使用时必须采用 `com.demo.util.Message` 这样使用类的完整名称了
-
-### 系统常见包
-
-|||
-|-------------------|----------------------|
-| java.lang         | 最基本的包，像 String 这样的包就保存在此包中，无需手动导入
-| java.lang.reflect | 反射机制的包，是 java.lang 的子包
-| java.util         | 工具包，一些常用的类库、日期操作等都在此包中
-| java.text         | 提供了一些文本的处理类库
-| java.sql          | 数据库操作包，提供了各种数据库操作的类和接口
-| java.net          | 完成网络编程
-| java.io           | 输入、输出及文件处理操作
-| java.awt          | 抽象窗口工具包 Abstract Window ToolKit，构建和管理应用程序的图形用户界面 GUI
-| javax.swing       | 在 awt 基础上开发的新的界面工具包，性能较直接使用 awt 差，但使用更加方便
-| java.applet       | 已经淘汰，目前会使用 HTML5 的 Canvas 技术来实现原 Applet 小程序的功能
-
-### jar 命令
-
-在任何一个项目里一定会存在大量的 *.class 文件，交付用户之前需要进行打包压缩，用户最终拿到的是 Java 归档 (Java Archive) 文件 *.jar 。
+当然，在实际项目中我们不可能手动编写 _META-INF/MANIFEST.MF_ 文件，也不可能手动打包，构建工具可以帮我们搞定。
 
 ```bash
-$ jar -cvf demo.jar com           # -c 创建新文件 -v 生产标准的压缩信息 -f 指定jar文件名
-$ set classpath=.;./demo.jar
-$ java com.demo.test.TestMessage  # 先删除 com.demo.util 下内容再运行此命令正常工作
+jar -cvf hello.jar pkg1 pkg2   # -c 创建新文件 -v 生产标准的压缩信息 -f 指定jar文件名
+java -cp hello.jar pkg1.Hello  # 运行 hello.jar 里的 pkg1/Hello.class 类
+
+Java -jar hello.jar  # 如果包里的 META-INF/MANIFEST.MF 指定了主类就可以这样直接启动
 ```
 
-### 访问控制权限
 
-| 修饰符    | 当前类 | 同一包内 | 子孙类 | 其他包 |
-|-----------|:------:|:--------:|:------:|:------:|
-| public    |    Y   |     Y    |    Y   |    Y   |
-| protected |    Y   |     Y    |    Y   |    N   |
-| default   |    Y   |     Y    |    N   |    N   |
-| private   |    Y   |     N    |    N   |    N   |
+## 模块
 
-实际开发中
-  * 属性声明主要使用 `private` 权限
-  * 方法声明主要使用 `public` 权限，偶尔使用 `protected`
-  * 几乎不会用到 `default` 权限
+Java 9 引入了模块(Module)。
 
-### 命名规范
+https://www.liaoxuefeng.com/wiki/1252599548343744/1281795926523938
 
-
-### 单例设计模式
-
-```java
-class Singleton {
-  private static Singleton instance = new Singleton();  // 静态属性，供静态方法 getInstance() 调用
-  private Singleton() {}                                // 构造方法私有化，禁止外部直接实例化对象
-  public void print() {
-    System.out.println("Hello");
-  }
-  public static Singleton getInstance() {                // 通过静态方法获取本类单例对象
-    return instance;
-  }
-}
-```
-
-#### 多例设计模式
-
-单例设计模式只留下一个类的一个实例化对象，而多例设计模式会定义出多个对象。
-
-```java
-class Person {
-  private String gender;
-  private static final Person MALE = new Person("man");
-  private static final Person FEMALE = new Person("woman");
-  private Person(String gender) {
-    this.gender = gender;
-  }
-  public String toString() {
-    return this.gender;
-  }
-  public static Sex getInstance(String gender) {
-    switch (gender) {
-      case "man": return MALE;
-      case "woman": return FEMALE;
-      default: return null;
-    }
-  }
-}
-```
-
-### 源文件声明规则
-
-当在一个源文件中定义多个类，并且还有 `import` 语句和 `package` 语句时，要特别注意这些规则。
-  * 一个源文件中只能有一个 public 类 (public 的类名必须跟文件名一致，所以不可能有两个)
-  * 一个源文件可以有多个非 public 类
-  * 源文件的名称应该和 public 类的类名保持一致。
-  * 如果一个类定义在某个包中，那么 `package` 语句应该在源文件的首行。
-  * 如果源文件包含 `import` 语句，那么应该放在 `package` 语句（如果存在 package 语句）和类定义之间。
-  * `import` 语句和 `package` 语句对源文件中定义的所有类都有效。在同一源文件中，不能给不同的类不同的包声明。
 

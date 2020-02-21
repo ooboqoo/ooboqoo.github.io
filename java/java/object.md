@@ -1,6 +1,6 @@
 # 面向对象
 
-Java 作为一种面向对象语言。支持以下基本概念：多态、继承、封装、抽象、类、对象、实例、方法、重载，本节重点讲对象和类。
+Java 作为一种面向对象语言。支持以下基本概念：封装、抽象继承、多态、类、对象、实例、方法、重载，本节重点讲对象和类。
 
 一个 Java 程序可以认为是一系列对象的集合，这些对象通过调用彼此的方法来协同工作。
 
@@ -14,8 +14,8 @@ Java 作为一种面向对象语言。支持以下基本概念：多态、继承
 面向对象的程序设计有封装性、继承性、多态性 3个主要特性。
   * 封装性  
     它包含两层含义：
-      - 将对象的属性和行为看成一个密不可分的整体
-      - 把不需要让外界知道的信息隐藏起来
+    - 将对象的属性和行为看成一个密不可分的整体
+    - 把不需要让外界知道的信息隐藏起来
   * 继承性  
     继承机制大大增强了代码的可复用性，提高了软件的开发效率，降低了错误产生的可能性，也为修改程序提供了便利。  
     被继承的类称为父类或超类，而经继承产生的类称为子类或派生类
@@ -42,11 +42,29 @@ Java 作为一种面向对象语言。支持以下基本概念：多态、继承
   * `public class` 定义：类名称必须和文件名称保持一致，否则程序无法编译。一个 .java 文件只能有一个 public calss
   * `class` 定义：类名称可以和文件名不一致，但是生成的 class 文件的名称同类名。一个 .java 文件可以存在多个 calss 定义，编译后会生成多个 class 文件。
 
+class 是一种对象模版，它定义了如何创建实例，因此，class 本身就是一种数据类型：
+
 类中的属性在 Java 中称为 成员(Field)，而方法在 Java 中使用 Method 来描述。
+
+一个class可以包含多个字段（field），字段用来描述一个类的特征。上面的Person类，我们定义了两个字段，一个是String类型的字段，命名为name，一个是int类型的字段，命名为age。因此，通过class，把一组数据汇集到一个对象上，实现了数据封装。
+
+
+在OOP中，class和instance是“模版”和“实例”的关系；
+
+定义class就是定义了一种数据类型，对应的instance是这种数据类型的实例；
+
+class定义的field，在每个instance都会拥有各自的field，且互不干扰；
+
+通过new操作符创建新的instance，然后用变量指向它，即可通过变量来引用这个instance；
+
+访问实例字段的方法是变量名.字段名；
+
+指向instance的变量都是引用变量。
+
 
 ```java
 class 类名称 {
-  数据类型 属性(变量);
+  数据类型 属性;  // 变量
   public 返回值的数据类型 方法名称(参数1, 参数2) {
     程序语句;
     return 表达式;
@@ -96,9 +114,40 @@ public class Dog {
 
 > **Java 的垃圾回收机制**
 
-### 封装最佳实践
+### 封装特性
+
+
+但是，直接把field用public暴露给外部可能会破坏封装性。比如，代码可以这样写：
+
+显然，直接操作field，容易造成逻辑混乱。为了避免外部代码直接去访问field，我们可以用private修饰field，拒绝外部访问：
 
 所有在类中定义的属性都要求使用 `private` 声明，如果属性要被外部所使用，那么按照要求定义相应的 setter getter 方法。
+
+```java
+class Person {
+  private String name;
+  private int age;
+
+  public String getName() {
+    return this.name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public int getAge() {
+    return this.age;
+  }
+
+  public void setAge(int age) {
+    if (age < 0 || age > 100) {
+      throw new IllegalArgumentException("invalid age value");
+    }
+    this.age = age;
+  }
+}
+```
 
 ### 构造方法
 
@@ -133,6 +182,22 @@ public class Puppy {
   2. 通过 new 关键字开辟一块堆内存，(根据对象属性的数据类型)分配地址
   3. 调用构造方法对属性进行初始化，如有父类，构造函数中第一行会先调用父类中的构造函数。
   4. 初始化完毕后，将堆内存中的地址值赋给引用变量。
+
+### 继承
+
+在OOP的术语中，我们把Person称为超类（super class），父类（parent class），基类（base class），把Student称为子类（subclass），扩展类（extended class）。
+
+继承树
+注意到我们在定义Person的时候，没有写extends。在Java中，没有明确写extends的类，编译器会自动加上extends Object。所以，任何类，除了Object，都会继承自某个类。下图是Person、Student的继承树：
+
+Java只允许一个class继承自一个类，因此，一个类有且仅有一个父类。只有Object特殊，它没有父类。
+
+行上面的代码，会得到一个编译错误，大意是在Student的构造方法中，无法调用Person的构造方法。
+
+这是因为在Java中，任何class的构造方法，第一行语句必须是调用父类的构造方法。如果没有明确地调用父类的构造方法，编译器会帮我们自动加一句super();，所以，Student类的构造方法实际上是这样：
+
+这里还顺带引出了另一个问题：即子类不会继承任何父类的构造方法。子类默认的构造方法是编译器自动生成的，不是继承的。
+
 
 ### 匿名对象
 
@@ -355,6 +420,33 @@ class Book {
 
 
 ## `static` 关键字
+
+在一个class中定义的字段，我们称之为实例字段。实例字段的特点是，每个实例都有独立的字段，各个实例的同名字段互不影响。
+
+还有一种字段，是用static修饰的字段，称为静态字段：static field。
+
+实例字段在每个实例中都有自己的一个独立“空间”，但是静态字段只有一个共享“空间”，所有实例都会共享该字段。
+
+
+通过实例变量也可以调用静态方法，但这只是编译器自动帮我们把实例改写成类名而已。
+
+通常情况下，通过实例变量访问静态字段和静态方法，会得到一个编译警告。
+
+接口的静态字段
+因为interface是一个纯抽象类，所以它不能定义实例字段。但是，interface是可以有静态字段的，并且静态字段必须为final类型：
+
+public interface Person {
+    public static final int MALE = 1;
+    public static final int FEMALE = 2;
+}
+实际上，因为interface的字段只能是public static final类型，所以我们可以把这些修饰符都去掉，上述代码可以简写为：
+
+public interface Person {
+    // 编译器会自动加上public statc final:
+    int MALE = 1;
+    int FEMALE = 2;
+}
+编译器会自动把该字段变为public static final类型。
 
 ### 定义属性
 

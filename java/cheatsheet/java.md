@@ -39,6 +39,23 @@ https://docs.oracle.com/javase/8/docs/api/
 保留字 const goto
 ```
 
+### 系统常见包
+
+|||
+------------------|-----------------------------------------------------------------------
+java.lang         | 最基本的包，像 String 这样的包就保存在此包中，无需手动导入
+java.lang.reflect | 反射机制的包，是 java.lang 的子包
+java.util         | 工具包，一些常用的类库、日期操作等都在此包中
+java.text         | 提供了一些文本的处理类库
+java.io           | 输入、输出及文件处理操作
+java.net          | 完成网络编程
+java.sql          | 数据库操作包，提供了各种数据库操作的类和接口
+|||
+java.awt          | 抽象窗口工具包 Abstract Window ToolKit，构建和管理应用程序的图形用户界面 GUI
+javax.swing       | 在 awt 基础上开发的新的界面工具包，性能较直接使用 awt 差，但使用更加方便
+java.applet       | 已经淘汰，目前会使用 HTML5 的 Canvas 技术来实现原 Applet 小程序的功能
+
+
 
 ## java.lang
 
@@ -61,7 +78,6 @@ public final void wait(long timeout, int nanos) throws InterruptedException { }
 protected Object clone() throws CloneNotSupportedException { }
 protected void finalize() throws Throwable { }
 ```
-
 
 ### java.lang.Class
 
@@ -125,8 +141,6 @@ public final String toString() { }
 ```
 
 ### java.lang.String
-
-
 
 ```java
 public final class String implements java.io.Serializable, Comparable<String>, CharSequence { }
@@ -334,6 +348,7 @@ public void set(Object obj, Object value) throws IllegalArgumentException, Illeg
 ```
 
 
+
 ## java.util
 
 ### java.util.Random
@@ -507,9 +522,22 @@ public static final ResourceBundle getBundle(String baseName, Locale locale) { }
 public final String getString(String key) { return (String) getObject(key); }
 ```
 
-### java.util.Collection & Map & Stack & Stream
+### java.util.Collection
 
 见集合笔记
+
+### java.util.Map
+
+见集合笔记
+
+### java.util.Stack
+
+见集合笔记
+
+### java.util.stream
+
+见集合笔记
+
 
 
 ## java.text
@@ -545,6 +573,7 @@ public Object[] parse(String source) throws ParseException { }
 ```java
 java.text.MessageFormat.format("params = {0}", 12)  // "params = 12"
 ```
+
 
 
 ## java.io
@@ -797,6 +826,7 @@ Object obj = ois.readObject();
 Date d = (Date) obj;  // 强制向下转型存在隐患，最好利用反射机制来进行操作
 ois.close();
 ```
+
 
 
 ## java.net

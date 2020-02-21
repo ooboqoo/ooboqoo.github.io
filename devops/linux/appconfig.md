@@ -276,6 +276,8 @@ $ systemctl status v2ray
 
 #### 开启 BBR 加速
 
+这个 [脚本](https://github.com/chiakge/Linux-NetSpeed) 支持一键安装 BBRplus，效果比 BBR 强不少。注意：在安装过程中出现的替换警告弹窗要选 "No"。
+
 ```bash
 # 检查内核是否已开启 BBR
 $ sysctl net.ipv4.tcp_available_congestion_control
@@ -324,6 +326,67 @@ Windows https://github.com/2dust/v2rayN/releases
 Android https://github.com/2dust/v2rayNG/releases  
 macOS https://github.com/yanue/V2rayU/releases  
 iOS 需要到美区购买下载 shadowrocket、kitsunebi 之类应用
+
+### WebSocket + TLS
+
+https://toutyrater.github.io/advanced/wss_and_web.html
+
+当下科学上网的方式无非两种，一种是加密流量，一种是伪装流量。SS 和 V2Ray 的 VMess 都用的加密模式。加密模式将网络流浪加密封装成没有任何特征的数据包。墙的角度看，你的流量就是未知的流量，虽然墙不知道你里面的内容是什么，但没有特征是最大的特征，它可以通过判断数据量的大小，根据时政需要进行阻断干扰。而另一种就是伪装流量，就是全部伪装成正常的 HTTPS 流量，互联网上普通的 HTTPS 流量是海量的，它想要从正常的海量数据中区分出伪装流量是有很大难度的，它更不会贸然地去阻断你。
+
+_/etc/v2ray/config.json_
+
+```json
+{
+  "inbounds": [{
+    "port": 10099,
+    "protocol": "vmess",
+    // 就改下这里就好
+    "streamSettings": {
+      "network": "ws",
+      "wsSettings": {
+        "path": "/socket"
+      }
+    },
+    "settings": {
+      "clients": []
+    }
+  }]
+}
+```
+
+_/etc/nginx/nginx.conf_
+
+```
+http {
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+  }
+  server {
+    listen 443 ssl;
+    server_name s1.ngapps.cn;
+    # 证书配置参考 Nginx 笔记
+    ssl_certificate      /etc/letsencrypt/live/s1.ngapps.cn/fullchain.pem;
+    ssl_certificate_key  /etc/letsencrypt/live/s1.ngapps.cn/privkey.pem;
+
+    # 将流量代理到 v2ray
+    location /socket {
+      if ($http_upgrade != "websocket") {
+        return 404;
+      }
+      proxy_redirect off;
+      proxy_pass http://127.0.0.1:10099;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection $connection_upgrade;
+      proxy_set_header Host $host;
+      # Show real IP in v2ray access.log
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+  }
+}
+```
 
 ### 相关文章
 
