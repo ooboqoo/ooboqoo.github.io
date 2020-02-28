@@ -40,7 +40,7 @@ Preferences > Display > Resolution 选择合适的缩放选项即可。
 
 ##### 微软雅黑
 
-1. 复制 C:\Windows\System\Fonts\msyh.ttf 字体文件到 macOS 下并双击安装字体
+1. 复制 C:\Windows\Fonts\msyh.ttf 字体文件到 macOS 下并双击安装字体
 2. 使用 TinkerTool 修改系统字体，或在应用中设置字体
 
 

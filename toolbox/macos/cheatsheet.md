@@ -110,6 +110,8 @@ cmd+,         | 打开当前应用的偏好设置
 ---------|----------------------------------
 剪切     | 使用 cmd+C 再 opt+cmd+V 来实现剪切<br>在菜单栏 Edit 展开时按下 opt 键再选择 Move Iterm Here
 立即删除  | opt+cmd+backspace
+显示隐藏文件/恢复隐藏 | shift+cmd+.
+前往文件夹 | shift+cmd+g
 
 ### Safari
 

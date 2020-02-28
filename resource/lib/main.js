@@ -401,7 +401,7 @@ function isMobile() {
     const img = event.target
     template.innerHTML = `
       <div style="display: flex; position: fixed; top: 0; left: 0; z-index: 999; overflow: auto;
-                  width: 100vw; height: 100vh; background: rgba(0,0,0,.5)">
+                  width: 100vw; height: 100vh; background: rgba(0,0,0,.75)">
         <img src=${img.src} style="margin: auto;">
       </div>`
     fragment.querySelector('img').addEventListener('dblclick', e => {

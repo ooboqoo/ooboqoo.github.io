@@ -59,19 +59,39 @@ $ brew doctor
 $ brew install google-chrome visual-studio-code
 ```
 
-#### brew update 慢
+#### 设置代理
 
-可使用使用国内镜像源，或者走代理
+解决 Homebrew 网络太慢的问题，可使用使用国内镜像源，或者走代理。
 
 ```bash
-$ echo proxy=socks5://127.0.0.1:1086 >> ~/.curlrc
+# 解决安装 Homebrew 慢、`brew update` 慢的问题
+$ echo proxy=socks5://127.0.0.1:1080 >> ~/.curlrc
+
+# 解决安装软件时下载慢的问题，如装 icu4c 时下载奇慢，设置这个后下载就飞起
+$ echo export ALL_PROXY=\"socks5://127.0.0.1:1080\" >> ~/.zshrc
 ```
 
+#### 换源
 
+```bash
+$ cd $(brew --repo)
+$ git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+
+$ cd $(brew --repo)/Library/Taps/homebrew/homebrew-core
+$ git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+
+$ cd $(brew --repo)/Library/Taps/homebrew/homebrew-cask
+$ git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
+```
 
 ### Node.js
 
 可以通过 brew 来安装，也可以直接从官网下载安装包安装。
+
+```bash
+# 在安装的多个版本之间切换，如果不知道安装了那几个版本，可以随便写一个版本号，然后报错时会列出已安装版本信息
+$ brew unlink node && brew switch node <version>
+```
 
 ### Python
 
