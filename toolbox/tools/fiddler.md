@@ -1,4 +1,4 @@
-# Fiddler &amp; Charles & NProxy
+# Fiddler & Charles & NProxy
 
 http://www.jianshu.com/p/99b6b4cd273c
 
@@ -29,32 +29,29 @@ https://www.gitbook.com/book/t0data/burpsuite/details
 Burp Suite 一款集成型的渗透测试工具，是可以用于攻击 web 应用程序的集成平台。它包含了许多工具，并为这些工具设计了许多接口，以促进加快攻击应用程序的过程。所有的工具都共享一个能处理并显示 HTTP 消息，持久性，认证，代理，日志，警报的一个强大的可扩展的框架。
 
 
-## 配置
+## Fiddler
 
-### Decrypt HTTPS
+### 配置
 
 http://docs.telerik.com/fiddler/Configure-Fiddler/Tasks/DecryptHTTPS
 
 Tools > Fiddler Options > HTTPS > [√] Capture HTTPS CONNECTs > [√] Decrypt HTTPS Traffic
 
-
-## 常见用法
-
 ### Filters
 
-#### 示例：只监控本地请求
+示例：只监控本地请求
 
 选中 "Use Filters" 并设置 "Hosts" 组内容为 "Show only the following Hosts" "127.0.0.1"
 
 ### AutoResponder
 
-#### 示例：拦截并修改 css 文件
+示例：拦截并修改 css 文件
 
-勾选 "Enable rules" 和 "Unmatched requests passthrough" 并添加 "EXACT:http://127.0.0.1/resource/lib/main.css" "*bpu"
+勾选 "Enable rules" 和 "Unmatched requests passthrough" 并添加 "EXACT:http://127.0.0.1/main.css" "*bpu"
 
-刷新网页，然后切到 "Inspectors" 标签页，点击 "Break on Response" 再点 "TextView" 修改内容，最后点 "Run to Completion"
+刷新网页，然后切到 "Inspectors" 标签页，点 "Break on Response" 再点 "TextView" 修改内容，最后点 "Run to Completion"
 
-## 断点调试
+### 断点调试
 
 http://www.telerik.com/blogs/breakpoints-in-fiddler
 
@@ -75,6 +72,11 @@ http://www.telerik.com/blogs/breakpoints-in-fiddler
 方式 #5 是最强大的，Simply add code to the OnBeforeRequest, OnPeekAtResponseHeaders, or OnBeforeResponse events to set the X-BreakRequest or X-BreakResponse flags on the Session objects that match your target criteria.
 
 
-## 移动端抓包
+### 移动端抓包
 
+
+
+## Charles
+
+注册 https://charles.ren/
 

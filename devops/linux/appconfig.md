@@ -252,7 +252,7 @@ $ systemctl status v2ray
 {
   "log": {
     "loglevel": "warning",
-    "access": "/var/log/v2ray/access.log",  // 这项最好不要配，占用磁盘空间+有暴露访问记录风险
+    "access": "none",  // 这项最好不要配，占用磁盘空间+有暴露访问记录风险
     "error": "/var/log/v2ray/error.log"
   },
   "inbounds": [{
@@ -265,11 +265,14 @@ $ systemctl status v2ray
       "clients": [
         {
           "id": "bcfb353f-57ad-4478-8c86-101fa56a1e1c",
-          "level": 1,
-          "alterId": 128  // 使用的 alterID 数量（越大越不容易被识别，但消耗越大）
+          "alterId": 4  // 使用的 alterID 数量
         }
       ]
     }
+  }],
+  "outbounds": [{
+    "protocol": "freedom",
+    "settings": {}
   }]
 }
 ```
@@ -394,3 +397,5 @@ IP 被墙检测及解决办法(SSR中文网) https://ssr.tools/772
 SSR 项目介绍 http://www.ttlsa.com/news/popular-science-about-shadowsocks/
 
 候选供应商(要是封杀厉害就买现成的) https://justmysocks.net/  
+
+伪装设置完整度检测 https://whoer.net/

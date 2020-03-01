@@ -263,9 +263,13 @@ https://vim.fandom.com/wiki/Search_and_replace
 
 ## 配置
 
+https://github.com/amix/vimrc
+
 _/etc/vimrc_ 或 _~/.vimrc_
 
 ```txt
+source $VIMRUNTIME/defaults.vim    " 解决碰到的问题：有的版本在添加此配置文件后原有高亮等都没了
+
 set t_Co=256        " 256 color support
 set tabstop=4       " The width of a TAB is set to 4. Still it is a \t.
 
@@ -273,9 +277,9 @@ set expandtab       " Expand TABs to spaces
 set shiftwidth=2    " Indents will have a width of 2
 set softtabstop=2   " Sets the number of columns for a TAB
 
-set list            " Display invisible characters    unset `:set nolist`
-set listchars=tab:\|-,trail:~,extends:>,precedes:<  " :help listchars - for details
-hi SpecialKey ctermfg=7  " :help hi - for details of highlight
+set list            " Display invisible characters, unset `:set nolist`
+set listchars=tab:\|-,trail:~,extends:>,precedes:<  " :help listchars
+hi SpecialKey ctermfg=7                             " :help hi
 ```
 
 `"` 此文件中的双引号为注释符号，set 前面 `:` 有没有都一样，一般都不加。 
