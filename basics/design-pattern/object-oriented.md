@@ -1,4 +1,4 @@
-# 设计原则和思想：面向对象
+# 面向对象
 
 <style>.comment { width: fit-content; border-bottom: 1px solid #ccc; font-size: 1.5rem; color: #999; }</style>
 
