@@ -85,11 +85,16 @@ cmd+tab | Alt+Tab | 切换应用
 
 ||||
 ----------|--------|-------
-ctrl+a    | Home   | `opt+left` 按词左跳  `cmd+Left` 跳到行首(非空格处)
-ctrl+e    | End    | `opt+right` 按词右跳  `cmd+right` 跳到行尾
-ctrl+b    | Left   | 左移一个字符 back
-ctrl+f    | Right  | 右移一个字符 forth
-fn+delete | Delete | 
+ctrl+A    | Home   | `opt+left` 按词左跳  `cmd+Left` 跳到行首(非空格处)
+ctrl+E    | End    | `opt+right` 按词右跳  `cmd+right` 跳到行尾
+ctrl+B    | Left   | 左移一个字符 back
+ctrl+F    | Right  | 右移一个字符 forth
+ctrl+P    |        | 上移
+ctrl+N    |        | 下移
+fn+delete | Delete | 向前删除
+ctrl+K    |        | 删除到行尾
+
+`ctrl+A` `ctrl+E` `ctrl+K` 在终端操作中非常有用。
 
 其他重要功能快捷键
 

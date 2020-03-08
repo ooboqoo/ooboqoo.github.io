@@ -1,5 +1,6 @@
 # 使用点滴
 
+
 ## 系统设置
 
 ##### Disable Dashboard on Mac
@@ -43,7 +44,24 @@ Preferences > Display > Resolution 选择合适的缩放选项即可。
 1. 复制 C:\Windows\Fonts\msyh.ttf 字体文件到 macOS 下并双击安装字体
 2. 使用 TinkerTool 修改系统字体，或在应用中设置字体
 
+##### Magic Mouse 2 鼠标灵敏度
 
+```bash
+$ defaults read -g com.apple.mouse.scaling     # 查看当前灵敏度设置
+$ defaults write -g com.apple.mouse.scaling 5  # 设置灵敏度，取值范围 1-7
+```
+
+##### 整理顶部菜单栏图标
+
+按住 `cmd` 按键然后用鼠标拖动即可调整顺序。
+
+
+
+## 系统增强
+
+### Alfred
+
+增强版的 Spotlight，含免费功能和付费高级功能。免费功能里的网络搜索功能还不错。
 
 
 

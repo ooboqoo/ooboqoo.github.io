@@ -1,5 +1,6 @@
 # Linux 基本命令
 
+
 ## 文件管理
 
 #### `ls` 列出当前目录文件
@@ -59,7 +60,7 @@ concatenate 把...连在一起，扩展命令 tac 则是最后一行到第一行
 
 应该说是 linux 正统查看文件内容的工具，功能极其强大。less 的用法比起 more 更加的有弹性。
 
-#### cat, tac, nl, more, less, head, tail, od
+#### 查看文件 `cat` `tac` `nl` `more` `less` `head` `tail` `od`
 
 `nl` 显示带行号  
 `head` 只看头几行  
@@ -72,7 +73,7 @@ concatenate 把...连在一起，扩展命令 tac 则是最后一行到第一行
 
 `find ./ -type f -name "*.log"` 查找当前目录，以 .log 结尾的普通文件。`-type f -name "*.log"` 属于 expression 部分
 
-#### find, locate, whereis, which
+#### 查找命令 `which` `whereis` `locate` `find`
 
 `which` 使用的是哪个位置的命令  
 `whereis` 查命令和手册  
@@ -84,6 +85,7 @@ concatenate 把...连在一起，扩展命令 tac 则是最后一行到第一行
 我们可以将连结视为档案的别名，连结分两种: 硬连结 hard link 与软连结 symbolic link。
 
 `ln –s TARGET LINK_NAME` 建立一个到 TARGET 的连接
+
 
 
 ## 文件权限
@@ -109,13 +111,15 @@ $ chmod u=rwx,g+w,o-w file1 file2  # 符号类型改变文件的权限可以采�
 
 权限与数字对应关系 r: 4 w: 2 x: 1 -: 0
 
-#### 目录 x 权限的说明
+#### 目录的 `x` 权限说明
 
-开放目录 r 权限，只能读取目录结构列表而无法读取目录下具体文件，需开放 x 权限，他人才能读取目录下文件。
+开放目录 `r` 权限，只能读取目录结构列表而无法读取目录下具体文件，需开放 `x` 权限，他人才能读取目录下文件。
+
+
 
 ## 用户管理
 
-#### /etc/passwd /etc/shadow
+#### /etc/passwd, /etc/shadow
 
 /etc/passwd 存储用户账号，实际用户密码在 /etc/shadow
 
@@ -128,7 +132,7 @@ root    :x     :0  :0  :root    :/root   :/bin/bash
 账号名称:实际密码:最近更改日期:不可更改天数:需重设天数:警告天数:宽限天数:失效日期:保留
 ```
 
-#### /etc/group /etc/gshadow
+#### /etc/group, /etc/gshadow
 
 /etc/group 存储组账号，实际账号密码在 /etc/gshadow
 
@@ -177,6 +181,7 @@ $ groupadd [-g gid][-r]  # -g 直接指定用户组；-r 新建系统用户组
 #### groupdel 删除用户组
 
 
+
 ## 进程管理 17章
 
 ||
@@ -191,21 +196,24 @@ $ groupadd [-g gid][-r]  # -g 直接指定用户组；-r 新建系统用户组
 `top`          | linux下的任务管理器 h 帮助 q 退出 k+PID 结束进程 table of process
 
 
+
 ## 磁盘管理
 
 #### `df -h` 显示已经挂载的分区列表
 
-df -- display free disk space
+`df` -- display free disk space
   * `-h` 以人类易读的格式展现 K M G
   * `-T` 打印磁盘格式
 
 #### `du -hd1 /home` 统计目录下文件磁盘占用
 
-du -- display disk usage statistics 递归列出某个目录下的所有文件的空间占用
+`du` -- display disk usage statistics 递归列出某个目录下的所有文件的空间占用
   * `-h` 以人类易读的格式展现 K M G
   * `-d{N} --max-depth=N` 指定递归显示的最大层级 N
 
-## CentOS 安装配置中的其他命令
+
+
+## 其他命令
 
 ```
 $ less /proc/cpuinfo  # 查看 CPU 信息，通过伪文件系统提供了一种与进程 process 沟通的机制
@@ -215,39 +223,4 @@ $ ip addr  # 查看 IP 信息，原先的 ifcongfig 将废弃
 $ top      # linux下的任务管理器 h 帮助 q 退出 k+PID 结束进程 table of process
 ```
 
-## `grep` 文本过滤
 
-`grep` global regular expression print，根据字符匹配来查看文件部分内容。
-
-```bash
-$ grep [OPTION]... PATTERN [FILE]...  # -n 显示行号 -i 忽略大小写
-
-$ grep -in "license" GPL-3  # 在 GPL-3 文件中查找并输出 license 所在行，大小写不敏感，显示带行号。
-$ grep 'test' d*            # 显示所有以 d 开头的文件中包含 test 的行
-$ grep 'test' aa bb cc      # 显示在 aa bb cc 文件中包含 test 的行
-$ grep '[a-z]\{5\}' aa      # 显示所有包含字符串至少有5个连续小写字母的串
-```
-
-文本处理3大命令：gerp 查找, sed 编辑, awk 根据内容分析并处理. http://www.jb51.net/article/54961.htm
-
-* `grep` - 文本过滤器，如果仅仅是过滤文本，使用 grep 效率要比其他的高很多
-* `sed` - Stream EDitor，流编辑器，默认只处理模式空间不处理原数据，如果数据是针对行进行处理的，可以使用 sed
-* `awk` - 报告生成器，格式化后再显示。如果处理的数据需要生成报告之类的信息，或者数据是按列进行处理的，最好用 awk
-
-AWK 是一种处理文本文件的语言，是一个强大的文本分析工具。AWK 由三位创始人的 Family Name 的首字符组成。
-
-## `less` `man` 操作
-
-man 调用的 less，所以操作都一样的。
-
-| | |
-|:-----------:|:----------------------------------------------------
-| `d`         | 下翻半页 down
-| `u`         | 上翻半页 up
-| `/text`     | 在文档中查找 text 按 n 跳到下一个，shift+n 上一个
-| `q`         | 退出
-| `gg` / `1G` | 跳到文章开头
-| `G`         | 跳到文章末尾
-| `h`         | 帮助
-
-> Bash 内部命令的帮助用 `help` 查询，外部命令用 `man` manual 查询，使用 `--help` 选项也可以获得信息，但相对简单些。
