@@ -17,8 +17,7 @@ VS Code + Go 扩展。
 
 ```bash
 # 先将 SS 设为全局代理，然后
-$ set http_proxy=127.0.0.1:1080   # Unix 用 export
-$ set https_proxy=127.0.0.1:1080  # Unix 用 export
+$ set http_proxy=127.0.0.1:1080   # Linux 用 export
 $ go get -u -v github.com/ramya-rao-a/go-outline
 $ go get -u -v <其他分析工具>
 ```

@@ -7,9 +7,9 @@ npm                                       | Yarn
  (N/A)                                    | `yarn install --no-lockfile`
  (N/A)                                    | `yarn install --pure-lockfile`
  ||
-`npm install [package]`                   | `yarn add [package]`
-`npm install --save-dev [package]`        | `yarn add [package] [--dev/-D]`
- (N/A)                                    | `yarn add [package] [--peer/-P]`
+`npm install [package]`                   | `yarn add [package / package@version / package@tag]`
+`npm install --save-dev [package]`        | `yarn add [package] [--dev / -D]`
+ (N/A)                                    | `yarn add [package] [--peer / -P]`
 `npm install --save-optional [package]`   | `yarn add [package] [--optional/-O]`
 `npm install --save-exact [package]`      | `yarn add [package] [--exact/-E]`
  (N/A)                                    | `yarn add [package] [--tilde/-T]`
@@ -30,6 +30,9 @@ npm                                       | Yarn
 `npm cache clean`                         | `yarn cache clean`
 ||
 `npx <package>`                           | `yarn <package>`
+
+注：`yarn script-name` 相当于 `yarn run script-name`，`yarn` 相当于 `yarn install`
+
 
 
 ## NPM
@@ -84,6 +87,9 @@ $ npm config delete proxy  # 删除代理，恢复直连模式
 $ npm home vue    # 打开项目主页
 $ npm repo react  # 打开项目代码仓库
 $ npm bugs react  # 打开项目 Issues 页
+
+# CI 常用
+$ npm ci    # 5.7提供，CI 中一般使用 `npm ci` 来替代 `npm install`
 ```
 
 ### `npm install` 详解
@@ -95,6 +101,7 @@ $ npm bugs react  # 打开项目 Issues 页
 如果已经安装了 1.1.1，且带 `^` 依赖，如果有 1.1.2，`npm i` 时并不会更新
 
 手动 `npm i <pkg>@<tag>` 时，即使使用过 `npm publish -f` 覆盖版本内容，也会重新安装
+
 
 
 ## Yarn
@@ -110,6 +117,7 @@ $ yarn create react-app my-app --typescript
 $ yarn global add create-react-app
 $ create-react-app my-app --typescript
 ```
+
 
 
 ## 版本规范
@@ -202,6 +210,7 @@ https://docs.npmjs.com/files/package.json
 这些警告是很关键的保护措施，以避免因为版本不匹配而导致的意外错误。它们让我们可以控制包和版本的解析过程。我们的责任是，把所有 平级依赖 包都列在我们自己的 devDependencies 中。
 
 
+
 ## Yarn
 
 ```bash
@@ -239,6 +248,7 @@ $ brew upgrade yarn
 ```
 
 推荐下载安装包安装，据说会自动设置 Path。我 `npm install yarn` 后费好大劲才找到 global 地址 `%USERPROFILE%\AppData\Local\Yarn\config\global\node_modules\.bin` 然后还得手动去设置 `PATH` 变量(设置完不用重启系统，重启终端即可)。
+
 
 
 ## npm 发包指南
@@ -317,6 +327,7 @@ $ npm deprecate <pkgname>  # 更好的一个做法，是声明遗弃
   ]
 }
 ```
+
 
 
 ## npm 私有仓库搭建

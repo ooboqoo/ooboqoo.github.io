@@ -19,6 +19,14 @@ $ w       # display who is logged in and what they are doing
 $ netstat 
 ```
 
+查询 URL 对应 IP
+
+```bash
+$ host goolge.com
+$ ping baidu.com
+$ nslookup google.com
+```
+
 
 ## 单行脚本
 

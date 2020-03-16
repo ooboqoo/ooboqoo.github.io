@@ -170,8 +170,8 @@ clink.prompt.register_filter(set_prompt_filter, 1)
 ### 终端访问外网走代理
 
 ```bash
-$ set http_proxy=http://127.0.0.1:1080   # bash 的 export 无效，所以用 set
-$ set https_proxy=http://127.0.0.1:1080  # http 和 https 需要分别设置
+$ set http_proxy=http://127.0.0.1:1080   # bash 下用 export，Win 下用 set
+$ set https_proxy=http://127.0.0.1:1080  # http_proxy 不来的话再试下 https_proxy ALL_PROXY
   # 走 ss 代理，此命令只对当前终端有效，且关闭后即失效。
   # 如果希望避免每次都输入，可以在 cmder “Settings -> Environment” 下设置
 ```

@@ -71,7 +71,8 @@ client-side URL transfers
 $ curl "http://www.baidu.com"
   # -i --include    输出包含头部信息
   # -I --head       只显示头部信息
-  # -v --verbose    显示详细解析过程，查看网址对应的 IP 很方便
+  # -v --verbose    显示详细连接过程
+  # -L --location   Follow redirects
 
 # POST 请求
 $ curl -d "param1=value1&param2=value2" "http://www.baidu.com"
