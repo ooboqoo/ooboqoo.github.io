@@ -36,7 +36,7 @@
 | setState()    | enqueues changes and tells React to re-render the updated state.
 | forceUpdate() | cause `render()` to be called on the component, skipping `shouldComponentUpdate()`
 |||
-| C.defaultProps  | set the default props for the class. used for undefined props, but not for null props.
+| C.defaultProps  | set the default props for the class. used for `undefined` props, but not for `null` props.
 | C.displayName   | used in debugging messages.
 |||
 | c.props  | contains the props that were defined by the caller of this component.

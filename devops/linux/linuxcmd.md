@@ -30,7 +30,13 @@
 #### `cp` 复制文件或目录
 
 * `cp file1 dir1` 复制文件 file1 到 dir1 目录下
-* `cp -r dir1 dir2` 复制目录 dir1 及目录下的项目到 dir2
+* `cp -R dir1 dir2` 复制目录 dir1 及目录下的项目到 dir2
+
+```bash
+$ ls dir1            # dir3
+$ cp -R dir1 dir2    # 结果为 dir2/dir1
+$ cp -R dir1/* dir2  # 结果为 dir2/dir3
+```
 
 #### `rm` 删除文件或目录
 

@@ -99,11 +99,11 @@ animation: <name> <duration> <timing-function> <delay> <iteration-count> <direct
 ```
 
 ```css
-.img.show {animation:move 2s ease 1 normal;}
+.img.show {animation: move 2s ease 1 normal;}
 @keyframes move {
-    0%   { top: -400px; }
-    50%  { top: 20px;   }
-    100% { top: 1000px; }
+    0%   { transform: translateY(-400px); }  /* 直接用 top 画面会卡顿 */
+    50%  { transform: translateY(20px); }
+    100% { transform: translateY(400px); }
 }
 ```
 

@@ -2,6 +2,14 @@
 
 具体实现直接在 DevTools 中查看源码。
 
+### 性能优化
+
+```css
+.animation-div {
+  will-change: transform;
+}
+```
+
 ### Donut spinner
 
 ```css

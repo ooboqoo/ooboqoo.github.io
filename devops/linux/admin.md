@@ -61,7 +61,9 @@ $ ip addr add 192.168.0.193/24 dev wlan0  # 为网络接口分配 IP 地址
 $ ip addr show dev eth1  # 显示网络接口的 IP 地址
 $ ip link set down eht1  # 关闭某个指定的网络接口
 $ ip route show          # 查看路由表
-$ ss -tp                 # 查看所有 tcp 端口，并显示使用的进程名 
+$ ss -tp                 # 查看所有 tcp 端口，并显示使用的进程名
+
+$ lsof -i | grep LISTEN  # 查看监听端口
 ```
 
 

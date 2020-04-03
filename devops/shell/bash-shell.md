@@ -75,7 +75,7 @@ $ echo $"$HOME\n\n12\\3"
 
 A list is a sequence of one or more pipelines separated by one of the operators `;` `&` `&&` `||`, and optionally terminated by one of `;` `&` `newline`.
 
-`&` 开子 shell 执行命令(即后台执行)  
+`&` 开子 shell 执行命令(即后台执行)，如 `echo 33 &`  
 `&&` 前个命令成功才会持续后一个命令  
 `||` 前一个命令失败才执行后一个命令  
 `;` 不考虑指令间的相关性，连续执行指令

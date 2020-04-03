@@ -3,6 +3,8 @@
 http://www.ruanyifeng.com/blog/2016/10/npm_scripts.html  阮一峰博客待阅读整理  
 https://www.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/  这篇文章更屌
 
+
+
 ## 脚本详解
 
 https://docs.npmjs.com/misc/scripts
@@ -25,6 +27,7 @@ https://docs.npmjs.com/misc/scripts
 ```
 
 ### Why npm Scripts?
+
 https://css-tricks.com/why-npm-scripts/
 
 > 主要的意义在于回归到命令行工具本身
@@ -63,7 +66,51 @@ alias: npm run
 
 ### 一条语句执行多个命令的写法
 
-* `;` (windows 用 `&`) 用来分隔一个命令行中多个无关联命令。`command1 & command2`
+* `;` (windows 用 `&`) 用来分隔一个命令行中多个无关联命令。`command1 ; command2`
 * `&&` 只有在符号 && 前面的命令成功时，才运行符号后面的命令。`command1 && command2`
 * `||` 只有在符号 || 前面的命令失败时，才运行符号后面的命令。 `command1 || command2`
+
+### `NODE_ENV`
+
+https://riptutorial.com/node-js/example/10101/setting-node-env--production-
+
+#### Runtime flag
+
+Node.js 生态里的一个惯例是通过 `NODE_ENV === 'production'` 来区分开发环境和生产环境。
+
+```js
+if (process.env.NODE_ENV === 'production') {
+  // We are running in production mode
+} else {
+  // We are running in development mode
+}
+```
+
+#### Dependencies
+
+`NODE_ENV === 'production'` 时 `npm install` 会忽略 _package.json_ 里 `devDependencies` 开发依赖包。当然你也可以使用 `npm install --production` 来强制开启此行为。
+
+#### Env variable
+
+```bash
+# set variable for current bash session
+$ export NODE_ENV=production
+
+# set varibale for current app
+NODE_ENV=production node app.js
+```
+
+use `cross-env` to support both Linux and Windows.
+
+_package.json_
+
+```json
+{
+  "build:deploy": "cross-env NODE_ENV=production webpack"
+}
+```
+
+
+
+
 

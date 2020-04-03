@@ -478,6 +478,8 @@ function Counter() {
 `useCallback(fn, deps)` 相当于 `useMemo(() => fn, deps)`。
 
 ```jsx
+// 套 memo 后，只要 props 没变就不会重新渲染
+// 本例中，App 内的 count 值变更，不会输出 “Foo render”，没套的话每次 App 的重新渲染都会触发 Foo 重复渲染
 const Foo = memo(function Foo(props) {
   console.log('Foo render')
   // 这里必须显式绑定，在外层绑定不起作用，这个跟 Vue.js 行为不一样
@@ -499,7 +501,7 @@ const App = () => {
 
 ### useMemo
 
-`memo()`·限制一个组件是否重复渲染，而 `useMemo()` 则是限制一个函数是否重复执行。
+`memo()` 限制一个组件是否重复渲染，而 `useMemo()` 则是限制一个函数是否重复执行。
 
 `useMemo()` 和 `useEffect()` 的第二个参数逻辑是相同的，不同的是，`useMemo` 是有返回值的，在渲染之前执行，而 `useEffect` 则是在渲染之后执行。
 
