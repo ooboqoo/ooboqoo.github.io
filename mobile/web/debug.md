@@ -1,5 +1,6 @@
 # 开发调试
 
+
 ## 待整理文章
 
 如何调试Android和IOS的webview https://www.jianshu.com/p/2111838b7134
@@ -7,13 +8,22 @@
 打造最舒适的webview调试环境 https://github.com/riskers/blog/issues/11
 
 
-## 调试安卓 webview
+## 调试手机页面
+
+### 安卓 webview
 
 The Chrome Inspector can be used to debug your app on a physical Android device or emulator, just like it can be used on any web application.
 
 1. 先用数据线将 Android 测试机连接到电脑上。需要打开测试机的 “USB 调试” 功能。
 2. 手机进入一个 webview 页面
 3. 在 Chrome 地址栏中输入 `chrome://inspect` 选择相应条目下的 `inspect` 即可
+
+### iPhone
+
+1. 使用 Lightning 数据线将 iPhone 与 Mac 相连
+2. iPhone 开启 Web 检查器 (设置 -> Safari -> 高级 -> 开启 Web 检查器)
+3. iPhone 使用 Safari 浏览器打开要调试的页面
+4. Mac 打开 Safari 浏览器调试 (菜单栏 -> 开发 -> iPhone 设备 -> 选择调试页面)
 
 
 ## 调试浏览器页面
@@ -25,6 +35,10 @@ Windows 下按 `F12` macOS 下按 `opt+cmd+I` 进入开发者工具界面。
 ### Safari
 
 在 Develop 菜单项下提供了丰富的开发选项，`opt+cmd+I` 可进入 Web Inspector。
+
+开启 Safari 菜单栏的 "开发" 选项：Safari -> 偏好设置 -> 高级 -> 在菜单栏中显示"开发"菜单
+
+
 
 ## 代理工具
 

@@ -258,6 +258,26 @@ mask.addEventListener('click', function () {
 ```
 
 
+## 刘海屏适配
+
+https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/adaptivity-and-layout/
+
+苹果官方有给出解决方案，安卓暂无纯 HTML5 方案。
+
+```html
+body {
+    padding-top: constant(safe-area-inset-top);
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: constant(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: constant(safe-area-inset-left);
+    padding-left: env(safe-area-inset-left);
+    padding-right: constant(safe-area-inset-right);
+    padding-right: env(safe-area-inset-right);
+}
+```
+
+
 ## 提高动画性能
 
 在网页动画出现初期，诸多开发者选择使用 jQuery 等库为页面添加动画效果，但这些类库为了更好的兼容性并没有对动画进行优化，导致动画往往十分卡顿。随着新型浏览器的普及和开发者对体验的重视，Web 动画无论在效果还是流畅度上都得到了大幅提升。

@@ -70,6 +70,28 @@
   </style>
 </div>
 
+### 心跳 beat
+
+<div class="demo">
+  <a class="beat-button">Beat</a>
+  <style>
+    .beat-button {
+      display: inline-block;
+      padding: 5px 10px;
+      color: #333;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+      animation: beat 2s linear infinite;
+      will-change: transform;
+    }
+    @keyframes beat {
+      0% {transform: scale(1); opacity: .7; }
+      50% {transform: scale(1.1); opacity: 1; }
+      100% {transform: scale(1); opacity: .7; }
+    }
+  </style>
+</div>
+
 ### Flip Card
 
 卡片具有正面和背面，鼠标悬停会翻转

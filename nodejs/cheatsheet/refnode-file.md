@@ -41,8 +41,8 @@ buf.toJSON()
 buf.toString([encoding[, start[, end]]])
 ```
 
-```txt
-Buffer.byteLength(string[, encoding])
+```js
+Buffer.byteLength(string[, encoding])  // 获取一个字符串的字节长度
 Buffer.compare(buf1, buf2)
 Buffer.concat(list[, totalLength])
 Buffer.isBuffer(obj)

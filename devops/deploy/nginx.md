@@ -262,3 +262,24 @@ http {
     }
 }
 ```
+
+
+### 访问验证
+
+使用 htpasswd 命令生成密码文件，之后会提示输入密码。
+
+```bash
+$ htpasswd -c /etc/nginx/passwd any_user_name
+```
+
+添加 Nginx 配置
+
+```
+server {
+    listen 80;
+    server_name private.ngapps.cn;
+    root /srv/nginx/private;
+    auth_basic "Not for Public";
+    auth_basic_user_file /etc/nginx/passwd;
+}
+```
