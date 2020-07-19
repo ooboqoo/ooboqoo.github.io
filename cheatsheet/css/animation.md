@@ -1,5 +1,8 @@
 # Animation Snippets
 
+
+https://animate.style/
+
 具体实现直接在 DevTools 中查看源码。
 
 ### 性能优化
@@ -232,6 +235,32 @@ background-image: linear-gradient(
     }
   </style>
 </div>
+
+### Progress Bar
+
+<div class="demo">
+  <div class="progress-bar">50%</div>
+  <style>
+    .progress-bar {
+      color: #fff;
+      padding-right: 50%;
+      text-align: right;
+      border:1px solid #eee;
+      border-radius: .5em;
+      background-clip: content-box;
+      background-color: #639;
+      background-size: 2rem 2rem;
+      background-image: linear-gradient(135deg,rgba(0,0,0,0.1) 25%,transparent 25%,transparent 50%,rgba(0,0,0,0.1) 50%,rgba(0,0,0,0.1) 75%,transparent 75%,transparent);
+      animation: run-right 2.8s linear infinite;
+    }
+    @keyframes run-right {
+      0% { background-position: 0 0; }
+      100% {background-position: 2rem 4rem; }
+    }
+  </style>
+</div>
+
+
 
 ### Fancy Form
 

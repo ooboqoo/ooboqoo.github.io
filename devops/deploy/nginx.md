@@ -283,3 +283,13 @@ server {
     auth_basic_user_file /etc/nginx/passwd;
 }
 ```
+
+
+### 其他
+
+访问路径自动加 .html
+
+```
+try_files $uri/index.html $uri.html $uri/ $uri =404;
+```
+

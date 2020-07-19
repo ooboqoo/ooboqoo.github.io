@@ -41,6 +41,7 @@ $ git stash pop     # 恢复最近一次 stash 的内容，注意是保存的变
 # 撤销一次远程提交
 $ git reset HEAD~1  # 回退一次提交
 $ git push -f       # 强制推送到远程仓库
+$ git reset --hard origin/master  # 强制用远端提交覆盖本地提交
 # 分支操作
 $ git branch -a  # 列出本地和远程所有的分支
 $ git checkout -b newBrach master  # 创建并切换到新分支

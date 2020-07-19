@@ -31,13 +31,13 @@ Hook 解决了我们五年来编写和维护成千上万的组件时遇到的各
 
 React 没有提供将可复用性行为附加到组件的途径。你也许会熟悉一些解决此类问题的方案，比如 providers，consumers，高阶组件，render props 等其他抽象层组成的组件。但是这类方案需要重新组织你的组件结构，使你的代码难以理解。
 
-现在你可以使用 Hook 从组件中提取状态逻辑，使得这些逻辑可以单独测试并复用。Hook 使你在无需修改组件结构的情况下复用状态逻辑。
+现在你可以使用 Hook 从组件中提取状态逻辑，使得这些逻辑可以单独测试并复用。Hook 使你 *在无需修改组件结构的情况下复用状态逻辑*。
 
 #### 复杂组件变得难以理解
 
 每个生命周期常常包含一些不相关的逻辑。如我们可能在 componentDidMount 中设置事件监听，而在 componentWillUnmount 中清除。相互关联且需要对照修改的代码被拆散了，而完全不相关的代码却在同一个方法中掺杂在一起。如此很容易产生 bug，并导致逻辑不一致。
 
-在多数情况下，不可能将组件拆分为更小的粒度，因为状态逻辑无处不在。这也给测试带来了一定挑战。同时，这也是很多人将 React 与状态管理库结合使用的原因之一。但这往往会引入了很多抽象概念，需要你在不同的文件之间来回切换，使得复用变得更加困难。
+在多数情况下，不可能将组件拆分为更小的粒度，因为状态逻辑无处不在。这也给测试带来了一定挑战。同时，这也是很多人将 React 与 *状态管理库* 结合使用的原因之一。但这往往 *会引入了很多抽象概念，需要你在不同的文件之间来回切换*，使得复用变得更加困难。
 
 #### 难以理解的类
 
@@ -74,7 +74,7 @@ function ExampleWithManyStates() {
 
 `useState` 与 `this.setState` 之间的差异
 * useState 不会把新的 state 和旧的 state 进行合并
-* 给 useState 传递的 state 可以是任意类型，而 this.setState 只能是一个对象
+* 给 useState 传递的 state 可以是任意类型，*而 this.setState 只能是一个对象*
 
 ### 函数式更新
 
@@ -103,7 +103,7 @@ setState(prevState => {
 
 ### 惰性初始 state
 
-initialState 参数只会在组件的初始渲染中起作用，后续渲染时会被忽略。如果初始 state 需要通过复杂计算获得，则可以传入一个函数，在函数中计算并返回初始的 state，此函数只在初始渲染时被调用：
+initialState 参数只会在组件的初始渲染中起作用，后续渲染时会被忽略。如果初始 state 需要通过复杂计算获得，则 *可以传入一个函数*，在函数中计算并返回初始的 state，此函数只在初始渲染时被调用：
 
 ```jsx
 const [state, setState] = useState(() => {
@@ -121,7 +121,7 @@ React 可能仍需要在跳过渲染前渲染该组件。不过由于 React 不�
 
 ## useEffect
 
-你之前可能已经在 React 组件中执行过数据获取、订阅或者手动修改过 DOM。我们统一把这些操作称为“副作用”，或简称为“作用”。
+你之前可能已经在 React 组件中执行过 *数据获取、订阅或者手动修改过 DOM*。我们统一把这些操作称为“副作用”，或简称“作用”。
 
 `useEffect` 就是一个 Effect Hook，给函数组件增加了操作副作用的能力。它跟 class 组件中的 `componentDidMount`、`componentDidUpdate` 和 `componentWillUnmount` 具有相同的用途，只不过被合并成了一个 API。
 
@@ -155,13 +155,13 @@ function Example() {
 
 副作用函数还可以通过返回一个函数来指定如何“清除”副作用。
 
-虽然 useEffect 会在浏览器绘制后延迟执行，但会保证在任何新的渲染前执行。React 将在组件更新前刷新上一轮渲染的 effect。也就是说，如果在 Efect 中更新了 state，界面是没有任何变化的，要等到其他条件触发重新渲染才会更新，也即总是会慢一拍。
+*虽然 useEffect 会在浏览器绘制后延迟执行，但会保证在任何新的渲染前执行*。React 将在组件更新前刷新上一轮渲染的 effect。也就是说，如果在 Efect 中更新了 state，界面是没有任何变化的，要等到其他条件触发重新渲染才会更新，也即总是会慢一拍。
 
-*为什么在组件内部调用 useEffect？* 
+**为什么在组件内部调用 useEffect？**
 
-将 useEffect 放在组件内部让我们可以在 effect 中直接访问 count state 变量（或其他 props）。我们不需要特殊的 API 来读取它 —— 它已经保存在函数作用域中。Hook 使用了 JavaScript 的闭包机制。
+将 useEffect 放在组件内部让我们可以在 effect 中直接访问 count state 变量（或其他 props）。我们不需要特殊的 API 来读取它 —— 它已经保存在函数作用域中。*Hook 使用了 JavaScript 的闭包机制*。
 
-*useEffect 会在每次渲染后都执行吗？*
+**useEffect 会在每次渲染后都执行吗？**
 
 是的，默认情况下，它在第一次渲染之后和每次更新之后都会执行。你可能会更容易接受 effect 发生在“渲染之后”这种概念，不用再去考虑“挂载”还是“更新”。
 
@@ -297,7 +297,7 @@ function FriendStatus(props) {
 
 ### 为什么每次更新都要运行 Effect
 
-经验丰富的 JavaScript 开发人员可能会注意到，传递给 useEffect 的函数在每次渲染中都会有所不同，这是刻意为之的。事实上这正是我们可以在 effect 中获取最新的 count 的值，而不用担心其过期的原因。每次我们重新渲染，都会生成新的 effect，替换掉之前的。某种意义上讲，effect 更像是渲染结果的一部分 —— 每个 effect “属于”一次特定的渲染。
+经验丰富的 JavaScript 开发人员可能会注意到，传递给 useEffect 的函数在每次渲染中都会有所不同，这是刻意为之的。事实上这正是我们可以在 effect 中获取最新的 count 的值，而不用担心其过期的原因。每次我们重新渲染，都会生成新的 effect，替换掉之前的。某种意义上讲，*effect 更像是渲染结果的一部分* —— 每个 effect “属于”一次特定的渲染。
 
 元素接收的某个 prop 值更改后，元素不会销毁重建，所以 class 组件下在 `componentDidUpdate` 里添加更新逻辑就很有必要了。忘记正确地处理 componentDidUpdate 是 React 应用中常见的 bug 来源。而使用 Effect Hook，它会在调用一个新的 effect 之前对前一个 effect 进行清理。此默认行为保证了一致性，避免了在 class 组件中因为没有处理更新逻辑而导致常见的 bug。
 
@@ -429,10 +429,6 @@ function ThemedButton() {
 
 ### useReducer
 
-```js
-const [state, dispatch] = useReducer(reducer, initializerArg, initializer?)
-```
-
 某些场景下，`useReducer` 会比 `useState` 更适用，如 *state 逻辑较复杂且包含多个子值* ，或是下一个 state 依赖于之前的 state 。并且，使用 `useReducer` 还能给那些会触发深更新的组件做性能优化，因为你可以 *向子组件传递 dispatch* 而不是回调函数。
 
 * Redux: Global state management for user, auth, etc.
@@ -464,6 +460,48 @@ function Counter() {
   return (
     <>
       Count: {state.count}
+      <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+      <button onClick={() => dispatch({type: 'increment'})}>+</button>
+    </>
+  );
+}
+```
+
+初始化 state 的方式有两种
+* 一种是直接传入 `useReducer(reducer, initialState)`
+* 一种是初始化时动态创建(Lazy initialization) `useReducer(reducer, initialArg, init)`
+
+You can also create the initial state lazily. To do this, you can pass an init function as the third argument. The initial state will be set to `init(initialArg)`.
+
+It lets you extract the logic for calculating the initial state outside the reducer. This is also handy for resetting the state later in response to an action:
+
+```jsx
+function init(initialCount) {
+  return {count: initialCount};
+}
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    case 'reset':
+      return init(action.payload);
+    default:
+      throw new Error();
+  }
+}
+
+function Counter({initialCount}) {
+  const [state, dispatch] = useReducer(reducer, initialCount, init);
+  return (
+    <>
+      Count: {state.count}
+      <button
+        onClick={() => dispatch({type: 'reset', payload: initialCount})}>
+        Reset
+      </button>
       <button onClick={() => dispatch({type: 'decrement'})}>-</button>
       <button onClick={() => dispatch({type: 'increment'})}>+</button>
     </>
@@ -530,7 +568,7 @@ useRef 返回一个可变的 ref 对象，其 `.current` 属性被初始化为�
 
 这是因为它创建的是一个普通 Javascript 对象。而 `useRef()` 和自建一个 `{current: ...}` 对象的唯一区别是，`useRef` 会在每次渲染时返回同一个 ref 对象。
 
-请记住，当 ref 对象内容发生变化时，`useRef` 并不会通知你。变更 `.current` 属性不会引发组件重新渲染。如果想要在 React 绑定或解绑 DOM 节点的 ref 时运行某些代码，则需要使用回调 ref 来实现。
+请记住，当 ref 对象内容发生变化时，`useRef` 并不会通知你。*变更 `.current` 属性不会引发组件重新渲染。如果想要在 React 绑定或解绑 DOM 节点的 ref 时运行某些代码，则需要使用回调 ref 来实现*。
 
 ```js
 function TextInputWithFocusButton() {
@@ -542,6 +580,29 @@ function TextInputWithFocusButton() {
   return (
     <>
       <input ref={inputEl} type="text" />
+      <button onClick={onButtonClick}>Focus the input</button>
+    </>
+  );
+}
+```
+
+#### ref callback
+
+React will call the ref callback with the DOM element when the component mounts, and call it with `null` when it unmounts.
+
+```js
+function TextInputWithFocusButton() {
+  const inputEl = useRef(null);
+  const onButtonClick = () => {
+    inputEl.current.focus();
+  };
+  const refCallback = el => {
+    console.log('refCallback', {el});
+    inputEl.current = el;
+  }
+  return (
+    <>
+      <input ref={refCallback} type="text" />
       <button onClick={onButtonClick}>Focus the input</button>
     </>
   );
@@ -604,17 +665,17 @@ useDebugValue 可用于在 React 开发者工具中显示自定义 hook 的标�
 
 与组件中一致，请确保只在自定义 Hook 的顶层无条件地调用其他 Hook。
 
-与 React 组件不同的是，自定义 Hook 不需要具有特殊的标识。我们可以自由的决定它的参数是什么，以及它应该返回什么（如果需要的话）。
+与 React 组件不同的是，*自定义 Hook 不需要具有特殊的标识。我们可以自由的决定它的参数是什么，以及它应该返回什么*（如果需要的话）。
 
-自定义 Hook 是一种自然遵循 Hook 设计的约定，而并不是 React 的特性。
+*自定义 Hook 是一种自然遵循 Hook 设计的约定，而并不是 React 的特性*。
 
 你可以创建涵盖各种场景的自定义 Hook，如表单处理、动画、订阅声明、计时器，甚至可能还有更多我们没想到的场景。
 
-*自定义 Hook 必须以 “use” 开头吗？*
+**自定义 Hook 必须以 “use” 开头吗？**
 
 必须如此。这个约定非常重要。不遵循的话，由于无法判断某个函数是否包含对其内部 Hook 的调用，React 将无法自动检查你的 Hook 是否违反了 Hook 的规则。
 
-*在两个组件中使用相同的 Hook 会共享 state 吗？*
+**在两个组件中使用相同的 Hook 会共享 state 吗？**
 
 不会。自定义 Hook 是一种重用状态逻辑的机制(例如设置为订阅并存储当前值)，所以每次使用自定义 Hook 时，其中的所有 state 和副作用都是完全隔离的。
 
