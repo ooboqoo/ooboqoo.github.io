@@ -100,9 +100,9 @@ function logProps(Component) {
       console.log('new props:', this.props);
     }
     render() {
-      const {forwardedRef, ...rest} = this.props;
+      const {myForwardedRef, ...rest} = this.props;
       // Assign the custom prop "forwardedRef" as a ref
-      return <Component ref={myFforwardedRef} {...rest} />;
+      return <Component ref={myForwardedRef} {...rest} />;
     }
   }
 

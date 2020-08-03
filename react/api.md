@@ -88,7 +88,11 @@ tabIndex target title type useMap value width wmode wrap
 ```js
 const [state, setState] = useState(initialState)
 // 此函数只在初始渲染时被调用
+// 也就是说 someExpensiveComputation 在组件生命周期内只执行一次
 const [state, setState] = useState(() => { someExpensiveComputation...; return initialState })
+// 反例
+const initialState = someExpensiveComputation()  // 每次 update 都会执行
+const [state, setState] = useState(initialState)
 
 setState(newState)
 setState(prevState => { someComputation...; return newState })
@@ -108,7 +112,8 @@ useEffect(() => {
 })
 // 条件执行，只有特定依赖发生变化时才执行副作用
 useEffect(didUpdate, [count, ...])
-// 在所有的 DOM 变更之后，在组件渲染前，同步执行副作用操作
+// 在所有的 DOM 变更之后，浏览器绘制之前，同步执行副作用操作
+// 执行时机同 `componentDidMount` `componentDidUpdate`
 useLayoutEffect(didUpdate)
 ```
 
@@ -141,6 +146,13 @@ function ThemedButton() {
 
 useReducer
 
+初始化 state 的方式有两种，一种是直接传入；一种是初始化时动态创建(Lazy initialization)。
+
+```js
+useReducer(reducer, initialState)
+useReducer(reducer, initialArg, init)
+```
+
 useCallback 用于给子组件传递函数
 
 ```jsx
@@ -148,6 +160,10 @@ const handlerForChildComponent = useCallback(() => { /* ... */ }, [])
 ```
 
 useMemo 用于获取计算属性，依赖值不变化就没必要每次渲染都重新计算一遍
+
+```ts
+function useMemo<T>(factory: () => T, deps: DependencyList | undefined): T;
+```
 
 ```jsx
 const double = useMemo(() => count * 2, [count])

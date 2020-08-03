@@ -415,6 +415,12 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <h5 class="es3">regexp.toString() <span>-- 返回一个字符串，即该正则对象的字面量。</span></h5>
 </div>
 
+```js
+var reg = /abc/g;
+reg.test(abc);  // true
+reg.test(abc);  // false
+```
+
 
 ## Math
 

@@ -118,6 +118,18 @@ const [state, setState] = useState(() => {
 
 React 可能仍需要在跳过渲染前渲染该组件。不过由于 React 不会对组件树的“深层”节点进行不必要的渲染，所以大可不必担心。如果你在渲染期间执行了高开销的计算，则可以使用 useMemo 来进行优化。
 
+### 避坑指南
+
+`useState` 返回的更新状态方法是异步的，要在下次重绘时才能获取新值。
+
+```js
+const [count, setCount] = useState(0);
+setCount(1);
+console.log(count);  // 是 0 不是 1
+```
+
+
+
 
 ## useEffect
 
@@ -830,4 +842,40 @@ function handleClick() {
   forceUpdate()
 }
 ```
+
+
+## 实战积累(深入认识 Hooks)
+
+异步踩坑指南 https://juejin.im/post/5dad5020f265da5b9603e0ca
+React Hooks 最佳实践 https://juejin.im/post/5ec7372cf265da76de5cd0c9#heading-10
+
+```jsx
+import React, {useState, useCallback} from 'react';
+
+function App() {
+  const [count, setCount] = useState(0);
+  const log = () => {
+    console.log(count);
+  }
+  const log2 = useCallback(() => {
+    console.log(count);  // 这里的 count 会被固化下来，始终为 0
+  }, []);
+  const add = () => {
+    setCount(count + 1);
+  }
+  return (
+    <div>
+      <button onClick={log}>log</button>
+      <button onClick={log2}>log in useCallback</button>
+      <button onClick={add}>add</button>
+    </div>
+  );
+}
+
+export default App;
+```
+
+
+
+
 

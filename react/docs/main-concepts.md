@@ -106,6 +106,7 @@ class LoggingButton extends React.Component {
 
 ```jsx
 class LoggingButton extends React.Component {
+  // 公共类组件的写法： `field = ...`
   handleClick = () => console.log('this is:', this)
 }
 ```
