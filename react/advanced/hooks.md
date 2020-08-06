@@ -847,7 +847,6 @@ function handleClick() {
 ## 实战积累(深入认识 Hooks)
 
 异步踩坑指南 https://juejin.im/post/5dad5020f265da5b9603e0ca
-React Hooks 最佳实践 https://juejin.im/post/5ec7372cf265da76de5cd0c9#heading-10
 
 ```jsx
 import React, {useState, useCallback} from 'react';
@@ -875,7 +874,186 @@ function App() {
 export default App;
 ```
 
+Hooks 使得可以在不编写 Class 的情况下使用状态等功能。@types/react 中也同步把 React.SFC (Stateless Functional Component) 改为了 React.FC (Functional Component)。
 
+
+### useEffect + 异步任务
+
+中断请求
+
+```js
+useEffect(() => {
+  let isUnmounted = false;  // 组件是否已经卸载
+  const abortController = new AbortController();
+  (async () => {
+    const res = await fetch(SOME_API, {singal: abortController.singal});
+    const data = await res.json();
+    // 如果不做这个判断，再更新状态，可能组件已经被卸载了，此时 React 会报 Warning
+    if (!isUnmounted) {
+      setValue(data.value);
+      setLoading(false);
+    }
+  })();
+  return () => {
+    isUnmounted = true;
+    abortController.abort();  // 组件卸载时中断请求
+  }
+});
+```
+
+
+
+
+### usRef + 异步任务
+
+> 当使用 `useState` 看到的值跟预期不一样时，改成 `useRef` 试试。  
+> `useRef()` 返回的 ref 对象在组件的整个生命周期内都保持不变。
+
+问题：发现读取和写入的 state 明明是同一个，但结果就对不上
+
+```js
+const MyComponent = () => {
+  const [timer, setTimer] = useState(0);  // 记录定时器的 ID
+  useEffect(() => {
+    // 组件销毁或更新时，清理计时器
+    return () => {
+      console.log('销毁定时器，ID：', timer);
+      window.clearTimeout(timer);
+    }
+  }, []);  // 这里是个很关键的点，如果没有这个 `[]` 是正常的
+  const start = () => {
+    const timerID = window.setTimeout(() => {
+      // 异步任务 。。。
+    }, 5000);
+    console.log('设置定时器，ID：', timerID);
+    setTimer(timerID);
+  }
+  // ...
+}
+```
+
+解决方案1: 改成变量反而就好了
+
+```js
+const MyComponent = () => {
+  let timer;
+  useEffect(() => {
+    // 组件销毁或更新时，清理计时器
+    return () => {
+      console.log('销毁定时器，ID：', timer);
+      window.clearTimeout(timer);
+    }
+  }, []);
+  const start = () => {
+    timer = window.setTimeout(() => {
+      // 异步任务 。。。
+    }, 5000);
+    console.log('设置定时器，ID：', timer);
+    setTimer(timer);
+  }
+}
+```
+
+解决方案2: 使用 useRef
+
+```js
+const MyComponent = () => {
+  const timer = useRef(0);
+  useEffect(() => {
+    // 组件销毁或更新时，清理计时器
+    return () => {
+      console.log('销毁定时器，ID：', timer.current);
+      window.clearTimeout(timer.current);
+    }
+  });
+  const start = () => {
+    timer.current = window.setTimeout(() => {
+      // 异步任务 。。。
+    }, 5000);
+    console.log('设置定时器，ID：', timer.current);
+    setTimer(timer.current);
+  }
+}
+```
+
+问题分析：写入的变量和读取的变量是否是同一个变量
+
+timer 是一个 useState 的返回值，并不是一个简单的变量。从 React Hooks 的源码来看，它返回的是 [hook.memorizedState, dispatch]，对应我们接的值和变更方法。当调用 setTimer 和 setValue 时，分别触发两次重绘，使得 hook.memorizedState 指向了 newState（注意：不是修改，而是重新指向）。但 useEffect 返回闭包中的 timer 依然指向旧的状态，从而得不到新的值。（即读的是旧值，但写的是新值，不是同一个）
+
+
+
+
+
+
+### usState 异步更新
+
+usState 返回的更新状态的方法是异步的，要在下次重绘时才能获取新值。
+
+```js
+const [count, setCount] = useState(0);
+setCount(1);
+console.log(count);  // 是 0 不是 1
+```
+
+
+## Hooks 原理
+
+https://www.netlify.com/blog/2019/03/11/deep-dive-how-do-react-hooks-really-work/  
+https://medium.com/the-guild/under-the-hood-of-reacts-hooks-system-eb59638c9dba
+
+```js
+function updateFunctionComponent(recentFiber, workInProgressFiber, Component, props) {
+  prepareHooks(recentFiber, workInProgressFiber)
+  Component(props)
+  finishHooks()
+}
+```
+
+```js
+const ChildComponent = () => {
+  useState('foo')
+  useState('bar')
+  useState('baz')
+
+  return null
+}
+
+const ParentComponent = () => {
+  const childFiberRef = useRef()
+
+  useEffect(() => {
+    let hookNode = childFiberRef.current.memoizedState
+
+    assert(hookNode.memoizedState, 'foo')
+    hookNode = hooksNode.next
+    assert(hookNode.memoizedState, 'bar')
+    hookNode = hooksNode.next
+    assert(hookNode.memoizedState, 'baz')
+  })
+
+  return (
+    <ChildComponent ref={childFiberRef} />
+  )
+}
+```
+
+
+
+### useEffect
+
+* They 
+
+
+
+
+
+
+
+
+
+## 最佳实践
+
+React Hooks 最佳实践 https://juejin.im/post/5ec7372cf265da76de5cd0c9#heading-10
 
 
 
