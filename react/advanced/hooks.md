@@ -128,7 +128,29 @@ setCount(1);
 console.log(count);  // 是 0 不是 1
 ```
 
+### 行为测试
 
+* setState 更新组件状态，函数组件会被运行 *2次* https://reactjs.org/docs/strict-mode.html#detecting-unexpected-side-effects
+* setState 传相同的引用类型或原始类型值，不会触发组件更新
+* `setArray([...array])` ArrayItem 元素对应的内容虽然没有变，但还是会运行
+
+#### FunctionComponent VS PureComponent
+
+当父组件更新时，如果子组件的 props 没有变化
+* FunctionComponent 始终会执行
+* PureComponent 的 `render` 方法不会执行，但系统默认提供的 `shouldComponentUpdate` 还是会执行的 【注1】
+
+比较下来，PureComponent 的性能更优，绝大多数时候不用考虑这点微弱的性能差异，但关键场合是可以拿来优化的。当然，使用钩子 `useMemo` 一样可以实现类似的优化。
+
+注1: 实际 PureComponnet 中不存在，也不允许存在 `shouldComponentUpdate`，实际的代码是下面这样的。React 中对比一个 ClassComponent 是否需要更新，只有两个地方。一是看有没有 shouldComponentUpdate 方法，二就是这里的 PureComponent 判断。
+
+```js
+if (ctor.prototype && ctor.prototype.isPureReactComponent) {
+  return (
+    !shallowEqual(oldProps, newProps) || !shallowEqual(oldState, newState)
+  );
+}
+```
 
 
 ## useEffect
@@ -370,6 +392,11 @@ componentDidUpdate(prevProps, prevState) {
 useEffect(() => {
   document.title = `You clicked ${count} times`;
 }, [count]); // 仅在 count 更改时更新
+
+注：经过试验，以下类型的值都有效
+* 某个 state 值, 如 [count]
+* state 的子属性, 如 [obj.count] // const [obj, setObj] = useState({count: 0})
+* ref.current, 如 [ref.current.count] // const ref = useRef({})
 ```
 
 如果想执行只运行一次的 effect（仅在组件挂载和卸载时执行），可以传递一个空数组`[]` 作为第二个参数。这就告诉 React 你的 effect 不依赖于 props 或 state 中的任何值，所以它永远都不需要重复执行。
@@ -623,7 +650,7 @@ function TextInputWithFocusButton() {
 
 ### useImperativeHandle
 
-useImperativeHandle 可以让你在使用 ref 时自定义暴露给父组件的实例值。在大多数情况下，应当避免使用 ref 这样的命令式代码。useImperativeHandle 应当与 forwardRef 一起使用：
+useImperativeHandle 可以让你在使用 ref 时自定义暴露给父组件的实例值（典型的应用是向上传递 func）。在大多数情况下，应当避免使用 ref 这样的命令式代码。useImperativeHandle 应当与 forwardRef 一起使用：
 
 ```js
 function FancyInput(props, ref) {
@@ -996,6 +1023,34 @@ console.log(count);  // 是 0 不是 1
 ```
 
 
+## Drawbacks 待优化项
+
+https://github.com/reactjs/rfcs/blob/master/text/0068-react-hooks.md
+
+A non-exhaustive list of drawbacks of this Hooks design follows.
+
+* Introducing a new way to write components means more to learn and means confusion while both classes and functions are used.
+* The “Rules of Hooks”: in order to make Hooks work, React requires that Hooks are called unconditionally. Component authors may find it unintuitive that Hook calls can't be moved inside `if` statements, loops, and helper functions.
+* The “Rules of Hooks” can make some types of refactoring more difficult. For example, adding an early return to a component is no longer possible without moving all Hook calls to before that conditional.
+* Event handlers need to be recreated on each render in order to reference the latest copy of props and state, which reduces the effectiveness of `PureComponent` and `React.memo`.
+* It's possible for closures (like the ones passed to `useEffect` and `useCallback`) to capture **old versions** of props and state values. In particular, this happens if the “inputs” array is inadvertently missing one of captured variables. This can be confusing.
+* React relies on internal global state in order to determine which component is currently rendering when each Hook is called. This is “less pure” and may be unintuitive.
+* `React.memo` (as a replacement for `shouldComponentUpdate`) only has access to the old and new props; there's no easy way to skip rerendering for an inconsequential state update.
+* `useState` uses a tuple return value that requires typing the same name twice to declare a state field (like `const [rhinoceros, setRhinoceros] = useState(null);`), which may be cumbersome for long names.
+* `useState` uses the overloaded type `() => T | T` to support lazy initialization. But when storing a function in state (that is, when `T` is a function type) you must always use a lazy initializer `useState(() => myFunction)` because the types are indistinguishable at runtime. Similarly, the functional updater form must be used when setting state to a new function value.
+
+
+部分要点翻译
+* “每次所有的钩子都必须运行一遍”带来的不便是
+  * 无法将钩子移入 判断、循环 等结构
+  * 无法提前结束 Component 运行，更准确地说，需要将所有钩子移动到 early return 之前
+* 每次渲染需要重新生成 event handler 以保证对最新 props and state 的映射，没有 `PureComponent` 和 `React.memo` 来地高效
+* 使用 `useEffect` `useCallback` 等再配合 `[...]` 来优化性能时，如果没有正确配置依赖项，可能会导致读到旧的状态，会让人很费解
+* React 依赖 internal global state 来记录钩子运行时所处的 component 环境，不够 pure 也不直观
+* 当使用 `useState` 来存储函数时，因为本身 `useState` 就支持传入 initializer，为了做区分，此时必须使用 `useState(() => myFunction)` 的形式以做区分
+
+
+
 ## Hooks 原理
 
 https://www.netlify.com/blog/2019/03/11/deep-dive-how-do-react-hooks-really-work/  
@@ -1037,23 +1092,88 @@ const ParentComponent = () => {
 }
 ```
 
+### 认识闭包
 
+> \[Closure\] makes it possible for a function to have "private" variables. -- W3Schools
 
-### useEffect
+```js
+function getAdd() {
+  let foo = 1;
+  return function() {
+    foo = foo + 1;
+    return foo;
+  }
+}
+const add = getAdd();
+console.log(add());  // 2
+console.log(add());  // 3
+```
 
-* They 
+### 实现 `useState`
 
+```js
+// Example 3
+const MyReact = (function() {
+  let _val, _deps // hold our state and dependencies in scope
+  return {
+    render(Component) {
+      const Comp = Component()
+      Comp.render()
+      return Comp
+    },
+    useEffect(callback, depArray) {
+      const hasNoDeps = !depArray
+      const hasChangedDeps = _deps ? !depArray.every((el, i) => el === _deps[i]) : true
+      if (hasNoDeps || hasChangedDeps) {
+        callback()
+        _deps = depArray
+      }
+    },
+    useState(initialValue) {
+      _val = _val || initialValue
+      function setState(newVal) {
+        _val = newVal
+      }
+      return [_val, setState]
+    }
+  }
+})()
 
+// usage
+function Counter() {
+  const [count, setCount] = MyReact.useState(0)
+  MyReact.useEffect(() => {
+    console.log('effect', count)
+  }, [count])
+  return {
+    click: () => setCount(count + 1),
+    noop: () => setCount(count),
+    render: () => console.log('render', { count })
+  }
+}
+let App
+App = MyReact.render(Counter)
+// effect 0
+// render {count: 0}
+App.click()
+App = MyReact.render(Counter)
+// effect 1
+// render {count: 1}
+App.noop()
+App = MyReact.render(Counter)
+// // no effect run
+// render {count: 1}
+App.click()
+App = MyReact.render(Counter)
+// effect 2
+// render {count: 2}
+```
 
-
-
-
+### 实现 `useEffect`
 
 
 
 ## 最佳实践
 
 React Hooks 最佳实践 https://juejin.im/post/5ec7372cf265da76de5cd0c9#heading-10
-
-
 

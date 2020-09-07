@@ -129,6 +129,19 @@ Persistent=true
 WantedBy=timers.target
 ```
 
+```
+$ vim /lib/systemd/system/certbot.service
+
+[Unit]
+  Description=Certbot
+  Documentation=file:///usr/share/doc/python-certbot-doc/html/index.html
+  Documentation=https://letsencrypt.readthedocs.io/en/latest/
+[Service]
+  Type=oneshot
+  ExecStart=/usr/bin/certbot renew --quiet --post-hook "nginx -s reload"
+  PrivateTmp=true
+```
+
 然后更新 Nginx 配置文件，添加
 
 ```

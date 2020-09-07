@@ -413,7 +413,13 @@ let someThing = new Singleton();  // Error: constructor of 'Singleton' is privat
 在 Angular 2+ 的版本中，控制反转与依赖注入便是基于此实现，下面是一个简化版。
 
 
+### 
 
+```ts
+interface Window {
+  Slardar: typeof import('@slardar/sdk').default;
+}
+```
 
 
 

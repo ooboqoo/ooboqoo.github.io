@@ -2,6 +2,7 @@
 
 ## 要点
 
+* 最定义类似 _global.d.ts_ 的文件时，要在 _tsconfig.json_ 中 `include` 一下
 * 使用 `declare` 来表明这是 ts 专用的声明定义
 * 使用 `tsc -d` 来编译一些 ts 文档以熟悉具体的行为
 * 全局变量形式的外部依赖库使用 `/// <reference types="somelib" />` 声明，应是借鉴 index.html 中的 `<script src="path/to/somelib.js"></script>` 来设计的

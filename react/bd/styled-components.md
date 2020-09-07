@@ -1,9 +1,55 @@
 # styled-components
 
+JSX 让我们能用 JS 写 HTML，Styled Compoents 让我们能用 JS 来写(组织) CSS。从此各种 CSS DSL 都将被 JS 终结。
 
 让样式组件成为开发的基本单元。
 
 把要基于 classNames 才能实现的样式关联去掉，用纯 CSS 的方式去书写 React 组件。
+
+
+
+
+
+
+* Official Site  https://styled-components.com/
+* Awesome Styled Components  https://github.com/styled-components/awesome-styled-components
+
+
+Jupiter 开箱即用的支持 CSS Modules，但我们更推荐优先采用 CSS Modules 的继承者、在『模块化』上更进一步的 styled-components，来实现类似的需求。
+
+
+
+## 安装配置
+
+### create-react-app
+
+https://styled-components.com/docs/tooling#babel-macro
+
+```js
+// improt styled from 'styled-compoents';  改成
+import styled from 'styled-components/macro';
+```
+
+这样用，在开发时，就能看到直观的类名了。
+
+```html
+<div class="sc-AxjAm ljuoB">直接使用 styled-components 看到的类名是这样的</div>
+<div class="style__Sidebar-sc-1hbiuqx-0 icsJmy">使用 styled-components/macro，可看到直观的类名：文件名__组件名-其他</div>
+如果看这还嫌冗余，可以把文件名也去掉，具体配置文件见下面的 babel-plugin-macros.config.js
+<div class="Sidebar-sc-1hbiuqx-0 icsJmy">隐藏文件名后的效果</div>
+```
+
+_babel-plugin-macros.config.js_
+
+```js
+module.exports = {
+  // Other macros config...
+
+  styledComponents: {
+    fileName: false
+  },
+}
+```
 
 
 ## 栗子

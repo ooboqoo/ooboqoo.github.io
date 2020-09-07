@@ -140,7 +140,7 @@ Alt+. 闭合当前标签
 shift+ctrl+; 移除标签（emmet 插件功能）
 
 ###列模式的操作方法
-鼠标右键＋Shift (macOS opt+鼠标左键) 或 鼠标中键
+鼠标右键＋Shift  (macOS opt+鼠标左键)  或 鼠标中键
 增加选择：Ctrl，减少选择：Alt
 
 ###快速移动光标
@@ -222,3 +222,5 @@ The Goto Anything operators are bound to the following shortcuts:
 | AutoFileName    | 自动添加引用文件名。
 | SyncedSideBar   | 可以在侧边栏同步展开编辑文件所在目录的插件。后来发现 右键->Reveal in Side Bar 是个更好的选择
 | HTML2Text       | HTML 转 Markdown 插件
+| TypeScript      | https://packagecontrol.io/packages/TypeScript
+

@@ -96,7 +96,7 @@ Selector | Example | Example description | CSS
  :only-child                 | p:only-child          |  | 3
  :nth-of-type(<i>n</i>)      | p:nth-of-type(2)      |  | 3
  :nth-last-of-type(<i>n</i>) | p:nth-last-of-type(2) |  | 3
- :first-of-type              | p:first-of-type       |  | 3
+ :first-of-type              | p:first-of-type       | 在兄弟元素之间，每一种 tagName 的第一个元素都能匹配 | 3
  :last-of-type               | p:last-of-type        |  | 3
  :only-of-type               | p:only-of-type        |  | 3
 

@@ -3,6 +3,23 @@
 
 ## 垂直方向百分比值使用
 
+### `%` 相关知识总结
+
+https://wattenberger.com/blog/css-percents?ref=sidebar
+
+||||
+---------------|-----------|------------------
+height         | is a % of | parent’s height
+width          | is a % of | parent’s width
+top            | is a % of | parent’s height
+left           | is a % of | parent’s width
+margin-top     | is a % of | parent’s width
+margin-left    | is a % of | parent’s width
+padding-top    | is a % of | parent’s width
+padding-left   | is a % of | parent’s width
+translate-top  | is a % of | self’s height
+translate-left | is a % of | self’s width
+
 ### 规则
 
 Here are the rules for percentages on vertical items:
