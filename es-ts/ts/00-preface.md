@@ -1,40 +1,11 @@
+# 
+
 官方网站：https://www.typescriptlang.org   
-中文文档地址：http://tslang.cn/docs/handbook/interfaces.html
+
 
 ## TS 手册精简
 
-### 类型注解
 
-```
-布尔值 Boolean: boolean
-数值   Number: number
-字符串 String: string 
-符号   Symbol: symbol
-数组   Array: elemType[] 或 Array<elemType> 
-         let list: number[] = [1, 2, 3];
-         let list: Array<number> = [1, 2, 3]
-元组   Tuple: let x: [string, number];  // 越界元素采用联合类型
-         x = ['hello', 10];  // OK
-         x = [10, 'hello'];  // Error
-枚举   Enum : enum Color {Red, Green, Blue};  // ['enəm]
-         enum Color {Red = 1, Green=128, Blue};
-         console.log(Color[128]);   // Green
-         console.log(Color.Green);  // 128
-任意值 Any: any
-         let notSure: any = 4; 
-空值   Void: void
-         function f00(): viod {}
-Null: null
-Undefined: undefined
-类型断言 Type assertions
-  let someValue: any = "this is a string";
-  let strLength: number = (<string>someValue).length;    // 方式 1
-    // 注意这里的括号，如果 <string>someValue.length 这样写则断言的对象是 length
-  let strLength: number = (someValue as string).length;  // 方式 2
-```
-
-元组类型允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。   
-使用枚举类型可以方便地将名称与数值（下标）建立联系，即可以通过名称取得数值，同时又可以通过数值取得名称。
 
 ### 接口 Interfaces
 

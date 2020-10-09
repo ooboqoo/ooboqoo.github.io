@@ -9,6 +9,9 @@ https://aaaaaashu.gitbooks.io/mac-dev-setup/content/index.html
 
 ```bash
 $ xcode-select --install    # 安装命令行工具
+
+# 删除命令行工具
+$ sudo rm -rf /Library/Developer/CommandLineTools
 ```
 
 包含了一些基本的命令行开发工具，如 git, xcrun, xcodebuild，安装 Homebrew 的时候会提示安装。
@@ -16,6 +19,11 @@ $ xcode-select --install    # 安装命令行工具
 也可登录 https://developer.apple.com/download/more/ 下载安装包安装。
 
 注：不要装 Xcode，太大了，目前开发也用不到，而且频繁更新很烦人，动不动就 5 个 G。
+
+```bash
+# 如果装了 Xcode 可以切到 Xcode 的命令行工具，更完整，更新也更及时
+$ sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+```
 
 ### Homebrew
 

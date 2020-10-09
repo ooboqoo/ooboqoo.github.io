@@ -124,7 +124,7 @@ func main() {
 
 #### Zero values
 
-未赋初始值的变量都会或得对应的 zero value：
+未赋初始值的变量都会获得对应的 zero value：
   * `0` for numeric types
   * `false` for the boolean type
   * `""` (the empty string) for strings
@@ -148,7 +148,7 @@ u := uint(f)
 
 #### Constants
 
-常量只能使用 `const` 声明，无法使用 `:=` 简写语法。(常量用全小写名也可以，这里首字母大写是惯例么？)
+常量只能使用 `const` 声明，无法使用 `:=` 简写语法。
 
 ```go
 const (

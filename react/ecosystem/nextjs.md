@@ -466,11 +466,13 @@ export default Post
 给 React app 添加样式的方式可分为两大类:
 
 * Traditional CSS-file-based styling (including SASS, PostCSS etc)
-* CSS in Js styling
+* CSS in JS styling
 
 Consequently, there are a bunch of practical issues to consider with traditional CSS-file-based styling (especially with SSR), so we suggest avoiding this method when styling for Next.js.
 
 Next.js 默认使用了 [styled-jsx](https://github.com/zeit/styled-jsx) 当然还有其他选项也值得看看。
+
+问题：生成的样式是基于文件来隔离的，当一个文件中存在多个组件且组件中使用了相同的类名时，会互相干扰。
 
 _pages/index.js_
 
@@ -535,6 +537,7 @@ export default function Blog () {
       }
     `}</style>
 ```
+
 
 
 ## Deploying a Next.js App

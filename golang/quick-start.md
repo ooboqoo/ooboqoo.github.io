@@ -9,6 +9,11 @@
 
 到 https://golang.org/dl/ 下载安装包安装即可。
 
+```bash
+$ go version
+$ which go
+```
+
 ### 开发环境
 
 VS Code + Go 扩展。

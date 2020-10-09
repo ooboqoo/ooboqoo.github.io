@@ -383,7 +383,7 @@ function TimesTamped<TBase extends Constructor>(Base: TBase) {
 柯里化：仅仅需要使用一系列箭头函数。
 
 ```ts
-const add = (x: number) => (y: number) > x + y;
+const add = (x: number) => (y: number) => x + y;
 const add123 = add(123);
 add123(456);
 ```
