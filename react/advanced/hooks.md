@@ -1,6 +1,6 @@
-# Hook 简介
+# Hooks (使用篇)
 
-Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。
+Hook 是 React 16.8 的新增特性。它可以让你在不编写 类组件(class component) 的情况下使用 state 以及其他的 React 特性。
 
 
 ## 简介
@@ -25,7 +25,7 @@ function Example() {
 
 ### 动机
 
-Hook 解决了我们五年来编写和维护成千上万的组件时遇到的各种各样看起来不相关的问题。
+Hook 解决了我们多年来编写和维护成千上万的组件时遇到的各种各样看起来不相关的问题。
 
 #### 很难在组件之间复用状态逻辑
 
@@ -42,6 +42,33 @@ React 没有提供将可复用性行为附加到组件的途径。你也许会�
 #### 难以理解的类
 
 this 指向困扰
+
+### 类和函数的差异
+
+严格地说，类组件和函数组件是有差异的。不同的写法，代表了不同的编程方法论。
+类(class)是数据和逻辑的封装，如果选择了类的写法，就应该把相关的数据和操作都写在同一个class里面。
+函数一般来说，只应该做一件事，就是返回一个值。如果你有多个操作，每个操作都应该写成一个单独的函数。而且，数据的状态应该与操作方法分离。根据这种理念，React 的函数组件只应该做一件事情：返回组件的 HTML 代码。
+
+函数式编程将那些跟数据计算无关的操作都称为 **副效应 side effect**。如果函数内部直接包含产生副效应的操作，就不再是纯函数了，我们称之为不纯函数。纯函数内部只有通过间接的手段(即通过其他函数调用)才能包含副效应。
+
+使用钩子使得代码更简洁，而且函数式组件也更符合 React 函数式的本质。
+
+钩子 hook 就是 React 函数组件的副效应解决方案，用来为函数组件引入副效应。函数组件的主体只应该用来返回组件的 HTML 代码，所有的其他操作(副效应)都必须通过钩子引入。
+
+由于副效应非常多，所以钩子有许多种。React 为许多常见的操作都提供了专用的钩子。
+* useState 保存状态
+* useContext 使用上下文
+* useRef 保存引用
+* ...
+* useEffect 通用的副效应钩子，找不到对应钩子时由它来兜底
+
+只要是副作用，都可以使用 `useEffect()` 引入，它的常见用途有以下几种
+* 获取数据 (data fetching)
+* 事件监听或订阅 (setting up a subscription)
+* 改变 DOM (changing the DOM)
+* 输出日志 (logging)
+
+React 的很多思想已经影响到了整个业界，如 虚拟DOM、JSX、函数式编程、不可变的状态、单向数据流等等，Hooks 亦将带来前端的重大革新。
 
 ### 渐进策略
 
@@ -69,7 +96,7 @@ function ExampleWithManyStates() {
 * 返回值为：当前 state 以及更新 state 的函数
 * 在初始渲染期间，返回的状态 state 与传入的第一个参数 initialState 值相同
 * setState 函数用于更新 state。它接收一个新的 state 值并将组件的一次重新渲染加入队列
-* 一般来说，在函数退出后变量就会”消失”，而 state 中的变量会被 React 保留
+* 一般来说，在函数退出后变量就会”消失”，而 state 中的变量属于例外，会被 React 保留
 * React 会确保 setState 函数的标识是稳定的，并且不会在组件重新渲染时发生变化
 
 `useState` 与 `this.setState` 之间的差异
@@ -92,11 +119,10 @@ function Counter({initialCount}) {
 }
 ```
 
-useState 不会自动合并更新对象。你可以结合展开运算符来达到合并更新对象的效果。useReducer 是另一种可选方案，它更适合用于管理包含多个子值的 state 对象。
+`useState` 不会自动合并更新对象。你可以结合 *展开运算符* 来达到合并更新对象的效果。`useReducer` 是另一种可选方案，它更适合用于管理包含多个子值的 state 对象。
 
 ```jsx
 setState(prevState => {
-  // 也可以使用 Object.assign
   return {...prevState, ...updatedValues};
 });
 ```
@@ -107,9 +133,12 @@ initialState 参数只会在组件的初始渲染中起作用，后续渲染时�
 
 ```jsx
 const [state, setState] = useState(() => {
-  const initialState = someExpensiveComputation(props);
+  const initialState = someExpensiveComputation(props); // 只在组件初始化时执行一次
   return initialState;
 });
+
+// 错误的用法，someExpensiveComputation 在每次组件重新渲染时都会执行
+const [state, setState] = useState(someExpensiveComputation(props));
 ```
 
 ### 跳过 state 更新
@@ -132,7 +161,7 @@ console.log(count);  // 是 0 不是 1
 
 * setState 更新组件状态，函数组件会被运行 *2次* https://reactjs.org/docs/strict-mode.html#detecting-unexpected-side-effects
 * setState 传相同的引用类型或原始类型值，不会触发组件更新
-* `setArray([...array])` ArrayItem 元素对应的内容虽然没有变，但还是会运行
+* `setArray([...array])` ArrayItem 元素对应的内容虽然没有变，但还是会触发重新渲染
 
 #### FunctionComponent VS PureComponent
 
@@ -140,7 +169,7 @@ console.log(count);  // 是 0 不是 1
 * FunctionComponent 始终会执行
 * PureComponent 的 `render` 方法不会执行，但系统默认提供的 `shouldComponentUpdate` 还是会执行的 【注1】
 
-比较下来，PureComponent 的性能更优，绝大多数时候不用考虑这点微弱的性能差异，但关键场合是可以拿来优化的。当然，使用钩子 `useMemo` 一样可以实现类似的优化。
+比较下来，PureComponent 的性能更优，绝大多数时候不用考虑这点微弱的性能差异，但关键场合是可以拿来优化的。当然，使用 `React.memo()` 将 FunctionComponent 包一层可以得到同样的优化效果。
 
 注1: 实际 PureComponnet 中不存在，也不允许存在 `shouldComponentUpdate`，实际的代码是下面这样的。React 中对比一个 ClassComponent 是否需要更新，只有两个地方。一是看有没有 shouldComponentUpdate 方法，二就是这里的 PureComponent 判断。
 
@@ -189,17 +218,17 @@ function Example() {
 
 副作用函数还可以通过返回一个函数来指定如何“清除”副作用。
 
-*虽然 useEffect 会在浏览器绘制后延迟执行，但会保证在任何新的渲染前执行*。React 将在组件更新前刷新上一轮渲染的 effect。也就是说，如果在 Efect 中更新了 state，界面是没有任何变化的，要等到其他条件触发重新渲染才会更新，也即总是会慢一拍。
+*虽然 useEffect 会在浏览器绘制后延迟执行，但会保证在任何新的渲染前执行*。React 将在组件更新前刷新上一轮渲染的 effect。
 
 **为什么在组件内部调用 useEffect？**
 
-将 useEffect 放在组件内部让我们可以在 effect 中直接访问 count state 变量（或其他 props）。我们不需要特殊的 API 来读取它 —— 它已经保存在函数作用域中。*Hook 使用了 JavaScript 的闭包机制*。
+将 useEffect 放在组件内部让我们可以在 effect 中直接访问 props 或 state 变量。我们不需要特殊的 API 来读取它，它已经保存在函数作用域中。*Hook 利用了 JavaScript 的闭包机制*。
 
 **useEffect 会在每次渲染后都执行吗？**
 
 是的，默认情况下，它在第一次渲染之后和每次更新之后都会执行。你可能会更容易接受 effect 发生在“渲染之后”这种概念，不用再去考虑“挂载”还是“更新”。
 
-与 componentDidMount 或 componentDidUpdate 不同，使用 useEffect 调度的 effect 不会阻塞浏览器更新屏幕，这让你的应用看起来响应更快。大多数情况下，effect 不需要同步地执行。在个别情况下（例如测量布局），有单独的 useLayoutEffect Hook 供你使用，其 API 与 useEffect 相同。
+与 componentDidMount 或 componentDidUpdate 不同，使用 useEffect 调度的 effect 不会阻塞浏览器更新屏幕，这让你的应用看起来响应更快。大多数情况下，effect 不需要同步地执行。在个别情况下（例如测量布局），有单独的 `useLayoutEffect` Hook 供你使用，其 API 与 useEffect 相同。
 
 ```js
 // 类组件里同一行代码要写两次
@@ -214,7 +243,6 @@ class Example extends Component {
   componentDidMount() {
     document.title = `You clicked ${this.state.count} times`  // 1
   }
-
   componentDidUpdate() {
     document.title = `You clicked ${this.state.count} times`  // 2
   }
@@ -239,6 +267,8 @@ function Example() {
 ### 使用多个 Effect 实现关注点分离
 
 Hook 允许我们 *按照代码的用途分离* 他们，而不是像生命周期函数那样。React 将按照 effect 声明的顺序依次调用每一个 effect。
+
+使用 useEffect 时一定要注意，如果有多个副效应，应该调用多个 useEffect 而不应该合并写在一起。
 
 ```js
 class FriendStatusWithCounter extends Component {
@@ -329,6 +359,35 @@ function FriendStatus(props) {
 }
 ```
 
+注：useEffect 的清理函数在 *新的渲染完成之后、新的副作用函数重新运行之前* 运行。
+
+> React only runs the effects after letting the browser paint. This makes your app faster as most effects don’t need to block screen updates. Effect cleanup is also delayed. The previous effect is cleaned up after the re-render with new props.
+
+```jsx
+const Foo = function Foo(props) {
+  const [count, setCount] = useState(0);
+  if (count < 1) { setCount(count + 1); }
+  console.log(`${count}-1`)
+  useEffect(() => {
+    console.log(`${count}-2`)
+    return () => console.log(`${count}-3`)
+  })
+  return <div>Foo</div>
+}
+
+// 初始化时输出
+0-1
+1-1
+0-1
+1-1
+1-2
+// 重新渲染时输出
+1-1
+1-1
+1-3  // 此时浏览器已经重新渲染完成了，重新渲染完成后才会清理上一次的副作用
+1-2
+```
+
 ### 为什么每次更新都要运行 Effect
 
 经验丰富的 JavaScript 开发人员可能会注意到，传递给 useEffect 的函数在每次渲染中都会有所不同，这是刻意为之的。事实上这正是我们可以在 effect 中获取最新的 count 的值，而不用担心其过期的原因。每次我们重新渲染，都会生成新的 effect，替换掉之前的。某种意义上讲，*effect 更像是渲染结果的一部分* —— 每个 effect “属于”一次特定的渲染。
@@ -401,7 +460,7 @@ useEffect(() => {
 
 如果想执行只运行一次的 effect（仅在组件挂载和卸载时执行），可以传递一个空数组`[]` 作为第二个参数。这就告诉 React 你的 effect 不依赖于 props 或 state 中的任何值，所以它永远都不需要重复执行。
 
-如果你传入了一个空数组`[]`，effect 内部的 props 和 state 就会一直拥有其初始值。
+*如果你传入了一个空数组`[]`，effect 内部的 props 和 state 就会一直拥有其初始值。*
 
 除此之外，请记得 React 会等待浏览器完成画面渲染之后才会延迟调用 useEffect，因此会使得额外操作很方便。
 
@@ -410,15 +469,15 @@ useEffect(() => {
 
 `useContext` 接收一个 context 对象(React.createContext 的返回值)并返回该 context 的当前值。当前的 context 值由上层组件中距离当前组件最近的 `<MyContext.Provider value={xxx}>` 的 `value` prop 决定。
 
-当组件上层最近的 <MyContext.Provider> 更新时，该 Hook 会触发重渲染
+当组件上层最近的 <MyContext.Provider> 更新时，该 Hook 会触发重渲染。
 
-如果重渲染组件的开销较大，你可以 通过使用 memoization 来优化。
+如果重渲染组件的开销较大，你可以通过使用 memoization 来优化。
 
 如果你在接触 Hook 前已经对 context API 比较熟悉，那应该可以理解，useContext(MyContext) 相当于 class 组件中的 `static contextType = MyContext` 或者 `<MyContext.Consumer>`。
 
-useContext(MyContext) 只是让你能够读取 context 的值以及订阅 context 的变化。你仍然需要在上层组件树中使用 <MyContext.Provider> 来为下层组件提供 context。
-
-注意不要滥用 Context，因为它会破坏你的组件独立性。
+特别说明：
+* `useContext(MyContext)` 只是让你能够读取 context 的值以及订阅 context 的变化。你仍然需要在上层组件树中使用 `<MyContext.Provider>` 来为下层组件提供 context。
+* 注意不要滥用 Context，因为它会破坏你的组件独立性。
 
 ```jsx
 const themes = {
@@ -556,10 +615,12 @@ function Counter({initialCount}) {
 
 ```jsx
 // 套 memo 后，只要 props 没变就不会重新渲染
+// `memo` 是一个 HOC，可以将 `Component` 或 `FunctionComponent` 转换成一个 `PureComponent`
 // 本例中，App 内的 count 值变更，不会输出 “Foo render”，没套的话每次 App 的重新渲染都会触发 Foo 重复渲染
 const Foo = memo(function Foo(props) {
   console.log('Foo render')
   // 这里必须显式绑定，在外层绑定不起作用，这个跟 Vue.js 行为不一样
+  // 还可以写成 {...props} 这样通用性更强
   return <div onClick={props.onClick}>Me Foo</div>
 })
 
@@ -569,8 +630,8 @@ const App = () => {
   const clickFoo = useCallback(() => console.log('Foo Clicked'), [])
   return (
     <div>
-      <button onClick={() => setCount(count + 1)}>Add({count})</button> // 在 DOM 上无需 useCallback
-      <Foo onClick={clickFoo} />                                        // 传递给子组件就要套 useCallback
+      <button onClick={() => setCount(count + 1)}>Add</button> // 在 DOM 上无需 useCallback
+      <Foo onClick={clickFoo} />                               // 传递给子组件就要套 useCallback
     </div>
   )
 }
@@ -578,7 +639,7 @@ const App = () => {
 
 ### useMemo
 
-`memo()` 限制一个组件是否重复渲染，而 `useMemo()` 则是限制一个函数是否重复执行。
+*`memo()` 限制一个组件是否重复渲染，而 `useMemo()` 则是限制一个函数是否重复执行。*
 
 `useMemo()` 和 `useEffect()` 的第二个参数逻辑是相同的，不同的是，`useMemo` 是有返回值的，在渲染之前执行，而 `useEffect` 则是在渲染之后执行。
 
@@ -595,19 +656,19 @@ const double = useMemo(() => count * 2, [count])
 
 ### useRef
 
-* 获取子组件或者 DOM 节点的句柄。无法获取函数子组件的 ref，必须是类组件，所以完全取代暂时还不现实
+* 获取子组件或者 DOM 节点的句柄。无法获取函数子组件的 ref (但函数式组件可以借助 `React.forwardRef` 来传递 ref)，必须是类组件，所以 class 暂时还无法被完全取代
 * 渲染周期之间共享数据的存储。state 也可以跨渲染周期保存，但会触发重新渲染，而 ref 不会触发重新渲染
 * Ref 的 `current` 的值可以随便修改，但 Ref 对象本身不可扩展属性 `Object.isExtensible(ref) === false`
 
-useRef 返回一个可变的 ref 对象，其 `.current` 属性被初始化为传入的参数 initialValue。返回的 ref 对象在组件的整个生命周期内保持不变。
+useRef 返回一个可变的 ref 对象，其 `current` 属性被初始化为传入的参数 initialValue。返回的 ref 对象在组件的整个生命周期内保持不变。
 
-你应该熟悉 ref 这一种访问 DOM 的主要方式。如果你将 ref 对象以 `<div ref={myRef} />` 形式传入组件，则无论该节点如何改变，React 都会将 ref 对象的 `.current` 属性设置为相应的 DOM 节点。
+你应该熟悉 ref 这一种访问 DOM 的主要方式。如果你将 ref 对象以 `<div ref={myRef} />` 形式传入组件，则无论该节点如何改变，React 都会将 ref 对象的 `current` 属性设置为相应的 DOM 节点。
 
 然而，`useRef()` 比 `ref` 属性更有用。它可以很方便地保存任何可变值，其类似于在 class 中使用实例字段的方式。
 
 这是因为它创建的是一个普通 Javascript 对象。而 `useRef()` 和自建一个 `{current: ...}` 对象的唯一区别是，`useRef` 会在每次渲染时返回同一个 ref 对象。
 
-请记住，当 ref 对象内容发生变化时，`useRef` 并不会通知你。*变更 `.current` 属性不会引发组件重新渲染。如果想要在 React 绑定或解绑 DOM 节点的 ref 时运行某些代码，则需要使用回调 ref 来实现*。
+请记住，当 ref 对象内容发生变化时，`useRef` 并不会通知你。*变更 `current` 属性不会引发组件重新渲染* 。如果想要在 React 绑定或解绑 DOM 节点的 ref 时运行某些代码，则需要使用 **ref callback** 来实现。
 
 ```js
 function TextInputWithFocusButton() {
@@ -650,9 +711,9 @@ function TextInputWithFocusButton() {
 
 ### useImperativeHandle
 
-useImperativeHandle 可以让你在使用 ref 时自定义暴露给父组件的实例值（典型的应用是向上传递 func）。在大多数情况下，应当避免使用 ref 这样的命令式代码。useImperativeHandle 应当与 forwardRef 一起使用：
+`useImperativeHandle` 可以让你在使用 `ref` 时自定义暴露给父组件的实例值（典型的应用是向上传递 func）。应当尽量避免使用这样的命令式代码。`useImperativeHandle` 需要与 `forwardRef` 配合使用：
 
-```js
+```jsx
 function FancyInput(props, ref) {
   const inputRef = useRef()
   useImperativeHandle(ref, () => ({
@@ -679,7 +740,7 @@ It fires synchronously after all DOM mutations. We recommend starting with useEf
 
 Your code runs immediately *after the DOM has been updated*, but *before* the browser has had a chance to *paint those changes* (the user doesn't actually see the updates until after the browser has repainted).
 
-其函数签名与 useEffect 相同，但它会在 *所有的 DOM 变更之后 同步* 调用 effect。可以使用它来读取 DOM 布局并同步触发重渲染。*在浏览器执行绘制之前*，useLayoutEffect 内部的更新计划将被同步刷新。
+其函数签名与 useEffect 相同，但它会在 *所有的 DOM 变更之后，同步(即阻塞式)地* 调用 effect。可以使用它来读取 DOM 布局并同步触发重渲染。*在浏览器执行绘制之前*，useLayoutEffect 内部的更新计划将被同步刷新。
 
 `useLayoutEffect` 与 `componentDidMount`、`componentDidUpdate` 的调用阶段是一样的。
 
@@ -763,7 +824,7 @@ function FriendListItem(props) {
 
 ### usePrevious
 
-可以利用这个自定义钩子来获取上一轮的 props 或 state，考虑到这是一个相对常见的使用场景，很可能在未来 React 会内置此 Hook。
+获取上一轮的 props 或 state，考虑到这是一个相对常见的使用场景，很可能在未来 React 会内置此 Hook。
 
 ```js
 function usePrevious(value) {
@@ -778,6 +839,27 @@ function Counter() {
   const [count, setCount] = useState(0);
   const prevCount = usePrevious(count);
   return <h1>Now: {count}, before: {prevCount}</h1>;
+}
+```
+
+### useForceUpdate
+
+用于强制更新组件，通常在使用 useRef 管理可变状态，但又需要重渲染时使用。
+
+```js
+function useForceUpdate() {
+  const [, forceUpdate] = useReducer(v => v + 1, 0);
+  return forceUpdate;
+}
+
+function Demo() {
+  const counter = useRef(0);
+  const forceUpdate = useForceUpdate();
+  const handleClick = () => {
+    counter.current++;
+    forceUpdate();
+  }
+  return <div onClick={handleClick}>{counter.current}</div>;
 }
 ```
 
@@ -807,370 +889,12 @@ Hook 就是 JavaScript 函数，但是使用它们会有两个额外的规则。
 
 ```js
 useEffect(function persistForm() {
-  // 👍 将条件判断放置在 effect 中
+  // 将条件判断放置在 effect 中
   if (name !== '') {
     localStorage.setItem('formData', name);
   }
 });
 ```
-
-
-## FAQ
-
-### 底层原理
-
-```jsx
-function Foo() {
-  const [count, setCount] = useState(0)
-  const [students, setStudents] = useState([])
-  useEffect(() => console.log(count), [count])
-  return <span onClick={() => setCount(count + 1)}>{count}</span>
-}
-```
-
-以上代码生成的元素，在调试窗口看到的是这样子的：
-
-```txt
-<Foo />
-    Props: {}
-    Hooks: [
-        {id: 0, isStateEditable: true, name: "State", value: 0, subHooks: Array(0)},
-        {id: 1, isStateEditable: true, name: "State", value: Array(0), subHooks: Array(0)},
-        {id: 2, isStateEditable: false, name: "Effect", subHooks: Array(0), value: ƒ}
-    ]
-    Nodes: [span]
-    Location: {fileName: "/Users/gavin/GitHub/train-ticket/src/index.js", lineNumber: 18}
-```
-
-如果使用了自定义 Hook，那么大概是这个样子的：
-
-```txt
-{id: null, isStateEditable: false, name: "Count", value: undefined, subHooks: [
-  {id: 0, isStateEditable: true, name: "State", value: 4, subHooks: Array(0)}
-  {id: 1, isStateEditable: false, name: "Effect", subHooks: Array(0), value: ƒ}
-]}
-```
-
-### 生命周期方法如何迁移到 Hook
-
-`constructor`：函数组件不需要构造函数。你可以通过调用 useState 来初始化 state。  
-`getDerivedStateFromProps`：改为 在渲染时 安排一次更新。  
-`shouldComponentUpdate`：详见 React.memo。  
-`render`：这是函数组件体本身。  
-`componentDidMount`, `componentDidUpdate`, `componentWillUnmount`：useEffect Hook 可以表达所有这些的组合。  
-`componentDidCatch`, `getDerivedStateFromError`：目前还没有这些方法的 Hook 等价写法，但很快会加上。
-
-### 实现 forceUpdate
-
-```js
-const [ignored, forceUpdate] = useReducer(x => x + 1, 0)
-
-function handleClick() {
-  forceUpdate()
-}
-```
-
-
-## 实战积累(深入认识 Hooks)
-
-异步踩坑指南 https://juejin.im/post/5dad5020f265da5b9603e0ca
-
-```jsx
-import React, {useState, useCallback} from 'react';
-
-function App() {
-  const [count, setCount] = useState(0);
-  const log = () => {
-    console.log(count);
-  }
-  const log2 = useCallback(() => {
-    console.log(count);  // 这里的 count 会被固化下来，始终为 0
-  }, []);
-  const add = () => {
-    setCount(count + 1);
-  }
-  return (
-    <div>
-      <button onClick={log}>log</button>
-      <button onClick={log2}>log in useCallback</button>
-      <button onClick={add}>add</button>
-    </div>
-  );
-}
-
-export default App;
-```
-
-Hooks 使得可以在不编写 Class 的情况下使用状态等功能。@types/react 中也同步把 React.SFC (Stateless Functional Component) 改为了 React.FC (Functional Component)。
-
-
-### useEffect + 异步任务
-
-中断请求
-
-```js
-useEffect(() => {
-  let isUnmounted = false;  // 组件是否已经卸载
-  const abortController = new AbortController();
-  (async () => {
-    const res = await fetch(SOME_API, {singal: abortController.singal});
-    const data = await res.json();
-    // 如果不做这个判断，再更新状态，可能组件已经被卸载了，此时 React 会报 Warning
-    if (!isUnmounted) {
-      setValue(data.value);
-      setLoading(false);
-    }
-  })();
-  return () => {
-    isUnmounted = true;
-    abortController.abort();  // 组件卸载时中断请求
-  }
-});
-```
-
-
-
-
-### usRef + 异步任务
-
-> 当使用 `useState` 看到的值跟预期不一样时，改成 `useRef` 试试。  
-> `useRef()` 返回的 ref 对象在组件的整个生命周期内都保持不变。
-
-问题：发现读取和写入的 state 明明是同一个，但结果就对不上
-
-```js
-const MyComponent = () => {
-  const [timer, setTimer] = useState(0);  // 记录定时器的 ID
-  useEffect(() => {
-    // 组件销毁或更新时，清理计时器
-    return () => {
-      console.log('销毁定时器，ID：', timer);
-      window.clearTimeout(timer);
-    }
-  }, []);  // 这里是个很关键的点，如果没有这个 `[]` 是正常的
-  const start = () => {
-    const timerID = window.setTimeout(() => {
-      // 异步任务 。。。
-    }, 5000);
-    console.log('设置定时器，ID：', timerID);
-    setTimer(timerID);
-  }
-  // ...
-}
-```
-
-解决方案1: 改成变量反而就好了
-
-```js
-const MyComponent = () => {
-  let timer;
-  useEffect(() => {
-    // 组件销毁或更新时，清理计时器
-    return () => {
-      console.log('销毁定时器，ID：', timer);
-      window.clearTimeout(timer);
-    }
-  }, []);
-  const start = () => {
-    timer = window.setTimeout(() => {
-      // 异步任务 。。。
-    }, 5000);
-    console.log('设置定时器，ID：', timer);
-    setTimer(timer);
-  }
-}
-```
-
-解决方案2: 使用 useRef
-
-```js
-const MyComponent = () => {
-  const timer = useRef(0);
-  useEffect(() => {
-    // 组件销毁或更新时，清理计时器
-    return () => {
-      console.log('销毁定时器，ID：', timer.current);
-      window.clearTimeout(timer.current);
-    }
-  });
-  const start = () => {
-    timer.current = window.setTimeout(() => {
-      // 异步任务 。。。
-    }, 5000);
-    console.log('设置定时器，ID：', timer.current);
-    setTimer(timer.current);
-  }
-}
-```
-
-问题分析：写入的变量和读取的变量是否是同一个变量
-
-timer 是一个 useState 的返回值，并不是一个简单的变量。从 React Hooks 的源码来看，它返回的是 [hook.memorizedState, dispatch]，对应我们接的值和变更方法。当调用 setTimer 和 setValue 时，分别触发两次重绘，使得 hook.memorizedState 指向了 newState（注意：不是修改，而是重新指向）。但 useEffect 返回闭包中的 timer 依然指向旧的状态，从而得不到新的值。（即读的是旧值，但写的是新值，不是同一个）
-
-
-
-
-
-
-### usState 异步更新
-
-usState 返回的更新状态的方法是异步的，要在下次重绘时才能获取新值。
-
-```js
-const [count, setCount] = useState(0);
-setCount(1);
-console.log(count);  // 是 0 不是 1
-```
-
-
-## Drawbacks 待优化项
-
-https://github.com/reactjs/rfcs/blob/master/text/0068-react-hooks.md
-
-A non-exhaustive list of drawbacks of this Hooks design follows.
-
-* Introducing a new way to write components means more to learn and means confusion while both classes and functions are used.
-* The “Rules of Hooks”: in order to make Hooks work, React requires that Hooks are called unconditionally. Component authors may find it unintuitive that Hook calls can't be moved inside `if` statements, loops, and helper functions.
-* The “Rules of Hooks” can make some types of refactoring more difficult. For example, adding an early return to a component is no longer possible without moving all Hook calls to before that conditional.
-* Event handlers need to be recreated on each render in order to reference the latest copy of props and state, which reduces the effectiveness of `PureComponent` and `React.memo`.
-* It's possible for closures (like the ones passed to `useEffect` and `useCallback`) to capture **old versions** of props and state values. In particular, this happens if the “inputs” array is inadvertently missing one of captured variables. This can be confusing.
-* React relies on internal global state in order to determine which component is currently rendering when each Hook is called. This is “less pure” and may be unintuitive.
-* `React.memo` (as a replacement for `shouldComponentUpdate`) only has access to the old and new props; there's no easy way to skip rerendering for an inconsequential state update.
-* `useState` uses a tuple return value that requires typing the same name twice to declare a state field (like `const [rhinoceros, setRhinoceros] = useState(null);`), which may be cumbersome for long names.
-* `useState` uses the overloaded type `() => T | T` to support lazy initialization. But when storing a function in state (that is, when `T` is a function type) you must always use a lazy initializer `useState(() => myFunction)` because the types are indistinguishable at runtime. Similarly, the functional updater form must be used when setting state to a new function value.
-
-
-部分要点翻译
-* “每次所有的钩子都必须运行一遍”带来的不便是
-  * 无法将钩子移入 判断、循环 等结构
-  * 无法提前结束 Component 运行，更准确地说，需要将所有钩子移动到 early return 之前
-* 每次渲染需要重新生成 event handler 以保证对最新 props and state 的映射，没有 `PureComponent` 和 `React.memo` 来地高效
-* 使用 `useEffect` `useCallback` 等再配合 `[...]` 来优化性能时，如果没有正确配置依赖项，可能会导致读到旧的状态，会让人很费解
-* React 依赖 internal global state 来记录钩子运行时所处的 component 环境，不够 pure 也不直观
-* 当使用 `useState` 来存储函数时，因为本身 `useState` 就支持传入 initializer，为了做区分，此时必须使用 `useState(() => myFunction)` 的形式以做区分
-
-
-
-## Hooks 原理
-
-https://www.netlify.com/blog/2019/03/11/deep-dive-how-do-react-hooks-really-work/  
-https://medium.com/the-guild/under-the-hood-of-reacts-hooks-system-eb59638c9dba
-
-```js
-function updateFunctionComponent(recentFiber, workInProgressFiber, Component, props) {
-  prepareHooks(recentFiber, workInProgressFiber)
-  Component(props)
-  finishHooks()
-}
-```
-
-```js
-const ChildComponent = () => {
-  useState('foo')
-  useState('bar')
-  useState('baz')
-
-  return null
-}
-
-const ParentComponent = () => {
-  const childFiberRef = useRef()
-
-  useEffect(() => {
-    let hookNode = childFiberRef.current.memoizedState
-
-    assert(hookNode.memoizedState, 'foo')
-    hookNode = hooksNode.next
-    assert(hookNode.memoizedState, 'bar')
-    hookNode = hooksNode.next
-    assert(hookNode.memoizedState, 'baz')
-  })
-
-  return (
-    <ChildComponent ref={childFiberRef} />
-  )
-}
-```
-
-### 认识闭包
-
-> \[Closure\] makes it possible for a function to have "private" variables. -- W3Schools
-
-```js
-function getAdd() {
-  let foo = 1;
-  return function() {
-    foo = foo + 1;
-    return foo;
-  }
-}
-const add = getAdd();
-console.log(add());  // 2
-console.log(add());  // 3
-```
-
-### 实现 `useState`
-
-```js
-// Example 3
-const MyReact = (function() {
-  let _val, _deps // hold our state and dependencies in scope
-  return {
-    render(Component) {
-      const Comp = Component()
-      Comp.render()
-      return Comp
-    },
-    useEffect(callback, depArray) {
-      const hasNoDeps = !depArray
-      const hasChangedDeps = _deps ? !depArray.every((el, i) => el === _deps[i]) : true
-      if (hasNoDeps || hasChangedDeps) {
-        callback()
-        _deps = depArray
-      }
-    },
-    useState(initialValue) {
-      _val = _val || initialValue
-      function setState(newVal) {
-        _val = newVal
-      }
-      return [_val, setState]
-    }
-  }
-})()
-
-// usage
-function Counter() {
-  const [count, setCount] = MyReact.useState(0)
-  MyReact.useEffect(() => {
-    console.log('effect', count)
-  }, [count])
-  return {
-    click: () => setCount(count + 1),
-    noop: () => setCount(count),
-    render: () => console.log('render', { count })
-  }
-}
-let App
-App = MyReact.render(Counter)
-// effect 0
-// render {count: 0}
-App.click()
-App = MyReact.render(Counter)
-// effect 1
-// render {count: 1}
-App.noop()
-App = MyReact.render(Counter)
-// // no effect run
-// render {count: 1}
-App.click()
-App = MyReact.render(Counter)
-// effect 2
-// render {count: 2}
-```
-
-### 实现 `useEffect`
-
 
 
 ## 最佳实践
