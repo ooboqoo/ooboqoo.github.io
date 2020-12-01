@@ -60,6 +60,77 @@ React normalizes events so that they have consistent properties across different
 
 The event handlers are triggered by an event in the bubbling phase. To register an event handler for the capture phase, append `Capture` to the event name; for example, instead of using `onClick`, you would use `onClickCapture` to handle the click event in the capture phase.
 
+### 例子
+
+https://stackoverflow.com/questions/38619981/react-prevent-event-bubbling-in-nested-components-on-click
+
+所有通过 React 添加的事件监听都在事件冒泡到 `<html>` 时才真正执行。所以无法真正实现 `e.stopPropagation()`，但对通过 React 添加的监听器是有效的，因为 React 内部模拟了原生行为。
+
+React uses event delegation with a single event listener on document for events that bubble, like 'click' in this example, which means stopping propagation is not possible; the real event has already propagated by the time you interact with it in React. stopPropagation on React's synthetic event is possible because React handles propagation of synthetic events internally.
+
+```jsx
+import React, {useRef, useEffect} from 'react';
+
+function App() {
+  const parentRef = useRef();
+  const childRef= useRef();
+  const log = console.log;
+
+  useEffect(() => {
+    parentRef.current.addEventListener('click', e => {
+      log('[Parent] native capture', e);
+    }, true);
+    parentRef.current.addEventListener('click', e => {
+      log('[Parent] native', e);
+    }, false);
+    childRef.current.addEventListener('click', e => {
+      log('[Child] native capture', e);
+    }, true);
+    childRef.current.addEventListener('click', e => {
+      log('[Child] native', e);
+    }, false);
+  }, [log]);
+
+  return (
+    <div>
+      <div
+        ref={parentRef}
+        onClickCapture={e => {
+          e.stopPropagation();  // 所有 native handler 都会执行
+          log('[Parent] onClickCapture', e);
+        }}
+        onClick={e => log('[Parent] onClick', e)}
+      >
+        <button
+          ref={childRef}
+          onClickCapture={e => log('[Child] onClickCapture', e)}
+          onClick={e => log('[Child] onClick', e)}
+        >Click Me</button>
+      </div>
+    </div>
+  );
+}
+
+export default App;
+
+// [Parent] native capture MouseEvent {isTrusted: true, screenX: 2606, …}
+// [Child] native capture MouseEvent {isTrusted: true, screenX: 2606, …}
+// [Child] native MouseEvent {isTrusted: true, screenX: 2606, …}
+// [Parent] native MouseEvent {isTrusted: true, screenX: 2606, …}
+// [Parent] onClickCapture Class {nativeEvent: MouseEvent, type: "click", target: button, …}
+```
+
+If you call e.preventDefault() in all of your events, you can check if an event has already been handled, and prevent it from being handled again:
+
+```js
+handleEvent(e) {
+  if (e.defaultPrevented) return  // Exits here if event has been handled
+  e.preventDefault()
+
+  // Perform whatever you need to here.
+}
+```
+
 ## Reference
 
 ### Clipboard Events

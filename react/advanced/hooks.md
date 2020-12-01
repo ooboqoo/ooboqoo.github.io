@@ -151,10 +151,35 @@ React 可能仍需要在跳过渲染前渲染该组件。不过由于 React 不�
 
 `useState` 返回的更新状态方法是异步的，要在下次重绘时才能获取新值。
 
-```js
+```jsx
 const [count, setCount] = useState(0);
 setCount(1);
 console.log(count);  // 是 0 不是 1
+```
+
+利用回调可以帮助我们拿到最新的 state。下面示例中 `current => current + 1` 这中写法虽然比直接 `count + 1` 多敲了点代码，但结果更符合我们的直观预期。
+
+```jsx
+const App3 = () => {
+  const [count, setCount] = useState(0);
+
+  const handleClick = () => {
+    setCount(current => {
+      console.log(1, {count, current}); // 1 {count: 0, current: 0}
+      return current + 1;
+    });
+    setCount(current => {
+      console.log(2, {count, current}); // 2 {count: 0, current: 1}
+      return current + 1;
+    });
+  };
+
+  useEffect(() => {
+    console.log(3, {count}); // 3 {count: 2}
+  }, [count]);
+
+  return <div onClick={handleClick}>{count}</div>;
+}
 ```
 
 ### 行为测试
@@ -364,15 +389,15 @@ function FriendStatus(props) {
 > React only runs the effects after letting the browser paint. This makes your app faster as most effects don’t need to block screen updates. Effect cleanup is also delayed. The previous effect is cleaned up after the re-render with new props.
 
 ```jsx
-const Foo = function Foo(props) {
+function Foo() {
   const [count, setCount] = useState(0);
   if (count < 1) { setCount(count + 1); }
-  console.log(`${count}-1`)
+  console.log(`${count}-1`);
   useEffect(() => {
-    console.log(`${count}-2`)
-    return () => console.log(`${count}-3`)
+    console.log(`${count}-2`);
+    return () => console.log(`${count}-3`);
   })
-  return <div>Foo</div>
+  return <div>Foo</div>;
 }
 
 // 初始化时输出
@@ -385,6 +410,18 @@ const Foo = function Foo(props) {
 1-1
 1-1
 1-3  // 此时浏览器已经重新渲染完成了，重新渲染完成后才会清理上一次的副作用
+1-2
+
+特别说明：以上是在 React.StrictMode + 开发环境 下的试验结果，非 StrictMode 下输出内容见下方
+原因见 https://github.com/facebook/react/issues/15074#issuecomment-471197572
+
+// 初始化时输出
+0-1
+1-1
+1-2
+// 重新渲染时输出
+1-1
+1-3
 1-2
 ```
 
@@ -536,8 +573,8 @@ function ThemedButton() {
 I use all of above.
 
 * 全局共享状态，方便调试和维护，用 Redux
-* 简单的组件状态用 useState
-* 复杂的组件状态，需要对此状态进行多种类型的操作，或者需要向子组件传递 setter 时，用 useReducer。特别是不同的子组件需要对复杂状态进行不同操作时，使用 dispatch 可以让子组件的操作意图更加明确。
+* 简单的组件状态用 `useState`
+* 复杂的组件状态，需要对此进行多种类型的操作，或者需要向子组件传递 setter 时，用 `useReducer`。特别是不同的子组件需要对复杂状态进行不同操作时，使用 `dispatch` 可以让子组件的操作意图更加明确。
 
 ```js
 const initialState = {count: 0};
@@ -604,6 +641,48 @@ function Counter({initialCount}) {
       <button onClick={() => dispatch({type: 'increment'})}>+</button>
     </>
   );
+}
+```
+
+#### 避坑指南
+
+`useReducer` 也跟 `useState` 一样存在类似的问题，就是不管你调用多少次 `dispatch({type: 'a', payload: state.a + 1})`，结果都是一样的，此时我们可以通过改造 reducer 来支持回调的用法，具体实现见下方示例。
+
+```jsx
+const reducer = (state, action) => {
+  // 支持类似 dispatch(state => ({type: 'a', payload: state.a + 1})) 的写法
+  if (typeof action === 'function') {
+    action = action(state);
+  }
+
+  // 支持类似 dispatch({type: 'a', payload: state => state.a + 1})) 的写法
+  if (typeof action.payload === 'function') {
+    action.payload = action.payload(state);
+  }
+
+  console.log({state, action});
+
+  if (action.type === 'a') {
+    return { ...state, a: action.payload };
+  } else {
+    return state;
+  }
+}
+
+const App = () => {
+  const [state, dispatch] = useReducer(reducer, {a: 0})
+
+  const handleClick = () => {
+    dispatch({type: 'a', payload: state.a + 1});
+    dispatch({type: 'a', payload: state.a + 1}); // 坑
+    dispatch({type: 'a', payload: s => s.a + 1}); // 避坑
+  };
+
+  useEffect(() => {
+    console.log('state in useEffect', state);
+  })
+
+  return <div onClick={handleClick}>Dispatch</div>;
 }
 ```
 

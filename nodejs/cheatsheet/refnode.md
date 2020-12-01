@@ -69,27 +69,102 @@ process.stderr     | 标准错误输出
 ## Child Process 子进程
 
 ||
-------------------------------------|-----------------
-cp.spawn(cmd, args?, opts?)         | 不支持回调函数
+------------------------------------|-----------------------------------------------------------------
+cp.spawn(cmd, args?, opts?)         | spawn 产卵，此方法可用来创建子进程。不支持回调函数
 cp.exec(cmd, opts? cb?)             | 新建一个 shell 执行 cmd，执行完调用 cb: (stdout, stderr) => { }
 cp.execFile(file, args?, opts?, cb) | 不用启动独立的 shell，相对 `exec` 来说更加轻量级
-cp.fork(modulePath, args?, opts?)   | 新建一个 Node.js 进程执行模块(即只能是 js 文件)，带 IPC
+cp.fork(modulePath, args?, opts?)   | 新建一个 Node.js 进程执行模块(即只能是 js 文件)，带 IPC，父子进程可通过通道互发消息
 
 child_process 是一个比较重要的模块，通过它可以实现创建多线程，来利用多核 CPU。这个模块提供了四个创建子进程的函数: `spawn` `exec` `execFile` `fork`，其中 `spawn` 是最原始的创建子进程的函数，剩下的三个是对这个函数不同程度的封装。
 
 ```js
 const { spawn, spawnSync } = require('child_process')
 
-let ls = spawnSync('ls', ['-lh', '/usr'])
-console.log(`stderr: ${ls.stderr.toString()}`)
-console.log(`stdout: ${ls.stdout.toString()}`)
+const child = spawnSync('ls', ['-lh', '/usr'])
+console.log(`stderr: ${child.stderr.toString()}`)
+console.log(`stdout: ${child.stdout.toString()}`)
 
-ls = spawn('ls', ['-lh', '/usr'])
-ls.stdout.on('data', data => console.log(`stdout: ${data}`))
-ls.stderr.on('data', data => console.log(`stderr: ${data}`))
-
-cp.stdin.write('my data')  // 父子进程间通讯 ———— 写数据
+const child2 = spawn('ls', ['-lh', '/usr'])
+child2.stdout.on('data', data => console.log(`stdout: ${data}`))
+child2.stderr.on('data', data => console.log(`stderr: ${data}`))
+child2.stdin.write('my data')  // 父子进程间通讯 ———— 写数据
+child2.on('error', err => console.log(err))
+child2.on('close', () => console.log('close'))
+child2.on('exit', () => console.log('exit'))
 ```
+
+```js
+const { fork } = require('child_process')
+const path = require('path')
+const childProcess = fork('sub_process.js', {cwd: __dirname})
+childProcess.on('message', data => console.log('[main receive]', data))
+childProcess.send('message from main')
+
+// sub_process.js
+process.on('message', data => console.log('[child receive]', data))
+process.send({ msg: 'message from child' })
+
+// [child receive] message from main
+// [main receive] { msg: 'message from child' }
+```
+
+
+## Cluster 集群
+
+Node.js 中没有多线程，为了充分利用多核 CPU，可以开多个子进程来实现内核的负载均衡。
+
+`Cluster` 模块可以创建一组 *共享服务器端口* 的子进程。
+
+由于各工作进程是独立的进程，它们可以根据需要随时关闭或重新生成，而不影响其他进程的正常运行。 只要有存活的工作进程，服务器就可以继续处理连接。 如果没有存活的工作进程，现有连接会丢失，新的连接也会被拒绝。 Node.js 不会自动管理工作进程的数量，而应该由具体的应用根据实际需要来管理进程池。
+
+||
+------------------------|---------------------------------------
+cluster.fork(env?)      | 创建 Worker
+cluster.disconnect(cb?) | 注销 Worker，会在处理完未完成任务后优雅退出
+cluster.isMaster        | 
+cluster.isWorker        | 
+cluster.worker          | 获取当前 Worker 自身的信息
+cluster.workers         | 获取所有的 Worker 信息
+
+||
+----------------------------|---------------------------------------
+work.id                     | 
+||
+worker.disconnect()         |
+worker.kill()               |
+worker.isConnected()        |
+worker.isDead()             |
+worder.send(message, ...)   |
+worker.on('message', cb)    | 
+worker.on('disconnect', cb) | 
+
+```js
+const cluster = require('cluster');
+const http = require('http');
+const numCPUs = require('os').cpus().length;
+
+if (cluster.isMaster) {
+  console.log(`Master ${process.pid} is running`);
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork(); // Fork workers
+  }
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`worker ${worker.process.pid} died`);
+  });
+} else {
+  // Workers can share any TCP connection
+  // In this case it is an HTTP server
+  http.createServer((req, res) => {
+    res.writeHead(200);
+    res.end(`[${process.pid}] hello world`);
+    process.exit(); // 处理一次请求子进程就退出，用于测试使用
+  }).listen(3000);
+  console.log(`Worker ${process.pid} started`);
+}
+```
+
+
+
 
 
 ## OS 操作系统
@@ -340,9 +415,6 @@ export interface Hash extends NodeJS.ReadWriteStream {
   digest(encoding: "latin1"|"hex"|"base64"): string;
 }
 ```
-
-
-## Cluster 集群
 
 
 

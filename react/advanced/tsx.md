@@ -309,6 +309,82 @@ Even though a portal can be anywhere in the DOM tree, it behaves like a normal R
 
 ## Advanced Cheatsheet
 
+### 泛型
+
+#### React.FC
+
+`React.FC<P>` 不支持配合泛型使用，替代方案是直接使用 `PropsWithChildren<P>`
+
+```ts
+// 不支持这种用法
+const Example: React.FC<Props<T>> = props => { ... }
+
+// 直接使用 React.FC 中的 PropsWithChildren
+const Example: <P = {}>(props: React.PropsWithChildren<Props<T>>) => { ... }
+```
+
+实际代码示例
+
+```ts
+interface Props<T extends string | number> {
+  input: T;
+  transform: (input: T) => number;
+}
+
+const Example = <T extends string | number>(props: PropsWithChildren<Props<T>>) => {
+  const { input, transform } = props;
+  return <div>{transform(input)} </div>;
+};
+```
+
+#### React.memo
+
+https://github.com/DefinitelyTyped/DefinitelyTyped/issues/37087
+
+React.memo 会导致泛型信息丢失，解决方法：
+
+```ts
+// 这种用法比较简洁
+const MemoizedComponent = React.memo(InnerComponent) as typeof InnerComponent;
+
+// 这种用法更规整
+const memo: <T>(c: T) => T = React.memo;
+const MemoizedComponent = memo(InnerComponent);
+```
+
+出现泛型类型信息丢失的场景示例：
+
+```ts
+interface Props<T extends string | number> {
+  input: T;
+  transform: (input: T) => number;
+}
+
+const Example = <T extends string | number>(props: Props<T>) => {
+  const { input, transform } = props;
+  return <div>{transform(input)} </div>;
+};
+const MemorizedExample = React.memo(Example);
+
+const e1 = <Example input={'string'} transform={s => s.length} />;
+// Error: Property 'length' does not exist on type 'string | number'.
+const e2 = <MemorizedExample input={'string'} transform={s => s.length} />;
+```
+
+#### React.forwardRef
+
+React.forwardRef 泛型信息丢失的问题，与 React.memo 有几分相似，但没法直接使用 `typeof InnerComponent` 偷懒，需要自己再重新写一遍类型。
+
+```ts
+// 接上面 React.memo 的示例，具体代码略...
+
+const ExampleWithRef: <T extends string | number>(
+  props: Props<T> & { ref: any },
+) => JSX.Element = React.forwardRef(Example);
+
+const myRef = React.createRef();
+const e3 = <ExampleWithRef input={'string'} transform={s => s.length} ref={myRef} />;
+```
 
 
 

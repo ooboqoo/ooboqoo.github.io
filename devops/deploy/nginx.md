@@ -108,6 +108,7 @@ $ certbot certonly --webroot -w /var/www/example -d e.com -d www.e.com -w /var/w
 $ certbot renew --dry-run   # 测试能否自动更新证书
 # 添加包含左侧命令到一个 cron or systemd job 建议每天随机运行2次
 $ certbot renew --quiet --post-hook "nginx -s reload"
+    # 碰到浏览器说证书已过期但工具说没过期，此时可以加 --force-renewal 强更
 # 新装的 certbot 已经默认配置好了定时更新任务，可通过以下方法确认
 $ systemctl list-unit-files --type timer
 ```
