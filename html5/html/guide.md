@@ -62,18 +62,34 @@ This is also allowed: &lt;meta charset="utf-8" /&gt;
 The slash (/) is required in XHTML and XML. If you expect XML software to access your page, it might be a good idea to keep it. 
 
 
+### 类名始终小写
+
+https://stackoverflow.com/questions/1547986/can-i-use-camelcase-in-css-class-names
+
+> In CSS, identifiers (including element names, classes, and IDs in selectors) can contain only the characters [a-zA-Z0-9] and ISO 10646 characters U+00A1 and higher, plus the hyphen (-) and the underscore (_); they cannot start with a digit, or a hyphen followed by a digit. Identifiers can also contain escaped characters and any ISO 10646 character as a numeric code (see next item). For instance, the identifier "B&W?" may be written as "B\&W\?" or "B\26 W\3F".
+>
+> ...the case-sensitivity of values of the HTML attributes "id" and "class", of font names, and of URIs lies outside the scope of this specification.
+
+类名是否能够使用 camelCase 这种写法？
+* 目前主流浏览器都会区分大小写
+* 但 [CSS2.1规范](https://www.w3.org/TR/CSS21/syndata.html#characters)中说大小写不敏感 “All CSS syntax is case-insensitive within the ASCII range”
+
+
 ### Use Lower Case Attribute Names
+
+规范没有规定不让用 camelCase，但是都会被自动转为小写.
+
+> https://html.spec.whatwg.org/#attr-data-%2a
+> All attribute names on HTML elements in HTML documents get ASCII-lowercased automatically
 
 HTML5 allows mixing uppercase and lowercase letters in attribute names.
 
 We recommend using lowercase attribute names:
 
-<ul>
- <li>Mixing uppercase and lowercase names is bad</li>
- <li>Developers are used to using lowercase names (as in XHTML)</li>
- <li>Lowercase look cleaner</li>
- <li>Lowercase are easier to write</li>
-</ul>
+* Mixing uppercase and lowercase names is bad
+* Developers are used to using lowercase names (as in XHTML)
+* Lowercase look cleaner
+* Lowercase are easier to write
 
 
 ### Quote Attribute Values

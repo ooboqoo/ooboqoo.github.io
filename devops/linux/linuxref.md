@@ -88,7 +88,16 @@ $ ls | grep -v myfile.js | xargs rm
 批量改文件名后缀
 
 ```bash
-for f in *.fromext; do mv -- "$f" "${f%.formext}.toext"; done
+# 示例：批量改 .txt 为 .md
+for f in *.txt; do mv -- "$f" "${f%.txt}.md"; done
 ```
+
+查找删除 node_modules 文件夹
+
+```bash
+#       文件名                目录    不进入目录           这个尾巴跟 -exec 是一起的
+find . -name "node_modules" -type d -prune -exec rm -rf {} +
+```
+
 
 

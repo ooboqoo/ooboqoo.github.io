@@ -212,7 +212,7 @@ $ git branch                    # 列出本地分支
 $ git branch testing            # 创建 testing 分支
 $ git branch -d testing         # 删除 testing 分支
 $ git branch -m [<oldbranch>] <newbranch>  # 重命名分支
-$ git branch --set-upstream master origin/next  # 手动建立本地 master 与 origin/next 间的追踪关系
+$ git branch -u origin next     # (--set-upstream-to=<upstream> [branchname]) 手动建立与 origin/next 间的追踪关系
 $ git fetch -p  # 当删除远程分支后，本地还是能看到 origin/branchname，就可以通过这条命令删除
 
 $ git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d  # 批量删本地已合分支

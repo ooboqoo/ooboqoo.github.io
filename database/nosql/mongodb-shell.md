@@ -1,5 +1,15 @@
 # MongoDB Shell
 
+
+## GUI
+
+https://www.mongodb.com/products/compass
+
+MongoDB Compass 提供了图形界面，感觉还算方便，至少比 VS Code 插件好用些。
+
+The GUI for MongoDB. Visually explore your data. Run ad hoc queries in seconds. Interact with your data with full CRUD functionality. View and optimize your query performance.
+
+
 ## Insert Data
 
 ```bash

@@ -7,6 +7,70 @@ https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS#Access-Con
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies  
 
 
+## 最新笔记
+
+2020/12/10 今天又在搞跨域的问题，来更新下
+
+基本设置
+* 后端要响应 `Access-Control-Allow-Origin`
+
+如果需要跨域发送 Cookie
+* `Access-Control-Allow-Origin` 字段必须是具体的地址，不能使用通配符 `*`
+* `Access-Control-Allow-Credentials` 字段设置为 `true`
+* 【新版 Chrome】Cookie 的 `Secure` 属性必须开启，相应地，API 站点必须支持 HTTPS 访问
+* 【新版 Chrome】Cookie 的 `SameSite` 属性必须为 `None`
+
+
+### iframe
+
+https://web.dev/samesite-cookie-recipes/#content-within-an-lessiframegreater
+
+If the embedded content doesn't come from the same site as the top_level browsing context, it's *third-party content*.
+
+Any cookies used by that site will be considered as *third-party cookies* when the site is displayed within the frame. If you're creating sites that you intend to be easily embedded by others while also relying on cookies to function, you will also need to ensure those are marked for cross-site usage or that you can gracefully fallback without them.
+
+当 iframe 内嵌的是非同源站点内容时，也会存在安全上的限制。
+* Cookies 需要配置跨域
+* 
+
+### crossorigin
+
+> 在技术上进阶，是不是要把标准也拿来翻一翻？
+
+https://stackoverflow.com/questions/41069330/with-script-crossorigin-anonymous-why-is-a-script-blocked-by-cors-policy
+
+The `crossorigin` attribute should only be used if we care about getting error information for the script being loaded. Since accessing this information requires a CORS check, the `Access-Control-Allow-Origin` header must be present on the resource for it to be loaded.
+
+`crossorigin` 属性平时都用不到，在 `<script src="..." crossorigin="anonymous"></script>` 中使用的目的是，如果没有配置，报错时这种跨域的脚步是看不到错误堆栈 `stack` 或 `stacktrace` 的。如果客户端配了 `crossorigin` 那么服务器端需要配置跨域请求头。这是在保护被请求方的信息安全？
+
+实际在使用时，如果没有对 `crossorigin` 进行配置时，既拿不到 Error 信息也拿不到 Cookie，因为 Cookie 没有做跨域相应配置时，都会被浏览器拦截。
+
+在 HTML5 中一些 HTML 元素提供了对 CORS 的支持，例如 audio img link script video 均有一个跨域属性，它允许你配置元素获取数据的 CORS 请求。
+
+| crossorigin     | fetch mode | credentials mode | 备注
+|-----------------|------------|------------------|--------
+| 不设置           | no-cors    | same-origin     | 拿不到 Error; 带 cookie
+| anonymous       | cors       | same-origin      | 能拿到 Error; 不带 cookie
+| use-credentials | cors       | include          | 能拿到 Error; 带 cookie
+
+```
+<script src="..."></script>
+Request Headers
+Referer: http://127.0.0.1:8080/
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: cross-site
+
+<script src="..." crossorigin="anonymous"></script>
+Origin: http://127.0.0.1:8080                         # 上面那个不带 Origin
+Referer: http://127.0.0.1:8080/
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: cross-site
+```
+
+
+
 ## 与服务器通讯
 
 ### 什么是跨域

@@ -1,8 +1,10 @@
-# MongoDB Native
+# MongoDB Node.js Driver API
+
+https://docs.mongodb.com/drivers/node/
 
 ### Collection
 
-http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html
+http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html
 
 |||
 |----------------------------|-------------------------------------------------------------------------------------
@@ -60,7 +62,7 @@ http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html
 
 ### Cursor
 
-http://mongodb.github.io/node-mongodb-native/2.2/api/Cursor.html
+http://mongodb.github.io/node-mongodb-native/3.6/api/Cursor.html
 
 |||
 |-------------------------------|-----------------------------------------------------------------------------

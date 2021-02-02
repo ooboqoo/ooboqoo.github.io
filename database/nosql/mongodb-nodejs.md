@@ -1,6 +1,6 @@
-# MongoDB Native
+# MongoDB Node.js Driver
 
-http://mongodb.github.io/node-mongodb-native/2.2/
+https://docs.mongodb.com/drivers/node/
 
 ## 快速起步 Quick Start
 

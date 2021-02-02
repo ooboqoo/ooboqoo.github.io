@@ -15,6 +15,25 @@ $ mongod   # 开启 MongoDB Server
 $ mongo    # 打开 shell 连接 server 并进行操作
 ```
 
+#### macOS
+
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
+
+```bash
+$ brew tap mongodb/brew
+$ brew install mongodb-community
+
+# 启动服务，重启后也不需要再跑命令
+$ brew services start mongodb/brew/mongodb-community
+```
+
+In addition, the installation creates:
+* the configuration file (/usr/local/etc/mongod.conf)
+* the log directory path (/usr/local/var/log/mongodb)
+* the data directory path (/usr/local/var/mongodb)
+
+
+
 ### 特点
 
 #### 易于使用
@@ -106,7 +125,7 @@ shell 是一个功能完备的 JavaScript 解析器，可运行任意 JavaScript
 ```js
 > db          // 显示当前数据库
  test
-> use foobar  // 切换数据库
+> use foobar  // 切换数据库，如果不存在就是新建
 ```
 
 #### 基本操作

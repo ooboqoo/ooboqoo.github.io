@@ -391,11 +391,18 @@ http {
 }
 ```
 
-### 相关文章
+
+## Trojan
+
+### 辅助工具
 
 IP 被墙检测及解决办法(SSR中文网) https://ssr.tools/772  
-SSR 项目介绍 http://www.ttlsa.com/news/popular-science-about-shadowsocks/
-
 候选供应商(要是封杀厉害就买现成的) https://justmysocks.net/  
 
 伪装设置完整度检测 https://whoer.net/
+
+路由查看 `traceroute`，话说不怎么会用。
+
+
+
+
