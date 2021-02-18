@@ -21,54 +21,60 @@ $ tail /var/log/nginx/access.log  # 查看普通日志
 
 ## 配置
 
-http://nginx.org/en/docs/beginners_guide.html
+https://nginx.org/en/docs/beginners_guide.html  
+https://docs.nginx.com/nginx/admin-guide/basic-functionality/managing-configuration-files/  
 
 配置文件位置：/etc/nginx/nginx.conf
 
-```
+```nginx
 http {
-    client_max_body_size 120M;                     ## 支持大文件上传
-    server {
-        listen       80 default_server;
-        listen       [::]:80 default_server;
-        server_name  ngapps.cn www.ngapps.cn;
-        root         /var/www/ooboqoo.github.io;
+  client_max_body_size 120M;                     # 支持大文件上传
+  server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name ngapps.cn www.ngapps.cn;
+    root /var/www/ooboqoo.github.io;
 
-        # Load configuration files for the default server block.
-        include /etc/nginx/default.d/*.conf;
+    # Load configuration files for the default server block.
+    include /etc/nginx/default.d/*.conf;
 
-        location /api {                            ## 配置反向代理
-            proxy_pass  http://127.0.0.1:3300;
-        }
-
-        location ^~ /static {                      ## 配置子路径访问不同目录
-            alias /var/www/static
-        }
-
-        location ~ \.(jpg|jpeg|png|ico|js|css)$ {  ## 配置缓存时间
-            expires 30d;
-        }
-
-        error_page 404 /404.html;
-            location = /40x.html {
-        }
-
-        error_page 500 502 503 504 /50x.html;
-            location = /50x.html {
-        }
+    # 示例 - 配置反向代理
+    location /api {
+      proxy_pass http://127.0.0.1:3300;
     }
 
-    server {
-        listen       80;
-        server_name  jpn.ngapps.cn;
-        root         /var/www/html;
-        location ~ \.php$ {                        ## 配置支持 php
-            fastcgi_pass   127.0.0.1:9000;
-            fastcgi_index  index.php;
-            fastcgi_param  SCRIPT_FILENAME   $document_root$fastcgi_script_name;
-            include        fastcgi_params;
-        }
+    # 示例 - 配置子路径访问不同目录
+    location ^~ /static {
+      alias /var/www/static
     }
+
+    # 示例 - 配置缓存时间
+    location ~ \.(jpg|jpeg|png|ico|js|css)$ {
+      expires 30d;
+    }
+
+    error_page 404 /404.html;
+      location = /40x.html {
+    }
+
+    error_page 500 502 503 504 /50x.html;
+      location = /50x.html {
+    }
+  }
+
+  server {
+    listen       80;
+    server_name  jpn.ngapps.cn;
+    root         /var/www/html;
+
+    # 示例 - 配置支持 PHP
+    location ~ \.php$ {
+      fastcgi_pass   127.0.0.1:9000;
+      fastcgi_index  index.php;
+      fastcgi_param  SCRIPT_FILENAME   $document_root$fastcgi_script_name;
+      include        fastcgi_params;
+    }
+  }
 }
 ```
 
@@ -77,8 +83,14 @@ http {
 
 https://nginx.org/en/docs/http/ngx_http_core_module.html#location
 
-```
-location [=|~|~*|^~] /uri/ { … }
+There are two types of parameter to the location directive: prefix strings (pathnames) and regular expressions. For a request URI to match a prefix string, it must start with the prefix string.
+
+```nginx
+# 前缀匹配
+location /abc { ... }
+
+# 正则匹配
+location [=|~|~*|^~] /uri/ { ... }
 ```
 
 语法规则：
@@ -89,29 +101,54 @@ location [=|~|~*|^~] /uri/ { … }
   * `!~` 和 `!~*` - 上面两者的基础上取反，即不匹配的写法
 
 多个location配置的情况下匹配顺序为：
+  * 前缀匹配
   * 首先匹配 `=`
   * 其次匹配 `^~`
   * 其次是按文件中顺序的正则匹配
   * 最后是交给通用匹配`/`
   * 匹配成功即停止匹配
 
+1. Test the URI against all prefix strings.
+2. The `=` (equals sign) modifier defines an exact match of the URI and a prefix string. If the exact match is found, the search stops.
+3. If the `^~` (caret-tilde) modifier prepends the longest matching prefix string, the regular expressions are not checked.
+4. Store the longest matching prefix string.
+5. Test the URI against regular expressions.
+6. Stop processing when the first matching regular expression is found and use the corresponding location.
+7. If no regular expression matches, use the location corresponding to the stored prefix string.
+
 
 ### 部署 HTTPS
 
 https://letsencrypt.org/getting-started/   
-https://linuxstory.org/deploy-lets-encrypt-ssl-certificate-with-certbot/ 此文章值得参考下
+https://linuxstory.org/deploy-lets-encrypt-ssl-certificate-with-certbot/ 此文章值得参考下  
+https://certbot.eff.org/lets-encrypt/ubuntufocal-nginx
+
+自动获取证书
 
 ```bash
-$ yum install certbot       # 安装 Let's Encrypt 官方证书配置工具(自动化的获取、部署和更新安全证书)
-$ certbot certonly          # 安装 ssl 证书，需要根据具体情况回答问题，也可以像下面那样提前设置答案
+$ snap install --classic certbot  # 安装 Let's Encrypt 官方证书配置工具(自动化的获取、部署和更新安全证书)
+$ certbot --nginx  # certbot 会自动通过分析配置文件获取证书
+```
+
+手动获取证书
+
+```bash
+$ certbot certonly               # 安装 ssl 证书，需要根据具体情况回答问题，也可以像下面这样提前设置答案
+# 提前回答好答案，当某个证书需要加域名时，也是用这行命令，把需要加的域名都写全工具能自动识别
 $ certbot certonly --webroot -w /var/www/example -d e.com -d www.e.com -w /var/www/thing thing.cn
-$ certbot renew --dry-run   # 测试能否自动更新证书
+$ certbot renew --dry-run        # 测试能否自动更新证书
+$ certbot renew --force-renewal  # 强更，有时会碰到浏览器说证书已过期但工具说没过期，此时可以强更下
 # 添加包含左侧命令到一个 cron or systemd job 建议每天随机运行2次
 $ certbot renew --quiet --post-hook "nginx -s reload"
-    # 碰到浏览器说证书已过期但工具说没过期，此时可以加 --force-renewal 强更
 # 新装的 certbot 已经默认配置好了定时更新任务，可通过以下方法确认
 $ systemctl list-unit-files --type timer
 ```
+
+The HTTP auth works like this:
+
+* Certbot places a file in a directory
+* Then a remote server tries to fetch that from `.well-known/acme-challenge/<filename>`，通过 80 端口获取
+* If it is successful, you proved ownership of the domain and get the certificate
 
 手动配置 systemd 定时任务更新证书:
 
@@ -119,15 +156,15 @@ $ systemctl list-unit-files --type timer
 $ vim /lib/systemd/system/certbot.timer
 
 [Unit]
-Description=Run certbot twice daily
+  Description=Run certbot twice daily
 
 [Timer]
-OnCalendar=*-*-* 00,12:00:00
-RandomizedDelaySec=43200
-Persistent=true
+  OnCalendar=*-*-* 00,12:00:00
+  RandomizedDelaySec=43200
+  Persistent=true
 
 [Install]
-WantedBy=timers.target
+  WantedBy=timers.target
 ```
 
 ```
@@ -145,24 +182,24 @@ $ vim /lib/systemd/system/certbot.service
 
 然后更新 Nginx 配置文件，添加
 
-```
+```nginx
 server {
-    listen 443 ssl;
-    server_name ngapps.cn www.ngapps.cn;
-    root  /var/www/ngapps.cn;
+  listen 443 ssl;
+  server_name ngapps.cn www.ngapps.cn;
+  root /var/www/ngapps.cn;
 
-    ssl_certificate      /etc/letsencrypt/live/ngapps.cn/fullchain.pem;
-    ssl_certificate_key  /etc/letsencrypt/live/ngapps.cn/privkey.pem;
+  ssl_certificate      /etc/letsencrypt/live/ngapps.cn/fullchain.pem;
+  ssl_certificate_key  /etc/letsencrypt/live/ngapps.cn/privkey.pem;
 }
 ```
 
 还可以更进一步，将所有到 80 端口的普通访问进行跳转
 
-```
+```nginx
 server {
-    listen 80;
-    server_name ngapps.cn www.ngapps.cn;
-    return 301 https://$server_name$request_uri;
+  listen 80;
+  server_name ngapps.cn www.ngapps.cn;
+  return 301 https://$server_name$request_uri;
 }
 ```
 
@@ -170,11 +207,11 @@ server {
 
 配置好 HTTPS 再配 HTTP2 就太简单了
 
-```
+```nginx
 server {
-    listen 443 ssl http2;  # 就是在 https 的配置基础上加一个 http2 就完了
-    server_name ngapps.cn www.ngapps.cn;
-    # ...
+  listen 443 ssl http2;  # 就是在 https 的配置基础上加一个 http2 就完了
+  server_name ngapps.cn www.ngapps.cn;
+  # ...
 }
 ```
 
@@ -234,21 +271,21 @@ http://nginx.org/en/docs/http/websocket.html
 
 我配置时想把那个 map 干掉，结果就是不通，老老实实用就 OK
 
-```
+```nginx
 http {
-    map $http_upgrade $connection_upgrade {
-        default upgrade;
-        ''      close;
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+  }
+  server {
+    ...
+    location /chat/ {
+      proxy_pass http://backend;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection $connection_upgrade;
     }
-    server {
-        ...
-        location /chat/ {
-            proxy_pass http://backend;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection $connection_upgrade;
-        }
-    }
+  }
 }
 ```
 
@@ -259,21 +296,21 @@ https://juejin.im/entry/57fb07b0816dfa0056c0ada8
 
 正向代理与反向代理: 正向代理是为客户端做代理，代替客户端去访问服务器，而反向代理是为服务器做代理，代替服务器接受客户端请求～
 
-```
+```nginx
 http {
-    upstream my_cluster {                # upstream模块，在此配服务器集群
-        ip_hash;  # 用户第一次访问后就跟服务器绑定
-        server 127.0.0.1:9001 down;     # 暂不参与负载
-        server 127.0.0.1:9002 backup;   # 其它非backup机器down或忙时才启用
-        server 127.0.0.1:9003 weight=2; # 值越大负载的权重就越大
-        server 127.0.0.1:9004 max_fails=2 fail_timeout=60s;
+  upstream my_cluster {             # upstream模块，在此配服务器集群
+    ip_hash;  # 用户第一次访问后就跟服务器绑定
+    server 127.0.0.1:9001 down;     # 暂不参与负载
+    server 127.0.0.1:9002 backup;   # 其它非backup机器down或忙时才启用
+    server 127.0.0.1:9003 weight=2; # 值越大负载的权重就越大
+    server 127.0.0.1:9004 max_fails=2 fail_timeout=60s;
+  }
+  server {
+    listen 8080;
+    location / {
+      proxy_pass http://my_cluster; # 配置反向代理
     }
-    server {
-        listen 8080;
-        location / {
-            proxy_pass http://my_cluster; # 配置反向代理
-        }
-    }
+  }
 }
 ```
 
@@ -288,13 +325,13 @@ $ htpasswd -c /etc/nginx/passwd any_user_name
 
 添加 Nginx 配置
 
-```
+```nginx
 server {
-    listen 80;
-    server_name private.ngapps.cn;
-    root /srv/nginx/private;
-    auth_basic "Not for Public";
-    auth_basic_user_file /etc/nginx/passwd;
+  listen 80;
+  server_name private.ngapps.cn;
+  root /srv/nginx/private;
+  auth_basic "Not for Public";
+  auth_basic_user_file /etc/nginx/passwd;
 }
 ```
 
@@ -303,7 +340,7 @@ server {
 
 访问路径自动加 .html
 
-```
+```nginx
 try_files $uri/index.html $uri.html $uri/ $uri =404;
 ```
 

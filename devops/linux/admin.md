@@ -1,7 +1,6 @@
 # Linux 系统管理
 
 
-
 ## 软件包管理
 
 |               | CentOS                | Ubuntu
@@ -28,6 +27,39 @@ $ apt clean        # 删除本地缓存的所有升级包
 $ apt autoclean    # 删除本地缓存中无用的软件包
 ```
 
+### snap
+
+https://snapcraft.io/docs/getting-started
+
+特点：
+* 开发者只要打一次包就行，而不像 apt yum 一样要每个发布版本构建软件包
+* 提供了沙箱机制以保证安全性，软件与系统之间、软件与软件之间具备一定的隔离
+
+A snap is a bundle of an app and its dependencies that works without modification across many different Linux distributions.
+
+The **snapd** deamon manages the snap environment on the local system. Its installation will include the **snap** tool for interaction with snaps.
+
+A snap's installed applications can be found under `/snap/bin`. Adding `/snap/bin` to your default `$PATH` makes running snaps more convenient.
+
+```bash
+$ snap version
+
+# 安装
+$ snap install <pkgname>
+  # 选择某个 Channel，默认为 stable
+  $ sudo snap install --channel=edge vlc   # 从 edge 频道拉取
+  $ sudo snap switch --channel=stable vlc  # 改回 stable 频道
+
+# 信息
+$ snap [find | search] <pattern>  # 搜索软件包
+  $ snap find "media player"  # 从 Snap Store 搜索媒体播放软件
+$ snap info <pkgname>             # 查看软件包具体信息
+$ snap list                       # 列出本地安装的软件包
+
+# 管理
+$ snap refresh <pkgname>  # 手动更新，一般不需要手动操作，会自动更新
+$ snap remove <pkgname>
+```
 
 
 ## 网络管理
@@ -67,7 +99,6 @@ $ lsof -i | grep LISTEN  # 查看监听端口
 ```
 
 
-
 ## 防火墙管理
 
 ### CentOS
@@ -99,7 +130,6 @@ $ ufw app list
 $ ufw allow 'Nginx HTTP'
 $ ufw status
 ```
-
 
 
 ## 用户管理
@@ -164,7 +194,6 @@ $ groupadd [-g gid][-r]  # -g 直接指定用户组；-r 新建系统用户组
 ```
 
 #### groupdel 删除用户组
-
 
 
 ## 系统服务

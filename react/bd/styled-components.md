@@ -1,22 +1,44 @@
 # styled-components
 
-JSX 让我们能用 JS 写 HTML，Styled Compoents 让我们能用 JS 来写(组织) CSS。从此各种 CSS DSL 都将被 JS 终结。
-
-让样式组件成为开发的基本单元。
-
-把要基于 classNames 才能实现的样式关联去掉，用纯 CSS 的方式去书写 React 组件。
-
-
-
-
-
-
 * Official Site  https://styled-components.com/
 * Awesome Styled Components  https://github.com/styled-components/awesome-styled-components
 
+JSX 让我们能用 JS 写 HTML，Styled Compoents 让我们能用 JS 来写(组织) CSS。从此各种 CSS DSL 都将被 JS 终结。
 
-Jupiter 开箱即用的支持 CSS Modules，但我们更推荐优先采用 CSS Modules 的继承者、在『模块化』上更进一步的 styled-components，来实现类似的需求。
+让样式组件成为开发的基本单元。把要基于 classNames 才能实现的样式关联去掉，用纯 CSS 的方式去书写 React 组件。
 
+J 开箱即用地支持 CSS Modules，但我们更推荐优先采用 CSS Modules 的继承者、在『模块化』上更进一步的 styled-components，来实现类似的需求。
+
+
+## CSS Modules
+
+http://www.ruanyifeng.com/blog/2016/06/css_modules.html
+
+```css
+:global(.red-border) {
+  border: 1px solid red;
+}
+
+.red-text {
+  color: red;
+}
+```
+
+### react-css-modules
+
+https://github.com/gajus/react-css-modules
+
+Using react-css-modules:
+
+* You are not forced to use the camelCase naming convention.
+* You do not need to refer to the `styles` object every time you use a CSS Module.
+* There is clear distinction between global CSS and CSS Modules.
+* You are warned when `styleName` refers to an undefined CSS Module (handleNotFoundStyleName option).
+* You can enforce use of a single CSS module per ReactElement (allowMultiple option).
+
+```jsx
+<div className='globalCss' styleName='local-module'></div>
+```
 
 
 ## 安装配置
