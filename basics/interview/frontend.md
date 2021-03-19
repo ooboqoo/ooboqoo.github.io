@@ -14,7 +14,7 @@
   * 标准模型(现代浏览器默认) `box-sizing: content-box;`
   * IE模型(<=IE6默认) `box-sizing: border-box;` IE模型宽高计算 padding+border 而标准模型不计入
 
-JS如何设置获取盒模型对应的宽和高
+JS如何设置、获取盒模型对应的宽和高
   * 内联样式的宽高，`dom.style.width`，返回值示例：`20px`，如果内联样式未定义则返回空字符串
   * 渲染后的计算宽高，`dom.currentStyle.width`，仅 IE 支持
   * 标准的获取渲染后宽高 `window.getComputedStyle(dom).width`，返回值示例：`20px`，IE9+支持

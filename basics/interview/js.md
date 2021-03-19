@@ -131,8 +131,8 @@ class Promise {
 
 ```js
 class Promise {
-  // 返回第一个成功的，全部失败为失败
-  static first (iterable) {
+  /** 返回第一个成功的，全部失败为失败 */
+  static any (iterable) {
     let errCount = 0
     return new Promise(resolve, reject) {
       for (let it of iterable) {

@@ -44,6 +44,8 @@ fn       |      |         |
 
 ### 常用快键键
 
+https://www.danrodney.com/mac/
+
 大部分都是简单地用 `command` 替换 `Ctrl`
 
 |||
@@ -85,11 +87,15 @@ cmd+tab | Alt+Tab | 切换应用
 ----------|--------|-------
 ctrl+A    | Home   | `opt+left` 按词左跳  `cmd+Left` 跳到行首(非空格处)
 ctrl+E    | End    | `opt+right` 按词右跳  `cmd+right` 跳到行尾
+fn+Left   | Home 2 | 
+fn+Right  | End 2  | 
+fn+Up     | PageUp | 
+fn+Down   | PageDown | 
 ctrl+B    | Left   | 左移一个字符 back
 ctrl+F    | Right  | 右移一个字符 forth
 ctrl+P    |        | 上移
 ctrl+N    |        | 下移
-fn+delete | Delete | 向前删除
+fn+delete | Delete | 向前删除 Forward Delete
 ctrl+K    |        | 删除到行尾
 
 `ctrl+A` `ctrl+E` `ctrl+K` 在终端操作中非常有用。

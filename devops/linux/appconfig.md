@@ -12,8 +12,12 @@ $ systemctl enable httpd.service
 $ systemctl is-enabled httpd    # 可以不带 service
 $ systemctl start httpd
 
-# 配置防火墙
+# CentOS 配置防火墙 (FirewallD)
 $ firewall-cmd --permanent --add-service=http
+
+# Ubuntu 配置防火墙 (UFW https://wiki.ubuntu.com/UncomplicatedFirewall)
+$ ufw allow ssh
+$ ufw allow 10086
 ```
 
 
@@ -45,11 +49,11 @@ $ systemctl restart sshd    # 重启 SSH 服务
 # man sshd_config
 
 Port 3300  # Vultr 东京只能用默认 22 端口，改了就连不了了
-Protocol 2
 
 ClientAliveInterval 60
 ClientAliveCountMax 4
 
+PubkeyAuthentication yes
 AuthorizedKeysFile .ssh/authorized_keys
 PasswordAuthentication no
 ```
@@ -232,6 +236,8 @@ $ firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT_direct 1 -p tcp
 
 https://www.v2ray.com/
 
+> 两会期间碰到上不去或特别慢，请自觉关机一段时间，不然 IP 过几天就爆。
+
 ### 主机选择
 
 检查 IP 是否被封(选能用的) https://ipcheck.need.sh/  
@@ -240,8 +246,9 @@ https://www.v2ray.com/
 ### 服务器
 
 ```bash
-$ bash <(curl -L -s https://install.direct/go.sh)
-$ vim /etc/v2ray/config.json
+# https://github.com/v2fly/fhs-install-v2ray
+$ bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
+$ vim /usr/local/etc/v2ray/config.json
 $ systemctl start v2ray
 $ systemctl status v2ray
 ```
@@ -277,9 +284,13 @@ $ systemctl status v2ray
 }
 ```
 
-#### 开启 BBR 加速
+防火墙开通端口
 
-这个 [脚本](https://github.com/chiakge/Linux-NetSpeed) 支持一键安装 BBRplus，效果比 BBR 强不少。注意：在安装过程中出现的替换警告弹窗要选 "No"。
+```bash
+$ ufw allow 10086:10088/tcp
+```
+
+#### 开启 BBR 加速
 
 ```bash
 # 检查内核是否已开启 BBR
@@ -334,7 +345,7 @@ iOS 需要到美区购买下载 shadowrocket、kitsunebi 之类应用
 
 https://toutyrater.github.io/advanced/wss_and_web.html
 
-当下科学上网的方式无非两种，一种是加密流量，一种是伪装流量。SS 和 V2Ray 的 VMess 都用的加密模式。加密模式将网络流浪加密封装成没有任何特征的数据包。墙的角度看，你的流量就是未知的流量，虽然墙不知道你里面的内容是什么，但没有特征是最大的特征，它可以通过判断数据量的大小，根据时政需要进行阻断干扰。而另一种就是伪装流量，就是全部伪装成正常的 HTTPS 流量，互联网上普通的 HTTPS 流量是海量的，它想要从正常的海量数据中区分出伪装流量是有很大难度的，它更不会贸然地去阻断你。
+当下科学上网的方式无非两种，一种是 *加密流量*，一种是 *伪装流量*。SS 和 V2Ray 的 VMess 都用的加密模式。加密模式将网络流量加密封装成没有任何特征的数据包。从墙的角度看，你的流量就是未知的流量，虽然墙不知道你里面的内容是什么，但没有特征是最大的特征，它可以通过判断数据量的大小，根据时政需要进行阻断干扰。而另一种就是伪装流量，就是全部伪装成正常的 HTTPS 流量，互联网上普通的 HTTPS 流量是海量的，想要从正常的海量数据中区分出伪装流量是有很大难度的，墙不会贸然地去阻断你。
 
 _/etc/v2ray/config.json_
 
@@ -351,22 +362,23 @@ _/etc/v2ray/config.json_
       }
     },
     "settings": {
-      "clients": []
+      "clients": [
+        {
+          "id": "xxxxxxxxxxxxx",
+          "alterId": 4
+        }
+      ]
     }
   }]
 }
 ```
 
-_/etc/nginx/nginx.conf_
+_/etc/nginx/conf/conf.d/v2ray.conf_
 
 ```
-http {
-  map $http_upgrade $connection_upgrade {
-    default upgrade;
-    ''      close;
-  }
   server {
-    listen 443 ssl;
+    listen 443 ssl http2;
+    listen [::]:443 http2;
     server_name s1.ngapps.cn;
     # 证书配置参考 Nginx 笔记
     ssl_certificate      /etc/letsencrypt/live/s1.ngapps.cn/fullchain.pem;
@@ -382,13 +394,12 @@ http {
       proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection $connection_upgrade;
-      proxy_set_header Host $host;
+      proxy_set_header Host $http_host;
       # Show real IP in v2ray access.log
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
   }
-}
 ```
 
 

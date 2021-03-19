@@ -64,7 +64,9 @@ $ ./test.php             # 直接写 test.php，系统只会去 PATH 里找，�
 
 #### sh
 
-即 Bourne shell，POSIX (Portable Operating System Interface) 标准的 shell 解释器，它的二进制文件路径通常是 /bin/sh，由 Bell Labs 开发。CentOS 中的 /bin/sh 是一个指向 /bin/bash 符号链接。
+即 Bourne shell，POSIX (Portable Operating System Interface) 标准的 shell 解释器，它的二进制文件路径通常是 /bin/sh，由 Bell Labs 开发。
+
+CentOS 中的 /bin/sh 是一个指向 /bin/bash 符号链接。在 Debian 或 Ubuntu 下 /bin/sh 并没有指向 /bin/bash，所以原先在 CentOS 下没问题的脚本会出问题，如 `[[ ]]` 判断突然就报错了...
 
 #### bash
 

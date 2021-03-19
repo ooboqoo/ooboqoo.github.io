@@ -534,7 +534,8 @@ new Date(year, monthIndex, day?, hours?, minutes?, seconds?, milliseconds?)
   <h5>Promise.resolve(value) <span>-- 将现有对象转为 Promise 对象</span></h5>
   <h5>Promise.reject(reason) <span>-- 返回一个新的 Promise 实例，该实例的状态为 rejected</span></h5>
   <h5>Promise.all(iterable) <span>-- 将多个 Promise 实例包装成一个新的 Promise 实例，返回数组或首个 reject 值</span></h5>
-  <h5>Promise.race(iterable) <span>-- 将多个 Promise 实例包装成一个新的 Promise 实例，返回率先改变的 Promise 实例的返回值</span></h5>
+  <h5>Promise.race(iterable) <span>-- 返回率先<i>改变</i>的 Promise 实例的返回值</span></h5>
+  <h5>Promise.any(iterable) <span>-- 返回率先<i>成功</i>的 Promise 实例的返回值</span></h5>
 </div>
 
 ```js

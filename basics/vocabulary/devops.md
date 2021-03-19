@@ -33,3 +33,20 @@ __invoke__  v. 引用
 __delimiter__  _/dɪˈlɪmɪtə/_  n. 分隔符  __delimit__  _/dɪˈlɪmət, dɪˈlɪmɪt/_  v. 限定; 划定…的边界  
 
 
+## Agile
+
+https://www.scrum.org/resources/professional-scrum-developer-glossary
+
+__Scrum__  _/skrʌm/_  一种敏捷方法论  
+__backlog__  _/ˈbæklɒɡ/_  n. 积压的事情, 未完成的工作  
+__retrospective__  _/ˌretrəˈspektɪv◂/_  n. 艺术家作品的回顾展 a. 回顾的; [法]有追溯效力的  
+
+__criterion__  _/kraɪˈtɪəriən/_ plural __criteria__  _/kraɪˈtɪəriə/_ n. 标准, 准则  
+
+
+
+
+
+
+
+
