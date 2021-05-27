@@ -35,6 +35,7 @@ h2 { text-align: center; }
 <h5 class="es5">Object.keys(obj) <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的名称</span></h5>
 <h5 class="es8">Object.values(obj) <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的值</span></h5>
 <h5 class="es8">Object.entries(obj) <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的键值对 `[[k1,v1], ...]`</span></h5>
+<h5 class="es">Object.fromEntries(entries) <span>-- 将包含一系列键值对的数组转成一个对象</span></h5>
 </div>
 <div class="dl">
 <h5 class="es6">object.__proto__ <span>-- 对象实例属性，指向对象的原型对象，本质上属于内部属性，应避免使用</span><span class="mark">[注2]</span></h5>

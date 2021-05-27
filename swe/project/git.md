@@ -419,8 +419,9 @@ doc/*.txt
 doc/**/*.pdf
 ```
 
-注：将已跟踪的文件添加到 ignore 名单里并不会有效果。
-https://stackoverflow.com/questions/1753070/how-do-i-configure-git-to-ignore-some-files-locally
+注：将已跟踪的文件添加到 ignore 名单里并不会有效果。  
+https://stackoverflow.com/questions/1753070/how-do-i-configure-git-to-ignore-some-files-locally  
+https://stackoverflow.com/questions/1274057/how-to-make-git-forget-about-a-file-that-was-tracked-but-is-now-in-gitignore  
 
 ```bash
 $ git update-index --skip-worktree <file>    # 或

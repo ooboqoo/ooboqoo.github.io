@@ -243,6 +243,9 @@ https://www.v2ray.com/
 检查 IP 是否被封(选能用的) https://ipcheck.need.sh/  
 查看路由详情(选速度快的) https://tools.ipip.net/traceroute.php  
 
+搬瓦工查看 IP 是否被封 https://kiwivm.64clouds.com/main-exec.php?mode=blacklistcheck  
+如果被封就申请更换 https://bwh88.net/ipchange.php  
+
 ### 服务器
 
 ```bash

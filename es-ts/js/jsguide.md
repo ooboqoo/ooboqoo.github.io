@@ -89,7 +89,7 @@ let newOTC
 let getUserIo
 ```
 
-常量可以采用全大写的形似，但普通的 `const` 修饰的变量不应该大写  Capitalize constant values (if you want).
+常量可以采用全大写的形式，但普通的 `const` 修饰的变量不应该大写  Capitalize constant values (if you want).
 
 ```js
 const HOURS_IN_DAY = 24
@@ -109,7 +109,7 @@ this._myPrivateMethod = function () { }
 const _someGlobalVar = 1
 ```
 
-其他时候都统一用小驼峰形似 Use (lower) camelCase for everything else.
+其他时候都统一用小驼峰形式 Use (lower) camelCase for everything else.
 
 
 ## Spaces, wrapping, and indentation

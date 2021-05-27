@@ -28,7 +28,7 @@ function foo(): viod {}
 // 数组 Array
 elemType[] 或 Array<elemType>
 let list: number[] = [1, 2, 3];
-let list: Array<number> = [1, 2, 3]
+let list: Array<number> = [1, 2, 3];
 
 // 元组 Tuple - 表示一个已知元素数量和类型的数组，各元素的类型不必相同
 let x: [string, number];  // 越界元素采用联合类型
@@ -95,15 +95,15 @@ Readonly<Type>
 Record<Keys, Type>
 Pick<Type, Keys>
 Omit<Type, Keys>
-Exclude<Type, ExcludedUnion>
-Extract<Type, Union>
+Exclude<UnionType, ExcludedUnion>  从 Type 中去除符合 ExcludedUnion 的项目
+Extract<UnionType, Union>          从 Type 中找出符合 Union 的项目
 NonNullable<Type>
-Parameters<Type>
-ConstructorParameters<Type>
+Parameters<FunctionType>           从函数类型中获取参数类型（一个元祖类型）
+ConstructorParameters<Type>        获取构造函数的参数类型信息
 ReturnType<Type>
 InstanceType<Type>
 Required<Type>
-ThisParameterType<Type>
+ThisParameterType<Type>            如果函数有参数 this 那么获取其类型，否则为 unknown
 OmitThisParameter<Type>
 ThisType<Type>
 ```
@@ -124,6 +124,28 @@ type Partial<T> = {
 type Required<T> = {
   [P in keyof T]-?: T[P];
 }
+```
+
+```ts
+// Exclude<Type, ExcludedUnion> 从 Type 中去除符合 ExcludedUnion 的项目
+type T0 = Exclude<"a" | "b" | "c", "a" | "b">;
+等同于： type T0 = "c"
+
+// Extract<Type, Union> 从 Type 中找出符合 Union 的项目
+type T0 = Extract<"a" | "b" | "c", "a" | "f">;
+等同于： type T0 = "a"
+
+// Parameters<Type> 获取函数的参数类型信息
+type T0 = Parameters<(name: string, age: number) => void>;
+等同于： type T0 = [name: string, age: number]
+
+// ConstructorParameters<Type> 获取构造函数的参数类型信息
+type T4 = ConstructorParameters<Function>;
+报错： Type 'Function' does not satisfy the constraint 'new (...args: any) => any'
+
+// ReturnType
+type T0 = ReturnType<() => string>;
+等同于： T0 = string
 ```
 
 ### 高级类型
@@ -173,7 +195,7 @@ function isNumber(x: any): x is number {
 * `K` Key 表示对象中的键类型
 * `V` Value 表示对象中的值类型
 * `E` Element 表示元素类型
-* `U` 26各字母中位于 T 之后，常作为第二个类型变量名
+* `U` 26个字母中位于 T 之后，常作为第二个类型变量名
 
 ```ts
 // 类型变量名用 `<>` 包裹，参数变量名用 `()` 包裹

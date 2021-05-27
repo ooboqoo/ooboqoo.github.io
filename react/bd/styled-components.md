@@ -207,6 +207,12 @@ class SidebarContainer extends React.Component {
 }
 ```
 
+## TypeScript
 
+```ts
+const Button = styled.span<{ active: boolean }>`
+  color: ${ props.active ? 'red' : undefined };
+`;
+```
 
 

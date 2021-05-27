@@ -200,7 +200,10 @@ http://blog.csdn.net/jungle_hello/article/details/51648056
 
 ```js
 str.replace(/^\s+|\s+$/g, "");     // 修剪字符串
-let unicode = /[\u0080-\uFFFF]+/;  // 匹配代码在128（十六进制为0x80）以上的字符，中文编码范围\u4E00-\u9FA5
+
+const unicode = /[\u0080-\uFFFF]+/;  // 匹配代码在128（十六进制为0x80）以上的字符
+const chinese = /[\u4E00-\u9FA5]+/;  // 中文
+const english = /[A-Za-z]+/;         // 英文
 ```
 
 
