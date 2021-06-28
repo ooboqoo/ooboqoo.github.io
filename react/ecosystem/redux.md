@@ -8,6 +8,17 @@ https://github.com/kenberkeley/redux-simple-tutorial
 使用进阶 + 源码解析
 https://github.com/kenberkeley/redux-simple-tutorial/blob/master/redux-advanced-tutorial.md
 
+
+
+
+## Style Guide
+
+https://redux.js.org/style-guide/style-guide
+
+
+
+
+
 ## 安装配置
 
 ```

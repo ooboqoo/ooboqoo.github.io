@@ -16,3 +16,10 @@ ReactDOM.render(<div style={divStyle}>Hello World!</div>, mountNode);
 ```
 
 Style keys are camelCased in order to be consistent with accessing the properties on DOM nodes from JS (e.g. node.style.backgroundImage). Vendor prefixes other than ms should begin with a capital letter. This is why WebkitTransition has an uppercase "W".
+
+## 临时记录
+
+```tsx
+// null undefined false 都会被过滤，0 NaN 都在界面上显示出来
+const TestEmpty = <div>{null}{undefined}{false}{''}{0}{NaN}</div>;
+```

@@ -8,10 +8,10 @@
 ```js
 // 去抖函数，确保两次调用之间超过特定时长才真正执行
 const debounce = (fn, ms = 200, context = window) => {
-  let timeoutId;
+  let timerId;
   return function(...args) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn.apply(context, args), ms);
+    clearTimeout(timerId);
+    timerId = setTimeout(() => fn.apply(context, args), ms);
   };
 };
 
@@ -44,6 +44,13 @@ const deepClone = obj => {
   );
   return Array.isArray(obj) ? (clone.length = obj.length) && Array.from(clone) : clone;
 };
+
+// 用 reduce 实现
+function reduce(arr) {
+   return arr.reduce((prev, current)=>{
+      return prev.concat(Array.isArray(current) ? reduce(current) : current)
+   },[])
+}
 ```
 
 稳定排序
@@ -61,10 +68,10 @@ const stableSort = (arr, compare) =>
 中间件
 
 ```js
-function compose(...fns) {
-  if (fns.length === 0) return a => a
-  if (fns.length === 1) return fns[0]
-  return fns.reduce((f1, f2) => (...args) => f1(f2(...args)))
+function compose(...middlewares) {
+  if (middlewares.length === 0) return next => next
+  if (middlewares.length === 1) return middlewares[0]
+  return middlewares.reduce((m, middleware) => next => m(middleware(next)))
 }
 
 function applyMiddleware (target, ...middlewares) {

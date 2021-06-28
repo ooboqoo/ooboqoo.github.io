@@ -513,7 +513,7 @@ useEffect(() => {
 如果你在接触 Hook 前已经对 context API 比较熟悉，那应该可以理解，useContext(MyContext) 相当于 class 组件中的 `static contextType = MyContext` 或者 `<MyContext.Consumer>`。
 
 特别说明：
-* `useContext(MyContext)` 只是让你能够读取 context 的值以及订阅 context 的变化。你仍然需要在上层组件树中使用 `<MyContext.Provider>` 来为下层组件提供 context。
+* `useContext(MyContext)` 只是 _让你能够读取 context 的值以及订阅 context 的变化_。你仍然需要在上层组件树中使用 `<MyContext.Provider>` 来为下层组件提供 context。
 * 注意不要滥用 Context，因为它会破坏你的组件独立性。
 
 ```jsx

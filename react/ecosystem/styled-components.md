@@ -3,6 +3,40 @@
 * Official Site  https://styled-components.com/
 * Awesome Styled Components  https://github.com/styled-components/awesome-styled-components
 
+
+## CheatSheet
+
+```ts
+const Button = styled.span<{ active: boolean }>`
+  color: ${ props.active ? 'red' : undefined };
+`;
+```
+
+### `.attrs`
+
+https://styled-components.com/docs/api#attrs
+
+```ts
+// 用法 1，传入对象，此对象内容会合并到 props 中
+const Input = styled.input.attrs({type: 'text'});
+
+// 用法 2，传入回调 props => objectToBeMergedIntoProps
+const Input = styled.input.attrs(props => ({ size: props.small ? 5 : undefined }));
+```
+
+```tsx
+// 结合 tailwindcss 的用法
+export const FancyButton = styled.div.attrs<unknown, any>(props => ({
+  className: 'm-2', // 这里的 className 跟外部传入的 className 会自动合并（加总）
+  children: props.children ?? '按钮', // 这里可以放些简单的默认内容
+}))`
+  color: var(--primary);
+`;
+```
+
+
+## 介绍
+
 JSX 让我们能用 JS 写 HTML，Styled Compoents 让我们能用 JS 来写(组织) CSS。从此各种 CSS DSL 都将被 JS 终结。
 
 让样式组件成为开发的基本单元。把要基于 classNames 才能实现的样式关联去掉，用纯 CSS 的方式去书写 React 组件。
@@ -207,12 +241,5 @@ class SidebarContainer extends React.Component {
 }
 ```
 
-## TypeScript
-
-```ts
-const Button = styled.span<{ active: boolean }>`
-  color: ${ props.active ? 'red' : undefined };
-`;
-```
 
 

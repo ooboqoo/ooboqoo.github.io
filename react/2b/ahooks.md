@@ -122,5 +122,42 @@ const { left, top } = useScroll(target, shouldUpdate);
 **useSafeState**  在组件卸载后，异步调用 setState 不再执行
 
 
+## 源码学习
+
+### 快速开始
+
+```bash
+$ git clone https://github.com/alibaba/hooks.git
+$ cd hooks
+$ npm run init
+$ npm start
+```
+
+### 项目配置
+
+文档
+
+dumi
+
+测试
+
+@testing-library/react  
+@testing-library/react-hooks  
+enzyme  
+mockjs  
+mockdate  
+
+能力依赖
+
+lodash.debounce  
+lodash.isequal  
+lodash.throttle  
+
+
+
+
+
+
+
 
 

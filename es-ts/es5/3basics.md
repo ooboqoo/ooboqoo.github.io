@@ -308,7 +308,7 @@ Number.NEGATIVE_INFINITY 保存了 -Infinity值。
 
 #### NaN
 
-特殊数值NaN，表示非数值（Not a number），这个数值用于表示一个本来要返回数值的操作却未返回数值的情况（这样就不会抛出错误了）。
+特殊数值NaN，表示非数值（Not a Number），这个数值用于表示一个本来要返回数值的操作却未返回数值的情况（这样就不会抛出错误了）。
 
 NaN 本身有两个非同寻常的特点：
 
@@ -325,17 +325,17 @@ isNaN() 在接收到一个值之后，会尝试将这个值转换为数值，任
 alert(isNaN("blue"));  // true（不能被转换成数值）
 ```
 
-isNaN() 函数也适用于对象，它首先会调用对象的 valueof() 方法，然后确定返回值是否可以转换为数值，如果不能，基于这个返回值再调用 toString() 方法，再测试返回值。这个过程也是 ES 中内置函数和操作符的一般执行流程。
+isNaN() 函数也适用于对象，它首先会调用对象的 valueOf() 方法，然后确定返回值是否可以转换为数值，如果不能，基于这个返回值再调用 toString() 方法，再测试返回值。这个过程也是 ES 中内置函数和操作符的一般执行流程。
 
 ### 3.4.6 String 类型
 
-String 类型的值是由零或多个16位 Unicode 字符组成的字符序列，即字符串。
+String 类型的值是由零或多个 _16位 Unicode 字符_ 组成的字符序列，即字符串。
 
 String 类型的独特之处在于，它是唯一没有固定大小的简单数据类型。
 
 字符串的长度都可以通过访问其 length 属性取得。
 
-字符串字面量是由双引号（"）或单引号（'）声明的。与Java、php等程序不同，单双引号的效果是完全相同的，没有区分。
+字符串字面量是由双引号（"）或单引号（'）声明的。与 Java、PHP 等程序不同，单双引号的效果是完全相同的，没有区分。
 
 #### 转义序列
 
@@ -468,7 +468,9 @@ XOR = 0000 0000 0000 0000 0000 0000 0001 1010
 ECMA-262 规定了一组语句(也称为流控制语句)，语句定义了 ES 中主要的语法，语句通常使用一个或多个关键字来完成任务。
 
 ### 3.6.1 if 语句
+
 <pre> if (<i>condition</i>) statement1 else statement2</pre>
+<br />
 <pre>
  if (<i>condition1</i>) statement1
  else if (<i>condition2</i>) statement2
@@ -479,11 +481,11 @@ ECMA-262 规定了一组语句(也称为流控制语句)，语句定义了 ES �
 
 ### 3.6.2 do-while 语句
 do-while 语句是后测试循环。这意味着在计算表达式之前，至少会执行循环主体一次。
-<pre> do {statement} while (<i>expression</i>);</pre>
+<pre> do { <i>statement</i> } while (<i>expression</i>);</pre>
 
 ### 3.6.3 while 语句
 while 语句是前测试循环，退出条件是在执行循环内部的代码之前计算的。
-<pre> while (<i>expression</i>) statement</pre>
+<pre> while (<i>expression</i>) <i>statement</i></pre>
 
 ### 3.6.4 for 语句
 for 语句是前测试循环，而且在进入循环之前，能够初始化变量，并定义循环后要执行的代码。  
@@ -566,12 +568,18 @@ switch 语句是 if 语句的兄弟语句。
 
 ```js
 switch (expression) {
-  case value1: statement1;
+  case value1:
+    statement1;
+    // ...;
     break;
-  case value2: statement2;
+  case value2:
+    statement2;
+    // ...;
     break;
-//  ......
-  default: statement3;
+  // ......
+  default:
+    statement3;
+    // ...
 }
 ```
 
@@ -581,9 +589,11 @@ switch (expression) {
 switch (i) {
   case 25:      // 合并两种情形
   case 35:
-    alert("25 or 35"); break;
+    alert("25 or 35");
+    break;
   case 45:
-    alert("45"); break;
+    alert("45");
+    break;
   default:
     alert("other");
 }
@@ -608,7 +618,7 @@ switch (true) {    // 传递的是 true，因为每个 case 值都可以返回�
 }
 ```
 
-注意：switch 语句在比较值时使用的是全等操作符，因此不会发生类型转换（例如，"10" 不等于10）
+注意：switch 语句在 _比较值时使用的是全等操作符_ ，因此不会发生类型转换（例如，"10" 不等于10）
 
 ## 3.7 函数
 
@@ -627,7 +637,7 @@ function functionName(arg0, arg1, ..., argN) {
 
 ### 3.7.1 理解参数
 
-ES 函数的参数与大多数其他语言中的函数的参数有所不同。ES函数不介意传递进来多少个参数，也不在乎传进来参数是什么数据类型。之所以会这样，原因是 ES 中的参数在内部是用一个数组来表示的。函数接收到的始终都是这个数组（这个数组可以不包含任何元素），而不关心数组中包含哪些参数。实际上，在函数体内可以通过 arguments 对象来访问这个参数数组，从而获取传递给函数的每一个参数。
+ES 函数的参数与大多数其他语言中的函数的参数有所不同。ES函数不介意传递进来多少个参数，也不在乎传进来参数是什么数据类型。之所以会这样，原因是 ES 中的 _参数在内部是用一个数组来表示的_ 。函数接收到的始终都是这个数组（这个数组可以不包含任何元素），而不关心数组中包含哪些参数。实际上，在函数体内可以通过 arguments 对象来访问这个参数数组，从而获取传递给函数的每一个参数。
 
 arguments 对象只是与数组类似，但并不是 Array 的实例。可以使用方括号语法访问它的每一个元素（arguments[0] arguments[1] ... ），使用 length 属性来确定传递进来多少个参数。
 

@@ -2,9 +2,20 @@
 
 https://lodash.com/docs/
 
+
 ### Array
 
+flatten
 
+uniqBy
+
+sortBy
+
+
+### Collection
+
+
+### Date
 
 
 ### Function
@@ -16,3 +27,28 @@ _.debounce(func, [wait=0], [options={}])
 _.throttle(func, [wait=0], [options={}])
 
 创建一个节流函数，在 wait 秒内最多执行 func 一次的函数。 该函数提供一个 cancel 方法取消延迟的函数调用以及 flush 方法立即调用。
+
+### Lang
+
+isEqual
+
+cloneDeep
+
+### Math
+
+
+### Number
+
+
+### Object
+
+
+### Seq
+
+
+### String
+
+
+### Util
+
+

@@ -90,19 +90,25 @@ gavin.#name  // Error: Property '#name' is not assessible outside class 'Person'
 https://www.typescriptlang.org/docs/handbook/utility-types.html
 
 ```ts
-Partial<Type>
-Readonly<Type>
 Record<Keys, Type>
+
+Partial<Type>
+Required<Type>
+
 Pick<Type, Keys>
 Omit<Type, Keys>
+
 Exclude<UnionType, ExcludedUnion>  从 Type 中去除符合 ExcludedUnion 的项目
 Extract<UnionType, Union>          从 Type 中找出符合 Union 的项目
-NonNullable<Type>
+
+Readonly<Type>
+NonNullable<Type>                  剔除 null 和 undefined
+
 Parameters<FunctionType>           从函数类型中获取参数类型（一个元祖类型）
 ConstructorParameters<Type>        获取构造函数的参数类型信息
 ReturnType<Type>
 InstanceType<Type>
-Required<Type>
+
 ThisParameterType<Type>            如果函数有参数 this 那么获取其类型，否则为 unknown
 OmitThisParameter<Type>
 ThisType<Type>
@@ -114,7 +120,7 @@ ThisType<Type>
  */
 type Partial<T> = {
   [P in keyof T]: T[P];
-}
+};
 ```
 
 ```ts
@@ -123,7 +129,11 @@ type Partial<T> = {
  */
 type Required<T> = {
   [P in keyof T]-?: T[P];
-}
+};
+
+type Pick<T, K extends keyof T> = {
+  [P in K]: T[P];
+};
 ```
 
 ```ts
@@ -151,7 +161,7 @@ type T0 = ReturnType<() => string>;
 ### 高级类型
 
 ```ts
-// 交叉类型（类型合并） `&`
+// 交叉类型（类型合并）Intersection Types `&`
 interface X {
   a: string;
   b: string;
@@ -188,6 +198,15 @@ function isNumber(x: any): x is number {
 }
 ```
 
+### 条件类型
+
+一种由条件表达式所决定的类型，表现形式为 `T extends U ? X : Y`, 即如果类型 T 可以被赋值给类型 U，那么结果类型就是 X，否则为 Y。
+
+条件类型使类型具有了不唯一性，增加了语言的灵活性，
+
+```ts
+type NonNullable<T> = T extends null | undefined ? never : T;
+```
 
 ### 泛型
 

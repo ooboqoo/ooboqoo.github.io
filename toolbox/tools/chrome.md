@@ -65,6 +65,16 @@ const listeners = getEventListeners($('button'))
 debug(listeners.click[0].listener)
 ```
 
+### 调试 Tooltips 或 Popover
+
+如果是使用 CSS `:hover` 控制的，那很好调试，但如果是 js 控制的，就麻烦了，但办法总还是有的。
+
+https://stackoverflow.com/questions/15370838/inspect-hovered-element-in-chrome
+https://dev.to/phuchieu/how-debug-inspect-tooltip-2e5c
+
+「Sources」面板 -》「Event Listener Breakpoints」-》「Mouse」-》「contextmenu」选上后，鼠标移到目标上，等出了气泡后点击右键，JS 就会停止执行，然后可以轻松使用 「Elements」面板调试了。
+
+
 ## 使工作区能保存修改  Set Up Persistence with DevTools Workspaces
 
 https://developers.google.com/web/tools/setup/setup-workflow

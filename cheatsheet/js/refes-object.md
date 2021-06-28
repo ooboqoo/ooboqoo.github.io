@@ -198,8 +198,13 @@ function bar() { console.log(foo.arguments, bar.caller); }
 https://gist.github.com/rauschma/f7b96b8b7274f2e2d8dab899803346c3
 
 ```js
-let arr1 = new Array(7);  // 声明一个长度为7的数组，
-let arr2 = new Array(7, 1);  // 新建数组 [7, 1]
+// 避免这些用法，有很大缺陷。另外注意，数组各方法对空位的处理逻辑很不一致
+const arr1 = Array(7);  // 声明一个长度为7的数组 [empty x 7]
+const arr2 = Array(7, 1);  // 新建数组 [7, 1]
+
+// 新建数组应该用下面这两种方式
+const arr3 = Array.from({length: 7});  // [undefined, ..., undefined]
+const arr4 = Array.of(7);  // [7]
 ```
 
 ```js
@@ -308,7 +313,7 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 </div>
 <div class="dl">
 <h5 class="es3">Number.MAX_VALUE <span>-- `1.7976931348623157e+308`</span></h5>
-<h5 class="es3">Number.MIN_VALUE <span>-- `5e-324` 注意改值是正的</span></h5>
+<h5 class="es3">Number.MIN_VALUE <span>-- `5e-324` 注意该值是正的</span></h5>
 <h5 class="es3">Number.NaN</h5>
 <h5 class="es3">Number.NEGATIVE_INFINITY <span>-- `-Infinity`</span></h5>
 <h5 class="es3">Number.POSITIVE_INFINITY <span>-- `Infinity`</span></h5>
@@ -356,8 +361,8 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 </div>
 <div class="dl">
 <h5 class="es5">string.trim() <span>-- 删除前置和后缀的所有空格并返回处理后的新字符串</span></h5>
-<h5 class="es es19">string.{trimStart,trimLeft}() <span>-- 删除前置的所有空格并返回处理后的新字符串</span></h5>
-<h5 class="es es19">string.{trimEnd,trimRight}() <span>-- 删除后缀的所有空格并返回处理后的新字符串</span></h5>
+<h5 class="es es19">string.{trimStart, trimLeft}() <span>-- 删除前置的所有空格并返回处理后的新字符串</span></h5>
+<h5 class="es es19">string.{trimEnd, trimRight}() <span>-- 删除后缀的所有空格并返回处理后的新字符串</span></h5>
 <h5 class="es es17">string.padStart(length [, padString]) <span>-- 如果字符串小于指定长度就在前面用指定字符串填充</span></h5>
 <h5 class="es es17">string.padEnd(length [, padString]) <span>-- 如果字符串小于指定长度就在后面用指定字符串填充</span></h5>
 </div>
@@ -401,6 +406,15 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 
 [注1]：`Symbol.for()` 与 `Symbol()` 都会生成新的 Symbol。它们的区别是，前者会被登记在全局环境中供搜索，后者不会。
 
+```js
+const PRIVATE_PROP = Symbol('private_prop');
+class ClassWithPrivateProps {
+  constructor () {
+    this[PRIVATE_PROP] = 'private prop';
+  }
+}
+```
+
 
 ## RegExp
 
@@ -418,8 +432,11 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 
 ```js
 var reg = /abc/g;
-reg.test(abc);  // true
-reg.test(abc);  // false
+reg.test('abcd'); // true    reg.lastIndex = 3
+reg.test('abcd'); // false   reg.lastIndex = 0
+reg.test('abcd'); // true
+
+/(ab)(cd)/g.exec('abcdef'); // ["abcd", "ab", "cd", index: 0, input: 'abcdef', groups: undefined]
 ```
 
 
