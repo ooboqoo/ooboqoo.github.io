@@ -69,11 +69,11 @@ process.stderr     | 标准错误输出
 ## Child Process 子进程
 
 ||
-------------------------------------|-----------------------------------------------------------------
+------------------------------------|----------------------------------------------------------------------
 cp.spawn(cmd, args?, opts?)         | spawn 产卵，此方法可用来创建子进程。不支持回调函数
-cp.exec(cmd, opts? cb?)             | 新建一个 shell 执行 cmd，执行完调用 cb: (stdout, stderr) => { }
+cp.exec(cmd, opts?, cb?)            | 新建一个 shell 执行 cmd，执行完调用 cb: (error, stdout, stderr) => { }
 cp.execFile(file, args?, opts?, cb) | 不用启动独立的 shell，相对 `exec` 来说更加轻量级
-cp.fork(modulePath, args?, opts?)   | 新建一个 Node.js 进程执行模块(即只能是 js 文件)，带 IPC，父子进程可通过通道互发消息
+cp.fork(modulePath, args?, opts?)   | 新建一个 Node.js 进程执行模块(.js 文件)，带 IPC，父子进程可通过通道互发消息
 
 child_process 是一个比较重要的模块，通过它可以实现创建多线程，来利用多核 CPU。这个模块提供了四个创建子进程的函数: `spawn` `exec` `execFile` `fork`，其中 `spawn` 是最原始的创建子进程的函数，剩下的三个是对这个函数不同程度的封装。
 

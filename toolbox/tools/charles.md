@@ -29,6 +29,16 @@ https://www.gitbook.com/book/t0data/burpsuite/details
 Burp Suite 一款集成型的渗透测试工具，是可以用于攻击 web 应用程序的集成平台。它包含了许多工具，并为这些工具设计了许多接口，以促进加快攻击应用程序的过程。所有的工具都共享一个能处理并显示 HTTP 消息，持久性，认证，代理，日志，警报的一个强大的可扩展的框架。
 
 
+
+## Charles
+
+注册 https://charles.ren/
+
+> 实际使用时如果抓不到包，退出应用，然后把其他的代理也全退了，再进就好了。
+
+
+
+
 ## Fiddler
 
 ### 配置
@@ -75,8 +85,4 @@ http://www.telerik.com/blogs/breakpoints-in-fiddler
 ### 移动端抓包
 
 
-
-## Charles
-
-注册 https://charles.ren/
 

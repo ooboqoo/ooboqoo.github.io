@@ -100,6 +100,30 @@ host 宿主机  image 镜像  container 容器  registry 仓库  daemon 守护�
 
 
 
+## 教学
+
+https://docs.docker.com/get-started/
+
+```bash
+docker run -d -p 80:80 docker/getting-started
+  # -d  detach 后台运行
+  # -p  port   指定端口映射
+  # -d -p 这些缩写的参数可以进一步合并为 -dp
+```
+
+**container**
+
+Simply put, a container is simply another process on your machine that has been isolated from all other processes on the host machine. That isolation leverages kernel namespaces and cgroups, features that have been in Linux for a long time.
+
+**container image**
+
+When running a container, it uses an isolated filesystem. This custom filesystem is provided by a container image. Since the image contains the container's filesystem, it must contain everything needed to run an application - all dependencies, configuration, scripts, binaries, etc. The image also contains other configuration for the container, such as environment variables, a default command to run, and other metadata.
+
+We'll dive deeper into images later on, covering topics such as layering, best practices, and more.
+
+
+
+
 
 
 

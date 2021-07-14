@@ -223,7 +223,23 @@ function identity <T, U>(value: T, message: U): T {
 }
 ```
 
+### 重载
 
+```ts
+// 定义「使用方式」 1
+function makeDate(timestamp: number): Date;
+// 定义「使用方式」 2
+function makeDate(m: number, d: number, y: number): Date;
+// 具体「代码实现」，要能 cover 住上面定义的几种使用方式
+// 注意，看这里的实现，视乎可以只传2个参数，但实际不是可以的，因为这里只负责实现，怎么用不看这里，要看上面的定义
+function makeDate(mOrTimestamp: number, d?: number, y?: number): Date {
+  if (d !== undefined && y !== undefined) {
+    return new Date(y, mOrTimestamp, d);
+  } else {
+    return new Date(mOrTimestamp);
+  }
+}
+```
 
 
 

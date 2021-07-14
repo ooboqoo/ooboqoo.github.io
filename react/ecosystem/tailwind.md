@@ -7,6 +7,15 @@ tailwind.config.js 项目根目录需要放这个文件，否者插件完全无�
 
 配合 React 使用还可以参考这个库 https://github.com/emortlock/tailwind-react-ui ，有点 styled-components 的味道。
 
+
+Tailwind 相较 inline CSS 优势
+
+* *基于约束的设计* 使用内联样式每个值都是魔术数字，使用功能类则是从预定义的「设计系统」中选择样式，这使得构建统一的 UI 变得更加容易
+* *响应式设计* 在内联样式中您不能使用媒体查询，但 Tailwind 的「响应式功能类」非常容易构建响应式页面
+* *hover focus 等状态* 内联样式无法设置 hover 或者 focus 这样的装填，使用 Tailwind 的「状态变体」功能类可以非常容易地为这些状态设置样式
+
+
+
 ## Core Concepts
 
 ### Utility-Frist

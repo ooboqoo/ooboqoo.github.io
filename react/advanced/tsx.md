@@ -2,6 +2,42 @@
 
 https://github.com/typescript-cheatsheets/react-typescript-cheatsheet
 
+
+## 常用类型
+
+```ts
+FC<Props>
+
+RefObject<T>        // current 只读
+MutableRefObject<T> // current 可写
+Ref<T>              // current 只读且可能为 null
+
+RefForwardingComponent<T, P>  // React.forwardRef 包裹的组件类型
+
+// 常用来包裹样式组件用，一搬需要透传所有 props 给原生 HTML 组件（下方有示例）
+HTMLAttributes<T>
+XXXHTMLAttributes<T>
+
+type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
+type ReactChild = ReactElement | ReactText;
+type ReactText = string | number;
+
+
+```
+
+
+```tsx
+export type PrimaryButtonPropsType = { foo: string; }
+function PrimaryButton(props: PrimaryButtonPropsType & ButtonHTMLAttributes<HTMLButtonElement>) {
+  const {foo, ...rest} = props
+  return <button style={primaryButtonStyle} {...rest} />;
+}
+```
+
+
+
+
+
 ## Props
 
 `readonly`
