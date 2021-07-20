@@ -32,7 +32,7 @@ https://brew.sh/index_zh-cn.html
 RedHat 有 yum，Ubuntu 有 apt-get，macOS 只有自己的苹果商店，但这个明显不够啊，于是有了第三方的 Homebrew。
 
 ```bash
-$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 ```bash
@@ -49,7 +49,7 @@ $ brew unlink vim            # 临时使 vim 失效，即，只去链接不实�
   # brew unlink -n vim           查看将会有哪些个链接会被删除，只是问问不实际删除
 $ brew link [FORMULA]        # 重新创建链接
 
-$ brew search [TEXT|/REGEX/]
+$ brew search --desc keyword # 也可以直接访问 formulae.brew.sh 查找包信息
 $ brew (info|home|options) [FORMULA...]  # 如 `brew info git` 可查看本机安装的 git 相关信息
 $ brew list [FORMULA...]     # 不带参数可列出安装的软件清单，带具体软件包名，可列出安装目录细节
 $ brew cleanup               # brew 更新软件不会删除老版，需要定期手动清理
@@ -76,7 +76,8 @@ $ brew install google-chrome visual-studio-code
 $ echo proxy=socks5://127.0.0.1:1080 >> ~/.curlrc
 
 # 解决安装软件时下载慢的问题，如装 icu4c 时下载奇慢，设置这个后下载就飞起
-$ echo export ALL_PROXY=\"socks5://127.0.0.1:1080\" >> ~/.zshrc
+$ ALL_PROXY=socks5://127.0.0.1:1080 brew # 运行时改环境变量，也可以配成 alias
+$ echo export ALL_PROXY=\"socks5://127.0.0.1:1080\" >> ~/.zshrc  # 还可以这样，但影响面有点大
 ```
 
 #### 换源

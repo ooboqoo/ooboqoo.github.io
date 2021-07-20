@@ -1,6 +1,25 @@
 # HTTP
 
 
+## undici
+
+https://undici.nodejs.org/#/  
+https://github.com/nodejs/undici  
+
+
+### Why Undici
+
+https://nodejs.medium.com/introducing-undici-4-1e321243e007
+
+A lot of people still ask us why building a replacement for Node.js core HTTP stack — while it works so well for them. The reality is that the Node.js core HTTP stack suffers from fundamental design issues that are impossible to overcome without breaking the API. There are certain bugs or performance bottlenecks we cannot fix without breaking the majority of our users — both on the client and server implementations as they are deeply tied.
+
+The team behind Undici is committed to developing a fast, reliable, and spec-compliant HTTP client for Node.js. Undici is production-ready. Try it out!
+
+
+
+
+
+
 ## HTTP
 
 ```ts

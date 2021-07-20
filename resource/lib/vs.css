@@ -88,8 +88,12 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
 }
 
 .hljs.language-ts::after,
-.hljs.typescript::after {
+.hljs.language-typescript::after {
   content: "ts";
+}
+
+.hljs.language-tsx::after {
+  content: "tsx";
 }
 
 .hljs.language-json::after {
@@ -181,4 +185,8 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
 
 .hljs.language-py::after {
   content: "py";
+}
+
+.hljs.language-thrift::after {
+  content: "thrift";
 }

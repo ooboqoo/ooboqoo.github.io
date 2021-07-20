@@ -1,5 +1,8 @@
 # Docker
 
+视频教程 https://www.youtube.com/watch?v=fqMOX6JJhGo  
+官方教程 https://docs.docker.com/get-started/
+
 
 ## 速查手册
 
@@ -102,7 +105,7 @@ host 宿主机  image 镜像  container 容器  registry 仓库  daemon 守护�
 
 ## 教学
 
-https://docs.docker.com/get-started/
+
 
 ```bash
 docker run -d -p 80:80 docker/getting-started

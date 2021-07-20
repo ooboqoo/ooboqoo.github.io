@@ -417,6 +417,24 @@ export interface Hash extends NodeJS.ReadWriteStream {
 ```
 
 
+## VM
+
+A common use case is to run the code in a different V8 Context aka a different `global` object.
+
+This is not a security mechanism, do not use it to run untrusted code.
+
+```js
+const vm = require('vm');
+const x = 1;
+const ctx = { x: 2 };
+vm.createContext(ctx); // contextify the object
+const code = 'x += 10; var y = 20';
+vm.runInContext(code, ctx);
+console.log(ctx.x, ctx.y, x);  // 12 20 1
+```
+
+
+
 
 
 

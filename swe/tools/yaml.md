@@ -1,8 +1,8 @@
 # YAML 语言教程
 
-* 教程 https://en.wikipedia.org/wiki/YAML
-* 规范 https://yaml.org/spec/1.2/spec.html
-* 在线验证 https://nodeca.github.io/js-yaml/
+教程 https://en.wikipedia.org/wiki/YAML  
+规范 https://yaml.org/spec/1.2/spec.html  
+工具 https://nodeca.github.io/js-yaml/
 
 YAML 是专门用来 *写配置文件* 的语言，非常简洁和强大，远比 JSON 方便（YAML1.2 是 JSON 的超集）。  
 YAML is a human-friendly, cross language, Unicode based *data serialization language*.
@@ -80,34 +80,7 @@ timestamp:
   no time zone (Z): 2001-12-15 2:59:43.10
   date (00:00:00Z): 2002-12-14
 
-# http://yaml.org/type/merge.html
-merge:
-  - &CENTER { x: 1, y: 2 }
-  - &LEFT { x: 0, y: 2 }
-  - &BIG { r: 10 }
-  - &SMALL { r: 1 }
-
-  # All the following maps are equal:
-
-  - # Explicit keys
-    x: 1
-    y: 2
-    r: 10
-    label: nothing
-
-  - # Merge one map
-    << : *CENTER
-    r: 10
-    label: center
-
-  - # Merge multiple maps
-    << : [ *CENTER, *BIG ]
-    label: center/big
-
-  - # Override
-    << : [ *BIG, *LEFT, *SMALL ]
-    x: 1
-    label: big/left/small
+...
 ```
 
 
@@ -174,7 +147,6 @@ Escape codes:
  C         : { "\0": NUL, "\a": BEL, "\b": BS, "\f": FF, "\n": LF, "\r": CR,
                "\t": TAB, "\v": VTAB }
  Additional: { "\e": ESC, "\_": NBSP, "\N": NEL, "\L": LS, "\P": PS }
-...
 ```
 
 
@@ -262,4 +234,36 @@ message: |
 - Oren 
 - *showell 
 #             #==> [ 'Steve', 'Clark', 'Brian', 'Oren', 'Steve' ]
+```
+
+```yaml
+
+# http://yaml.org/type/merge.html
+merge:
+  - &CENTER { x: 1, y: 2 }
+  - &LEFT { x: 0, y: 2 }
+  - &BIG { r: 10 }
+  - &SMALL { r: 1 }
+
+  # All the following maps are equal:
+
+  - # Explicit keys
+    x: 1
+    y: 2
+    r: 10
+    label: nothing
+
+  - # Merge one map
+    << : *CENTER
+    r: 10
+    label: center
+
+  - # Merge multiple maps
+    << : [ *CENTER, *BIG ]
+    label: center/big
+
+  - # Override
+    << : [ *BIG, *LEFT, *SMALL ]
+    x: 1
+    label: big/left/small
 ```

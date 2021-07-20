@@ -23,7 +23,7 @@ CSS Flexible Box Layout Module Level 1 https://www.w3.org/TR/2018/CR-css-flexbox
                    space-between (两端对齐) | space-around (等间距) ｜ space-evenly;
   align-items: flex-start | flex-end | center |                           // 垂直对齐-单轴
                baseline (项目的第一行文字的基线对齐) | stretch (default);
-  align-content: flex-start | flex-end | center |                         // 垂直对齐-多轴
+  align-content: flex-start | flex-end | center |              // 垂直对齐-多轴 (flex-wrap: wrap)
                  space-between | space-around | space-evenly ｜ stretch (default);
 }
 ```

@@ -176,7 +176,7 @@ function isMobile() {
         // 替换 <tag></tag>，用法示例 <tag>div class="dl"</tag> 会生成 <div class="dl">
 
       // 给文档代码设置高亮
-      [].forEach.call(elem_md.querySelectorAll("pre > code"), hljs.highlightBlock);
+      [].forEach.call(elem_md.querySelectorAll("pre > code"), hljs.highlightElement);
 
       // markd 怎么把引号都转义了...
       [].forEach.call(elem_md.querySelectorAll(".demo"), function(demo) {
