@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/resource/lib/html-main.css" />
-<script src="/resource/lib/html-main.js"></script>
-<title>4 变量、作用域、内存问题</title>
-</head>
-<body>
-<div id="article">
+# 4 变量、作用域、内存问题
 
-<h1>4 变量、作用域、内存问题</h1>
+
 
 <div>
 <h2>4.1 基本类型和引用类型的值</h2>
@@ -115,7 +105,3 @@ myObject.element = null;  // 断开循环引用
 <p>因此，确保占用最少的内存可以让页面获得更好的性能。而优化内存占用的最佳方式，就是为执行中的代码只保存必要的数据。一旦数据不再有用，最好通过将其值设置为null来释放其引用——这个做法叫做解除引用（dereferencing）。这一做法适用于大多数全局变量和全局对象的属性。</p>
 <p>不过，解除一个值的引用并不意味着自动回收该值所占用的内存。解除引用的真正作用是让值脱离执行环境，以便垃圾收集器下次运行时将其回收。</p>
 </div>
-
-</div>
-</body>
-</html>

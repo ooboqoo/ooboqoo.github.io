@@ -1,23 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/resource/lib/html-main.css" />
-<script src="/resource/lib/html-main.js"></script>
-<title>事件</title>
-</head>
-<body>
-<div id="article">
+# 13 事件
 
-<h1>13 事件</h1>
-<div><p>JavaScript 与 HTML 之间的交互是通过事件实现的，事件支持页面的行为（JS代码）与页面的外观（HTML&CSS代码）之间的松散耦合。</p></div>
+JavaScript 与 HTML 之间的交互是通过事件实现的，事件支持页面的行为（JS代码）与页面的外观（HTML&CSS;代码）之间的松散耦合。
 
-<div>
-<h2>13.1 事件流</h2>
-<p>事件流描述的是从页面中接收事件的顺序。根据方向，事件流分 事件冒泡流 和 事件捕获流 两种。</p>
-<p>“DOM2级事件”规定的事件流包括三个阶段：事件捕获阶段、处于目标阶段和事件冒泡阶段。</p>
-</div>
+
+## 13.1 事件流
+
+事件流描述的是从页面中接收事件的顺序。根据方向，事件流分 事件冒泡流 和 事件捕获流 两种。
+
+“DOM2级事件”规定的事件流包括三个阶段：事件捕获阶段、处于目标阶段和事件冒泡阶段。
+
+
 
 <div>
 <h2>13.2 事件处理程序</h2>
@@ -208,26 +200,4 @@ btn.dispatchEvent(event);
 <h4>模拟键盘事件</h4>
 </div>
 
-<div>
-<h2>13.7 小结</h2>
 
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-</body>
-</html>

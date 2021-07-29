@@ -1,4 +1,4 @@
-# NPM & Yarn
+# NPM & Yarn & pnpm
 
 
 npm                                       | Yarn
@@ -33,6 +33,10 @@ npm                                       | Yarn
 
 注：`yarn script-name` 相当于 `yarn run script-name`，`yarn` 相当于 `yarn install`
 
+
+## pnpm
+
+https://pnpm.io
 
 
 ## NPM

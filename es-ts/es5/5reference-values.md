@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/resource/lib/html-main.css" />
-<script src="/resource/lib/html-main.js"></script>
-<title>ECMAScript 引用类型</title>
-</head>
-<body>
-<div id="article">
+# 5 引用类型
 
-<h1>5 引用类型</h1>
+## 引用类型
 
-<div>
-<h2>引用类型</h2>
-<p>引用类型的值（对象）是引用类型的一个实例。在ES中，引用类型是一种数据结构，用于将数据和功能组织在一起。引用类型也被称为“对象定义”，逻辑上等价于其他程序设计语言中的类。本章会讨论大量的 ECMAScript 预定义引用类型。</p>
-<p>新对象是由 new 操作符后跟一个构造函数来创建的。构造函数本身就是一个函数，只不过该函数是出于创建新对象的目的而定义的。</p>
-</div>
+引用类型的值（对象）是引用类型的一个实例。在ES中，引用类型是一种数据结构，用于将数据和功能组织在一起。引用类型也被称为“对象定义”，逻辑上等价于其他程序设
+计语言中的类。本章会讨论大量的 ECMAScript 预定义引用类型。
+
+新对象是由 new 操作符后跟一个构造函数来创建的。构造函数本身就是一个函数，只不过该函数是出于创建新对象的目的而定义的。
 
 <div>
 <h2>5.1 Object 类型</h2>
@@ -232,27 +221,28 @@ alert(onumberObject.toPrecision(3));  //输出 "68.0"
 <p class="note"><span>注释：</span>具体对象方法请查阅查考手册。</p>
 </div>
 
-<h1>5.7 单体内置对象</h1>
+## 5.7 单体内置对象
 
-<div>
-<p>ECMA-262 对内置对象的定义是：由ECMAScript实现提供的、不依赖于宿主环境的对象，这些对象在ES程序执行之前就已经存在了。</p>
-<p>前面我们已经介绍了大多数内置对象，如 Object Array 和 String 等。 ECMA-262还定义了两个单体内置对象：Global 和 Math。（内置对象 = 内置构造函数对象 + 内置单体对象）</p>
-</div>
+ECMA-262 对内置对象的定义是：由ECMAScript实现提供的、不依赖于宿主环境的对象，这些对象在ES程序执行之前就已经存在了。
 
-<div>
-<h2>5.7.1 Global 对象</h2>
-<p>所有在全局作用域中定义的属性和函数，都是 Global 对象的属性。</p>
-<p>ES 虽然没有指出如何直接访问 Global 对象，但 Web 浏览器都是将这个全局对象作为 window 对象的一部分加以实现的。因此，在全局作用域中声明的所有变量和函数，就都成为了 window 对象的属性。</p>
-<p>另一种取得 Global 对象的方法就是使用如下代码：</p>
-<pre>var global = function(){return this;}();</pre>
-</div>
+前面我们已经介绍了大多数内置对象，如 Object Array 和 String 等。 ECMA-262还定义了两个单体内置对象：Global 和
+Math。（内置对象 = 内置构造函数对象 + 内置单体对象）
 
-<div>
-<h2>5.7.2 Math 对象</h2>
-<p>ES 还为保存数学公式和信息提供了一个公共位置，即Math对象。Math 只是普通内置对象，不是构造函数，无法使用 new 操作符生成新实例。</p>
-</div>
+### 5.7.1 Global 对象
 
-</div>
-</div>
-</body>
-</html>
+所有在全局作用域中定义的属性和函数，都是 Global 对象的属性。
+
+ES 虽然没有指出如何直接访问 Global 对象，但 Web 浏览器都是将这个全局对象作为 window
+对象的一部分加以实现的。因此，在全局作用域中声明的所有变量和函数，就都成为了 window 对象的属性。
+
+另一种取得 Global 对象的方法就是使用如下代码：
+
+```js
+var global = function(){return this;}();
+```
+
+### 5.7.2 Math 对象
+
+ES 还为保存数学公式和信息提供了一个公共位置，即Math对象。Math 只是普通内置对象，不是构造函数，无法使用 new 操作符生成新实例。
+
+

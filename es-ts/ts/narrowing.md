@@ -1,42 +1,5 @@
 # 高级类型
 
-## 交叉类型（Intersection Types）
-
-交叉类型是将多个类型合并为一个类型。这让我们可以把现有的多种类型叠加到一起成为一种类型，它包含了所需的所有类型的特性。例如，`Person & Serializable & Loggable` 同时是 Person 和 Serializable 和 Loggable。就是说这个类型的对象同时拥有了这三种类型的成员。
-
-我们大多是在混入（mixins）或其它不适合典型面向对象模型的地方看到交叉类型的使用。（在JavaScript里发生这种情况的场合很多！） 下面是如何创建混入的一个简单例子：
-
-```ts
-function extend<T, U>(first: T, second: U): T & U {
-  let result = <T & U>{};
-  for (let id in first) {
-    (<any>result)[id] = (<any>first)[id];
-  }
-  for (let id in second) {
-    if (!result.hasOwnProperty(id)) { (<any>result)[id] = (<any>second)[id]; }
-  }
-  return result;
-}
-
-class Person {constructor(public name: string) { } }
-interface Loggable {log(): void; }
-class ConsoleLogger implements Loggable {log() { /*  */ } }
-
-var jim = extend(new Person("Jim"), new ConsoleLogger());
-var n = jim.name;
-jim.log();
-```
-
-## 联合类型
-
-联合类型与交叉类型很有关联，但是使用上却完全不同。 偶尔你会遇到这种情况，一个代码库希望传入 number 或 string 类型的参数。
-
-```ts
-function padLeft(value: string, padding: string | number) {
-    // ...
-}
-let indentedString = padLeft("Hello world", true);  // errors during compilation
-```
 
 ## 类型保护与区分类型
 
@@ -176,13 +139,27 @@ type Yikes = Array<Yikes>;  // error
 因为软件中的对象应该对于扩展是开放的，但是对于修改是封闭的，你应该尽量去使用接口代替类型别名。  
 另一方面，如果你无法通过接口来描述一个类型并且需要使用联合类型或元组类型，这时通常会使用类型别名。
 
-## 字符串字面量类型
 
-字符串字面量类型允许你指定字符串必须的固定值。在实际应用中，字符串字面量类型可以与联合类型，类型保护和类型别名很好的配合。通过结合使用这些特性，你可以实现类似枚举类型的字符串。
+
+类型别名 Type Aliases `type`
+
+Note that *aliases are only aliases* - you cannot use type aliases to create different/distinct “versions” of the same type.
 
 ```ts
-type Easing = "ease-in" | "ease-out" | "ease-in-out";
+type string1 = string;
+type string2 = string;
+let str1: string1 = '1';   // hover 时展示 let str1: string
+let str2: string2 = str1;  // OK
 ```
+
+Interfaces
+
+TypeScript is a *structurally typed type system*. 鸭式辨型法只关注结构匹配。
+
+
+Differences Between Type Aliases and Interfaces
+Type aliases and interfaces are very similar, and in many cases you can choose between them freely. Almost all features of an interface are available in type, the key distinction is that a type cannot be re-opened to add new properties vs an interface which is always extendable.
+
 
 ## 可辨识联合（Discriminated Unions）
 

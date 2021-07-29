@@ -6,40 +6,46 @@ https://www.typescriptlang.org/
 ### 类型注解
 
 ```ts
-// 布尔值 Boolean
-boolean
-// 数值 Number
-number
-// 字符串 String
-string
-// 符号 Symbol
-symbol
-// Null
+// 原始值 primitive
+boolean  Boolean
+number   Number
+string   String
+symbol   (Symbol 不支持 new)
+bigint   (BigInt 不支持 new)
+
+// strictNullChecks 选项会影响到 TS 行为，应开启以避免各种运行时错误
 null
-// Undefined
 undefined
 
-// 任意值 Any
-let notSure: any = 4;
+// void is only valid as a return type or generic type variable
+function foo(): viod { /* */ }
 
-// 空值 Void
-function foo(): viod {}
+any      // 任意值 any - 直接逃逸 TS 检查，开启 noImplicitAny 可增加程序健壮性
+unknown  // unknown 是 any 的收敛类型
+never    // 
 
 // 数组 Array
 elemType[] 或 Array<elemType>
-let list: number[] = [1, 2, 3];
-let list: Array<number> = [1, 2, 3];
 
 // 元组 Tuple - 表示一个已知元素数量和类型的数组，各元素的类型不必相同
 let x: [string, number];  // 越界元素采用联合类型
 x = ['hello', 10];  // OK
 x = [10, 'hello'];  // Error
 
-// 枚举 Enum - 可以方便地将名称与数值(下标)建立联系
+// 枚举 Enum - 可以方便地将名称与数值(下标)建立联系。这个跟其他类型不一样，是会影响到 runtime 的
 enum Color {Red, Green, Blue};  // ['enəm]
 enum Color {Red = 1, Green=128, Blue};
 console.log(Color[128]);   // Green
 console.log(Color.Green);  // 128
+```
+
+```ts
+// unknown 是 any 的收敛类型
+const a: number = 1 as any;     // OK
+const b: number = 1 as unknown; // Error: Type 'unknown' is not assignable to type 'number'.
+
+// nerver 的用法
+
 ```
 
 ### 类型断言 Type assertions
@@ -51,7 +57,7 @@ function foo(bar: string | undefined | null) {
 }
 
 // 确定赋值断言 `!`
-let x:number;
+let x: number;
 initializeX();
 console.log(x);  // Error: Variable 'x' is used before being assigned.
 console.log(x!); // OK

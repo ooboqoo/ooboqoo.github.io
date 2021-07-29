@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/resource/lib/html-main.css" />
-<script src="/resource/lib/html-main.js"></script>
-<title>ECMAScript 函数</title>
-</head>
-<body>
-<div id="article">
+# 7 函数
 
-<h1>7.1 递归</h1>
+## 7.1 递归
 
-<h1>7.2 闭包（closure）</h1>
+## 7.2 闭包（closure）
 
 <div>
 <p><strong>闭包的使用场合：</strong>需要一个全局变量，但这个全局变量只能通过一个函数调用。如果定义一个全局变量，那么，其他任何函数都可以改变这个全局变量的值；如果使用内部变量，函数运行完后，变量值无法保留；采用闭包技术，将一个变量隐藏到一个函数内部，再通过该函数的子函数来操作该变量，任务达成。</p>
@@ -56,10 +46,13 @@ and can only be changed using the add function.</p>
 </div>
 
 
-<h1>7.3 模仿块级作用域</h1>
-<h1>7.4 私有变量</h1>
+## 7.3 模仿块级作用域
 
-<h1>7.5 小结</h1>
+## 7.4 私有变量
+
+## 7.5 小结
+
+
 
 <div>
 <p>在JavaScript编程中，函数表达式是一种非常有用的技术。使用函数表达式可以无须对函数命名，从而实现动态编程。匿名函数，也称为拉姆达函数，是一种使用JavaScript函数的强大方式。以下总结了函数表达式的特点：</p>
@@ -243,6 +236,3 @@ $(document).ready(function() {
 <p>有鉴于此，jQuery为我们提供了另一个避免这种泄漏的工具。在第12章中我们曾看到过，使用 .data() 方法可以像使用扩展属性（expando）一样，将信息附加到DOM元素。由于这里的数据并非直接保存在扩展属性中（jQuery使用一个内部对象并通过它创建的ID来保存这里所说的数据），因此永远也不会构成引用循环，从而有效回避了内存泄漏问题。无论什么时候，当我们觉得扩展属性好像是一种方便的数据存储机制时，都应该首选 .data() 这种更安全可靠的替代方案。</p>
 </div>
 
-</div>
-</body>
-</html>

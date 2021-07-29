@@ -35,6 +35,13 @@ $ mysql.server start           # 单次启动
 $ brew services start mariadb  # 配置开机启动
 ```
 
+Docker
+
+```bash
+docker pull mysql
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=abc123 -d mysql
+```
+
 ### CLI
 
 mysql 命令行实用程序是使用最多的客户机，它对于快速测试和执行脚本非常有价值。请注意：
@@ -43,6 +50,15 @@ mysql 命令行实用程序是使用最多的客户机，它对于快速测试�
 * 命令用 `;` 或 `\g` 结束，仅按 `Enter` 不执行命令
 * 输入 `help` 或 `\h` 获得帮助，如 `help select`
 * 输入 `quit` 或 `exit` 退出
+
+### 数据库管理工具
+
+推荐使用 CloudBeaver – Cloud Database Manager
+
+```bash
+docker pull dbeaver/cloudbeaver
+docker run -d --name cloudbeaver --rm -ti -p 8080:8978
+```
 
 ### 初始环境设定
 

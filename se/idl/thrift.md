@@ -33,7 +33,7 @@ At a high level, Thrift is three major things
 `i32`    | 32位有符号整数  A 32-bit signed integer
 `i64`    | 64位有符号整数  A 64-bit signed integer
 `double` | 64位浮点数      A 64-bit floating point number
-`binary` |                A byte array
+`binary` | 二进制串        A byte array
 `string` | 编码无关的字符串 An encoding-agnostic text or binary string
 
 注：因为很多目标语言不支持 unsigned integer，所以 Thrift 选择不提供这些无符号整数类型。

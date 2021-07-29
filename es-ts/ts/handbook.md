@@ -1,9 +1,26 @@
-# 
+# Handbook（TS 基础）
 
-官方网站：https://www.typescriptlang.org   
+https://www.typescriptlang.org/docs/handbook/2/basic-types.html
+
+
 
 
 ## TS 手册精简
+
+### 基本类型
+
+#### Null and Undefined
+
+`undefined` 和 `null` 实际上拥有各自的类型 `undefined` 和 `null` 。然而就跟 `void` 类型一样，这两个类型没多大用处。
+
+```ts
+let u: undefined = undefined;
+let n: null = null;
+```
+
+默认情况下 `null` 和 `undefined` 是作为其他普通类型的子类型存在的，也就是说为一个普通类型赋值 `null` 或 `undefined` 都是合法的。
+
+然而，当开启 `--strictNullChecks` 选项的话, `null` 和 `undefined` 只能赋值给 `void` 以及它们各自的专有类型。开启该选项可以避免很多常见错误的发生。如果开启选项后，你可能需要给某个普通类型传递 `null` or `undefined`，那么可以采用联合类型来实现，如 `string | null | undefined`。
 
 
 
@@ -170,5 +187,9 @@ A = decorator(A) || A;
 ```
 
 ### 混入 Mixins
+
+
+
+
 
 

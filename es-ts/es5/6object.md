@@ -1,21 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/resource/lib/html-main.css" />
-<script src="/resource/lib/html-main.js"></script>
-<title>ECMAScript 理解对象</title>
-</head>
-<body>
-<div id="article">
+# 6 面向对象的程序设计
 
-<h1>6 面向对象的程序设计</h1>
 
-<div>
-<p>ECMA-262 把对象定义为“无序属性的集合，其属性可以包含基本值、对象或者函数”。对象的每个属性或方法都有一个名字，而每个名字都映射到一个值。</p>
-<p>每个对象都是基于一个引用类型创建的，这个引用类型可以是原生类型，也可以是开发人员定义的类型。</p>
-</div>
+ECMA-262 把对象定义为“无序属性的集合，其属性可以包含基本值、对象或者函数”。对象的每个属性或方法都有一个名字，而每个名字都映射到一个值。
+
+每个对象都是基于一个引用类型创建的，这个引用类型可以是原生类型，也可以是开发人员定义的类型。
+
+
 
 <div>
 <h2>6.1 理解对象</h2>
@@ -328,18 +318,11 @@ objSub.sayName();	<span>//输出 "John"</span>
 <p>组合继承避免了原型链和借用构造函数的缺陷，融合了它们的优点，成为JS中最常用的继承模式。</p>
 </div>
 
-<div>
-<h2>6.3.4 原型式继承</h2>
-</div>
+## 6.3.4 原型式继承
 
-<div>
-<h2>6.3.5 寄生式继承</h2>
-</div>
+## 6.3.5 寄生式继承
 
-<div>
-<h2>6.3.6 寄生组合式继承</h2>
-</div>
+## 6.3.6 寄生组合式继承
 
-</div>
-</body>
-</html>
+
+

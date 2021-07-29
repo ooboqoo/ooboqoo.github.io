@@ -1,4 +1,20 @@
-# 泛型
+# 类型运算 Type Manipulation（TS 进阶）
+
+
+*通过现有「类型」或「值」获取「新的类型」 to express a new type in terms of an existing type or value*
+
+* Conditional Types - Types which act like if statements in the type system
+* Mapped Types - Creating types by mapping each property in an existing type
+* Template Literal Types - Mapped types which change properties via template literal strings
+
+
+## 泛型 Generics
+
+https://www.typescriptlang.org/docs/handbook/2/generics.html
+
+Generics - Types which take parameters
+
+
 
 ```ts
 type A<T> = (x: T) => T;      // 在定义时传类型
@@ -63,7 +79,7 @@ in typeof 在 JS 中就有，TS 做了增强，TS 是 JS 的超集
 
 
 
-## 类型变量与泛型
+### 类型变量与泛型
 
 在 C# Java 等语言中，可以使用泛型来创建可重用的组件，一个组件可以支持多种类型的数据。这样用户就可以以自己的数据类型来使用组件。
 
@@ -87,7 +103,7 @@ let output = identity<string>("myString");  // 方式1 - 指定类型变量，�
 let output = identity("myString");          // 方式2 - 类型推论
 ```
 
-## 泛型函数
+### 泛型函数
 
 使用泛型创建像 identity 这样的泛型函数时，你必须把这些参数当做是任意或所有类型。
 
@@ -110,7 +126,7 @@ function loggingIdentity<T>(arg: T[]): T[] {
 function loggingIdentity<T>(arg: Array<T>): Array<T> {  }
 ```
 
-## 泛型接口
+### 泛型接口
 
 接下来我们研究一下泛型函数本身的类型，以及如何创建泛型接口。
 
@@ -158,7 +174,7 @@ let myIdentity: GenericIdentityFn<number> = identity;
 
 注意，我们的示例做了少许改动。不再描述泛型函数，而是把**非泛型函数签名作为泛型类型一部分**。当我们使用 GenericIdentityFn 的时候，还得传入一个类型参数来指定泛型类型（这里是：number），锁定了之后代码里使用的类型。对于描述哪部分类型属于泛型部分来说，理解何时把参数放在调用签名里和何时放在接口上是很有帮助的。
 
-## 泛型类
+### 泛型类
 
 泛型类看上去与泛型接口差不多。
 
@@ -182,7 +198,7 @@ stringNumeric.add = function(x, y) { return x + y; };
 
 我们在类那节说过，类有两部分：静态部分和实例部分。泛型类指的是实例部分的类型，所以类的静态属性不能使用这个泛型类型。
 
-## 泛型约束
+### 泛型约束
 
 前面 loggingIdentity 例子中，我们想访问 arg.length 属性，但是编译器并不能证明每种类型都有 length 属性，所以就报错了。
 
@@ -204,7 +220,7 @@ loggingIdentity(3);  // Error, number doesn't have a .length property
 loggingIdentity({length: 10, value: 3});  // OK
 ```
 
-### 在泛型约束中使用类型参数
+#### 在泛型约束中使用类型参数
 
 你可以声明一个类型参数，且它被另一个类型参数所约束。比如：
 
@@ -215,7 +231,7 @@ function find<T, U extends Findable<T>>(n: T, s: U) {
 find (giraffe, myAnimals);
 ```
 
-### 在泛型里使用类类型
+#### 在泛型里使用类类型
 
 在 TypeScript 使用泛型创建工厂函数时，需要引用构造函数的类类型。比如：
 
@@ -240,3 +256,112 @@ function findKeeper<A extends Animal, K> ( a: {new(): A; prototype: {keeper: K}}
 
 findKeeper(Lion).nametag;  // typechecks!
 ```
+
+
+
+
+
+## 类型运算符
+
+`&` `|` `keyof` `typeof` `Type['a']`(Indexed Access Types) `? :`
+
+### 交叉类型 Intersection Types `&`
+
+
+交叉类型是将多个类型合并为一个类型。这让我们可以把现有的多种类型叠加到一起成为一种类型，它包含了所需的所有类型的特性。例如，`Person & Serializable & Loggable` 同时是 Person 和 Serializable 和 Loggable。就是说这个类型的对象同时拥有了这三种类型的成员。
+
+我们大多是在混入（mixins）或其它不适合典型面向对象模型的地方看到交叉类型的使用。（在JavaScript里发生这种情况的场合很多！） 下面是如何创建混入的一个简单例子：
+
+```ts
+function extend<T, U>(first: T, second: U): T & U {
+  let result = <T & U>{};
+  for (let id in first) {
+    (<any>result)[id] = (<any>first)[id];
+  }
+  for (let id in second) {
+    if (!result.hasOwnProperty(id)) { (<any>result)[id] = (<any>second)[id]; }
+  }
+  return result;
+}
+
+class Person {constructor(public name: string) { } }
+interface Loggable {log(): void; }
+class ConsoleLogger implements Loggable {log() { /*  */ } }
+
+var jim = extend(new Person("Jim"), new ConsoleLogger());
+var n = jim.name;
+jim.log();
+```
+
+
+### 联合类型 `|`
+
+
+
+
+
+
+
+### 条件类型 Conditional Type
+
+
+
+infer 与 类型计算体系
+
+条件类型 Conditional Type 主要是搭配 泛型 Generics。
+
+* Conditional types help describe the relation between the types of inputs and outputs
+* Conditional types take a form that looks a little *like conditional expressions in JavaScript*
+
+
+```ts
+// inferring
+type Flatten<Type> = Type extends Array<infer Item> ? Flatten<Item> : Type;
+type D = Flatten<number[][][][][]>;  // D 为 number
+```
+
+```ts
+// 对函数重载的处理：取最后一条
+```
+
+
+```ts
+// Distributive Conditional Types
+type ToArray<Type> = Type extends any ? Type[] : never;
+type StrArrOrNumArr = ToArray<string | number>;  // string[] | number[]
+
+type ToArrayNonDist<Type> = [Type] extends [any] ? Type[] : never;
+type StrOrNunArr = ToArrayNonDist<string | number>;  // (string | number)[]
+```
+
+
+## Mapped Types
+
+
+## 字符串字面量类型 Template Literal Types
+
+字符串字面量类型允许你指定字符串必须的固定值。在实际应用中，字符串字面量类型可以与联合类型，类型保护和类型别名很好的配合。通过结合使用这些特性，你可以实现类似枚举类型的字符串。
+
+```ts
+type Easing = "ease-in" | "ease-out" | "ease-in-out";
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

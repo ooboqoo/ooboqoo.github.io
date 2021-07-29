@@ -7,12 +7,19 @@
 ## 速查手册
 
 ```bash
+docker pull mysql                         # 拉镜像
+docker run --name mysql2 -d mysql:latest  # 启容器
+docker ps                                 # 查看容器列表
+```
+
+
+```bash
 #
 $ docker login
 $ docker logout
 
 # 镜像管理
-$ docker pull
+$ docker pull <image_name>
 $ docker commit  # 保存改动生成新镜像
 $ docker push
 
@@ -106,6 +113,13 @@ host 宿主机  image 镜像  container 容器  registry 仓库  daemon 守护�
 ## 教学
 
 
+Docker 不隔离计算（Docker 容器中的进程是真实的进程，这和虚拟机不同），只隔离环境（文件系统、网络等）
+
+Docker 将自己直接嫁接在操作系统上，Docker 中的进程是真实的进程，使用的文件系统也是真实的文件系统（只不过做了隔离，用的是真实的磁盘而不是虚拟的磁盘）。
+
+Docker 是一种隔离系统（命名空间技术），而不是虚拟系统（需要转换 CPU 指令），所以性能很好。
+
+
 
 ```bash
 docker run -d -p 80:80 docker/getting-started
@@ -114,11 +128,11 @@ docker run -d -p 80:80 docker/getting-started
   # -d -p 这些缩写的参数可以进一步合并为 -dp
 ```
 
-**container**
+**容器 container**
 
 Simply put, a container is simply another process on your machine that has been isolated from all other processes on the host machine. That isolation leverages kernel namespaces and cgroups, features that have been in Linux for a long time.
 
-**container image**
+**镜像 image**
 
 When running a container, it uses an isolated filesystem. This custom filesystem is provided by a container image. Since the image contains the container's filesystem, it must contain everything needed to run an application - all dependencies, configuration, scripts, binaries, etc. The image also contains other configuration for the container, such as environment variables, a default command to run, and other metadata.
 
