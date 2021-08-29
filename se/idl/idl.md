@@ -1,6 +1,6 @@
 # IDL
 
-IDL interface description language
+IDL (interface description language)
 * 一种 DSL，用于定义服务暴露的接口和参数信息
 * 常见实现如 Google 的 Protocol Buffers 和 Facebook 的 Thrift
 

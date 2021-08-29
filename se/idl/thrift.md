@@ -14,20 +14,13 @@ At a high level, Thrift is three major things
 * An RPC Framework
 
 
-
-
-
-
-
-
-
 ## 数据类型
 
 ### 基本数据类型
 
 |||
 ---------|-----------------------------------------
-`bool`   | 布尔值          true or false
+`bool`   | 布尔值          true or false, one byte
 `byte`   | 有符号字节      A signed byte
 `i16`    | 16位有符号整数  A 16-bit signed integer
 `i32`    | 32位有符号整数  A 32-bit signed integer
@@ -40,16 +33,23 @@ At a high level, Thrift is three major things
 
 ### 容器类型 `list` `map` `set`
 
-* `list<t1>` An ordered list of elements of type t1. May contain duplicates.
-* `set<t1>` An unordered set of unique elements of type t1.
-* `map<t1,t2>` A map of strictly unique keys of type t1 to values of type t2.
+* `list<T>` An ordered list of elements of type T. May contain duplicates.
+* `set<T>` An unordered set of *unique* elements of type T.
+* `map<T,U>` A map of strictly unique keys of type T to values of type U.
+
+容器里存放的类型可以是任何 service 以外的有效 Thrift 类型，包含 struct 和 exception
 
 ### 结构体 `struct`
 
+`struct`s are the basic building blocks in a Thrift IDL. A struct is composed of fields; each field has a unique integer identifier, a type, a name and an optional default value.
 
-
-### 枚举 `enum`
-
+```thrift
+struct Tweet {
+  1: i32 userId;                            // must have a unique, positive integer identifier
+  2: required string userName;              // may be marked as `required` or `optional`
+  16: optional string language = "english"  // 默认值
+}
+```
 
 ### 异常 `exception`
 
@@ -61,40 +61,46 @@ exception NotFound {
 }
 ```
 
-
-
-
-
-
 ### 自定义类型 `typedef`
 
 ```thrift
-typedef i32 Integer
+typedef i32 Integer  // 末尾不带 `;`
 ```
 
+
+### 枚举 `enum`
+
+```thrift
+enum TweetType {
+  TWEET,
+  RETWEET = 2,    // 可选的 ',' 或 ';'
+  DM = 0xa,
+  REPLY
+}                  // 末尾不带 `;`
+```
 
 ### 服务 `service`
 
 ```thrift
 service UserService {
-  User query_user(1: i32 user_id) throws (1: NotFound not_found),
+  User query_user(1: i32 user_id) throws (1: NotFound not_found),  // throws
   User add_user(1: User user);  // 接口定义之间的分隔符可以是 `,` 或 `;`
 }
 ```
-
 
 
 ## 其他
 
 ### 注释 `//` `/* */` `#`
 
-Thrift IDL支持 C/C++ 风格的 `//`，`/*，*/` 注释，也支持 Python 风格的 `#` 注释。
+Thrift IDL支持 C/C++ 风格的 `//`，`/* */` 注释，也支持 Python 风格的 `#` 注释。
 
 ### 命名空间 `namespace`
 
 Thrift 支持 C++ 风格的命名空间，等同于 Java、Python 中 package 的概念。
 
 ```thrift
+namespce java com.example.project  // 转换成 `package com.example.project`
 namespace js com.example.project
 ```
 
@@ -104,7 +110,7 @@ namespace js com.example.project
 include "tweet.thrift"  // 文件名要用 `"` 包起来；末尾不需要 `;`
 
 struct TweetSearchResult {
-  1: list<tweet.Tweet> tweets;  // 需要带 `tweet` 前缀
+  1: list<tweet.Tweet> tweets;  // 使用时需要带文件名前缀，如这里的 `tweet`
 }
 ```
 
@@ -116,13 +122,7 @@ const map<string,string> MAP_CONST = {"hello": "world", "goodnight": "moon"}  //
 ```
 
 
-
-
-
-
-
-
-## 生成代码
+## 代码生成
 
 ```bash
 brew install thrift
@@ -175,15 +175,4 @@ service Twitter {
     oneway void zip()
 }
 ```
-
-
-
-
-
-
-
-
-
-
-
 

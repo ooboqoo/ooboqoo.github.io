@@ -141,7 +141,7 @@ $ certbot renew --force-renewal  # 强更，有时会碰到浏览器说证书已
 # 添加包含左侧命令到一个 cron or systemd job 建议每天随机运行2次
 $ certbot renew --quiet --post-hook "nginx -s reload"
 # 新装的 certbot 已经默认配置好了定时更新任务，可通过以下方法确认
-$ systemctl list-unit-files --type timer
+$ systemctl list-unit-files --type timer  # /etc/systemd/system/snap.certbot.renew.timer
 ```
 
 The HTTP auth works like this:
@@ -153,7 +153,7 @@ The HTTP auth works like this:
 手动配置 systemd 定时任务更新证书:
 
 ```
-$ vim /lib/systemd/system/certbot.timer
+$ vim /usr/lib/systemd/system/certbot.timer
 
 [Unit]
   Description=Run certbot twice daily
@@ -168,7 +168,7 @@ $ vim /lib/systemd/system/certbot.timer
 ```
 
 ```
-$ vim /lib/systemd/system/certbot.service
+$ vim /usr/lib/systemd/system/certbot.service
 
 [Unit]
   Description=Certbot
