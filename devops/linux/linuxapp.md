@@ -42,7 +42,7 @@ AWK 是一种处理文本文件的语言，是一个强大的文本分析工具�
 
 注：更多介绍在 [POSIX Regex](#!bash/regex.md)
 
-### `xargs` 
+### `xargs`
 
 很多时候我们可以通过管道将多个命令串联起来，前提是管道后面的命令要支持从标准输入中读取数据，如 `grep`，然而像 `rm` 这样的命令却不支持从标准输入中读取数据，这时可借助 `xargs` 来使用。
 
@@ -79,7 +79,7 @@ $ curl -d "param1=value1&param2=value2" "http://www.baidu.com"
 $ curl -H "Content-Type: application/json" -X POST -d '{"username":"admin"}' http://localhost:3300/token
   # -d --data     HTTP POST data
   # -G --get      添加 -d 选项后请求默认为 POST，利用这个选项可转回 GET 请求
-  # -H --header   定制请求头
+  # -H --header   定制请求头，每条请求头都要单独写一个 -H "xxx: xxx"
   # -X --request  指定请求方法 GET POST 等
 
 # 下载脚本并执行

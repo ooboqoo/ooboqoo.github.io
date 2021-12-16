@@ -176,6 +176,40 @@ useRef
 
 useImperativeHandle
 
+```ts
+import React, { forwardRef, RefForwardingComponent, useImperativeHandle } from 'react';
+
+interface Props {
+  // ...
+}
+
+interface FormData {
+  name: string;
+}
+
+export interface RefHandle {
+  getData: () => Promise<FormData>;
+}
+
+const Xxx: RefForwardingComponent<RefHandle, Props> = (props, ref) => {
+  const [form] = Form.useForm<FormData>();
+  useImperativeHandle(ref, () => ({
+    getData: async () => {
+      const formData = await form.validate();
+      return formData;
+    },
+  }));
+
+  // ...
+}
+
+export const XxxRef = forwardRef(Xxx)
+```
+
+
+
+
+
 useLayoutEffect  它和 useEffect 的结构相同，区别只是调用时机不同。
 
 useDebugValue

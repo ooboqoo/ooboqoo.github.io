@@ -247,52 +247,54 @@ https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Operato
 
 P  | Operator type                | Associativity | Individual operators
 ---|------------------------------|---------------|---------------------
-20 | Grouping                     | n/a           | `(exp)`
-19 | Member Access                | left-to-right | `obj.prop`
-   | Computed Member Access       | left-to-right | `obj['prop']`
-   | new (with argument list)     | n/a           | `new Class(arg)`
-18 | Function Call                | left-to-right | `foo()`
-   | new (without argument list)  | right-to-left | `new constructor`
-17 | Postfix Increment            | n/a           | `i++`
-   | Postfix Decrement            | n/a           | `i--`
-16 | Logical NOT                  | right-to-left | `!exp`
-   | Bitwise NOT                  | right-to-left | `~ …`
-   | Unary Plus                   | right-to-left | `+ …`
-   | Unary Negation               | right-to-left | `- …`
-   | Prefix Increment             | right-to-left | `++ …`
-   | Prefix Decrement             | right-to-left | `-- …`
-   | typeof                       | right-to-left | `typeof …`
-   | void                         | right-to-left | `void …`
-   | delete                       | right-to-left | `delete …`
-15 | Exponentiation               | right-to-left | `… ** …`
-14 | Multiplication               | left-to-right | `… * …`
-   | Division                     | left-to-right | `… / …`
-   | Remainder                    | left-to-right | `… % …`
-13 | Addition                     | left-to-right | `… + …`
-   | Subtraction                  | left-to-right | `… - …`
-12 | Bitwise Left Shift           | left-to-right | `… << …`
-   | Bitwise Right Shift          | left-to-right | `… >> …`
-   | Bitwise Unsigned Right Shift | left-to-right | `… >>> …`
-11 | Less Than                    | left-to-right | `… < …`
-   | Less Than Or Equal           | left-to-right | `… <= …`
-   | Greater Than                 | left-to-right | `… > …`
-   | Greater Than Or Equal        | left-to-right | `… >= …`
-   |in                            | left-to-right | `… in …`
-   | instanceof                   | left-to-right | `… instanceof …`
-10 | Equality                     | left-to-right | `… == …`
-   | Inequality                   | left-to-right | `… != …`
-   | Strict Equality              | left-to-right | `… === …`
-   | Strict Inequality            | left-to-right | `… !== …`
-9  | Bitwise AND                  | left-to-right | `… & …`
-8  | Bitwise XOR                  | left-to-right | `… ^ …`
-7  | Bitwise OR                   | left-to-right | <code>… &#124; …</code>
-6  | Logical AND                  | left-to-right | `… && …`
-5  | Logical OR                   | left-to-right | <code>… &#124;&#124; …</code>
+21 | Grouping                     | n/a           | `(exp)`
+20 | Member Access                | left-to-right | `obj.prop`
+20 | Computed Member Access       | left-to-right | `obj['prop']`
+20 | new (with argument list)     | n/a           | `new Class(arg)`
+19 | Function Call                | left-to-right | `foo()`
+19 | new (without argument list)  | right-to-left | `new constructor`
+18 | Postfix Increment            | n/a           | `i++`
+18 | Postfix Decrement            | n/a           | `i--`
+17 | Logical NOT                  | right-to-left | `!exp`
+17 | Bitwise NOT                  | right-to-left | `~ …`
+17 | Unary Plus                   | right-to-left | `+ …`
+17 | Unary Negation               | right-to-left | `- …`
+17 | Prefix Increment             | right-to-left | `++ …`
+17 | Prefix Decrement             | right-to-left | `-- …`
+17 | typeof                       | right-to-left | `typeof …`
+17 | void                         | right-to-left | `void …`
+17 | delete                       | right-to-left | `delete …`
+17 | await                        | right-to-left | `await …`
+16 | Exponentiation               | right-to-left | `… ** …`
+15 | Multiplication               | left-to-right | `… * …`
+15 | Division                     | left-to-right | `… / …`
+15 | Remainder                    | left-to-right | `… % …`
+14 | Addition                     | left-to-right | `… + …`
+14 | Subtraction                  | left-to-right | `… - …`
+13 | Bitwise Left Shift           | left-to-right | `… << …`
+13 | Bitwise Right Shift          | left-to-right | `… >> …`
+13 | Bitwise Unsigned Right Shift | left-to-right | `… >>> …`
+12 | Less Than                    | left-to-right | `… < …`
+12 | Less Than Or Equal           | left-to-right | `… <= …`
+12 | Greater Than                 | left-to-right | `… > …`
+12 | Greater Than Or Equal        | left-to-right | `… >= …`
+12 |in                            | left-to-right | `… in …`
+12 | instanceof                   | left-to-right | `… instanceof …`
+11 | Equality                     | left-to-right | `… == …`
+11 | Inequality                   | left-to-right | `… != …`
+11 | Strict Equality              | left-to-right | `… === …`
+11 | Strict Inequality            | left-to-right | `… !== …`
+10 | Bitwise AND                  | left-to-right | `… & …`
+9  | Bitwise XOR                  | left-to-right | `… ^ …`
+8  | Bitwise OR                   | left-to-right | <code>… &#124; …</code>
+7  | Logical AND                  | left-to-right | `… && …`
+6  | Logical OR                   | left-to-right | <code>… &#124;&#124; …</code>
+5  | Nullish coalescing           | right-to-left | `… ?? …`
 4  | Conditional                  | right-to-left | `… ? … : …`
 3  | Assignment                   | right-to-left | `=` `+=` `-=` `**=` `*=` `/=` `%=`
-   |                              |               | `<<=` `>>=` `>>>=` `&=` `^=` <code>&#124;=</code>
+3  |                              |               | `<<=` `>>=` `>>>=` `&=` `^=` <code>&#124;=</code>
 2  | yield                        | right-to-left | `yield …`
-   | yield*                       | right-to-left | `yield* …`
+2  | yield*                       | right-to-left | `yield* …`
 1  | Spread                       | n/a           | `... …`
 0  | Comma / Sequence             | left-to-right | `… , …` 
 

@@ -293,4 +293,30 @@ $ systemctl disable mytimer.timer  # 取消开机自启动
 $ journalctl -u mytimer.timer
 ```
 
+### cron
+
+> 对程序猿来说，这个还是简单好用
+
+`crontab` 供用户控制计划任务。
+
+`crond` 是 Linux 下用来周期性地执行某种任务或等待处理某些事件的一个守护进程，与 Windows 下的计划任务类似。`crond` 进程每分钟会定期检查是否有要执行的任务，如果有要执行的任务，则自动执行该任务。
+
+Linux下的任务调度分为两类：系统任务调度和用户任务调度。
+* 系统任务调度为系统周期性所要执行的工作，比如写缓存数据到硬盘、日志清理等。配置信息在 `/etc/crontab`。
+* 用户任务调度为用户定期要执行的工作，不如用户数据备份、定时邮件提醒等。用户可以使用 crontab 工具来定制自己的计划任务。所有用户定义的 crontab 文件都保存在 `/var/spool/cron/crontabs/<用户名>` 文件中
+
+```bash
+crontab <filename>  # 拷贝一份文件来初始化用户配置，不提供就直接根据输入内容创建
+crontab -r          # 删除当前用户的配置文件
+crontab -e   # 编辑当前用户的定时任务列表（约等于编辑用户配置文件）
+crontab -l   # 列出当前用户的定时任务列表（约等于显示用户配置文件）
+```
+
+crontab 编辑辅助工具 https://crontab.guru/
+
+```txt
+# 每分钟在当前控制台打印日期（实际试验时，通过 w 或 who 命令查看当前实际 TTY）
+*/1 * * * *  /bin/echo `date` > /dev/pts/0
+```
+
 

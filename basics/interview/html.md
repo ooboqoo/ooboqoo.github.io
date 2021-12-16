@@ -21,14 +21,30 @@ https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link
 
 ### 性能优化之 `<script>`
 
-https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script  
+https://javascript.info/script-async-defer
 
 * async 下载完后马上执行，但不阻塞页面渲染流程
 * defer 在页面 document parsed 之后才执行，在完成下载和执行前 `DOMContentLoaded` 不会触发
 
 在 同步 script 中再插入 `<script>` 会是什么效果？
 * 通过 `document.createElement('script')` 插入的脚本默认 `async="true"`
-* 如果改成 `async="false"` ...
+* 如果改成 `script.async = false` Then scripts will be executed in the document order, just like `defer`.
+
+
+浏览器碰到 `<script>...</script>` `<script src="..."></script>` 会立即解析脚本（阻塞后续DOM解析）
+* 此时脚本无法看到未解析的 DOM 元素
+* 如果放在 head 中，此时用户看不到任何页面内容
+
+defer
+* 多个 defer 的 script 的执行顺序还是会按照出现的先后顺序排序的
+* 如果 script 中没有 src 属性，defer 标记会被忽略
+
+async
+* 会以隔离模式 independent mode 加载
+* 多个 async 之间也是隔离的
+* 适合加载第三方库 third-party script，如一些 ads, analytic tool 等
+
 
 ### crossorigin 属性
 

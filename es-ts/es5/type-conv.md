@@ -95,6 +95,8 @@ undefined      | *NaN*     | "undefined"       | false
 
 ### 隐式转换
 
+https://dorey.github.io/JavaScript-Equality-Table/
+
 `==` 和 `!=` 两个操作符会先将被操作对象转换成同一类型后再进行全等比较。  
 `<` `<=` `>` `>=` 这四个操作符则会先将被操作对象转换成原始值类型，然后再转换成相同类型进行比较。
 

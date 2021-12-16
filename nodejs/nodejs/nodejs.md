@@ -24,6 +24,10 @@ $ node --inspect=9229 app.js  # 指定端口
 $ node --inspect-brk app.js   # 启动并立即暂停在首行
 ```
 
+### ts-node
+
+
+
 ### 调试客户端
 
 #### Chrome
@@ -59,6 +63,12 @@ $ node --inspect-brk app.js   # 启动并立即暂停在首行
 ```bash
 $ tsc -w                                 # 开启自动编译
 $ nodemon -w dist --inspect dist/app.js  # 开启自动重启
+```
+
+使用 ts-node 开启调试
+
+```bash
+$ nodemon --watch src --ext js,ts --exec node --inspect -r ts-node/register src/app.ts
 ```
 
 ### 性能分析

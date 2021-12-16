@@ -18,9 +18,10 @@ http://www.jianshu.com/p/99b6b4cd273c
 
 Wireshark, Firebug, Fiddler all do similar things - capture network traffic.
 
-* Wireshark captures any kind of a network packet. It can capture packet details below TCP/IP(Http is at the top). It does have filters to reduce the noise it captures.
-* Firebug tracks each request the browser page makes and captures the associated headers and the time taken for each stage of the request (DNS, receiving, sending, ...).
-* Fiddler works as a http/https proxy. It captures each http request the computer makes and records everything associated with it. Does allow things like converting post varibles to a table form and editing/replaying requests. It doesn't, by default, capture localhost traffic in IE, see the FAQ for the workaround.
+* **Wireshark** captures any kind of a network packet. It can capture packet details below TCP/IP(Http is at the top). It does have filters to reduce the noise it captures.
+* **Fiddler** works as a http/https proxy. It captures each http request the computer makes and records everything associated with it. Does allow things like converting post varibles to a table form and editing/replaying requests. It doesn't, by default, capture localhost traffic in IE, see the FAQ for the workaround.
+* **Firebug** tracks each request the browser page makes and captures the associated headers and the time taken for each stage of the request (DNS, receiving, sending, ...).
+
 
 ### Burp Suite
 
@@ -36,7 +37,24 @@ Burp Suite 一款集成型的渗透测试工具，是可以用于攻击 web 应�
 
 > 实际使用时如果抓不到包，退出应用，然后把其他的代理也全退了，再进就好了。
 
+### 命令行工具
 
+命令行工具的 HTTP 调用能否被抓获，要看具体的工具自身是否支持使用代理。
+
+通用的解决方案是 `export http_proxy=http://127.0.0.1:8888 https_proxy=http://127.0.0.1:8888`，如果还是不行，那要去找相应命令的文档了。
+
+### node-fetch
+
+```js
+import { HttpProxyAgent } from 'http-proxy-agent';
+fetch(url, {
+  agent: new HttpProxyAgent('http://127.0.0.1:8888'),
+});
+```
+
+```bash
+export NODE_TLS_REJECT_UNAUTHORIZED=0
+```
 
 
 ## Fiddler
