@@ -37,6 +37,15 @@ VSCodeVim
 默认会占用 [esc] 按钮，调整至 [^ esc] 之后好用很多，毕竟非 Vim 重度用户。
 
 
+Copilot
+
+https://github.com/github/copilot-docs/blob/main/docs/visualstudiocode/gettingstarted.md#getting-started-with-github-copilot-in-visual-studio-code
+
+`⌥ ]` Next
+`⌥ [` Previous
+`Tab` Accept
+`^ Enter` show 10 suggestions
+`Esc` Dismiss an inline suggestion
 
 
 Basic editing
@@ -52,15 +61,7 @@ Basic editing
 `⇧⌥↑` 向上复制
 
 
-
-
-
 ```txt
-
-
-
-
-
 # Go
 
 `⌘ + p` 打开搜索框
