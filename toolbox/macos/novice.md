@@ -197,6 +197,14 @@ defaults write com.apple.Dock autohide-delay -float 0; killall Dock  # 取消延
 defaults delete com.apple.Dock autohide-delay; killall Dock          # 恢复延时
 ```
 
+### 密码
+
+新系统默认对密码增加了很多限制，频繁输入长密码很烦，可以关闭密码策略
+
+```bash
+$ pwpolicy -clearaccountpolicies
+```
+
 ### 自定义键盘
 
 修改某个按键的行为：安装 Karabiner-Elements 再配置即可。

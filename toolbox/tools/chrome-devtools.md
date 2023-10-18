@@ -73,14 +73,22 @@ console.log(obj) // 查看对象时，点击展开 expand 时才会求值 lazy e
 
 除了在过滤输入框过滤记录外，对按资源类型过滤进行了强化，直接点右侧那排类型就可实现过滤。注，类型可多选，按 ctrl 键单击添加。
 
-
-
 ### Settings/Network
 
 * Enable request blocking
 * Color-code resource types - 该项开启后，查看 Waterfall 时 时长banner 上会有时长数字提示
 * Force ad blocking on this site
 
-### 
+### HAR 文件
+
+The *HAR (HTTP Archive Record)* file format is a JSON structured file containing all network traffic information about a browser’s interactions with the server providing content for a webpage.
+
+Network 页面有个「下载」按钮，可以下载 HAR 文件
+
+HAR 文件是一个 json 文件。
+
+HAR 文件会包含所有打开 DevTools 后的请求信息，无法只导出某个请求的信息。
+
+### 其他
 
 panel 面板  pane 窗格  drawer 活动工具栏

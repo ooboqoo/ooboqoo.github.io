@@ -150,7 +150,7 @@ Gradle 并不是另起炉灶，它充分地使用了 Maven 的现有资源。继
 
 ## Nexus
 
-Sonatype 公司的 [Nexus Repository Manager](https://help.sonatype.com/repomanager3) 是一个仓库管理套件，也可用于搭建 Maven 私有仓库，它极大的简化了本地内部仓库的维护和外部仓库的访问。Nexus 不仅支持 *Maven Repositories* 还支持 *Npm Registry*，Go Repositories，CoCoaPods Repositories 等诸多 Repository Formats。
+Sonatype 公司的 [Nexus Repository Manager](https://help.sonatype.com/repomanager3) 是一个仓库管理套件，也可用于搭建 Maven 私有仓库，它极大的简化了本地内部仓库的维护和外部仓库的访问。Nexus 不仅支持 *Maven Repositories* 还支持 *npm Registry*，Go Repositories，CoCoaPods Repositories 等诸多 Repository Formats。
 
 ### Nexus vs Maven
 

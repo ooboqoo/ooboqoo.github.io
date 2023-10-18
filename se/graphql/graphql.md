@@ -83,9 +83,16 @@ https://github.com/apollographql/apollo-client
 
 Apollo Client is a fully-featured caching GraphQL client with integrations for React, Angular, and more. It allows you to easily build UI components that fetch data via GraphQL.
 
+### Relay
+
+https://relay.dev/
+
+Apollo, with its easy-peasy configuration is the most famous one here, but maybe Relay can be its biggest competition soon. Relay is more complex and works only with React and React Native apps but 26% of frontend devs want to learn this library.
+
 ### GQless
 
 https://github.com/gqless/gqless
+
 
 
 

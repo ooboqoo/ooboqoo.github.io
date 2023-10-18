@@ -61,7 +61,7 @@
 
 工程化
   |- 模块化标准 AMD CMD CommonJS UMD
-  |- 包管理器 NPM Yarn
+  |- 包管理器 npm Yarn
   |- 构建工具 Gulp Webpack Rollup
   \- CI/CD
 

@@ -1,6 +1,6 @@
 # 快学 Scala
 
-##  1. 基础
+## 1. 基础
 
 #### 1.1 解析器
 
@@ -219,7 +219,7 @@ def box2(s: String): Unit = println(s)    // 有等号，大括号可以省
 
 #### 2.11 懒值
 
-当 val 被声明为 lazy 时，它的初始化将被推迟，知道我们首次对它取值。懒值对于开销较大的初始化语句而言十分有用
+当 val 被声明为 lazy 时，它的初始化将被推迟，直到我们首次对它取值。懒值对于开销较大的初始化语句而言十分有用
 
 ```scala
 lazy val words = io.Source.fromFile("/path/to/file").mkString

@@ -219,7 +219,7 @@ int find2(int array[], int n, int x) {
 循环队列是我们这节的重点。要想写出没有 bug 的循环队列实现代码，关键要 *确定好队空和队满的判定条件*。
 
 ```c
-if (tail == size) tail = 0; // 将数组首位相连改成循环队列
+if (tail == size) tail = 0; // 将数组首尾相连改成循环队列
 if (head == tail);  // 队列为空
 if ((tail + 1) % size == head);  // 为了实现队满的判断，循环队列会浪费一个数组元素
 ```

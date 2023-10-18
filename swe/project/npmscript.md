@@ -1,4 +1,4 @@
-# NPM Script
+# npm Script
 
 http://www.ruanyifeng.com/blog/2016/10/npm_scripts.html  阮一峰博客待阅读整理  
 https://www.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/  这篇文章更屌
@@ -10,7 +10,7 @@ https://www.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/  这篇文章更�
 https://docs.npmjs.com/misc/scripts
 
 可以编辑一些 npm 脚本，用来处理常用的开发任务。   
-执行大多数 npm 脚本的方式都差不多： npm run 加脚本名，有些命令如 start 不需要 run 关键字。
+执行大多数 npm 脚本的方式都差不多：`npm run <脚本名>`，有些命令如 start 不需要 run 关键字。
 
 ```js
 // package.json (scripts)
@@ -111,6 +111,55 @@ _package.json_
 ```
 
 
+### `pre` / `post` scripts
+
+npm will automatically detect if a script has other scripts named the same way but prefixed with pre or post and will execute those in the respective order.
+
+```json
+"scripts": {
+  "prebuild": "rimraf dist",
+  "build": "tsc",
+  "postbuild": "npm run test",
+  "test": "jest"
+}
+```
+
+### Env variables
+
+* `npm_config_xxx` 获取 .npmrc 和全局 npm 配置信息
+* `npm_package_xxx` 获取 package.json 中的信息
+
+```json
+"scripts": {
+  // 通过此脚本看看能抓到哪些信息
+  "echo-env": "node -e 'console.log(process.env)' | grep npm",
+  // 实战用法示例
+  "echo-version": "echo $npm_package_version"
+}
+```
+
+### Argument passing and parsing
+
+* 使用 Bash 提供的 `--` 功能给实际命令传参
+* 使用 npm 内置的参数解析能力传参
+
+```bash
+# 使用 Bash 提供的 `--` 功能给实际命令传参
+$ npm run build -- --watch  # `"build": "tsc"` -> `tsc --watch`
+```
+
+```bash
+# 使用 npm 内置的参数解析能力传参
+# 脚本 "demo": "echo \"Hello $npm_config_first $npm_config_last\""
+$ npm run demo --last=Kundel --first=Dominik
+# 输出 "Hello Dominik Kundel"
+```
 
 
+### Useful tools
+
+* `rimraf` allows you to run `rm -rf` but is compatible with Windows
+* `ncp` is a great cross-platform alternative to `cp`
+* `npm-run-all` exposes two useful commands with `run-s` and `run-p` to run various npm scripts in series or parallel
+* `cross-env` is a useful tool to work with environment variables in npm scripts across platforms
 

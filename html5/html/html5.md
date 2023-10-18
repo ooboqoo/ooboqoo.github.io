@@ -127,6 +127,12 @@ otherWindow.postMessage(message, targetOrigin, [transfer]);
 
 这个功能常常可以用在微博信息的同步或者协同办公系统的消息同步中。
 
+### MessageChannel
+
+https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel
+
+先通过 postMessage 传递信道，然后就可以通过信道进行后续通信了。
+
 ### XMLHttpRequest Level2
 
 Level2 相较于老版本 Level1 做出了大幅的改进，主要包括以下几点

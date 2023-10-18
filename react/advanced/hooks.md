@@ -157,7 +157,7 @@ setCount(1);
 console.log(count);  // 是 0 不是 1
 ```
 
-利用回调可以帮助我们拿到最新的 state。下面示例中 `current => current + 1` 这中写法虽然比直接 `count + 1` 多敲了点代码，但结果更符合我们的直观预期。
+利用回调可以帮助我们拿到最新的 state。下面示例中 `current => current + 1` 这种写法虽然比直接 `count + 1` 多敲了点代码，但结果更符合我们的直观预期。
 
 ```jsx
 const App3 = () => {

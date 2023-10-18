@@ -484,7 +484,7 @@ The default hash code implementation provides an identity hash—two objects gen
 
 ## 生词
 
-ambiguous  _/æmˈbɪɡjuəs/_  a.模凌两可的; 暧昧的  
+ambiguous  _/æmˈbɪɡjuəs/_  a.模棱两可的; 暧昧的  
 disambiguate  _/dɪsæmˈbɪɡjueɪt/_  v.消除歧义  
 idiomatic  _/ˌɪdiəˈmætɪk◂/_  a.地道的  
 collision  _/kəˈlɪʒən/_  n.碰撞; 冲突  

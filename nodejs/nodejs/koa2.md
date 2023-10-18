@@ -2,7 +2,7 @@
 
 http://bugless.me/nodejs-heaven-with-koa2-gulp-babel-mongodb-and-async-await/
 
-## NPM and dependencies
+## npm and dependencies
 
 ```bash
 npm i koa@next koa-router@next koa-bodyparser@next config --save

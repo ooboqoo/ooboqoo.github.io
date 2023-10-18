@@ -10,7 +10,7 @@ https://juejin.cn/post/6950584088462163982
 * [classnames](https://github.com/JedWatson/classnames) 方便 calssName 的拼装
 * [numeral](http://numeraljs.com/) 格式化数字
 * [cross-env]() 一个运行跨平台设置和使用环境变量的脚本
-* [path-to-regexp]()
+* [path-to-regexp](https://github.com/pillarjs/path-to-regexp) Turn a path string such as `/user/:name` into a regular expression
 
 ```js
 import { parse, stringify } from 'qs';
@@ -43,8 +43,9 @@ numeral(1000.234).format('$0,0.00');  // '$1,000.23'
 ### 数据生成
 
 * [uuid]() 生成 UUID
+* [Nano ID](https://github.com/ai/nanoid) A tiny, secure, URL-friendly, unique string ID generator for JavaScript.
 * [faker.js]() 用于在浏览器及 Node.js 中生成大量假数据
-* [ Mock.js]() 一个模拟数据生成器
+* [Mock.js]() 一个模拟数据生成器
 
 ```js
 import { v4 } from 'uuid';
@@ -73,6 +74,7 @@ v4();  // ...
 * [Prettier]()
 * [stylelint]()
 * [Husky]() 帮助简单直接地实现 git hooks
+* [lint-staged](https://github.com/okonet/lint-staged) Run linters against staged git files and don't let 💩 slip into your code base!
 
 
 ```js
@@ -80,7 +82,7 @@ v4();  // ...
 {
   "husky": {
     "hooks": {
-      "pre-commit": "npm lint"
+      "pre-commit": "lint-staged"  // Husky + lint-staged 配合实现提交前检查
     }
   }
 }

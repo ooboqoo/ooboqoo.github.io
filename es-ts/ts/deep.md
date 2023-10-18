@@ -291,7 +291,7 @@ console.log(foo['Hello']); // World
 
 #### 声明一个索引签名
 
-索引签名的名称，如 `{ [index: string]: { message: string } }` 里的 `index` 除了可读性外，并没有任何意义，取一个好的名字有利用其他开发者理解你的代码。
+索引签名的名称，如 `{ [index: string]: { message: string } }` 里的 `index` 除了可读性外，并没有任何意义，取一个好的名字有利于其他开发者理解你的代码。
 
 #### 所有成员都必须符合字符串的索引签名
 

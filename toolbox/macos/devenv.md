@@ -7,14 +7,15 @@ https://aaaaaashu.gitbooks.io/mac-dev-setup/content/index.html
 
 ### Command Line Tools for Xcode
 
+包含了一些基本的命令行开发工具，如 git, xcrun, xcodebuild，安装 Homebrew 的时候会提示要先装这个。
+
 ```bash
-$ xcode-select --install    # 安装命令行工具
+# 安装命令行工具
+$ xcode-select --install
 
 # 删除命令行工具
 $ sudo rm -rf /Library/Developer/CommandLineTools
 ```
-
-包含了一些基本的命令行开发工具，如 git, xcrun, xcodebuild，安装 Homebrew 的时候会提示安装。
 
 也可登录 https://developer.apple.com/download/more/ 下载安装包安装。
 
@@ -67,20 +68,23 @@ $ brew doctor
 $ brew install google-chrome visual-studio-code
 ```
 
-#### 设置代理
+#### 啤酒术语
+
+Homebrew 首先阅读配方（formula），如果有中意的瓶装版（bottle），就直接存入酒窖（cellar）里的加压桶（keg），然后倒（pour）给顾客。也可以从木桶（cask）里直接倒酒，或者从别人的酒头（tap）（水龙头）里打酒。
+
+Homebrew 首先读取软件包定义文件，如果有适用的预编译二进制文件，就下载到统一安装路径下以名称和版本命名的子目录，然后在 bin 目录中为其创建符号链接。也支持安装 macOS 原生应用，以及添加第三方软件仓库。
+
+#### 换源
+
+https://cloud.tencent.com/developer/article/1614039
 
 解决 Homebrew 网络太慢的问题，可使用使用国内镜像源，或者走代理。
 
-```bash
-# 解决安装 Homebrew 慢、`brew update` 慢的问题
-$ echo proxy=socks5://127.0.0.1:1080 >> ~/.curlrc
-
-# 解决安装软件时下载慢的问题，如装 icu4c 时下载奇慢，设置这个后下载就飞起
-$ ALL_PROXY=socks5://127.0.0.1:1080 brew # 运行时改环境变量，也可以配成 alias
-$ echo export ALL_PROXY=\"socks5://127.0.0.1:1080\" >> ~/.zshrc  # 还可以这样，但影响面有点大
-```
-
-#### 换源
+Homebrew 主要由四个部分组成
+* brew - Homebrew 源代码仓库
+* homebrew-core - Homebrew 核心软件仓库
+* homebrew-bottles - Homebrew 预编译二进制软件包
+* homebrew-cask - 提供 macOS 应用和大型二进制文件
 
 ```bash
 $ cd $(brew --repo)
@@ -91,6 +95,17 @@ $ git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.gi
 
 $ cd $(brew --repo)/Library/Taps/homebrew/homebrew-cask
 $ git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
+```
+
+#### 设置代理
+
+```bash
+# 解决安装 Homebrew 慢、`brew update` 慢的问题
+$ echo proxy=socks5://127.0.0.1:1080 >> ~/.curlrc
+
+# 解决安装软件时下载慢的问题，如装 icu4c 时下载奇慢，设置这个后下载就飞起
+$ ALL_PROXY=socks5://127.0.0.1:1080 brew # 运行时改环境变量，也可以配成 alias
+$ echo export ALL_PROXY=\"socks5://127.0.0.1:1080\" >> ~/.zshrc  # 还可以这样，但影响面有点大
 ```
 
 ### Node.js

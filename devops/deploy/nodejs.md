@@ -88,6 +88,7 @@ $ mkdir koa-mongo
 $ pm2 start dist/app.js
 $ pm2 save               # 保存当前进程列表
 $ pm2 startup            # 配置 pm2 开机启动
+$ pm2 unstartup systemd  #   后续取消开机启动
 ```
 
 至此自动部署就完成了，以后只要在本地 `git push`，服务器就会自动编译和更新了。

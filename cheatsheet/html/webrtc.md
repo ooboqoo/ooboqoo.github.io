@@ -22,7 +22,7 @@ navigator.mediaDevices.enumerateDevices().then(devices => {
   console.log({devices})
   const hasCamera = !!devices.filter(device => device.kind === 'videoinput').length
   if (!hasCamera) {
-    alert('没有找打可用摄像头！')
+    alert('没有找到可用摄像头！')
   } else {
     navigator.getUserMedia(
       {video: true, audio: false},

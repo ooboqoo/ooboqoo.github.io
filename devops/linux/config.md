@@ -88,3 +88,33 @@ export PS1="\[\e[0;32m\]\u@\h \W $ \[\e[m\]"  # 自定义提示符 `man bash` �
 再附一篇教程：https://www.ibm.com/developerworks/linux/library/l-tip-prompt/
 
 
+## macOS
+
+### DNS
+
+修改 _/etc/hosts_ 文件后，使用 `dig` `host` `nslookup` 等工具是无法看到效果的，they bypass the system's resolver and do row DNS lookups.
+
+```bash
+# 清理 NDS 缓存
+$ sudo killall -HUP mDNSResponder
+
+# 查询 DNS 解析结果
+
+# The official way to do a lookup through the system resolver in macOS
+$ dscacheutil -q host -a name www.example.com
+# or just use `ping` instead for quick 
+$ ping www.example.com
+```
+
+#### Search Domains
+
+https://superuser.com/questions/184361/what-is-the-search-domains-field-for-in-the-tcp-ip-dns-settings-control-panel
+
+DNS searches can only look at a Fully Qualified Domain Name, such as `mymachine.example.com.` But, it's a pain to type out mymachine.example.com, you want to be able to just type `mymachine`.
+
+Using Search Domains is the mechanism to do this. If you type a name that *does not end with a period*, it knows it needs to add the search domains for the lookup. So, lets say your Search Domains list was: `example.org`, `example.com`
+
+1. 输入 `mymachine` (注意：最后不能出现 `.`)
+2. 系统尝试 `mymachine.example.org`
+3. 如果没找到再尝试 `mymachine.example.com`
+

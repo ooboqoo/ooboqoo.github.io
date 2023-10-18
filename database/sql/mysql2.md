@@ -1,140 +1,250 @@
-# SQL/MySQL 必知必会 2
+# MySQL 实操教程
 
-如何学习 SQL https://www.zhihu.com/question/19552975
+<script>ooboqoo.contentsRegExp = /H[123]/;</script>
 
+## 安装配置
 
-## 增/删/改记录
+### 安装
 
-### 插入记录
+Docker
 
-```sql
-INSERT INTO Customers(cust_id) SELECT cust_id FROM CustNew;
+```bash
+docker pull mariadb:10.6
+docker run --name mariadb -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=abc123 mariadb:10.6
 ```
 
-### 更新记录
+### CLI
 
-### 删除记录
+#### mysql
 
-
-## 表操作
-
-### 创建表
-
-一般有两种创建表的方法：
-  * 使用具有交互式创建和管理表的工具
-  * 直接用 SQL 语句创建
-
-```sql
-CREATE TABLE `customers` (
-  `cust_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `cust_name` CHAR(50) NOT NULL COMMENT '顾客姓名',
-  `cust_email` CHAR(255) NULL DEFAULT NULL,
-  PRIMARY KEY (`cust_id`)
-)
-COLLATE='utf8mb4_0900_ai_ci'
-ENGINE=InnoDB
-AUTO_INCREMENT=10006;
+```bash
+$ bash install mysql
+$ mysql -h127.0.0.1 -uroot -p
 ```
 
-#### AUTO_INCREMENT
+mysql 命令行实用程序是使用最多的客户机，它对于快速测试和执行脚本非常有价值。请注意：
 
-每个表只允许一个 AUTO_INCREMENT 列，而且它必须被索引(如，通过使它成为主键)。
+* 命令输入在 `mysql>` 之后
+* 命令用 `;`、`\g` 或 `\G` (竖向显示) 结束，仅按 `Enter` 不执行命令
+* 输入 `help` 或 `\h` 获得帮助，如 `help select`
+* 输入 `quit` 或 `exit` 退出
 
-覆盖 AUTO_INCREMENT - 你可以简单地在 INSERT 语句中指定一个值，只要它是唯一的，该值将被用来替代自动生成的值。后续的增量将开始使用该手工插入的值。
+why `\g`
 
-确定 AUTO_INCREMENT 值 - 可使用 last_insert_id() 函数获取
+https://stackoverflow.com/questions/2277014/why-the-g-in-select-from-table-name-g
 
-#### DEFAULT
+The ubiquitous semicolon command terminator `;` is actually shorthand for the `\g` command, which is in itself shorthand for the `go` command. The `go` command is used both historically and currently in other flavours of SQL to submit batches of commands to be compiled and / or interpretted by the server.
 
-许多数据库开发人员使用默认值而不是NULL列，特别是对用于计算或数据分组的列更是如此。
+why `\G`
 
-#### 引擎类型
+`-E` >> `ego` >> `\G`
 
-每个 DBMS 内都有一个内部引擎来管理和处理数据，或者说都有一个内部引擎来出来 SQL 语句。MySQL 打包了多个引擎，它们具有各自不同的功能和特性，为不同的任务选择正确的引擎能获得良好的功能和灵活性。
+The `ego` command acquires a prepended 'e' indicating that this form of the `go` command also adopts a behaviour that would normally be imposed by invoking mysql with the similar switch `mysql -E`.
 
-InnoDB 是一个可靠的事务处理引擎，但不支持全文本搜索。  
-MEMORY 的功能等同于 MyISAM，但由于数据存储在内存中，速度很快(特别适合于临时表)。  
-MyISAM 是一个性能极高的引擎，它支持全文本搜索，但不支持事务处理。
-
-*外键不能跨引擎* - 混用引擎类型有一个大缺陷，外键(用于强制实施引用完整性)不能跨引擎，即，使用一个引擎的表不能引用具有使用不同引擎的表的外键。
-
-### 更新表
-
-理想状态下，当表中存储数据以后，该表就不应该再被更新。在表的设计过程中需要花费大量时间来考虑，以便后期不对该表进行大的改动。
-
-ALTER TABLE 的一种常见用途是定义外键。
-
-```sql
-ALTER TABLE vendors ADD vend_phone CHAR(20);
-
-ALTER TABLE vendors DROP COLUMN vend_phone;
-
-ALTER TABLE orders ADD CONSTRAINT fk_orders_customers
-FOREIGN KEY (cust_id) REFERENCES customers (cust_id);
+```txt
+\g  go    Send command to mysql server.
+\G  ego   Send command to mysql server, display result vertically.
 ```
 
-复杂的表结构更改一般需要手动删除过程，它涉及以下步骤：
-* 用新的列布局创建一个新表
-* 使用 INSERT SELECT 语句从旧表复制数据到新表。如有必要，可使用转换函数和计算字段
-* 检验包含所需数据的新表
-* 重命名旧表(如确定也可以删除它)
-* 重命名新表
-* 根据需要，重新创建触发器、存储过程、索引和外键
+```txt
+-E, --vertical    Print the output of a query (rows) vertically.
+```
 
-### 删除/重命名表
+#### mycli
+
+https://www.mycli.net/
+
+mycli 是更好用的 CLI 工具，提供了自动补全和语法高亮等能力增强。
+
+注：mycli 跟 mysql 不同，单行模式下不需要输入 `;` 或 `\g`(会报错)，但支持 `\G`；可通过 `F3` 切换到 mysql 的多行模式（需要输入 `;` 表示输入结束）
+
+```bash
+$ brew install mycli
+$ mycli mysql://gavin@localhost/demodb
+```
+
+使用技巧
+* `help` 查看帮助信息，如 `help create table`
+* 输入 `\e` 可唤起编辑器进行编辑
+* 支持 `C-r` 搜索历史命令
+* `pager` `nopager` 可切换是否使用分页器显示
+
+工具配置
+
+*~/.myclirc*
+
+```txt
+enable_pager = False
+```
+
+快捷登录
+
+*~/.my.cnf*
+
+```txt
+[client]
+
+user = root
+password = abc123
+```
+
+### 数据库管理工具
+
+https://github.com/dbeaver/dbeaver
+
+### 初始环境设定
+
+#### 设置账户密码
 
 ```sql
-DROP TABLE customers2;
+> select user, host, password from mysql.user;  -- 查看用户信息
+> set password for root@localhost=password('在这里填入root密码');
+```
 
-RENAME TABLE backup_customers TO customers,
-             backup_vendors TO vendors;
+忘记 root 密码解救方法
+
+```text
+[mysqld]
+    skip-grant-tables  # 添加这个设置就可以直接登录，改密码后再注释掉这句
+```
+
+```sql
+update mysql.user set password=password('newpassword') where user='root'
+```
+
+### 测试 MySQL
+
+```sql
+-- 建立对test数据库有完全操作权限的名为centospub的用户
+mysql> grant all privileges on test.* to centospub@localhost identified by '密码';
+mysql> select user from mysql.user where user='centospub';  -- 确认centospub用户的存在与否
+mysql> quit;
+
+[root@sample ~]# mysql -u centospub -p  -- 用新建立的centospub用户登录MySQL服务器
+mysql> create database test;  -- 建立名为test的数据库
+mysql> show databases;  -- 查看系统已存在的数据库
+
+mysql> use test  -- 连接到数据库
+mysql> create table test(num int, name varchar(50));  -- 在数据库中建立表
+mysql> show tables;  -- 查看数据库中已存在的表
+
+mysql> insert into test values(1,'Hello World!');  -- 插入一个值到表中
+mysql> select * from test;  -- 查看数据库中的表的信息
+
+mysql> update test set name='Hello Everyone!';  -- 更新表的信息，赋予新的值
+mysql> select * from test;  -- 查看数据库中的表的信息
+mysql> delete from test where num=1;  -- 删除表内的值
+mysql> select * from test;  -- 确认删除结果
+
+mysql> drop table test;  -- 删除表
+mysql> show tables;  -- 查看表信息
+
+mysql> drop database test;  -- 删除名为test的数据库
+mysql> show databases;  -- 查看已存在的数据库
+
+mysql> exit  -- 退出MySQL服务器
+
+mysql> revoke all privileges on *.* from centospub@localhost;  -- 取消centospub用户对数据库的操作权限
+mysql> delete from mysql.user where user='centospub' and host='localhost';  -- 删除centospub用户
+mysql> select user from mysql.user where user='centospub';  -- 查找用户centospub，确认已删除与否
+mysql> exit  -- 退出MySQL服务器
+
+[root@sample ~]# /etc/rc.d/init.d/httpd restart  -- 重新启动HTTP服务，让php-mysql反映到HTTP服务中。
 ```
 
 
-## 视图
+## MySQL Tutorial
 
-视图提供了一种封装 `SELECT` 语句的层次，可用来简化数据处理，重新格式化或保护基础数据。
+### 3.1 Connecting to and Disconnecting from the Server
 
-
-## 存储过程
-
-
-## 游标
-
-
-## 触发器
-
-
-## 事务
-
-
-## 改善性能
-
-* MySQL 是一个多用户多线程的 DBMS，换言之，它经常同时执行多个任务。如果这些任务中的某一个执行缓慢，则所有请求都会执行缓慢。如果你遇到显著的性能不良，可使用 `SHOW PROCESSLIST` 显示所有活动进程。你还可以用 `KILL` 命令终结某个特定的进程。
-* 总是有不止一种方法编写同一条 SELECT 语句。应该试验连接、并、子查询等，找出最佳的方法。
-* 使用 EXPLAIN 语句让 MySQL 解析它将如何执行一条 SELECT 语句。
-* 一般来说，存储过程执行得比一条一条地执行其中的各条语句要快。
-* 应该重视使用正确的数据类型。
-* 绝不要检索比需求还要多的数据。换言之，尽量避免使用 `SELECT *`
-* 有的操作，包括 INSERT，支持一个可选的 DELAYED 关键字，如果使用它，将把控制立即返回给调用程序，并且一旦有可能就实际执行该操作。
-* 在导入数据时，应该关闭自动提交。你可能还想删除索引，然后在导入完成后再重建它们。
-* 必须建立索引数据库表以改善数据检索的性能。确定索引什么，需要分析使用的 SELECT 语句以找出重复的 WHERE 和 OEDER BY 子句。如果一个简单的 WHERE 子句返回结果所花的时间太长，则可以断定其中使用的列(或几个列)就是需要索引的对象。
-* 你的 SELECT 语句中有一系列复杂的 OR 条件吗？通过使用多条 SELECT 语句和连接它们的 UNION 语句，你能看到极大的性能改进。
-* 索引改善数据检索的性能，但损害数据插入、删除和更新性能。如果你有一些表，它们收集数据且不经常被搜索，则在有必要之前不要索引它们。(索引可根据需要灵活添加和删除)
-* LIKE 很慢。一般来说，最好是使用 FULLTEXT 而不是 LIKE。
-* 数据库是不断变化的实体。一组优化良好的表一会儿后可能就面目全非了。由于表的使用和内容的更改，理想的优化和配置也会改变。
-* 最重要的规则就是，每条规则在某些条件下都会被打破。
-
-```sql
-查看当前设置
-SHOW VARIABLES;
-SHOW STATUS;
-
-显示所有活动进程
-SHOW PROCESSLIST;
-KILL
-
-EXPLAIN
+```bash
+shell> mysql --help   # for help
+shell> mysql -h host -u user -p    # login, enter password after the prompt
+shell> mysql -u user -p            # you can ommit the -h if on the same machine
+mysql> quit           # logout, and "exit" also works
 ```
 
+### 3.2 Entering Queries
 
+```bash
+mysql> select version(), current_date; select now();
+mysql> select sin(pi()/4,(4+1)*5;    # You can use mysql as a simple calculator;
+mysql> select user()                 # show the user logined now
+```
+
+A query normally consists of an SQL statement followed by a semicolon;<br>Keywords may bee entered in any lettercase;
+
+### 3.3 Creating and Using a Database
+
+```sql
+mysql> show databases;
+mysql> use testdb  -- USE, like QUIT, does not require a semicolon, but it does no harm to add a ";"
+mysql> GRANT ALL ON testdb.* TO 'your_mysql_name'@'your_host';  -- MySQL administrator used to give permission
+
+# 3.3.1 Creating and Selecting a Database
+mysql> create database testdb;
+mysql> use testdb
+shell> mysql -h host -u user -p testdb  -- select the database when invok mysql
+mysql> select database();  -- show the database currently selected
+
+# 3.3.2 Creating a Table
+mysql> show tables;
+mysql> creat table user (id int not nul auto_increment, name varchar(20), password varchar(20), primary key (id));
+mysql> describe user;
+
+# 3.3.3 Loading Data into a Table
+# 3.3.4 Retieving Information from a Table
+# 3.3.4.1 Selecting All Data
+# 3.3.4.2 Selecting Particular Rows
+# 3.3.4.3 Selecting Particular Columns
+# 3.3.4.4 Sorting Rows
+# 3.3.4.5 Data Calculation
+# 3.3.4.6 Working with NULL Values
+# 3.3.4.7 Pattern Matching
+# 3.3.4.8 Counting Rows
+# 3.3.4.9 Using More Than one Table
+```
+
+### 3.4 Getting Information About Databases and Tables
+
+```sql
+mysql> select database();
+mysql> show tables;
+mysql> describe user;
+```
+
+### 3.5 Using mysql in Batch Mode
+
+### 3.6 Examples of Common Queries
+
+```bash
+# 3.6.1 The Maximum Value for a Column
+mysql> SELECT MAX(article) AS article FROM shop;
+# 3.6.2 The Row Holding the Maximum of a Certain Column
+mysql> SELECT article, dealer, price FROM shop WHERE price=(SELECT MAX(price) FROM shop);
+mysql> SELECT s1.article, s1.dealer, s1.price FROM shop s1 LEFT JOIN shop s2 ON s1.price &lt; s2.price WHERE s2.article IS NULL;
+mysql> SELECT article, dealer, price FROM shop ORDER BY price DESC LIMIT 1;
+# 3.6.3 Maximum of Column per Group
+mysql> SELECT article, MAX(price) AS price FROM shop GROUP BY article;
+# 3.6.4 The Rows Holding the Group-wise Maximum of a Certain Columm
+# 3.6.5 Using User-Defined Variables
+# 3.6.6 Using Foreign Keys
+# 3.6.7 Searching on Two Keys
+# 3.6.8 Calculating Visits Per Day
+# 3.6.9 Using AUTO_INCREMENT
+```
+
+### 6.3.2 Adding User Accounts
+
+```sql
+mysql> create user 'gavin'@'localhost' identified by 'some_pass';
+mysql> grant all privileges on some_table.* 'gavin'@'localhost';
+mysql> grant all privileges on some_table.* to gavin@localhost identified by 'some_pass'  # a substitute for convenience 
+mysql> show grants for 'gavin'@'localhost';
+```
+
+### 6.3.3 Removing User Accounts
+
+```bash
+mysql> drop user 'gavin'@'localhost';
+```

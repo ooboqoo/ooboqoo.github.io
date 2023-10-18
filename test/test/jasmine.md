@@ -126,7 +126,7 @@ https://jasmine.github.io/tutorials/your_first_suite
 
 ### 初始化与清理
 
-为避免非不要地重复“初始化和清理”代码，Jasmine 提供了几个全局函数：
+为避免非必要地重复“初始化和清理”代码，Jasmine 提供了几个全局函数：
 
 * `beforeEach` - 在每次 `it` 执行之前执行其内部的代码
 * `afterEach` - 在每次 `it` 完成之后执行其内部的代码

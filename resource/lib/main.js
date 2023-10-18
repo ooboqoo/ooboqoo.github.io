@@ -172,7 +172,7 @@ function isMobile() {
       }
 
       // 解析 md 并插入文档，并对 md 功能进行了扩展
-      elem_md.innerHTML = marked(text).replace(/<tag>/g, "<").replace(/<\/tag>/g, ">");
+      elem_md.innerHTML = marked.parse(text).replace(/<tag>/g, "<").replace(/<\/tag>/g, ">");
         // 替换 <tag></tag>，用法示例 <tag>div class="dl"</tag> 会生成 <div class="dl">
 
       // 给文档代码设置高亮
@@ -239,23 +239,39 @@ function isMobile() {
 
   // 设置顶部导航栏
   ajax('/header.html', function (text) {
-    elem_header.innerHTML = text;
+    elem_header.innerHTML = `<div>${text}</div>`;
+    var header_menu;
+
+    var categories = elem_header.querySelectorAll('.ul');
+    for (let c of categories) { c.style.display = 'none'; }
+    if (categories.length > 1) {
+      header_menu = document.createElement('a');
+      header_menu.className = 'menu';
+      header_menu.innerHTML = '<div style="width:14px;height:2px;background:black;"></div><div style="height:2px;background:black;margin:3px 0;"></div><div style="height:2px;background:black;"></div>';
+      header_menu.onclick = function () {
+        const overlay = document.createElement('div');
+        const closeButton = document.createElement('div');
+        const mask = document.createElement('div');
+        overlay.innerHTML = text;
+        overlay.id = 'menu-overlay'
+        closeButton.innerText = 'x';
+        closeButton.className = 'btn';
+        closeButton.onclick = function () { document.body.removeChild(overlay); }
+        mask.onclick = closeButton.onclick;
+        mask.setAttribute('style', 'position:fixed;top:0;left:0;right:0;z-index:-1;background:#6666;box-shadow:0 6px 10px 0 rgba(0, 0, 0, 0.1)');
+        overlay.prepend(closeButton);
+        overlay.appendChild(mask);
+        document.body.appendChild(overlay);
+        mask.style.height = overlay.clientHeight + 'px';
+      };
+    }
+
     var links = elem_header.getElementsByTagName("a");
-    var a, p, temp, cat, url;
-    for (var i = 0, length = links.length; i < length; i++) {
-      a = links[i];
-      if (window.location.href.indexOf(a.href) !== -1 && a.className.indexOf('btn') === -1) {
+    for (let a of links) {
+      if (window.location.href.indexOf(a.href) !== -1) {
         a.className = "active";
-        p = a.parentElement.parentElement;
-        cat = p.id || 'front-end';
-        url = localStorage.getItem(cat === 'back-end' ? 'front-end' : 'back-end');
-        delete p.style.display;
-        localStorage.setItem(cat, a.getAttribute('href'));
-        if (url) { p.getElementsByClassName('btn')[0].href = url; }
-        temp = p;
-        while (temp = temp.previousElementSibling) { temp.style.display = 'none'; }
-        temp = p;
-        while (temp = temp.nextElementSibling) { temp.style.display = 'none'; }
+        a.parentElement.style.display = '';
+        if (header_menu) { a.parentElement.prepend(header_menu); }
         break;
       }
     }

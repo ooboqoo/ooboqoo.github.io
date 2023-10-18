@@ -2,6 +2,31 @@
 
 <style>i, em { font-style: normal; }</style>
 
+## 行业会议
+
+* 云栖大会 https://yunqi.aliyun.com/
+
+
+
+## State of frontend 2022
+
+https://tsh.io/state-of-frontend/new/index  
+https://stateofjs.com/en-us/  
+
+
+### 前端框架全栈化
+
+* Remix https://github.com/remix-run/remix
+
+
+### 个人心得
+
+前端确实逐步稳定下来了，感觉新东西没那么多了，可以跟得上社区的变化了。过了一遍全文，稍微查漏补缺一下，感觉一点不慌了。
+
+PWA + WAM 使得一些传统桌面应用搬到了浏览器，易用且 *无法盗版*，绝了啊。Figma 就是一个很好的例子。
+
+
+
 ## 2019 年大前端技术趋势深度解读
 
 https://www.infoq.cn/article/K_RFbwfff5MugJXixYDQ  
@@ -37,9 +62,9 @@ jQuery 被 GitHub 下掉，前端三大框架趋于平稳，向 **Web Components
 
 桌面端的3个发展阶段：*原生开发 Native --> 混搭开发 Hybrid --> PWA*
 
-谷歌于 2008 年 9 月 2 日首次发布了 Chrome 浏览器，Node.js 是 Ryan Dahl 于 2009 年发布的，他把 V8 引擎搬到了后端，使用 JS 编写服务器程序变为现实。随后 NPM 发展极为迅猛，跨平台技术也突飞猛进，出现了 NW.js 这样的轻量级跨平台框架，基于 Chromium + Node.js，使得 PC 桌面端能够通过 Web 开发技术开发，最终打包编译成各个平台支持的应用格式，给 PC 桌面开发带来了太多的可能性。
+谷歌于 2008 年 9 月 2 日首次发布了 Chrome 浏览器，Node.js 是 Ryan Dahl 于 2009 年发布的，他把 V8 引擎搬到了后端，使用 JS 编写服务器程序变为现实。随后 npm 发展极为迅猛，跨平台技术也突飞猛进，出现了 NW.js 这样的轻量级跨平台框架，基于 Chromium + Node.js，使得 PC 桌面端能够通过 Web 开发技术开发，最终打包编译成各个平台支持的应用格式，给 PC 桌面开发带来了太多的可能性。
 
-而 Atom 是 GitHub 在 2014 年发布的一款基于 Web 技术构建的文本编辑器，其中 atom-shell，也就是后来的 Electron，是和 NW.js 类似的技术。它允许使用 Node.js（作为后端）和 Chromium（作为前端）来完成桌面 GUI 应用程序的开发。Chromium 提供了渲染页面和响应用户交互的能力，而 Node.js 提供了访问本地文件系统和网络的能力，也可以使用 NPM 上的几十万个第三方包。在此基础之上，Electron 还提供了 Mac、Windows、Linux 三个平台上的一些原生 API，例如全局快捷键、文件选择框、托盘图标和通知、剪贴板、菜单栏等。
+而 Atom 是 GitHub 在 2014 年发布的一款基于 Web 技术构建的文本编辑器，其中 atom-shell，也就是后来的 Electron，是和 NW.js 类似的技术。它允许使用 Node.js（作为后端）和 Chromium（作为前端）来完成桌面 GUI 应用程序的开发。Chromium 提供了渲染页面和响应用户交互的能力，而 Node.js 提供了访问本地文件系统和网络的能力，也可以使用 npm 上的几十万个第三方包。在此基础之上，Electron 还提供了 Mac、Windows、Linux 三个平台上的一些原生 API，例如全局快捷键、文件选择框、托盘图标和通知、剪贴板、菜单栏等。
 
 ![](https://static.geekbang.org/infoq/5c8b7ae939e3c.png)
 
@@ -73,7 +98,7 @@ WebAssembly 是一种新的字节码格式，目前主流浏览器都已经支�
 
 ### 移动端
 
-Flutter 是 Google 推出的帮助开发者在 Android 和 iOS 两个平台，同时开发高质量原生应用的全新移动 UI 框架，和 ReactNative/Weex 一样支持热更新。Flutter 使用 Google 自己家的 Dart 语言编写，刚好今年 Dart2 也正式发布，不知道二者之间是否有关联。目前 Dart 主攻 Flutter 和 Web 两块，同时提供了 PUB 包管理器，俨然是一门全新的语言，学习成本有些高。反观 TypeScript 就非常容易被接受，基于 NPM 生态，兼容 ES 语法，因此，2019 年对 Dart 我还是会持观望态度。
+Flutter 是 Google 推出的帮助开发者在 Android 和 iOS 两个平台，同时开发高质量原生应用的全新移动 UI 框架，和 ReactNative/Weex 一样支持热更新。Flutter 使用 Google 自己家的 Dart 语言编写，刚好今年 Dart2 也正式发布，不知道二者之间是否有关联。目前 Dart 主攻 Flutter 和 Web 两块，同时提供了 PUB 包管理器，俨然是一门全新的语言，学习成本有些高。反观 TypeScript 就非常容易被接受，基于 npm 生态，兼容 ES 语法，因此，2019 年对 Dart 我还是会持观望态度。
 
 除了不喜欢 Dart 外，Flutter 的其他方面都很好，在移动端现在强运营的背景下，支持热更新是必备能力。
 

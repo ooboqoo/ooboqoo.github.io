@@ -1,7 +1,7 @@
 # YAML 语言教程
 
 教程 https://en.wikipedia.org/wiki/YAML  
-规范 https://yaml.org/spec/1.2/spec.html  
+规范 https://yaml.org/spec/1.2/  
 工具 https://nodeca.github.io/js-yaml/
 
 YAML 是专门用来 *写配置文件* 的语言，非常简洁和强大，远比 JSON 方便（YAML1.2 是 JSON 的超集）。  
@@ -36,8 +36,8 @@ fruits2: { Apple, Banana }
 
 #【数组】http://yaml.org/type/seq.html
 Block style:
-- Apple
-- Banana
+  - Apple       # 可缩进也可不缩进
+  - Banana      # 但是各项缩进层级一定要一样，否则出错
 Flow  style: [ Apple, Banana ]
   # JSON { 'Block style': [ 'Apple', 'Banana' ],
   #        'Flow  style': [ 'Apple', 'Banana' ] }
@@ -89,7 +89,7 @@ timestamp:
 ```yaml
 Collection indicators:    # 标志 - 集合
     '? ' : Key indicator.
-    ': ' : Value indicator.
+    ': ' : Value indicator.   # 所有 Value 之前都得有 `:`，约等于(set 是例外) Key 之后都得带 `:`
     '- ' : Nested series entry indicator.
     ', ' : Separate in-line branch entries.
     '[]' : Surround in-line series branch.
@@ -147,6 +147,51 @@ Escape codes:
  C         : { "\0": NUL, "\a": BEL, "\b": BS, "\f": FF, "\n": LF, "\r": CR,
                "\t": TAB, "\v": VTAB }
  Additional: { "\e": ESC, "\_": NBSP, "\N": NEL, "\L": LS, "\P": PS }
+```
+
+### 注意点
+
+* 使用 2个 或 4个 空格来缩进，不允许使用 tab
+* 布尔值的多个变种写法
+* 字符串大多数时候是不需要加引号的，但 `"1.1"` 和 `1.1` 这种场景，如果希望得到字符串就得加引号，否则为数值
+* 可以使用 `---` 将多个文档写到一个文件里
+
+【示例】多个文档写在一个文件里
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+...
+---
+apiVersion: apps/v1
+kind: Service
+metadata:
+  name: my-service
+...
+```
+
+【示例】通过 label 复用结构
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-hello-world
+spec:
+  selector:
+    matchLabels: &pod-label
+      run: pod-hello-world
+  template:
+    metadata:
+      labels: *pod-label
+    spec:
+      containers:
+      - name: cont1
+        image: xxx
+        ports:
+        - containerPort: 8080
 ```
 
 

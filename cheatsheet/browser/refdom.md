@@ -4,7 +4,7 @@
 
 ### Finding HTML Elements
 
-||
+|||
 ----------------------------------------|------------------------------
 document.getElementById(_id_)           | Find an element by element id
 document.getElementsByTagName(_name_)   | Find elements by tag name
@@ -12,7 +12,7 @@ document.getElementsByClassName(_name_) | Find elements by class name
 
 ### Changing HTML Elements
 
-||
+|||
 -------------------------------------------|-----------------------------------------------
 element.innerHTML =  _new html content_    | Change the inner HTML of an element
 element.attribute = _new value_            | Change the attribute value of an HTML element
@@ -21,7 +21,7 @@ element.style._property_ = _new style_     | Change the style of an HTML element
 
 ### Adding and Deleting Elements
 
-||
+|||
 ----------------------------------|--------------------------------------
 document.createElement(_element_) | Create an HTML element
 document.removeChild(_element_)   | Remove an HTML element
@@ -31,7 +31,7 @@ document.write(_text_)            | Write into the HTML output stream
 
 ### Adding Events Handlers
 
-||
+|||
 -----|-----
 document.getElementById(_id_).onclick = function(){_code_} | 
 
@@ -39,7 +39,7 @@ document.getElementById(_id_).onclick = function(){_code_} |
 
 The first HTML DOM Level 1 (1998), defined 11 HTML objects, object collections, and properties. These are still valid in HTML5. Later, in HTML DOM Level 3, more objects, collections, and properties were added.
 
-|||
+||||
 ------------------|-------------------------------------------------------|-----
 document.anchors  | Returns all `<a>` elements that have a name attribute | 1
 document.baseURI  | Returns the absolute base URI of the document         | 3
@@ -185,7 +185,7 @@ In the W3C DOM Core, the Document object inherits all properties and methods fro
 
 The following properties and methods can be used on all HTML elements:
 
-||
+|||
 -----------------------|------------------------------------------------------
 _element_.id           | Sets or returns the value of the id attribute of an element
 _element_.classList    | Returns the class name(s) of an element
@@ -213,7 +213,7 @@ _element_.clientTop    | `border-top-width` 的像素值
 _element_.offsetLeft   | 左上角相对于 offsetParent 的水平偏移量
 _element_.offsetTop    | 左上角相对于 offsetParent 的垂直偏移量
 _element_.scrollWidth  | Returns the entire width of an element, including padding
-_element_.scrollHeight | Returns the entire height of an element, including padding
+_element_.scrollHeight | 包含不可见部分的高度，其他同 `clientHeight`
 |
 _element_.accessKey    | Sets or returns the accesskey attribute of an element
 _element_.attributes   | Returns a NamedNodeMap of an element's attributes
@@ -242,7 +242,7 @@ _element_.dir          | Sets or returns the value of the dir attribute of an el
 _element_.lang         | Sets or returns the value of the lang attribute of an element
 _element_.namespaceURI       | Returns the namespace URI of an element
 
-||
+|||
 ----------------------------------|----------------------------------------------
 _element_.addEventListener()    | Attaches an event handler to the specified element
 _element_.removeEventListener() | Removes an event handler that has been attached with the addEventListener() method
@@ -288,7 +288,7 @@ var domRect = element.getBoundingClientRect()  // IE9+ 支持
 var rectCollection = object.getClientRects()
 ```
 
-||
+|||
 ------------------|-------------------------------------------------------
 _nodelist_.length | Returns the number of nodes in a NodeList
 _nodelist_.item() | Returns the node at the specified index in a NodeList
@@ -381,7 +381,7 @@ https://developer.mozilla.org/en-US/docs/Web/Events
 
 ### Keyboard Events
 
-|||
+||||
 ----------|--------------------------------------------------|-----
 keydown   | The event occurs when the user is pressing a key | 2
 keyup     | The event occurs when the user releases a key    | 2
@@ -404,7 +404,7 @@ keypress  | The event occurs when the user presses a key     | 2
 
 ### Form Events
 
-|||
+||||
 ---------|----------------------------------------------------------|-------
 blur     | The event occurs when an element loses focus             | 2
 change   | The event occurs when the content of a form element, the selection, or the checked state have changed (for `input` `keygen` `select` and `textarea`) |  2
@@ -418,7 +418,7 @@ search   |  The event occurs when the user writes something in a search field `<
 select   |  The event occurs after the user selects some text (for `input` and `textarea`)         | 2
 submit   |  The event occurs when a form is submitted  | 2
 
-||
+|||
 ------------------|--------------------------------------------------------------------
 compositionend    | 使用输入法输入完成时，会触发一次该事件，**很适合用在中文过滤场合**
 compositionupdate | 使用输入法输入中文时，触发频率同 input，且先于 input 触发

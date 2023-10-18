@@ -14,7 +14,7 @@ Ref<T>              // current 只读且可能为 null
 
 RefForwardingComponent<T, P>  // React.forwardRef 包裹的组件类型
 
-// 常用来包裹样式组件用，一搬需要透传所有 props 给原生 HTML 组件（下方有示例）
+// 常用来包裹样式组件用，一般需要透传所有 props 给原生 HTML 组件（下方有示例）
 HTMLAttributes<T>
 XXXHTMLAttributes<T>
 

@@ -7,7 +7,7 @@
 
 https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
 
-||
+|||
 -----------------------|-----------------------------
 XMLHttpRequest         | contructor, IE7+支持
 |
@@ -84,7 +84,7 @@ xhr.send(formData);
 
 ## WebSocket
 
-||
+|||
 -------------------------------|----------------------------------------------------------------
 WebSocket(_url_, _protocols=''_) | protocols 可以是字符串，或含字符串的数字，用于自定义子协议类型
 |
@@ -118,7 +118,7 @@ socket.addEventListener('message', function (event) { console.log('Message from 
 
 ## Fetch
 
-https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch
+https://developer.mozilla.org/en-US/docs/Web/API/fetch
 
 ```ts
 declare function fetch(input: Request | string, init?: RequestInit): Promise<Response>;
@@ -184,10 +184,15 @@ declare var Response: {
 
 最简单的用法
 
+A `fetch()` promise only rejects when a network error is encountered (which is usually when there's a permissions issue or similar). A `fetch()` promise does not reject on HTTP errors (`404`, etc.). Instead, a `then()` handler must check the `Response.ok` and/or `Response.status` properties.
+
+另外，当 `res.bodyUsed` 为 `true` 时，再调用 `res.josn()` `res.text()` 会报错。
+
 ```js
-// fetch 只会 reject 网络错误 network error 而不会 reject HTTP错误(如 404 等)
+// fetch 只会 reject 网络错误 network error
+// 而不会 reject HTTP 错误(如 404 等)
 // HTTP errors 需要自己在 then() 中检查 Response.ok and/or Response.status
-fetch('any/url').then(res => res.json()).catch(err => console.error(err))
+fetch('https://any-url.dev').then(res => res.json()).catch(err => console.error(err))
 ```
 
 复杂的应用示例
@@ -225,10 +230,18 @@ fetch(request).then(function(response) {
 })
 ```
 
+Promise 被 reject 的场景
+
+* 请求被中止 `abort()`
+* 请求发生网络错误
+* URL 格式错误
+* 请求头格式错误
+* 等等（还有好几种，具体看文档 https://developer.mozilla.org/en-US/docs/Web/API/fetch）
+
 
 ## Performance
 
-||
+|||
 --------|-----------------------
 p.now() | 返回的毫秒数自页面加载时 performance.timing.navigationStart 开始算起，带小数，比 Date.now() 更精确，主要应用于对时间精度要求高的场景：benchmarking gaming audio video .etc
 p.mark(_name_)           | 添加记录点 mark

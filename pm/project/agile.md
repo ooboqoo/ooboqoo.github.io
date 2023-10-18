@@ -61,7 +61,7 @@ Sprint 冲刺（直译：小步快跑）
 
 
 
-一张图然你看懂敏捷 Scrum https://www.sohu.com/a/256071852_575744
+一张图让你看懂敏捷 Scrum https://www.sohu.com/a/256071852_575744
 
 
 https://zhuanlan.zhihu.com/p/53837248 敏捷教练是团队中的神

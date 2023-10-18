@@ -130,6 +130,15 @@ cmd+,         | 打开当前应用的偏好设置
 显示隐藏文件/恢复隐藏 | shift+cmd+.
 前往文件夹 | shift+cmd+g
 
+```bash
+# 设置隐藏文件/文件夹
+$ chflags hidden <folder to be hidden>
+# 恢复显示
+$ chflags nohidden <hidden folder to be seen>
+
+# Finder 显示隐藏文件 的快捷键 `shift+cmd+.`
+```
+
 ### Safari
 
 |||

@@ -1,7 +1,8 @@
 # UED
 
 
-https://www.zhihu.com/question/27928975
+https://www.zhihu.com/question/27928975  
+写给协作伙伴的平台设计指南 V1.0 /docs/doccnmuGrsdHYiK9i2tT7yvAQ7f  
 
 * UE or UX：User Experience 用户体验
 * UI：User Interface 用户界面
@@ -23,7 +24,7 @@ https://www.zhihu.com/question/27928975
 Figma ⭐️⭐️⭐️⭐️⭐️ figma.com
 * 支持端：Web,PC,MAC 多端自动同步
 * 收费：团队版按人收费，个人版免费且空间无限制
-* 组件模版：支持绝大对数市面上的组件系统，包括公司内部的bytedesign。
+* 组件模版：支持绝大多数市面上的组件系统
 * 研发协作：非常好，基于CSS开发，所有设计样式，均可查询代码
 * 上手难度：中
 * 备注：可直接嵌入Lark文档，同步修改状态。目前UED正在使用。可以直接在UED已设计过的页面做修改。
@@ -43,7 +44,7 @@ Axure ⭐️⭐️⭐️⭐️
 
 Sketch ⭐️⭐️⭐️
 * 支持端：MAC 手动导出文件
-* 组件模版支持：支持绝大对数市面上的组件系统，包括公司内部的 bytedesign。
+* 组件模版支持：支持绝大多数市面上的组件系统。
 * 研发协作：中，需要插件导出到 **Zeplin**，或者 **蓝湖** 来查看标注
 * 上手难度：中
 

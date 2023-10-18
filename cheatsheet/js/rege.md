@@ -194,6 +194,22 @@ var re = new RegExp('ab+c', 'gi');
 正则表达式是一个多阶段处理过程，其中两个重要阶段是编译和执行。通过对稍后要用的正则表达式进行预定义（因此也预编译），我们可以获得一些明显的速度提升。
 
 
+### ReDos
+
+天猪：日常正则需注意下防御性编程，譬如来自用户的输入情况下，如 koa 解析 querystring  啥的就倾向用 \w{0,100} 而不是 \w*，够用就好。
+
+```bash
+$ time node -e '/^(a+)+$/.test("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaax")'
+```
+
+ReDoS–Regular expression Denial of Service，即正则表达式拒绝服务攻击。当开发人员使用了正则表达式来对用户输入的数据进行合法性校验, 当编写校验的正则表达式存在缺陷或者不严谨时, 攻击者可以构造特殊的字符串来大量消耗服务器的系统资源，造成服务器的服务中断或停止。
+
+实现正则表达式引擎的有两种方式：DFA 自动机（Deterministic Final Automata 确定型有穷自动机）和 NFA 自动机（Non deterministic Finite Automaton 不确定型有穷自动机）。
+* DFA 自动机的时间复杂度是线性的，更加稳定，但是功能有限。
+* NFA 的时间复杂度比较不稳定，有时候很好，有时候不怎么好，好不好取决于你写的正则表达式。但是胜在 NFA 的功能更加强大，所以包括 Java 、.NET、Perl、Python、Ruby、PHP 等语言都使用了 NFA 去实现其正则表达式。
+
+
+
 ## 应用示例
 
 http://blog.csdn.net/jungle_hello/article/details/51648056

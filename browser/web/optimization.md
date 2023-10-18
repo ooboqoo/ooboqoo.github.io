@@ -70,11 +70,35 @@ DataURL图片没有使用图片的压缩算法文件会变大，并且要解码�
 
 * 选择合适的图片格式。考虑用 Webp 格式的图片。
 
-
 #### 其他
 
 * 使用 CDN
 * 减少Cookie - Cookie会影响加载速度，所以静态资源域名不使用 Cookie
+
+#### HTTP2 Server Push
+
+https://www.ruanyifeng.com/blog/2018/03/http2_server_push.html
+
+服务器推送是 HTTP/2 协议里面唯一一个需要开发者自己配置的功能，其他功能都是服务器和浏览器自动实现。
+
+方式一：Nginx 直接配置服务器推送
+
+```nginx
+location / {
+    root   /usr/share/nginx/html;
+    index  index.html index.htm;
+    http2_push /style.css;
+    http2_push /example.png;
+}
+```
+
+方式二：在应用服务器中配置服务器推送
+
+```js
+// Node.js Demo
+
+// TODO
+```
 
 ### 加载优化
 
@@ -101,7 +125,7 @@ e) 选择合适的大小（1. 首次加载不大于1014KB 2. 不宽于640（基�
 * CSS 写在 `<head>` 中，JS 写在 `</body>` 前。
 
 
-  使用另外一个子域名或单独域名来存储静态资源，减少网络传数量（比如cookie），当然最好不要超过3个
+  使用另外一个子域名或单独域名来存储静态资源，减少网络传输量（比如cookie），当然最好不要超过3个
   域名，因为太多域名的话花在DNS解析的时间就很客观了，反而得不偿失
 
 ```html
@@ -212,7 +236,7 @@ b) 增加响应变化的时间间隔，减少重绘次数
 
 · GPU加速
 CSS中以下属性（CSS3 transitions、CSS3 3D transforms、Opacity、Canvas、WebGL、Video）来触发GPU渲染，请合理使用
-PS：过渡使用会引发手机过耗电增加
+PS：过度使用会引发手机过耗电增加
 
 
 ## HTTP 协议头缓存

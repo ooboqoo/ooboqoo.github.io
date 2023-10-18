@@ -55,6 +55,13 @@ $ defaults write -g com.apple.mouse.scaling 5  # 设置灵敏度，取值范围 
 
 按住 `cmd` 按键然后用鼠标拖动即可调整顺序。
 
+##### 删除 Lanchpad 图标
+
+https://apple.stackexchange.com/questions/144756/how-to-remove-an-icon-from-launchpad-that-does-not-appear-in-the-finder
+
+```bash
+sqlite3 $(find /private/var/folders \( -name com.apple.dock.launchpad -a -user $USER \) 2> /dev/null)/db/db "DELETE FROM apps WHERE title='APP_NAME_CASE_SENSITIVE';" && killall Dock
+```
 
 
 ## 系统增强

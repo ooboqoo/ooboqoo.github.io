@@ -1,0 +1,658 @@
+# Language Specification
+
+https://go.dev/ref/spec
+
+
+## Lexical elements
+
+### Keywords
+
+```go
+break        default      func         interface    select
+case         defer        go           map          struct
+chan         else         goto         package      switch
+const        fallthrough  if           range        type
+continue     for          import       return       var
+```
+
+整理后
+
+```go
+package  import
+func     return   defer
+const    var
+if       else     switch     case      default  fallthrough  break¹
+for      range    continue   break²    goto
+type     struct   interface  map
+go       chan     select
+```
+
+### Operators and punctuation
+
+```go
++    &     +=    &=     &&    ==    !=    (    )
+-    |     -=    |=     ||    <     <=    [    ]
+*    ^     *=    ^=     <-    >     >=    {    }
+/    <<    /=    <<=    ++    =     :=    ,    ;
+%    >>    %=    >>=    --    !     ...   .    :
+     &^          &^=
+```
+
+整理后
+
+```go
+算术运算符  +    -    *    /    %    ++   --
+关系运算符  ==   !=   <    <=   >    >=
+逻辑运算符  &&   ||   !
+位运算符    |    &    <<   >>   ^    &^
+赋值运算符  +=   -=   *=   /=   %=
+          |=   &=   <<=  >>=  ^=   &^=
+           =   :=
+其他运算符  &    *    .    <-   ...  ,    ^
+           ;   :
+          ( )   [ ]  { }
+```
+
+https://www.tutorialspoint.com/go/go_operators_precedence.htm
+
+Category       | Operator                          | Associativity
+---------------|-----------------------------------|---------------
+Postfix        | `()` `[]` `->` `.` `++` `--`      | Left to right
+Unary          | `+` `-` `!` `~` `++` `--` `*` `&` `sizeof` `^`                 | Right to left
+Multiplicative | `*` `/` `%`                       | Left to right
+Additive       | `+` `-`                           | Left to right
+Shift          | `<<` `>>`                         | Left to right
+Relational     | `<` `<=` `>` `>=`                 | Left to right
+Equality       | `==` `!=`                         | Left to right
+Bitwise AND    | `&`                               | Left to right
+Bitwise XOR    | `^`                               | Left to right
+Bitwise OR     | `\|`                              | Left to right
+Logical AND    | `&&`                              | Left to right
+Logical OR     | `\|\|`                            | Left to right
+Assignment     | `=` `+=` `-=` `*=` `/=` `%=` `>` `>=` `<` `<=` `&=` `^=` `\|=` | Right to left
+Comma          | `,`                               | Left to right
+
+### Operator precedence
+
+Unary operators have the highest precedence. As the `++` and `--` operators form statements, not expressions, they fall outside the operator hierarchy. As a consequence, statement `*p++` is the same as `(*p)++`.
+
+There are five precedence levels for binary operators. Multiplication operators bind strongest, followed by addition operators, comparison operators, `&&` (logical AND), and finally `||` (logical OR):
+
+```
+Precedence    Operator
+    5             *  /  %  <<  >>  &  &^
+    4             +  -  |  ^
+    3             ==  !=  <  <=  >  >=
+    2             &&
+    1             ||
+```
+
+Binary operators of the same precedence associate from left to right. For instance, `x / y * z` is the same as `(x / y) * z`.
+
+```
++x
+23 + 3*x[i]
+x <= f()
+^a >> b
+f() || g()
+x == y+1 && <-chanInt > 0
+```
+
+### Arithmetic operators
+
+```
++    sum                    integers, floats, complex values, strings
+-    difference             integers, floats, complex values
+*    product                integers, floats, complex values
+/    quotient               integers, floats, complex values
+%    remainder              integers
+
+&    bitwise AND            integers
+|    bitwise OR             integers
+^    bitwise XOR            integers
+&^   bit clear (AND NOT)    integers
+
+<<   left shift             integer << integer >= 0
+>>   right shift            integer >> integer >= 0
+```
+
+The C equivalent of the Go expression `x &^ y` is just `x & ~y`. That is literally "x AND (bitwise NOT of y)".
+
+```go
+// the ^ symbol is used as a unary operator to perform bitwise complement of an integer
+var x uint8 = 10         // binary: 00001010
+fmt.Printf("%08b\n", ^x) // binary: 11110101
+```
+
+
+## Types
+
+https://www.tutorialspoint.com/go/go_data_types.htm
+
+```go
+// 布尔型
+bool
+
+// 数字类型
+int   int8   int16    int32    int64
+uint  uint8  uint16   uint32   uint64
+byte  rune   uintptr
+
+float32    float64
+complex64  complex128
+
+// 字符串类型
+string
+
+// 派生类型 Derived types
+(a) Pointer types
+(b) Array types
+(c) Structure types
+(d) Union types
+(e) Function types
+(f) Slice types
+(g) Interface types
+(h) Map types
+(i) Channel Types
+```
+
+Basic Go Types
+
+|||
+|-----------|------------------
+| `bool`    | `true` `false`
+| `string`  | `"Hello World"`
+| `int`     |  `0` `-100` `999`
+| `float64` | `10.01` `-0.003`
+
+```go
+name := "gavin"
+name = "foo"
+
+func foo() string {
+  return "foo"
+}
+```
+
+String literals 字符串字面量 https://go.dev/ref/spec#String_literals
+
+* 解释型字符串字面量 interpreted string literals `""`：支持转义，但不能跨行
+* 原生字符串字面量 raw string literals ` `` `：支持多跨行，不支持转义序列，可包含除反引号外的任何字符。多用于书写多行消息、HTML以及正则表达式
+
+```
+string_lit             = raw_string_lit | interpreted_string_lit .
+raw_string_lit         = "`" { unicode_char | newline } "`" .
+interpreted_string_lit = `"` { unicode_value | byte_value } `"` .
+```
+
+```go
+`abc`                // same as "abc"
+`\n
+\n`                  // same as "\\n\n\\n"
+"\n"
+"\""                 // same as `"`
+```
+
+```go
+str := "hello大美"
+
+// 遍历字符串
+for index, s := range str {
+  fmt.Printf("%c %d\n", s, index)
+}
+
+// 访问字符串的字节
+for c := 0; c < len(str); c++ {
+  fmt.Printf("%c %v\n", str[c], str[c])
+}
+```
+
+
+
+
+Array: Fixed lenght list of things
+
+Slice: An array that can grow or shrink. Every element in a slice must be of same type
+
+
+```go
+for index, product := range products {
+  fmt.Println(product)
+}
+```
+
+### Struct types
+
+A field declaration may be followed by an optional string literal **tag**，Tag 由一对或几对键值对组成，通过空格来分隔键值。
+
+```go
+package main
+
+import (
+  "encoding/json"
+  "fmt"
+)
+
+type Person struct {
+  Name string `json:"name"`
+  Age int     `json:"age"`
+  Addr string `json:"addr,omitempty"`
+}
+
+func main() {
+  jack := Person{Name: "Jack", Age: 33}
+  data, err := json.Marshal(jack)
+  if err != nil {
+    panic(err)
+  }
+  fmt.Printf("%s\n", data)
+}
+```
+
+### Value Type vs Reference Type
+
+Value Types:
+* Boolean Type: `bool`
+* Numeric Types: int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64, float32, float64, complex64, complex128
+* String Type: `string`
+* Struct Types: User-defined structs where the fields are value types or other structs
+
+Reference Types:
+* Slices: `[]T` (e.g., `[]int`, `[]string`, etc.)
+* Maps: `map[K]V` (e.g., `map[string]int`, `map[int]bool`, etc.)
+* Channels: `chan T` (e.g., `chan int`, `chan string`, etc.)
+* Pointers: `*T` (e.g., `*int`, `*string`, etc.)
+* Functions: `func(args)` returnType (e.g., `func(int) bool`, `func(string) int`, etc.)
+* Interfaces: User-defined interfaces or built-in interfaces (e.g., io.Reader, error, etc.)
+
+It's important to note that *arrays in Go are value types*, but they are less commonly used compared to slices. Also, *interface values themselves are reference types, but* the underlying values they hold can be either value types or reference types.
+
+Understanding the distinction between these types is crucial for proper memory management and understanding how data is shared between variables.
+
+### Type assertions
+
+For an expression x of interface type and a type T, the primary expression
+
+```go
+x.(T)
+```
+
+```go
+// 先转成 any 再判断
+any(x).(T)
+// 如
+value, ok := any(input).(int)
+```
+
+
+
+
+
+
+## 其他
+
+### `iota`
+
+iota 是一个古希腊字母，在 Go 中表示常量计数器
+
+```go
+// Iota is a useful concept for creating incrementing constants in Go
+// use the `iota` identifier to tell the Go compiler you want the first value to start at 0
+// and then increment by 1 for each following constant
+const (
+  a = iota  // 0
+  b         // 1
+  c         // 2
+)
+
+const (
+  a1 = iota // 0   // 又一个 const 出现, iota 初始化为 0
+  a2 = iota // 1   // const 新增一行, iota 加1
+  a3 = 6    // 6   // 自定义一个常量
+  a4        // 6   // 不赋值就和上一行相同
+  a5 = iota // 4   // const 已经新增了 4行, 所以这里是 4
+)
+```
+
+### directive
+
+`//go:generate` https://go.dev/blog/generate
+
+```go
+//go:generate protoc --go_out=. idl/addressbook.proto
+```
+
+`//go:embed` https://pkg.go.dev/embed
+
+```go
+import _ "embed"
+
+//go:embed hello.txt
+var s string
+print(s)
+```
+
+```go
+package server
+
+import "embed"
+
+// content holds our static web server content.
+//go:embed image/* template/*
+//go:embed html/index.html
+var content embed.FS
+```
+
+
+
+## builtin
+
+https://pkg.go.dev/builtin
+
+The items documented here *are not actually in package builtin* but their descriptions here allow godoc to present documentation for the language's special identifiers.
+
+```go
+// Constants
+true
+false
+
+// Variables
+nil
+
+// func
+func append(slice []Type, elems ...Type) []Type  // append elements to the end of a slice, returns the updated slice
+func cap(v Type) int  // the capacity of v, according to its type
+
+func len(v Type) int  // the length of v, according to its type
+func make(t Type, size ...IntegerType) Type
+
+func print(args ...Type)
+func println(args ...Type)
+
+// type
+type ComplexType complex64
+type FloatType float32
+type IntegerType int         // 「类型再定义」，新定义了一个类型，两个类型的变量无法直接相互赋值或比较
+type Type int                // 我们可以说 int 是 Type 的「潜在类型」
+type Type1 int
+type bool bool
+type byte = uint8            // 「别名类型」，两个类型的变量可以直接相互赋值
+type complex128 complex128
+```
+
+* 知识点-别名类型：别名类型与其源类型只有名称不同，其他都是完全相同的。别名类型主要是为了代码重构而存在的（当类型后续可能要修改时，提前搞一个类型别名，后续更换实际类型就非常方便）。
+* 知识点-潜在类型：某个类型在本质上是哪个类型，潜在类型相同的不同类型的值之间可以安全地进行类型转换
+
+
+```go
+/*
+  Package builtin provides documentation for Go's predeclared identifiers.
+  The items documented here are not actually in package builtin
+  but their descriptions here allow godoc to present documentation
+  for the language's special identifiers.
+*/
+package builtin
+
+// bool is the set of boolean values, true and false.
+type bool bool
+
+// true and false are the two untyped boolean values.
+const (
+  true  = 0 == 0 // Untyped bool.
+  false = 0 != 0 // Untyped bool.
+)
+
+// uint8 is the set of all unsigned 8-bit integers.
+// Range: 0 through 255.
+type uint8 uint8
+
+// uint16 is the set of all unsigned 16-bit integers.
+// Range: 0 through 65535.
+type uint16 uint16
+
+// uint32 is the set of all unsigned 32-bit integers.
+// Range: 0 through 4294967295.
+type uint32 uint32
+
+// uint64 is the set of all unsigned 64-bit integers.
+// Range: 0 through 18446744073709551615.
+type uint64 uint64
+
+// int8 is the set of all signed 8-bit integers.
+// Range: -128 through 127.
+type int8 int8
+
+// int16 is the set of all signed 16-bit integers.
+// Range: -32768 through 32767.
+type int16 int16
+
+// int32 is the set of all signed 32-bit integers.
+// Range: -2147483648 through 2147483647.
+type int32 int32
+
+// int64 is the set of all signed 64-bit integers.
+// Range: -9223372036854775808 through 9223372036854775807.
+type int64 int64
+
+// float32 is the set of all IEEE-754 32-bit floating-point numbers.
+type float32 float32
+
+// float64 is the set of all IEEE-754 64-bit floating-point numbers.
+type float64 float64
+
+// complex64 is the set of all complex numbers with float32 real and
+// imaginary parts.
+type complex64 complex64
+
+// complex128 is the set of all complex numbers with float64 real and
+// imaginary parts.
+type complex128 complex128
+
+// string is the set of all strings of 8-bit bytes, conventionally but not
+// necessarily representing UTF-8-encoded text. A string may be empty, but
+// not nil. Values of string type are immutable.
+type string string
+
+// int is a signed integer type that is at least 32 bits in size. It is a
+// distinct type, however, and not an alias for, say, int32.
+type int int
+
+// uint is an unsigned integer type that is at least 32 bits in size. It is a
+// distinct type, however, and not an alias for, say, uint32.
+type uint uint
+
+// uintptr is an integer type that is large enough to hold the bit pattern of
+// any pointer.
+type uintptr uintptr
+
+// byte is an alias for uint8 and is equivalent to uint8 in all ways. It is
+// used, by convention, to distinguish byte values from 8-bit unsigned
+// integer values.
+type byte = uint8
+
+// rune is an alias for int32 and is equivalent to int32 in all ways. It is
+// used, by convention, to distinguish character values from integer values.
+type rune = int32
+
+// any is an alias for interface{} and is equivalent to interface{} in all ways.
+type any = interface{}
+
+// comparable is an interface that is implemented by all comparable types
+// (booleans, numbers, strings, pointers, channels, arrays of comparable types,
+// structs whose fields are all comparable types).
+// The comparable interface may only be used as a type parameter constraint,
+// not as the type of a variable.
+type comparable interface{ comparable }
+
+// 常量计数器
+// iota is a predeclared identifier representing the untyped integer ordinal
+// number of the current const specification in a (usually parenthesized)
+// const declaration. It is zero-indexed.
+const iota = 0 // Untyped int.
+
+// nil is a predeclared identifier representing the zero value for a
+// pointer, channel, func, interface, map, or slice type.
+var nil Type // Type must be a pointer, channel, func, interface, map, or slice type
+
+// Type is here for the purposes of documentation only. It is a stand-in
+// for any Go type, but represents the same type for any given function
+// invocation.
+type Type int
+
+// Type1 is here for the purposes of documentation only. It is a stand-in
+// for any Go type, but represents the same type for any given function
+// invocation.
+type Type1 int
+
+// IntegerType is here for the purposes of documentation only. It is a stand-in
+// for any integer type: int, uint, int8 etc.
+type IntegerType int
+
+// FloatType is here for the purposes of documentation only. It is a stand-in
+// for either float type: float32 or float64.
+type FloatType float32
+
+// ComplexType is here for the purposes of documentation only. It is a
+// stand-in for either complex type: complex64 or complex128.
+type ComplexType complex64
+
+// The append built-in function appends elements to the end of a slice. If
+// it has sufficient capacity, the destination is resliced to accommodate the
+// new elements. If it does not, a new underlying array will be allocated.
+// Append returns the updated slice. It is therefore necessary to store the
+// result of append, often in the variable holding the slice itself:
+//  slice = append(slice, elem1, elem2)
+//  slice = append(slice, anotherSlice...)
+// As a special case, it is legal to append a string to a byte slice, like this:
+//  slice = append([]byte("hello "), "world"...)
+func append(slice []Type, elems ...Type) []Type
+
+// The copy built-in function copies elements from a source slice into a
+// destination slice. (As a special case, it also will copy bytes from a
+// string to a slice of bytes.) The source and destination may overlap. Copy
+// returns the number of elements copied, which will be the minimum of
+// len(src) and len(dst).
+func copy(dst, src []Type) int
+
+// The delete built-in function deletes the element with the specified key
+// (m[key]) from the map. If m is nil or there is no such element, delete
+// is a no-op.
+func delete(m map[Type]Type1, key Type)
+
+// The len built-in function returns the length of v, according to its type:
+//  Array: the number of elements in v.
+//  Pointer to array: the number of elements in *v (even if v is nil).
+//  Slice, or map: the number of elements in v; if v is nil, len(v) is zero.
+//  String: the number of bytes in v.
+//  Channel: the number of elements queued (unread) in the channel buffer;
+//           if v is nil, len(v) is zero.
+// For some arguments, such as a string literal or a simple array expression, the
+// result can be a constant. See the Go language specification's "Length and
+// capacity" section for details.
+func len(v Type) int
+
+// The cap built-in function returns the capacity of v, according to its type:
+//  Array: the number of elements in v (same as len(v)).
+//  Pointer to array: the number of elements in *v (same as len(v)).
+//  Slice: the maximum length the slice can reach when resliced;
+//  if v is nil, cap(v) is zero.
+//  Channel: the channel buffer capacity, in units of elements;
+//  if v is nil, cap(v) is zero.
+// For some arguments, such as a simple array expression, the result can be a
+// constant. See the Go language specification's "Length and capacity" section for
+// details.
+func cap(v Type) int
+
+// The make built-in function allocates and initializes an object of type
+// slice, map, or chan (only). Like new, the first argument is a type, not a
+// value. Unlike new, make's return type is the same as the type of its
+// argument, not a pointer to it. The specification of the result depends on
+// the type:
+//  Slice: The size specifies the length. The capacity of the slice is
+//  equal to its length. A second integer argument may be provided to
+//  specify a different capacity; it must be no smaller than the
+//  length. For example, make([]int, 0, 10) allocates an underlying array
+//  of size 10 and returns a slice of length 0 and capacity 10 that is
+//  backed by this underlying array.
+//  Map: An empty map is allocated with enough space to hold the
+//  specified number of elements. The size may be omitted, in which case
+//  a small starting size is allocated.
+//  Channel: The channel's buffer is initialized with the specified
+//  buffer capacity. If zero, or the size is omitted, the channel is
+//  unbuffered.
+func make(t Type, size ...IntegerType) Type
+
+// The new built-in function allocates memory. The first argument is a type,
+// not a value, and the value returned is a pointer to a newly
+// allocated zero value of that type.
+func new(Type) *Type
+
+// The complex built-in function constructs a complex value from two
+// floating-point values. The real and imaginary parts must be of the same
+// size, either float32 or float64 (or assignable to them), and the return
+// value will be the corresponding complex type (complex64 for float32,
+// complex128 for float64).
+func complex(r, i FloatType) ComplexType
+
+// The real built-in function returns the real part of the complex number c.
+// The return value will be floating point type corresponding to the type of c.
+func real(c ComplexType) FloatType
+
+// The imag built-in function returns the imaginary part of the complex
+// number c. The return value will be floating point type corresponding to
+// the type of c.
+func imag(c ComplexType) FloatType
+
+// The close built-in function closes a channel, which must be either
+// bidirectional or send-only. It should be executed only by the sender,
+// never the receiver, and has the effect of shutting down the channel after
+// the last sent value is received. After the last value has been received
+// from a closed channel c, any receive from c will succeed without
+// blocking, returning the zero value for the channel element. The form
+//  x, ok := <-c
+// will also set ok to false for a closed channel.
+func close(c chan<- Type)
+
+// The panic built-in function stops normal execution of the current
+// goroutine. When a function F calls panic, normal execution of F stops
+// immediately. Any functions whose execution was deferred by F are run in
+// the usual way, and then F returns to its caller. To the caller G, the
+// invocation of F then behaves like a call to panic, terminating G's
+// execution and running any deferred functions. This continues until all
+// functions in the executing goroutine have stopped, in reverse order. At
+// that point, the program is terminated with a non-zero exit code. This
+// termination sequence is called panicking and can be controlled by the
+// built-in function recover.
+func panic(v any)
+
+// The recover built-in function allows a program to manage behavior of a
+// panicking goroutine. Executing a call to recover inside a deferred
+// function (but not any function called by it) stops the panicking sequence
+// by restoring normal execution and retrieves the error value passed to the
+// call of panic. If recover is called outside the deferred function it will
+// not stop a panicking sequence. In this case, or when the goroutine is not
+// panicking, or if the argument supplied to panic was nil, recover returns
+// nil. Thus the return value from recover reports whether the goroutine is
+// panicking.
+func recover() any
+
+// The print built-in function formats its arguments in an
+// implementation-specific way and writes the result to standard error.
+// Print is useful for bootstrapping and debugging; it is not guaranteed
+// to stay in the language.
+func print(args ...Type)
+
+// The println built-in function formats its arguments in an
+// implementation-specific way and writes the result to standard error.
+// Spaces are always added between arguments and a newline is appended.
+// Println is useful for bootstrapping and debugging; it is not guaranteed
+// to stay in the language.
+func println(args ...Type)
+
+// The error built-in interface type is the conventional interface for
+// representing an error condition, with the nil value representing no error.
+type error interface {
+  Error() string
+}
+```
+

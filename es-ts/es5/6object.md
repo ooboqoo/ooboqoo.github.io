@@ -71,7 +71,7 @@ alert(descriptor.configurable);  // false
 <div>
 <h2>6.2.1 工厂方式</h2>
 <h3>原始的方式</h3>
-<p>因为对象的属性可以在对象创建后动态定义，所有许多开发者都在 JavaScript 最初引入时编写类似下面的代码：</p>
+<p>因为对象的属性可以在对象创建后动态定义，所以许多开发者都在 JavaScript 最初引入时编写类似下面的代码：</p>
 <pre>var oCar = new Object;
 oCar.color = "blue";
 oCar.doors = 4;
@@ -246,7 +246,7 @@ function Car(sColor,iDoors,iMpg) {
 
 <h3>2. 原型与in操作符</h3>
 <p>有两种方式使用 in 操作符：单独使用和 for-in 循环中使用。</p>
-<p>单独使用时，in 操作符会在通过对象能够访问给定属性是返回true，无论该属性存在于实例中还是原型中。</p>
+<p>单独使用时，in 操作符会在通过对象能够访问给定属性时返回true，无论该属性存在于实例中还是原型中。</p>
 <p>同时使用 hasOwnProperty() 方法和 in 操作符，就可以确定该属性到底是存在于对象中还是原型中：</p>
 <pre>
 function hasPrototypeProperty(object, name){

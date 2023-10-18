@@ -1,4 +1,4 @@
-# SQL/MySQL 必知必会 1
+# SQL/MySQL 必知必会
 
 <script>ooboqoo.contentsRegExp = /H[123]/;</script>
 
@@ -31,53 +31,47 @@ SQL (发 S-Q-L 或 sequel)是结构化查询语言 Structured Query Language 的
 
 ### SQL 语法
 
-SQL 关键字不区分大小写。但是表名、列名、值名会根据 DBMS 会有所不同。许多开发人员喜欢对 SQL 关键字使用大写，而对列名和表名使用小写，这样做使代码更易于阅读和调试。  
-关键字不能用作表或列的名字。  
-一行中有多个 SQL 需用 `;` 分隔，如果一行只有一个语句，是否可省略 `;` 视具体数据库而定。  
-处理 SQL 语句时，所有空格都会被忽略，所以空格多少、是否分行都不影响。多数人认为将 SQL 语句分成多行跟容易阅读和调试。
+*大小写* - SQL 关键字不区分大小写。但是表名、列名、值名会根据 DBMS 会有所不同。许多开发人员喜欢对 SQL 关键字使用大写，而对列名和表名使用小写，这样做使代码更易于阅读和调试。
 
-支持行内注释 `-- 注释内容` 和多行注释 `/* 多行内容 */`
+关键字不能用作表或列的名字。
+
+一行中有多个 SQL 需用 `;` 分隔，如果一行只有一个语句，是否可省略 `;` 视具体数据库而定。
+
+*空格与换行* - 处理 SQL 语句时，所有空格都会被忽略，所以空格多少、是否分行都不影响。多数人认为将 SQL 语句分成多行跟容易阅读和调试。
+
+*注释* - 支持行内注释 `-- 注释内容` 和多行注释 `/* 多行内容 */`
 
 ### 子句 clause
 
 SQL 语句由子句构成，有些子句是必需的，有些则是可选的。一个子句通常由一个关键字加上所提供的数据组成。
 
 
-## 检索数据
-
-*结束 SQL 语句* - 多条 SQL 语句必须以分号 `;` 分隔。单条语句后可不加分号。使用 mysql 命令时，必须加上分号来结束 SQL 语句。
-
-*SQL 语句和大小写* - SQL 语句不区分大小写，许多开发人员喜欢对所有 SQL 关键字使用大写，而对所有列和表名使用小写，这样做使代码更易于阅读和调试。
-
-*使用空格* - 在处理 SQL 语句时，其中所有空格都被忽略。多数开发人员认为将 SQL 语句分成多行更易于阅读和调试。
+## 检索数据 `SELECT`
 
 *不能部分使用 DISTINCT* - DISTINCT 关键字应用于所有列而不仅是前置它的列。
 
-### 排序
-
-**子句 clause** - SQL 语句由子句构成，一个子句通常由一个关键字和所提供的数据组成。
+### 排序 `ORDER BY`
 
 *通过非选择列进行排序* - 一般 `ORDER BY` 子句使用某个显示列进行排序，但用非检索的列排序也是完全合法的。
 
 *多个列排序* - 按多个列排序，只要指定列名，列名之间用逗号分开即可。排序完全按所规定的顺序进行，如对姓、名两列排序，会先按姓排序，然后再每个姓中再按名排序。
 
-*在多个列上降序排序* - 如果想在多个列上进行降序排序，必须对每个列指定 DESC 关键字。
+*在多个列上降序排序* - 如果想在多个列上进行降序排序，必须对每个列指定 `DESC` 关键字。
 
 *区分大小写和排序顺序* - 在对文本性的数据进行排序时，A与a相同吗？a位于B之前还是位于Z之后？答案取决于数据库如何设置。
 
 ```sql
-SELECT prod_id, prod_price, prod_name FROM products ORDER BY prod_price DESC, prod_name;
+SELECT prod_id, prod_price, prod_name FROM product ORDER BY prod_price DESC, prod_name;
 ```
 
-
-### 过滤
+### 过滤 `WHERE`
 
 `AND` 的优先级要高于 `OR`，可以通过圆括号 `()` 进行分组。任何同时使用 `AND` 和 `OR` 的 `WHERE` 查询子句，都应该使用 `()` 进行分组，这样有利于消除歧义。
 
 `IN` 操作符用来指定条件范围，范围中的每个条件都可以进行匹配。`WHERE vend_id IN ('DLL01', 'BRS01')`
 
 
-### 通配符
+#### 通配符
 
 * `%` 匹配 0 到 多个字符，注意无法匹配 `NULL`
 * `_` 或 `?` 匹配单个字符，MySQL 用 `_`
@@ -86,42 +80,45 @@ SELECT prod_id, prod_price, prod_name FROM products ORDER BY prod_price DESC, pr
 通配符是一种极其重要和有用的搜索工具，但要注意对性能的影响，尽量不用。
 
 
-### 正则表达式
-
-
-### 计算字段
-
-存储在数据库表中的数据一般不是应用程序所需要的格式。我们需要直接从数据库中检索出转换、计算或格式化过的数据。这就是计算字段可以派上用场的地方了。计算字段并不实际存在于数据库表中，而是运行时在 SELECT 语句内创建的。
-
-> 许多转换和格式化工作也可以放到客户端处理，但一般来说，在数据库服务器上完成这些操作比在客户端中完成要快得多。
-
-```sql
-/* 计算字段 & 别名 */
-SELECT Concat(vend_name, ' (', vend_country, ')') AS vend_title FROM Vendors ORDER BY vend_name;
-/* 执行算术计算 */
-SELECT 3 * 2; SELECT Trim('  abc'); SELECT Now();  -- 省略 FROM 子句后就是简单地访问和处理表达式
-```
-
-`SELECT` 语句为测试、检验函数和计算提供了很好的方法。如 `SELECT 3*2` 将返回 6。
-
-### 别名
-
-`SELECT` 语句可以很好地拼接地址字段。但这个新计算列没有名字，它只是一个值。一个未命名的列不能用于客户端应用中，因为客户端没有办法引用它。为了解决这个问题，SQL 支持列别名。别名 alias 是一个字段或值的替换名。别名用 `AS` 关键字赋予。
-
-在很多 DBMS 中，`AS` 关键字是可选的，不过最好不要省略，这被视为一条最佳实践。
-
-别名还有其他用途。如，当实际的表列名包含非法字符(如空格)时重命名，当原名字含混或容易误解时扩充它。
-
-别名有时也称为导出列 derived column。
+#### 正则表达式
 
 
 ### 函数
 
 SQL 的数据处理函数在格式化、处理和过滤数据中非常有用，但各个 DBMS 的实现和支持情况差异较大，影响代码的可移植性。
 
+```sql
+/* 执行算术计算 */
+SELECT 3 * 2; SELECT TRIM('  abc'); SELECT NOW();  -- 省略 FROM 子句后就是简单地访问和处理表达式
+```
+
+`SELECT` 语句为测试、检验函数和计算提供了很好的方法。如 `SELECT 3*2` 将返回 6。
+
+### 别名 `AS`
+
+别名 alias 是一个字段或值的替换名。如，当实际的表列名包含非法字符(如空格)时重命名，当原名字含混或容易误解时扩充它。
+
+别名有时也称为导出列 derived column。别名用 `AS` 关键字赋予。
+
+在很多 DBMS 中，`AS` 关键字是可选的，不过最好不要省略，这被视为一条最佳实践。
+
+### 计算字段
+
+通过函数计算得到的只是一个值，没有名字，因此客户端没法引用它，需要使用 `AS` 命名这个新字段。
+
+计算字段可以对检索出的字段进行 *转换、计算、格式化*。计算字段是运行时在 SELECT 语句内动态创建的。
+
+许多转换和格式化工作也可以放到客户端处理，但在数据库服务器上完成这些操作 *比客户端要快得多*。
+
+```sql
+/* 计算字段 & 别名 */
+SELECT CONCAT(vend_name, ' (', vend_country, ')') AS vend_title FROM vendor ORDER BY vend_name;
+```
+
+
 ## 汇总数据
 
-## 分组数据
+## 分组数据 `GROUP BY`
 
 ### 创建分组
 
@@ -135,22 +132,22 @@ SQL 的数据处理函数在格式化、处理和过滤数据中非常有用，�
 * 如果分组列中包含具有 NULL 值的行，则 NULL 将作为一个分组返回。如果列中有多行 NULL 值，它们将分为一组。
 * GROUP BY 子句必须出现在 WHERE 子句之后， ORDER BY 子句之前。
 
-### 过滤分组
+### 过滤分组 `HAVING`
 
 因为 `WHERE` 过滤指定的是行而不是分组，为此 SQL 提供了 `HAVING` 子句。`HAVING` 非常类似于 `WHERE`。事实上，目前为止所学过的所有类型的 `WHERE` 子句都可以用 `HAVING` 来替代。唯一的差别是，`WHERE` 过滤行，而 `HAVING` 过滤分组。
 
 
-## 子查询
+## 子查询 `()`
 
 ### 利用子查询进行过滤
 
 ```sql
-SELECT cust_id FROM Orders WHERE order_num IN (
-  SELECT order_num FROM OrderItems WHERE prod_id = 'RGAN01'
+SELECT cust_id FROM orders WHERE order_num IN (
+  SELECT order_num FROM order_items WHERE prod_id = 'RGAN01'
 );
 ```
 
-在 SELECT 语句中，子查询总是从内向外处理。在处理上面的 SELECT 语句时， DBMS 实际上执行了两个操作。
+*SELECT 语句中的子查询总是「从内向外」处理*。在处理上面的 SELECT 语句时， DBMS 实际上执行了两个操作。
 
 ```sql
 SELECT order_num FROM orderitems WHERE prod_id='RGAN01'
@@ -159,14 +156,14 @@ SELECT cust_id FROM orders WHERE order_num IN (20007, 20008)
 
 在 `WHERE` 子句中使用子查询能够编写出功能很强且很灵活的 SQL 语句。对于能嵌套的子查询的数目没有限制，不过在实际使用时由于性能的限制，不能嵌套太多的子查询。
 
-注：作为子查询的 `SELECT` 语句只能查询单个列，企图检索多个列将返回错误。
+注：作为子查询的 `SELECT` 语句 *只能查询单个列*，企图检索多个列将返回错误。
 
 ### 作为计算字段使用子查询
 
 ```sql
 SELECT cust_name, cust_state, (
-  SELECT COUNT(*) FROM Orders WHERE Orders.cust_id = Customers.cust_id
-) AS orders FROM Customers ORDER BY cust_name;
+  SELECT COUNT(*) FROM orders WHERE orders.cust_id = customers.cust_id
+) AS order_num FROM customers ORDER BY cust_name;
 ```
 
 注：虽然这里给出的样例代码运行良好，但它并不是解决这种数据检索的最有效方法。后面学习 `JOIN` 时还会遇到这个例子。
@@ -198,7 +195,7 @@ SELECT a.id AS a_id, a.mark AS a_mark, b.id AS b_id, b.mark AS b_mark
 FROM a RIGHT JOIN b ON a.mark = b.mark;
 
 /* FULL OUTER JOIN (MySQL 不直接支持，通过 UNION 模拟实现) */
-SELECT * FROM a LEFT  JOIN b ON a.mark = b.mark
+SELECT * FROM a LEFT JOIN b ON a.mark = b.mark
 UNION
 SELECT * FROM a RIGHT JOIN b ON a.mark = b.mark;
 
@@ -213,7 +210,7 @@ FROM a RIGHT JOIN b ON a.mark = b.mark
 WHERE a.mark IS NULL;
 
 /* FULL OUTER JOIN EXCLUDING INNER JOIN */
-SELECT * FROM a LEFT  JOIN b ON a.mark = b.mark WHERE b.mark IS NULL
+SELECT * FROM a LEFT JOIN b ON a.mark = b.mark WHERE b.mark IS NULL
 UNION ALL
 SELECT * FROM a RIGHT JOIN b ON a.mark = b.mark WHERE a.mark IS NULL;
 ```
@@ -222,9 +219,9 @@ SELECT * FROM a RIGHT JOIN b ON a.mark = b.mark WHERE a.mark IS NULL;
 
 #### 关系表
 
-关键是，相同的数据出现多次决不是一件好事，这是关系数据库设计的基础。关系表的设计就是要把信息分解成多个表，一类数据一个表。各表通过某些共同的值互相关联(所以才叫关系数据库)。
+相同的数据出现多次决不是一件好事，这是关系数据库设计的基础。*关系表的设计就是要把信息分解成多个表，一类数据一个表*。各表通过某些共同的值互相关联(所以才叫关系数据库)。
 
-总之，关系数据可以有效地存储，方便地处理。因此，关系数据库的可伸缩性远比非关系数据库要好。
+关系数据可以有效地存储，方便地处理。因此，关系数据库的可伸缩性远比非关系数据库要好。
 
 #### 为什么使用联结
 
@@ -236,18 +233,7 @@ SELECT * FROM a RIGHT JOIN b ON a.mark = b.mark WHERE a.mark IS NULL;
 
 ### 创建联结
 
-```sql
-/* 等值联结 */
-SELECT vend_name, prod_name, prod_price
-FROM Vendors, Products
-WHERE Vendors.vend_id = Products.vend_id;
-/* 内联结 */
-SELECT vend_name, prod_name, prod_price
-FROM Vendors INNER JOIN Products
-  ON Vendors.vend_id = Products.vend_id;
-```
-
-#### WHERE 子句的重要性
+### WHERE 子句的重要性
 
 在一条 SELECT 语句中联结几个表时，相应的关系是在运行中构造的。在数据库表的定义中没有指示 DBMS 如何对表进行联结的内容。你必须自己做这件事情。
 
@@ -262,13 +248,10 @@ FROM Vendors INNER JOIN Products
 ### 13.1 使用表别名
 
 ```sql
-SELECT cust_name FROM Customers AS C, Orders AS O WHERE C.cust_id = O.cust_id
+SELECT cust_name FROM customers AS t1, orders AS t2 WHERE t1.cust_id = t2.cust_id
 ```
 
-
-### 13.2 使用不同类型的联结
-
-#### 自联结
+### 自联结
 
 自联结其实是内联结的一种特殊用法。
 
@@ -277,7 +260,7 @@ SELECT c1.cust_id, c1.cust_name, c1.cust_contact FROM Customers AS c1, Customers
     WHERE c1.cust_name = c2.cust_name AND c2.cust_contact = 'Jim Jones';
 ```
 
-#### 自然联结
+### 自然联结
 
 无论何时对表进行联结，应该至少有一列不止出现在一个表中(被联结的列)。标准的联结返回所有数据，相同的列甚至多次出现。自然联结排除多次出现，使每一列只返回一次。怎样完成这项工作呢？答案是，系统不完成这项工作，由你自己完成它。
 
@@ -289,7 +272,7 @@ SELECT C.*, O.order_num, O.order_date, OI.prod_id, OI.quantity, OI.item_price
     WHERE C.cust_id = O.cust_id AND OI.order_num = O.order_num AND prod_id = 'RGAN01';
 ```
 
-#### 外联结
+### 外联结
 
 许多联结将一个表中的行与另一个表中的行相关联，但有时候需要包含没有关联行的那些行。例如，可能需要使用联结完成以下工作：
 
@@ -305,34 +288,35 @@ SELECT C.*, O.order_num, O.order_date, OI.prod_id, OI.quantity, OI.item_price
 
 
 
-## 组合查询
+## 组合查询 `UNION`
 
-利用 UNION 可把多条查询的结果作为一条组合查询返回。使用 UNION 可极大地简化复杂的 WHERE 子句，简化从多个表中检索数据的工作。
+UNION 可把多条查询的结果作为一条组合查询返回。可极大简化复杂的 WHERE 子句，简化从多个表中检索数据的工作。
 
 组合查询通常称为 **并 union** 或 **复合查询 compound query**。
 
 有两种情况下需要使用组合查询：
-  * 在单个查询中从不同的表返回类似结构的数据
-  * 对单个表执行多个查询，按单个查询返回数据
+* 在单个查询中从不同的表返回类似结构的数据
+* 对单个表执行多个查询，按单个查询返回数据
 
 ```sql
 /* 找出单价小于5的物品 + 供应商 1001 和 1002 生产的所有物品 */
 SELECT vend_id, prod_id, prod_price FROM product WHERE prod_price < 5
 UNION
 SELECT vend_id, prod_id, prod_price FROM product WHERE vend_id IN (1001, 1002);
+
 /* 或采用单条 SELECT 语句 */
 SELECT vend_id, prod_id, prod_price FROM product
 WHERE prod_price < 5 OR vend_id IN (1001, 1002);
 ```
 
-#### UNION ALL 与 UNION
+### UNION ALL 与 UNION
 
-`UNION` 会从查询结果集中自动去除重复的行，它的行为与单条 SELECT 语句中使用多个 WHERE 子句条件一样。  
+`UNION` 会从查询结果集中 *自动去除重复的行*，它的行为与单条 SELECT 语句中使用多个 WHERE 子句条件一样。  
 如果需要每个条件的匹配行全部出现(包括重复行)，则必须使用 `UNION ALL`。
 
-#### 对组合结果排序
+### 对组合结果排序
 
-在用 `UNION` 查询时，只能使用一条 `ORDER BY` 子句，它必须出现在最后一条 SELECT 语句之后。对于结果集，不存在用一种方式排序一部分，而有用另一种方式排序另一部分的情况。
+在用 `UNION` 查询时，只能使用一条 `ORDER BY` 子句，它必须出现在最后一条 SELECT 语句之后。对于结果集，不存在用一种方式排序一部分，而又用另一种方式排序另一部分的情况。
 
 ```sql
 SELECT vend_id, prod_id, prod_price FROM product WHERE prod_price < 5
@@ -341,5 +325,134 @@ SELECT vend_id, prod_id, prod_price FROM product WHERE vend_id IN (1001, 1002)
 ORDER BY vend_id, prod_price;
 ```
 
+
 ## 全文本搜索
+
+
+
+## 表操作
+
+### 创建表
+
+一般有两种创建表的方法：
+  * 使用具有交互式创建和管理表的工具
+  * 直接用 SQL 语句创建
+
+```sql
+CREATE TABLE `customers` (
+  `cust_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `cust_name` CHAR(50) NOT NULL COMMENT '顾客姓名',
+  `cust_email` CHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`cust_id`)
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=10006;
+```
+
+#### AUTO_INCREMENT
+
+每个表只允许一个 AUTO_INCREMENT 列，而且它必须被索引(如，通过使它成为主键)。
+
+覆盖 AUTO_INCREMENT - 你可以简单地在 INSERT 语句中指定一个值，只要它是唯一的，该值将被用来替代自动生成的值。后续的增量将开始使用该手工插入的值。
+
+确定 AUTO_INCREMENT 值 - 可使用 last_insert_id() 函数获取
+
+#### DEFAULT
+
+许多数据库开发人员使用默认值而不是NULL列，特别是对用于计算或数据分组的列更是如此。
+
+#### 引擎类型
+
+每个 DBMS 内都有一个内部引擎来管理和处理数据，或者说都有一个内部引擎来出来 SQL 语句。MySQL 打包了多个引擎，它们具有各自不同的功能和特性，为不同的任务选择正确的引擎能获得良好的功能和灵活性。
+
+InnoDB 是一个可靠的事务处理引擎，但不支持全文本搜索。  
+MEMORY 的功能等同于 MyISAM，但由于数据存储在内存中，速度很快(特别适合于临时表)。  
+MyISAM 是一个性能极高的引擎，它支持全文本搜索，但不支持事务处理。
+
+*外键不能跨引擎* - 混用引擎类型有一个大缺陷，外键(用于强制实施引用完整性)不能跨引擎，即，使用一个引擎的表不能引用具有使用不同引擎的表的外键。
+
+### 更新表
+
+理想状态下，当表中存储数据以后，该表就不应该再被更新。在表的设计过程中需要花费大量时间来考虑，以便后期不对该表进行大的改动。
+
+ALTER TABLE 的一种常见用途是定义外键。
+
+```sql
+ALTER TABLE vendors ADD vend_phone CHAR(20);
+
+ALTER TABLE vendors DROP COLUMN vend_phone;
+
+ALTER TABLE orders ADD CONSTRAINT fk_orders_customers
+FOREIGN KEY (cust_id) REFERENCES customers (cust_id);
+```
+
+复杂的表结构更改一般需要手动删除过程，它涉及以下步骤：
+* 用新的列布局创建一个新表
+* 使用 INSERT SELECT 语句从旧表复制数据到新表。如有必要，可使用转换函数和计算字段
+* 检验包含所需数据的新表
+* 重命名旧表(如确定也可以删除它)
+* 重命名新表
+* 根据需要，重新创建触发器、存储过程、索引和外键
+
+### 删除/重命名表
+
+```sql
+DROP TABLE customers2;
+
+RENAME TABLE backup_customers TO customers,
+             backup_vendors TO vendors;
+```
+
+## 索引
+
+在关系数据库中，如果有上万甚至上亿条记录，在查找记录的时候，想要获得非常快的速度，就需要使用索引。
+
+索引是关系数据库中对某一列或多个列的值进行预排序的数据结构。通过使用索引，可以让数据库系统不必扫描整个表，而是直接定位到符合条件的记录，这样就大大加快了查询速度。
+
+*索引的效率取决于索引列的值是否散列*，即该列的值如果越互不相同，那么索引效率越高。反过来，如果记录的列存在大量相同的值，例如性别这种就没有意义。
+
+可以对一张表创建多个索引。索引的优点是提高了查询效率，缺点是在插入、更新和删除记录时，需要同时修改索引，因此，索引越多，插入、更新和删除记录的速度就越慢。
+
+```sql
+ALTER TABLE student ADD INDEX idx_name_score (name, score);  -- 索引名称是任意的
+```
+
+### 唯一索引
+
+在设计关系数据表的时候，看上去唯一的列，例如身份证号、邮箱地址等，因为他们具有业务含义，因此不宜作为主键。
+
+但是，这些列根据业务要求，又具有唯一性约束：即不能出现两条记录存储了同一个身份证号。这个时候，就可以给该列添加一个唯一索引。例如，我们假设 student 表的 name 不能重复：
+
+```sql
+ALTER TABLE student ADD UNIQUE INDEX uni_name (name);
+```
+
+通过 `UNIQUE` 关键字我们就添加了一个唯一索引。
+
+也可以只对某一列添加一个唯一约束而不创建唯一索引：
+
+```sql
+ALTER TABLE students ADD CONSTRAINT uni_name UNIQUE (name);
+```
+
+这种情况下，name 列没有索引，但仍然具有唯一性保证。
+
+无论是否创建索引，对于用户和应用程序来说，使用关系数据库不会有任何区别。这里的意思是说，当我们在数据库中查询时，如果有相应的索引可用，数据库系统就会自动使用索引来提高查询效率，如果没有索引，查询也能正常执行，只是速度会变慢。因此，索引可以在使用数据库的过程中逐步优化。
+
+
+
+## 视图
+
+视图提供了一种封装 `SELECT` 语句的层次，可用来简化数据处理，重新格式化或保护基础数据。
+
+
+## 游标
+
+
+## 触发器
+
+
+## 事务
+
 

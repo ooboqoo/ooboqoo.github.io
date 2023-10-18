@@ -9,17 +9,75 @@ https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
 
 ## 最新笔记
 
+https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors
+
 2020/12/10 今天又在搞跨域的问题，来更新下
 
 基本设置
-* 后端要响应 `Access-Control-Allow-Origin`
+* 所有请求后端都要响应 `Access-Control-Allow-Origin`
+
+`OPTIONS` 请求始终都不会带 Cookie
+* 所以 OG SSO 的 302 跳转发生在 POST 请求上
+
+JS文件
+* script 的用法，不会出现跨域
+* `import(module_url)` 会出现跨域报错，但配 `*` 就行，即 `Access-Control-Allow-Origin: *`
 
 如果需要跨域发送 Cookie
-* `Access-Control-Allow-Origin` 字段必须是具体的地址，不能使用通配符 `*`
+* `Access-Control-Allow-Origin` 字段必须是具体的地址，使用通配符 `*` 不好使
+    - Reason: Credential is not supported if the CORS header `Access-Control-Allow-Origin` is `*`
 * `Access-Control-Allow-Credentials` 字段设置为 `true`
-* 【新版 Chrome】Cookie 的 `Secure` 属性必须开启，相应地，API 站点必须支持 HTTPS 访问
+* 【新版 Chrome】Cookie 的 `Secure` 属性必须开启，相应地，*API 站点必须使用 HTTPS 访问*
 * 【新版 Chrome】Cookie 的 `SameSite` 属性必须为 `None`
 
+```js
+// @koa/cos
+ctx.set('Access-Control-Allow-Origin', origin);
+if (credentials === true) {
+  ctx.set('Access-Control-Allow-Credentials', 'true');
+}
+if (ctx.method !== 'OPTIONS') {
+  ctx.vary('Origin');
+  set('Access-Control-Expose-Headers', options.exposeHeaders); // 这个必须手动配
+} else {
+  ctx.set('Access-Control-Max-Age', options.maxAge); // 不配 Chrome 默认2s；如果为 -1 则禁用缓存
+  ctx.set('Access-Control-Allow-Methods', options.allowMethods); // 中间件有默认值
+  ctx.set('Access-Control-Allow-Headers', allowHeaders ?? ctx.get('Access-Control-Request-Headers'));
+  ctx.status = 204;
+}
+```
+
+本地开发服务器开启 HTTPS
+* https://github.com/liuweiGL/vite-plugin-mkcert
+
+### 跨域请求异常时的表现
+
+跨域请求网络错误
+* Status: (failed), Request Headers 中会出现提示 `Provisional headers are shown <a>Learn more</a>`
+
+预检请求返回 403 等错误码
+* Status：实际错误码
+* Response Headers 和 Request Headers 正常展示
+* Console 控制台会报具体的错误信息(error, 红色)
+
+```txt
+Access to fetch at 'https://aaa.demo.com' from origin 'https://bbbb.demo.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+```
+
+服务端没配跨域
+* Status: `CORS err`，展开后能看到 Request Headers 中会出现提示 `Provisional headers are shown <a>Learn more</a>`
+
+服务端跨域头没配对的情况
+* Status: `CORS err`，展开后能看到服务端响应的 Response Headers 情况
+* Console 控制台会报具体的错误信息(error, 红色)
+
+```txt
+Access to fetch at "https://aaa.demo.com/api/to/endpoint' from origin 'https://bbb.demo.com' net has been blocked by CORS policy: The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '*' when the request's credentials mode is 'include'.
+```
+
+#### 疑难故障案例
+
+在 BFF 代理其他 HTTP 接口时，有的后端会无脑返回 `Access-Control-Allow-Origin: *`，此时如果无脑将响应头转给浏览器，那原先正确的跨域相关请求头会被覆盖，导致CORS报错。出现这种情况的表现：OPTIONS 请求头无异常，但是到 POST 等实际请求时就报跨域错误。
 
 ### iframe
 
@@ -41,17 +99,17 @@ https://stackoverflow.com/questions/41069330/with-script-crossorigin-anonymous-w
 
 The `crossorigin` attribute should only be used if we care about getting error information for the script being loaded. Since accessing this information requires a CORS check, the `Access-Control-Allow-Origin` header must be present on the resource for it to be loaded.
 
-`crossorigin` 属性平时都用不到，在 `<script src="..." crossorigin="anonymous"></script>` 中使用的目的是，如果没有配置，报错时这种跨域的脚步是看不到错误堆栈 `stack` 或 `stacktrace` 的。如果客户端配了 `crossorigin` 那么服务器端需要配置跨域请求头。这是在保护被请求方的信息安全？
+`crossorigin` 属性平时都用不到，在 `<script src="..." crossorigin="anonymous"></script>` 中使用的目的是，如果没有配置，报错时这种跨域的脚本是看不到错误堆栈 `stack` 或 `stacktrace` 的。如果客户端配了 `crossorigin` 那么服务器端需要配置跨域请求头。这是在保护被请求方的信息安全？
 
 实际在使用时，如果没有对 `crossorigin` 进行配置时，既拿不到 Error 信息也拿不到 Cookie，因为 Cookie 没有做跨域相应配置时，都会被浏览器拦截。
 
 在 HTML5 中一些 HTML 元素提供了对 CORS 的支持，例如 audio img link script video 均有一个跨域属性，它允许你配置元素获取数据的 CORS 请求。
 
-| crossorigin     | fetch mode | credentials mode | 备注
-|-----------------|------------|------------------|--------
-| 不设置           | no-cors    | same-origin     | 拿不到 Error; 带 cookie
-| anonymous       | cors       | same-origin      | 能拿到 Error; 不带 cookie
-| use-credentials | cors       | include          | 能拿到 Error; 带 cookie
+| crossorigin     | fetch mode | 跨域访问
+|-----------------|------------|------------------------------------------------
+| 不设置           | no-cors    | 服务端不需要配跨域头; 客户端拿不到 Error; 不带 cookie
+| anonymous       | cors       | 服务端要配跨域头;    客户端能拿到 Error; 不带 cookie
+| use-credentials | cors       | 服务端要配跨域头;    客户端能拿到 Error; 带 cookie
 
 ```
 <script src="..."></script>
@@ -146,15 +204,17 @@ Connection: Keep-Alive
 Content-Type: text/plain
 ```
 
+如果需要配置允许客户端访问额外头部字段（即，除 Cache-Control、Content-Language、Content-Length、Content-Type、Expires、Last-Modified、Pragma 外的字段），需要额外响应 `Access-Control-Expose-Headers`
+
+https://developer.mozilla.org/en-US/docs/Glossary/CORS-safelisted_response_header
+
+```text
+header('Access-Control-Expose-Headers: 允许访问的头部字段列表')
+```
+
 ##### 实际请求
 
 一旦服务器通过了预检请求，以后每次浏览器正常的 CORS 请求，就都跟简单请求一样，会有一个 `Origin` 头信息字段。服务器的回应，也都会有一个 `Access-Control-Allow-Origin` 头信息字段。
-
-```text
-// 允许客户端访问额外头部字段
-// 即，除 Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma 外的字段
-header('Access-Control-Expose-Headers: 允许访问的头部字段列表')
-```
 
 #### 发送 Cookie
 

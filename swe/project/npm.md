@@ -1,4 +1,4 @@
-# NPM & Yarn & pnpm
+# npm & Yarn & pnpm
 
 
 npm                                       | Yarn
@@ -38,8 +38,62 @@ npm                                       | Yarn
 
 https://pnpm.io
 
+安装
 
-## NPM
+```bash
+brew install pnpm
+alias p=pnpm
+```
+
+管理依赖 Manage dependencies
+
+```bash
+# 添加依赖
+pnpm add xxx@latest
+  # -D --save-dev       Save to devDependencies
+  # -O --save-optional  Save to optionalDependencies
+  # -g --global         Install package globally
+
+# 升级依赖
+pnpm update / up / upgrade
+
+# 删除依赖
+pnpm remove / rm / uninstall / un
+```
+
+检查依赖 Review dependencies
+
+```bash
+pnpm list / ls
+pnpm outdated
+pnpm why
+```
+
+运行脚本 Run scripts
+
+```bash
+pnpm run / run-script
+  # run 可省略 all scripts get aliased in as pnpm commands
+pnpm [-r] exec xxx       Execute a shell command in scope of a project.
+  # exec 可省略 optional when the command is not in conflict with a builtin pnpm command
+pnpm dlx                 跟 npx 类似
+  # Fetches a package without installing, and runs whatever default command binary it exposes
+```
+
+其他
+
+```bash
+pnpm info xxx  # 像 `npm home` 这些命令 pnpm 就不具备，所以还得配合 npm 使用
+```
+
+### Monorepo
+
+https://pnpm.io/workspaces
+
+
+
+
+## npm
 
 ```bash
 $ npm install -g npm  # 更新 npm 自身
@@ -277,7 +331,7 @@ https://www.jianshu.com/p/01df21c71407
 
 > 发布和更新包要保证上传地址和下载地址是同一个仓库地址
 
-写好的包往哪儿发，主要就两个地方：NPM 仓库 和 公司内部搭建的私有仓库。
+写好的包往哪儿发，主要就两个地方：npm 仓库 和 公司内部搭建的私有仓库。
 
 往哪个仓库发布包也叫做设置上传/发布地址。这个过程记录在 _package.json_ 文件中。
 
@@ -289,7 +343,7 @@ https://www.jianshu.com/p/01df21c71407
 }
 ```
 
-在 NPM 官网注册账号获取 账户名 密码 和 邮箱，如果是私有仓库，让管理员直接给你账号信息。
+在 npm 官网注册账号获取 账户名 密码 和 邮箱，如果是私有仓库，让管理员直接给你账号信息。
 
 发布包前，需要先登录，当然每次登陆比较麻烦，可以直接在 _.npmrc_ 文件中配好。
 
@@ -320,7 +374,7 @@ $ npm deprecate <pkgname>  # 更好的一个做法，是声明遗弃
 
 ### .npmignore
 
-使用 _.npmignore_ 文件，可在发包时屏蔽一些文件，但只要存在这个文件，原先 _.gitignore_ 的文件会被打包(如果没有 _.npmignore_ 文件时，_.gitignore_ 声明的文件时不会被打包的)，所以这个文件还是存在一定隐患的。最好的方法是采用白名单方式，即，在 _package.json_ 文件中通过 `files` 字段来显示声明发包时需要包含的文件。
+使用 _.npmignore_ 文件，可在发包时屏蔽一些文件，但只要存在这个文件，原先 _.gitignore_ 的文件会被打包(如果没有 _.npmignore_ 文件时，_.gitignore_ 声明的文件是不会被打包的)，所以这个文件还是存在一定隐患的。最好的方法是采用白名单方式，即，在 _package.json_ 文件中通过 `files` 字段来显示声明发包时需要包含的文件。
 
 ```json
 {

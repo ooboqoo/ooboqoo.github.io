@@ -164,7 +164,7 @@ text-justify    | `text-align: justify;` 时具体对齐行为 `none` `auto` `in
 text-align-last | `text-align: justify;` 时最后一行的对齐行为 `right`/`end` `center` `left`/`start`      | 3
 ||
 white-space | 如何处理空白 `normal`不留换 `nowrap`不留不换 `pre`留不换 `pre-line`不留换 `pre-wrap`留换 | 1
-word-break  | 是否/如何断行 `normal`(词尾插入换行) `break-all`(单词内插入) `keep-all`(即使中日韩也不换行) `break-word`(仅在单词长度超过行宽时才在单词内插入换行) | 3
+word-break  | 是否/如何断行 `normal`(词尾插入换行) `break-all`(单词内插入) `keep-all`(即使中日韩也不换行) `break-word`(仅在单词长度超过行宽时才在单词内插入换行) (换行要先配 white-space) | 3
 overflow-wrap | 当一个单词大于行宽时是否插入换行 `normal`(不断) `break-word`(断行) | 3
 hyphens       | 当单词内断行时，是否插入连字符 `none` `auto` `manual` | 3
 line-break    | 是否/如何在符号处换行，仅适用于 CJK `auto` `loose` `normal` `strict` | 3

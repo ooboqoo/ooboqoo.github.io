@@ -1,43 +1,70 @@
-# MySQL 速查表 3
+# MySQL 速查表
 
 ## 数据类型 Data Types
 
-#### 串数据类型 Text types:
+https://dev.mysql.com/doc/refman/8.0/en/data-types.html
 
-||
+### String Data Types
+
+|||
 |--------------------|-----------------------
-| `CHAR(n=1)`        | 1~255 个字符的定长串
-| `VARCHAR(n=255)`   | 长度可变，最长不超过 n, n: (0, 255]
-| `TINYTEXT`         | 最大长度为 255 字节
-| `TEXT`             | 最大长度为 16KB / 65,535字符 的变长文本
-| `MEDIUMTEXT`       | 最大长度为 64KB
-| `LONGTEXT`         | 最大长度为 4GB
-| `ENUM(x,y,z,etc.)` | 接受最多 64K 个串组成的一个预定义集合的某个串
-| `SET('X','Y','Z')` | 接受最多 64 个串组成的一个预定义集合的零个或多个串
+| `CHAR(n=1)`        | 1~255 个字符的定长字符串
+| `VARCHAR(n=255)`   | 长度可变，最长不超过 n, n: (0, 65,535] 即受限于 maximum row size (65,535 bytes) [注1]
+| `ENUM(x,y,z,etc.)` | 接受最多 65,535 个字符串组成的一个预定义集合的 *某个字符串*
+| `SET('X','Y','Z')` | 接受最多 64 个字符串组成的一个预定义集合的 *零个或多个字符串*
 
-||
-|--------------|----------
-| `TINYBLOB`   | 255B
-| `BLOB`       | 64KB
-| `MEDIUMBLOB` | 16MB
-| `LONGBLOB`   | 4GB
+注1：最佳实践，VARCHAR 文本长度超过 5000 就要改用 TEXT，独立出来一张表，用主键来对应，避免影响其它字段索引率。
+注：当数值不是数值时，如电话号码和邮政编码，应该存储为字符串。
 
-MySQL 处理定长列远比处理变长列快地多，且 MySQL 不允许对变长列(或一个列的可变部分)进行索引。  
-不管使用何种形式的串数据类型，串值都必须括在引号内(通常单引号更好)  
-当数值不是数值时，如电话号码和邮政编码，应该存储为串。
+```sql
+CREATE TABLE shirts (
+    name VARCHAR(40),
+    size ENUM('x-small', 'small', 'medium', 'large', 'x-large')
+);
+INSERT INTO shirts (name, size) VALUES ('dress shirt','large'), ('t-shirt','medium');
+SELECT name, size FROM shirts WHERE size = 'medium';
+```
 
-#### 数值数据类型 Number types:
+|||
+|---------------------------|----------
+| `TINYBLOB`   `TINYTEXT`   | 255B, L + 1 bytes, where L < 2^8
+| `BLOB`       `TEXT`       | 64KB, L + 2 bytes, where L < 2^16
+| `MEDIUMBLOB` `MEDIUMTEXT` | 16MB, L + 3 bytes, where L < 2^24
+| `LONGBLOB`   `LONGTEXT`   | 4GB, L + 4 bytes, where L < 2^32
 
-||
+* BLOB values are treated as binary strings (byte strings).
+* TEXT values are treated as nonbinary strings (character strings), they have a character set other than `binary`
+
+注：TEXT数据不存储在数据库服务器的内存中，因此，每当查询TEXT数据时，MySQL都必须从磁盘读取它，这与 CHAR 和 VARCHAR 相比要慢得多。Instances of BLOB or TEXT columns in the result of a query that is processed using a temporary table causes the server to use a table on disk rather than in memory because the MEMORY storage engine does not support those data types. Use of disk incurs a performance penalty, so include BLOB or TEXT columns in the query result only if they are really needed.
+
+```sql
+-- For indexes on BLOB and TEXT columns, you must specify an index prefix length.
+CREATE INDEX idx_remark ON student (remark(20));
+```
+
+### Numeric Data Types
+
+|||
 |-------------------|---------------------------------------------------
-| `TINYINT(size)`   | 整数值，8 位，支持 -128~127 或 0~255
+| `TINYINT(size)`   | 整数值，8 位，支持 -128~127 或 0~255  [注1]
 | `SMALLINT(size)`  | 整数值，16位，支持 -32768~32767 或 0~65535
 | `MEDIUMINT(size)` | 整数值，24位，支持 -8388608~8388607 或 0~16777215
 | `INT(size)`       | 整数值，32位，支持 -2147483648~2147483647 或 0~4294967295
 | `BIGINT(size)`    | 整数值，64位
-| `FLOAT(size,d)`   | 单进度浮点数
-| `DOUBLE(size,d)`  | 双精度浮点数
-| `DECIMAL(size,d)` | 精度可变的浮点数
+| ~`FLOAT(size,d)`~   | 单进度浮点数，存在精度丢失问题，禁用 [注2]
+| ~`DOUBLE(size,d)`~  | 双精度浮点数，存在精度丢失问题，禁用
+| `DECIMAL(size,d)` | 精度可变的浮点数。size 最大支持到 65；示例 DECIMAL(5,2) 取值范围 [-999.99, 999.99]
+
+注1：`TINYINY(M)` 取值范围为 [-128, 127]，the `(M)` indicates the column display width (如果客户端支持的话)。不同值的显示效果如下
+
+```txt
+| v   | (1) | (2) | (3) |
++-----+-----+-----+-----+
+| 1   | 1   |  1  |   1 |        tinyint(3) 且值为 1 时，显示为 xx1
+| 100 | 100 | 100 | 100 |
+```
+
+注2：最佳实践：禁用 FLOAT 和 DOUBLE，含小数只能用 DECIMAL
 
 MySQL 中的 `BOOLEAN` 类型是 `TINYINT(1)` 的别名  
 MySQL 中没有专门存储货币的数据类型，一般情况下使用 `DECIMAL(8, 2)`  
@@ -51,9 +78,9 @@ CREATE TABLE `test_number` (
 )
 ```
 
-#### 日期和时间数据类型 Date types:
+### Date and Time Data Types
 
-||
+|||
 |-------------|----------------------------------------------------------
 | `DATE`      | 格式为 YYYY-MM-DD
 | `TIME`      | 格式为 HH:MM:SS
@@ -61,6 +88,16 @@ CREATE TABLE `test_number` (
 | `TIMESTAMP` | 时间戳，`INSERT` `UPDATE` 时能自动更新
 | `YEAR`      | 用2位数字表示 70(1970)~69(2069); 用4位数字表示 1901~2155年
 
+```sql
+CREATE TABLE class (
+   id bigint unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   name varchar(255),
+   create_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   update_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+SELECT id, name, CONVERT_TZ(update_time, 'UTC', '+8:00') AS local_update_time FROM class;
+```
 
 ## 函数 Functions
 

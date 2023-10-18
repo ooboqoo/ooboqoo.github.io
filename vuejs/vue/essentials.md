@@ -14,7 +14,7 @@ Vue 兼容 IE9+
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js">/*完整版(运行环境)*/</script>
 ```
 
-在用 Vue 构建大型应用时推荐使用 NPM 安装。
+在用 Vue 构建大型应用时推荐使用 npm 安装。
 
 ```bash
 $ npm install vue
@@ -32,7 +32,7 @@ $ npm run build  # 生成生产版本
 
 ### 对不同构建版本的解释
 
-在 NPM 包的 dist/ 目录你将会找到很多不同的 Vue.js 构建版本。
+在 npm 包的 dist/ 目录你将会找到很多不同的 Vue.js 构建版本。
 
 |                           | UMD                | CommonJS              | ES Module
 |---------------------------|--------------------|-----------------------|--------------------

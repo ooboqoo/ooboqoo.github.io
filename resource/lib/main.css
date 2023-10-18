@@ -342,24 +342,26 @@ td > span.mark {
   transition: top .2s ease-out, border-bottom-width .2s ease-out, box-shadow 0s .2s;
 }
 
-#header > div {
+#header > div, #menu-overlay > div {
   background-color: #666;
   overflow: overlay;
 }
 
-#header .ul {
+#header .ul, #menu-overlay .ul {
+  font-size: 0;
   white-space: nowrap;
 }
 
-#header a {
+#header a, #menu-overlay a {
   display: inline-block;
   height: 100%;
   padding: 6px 12px;
   text-decoration: none;
   color: #fff;
+  font-size: 1rem;
 }
 
-#header a:hover {
+#header a:hover, #menu-overlay a:hover {
   background-color: #ccc;
   color: #000;
 }
@@ -367,6 +369,34 @@ td > span.mark {
 #header a.active {
   background-color: #eee;
   color: #000;
+}
+
+#header .menu {
+  background-color: red;
+  padding: 12px 6px;
+  vertical-align: bottom;
+  cursor: pointer;
+}
+
+#menu-overlay {
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  max-width: 100%;
+  margin-left: 41px;
+  background: #fff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 8px 8px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+#menu-overlay > .btn {
+  position: absolute;
+  left: -26px;
+  width: 26px;
+  line-height: 36px;
+  background: red;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
 }
 
 @media (min-width: 1210px) {
@@ -611,3 +641,26 @@ p > .mark {
     right: calc(50% - 555px);
   }
 }
+
+/* dark mode */
+/*@media (prefers-color-scheme: dark) {
+  body {
+    filter: invert(100%);
+    background-color: #333 !important;
+  }
+  .hljs-comment,
+  .hljs-quote,
+  .hljs-variable,
+  .hljs-addition {
+    color: #90a !important;
+  }
+  i, em {
+    color: #008000 !important;
+  }
+  strong, b {
+    color: #3ff !important;
+  }
+  #sidemenu {
+    background-color: #ccc;
+  }
+}*/

@@ -1,9 +1,9 @@
-# Fiddler & Charles & NProxy
+# Charles & Fiddler & NProxy
 
 http://www.jianshu.com/p/99b6b4cd273c
 
-> * Fiddler - Windows 用 Web 调试代理工具
 > * Charles - macOS 用 Web 调试代理工具
+> * Fiddler - Windows 用 Web 调试代理工具
 > * NProxy - 基于 Node.js 的跨平台 Web 调试文件替换工具
 > * Requestly - Chrome 扩展，可用于替换远程文件
 
@@ -12,16 +12,13 @@ http://www.jianshu.com/p/99b6b4cd273c
 
 90% 的用法是拦截 HTTP 请求，分析 request 和 response 的具体细节，协助排查前后端联调开发中的问题。
 
-9% 的用法是打 HTTP 断点，修改 request 请求，绕过前端 js 限制。因此，对于高手来说前端 js 的限制基本不算限制。黑客工具中类似的是 burpsuite，功能还要强大。
+9% 的用法是打 HTTP 断点，修改 request 请求，绕过前端 js 限制。黑客工具中类似的是 burpsuite，功能还要强大。
 
-### 常用抓包工具
+### 抓包工具
 
-Wireshark, Firebug, Fiddler all do similar things - capture network traffic.
-
-* **Wireshark** captures any kind of a network packet. It can capture packet details below TCP/IP(Http is at the top). It does have filters to reduce the noise it captures.
-* **Fiddler** works as a http/https proxy. It captures each http request the computer makes and records everything associated with it. Does allow things like converting post varibles to a table form and editing/replaying requests. It doesn't, by default, capture localhost traffic in IE, see the FAQ for the workaround.
-* **Firebug** tracks each request the browser page makes and captures the associated headers and the time taken for each stage of the request (DNS, receiving, sending, ...).
-
+* **Wireshark** 用于抓 TCP/IP 包
+* **Charles / Fiddler** 拦截并代理本机 HTTP 请求
+* **DevTools NetWork** 跟踪浏览器内当前页面的请求
 
 ### Burp Suite
 
@@ -30,18 +27,81 @@ https://www.gitbook.com/book/t0data/burpsuite/details
 Burp Suite 一款集成型的渗透测试工具，是可以用于攻击 web 应用程序的集成平台。它包含了许多工具，并为这些工具设计了许多接口，以促进加快攻击应用程序的过程。所有的工具都共享一个能处理并显示 HTTP 消息，持久性，认证，代理，日志，警报的一个强大的可扩展的框架。
 
 
+## Charles 配置
 
-## Charles
+### 通用配置
 
 注册 https://charles.ren/
 
-> 实际使用时如果抓不到包，退出应用，然后把其他的代理也全退了，再进就好了。
+配置 HTTP 代理：`Proxy / Proxy Settings...` 把能打钩的都打上
+
+### HTTPS
+
+安装 CA 证书：`Help / SSL Proxying / Install Charles Root Certificate`
+
+配置 HTTPS 代理：`Proxy / SSL Proxy Settings...` 把能打钩的都打上
+
+
+## Charles 使用
+
+https://mp.weixin.qq.com/s/95Hr68i9bmZV-X-F7oZ0rQ
+
+### Map Remote 映射远程
+
+实际使用中，在处理 HTTPS 相关的映射时，经常会出现不生效的情况，改成 HTTP 的请求一般能解决问题。
+
+### Map Local 映射本地文件
+
+将 符合匹配规则 的请求映射到 *一个本地文件*，不再与原服务器通信。
+
+### Rewrite 重写请求
+
+将 符合匹配规则 的请求进行改写，Request 和 Response 都能改。
+
+```yaml
+# 应用示例：Map Local 时，解决跨域错误
+
+Type: Add Header
+where: Response
+Replace:
+  Name: Access-Control-Allow-Origin
+  Value: *
+```
+
+### Repeat 重新请求
+
+*手动* 再发送一次请求。
+
+### Compose 编辑并重发
+
+跟 Repeat 不同的是，Compose 允许在发送前编辑请求内容。
+
+### Throttle Setting 限速
+
+此功能可以模拟不同的网路环境。
+
+
+## Charles 常见问题
+
+### 使用 VPN
+
+如果要同时使用的话，建议先开 Charles 再连 VPN。
+
+当存在其他代理时，最好先关掉代理，然后再开 Charles。如果抓不到包，退出应用，然后把其他的代理全退了，再进就好了。
+
+如果还是抓不到包，到 `系统设置 / Wi-Fi / 详细信息... / 代理` 如果端口不是 `8888` 或者开着 `自动配置代理` 的话，需要调整下。
+
+### 无法捕获 localhost 请求
+
+很多系统都会配置 localhost 的请求不走代理，将 `localhost` 改成 `local.charles` 就好了。
 
 ### 命令行工具
 
-命令行工具的 HTTP 调用能否被抓获，要看具体的工具自身是否支持使用代理。
+命令行工具的 HTTP 调用能否被抓获，要看该工具本身是否支持使用代理。一般都可以使用下面的命令解决，如果还不行就要去找相应命令的文档了。
 
-通用的解决方案是 `export http_proxy=http://127.0.0.1:8888 https_proxy=http://127.0.0.1:8888`，如果还是不行，那要去找相应命令的文档了。
+```bash
+export http_proxy=http://127.0.0.1:8888 https_proxy=http://127.0.0.1:8888
+```
 
 ### node-fetch
 
@@ -57,50 +117,51 @@ export NODE_TLS_REJECT_UNAUTHORIZED=0
 ```
 
 
-## Fiddler
+## Wireshark
 
-### 配置
+Wireshark 可以抓取各种网络封包，显示封包详细信息。不懂网络协议很难看懂。
 
-http://docs.telerik.com/fiddler/Configure-Fiddler/Tasks/DecryptHTTPS
+Wireshark 能直接分析 HTTP 协议的包，但无法解析 HTTPS 包的加密内容，要看解密内容可使用更上层的抓包软件(如 Charles)。
 
-Tools > Fiddler Options > HTTPS > [√] Capture HTTPS CONNECTs > [√] Decrypt HTTPS Traffic
+### What is Wireshark?
 
-### Filters
+Wireshark is a network packet analyzer which presents captured packet data in as much detail as possible.
 
-示例：只监控本地请求
+You could think of a network packet analyzer as a measuring device for examining what’s happening inside a network cable, just like an electrician uses a voltmeter for examining what’s happening inside an electric cable.
 
-选中 "Use Filters" 并设置 "Hosts" 组内容为 "Show only the following Hosts" "127.0.0.1"
+Here are some reasons people use Wireshark:
+* Network administrators use it to troubleshoot network problems
+* Network security engineers use it to examine security problems
+* QA engineers use it to verify network applications
+* Developers use it to debug protocol implementations
+* People use it to learn network protocol internals 普通人可以用来学习网络协议内部机理
 
-### AutoResponder
+### 过滤器 Filter
 
-示例：拦截并修改 css 文件
+初学者不会用过滤器，将会淹没在大量的抓包记录中，无从下手。过滤器会帮我们在大量的数据中迅速找到我们需要的信息。
 
-勾选 "Enable rules" 和 "Unmatched requests passthrough" 并添加 "EXACT:http://127.0.0.1/main.css" "*bpu"
+过滤器有两种
+* Display Filter 显示过滤器，就是主界面上那个，用来在捕获的记录中找到所需要的记录
+* Capture Filter 捕获过滤器，在 Capture -> Capture Filters 中设置，避免捕获太多记录
 
-刷新网页，然后切到 "Inspectors" 标签页，点 "Break on Response" 再点 "TextView" 修改内容，最后点 "Run to Completion"
+过滤表达式
+* Field or Protocol  `ip` `ip.src` `ip.dst` `tcp.port` `udp` 等等
+* Operator  `==` `!=` `>` `>=` `<` `<=` `in` `contains` `matches`
+* Values
+* Combine Tests  `&&` `||`
 
-### 断点调试
+IP 过滤示例 `ip.src == 192.168.0.1` `ip.src == 192.168.0.1` `ip.dst == 192.168.0.1`
 
-http://www.telerik.com/blogs/breakpoints-in-fiddler
+端口过滤示例 `tcp.port != 443` `tcp.srcport != 443` `tcp.dstport != 443` `tcp.port in {80,443,8080}`
 
-1. 使用 Rules > Automatic breakpoints 菜单项
-2. 快捷命令窗使用命令 `bpu` 或 `bpa`
-3. 使用 Filters 页签
-4. 使用 AutoResponder 页签
-5. 使用 FiddlerScript/extensions 设置一个 X-BreakRequest 或 X-BreakResponse Session标记
+文本搜索示例 `http contains "https://www.wireshark.org"` `http.content_type[0:4] == "text"`
 
-方式 #1 会对后续所有 traffic 设置断点，使用起来其实并不是很方便。
+### Packet Details Pane
 
-方式 #2 可快速设置 request breakpoint `bpu example` or a response breakpoint `bpafter example` for Sessions’ whose URL contains the text you supply to the command. You can subsequently clear these breakpoints by issuing the command without an argument (e.g. bpu or bpafter). 不足是 only two breakpoints may exist at one time—one request breakpoint and one response breakpoint.
-
-方式 #3 "Filters" 页签下 "Breakpoints" 可设置针对某类请求设置断点，这个功能使用也不是很方便
-
-方式 #4 "AutoResponder" 页签下可自定义各种拦截规则，考虑易用性和功能，是最好用的，但也有缺陷，The only downside to breakpointing with the AutoResponder is that there’s no way to breakpoint based on an attribute of the response – for instance, you cannot create a response breakpoint based on the Content-Type returned by the server.
-
-方式 #5 是最强大的，Simply add code to the OnBeforeRequest, OnPeekAtResponseHeaders, or OnBeforeResponse events to set the X-BreakRequest or X-BreakResponse flags on the Session objects that match your target criteria.
-
-
-### 移动端抓包
-
+* Frame  物理层
+* Ethernet II 数据链路层
+* Internet Protocol 网络层
+* Transmission Control Protocol 传输层
+* Hypetext Transfer Protocol 应用层
 
 

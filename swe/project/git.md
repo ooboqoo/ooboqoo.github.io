@@ -56,6 +56,9 @@ $ git cherry-pick <commitA>..<commitB>  # 将其他分支的多次连续提交�
 $ git commit --amend       # 修改最近一次提交
 $ git rebase -i HEAD~num   # 批量修改最近 num 次提交
 $ git fetch & git rebase origin/master & git push  # 避免合并冲突时产生冗余提交记录
+
+# 查看本地 Git 操作记录
+$ git reflog  # 强力后悔药，可以找回误删的 commit hash 并复原
 ```
 
 代理设置
@@ -200,7 +203,11 @@ $ git blame -L 12,22 sth.cs     # 查看 sth.cs 的 12-22行 都有谁在什么�
 $ git show     # 查看数据对象 blob 数对象 tree 提交对象 commit 标签对象 tag 等的内容
 
 # 周工作量统计
-$ git log --author="gavin" --since=2018-1-1 --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }' -
+$ git log --author="gavin" --since=2021-8-1 --pretty=tformat: --numstat | grep "src/" | grep -v "/api/" | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }' -
+# 统计提交次数
+$ git shortlog -s
+# 代码行数统计
+$ cloc ./ --exclude-dir=node_modules
 ```
 
 ### 分支操作
@@ -285,6 +292,7 @@ $ git remote set-url --add --push origin git://another/repo.git
 ```bash
 # stash 藏匿/储存变动
 $ git stash    # 临时保存还没有提交的工作(工作目录 + 暂存区)并恢复到初始状态，注意未 track 的新文件还留在工作目录
+$ git stash push -m xxx  # stash 的时候还可以加下注释
 $ git stash list  # 列出所有 stash
 $ git stash pop   # 恢复最近一次 stash 的内容，注意是保存的变动追加在目前状态之上，而非覆盖目前状态
 $ git stash apply # 恢复最近一次 stash 的内容，与 pop 的区别是，pop 之后该 stash 就删除了，而 apply 则不删
@@ -336,6 +344,18 @@ $ git ls-files -u      # 显示冲突的文件，-s 则显示标记为冲突已�
 $ git ls-files --stage # 检查保存在 stage 的文件
 
 $ git cat-file -p d67046  # 查看一个 Git 对象的内容，用于研究 Git 内部机制
+```
+
+```bash
+# work on an existing branch in a new worktree
+git worktree add <path> <branch>
+  # creates new branch hotfix and checks it out at path ../hotfix
+  git worktree add ../hotfix
+  # creates a new worktree with a detached HEAD at the same commit as the current branch
+  git worktree add -d <path>
+
+git worktree prune
+git worktree list
 ```
 
 ### 图形化操作
@@ -481,7 +501,7 @@ https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guid
 
 #### Type
 
-||
+|||
 ---------|------------------------------------------------------------------------------------------
  `feat`  | 新功能 A new feature
  `fix`   | bug 修复 A bug fix
@@ -549,6 +569,29 @@ $ git cz      # 以后，凡是用到 git commit 命令的地方一律改为使�
 ```
 
 使用中发现输入多行 description 时，不知道怎么换行，Ctrl/Shift + Enter 试了都不行，最后发现应该用 `\n\n` 这样是能解决换行问题，但对其处理不直观，所以多行输入还是 `git commit` 调出文本编辑器来编辑比较靠谱。
+
+#### commitlint.js
+
+https://commitlint.js.org/#/reference-rules
+
+```json
+{
+  "husky": {
+    "hooks": {
+      // "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "rules": {
+      "subject-case": [ 0 ]
+    }
+  },
+}
+```
 
 #### 生成 changelog
 

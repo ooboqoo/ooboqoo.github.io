@@ -1,8 +1,47 @@
 # Node.js API 摘要 Part2
 
-## Async hooks
 
-[一文了解AsyncHooks](https://bytedance.feishu.cn/docs/doccnW1He3XzC3ikyRxypFr50Qc)
+## Asynchronous context tracking
+
+https://nodejs.org/api/async_context.html
+
+
+```js
+import http from 'node:http';
+import { AsyncLocalStorage } from 'node:async_hooks';
+
+const asyncLocalStorage = new AsyncLocalStorage();
+
+function logWithId(msg) {
+  const id = asyncLocalStorage.getStore();
+  console.log(`${id !== undefined ? id : '-'}:`, msg);
+}
+
+let idSeq = 0;
+http.createServer((req, res) => {
+  asyncLocalStorage.run(idSeq++, () => {
+    logWithId('start');
+    // Imagine any chain of async operations here
+    setImmediate(() => {
+      logWithId('finish');
+      res.end();
+    });
+  });
+}).listen(8080);
+
+http.get('http://localhost:8080');
+http.get('http://localhost:8080');
+// Prints:
+//   0: start
+//   1: start
+//   0: finish
+//   1: finish
+```
+
+
+## ~~Async hooks~~
+
+[一文了解AsyncHooks](/docs/doccnW1He3XzC3ikyRxypFr50Qc)
 
 [async_hooks](https://nodejs.org/api/async_hooks.html) 提供了用于追踪异步资源的API。
 

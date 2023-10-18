@@ -42,7 +42,7 @@ function throttle (func, wait, context) => { /* 30-seconds-of-code */ }
 
 ### input 搜索如何防抖，如何处理中文
 
-切换中文输入法时首先会触发 `compositionstart`，然后没打一个拼音字母都会触发 `compositionupdate`，最后填入中文时触发 `compositionend`。
+切换中文输入法时首先会触发 `compositionstart`，然后每打一个拼音字母都会触发 `compositionupdate`，最后填入中文时触发 `compositionend`。
 
 
 

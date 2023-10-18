@@ -89,7 +89,7 @@ Cache-Control: max-age=3600, must-revalidate
 
 浏览器在发送请求时，会在头部发送支持的接收格式，如 `Accept-Encoding: gzip, deflate`。服务器收到后会选择其中一个格式，并在返回头中指定内容压缩格式，如 `Content-Encoding: gzip`。
 
-使用 gzip 可以将体积减小大概 70%，这是相当明显的性能提升。压缩 HTML 脚本 样式表 以及 XML 和 JSON 等文本格式，效果是非常明显的，但像 图片 和 pdf 等内容，本身已经压缩过了，再压缩只会拜拜浪费计算资源。
+使用 gzip 可以将体积减小大概 70%，这是相当明显的性能提升。压缩 HTML 脚本 样式表 以及 XML 和 JSON 等文本格式，效果是非常明显的，但像 图片 和 pdf 等内容，本身已经压缩过了，再压缩只会白白浪费计算资源。
 
 ### 5. Put Stylesheets at the Top  <sub>css</sub>
 

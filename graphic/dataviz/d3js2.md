@@ -125,7 +125,7 @@ D3 总共提供了 12 个布局：饼状图 Pie 力导向图 Force 弦图 Chord 
       .attr("x2",function(d){ return arc.centroid(d)[0] * 2.2; })
       .attr("y2",function(d){ return arc.centroid(d)[1] * 2.2; });
 
-  //添加弧外的文字元素
+  //添加额外的文字元素
   arcs.append("text").attr("transform", function(d) {
       var x = arc.centroid(d)[0] * 2.5;
       var y = arc.centroid(d)[1] * 2.5;
@@ -173,7 +173,7 @@ arcs.append("line").attr("stroke","black")
     .attr("x2",function(d){ return arc.centroid(d)[0] * 2.2; })
     .attr("y2",function(d){ return arc.centroid(d)[1] * 2.2; });
 
-//添加弧外的文字元素
+//添加额外的文字元素
 arcs.append("text").attr("transform", function(d) {
     var x = arc.centroid(d)[0] * 2.5;
     var y = arc.centroid(d)[1] * 2.5;

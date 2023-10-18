@@ -265,7 +265,7 @@ HTTP调用    | Request                           | HttpClient
 对比项     | Node.js                           | Java
 ----------|-----------------------------------|---------------------------------------
 编码规范   | ESLint                            | CheckStyle, FindBug, Code Formatter
-包管理     | NPM                               | MAVEN
+包管理     | npm                               | MAVEN
 构建       | Grunt, Gulp                       | MAVEN
 部署       | 脚本方式启停进程部署，pm2 进程容灾重启 | Web 项目打包成 WAR 部署到容器的指定目录下，<br>去除流量后重启
 系统监控   | 暂缺资料                            | JVM 虚拟机提供各项指标的监控接口，<br>基于此接口实现了很多成熟的监控工具

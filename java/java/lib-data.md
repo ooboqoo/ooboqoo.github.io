@@ -44,7 +44,7 @@ public class ArrayList<E> extends AbstractList<E>
         implements List<E>, RandomAccess, Cloneable, java.io.Serializable { }
 ```
 
-Array 与 ArrayList 有什么区别，什么时候应该用 Array 而不用 ArrayList：长度固定时，使用 Array 可直接使用索引操作，比较方便；但长度不固定时，就需要用到 ArrayList，在数据保存和取得时需要进行一些列的判断。
+Array 与 ArrayList 有什么区别，什么时候应该用 Array 而不用 ArrayList：长度固定时，使用 Array 可直接使用索引操作，比较方便；但长度不固定时，就需要用到 ArrayList，在数据保存和取得时需要进行一系列的判断。
 
 #### java.util.Vector
 
@@ -249,13 +249,13 @@ MapReduce 是一种进行大数据操作的开发模型，在 Stream 数据流�
   * 数据处理方法：map
   * 数据分析方法：reduce
 
-实际使用中，可以先使用 map() 方法针对数据进行处理，在利用 reduce() 对数据进行分析。
+实际使用中，可以先使用 map() 方法针对数据进行处理，再利用 reduce() 对数据进行分析。
 
 ## 本章小结
 
 1. 类集的目的是创建动态的对象数组操作。
 2. Collection 接口是类集中最大单值操作的父接口，但是一般开发中不会直接使用此接口，而常使用 List 或 Set 接口。
-3. List 接口扩展了 Collection 接口，里面的内容时允许重复的。
+3. List 接口扩展了 Collection 接口，里面的内容是允许重复的。
 4. List 接口的常用子类是 ArrayList 和 Vector。ArrayList 属于异步操作，性能较高；而 Vector 属于同步操作，性能较低。
 5. Set 接口与 Collection 接口的定义一致，里面的内容不允许重复，依靠 Object 类中的 equals() 和 hashCode() 方法来区分是否是同一个对象。
 6. Set 接口的常用子类是 HashSet 和 TreeSet。HashSet 是散列存放，没有顺序；TreeSet 是顺序存放，使用 Comparable 进行排序操作。

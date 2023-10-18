@@ -1,3 +1,6 @@
+<script>ooboqoo.contentsRegExp = /H[123]/;</script>
+
+
 # Node.js
 
 
@@ -220,7 +223,7 @@ require 是 Node 中少数几个同步 I/O 操作之一，所有同步调用都�
 
 如果模块是目录，在模块目录中定义模块的文件必须被命名为index.js，当然，也可以通过 package.json 文件修改 main 键来更改这一默认动作。
 
-目前非常流行的一些 NPM 模块有：摘自 http://blog.jobbole.com/53736/
+目前非常流行的一些 npm 模块有：摘自 http://blog.jobbole.com/53736/
 
 * express – Express.js,是一个简洁而灵活的 node.js Web应用框架, 并且已经是现在大多数 Node.js * 应用的标准框架，你已经可以在很多 Node.js 的书籍中看到它了。
 * connect – Connect 是一个 Node.js 的 HTTP 服务拓展框架，提供一个高性能的“插件”集合，以中间件闻名，是 Express * 的基础部分之一。
@@ -233,4 +236,61 @@ require 是 Node 中少数几个同步 I/O 操作之一，所有同步调用都�
 * forever – 可能是用来确保 node 脚本持续运行的最流行的工具。
 
 
-<script>ooboqoo.contentsRegExp = /H[123]/;</script>
+
+
+
+
+## CommonJS vs ESModule
+
+https://nodejs.org/api/packages.html
+
+[npm Library 101](/docx/CR3Kd4RYsoM47WxONPGcqCxHnAb)
+
+目前我们开发库一般使用 TypeScript 来开发，然后分别编译出 CommonJS 和 ESModule 两个版本，同时提供一个类型入口给使用方。
+
+```json
+{
+  "name": "my-lib",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+}
+```
+
+### Node.js / Browser 的原生 ESModule 的支持是个很复杂的问题。
+
+这里我们要区分一个概念就是 Node.js 的 ESModule 和 Babel / Webpack 历史支持的 ESModule 不完全相同。
+
+我们不妨称 Webpack / Babel 以前支持的 ESModule 为 **Build ESModule**，而 Node.js 的 ESModule 称为 **Runtime ESModule**。
+
+Babel 和 Webpack 历史支持的 ESModule 主要是给打包工具消费的而不是给 Node.js 消费的。
+
+Node.js 的 ESModule 不仅仅要求你的模块系统是 ESModule *而且对其模块里使用的 API 都有严格的限制*。
+
+### conditional exports
+
+Node.js提供了一个叫 **conditional exports** 的特性，可以给 require 和 import 指明不同的入口。
+
+当你使用 conditional exports 的时候，你引入了一个非常强大也很复杂的特性 **exports fields**, exports fields 设计之初就包含了 Node.js 官方期望解决所有关于 resolve 问题的雄心壮志，其包含了entry point encapsulation, subpath exports、subpath imports、conditional exports、self-referencing package using its name 但这也使得这个特性异常复杂，稍不留意就掉坑里了。
+
+```json
+{
+  "name": "my-lib",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "dist/index.js",
+      "require": "dist/index.cjs",
+      "types": "dist/index.d.ts"
+    },
+    "./package.json": "package.json"
+  }
+}
+```
+

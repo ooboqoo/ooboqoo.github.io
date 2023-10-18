@@ -66,6 +66,14 @@ ServerAliveInterval 60
 ServerAliveCountMax 4
 ```
 
+### SSH Key
+
+https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server
+
+* 生成密钥对 id_rsa + id_rsa.pub
+* 将公钥添加到服务器 ~/.ssh/authorized_keys 文件中
+* 在本地 ~/.ssh/config 中配置私钥
+
 ### RDP Tunnel
 
 ```bash
@@ -243,7 +251,7 @@ https://www.v2ray.com/
 检查 IP 是否被封(选能用的) https://ipcheck.need.sh/  
 查看路由详情(选速度快的) https://tools.ipip.net/traceroute.php  
 
-搬瓦工查看 IP 是否被封 https://kiwivm.64clouds.com/main-exec.php?mode=blacklistcheck  
+搬瓦工查看 IP 是否被封 https://kiwivm.64clouds.com/\<id\>/main-exec.php?mode=blacklistcheck
 如果被封就申请更换 https://bwh88.net/ipchange.php  
 
 ### 服务器
@@ -254,6 +262,13 @@ $ bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/maste
 $ vim /usr/local/etc/v2ray/config.json
 $ systemctl start v2ray
 $ systemctl status v2ray
+```
+
+```bash
+# 后期维护
+$ systemctl cat v2ray           # 查看配置
+$ systemctl edit v2ray.service  # 新增自定义配置项
+$ systemctl restart v2ray       # 重启服务
 ```
 
 #### 基本设置
@@ -275,7 +290,7 @@ $ systemctl status v2ray
       "clients": [
         {
           "id": "bcfb353f-57ad-4478-8c86-101fa56a1e1c",
-          "alterId": 4  // 使用的 alterID 数量
+          "email": "gavin"  // 用于标记用户
         }
       ]
     }
@@ -368,7 +383,7 @@ _/usr/local/etc/v2ray/config.json_
       "clients": [
         {
           "id": "xxxxxxxxxxxxx",
-          "alterId": 4
+          "alterId": 0  // 2022开始必须设置成0以开启AEAD，删除这行等同配置为0
         }
       ]
     }
@@ -376,39 +391,68 @@ _/usr/local/etc/v2ray/config.json_
 }
 ```
 
-_/etc/nginx/conf/conf.d/v2ray.conf_
+_/etc/nginx/conf.d/v2ray.conf_
 
 ```
-  server {
-    listen 443 ssl http2;
-    listen [::]:443 http2;
-    server_name s1.ngapps.cn;
-    # 证书配置参考 Nginx 笔记
-    ssl_certificate      /etc/letsencrypt/live/s1.ngapps.cn/fullchain.pem;
-    ssl_certificate_key  /etc/letsencrypt/live/s1.ngapps.cn/privkey.pem;
+server {
+  listen 443 ssl http2;
+  listen [::]:443 http2;
+  server_name bwh.ngapps.cn;
+  # 证书配置参考 Nginx 笔记
+  ssl_certificate      /etc/nginx/bwh.ngapps.cn/xxx.pem;
+  ssl_certificate_key  /etc/nginx/bwh.ngapps.cn/xxx.key;
 
-    # 将流量代理到 v2ray
-    location /socket {
-      if ($http_upgrade != "websocket") {
-        return 404;
-      }
-      proxy_redirect off;
-      proxy_pass http://127.0.0.1:10099;
-      proxy_http_version 1.1;
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection $connection_upgrade;
-      proxy_set_header Host $http_host;
-      # Show real IP in v2ray access.log
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  # 将流量代理到 v2ray
+  location /socket {
+    if ($http_upgrade != "websocket") {
+      return 404;
     }
+    proxy_redirect off;
+    proxy_pass http://127.0.0.1:10099;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $connection_upgrade;
+    proxy_set_header Host $http_host;
+    # Show real IP in v2ray access.log
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   }
+}
+```
+
+
+## Xray
+
+```bash
+# https://github.com/XTLS/Xray-install
+$ bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install
+
+# /etc/systemd/system/xray.service
+# /usr/local/etc/xray/config.json
+```
+
+### 配置
+
+https://github.com/XTLS/Xray-examples/tree/main/VLESS-WSS-Nginx
+
+
+```bash
+$ systemctl restart xray
 ```
 
 
 ## Trojan
 
-### 辅助工具
+Trojan 特洛伊木马 是近两年兴起的网络工具，项目官网 https://github.com/trojan-gfw 与强调加密和混淆的 SS/SSR 等工具不同，Trojan 将通信流量伪装成互联网上最常见的 HTTPS 流量，从而有效防止流量被检测和干扰。在敏感时期，基本上只有 Trojan 和 V2Ray伪装 能提供稳如狗的体验。
+
+V2Ray 和 Trojan 有如下区别及特点：
+* V2Ray 是一个网络框架，功能齐全; Trojan 只是一个绕过防火墙的工具，轻量、功能简单
+* V2Ray 和 Trojan 都能实现 HTTPS 流量伪装
+* V2Ray 内核用 golang 开发，Trojan 是 c++ 实现
+* V2Ray 名气大，使用的人多，客户端很好用；Trojan 关注和使用的人少，官方客户端简陋，生态完善度不高
+
+
+## 辅助工具
 
 IP 被墙检测及解决办法(SSR中文网) https://ssr.tools/772  
 候选供应商(要是封杀厉害就买现成的) https://justmysocks.net/  

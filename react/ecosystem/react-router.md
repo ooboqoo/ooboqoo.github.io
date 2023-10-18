@@ -6,6 +6,16 @@ https://reacttraining.com/react-router/web/api/Hooks
 ## 概述
 
 
+## V6 实战
+
+```js
+const location = useLocation();
+const navigate = useNavigate();
+// 如果是直接输入网站访问的，那么 `key === "default"`
+if (location.key !== 'default') {
+  navigate(-1);
+}
+```
 
 
 ## API

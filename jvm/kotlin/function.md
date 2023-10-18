@@ -67,7 +67,7 @@ fun <T> singletonList(item: T): List<T> {
 
 ### Tail recursive functions
 
-Kotlin支持尾递归优化，当递归符合尾递归情形时，通过 `tailrec` 关键字告诉编译期将尾递归转换成循环的形式，这样既保证的代码的易读性，又避免了堆栈溢出的风险。
+Kotlin支持尾递归优化，当递归符合尾递归情形时，通过 `tailrec` 关键字告诉编译器将尾递归转换成循环的形式，这样既保证的代码的易读性，又避免了堆栈溢出的风险。
 
 ```kt
 // 递归版本

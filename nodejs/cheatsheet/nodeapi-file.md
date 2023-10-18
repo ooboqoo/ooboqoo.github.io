@@ -358,10 +358,21 @@ readable.pause()  // 等着，先别主动传数据了，此时需要调用 read
 readable.resume() // 从 paused 切换到 flowing 模式，持续需要监听 data 事件以获取数据
 
 readable.read([size])    // paused 模式下手动读取数据
+                         // 不仔细看文档，看到个 Readable 很容易就直接 .read()，但这样只能拿到 `null`
 readable.unshift(chunk)  // 将取出的数据重新写回 readable
 
 readable.wrap(stream)
 readable.destroy([error])
+```
+
+```js
+const readable = getReadableStreamSomehow();
+readable.on('readable', function() {
+  let data;
+  while ((data = this.read()) !== null) {  // `.read()` 只能在 `readable` 事件 handler 中调用
+    console.log(data);
+  }
+});
 ```
 
 #### stream.Duplex & stream.Transform
@@ -387,7 +398,7 @@ process.stdin
 
 ### API for Stream Implementers
 
-||
+|||
 ----------|-------------------------
 Readable  | `_read`
 Writable  | `_write`, `_writev`?, `_final`?

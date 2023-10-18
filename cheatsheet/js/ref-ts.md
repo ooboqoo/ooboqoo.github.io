@@ -18,11 +18,11 @@ null
 undefined
 
 // void is only valid as a return type or generic type variable
-function foo(): viod { /* */ }
+function foo(): viod { /* 返回 undefined 或 null 都可以 */ }
 
-any      // 任意值 any - 直接逃逸 TS 检查，开启 noImplicitAny 可增加程序健壮性
-unknown  // unknown 是 any 的收敛类型
-never    // 
+any      // 任意值（逃逸检查），开启 noImplicitAny 可增加程序健壮性
+unknown  // 任意值（保留检查），unknown 是 any 的收敛类型，unknown 是任何集合的超集
+never    // 空值（empty，不可以赋值，any 都不行），never 是任何集合的子集
 
 // 数组 Array
 elemType[] 或 Array<elemType>
@@ -44,8 +44,8 @@ console.log(Color.Green);  // 128
 const a: number = 1 as any;     // OK
 const b: number = 1 as unknown; // Error: Type 'unknown' is not assignable to type 'number'.
 
-// nerver 的用法
-
+// never 的用法
+type T = { a: boolean; b?: never } | { a?: never; b: boolean }  // a 和 b 互斥
 ```
 
 ### 类型断言 Type assertions
@@ -76,9 +76,6 @@ obj?.prop
 obj?.[expr]
 arr?.[index]
 func?.(args)
-
-// `??` 空值合并
-const foo = bar ?? 'default';
 
 // `#xxx` 私有属性
 class Person {
@@ -189,31 +186,6 @@ let x: X & Y = {} as Z;  // OK
 type EventNames = 'click' | 'scroll' | 'mousemove';
 ```
 
-### 类型保护
-
-```ts
-// `in` 关键字
-
-// `typeof` 关键字
-
-// `instanceof` 关键字
-
-// 自定义类型保护
-function isNumber(x: any): x is number {
-  return typeof x === 'number';
-}
-```
-
-### 条件类型
-
-一种由条件表达式所决定的类型，表现形式为 `T extends U ? X : Y`, 即如果类型 T 可以被赋值给类型 U，那么结果类型就是 X，否则为 Y。
-
-条件类型使类型具有了不唯一性，增加了语言的灵活性，
-
-```ts
-type NonNullable<T> = T extends null | undefined ? never : T;
-```
-
 ### 泛型
 
 * `T` Type 通常用作第一个类型变量名
@@ -225,6 +197,28 @@ type NonNullable<T> = T extends null | undefined ? never : T;
 ```ts
 // 类型变量名用 `<>` 包裹，参数变量名用 `()` 包裹
 function identity <T, U>(value: T, message: U): T {
+  // ...
+}
+
+// 泛型约束
+function <T extends Array>(arr: T): T{
+  // ...
+}
+
+// 泛型接口
+interface CreateArrayFunc {
+  <T>(length: number, value: T): Array<T>;
+}
+
+// 泛型类
+class GenericNumber<NumberType> {
+  zeroValue: NumberType;
+  add: (x: NumberType, y: NumberType) => NumberType;
+}
+let num = new GenericNumber<string>();
+
+// 泛型参数的默认值
+function createArray<T = string>(length: number, value: T): Array<T> {
   // ...
 }
 ```
@@ -247,10 +241,75 @@ function makeDate(mOrTimestamp: number, d?: number, y?: number): Date {
 }
 ```
 
+### 类型保护
 
+```ts
+// `in` 关键字
 
+// `typeof` 关键字
 
+// `instanceof` 关键字
 
+// 自定义类型保护
+function isNumber(x: any): x is number {
+  return typeof x === 'number';
+}
+```
 
+### 条件类型(类型运算的 if else)
 
+https://www.typescriptlang.org/docs/handbook/2/conditional-types.html
 
+一种由条件表达式所决定的类型，表现形式为 `T extends U ? X : Y`, 即如果类型 T 可以被赋值给类型 U，那么结果类型就是 X，否则为 Y。
+
+If the type `T` is assignable to the type `U`, select the type `X`; otherwise, select the type `Y`.
+
+条件类型使类型具有了不唯一性，增加了语言的灵活性，
+
+```ts
+// 示例1
+// Exclude null and undefined from T
+type NonNullable<T> = T extends null | undefined ? never : T;
+
+// 示例1
+interface IdLabel { id: number; }
+interface NameLabel { name: string; }
+type NameOrId<T extends number | string> = T extends number ? IdLabel : NameLabel;
+
+function createLabel<T extends number | string>(idOrName: T): NameOrId<T> {
+  throw 'unimplemented';
+}
+
+// 示例2
+type MessageOf<T> = T extends { message: unknown } ? T['message'] : never;
+
+// 示例3
+type NonNullable<T> = T extends null | undefined ? never : T;
+```
+
+#### `infer` Type Inference in Conditional Types
+
+Another useful feature that conditional types support is inferring type variables using the `infer` keyword. Within the extends clause of a conditional type, you can use the `infer` keyword to infer a type variable, effectively performing pattern matching on types.
+
+Note, that `infer` is always used within the `extends` clause of a conditional type.
+
+```ts
+// 这里存在两个泛型 Type 和 Item
+type Flatten<Type> = Type extends Array<infer Item> ? Item : Type;
+```
+Note that the inferred type variables (in this case, `Item`) can only be used in the true branch of the conditional type.
+
+许多内置工具类型都是基于 `infer` 实现的。
+
+```ts
+type ReturnType<T> = T extends (...args: any[]) => infer P ? P : any;
+```
+
+`infer` + `typeof` 用来取三方库的未导出类型非常方便。
+
+```ts
+function print(foo: { bar: string }) {
+  console.log(foo.bar)
+}
+type Foo = Parameters<typeof print>[0]
+```

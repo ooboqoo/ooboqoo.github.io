@@ -196,7 +196,7 @@ scan.close();
 对象序列化的本质实际上就是将内存中所保存的对象数据转换为二进制数据流进行传输的操作。但是并不是所有类的对象都可以直接进行序列化操作，要被序列化的对象所在类必须实现 java.io.Serializable 接口。
 
 ```java
-public interface Serializable { }  // 改接口没有任何内容，它只是一个标识接口，表示一种能力
+public interface Serializable { }  // 该接口没有任何内容，它只是一个标识接口，表示一种能力
 ```
 
 ### 实现序列化与反序列化

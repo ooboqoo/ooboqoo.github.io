@@ -3,9 +3,10 @@
 http://eslint.org/
 
 > *ESLint VS TSLint VS Prettier*
-> * ESLint 检查 js 文件的代码分格（可自动修复 Formatting rules 但无法修复 Code-quality rules）
-> * TSLint 检查 ts 文件的代码风格
+> * ESLint 检查 js 文件的代码风格（可自动修复 Formatting rules 但无法修复 Code-quality rules）
+> * ~TSLint~ 检查 ts 文件的代码风格（已经停止开发，统一用 ESLint 了）
 > * Prettier 自动格式化代码（只处理 Formatting rules 但不负责 Code-quality rules）
+
 
 ## 工具使用
 
@@ -88,6 +89,31 @@ ESLint 读取配置文件时，跟 CSS 很类似，会逐层往上查找配置�
 ## 详细配置说明
 
 https://eslint.org/docs/user-guide/configuring
+
+### .eslintignore
+
+
+### 临时逃逸
+
+示例：对一个代码块进行逃逸
+
+```js
+/* eslint-disable no-alert, no-console */
+
+alert('foo');
+console.log('bar');
+
+/* eslint-enable no-alert, no-console */
+```
+
+示例：只影响一行
+
+```js
+alert('foo'); // eslint-disable-line
+
+// eslint-disable-next-line
+alert('foo');
+```
 
 ### 临时更改某些规则
 

@@ -10,7 +10,7 @@ https://www.packtpub.com/application-development/learning-javascript-data-struct
 
 ```js
 function bubbleSort(arr) {
-  for (let i = arr.length; i--;) {                    // 首次 i 赋值为 3，但经过判端立即变为 2 了
+  for (let i = arr.length; i--;) {                    // 首次 i 赋值为 3，但经过判断立即变为 2 了
     for (let j = 0; j < i; j++) {
       if (arr[j] > arr[j + 1]) {
         [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];  // 利用 ES6 的解构赋值写法
@@ -416,7 +416,7 @@ function bubbleSort(array) { for(;;) { for(;;) { } } }  // 多一层循环，复
 | 散列表           |        O(1) / O(n)        |   O(1) / O(n)    |    O(1) / O(n)   |
 | 二分搜索树       |      O(log(n)) / O(n)     | O(log(n)) / O(n) | O(log(n)) / O(n) |
 
-#### 排序算法 
+#### 排序算法
 
 | (数组)排序算法 | 复杂度 - 最好情况 | 复杂度 - 一般    | 复杂度 - 最差情况 |
 |:--------------:|:-----------------:|:----------------:|:-----------------:|
