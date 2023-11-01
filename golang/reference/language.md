@@ -107,22 +107,18 @@ x == y+1 && <-chanInt > 0
 /    quotient               integers, floats, complex values
 %    remainder              integers
 
-&    bitwise AND            integers
-|    bitwise OR             integers
-^    bitwise XOR            integers
-&^   bit clear (AND NOT)    integers
+&    bitwise AND            integers    1100 & 1010 = 1000
+|    bitwise OR             integers    1100 | 1010 = 1110
+^    bitwise XOR            integers    1100 | 1010 = 0110
+&^   bit clear (AND NOT)    integers    1100 &^ 1010 = 0100
 
-<<   left shift             integer << integer >= 0
+<<   left shift             integer << integer >= 0    不考虑符号 00001100 << 4 = 11000000
 >>   right shift            integer >> integer >= 0
 ```
 
-The C equivalent of the Go expression `x &^ y` is just `x & ~y`. That is literally "x AND (bitwise NOT of y)".
+`^` 作为一元运算符时为 *bitwise NOT*，如 `^y` 对 y 按位取反。`x &^ y` 即 `x & ^y`，对 y 按位取反后再跟 x 进行 AND 操作。
 
-```go
-// the ^ symbol is used as a unary operator to perform bitwise complement of an integer
-var x uint8 = 10         // binary: 00001010
-fmt.Printf("%08b\n", ^x) // binary: 11110101
-```
+The `^` symbol is used as a unary operator to perform bitwise complement of an integer. The C equivalent of the Go expression `x &^ y` is just `x & ~y`. That is literally "x AND (bitwise NOT of y)".
 
 
 ## Types
@@ -145,15 +141,15 @@ complex64  complex128
 string
 
 // 派生类型 Derived types
-(a) Pointer types
-(b) Array types
-(c) Structure types
-(d) Union types
-(e) Function types
-(f) Slice types
-(g) Interface types
-(h) Map types
-(i) Channel Types
+Array types        ValueType
+Structure types    ValueType
+
+Pointer types      ReferenceType
+Slice types        ReferenceType
+Map types          ReferenceType
+Channel Types      ReferenceType
+Function types     ReferenceType
+Interface types    ReferenceType
 ```
 
 Basic Go Types
@@ -656,3 +652,24 @@ type error interface {
 }
 ```
 
+`recover()` 使用示例：
+
+```go
+func recoverDemo() {
+  defer func() {
+    if err := recover(); err != nil {
+      fmt.Println("Recovered from panic:", err)
+    }
+  }()
+
+  fmt.Println("Before panic")
+  panic("Something went wrong!")
+  fmt.Println("After panic")  // This line will not be executed
+}
+
+func main() {
+  fmt.Println("Start of main()")
+  recoverDemo()
+  fmt.Println("End of main()")
+}
+```

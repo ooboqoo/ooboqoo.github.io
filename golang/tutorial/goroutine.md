@@ -152,7 +152,7 @@ func main() {
   close(results)
 
   // Printing the results
-  for res := range results {
+  for res := range results {  // `range`: 对于未关闭的信道，只要不死锁，range 就会一直阻塞等待新数据
     fmt.Println("Result:", res)
   }
 }
@@ -173,7 +173,7 @@ runtime.Goexit()
 
 https://pkg.go.dev/sync
 
-Package `sync` provides basic synchronization primitives such as mutual exclusion locks. Other than the Once and WaitGroup types, most are intended for use by low-level library routines. Higher-level synchronization is better done via channels and communication.
+Package `sync` provides basic synchronization primitives such as mutual exclusion locks. Other than the `Once` and `WaitGroup` types, most are intended for use by low-level library routines. Higher-level synchronization is better done via channels and communication.
 
 Values containing the types defined in this package should not be copied.
 
@@ -187,10 +187,10 @@ Values containing the types defined in this package should not be copied.
 
 * sync.Mutex 互斥锁
 * sync.RWMutex 读写锁，适合读多写少的场景
-  - rwlock.Lock() 加**写锁**，其他协程获取读锁和写锁都会被阻塞
-  - rwlock.RLock() 加**读锁**，其他协程可正常获取读锁，但获取写锁时阻塞
+  - rwlock.Lock() 加 **写锁**，其他协程获取读锁和写锁都会被阻塞
+  - rwlock.RLock() 加 **读锁**，其他协程可正常获取读锁，但获取写锁时阻塞
 
-### 并发安全 Map
+### 并发安全 `Map`
 
 略，见 std2 笔记
 
@@ -202,7 +202,7 @@ Values containing the types defined in this package should not be copied.
 
 信道 channel 是用来传递数据（带有类型）的一个管道（即，也是一种数据结构）。
 
-通道默认不带缓冲区，发送和接收操作在另一端准备好之前都会 *阻塞*。这使得协程可以在没有显式的锁或竞态变量的情况下进行同步。
+信道默认不带缓冲区，发送和接收操作在另一端准备好前会 *阻塞*。这使得协程可以在没有 显式的锁 或 竞态变量 的情况下进行同步。
 
 * `ch := make(chan int)`: 不带缓冲区，不发生额外的数据拷贝；读在写之前发生
   - `receiveOnlyChan := make(chan<- int)` 操作符 `<-` 用于指定信道方向(发送或接收)，如未指定则为双向通道
@@ -227,7 +227,7 @@ func main() {
   ch <- 6
   ch <- 7
   close(ch)               // 关闭信道
-  wg.Wait()  // 如果没有这个 wait，只能打印 5 6，协程基本来不及打印 7 就退出了
+  wg.Wait()  // 如果没有这个 wait，多数情况下只能打印 5 6，协程基本来不及打印 7 就退出了
 }
 ```
 
@@ -300,7 +300,7 @@ func fibonacci(n int, c chan int) {
 func main() {
   c := make(chan int, 10)
   go fibonacci(cap(c), c)
-  for i := range c {  // 循环 `for i := range c` 会不断从信道接收值，直到它被关闭
+  for i := range c {  // 循环 `for i := range c` 会不断从信道接收值（或阻塞），直到它被关闭
     fmt.Println(i)
   }
 }
@@ -310,7 +310,7 @@ func main() {
 
 https://go.dev/ref/spec#Select_statements
 
-`select` 是信道场景下的 `switch`，用于支持同时响应多个信道。类似于 `switch` 语句，它有一系列 case分支 和 一个 default分支。*每个 case 对应一个通道的通信（接收或发送）过程*。`select` 会一直等待，直到某个 case 的信道 "is ready to proceed"，如果多个信道同时可操作，则随机选择其中一个执行。
+`select` 是信道场景下的 `switch`，用于支持同时响应多个信道。类似于 `switch` 语句，它有一系列 case分支 和 一个可选的 default分支。*每个 case 对应一个通道的通信（接收或发送）过程*。`select` 会一直等待，直到某个 case 的信道 "is ready to proceed"，如果多个信道同时可操作，则随机选择其中一个执行。
 
 ```txt
 SelectStmt = "select" "{" { CommClause } "}"
@@ -321,10 +321,10 @@ RecvExpr   = Expression
 ```
 
 `select` 的执行过程
-1. 会对所有 case 按照代码顺序就行评估（SendStmt 中要发送的值会被计算，但 RecvStmt 中的变量赋值不会发生）（即，实际的信道操作不执行，但前置的其他副作用都会发生）
+1. 会对所有 case 按照代码顺序进行评估（SendStmt 中要发送的值会被计算，但 RecvStmt 中的变量赋值不会发生）（即，实际的信道操作不执行，但前置的其他副作用都会发生）
 2. if 多个信道可操作 then 随机选择一个执行 elseif 只有一个信道可操作 then 执行之 elseif 存在 default 分支 then 执行之 else 阻塞
 3. 如果 case 分支对应的是 RecvStmt，消息将会被接收并进行赋值(如果有赋值操作)
-4. 执行 case 中的 StatementList
+4. 执行 case 对应的 StatementList
 
 ```go
 func main() {
@@ -338,7 +338,8 @@ func main() {
       fmt.Println("ch<- ", i)
     default:
       fmt.Println("default")
-    }
+    // case rand.Intn(5) > 2:  // compiler error: select case must be send or receive
+    }                          // (possibly with assignment)  SelectCase 专用于信道操作
   }
 
   fmt.Println("done")

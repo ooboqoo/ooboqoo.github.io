@@ -26,11 +26,15 @@
   .tag-pos { padding: 0 2px; color: #c33; }
   .tag-syn { padding: 0 2px; color: #999; font-size: .75em; border: 1px solid; border-radius: 4px; }
   .exp::before, .exa::before { padding: 0 2px; color: #999; border: 1px solid; border-radius: 4px; }
-  .exp:hover::after, .exa:hover::after { display: block; position: absolute; background-color: #f6f6f6; padding: 4px 4px 4px 12px; width: 95%; }
+  .exp:hover::after, .exa:hover::after { display: block; position: absolute; background-color: #f6f6f6; padding: 12px 4px 12px 12px; width: 95%; }
   .exp:hover::after, .exa:hover::after { content: attr(data-txt); }
   .exp::before { content: '释'; }
   .exa::before { content: '例'; }
 </style>
+
+
+## 忘 1
+
 
 Jesus 耶稣 Christ 基督 Jesus Christ 耶稣基督(人名) the man who Christians believe was the son of God  
 Christian 基督教徒,基督教的  
@@ -50,8 +54,14 @@ string
 cord  
 rope  
 
+
+联 anxious  _/ˈæŋkʃəs/_  a. 渴望的; 焦虑的  
+联 nervous  _/ˈnɜːrvəs/_  a. 神经紧张的; 焦虑的 <span class="exp">都可以表示“焦虑的”，nervous 表示 “紧张” 而 anxious 表示 “渴望”</span>
+
+
+
 bow  _/baʊ/_  v.鞠躬; 俯首  _/bəʊ/_  n.弓; 蝴蝶结  
-stoop  弯腰  
+stoop  _/stuːp/_  v. 弯腰  
 
 析 frustrate  _/ˈfrʌstreɪt/_  v.使沮丧,使愤怒; 挫败
   <span class="exp">upsets or angers you because you are unable to do anything about the problems it creates</span>  
@@ -83,19 +93,14 @@ troop  _/truːp/_  n.部队,士兵(可复数); 一群,一队 v.结队前行
 crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)伸长(脖子)，探头 She craned forward to look at me.  
 
 
-## 忘 1
-
-
-
 
 ## 忘 2
 
-忘 delicate  _/ˈdelɪkət/_  a.精致的,娇美的; 易碎的 SYN fragile  
 忘 diverse  _/daɪˈvɜːs/_  a.多种多样的,(from)不同的  shops selling a diverse range of gifts  
 忘 cognitive  _/ˈkɒɡnətɪv/_  a.认知的,认识能力的  As children grow older, their cognitive processes become sharper  
 
 忘 prominent  _/ˈprɒmənənt/_  a.显著的; 突出的; 杰出的  
-dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的  
+忘 dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的  
 
 忘 lease  _/liːs/_  n.租约; 租契 v.出租,租借  Rental Contract  
 忘 drought  _/draʊt/_  n.旱灾,干旱  
@@ -106,8 +111,8 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 忘 auction  _/ˈɔːkʃən $ ˈɒːk-/_  v./n.拍卖  
 忘 sanction  _/ˈsæŋkʃən/_  n.处罚,制裁 v.(正式)认可,准许; 对…实施处罚  
 
-忘 advocate  _/ˈædvəkeɪt/_  v.拥护,提倡 n.拥护者; 辩护律师 SYN proponent  
-忘 proponent  _/prəˈpəʊnənt/_  n.支持者,拥护者,辩护者  
+联 advocate  _/ˈædvəkeɪt/_  v.拥护,提倡 n.拥护者; 辩护律师 SYN proponent  
+联 proponent  _/prəˈpəʊnənt/_  n.支持者,拥护者,辩护者  
 
 忘 controversial  _/ˌkɒntrəˈvɜːʃəl◂/_  a.有争议的; 引发争论的  
 忘 conservative  _/kənˈsɜːvətɪv/_  a.保守的,守旧的 n.保守主义者  
@@ -116,7 +121,7 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 
 
 忘 convince  _/kənˈvɪns/_  v.(of)使信服,使确信  
-忘 concession  _/kənˈseʃən/_  n.让步,妥协; 特许(权)  
+忘 concession  _/kənˈseʃən/_  n.让步,妥协; 特许(权)  cession=cede割让(领土);  
 忘 hostile  _/ˈhɑːstl $ ˈhɒstaɪl/_  a.敌对的,敌方的,怀有敌意的  
 忘 grim  _/ɡrɪm/_  a.严峻的; 糟糕的,讨厌的,丑陋的 looking or sounding very serious  
 
@@ -133,8 +138,9 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 忘 vulnerable  _/ˈvʌlnərəbəl/_  a.脆弱的,易受伤害的 OPP invulnerable  
 忘 ingredient  _/ɪnˈɡriːdiənt/_  n.(混合物的)组成部分; (烹调的)原料; 成份,要素  是原料,不是调料  
 忘 heir  _/eə $ er/_  n.继承人 记发音  
-忘 omit  _/əʊˈmɪt/_  v.遗漏; 排除 emit发出光\热\气味
+忘 omit  _/əʊˈmɪt/_  v.遗漏; 排除
   <span class="exp">you do not include it in an activity or piece of work, deliberately or accidentally.</span>  
+联 emit  _/ɪˈmɪt/_ v.发出光\热\气味  
 
 忘 sore  _/sɔː $ sɔːr/_  a.疼痛的; 痛心的,恼怒的 n.痛处,疮口  Don’t be sore at me  
 忘 sue  _/sjuː $ suː/_  v.(通常为索赔而)控告,对…提起诉讼  
@@ -147,6 +153,8 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 忘 antique  _/ˌænˈtiːk◂/_  n.古董,古玩  
 忘 contemporary  _/kənˈtempərəri/_  a.当代的,现代的; 同时代的; 同时代的人  con+temporary短暂的  
 忘 ancestor  _/ˈænsestə/_  n.祖宗,祖先; 原种,原型  
+联 prototype  _/ˈprəʊtətaɪp $ ˈproʊ-/_  n.原型,样本,模范  
+
 忘 cancer  _/ˈkænsə/_  n.癌症  
 忘 plague  _/pleɪɡ/_  n.瘟疫  
 忘 notion  _/ˈnəʊʃən/_  n.看法; 观念; 理念  
@@ -154,10 +162,10 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 忘 clay  _/kleɪ/_  n.黏土,陶土  
 忘 erect  _/ɪˈrekt/_  v.建造建筑,建立体制,创建机构,创立理论 a.竖直的  
 
-忘 moderate  _/ˈmɒdərət, ˈmɒdərɪt/_  a.(政治观点或政策)温和的,稳健的; 中等的,普通的,适度的,适量的  
+忘 moderate  _/ˈmɒdərət, ˈmɒdərɪt/_  a.(政治观点或政策)温和的,稳健的; 中等的,普通的,适度的,*适量的*  
 忘 intermediate  _/ˌɪntəˈmiːdiət◂/_  a.居中的,中间的; 中等程度的,中级的 n.中级学习者  
 
-忘 spite  _/spaɪt/_  [in spite of] 尽管 SYN despite n.怨恨  
+忘 spite  _/spaɪt/_  [in spite of] 尽管 SYN despite; n.怨恨  
 忘 virtue  _/ˈvɜːtʃuː/_  n.善行; 美德; 优点  
 忘 false  _/fɔːls/_  a.错误的; 假的; 人虚伪的  
 忘 oblige  _/əˈblaɪdʒ/_  v.(形势、规定或法律)迫使; 施恩惠于,帮…的忙  
@@ -184,24 +192,28 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 忘 nurture  _/ˈnɜːtʃə/_  n./v.养育,培育  
 忘 prosperity  _/prɒˈsperəti, prɒˈsperɪti/_  n.繁荣,兴旺  
 忘 tragedy  _/ˈtrædʒədi/_  n.不幸,灾难,惨剧; 悲剧作品  
-忘 fare  _/feə/_  n.车费 v.进展 fare well 进展顺利 [联] farewell=goodby  
+忘 fare  _/feə/_  n.车费 v.进展  farewell=goodby 一路顺风  
 忘 inevitable  _/ɪˈnevətəbəl, ɪˈnevɪtəbəl/_  a.不可避免的,必然发生的  
 
 忘 handkerchief  _/ˈhæŋkətʃɪf/_  n.手帕  hand·ker·chief  
+忘 kerchief  _/ˈkɜːrtʃɪf/_  n. 头巾,围巾  
 忘 tissue  _/ˈtɪʃuː/_  n.(动植物的)组织; 面巾纸,手巾纸  
 
-忘 dumb  _/dʌm/_  a.哑的; 哑口无言的; 人愚蠢的,笨的; 无声的,不用言语表达的  a young deaf and dumb man  
-忘 damp  _/dæmp/_  a.潮湿的,湿气重的; n.潮气 v.弄湿  
+联 dumb  _/dʌm/_  a.哑的; 哑口无言的; 人愚蠢的,笨的; 无声的,不用言语表达的  a young deaf and dumb man  
+联 dump  _/dʌmp/_  v.倾倒; 倾销; n.垃圾堆  
+联 damp  _/dæmp/_  a.潮湿的,湿气重的; n.潮气 v.弄湿  
 
 忘 fatigue  _/fəˈtiːɡ/_  n.疲劳,疲倦; (金属或木材的)疲劳  
 忘 costume  _/ˈkɒstjʊm/_  n.表演服装; (某历史时期或某国的)装束 a.(戏剧)古装的  
 忘 trap  _/træp/_  n.(捕鸟兽的)陷阱,罗网,夹子; 圈套,骗局 v.诱骗,诱捕  
 
-忘 rebel  _/ˈrebəl/_  n.叛军,反叛者,反对派; 叛逆者 v.政见不同者反抗  
-忘 revolt  _/rɪˈvəʊlt/_  n./v.反叛; 起义; 叛乱; 抗争  
-忘 riot  _/ˈraɪət/_  n.暴动,骚乱 v.闹事  
+联 rebel  _/ˈrebəl/_  n.叛军,反叛者,反对派; 叛逆者 v.政见不同者反抗  
+联 revolt  _/rɪˈvəʊlt/_  n./v.反叛; 起义; 叛乱; 抗争  
+联 riot  _/ˈraɪət/_  n.暴动,骚乱 v.闹事  
 
+忘 liberate  _/ˈlɪbəreɪt/_  vt.解放,释放  
 忘 deliberate  _/dɪˈlɪbərət/_  a.故意的,蓄意的; 从容的,审慎的  
+
 忘 wax  _/wæks/_  n.蜡; 耳垢 v.给…上蜡  
 忘 alongside  _/əˌlɒŋˈsaɪd/_  [介] 在…旁边,沿着…的边  
 忘 knot  _/nɒt $ nɑːt/_  n.(绳)结; (树)节; 节(=海里/小时) v.打结  
@@ -273,7 +285,7 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
   <span class="exp">a government department or a part of a government department in the US</span>  
 忘 bold  _/bəʊld/_  a.大胆的,勇敢的; 醒目的,粗体的  
 
-忘 myth  _/mɪθ/_  n.神话; 虚构的理论; 编造的话,谎言  SYN fallacy  
+忘 myth  _/mɪθ/_  n.神话; 虚构的理论; 编造的话,谎言  SYN fallacy _/ˈfæləsi/_ 谬论  
 忘 illusion  _/ɪˈluːʒən/_  n.幻想,错误的观念; 幻觉  
 
 忘 exterior  _/ɪkˈstɪəriə/_  a.外部的,外面的 n.外部 OPP interior  
@@ -292,7 +304,9 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 忘 num5.386      five point three eight six  
 忘 frighten  _/ˈfraɪtn/_  v.使惊恐  
 
+忘 delicate  _/ˈdelɪkət/_  a.精致的,娇美的; 易碎的 SYN fragile  
 忘 elaborate  _/ɪˈlæbərət/_  v./a.精心制作(的); 详细阐述(的)  e+labor劳动＋ate→劳动出来→精做的  
+
 忘 vain  _/veɪn/_  a.自负的,爱虚荣的  
 忘 boast  _/bəʊst $ boʊst/_  v.(of,about)自夸,夸耀  
 忘 tire  _/taɪə $ taɪr/_  v.(使)疲倦,(使)厌倦 n.轮胎,车胎  轮胎:BrE tyre; NAmE tire  
@@ -301,7 +315,7 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
   <span class="exp">to mix cream or the clear part of an egg very hard until it becomes stiff ⇨ beat, whisk</span>  
 忘 prevail  _/prɪˈveɪl/_  v.(over,against)取胜,占优势; 流行,盛行  
 忘 pit  _/pɪt/_  n.坑,陷阱; 煤矿,矿井  A pit is a large hole that is dug in the ground.  
-忘 expert  _/ˈekspɜːt/_  n.专家,能手a.熟练的; 专门的  
+忘 expert  _/ˈekspɜːt/_  n.专家,能手 a.熟练的; 专门的  
 忘 decent  _/ˈdiːsənt/_  a.尚好的,过得去的; 适当的,得体的; 人正派的,规矩的  
 忘 tear  n._/tɪə/_ v._/teə/_  n.(pl.)眼泪 vt.撕裂; 使..分裂 vi.破裂  
 忘 acute  _/əˈkjuːt/_  a.情况严重的; 感觉强烈的; 疾病急性的; 感官灵敏的; 发音重音的  
@@ -309,9 +323,10 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 忘 exploit  _/ɪkˈsplɔɪt/_  v.开采; 剥削 n.功绩,功勋  
 忘 stadium  _/ˈsteɪdiəm/_  n.(周围设有看台的)露天体育场  
 忘 monetary  _/ˈmʌnətəri/_  a.金融的,货币的 money  
+联 monetize _/ˈmʌnətaɪz $ ˈmɑː-/_  v.(通过网站访客)赚钱  
 忘 acquaintance  _/əˈkweɪntəns/_  n.认识的人,泛泛之交; 认识,相识,了解
   <span class="exp">In everyday English, people usually say "someone I know" rather than an acquaintance</span>  
-忘 gymnasium 简gym  _/dʒɪmˈneɪziəm/_  n.体育馆,健身房  
+忘 gymnasium 简 <b>gym</b>  _/dʒɪmˈneɪziəm/_  n.体育馆,健身房  
 忘 eliminate  _/ɪˈlɪməneɪt,-mɪ-/_  v.剔除; 淘汰; 消灭  
 忘 sack  _/sæk/_  n.麻袋 v.解雇; 洗劫  
 忘 reconcile  _/ˈrekənsaɪl/_  v.使和好,使和解; 调和,协调两种信仰、事实或要求  
@@ -329,7 +344,7 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 忘 fuss  _/fʌs/_  n./v.忙乱,大惊小怪  
 忘 convict  _/kənˈvɪkt/_  v.(经审讯)证明...有罪,宣判...有罪 n.囚犯  
 忘 sponsor  _/ˈspɒnsə $ ˈspɑːnsər/_  n.赞助人; 发起人 v.资助; 主办  
-忘 divine  _/dəˈvaɪn, dɪˈvaɪn/_  a.神的,神授的,天赐的; 极好的,极美的  holy  
+忘 divine  _/dəˈvaɪn, dɪˈvaɪn/_  a.神的,神授的,<i>天赐的</i>; 极好的,极美的  holy  
 忘 mineral  _/ˈmɪnərəl/_  n.矿物,矿石 a.矿物的,矿质的  
 忘 indifferent  _/ɪnˈdɪfərənt/_  a.冷漠的,不关心的,不积极的  
 忘 fancy  _/ˈfænsi/_  a.花哨的,奢华的 n.幻想; 渴望 v.爱慕; 认为  
@@ -339,17 +354,16 @@ dominant  _/ˈdɒmɪnənt/_  a.占支配地位的,显著的
 忘 concentrate  _/ˈkɒnsəntreɪt $ ˈkɑːn-/_  v.集中心思; 使汇集 n.浓缩物 centr=center,表示"中心"  
 忘 drain  _/dreɪn/_  n.下水道,排水管; 消耗,负担 v.排出,使流出; 使(精力)耗尽; 用完  
 忘 primitive  _/ˈprɪmətɪv, ˈprɪmɪtɪv/_  a.原始的,远古的; 简陋的  
-忘 dormitory 简dorm  _/ˈdɔːmətəri, -mɪ-/_  n.集体寝室  
+忘 dormitory 简 <b>dorm</b>  _/ˈdɔːmətəri, -mɪ-/_  n.集体寝室  
 忘 sin  _/sɪn/_  n.罪孽,罪过 v.犯戒律  break the laws of God  
-忘 atmosphere  _/ˈætməsfɪə $ -fɪr/_  n.大气(层); 氛围,环境 原子是atom  
+忘 atmosphere  _/ˈætməsfɪə $ -fɪr/_  n.大气(层); 氛围,环境  <span class="exp">atmo=vapor蒸汽 + sphere球体</span>  
 忘 gratitude  _/ˈɡrætətjuːd, ˈɡrætɪ-/_  n.感恩之情; 感谢 grat+itude状态  
 忘 speculate  _/ˈspekjəleɪt/_  v.推测,猜测; 做投机买卖  
 忘 resort  _/rɪˈzɔːt/_  v.凭借,求助,诉诸 n.度假胜地  [as a last resort] 最终手段  
 忘 tackle  _/ˈtækəl/_  n.滑轮组; 体育器材,渔具v.处理,解决; 阻截  
-忘 plunge  _/plʌndʒ/_  v.(into)(使)投入/插进/陷入; 使投身; 骤降,猛跌  
+忘 plunge  _/plʌndʒ/_  v.(into) 一头扎入水中,(使)投入/插进/陷入; 使投身; 骤降,猛跌  
 忘 chamber  _/ˈtʃeɪmbə/_  n.房间,室; 会议室; 议院; (动物体内)腔室  
 忘 span  _/spæn/_  n.(时间)跨度; (距离)跨距  
-忘 liberate  _/ˈlɪbəreɪt/_  vt.解放,释放  
 忘 tedious  _/ˈtiːdiəs/_  a.乏味的,单调的,冗长的 SYN boring  
 忘 distinction  _/dɪˈstɪŋkʃən/_  n.区别,差别; 特性; 卓越; 光荣  
 忘 awkward  _/ˈɔːkwəd/_  a.尴尬的; 棘手的; 行动笨拙的; 难相处的  SYN difficult  

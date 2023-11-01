@@ -9,7 +9,7 @@ https://pkg.go.dev/std
 
 在业务代码中常用 `WaitGroup` 和 `Once` 来实现并发任务的同步。
 
-sync.WaitGroup 内部维护着一个计数器，计数器的值可以增加和减少。当我们需要启动 delta 个并发任务时，就将计数器值增加 delta。每个任务完成时通过调用 Done() 将计数器减1。通过调用 Wait() 来等待并发任务执行完，当计数器值为 0 时，表示所有并发任务已经完成。
+`sync.WaitGroup` 内部维护着一个计数器，计数器的值可以增加和减少。当我们需要启动 delta 个并发任务时，就将计数器值增加 delta `Add(delta)`。每个任务完成时通过调用 `Done()` 将计数器减1。通过调用 `Wait()` 来等待并发任务执行完，当计数器值为 0 时，表示所有并发任务已经完成。
 
 ```go
 // A WaitGroup waits for a collection of goroutines to finish.
@@ -44,7 +44,7 @@ func main() {
 // Output: hello\nhello\nworld
 ```
 
-另外，很多场景下我们需要确保某些操作在高并发的场景下只执行一次，例如只加载一次配置文件、只关闭一次通道等。sync.Once 就是针对这种应用场景的。
+另外，很多场景下我们需要确保某些操作在高并发的场景下只执行一次，例如只加载一次配置文件、只关闭一次通道等。`sync.Once` 就是针对这种应用场景的。
 
 ```go
 // 内部包含一个互斥锁和一个布尔值，互斥锁保证布尔值和数据的安全，而布尔值用来记录初始化是否完成。
@@ -87,8 +87,8 @@ Other than the Once and WaitGroup types, most are intended for use by low-level 
 
 * sync.Mutex 互斥锁
 * sync.RWMutex 读写锁，适合读多写少的场景
-	- rwlock.Lock() 加**写锁**，其他协程获取读锁和写锁都会被阻塞
-	- rwlock.RLock() 加**读锁**，其他协程可正常获取读锁，但获取写锁时阻塞
+	- rwlock.Lock() 加 **写锁**，其他协程获取读锁和写锁都会被阻塞
+	- rwlock.RLock() 加 **读锁**，其他协程可正常获取读锁，但获取写锁时阻塞
 
 使用互斥锁能够保证同一时间只有一个协程使用资源，多个协程同时等待一个锁时，唤醒哪个是随机的。
 
@@ -175,7 +175,8 @@ func main() {
 
 #### `Map`
 
-Go 语言内置的 map 不是并发安全的，当大量协程同时修改一个 map 时就可能会出现报错: "fatal error: concurrent map writes"。sync.Map 则是一个开箱即用的并发安全版 map，开箱即用表示不用像内置 map 一样需要初始化后才能使用。
+Go 内置的 map 不是并发安全的，当大量协程同时修改一个 map 时就可能会出现报错: "fatal error: concurrent map writes"。
+`sync.Map` 则是一个开箱即用的并发安全版 map，开箱即用即无需初始化就能用，而内置的 map 需要初始化后才能使用。
 
 ```go
 var m = sync.Map{}
@@ -198,7 +199,7 @@ func main() {
 
 #### `sync/atomic`
 
-代码中的加锁操作因为涉及内核态的上下文切换会比较耗时。针对基本数据类型我们还可以使用原子操作来保证并发安全，因为原子操作是Go语言提供的方法它在用户态就可以完成，因此性能比加锁操作更好。
+代码中的加锁操作因为涉及内核态的上下文切换会比较耗时。针对基本数据类型我们还可以使用原子操作来保证并发安全，因为原子操作是Go语言提供的方法，在用户态就可以完成，因此性能比加锁操作更好。
 
 ```go
 func LoadInt32(addr int32) (val int32)
@@ -255,9 +256,9 @@ func test(title string, fn func()) {
 }
 
 func main() {
-	test("普通版\t\t", add)        // 普通版add函数 不是并发安全的（计算结果不符合预期）
-	test("加锁版\t\t", mutexAdd)   // 加锁版add函数 是并发安全的，但是加锁性能开销大
-	test("原子操作版\t", atomicAdd) // 原子操作版add函数 是并发安全，性能优于加锁版
+	test("普通版\t\t", add)        // 普通版add函数：不是并发安全的（计算结果不符合预期）
+	test("加锁版\t\t", mutexAdd)   // 加锁版add函数：是并发安全的，但是加锁性能开销大
+	test("原子操作版\t", atomicAdd) // 原子操作版add函数：是并发安全，性能优于加锁版
 }
 
 // Output:
@@ -272,21 +273,19 @@ flag包 实现了命令行参数的解析
 
 ```go
 func main() {
-    //定义命令行参数方式1
+    // 定义命令行参数方式1
     var name string
     var age int
     flag.StringVar(&name, "name", "张三", "姓名")
     flag.IntVar(&age, "age", 18, "年龄")
 
-    //解析命令行参数
+    // 解析命令行参数
     flag.Parse()
+
     fmt.Println(name, age)
-    //返回命令行参数后的其他参数
-    fmt.Println(flag.Args())
-    //返回命令行参数后的其他参数个数
-    fmt.Println(flag.NArg())
-    //返回使用的命令行参数个数
-    fmt.Println(flag.NFlag())
+    fmt.Println(flag.Args())   // 命令行参数后的其他参数
+    fmt.Println(flag.NArg())   // 命令行参数后的其他参数个数
+    fmt.Println(flag.NFlag())  // 使用的命令行参数个数
 }
 
 // $ go run main.go -name gavin a b c -foo

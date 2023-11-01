@@ -1,6 +1,11 @@
 # 应用场景
 
 
+### 命令行
+
+https://github.com/spf13/cobra
+
+
 ### 文件上传
 
 文件上传常规做法是服务端签名，前端上传。 [TOS RESTFull API 参考](wiki/wikcnfItA1wvKRe7v2gaQk87ppc#QPmsFf)
