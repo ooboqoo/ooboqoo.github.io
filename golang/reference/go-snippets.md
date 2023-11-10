@@ -45,3 +45,27 @@ func main() {
 }
 ```
 
+### 利用通道来调度协程
+
+```go
+// 利用 chan 来控制协程的执行，非常巧妙地取代了 sync.WaitGroup
+func main() {
+  c := make(chan bool)
+
+  for i := 0; i < 3; i++ {
+    // 如果没有这行，下面的 i 始终会是 3，因为循环内部只有一个 i
+    // 此问题将在 1.22 中得到解决 https://go.dev/blog/loopvar-preview
+    i := i
+    go func() {
+      println("goroutine message", i)
+      c <- true
+    }()
+  }
+
+  <-c                              // 确保有一个协程已经执行完毕
+  println("main function message") // 这一条会出现在第二或第三行
+  <-c                              // 确保又有一个协程已经执行完毕
+  // <-c // 如果注释掉这一行，第三条 "goroutine message" 基本来不及输出
+}
+```
+

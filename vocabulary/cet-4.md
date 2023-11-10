@@ -32,7 +32,7 @@
   .exa::before { content: '例'; }
 </style>
 
-
+<div style="display: none;">
 ## 忘 1
 
 
@@ -117,8 +117,6 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
 忘 controversial  _/ˌkɒntrəˈvɜːʃəl◂/_  a.有争议的; 引发争论的  
 忘 conservative  _/kənˈsɜːvətɪv/_  a.保守的,守旧的 n.保守主义者  
 
-联 contempt  _/kənˈtempt/_  n.轻视,藐视; 受辱,丢脸  
-
 
 忘 convince  _/kənˈvɪns/_  v.(of)使信服,使确信  
 忘 concession  _/kənˈseʃən/_  n.让步,妥协; 特许(权)  cession=cede割让(领土);  
@@ -152,6 +150,8 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
 忘 jury  _/ˈdʒʊəri $ ˈdʒʊri/_  n.陪审团  
 忘 antique  _/ˌænˈtiːk◂/_  n.古董,古玩  
 忘 contemporary  _/kənˈtempərəri/_  a.当代的,现代的; 同时代的; 同时代的人  con+temporary短暂的  
+联 contempt  _/kənˈtempt/_  n.轻视,藐视; 受辱,丢脸  
+
 忘 ancestor  _/ˈænsestə/_  n.祖宗,祖先; 原种,原型  
 联 prototype  _/ˈprəʊtətaɪp $ ˈproʊ-/_  n.原型,样本,模范  
 
@@ -189,9 +189,9 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
 忘 ripe  _/raɪp/_  a.(水果、谷物等)成熟的; (时机)成熟的  
 忘 straw  _/strɔː $ strɒː/_  n.(喝饮料用的)吸管; (干的)稻草,麦秆  
 忘 glow  _/ɡləʊ $ ɡloʊ/_  n.微弱稳定的光; 脸上的红晕 v.发光,泛光; 容光焕发  
-忘 nurture  _/ˈnɜːtʃə/_  n./v.养育,培育  
 忘 prosperity  _/prɒˈsperəti, prɒˈsperɪti/_  n.繁荣,兴旺  
 忘 tragedy  _/ˈtrædʒədi/_  n.不幸,灾难,惨剧; 悲剧作品  
+   strategy  _/ˈstrætɪdʒi/_  n.战略,策略  
 忘 fare  _/feə/_  n.车费 v.进展  farewell=goodby 一路顺风  
 忘 inevitable  _/ɪˈnevətəbəl, ɪˈnevɪtəbəl/_  a.不可避免的,必然发生的  
 
@@ -232,13 +232,13 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
 忘 diligent  _/ˈdɪlədʒənt, ˈdɪlɪdʒənt/_  a.勤奋的,孜孜不倦的  
 
 
-
 忘 dye  _/daɪ/_  v.给…染色 n.染料  
 忘 recite  _/rɪˈsaɪt/_  v.背诵,朗诵  
 忘 stimulate  _/ˈstɪmjəleɪt, ˈstɪmjʊleɪt/_  v.刺激(身体部位); 激励,鼓舞  
+accumulate  _/əˈkjuːmjʊleɪt/_  v.积聚  
 忘 tidy  _/ˈtaɪdi/_  a.整洁的,整齐的 v.整理,收拾  
 忘 blend  _/blend/_  n.混合(物) v.混和,混杂  
-忘 compensate  _/ˈkɒmpənseɪt/_  v.(for)补偿,赔偿  
+忘 compensate  _/ˈkɒmpənseɪt/_  v.(for)补偿,赔偿; 酬报(某人)  
 忘 yawn  _/jɔːn $ jɒːn/_  v.打哈欠 n.哈欠; 枯燥的事物  
 忘 corporate  _/ˈkɔːpərət, ˈkɔːpərɪt/_  a.共同的; 公司的 corporation 大公司  
 忘 mosquito  _/məˈskiːtəʊ/_  n.蚊子  
@@ -298,6 +298,7 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
 忘 debate  _/dɪˈbeɪt/_  v./n.争论,辩论  
 忘 lime  _/laɪm/_  n.酸橙; 石灰 [相似] lime lemon orange  
 忘 triumph  _/ˈtraɪəmf/_  n.胜利,成功 v.得胜,战胜  
+忘 nurture  _/ˈnɜːtʃə/_  n./v.养育,培育  
 忘 nutritious  _/njuːˈtrɪʃəs $ nuː-/_  a.有营养的  Nutrilite 安利纽崔莱 lite低糖的; 简化的  
 忘 nonsense  _/ˈnɒnsəns/_  n.胡说,废话; 愚蠢的举动; 荒谬的话  untrue or silly  
 忘 repair  _/rɪˈpeə $ -ˈper/_  n.修理,修补 v.补救,纠正; 修理 NAmE fix;  BrE mend  
@@ -497,27 +498,33 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
 混 perspective  _/pəˈspektɪv $ pər-/_  n.透视画法; 观点,看法  SYN viewpoint  
 混 prospective  _/prəˈspektɪv/_  a.预期的  
 
-混 board  _/bɔːd $ bɔːrd/_  n.板,木板; 委员会; 伙食 v.上船(车,飞机)  
 混 border  _/ˈbɔːdə/_  n.边界,国界; 边(沿) v.毗连,与…接壤  
+混 board  _/bɔːd $ bɔːrd/_  n.板,木板; 委员会; 伙食 v.上船(车,飞机)  
+混 aboard  _/əˈbɔːd/_  ad./prep.在船(飞机,车)上  
 混 broad  _/brɔːd $ brɒːd/_  a.宽的,广阔的  
 混 abroad  _/əˈbrɔːd/_  ad.到国外,在国外; 广为流传地  
-混 aboard  _/əˈbɔːd/_  ad./prep.在船(飞机,车)上  
 
 混 contrary  _/ˈkɒntrəri/_  a.(to)相反的,矛盾的 _on the contrary_ 相反地  
 混 contrast  _/ˈkɒntrɑːst/_  n.差异,悬殊 v.(with)对比,对照  
 
 混 drip  _/drɪp/_  v.滴下,漏水 n.滴,水滴 a drop of drip 一滴水滴  
 混 drop  _/drɒp/_  v.使降低,掉落,扔下; 中途卸下某人或物; 输掉 n.滴; 微量; 落差  
+</div>
 
 
 ## 析
 
 析 tremendous  _/trɪˈmendəs/_  a.巨大的; 出色的  
-析 massive  _/ˈmæsɪv/_  a.大而重的,厚实的  
 析 enormous  _/ɪˈnɔːməs/_  a.巨大的,庞大的  
 析 immense  _/ɪˈmens/_  a.广大的,巨大的; [口]极好的  SYN enormous  
+析 massive  _/ˈmæsɪv/_  a.大而重的,厚实的  
 析 vast  _/vɑːst $ væst/_  a.巨大的,辽阔的  
 析 giant  _/ˈdʒaɪənt/_  n.巨人 a.巨大的  
+
+析 splendid  _/ˈsplendəd,-ɪd/_  a.壮丽的  beautiful and impressive  
+析 spectacular  _/spekˈtækjələ/_  a.壮观的,引人注目的 n.盛大的演出  
+析 magnificent  _/mæɡˈnɪfɪsənt/_  a.华丽的;宏伟的 very big, beautiful, and impressive  
+析 picturesque  _/ˌpɪktʃəˈresk◂/_  a.风景如画的;富有诗意的  
 
 析 fantastic  _/fænˈtæstɪk/_  a.极好的; 极大的; 奇异的 口语常用  
 析 terrific  _/təˈrɪfɪk/_  a.极好的 口语常用  
@@ -528,21 +535,19 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
 析 wonderful  _/ˈwʌndəfəl/_  a.精彩的; 绝妙的; 极好的  
 析 amazing  _/əˈmeɪzɪŋ/_  a.令人称奇的; 惊人的  
 析 incredible  _/ɪnˈkredəbəl/_  a.惊人的,不可思议的  
+析 superb  _/sjuːˈpɜːb/_  a.极佳的; 卓越的  
+析 stunning  _/ˈstʌnɪŋ/_  a.美艳动人,美轮美奂 <span class="exp">A stunning person or thing is extremely attractive or beautiful</span>; 令人震惊的 <span class="exp">very surprising or shocking</span> SYN staggering  
+析 breathtaking  _/ˈbreθˌteɪkɪŋ/_  a.激动人心的  
+析 exquisite  _/ɪkˈskwɪzət, ˈekskwɪzɪt/_  a.精美的,精致的  
+
 析 brilliant  _/ˈbrɪljənt/_  a.卓越的,有才华的  
 析 glorious  _/ˈɡlɔːriəs/_  a.辉煌的; 光荣的  
-析 superb  _/sjuːˈpɜːb/_  a.极佳的; 卓越的  
-析 splendid  _/ˈsplendəd,-ɪd/_  a.壮丽的  beautiful and impressive  
-析 spectacular  _/spekˈtækjələ/_  a.壮观的,引人注目的 n.盛大的演出  
 
-析 beautiful  _//_  
-析 lovely  _//_  
-析 pretty  _//_  
-析 attractive  _//_  
-析 magnificent  _/mæɡˈnɪfɪsənt/_  a.华丽的;宏伟的 very big, beautiful, and impressive  
-析 picturesque  _//_  
-析 stunning/breathtaking  _//_  
-析 exquisite  _/ɪkˈskwɪzət/_  
-析 elegant  _//_  
+析 beautiful  _/ˈbjuːtəfəl, ˈbjuːtɪfəl/_  a.漂亮的  
+析 lovely  _/ˈlʌvli/_  a.可爱的  
+析 pretty  _/ˈprɪti/_  a.标致的  
+析 attractive  _/əˈtræktɪv/_  a.有魅力的  
+析 elegant  _/ˈeləɡənt, ˈelɪɡənt/_  a.优雅的  
 
 析 stale  _/steɪl/_  a.(食物)不新鲜的,变质的; 缺乏新鲜感的,厌倦的,令人厌倦的  
 析 rotten  _/ˈrɑːtn/_  a.腐烂的,腐朽的  
@@ -577,12 +582,10 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
 析 shed  _/ʃed/_  n.工棚,库房 v.流出; 发散  
 析 barn  _/bɑːn $ bɑːrn/_  n.谷仓,牲口棚  
 
-析 yacht  _/jɑːt/_  n.帆船,游艇  a large boat with a sail, used for pleasure or sport  
-
-
-联 vessel  _/ˈvesəl/_  n.舰,轮船,大船; 盛液体用的容器,器皿  blood vessel 血管  
+联 vessel  _/ˈvesəl/_  n.舰,轮船,大船 <span class="exp">formal, a ship or large boat</span>; 盛液体用的容器,*器皿*  blood vessel 血管  
 联 ship  _/ʃɪp/_  n.舰,轮船,大船 v.船运  
 联 boat  _/bəʊt $ boʊt/_  n.小船,艇,客轮  
+析 yacht  _/jɑːt/_  n.帆船,游艇  a large boat with a sail, used for pleasure or sport  
 联 ferry  _/ˈferi/_  n.渡船,渡轮 v.摆渡  
 联 fleet  _/fliːt/_  n.舰队,船队  
 
@@ -595,19 +598,22 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
   <span class="exp">a wide, straight road, especially one with trees on either side.</span>  
 
 析 fare  _/feə $ fer/_  n.车费,船费  
-析 fee  _/fiː/_  n.服务费; 报酬; 酬金 price value charge  
+析 fee  _/fiː/_  n.服务费; 报酬; 酬金 cost, price, value, charge  
 析 toll  _/təʊl $ toʊl/_  n.(桥梁、道路的)通行费 death toll: (死亡、事故或灾难的)总数  
+析 tip  _/tɪp/_  n.小费 v.给...小费  
 
-析 elder  _/ˈeldə/_  a.年长的,资格老的 n.长辈  elder 后不能接 than  
-析 old  _/əʊld/_  a.年老的; 过去的 older 用于指年龄,可以接 than  
+析 elder  _/ˈeldə/_  a.年长的,资格老的 n.长辈 // elder 后不能接 than  
+析 old  _/əʊld/_  a.年老的; 过去的  // older 用于指年龄,可以接 than  
 
 析 per cent  _/_  percent  _/pəˈsent/_  n.(percent)百分之...的  
 析 percentage  _/pəˈsentɪdʒ $ pər-/_  n.百分数,百分率,百分比  
-析 fraction  _/ˈfrækʃən/_  n.分数; 碎片,小部分,一点儿 portion,section,segment片段  
+析 fraction  _/ˈfrækʃən/_  n.分数; 碎片,小部分,一点儿 portion,section,segment片段
+  <span class="exp">A fraction (分数) is a number that can be expressed as a proportion of two whole numbers.</span>  
 析 fragment  _/ˈfræɡmənt/_  n.碎片,片断,小部分 v.使分裂  
 析 portion  _/ˈpɔːʃən/_  n.部分,一份 侧重从整体中所分配到的那一部分  
 析 proportion  _/prəˈpɔːʃən/_  n.比例; 部分 与整体间存在着一个定量关系  
-析 proportional  _/prəˈpɔːʃənəl/_  a.与…成比例的  
+析 proportional  _/prəˈpɔːʃənəl/_  a.与…成比例的
+  <span class="exa">The punishment should be proportional to the crime.</span>  
 析 ratio  _/ˈreɪʃiəʊ $ ˈreɪʃoʊ/_  n.比,比率  
 析 rate  _/reɪt/_  n.速率; 等级; 价格,费用v.估价; 评级,评价  
 析 segment  _/ˈseɡmənt/_  n.部分,片段; (水果的)瓣; (市场)细分的部分  
@@ -617,7 +623,8 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
   <span class="exp">Manual workers are paid wages, or a wage.The plural is more common than the singular</span>  
 析 salary  _/ˈsæləri/_  n.薪金,薪水
   <span class="exp">Professional people and office workers receive a salary, which is paid monthly</span>  
-联 income 收入  earnings 报酬
+联 income 收入 <span class="exp">A person's or organization's income is the money that they earn or receive, as opposed to the money that they have to spend or pay out. </span>  
+联 earnings 收入  
 
 析 gulf  _/ɡʌlf/_  n.海湾    a very large area of sea partly enclosed by land  
 析 bay  _/beɪ/_  n.海湾,(港)湾   an area of sea that is partly enclosed by a curve in the land  
@@ -634,9 +641,11 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
 析 purse  _/pɜːs/_  n.尤指女式钱包  
 
 析 lorry / NAmE _truck_  _/ˈlɒri/_  n.卡车,运货汽车  是货车的统称, 包含 pickup van jeep tractor 等  
+析 van  _/væn/_  n.厢式中小型货车  
 析 wagon  _/ˈwæɡən/_  n.运货马车; 敞蓬车厢,(火车)货车箱  
 析 carriage  _/ˈkærɪdʒ/_  n.敞篷马车(客运); (火车)客车厢  
-析 cart  _/kɑːt $ kɑːrt/_  n.购物车; (旧时的)马车 SYN trolley  
+析 cart  _/kɑːt $ kɑːrt/_  n.购物车; (旧时的)马车  *推车 美国用 cart 英国用 trolley*  
+析 trolley  _/ˈtrɒli $ ˈtrɑːli/_  n.(购物)手推车; (送货)小推车
 
 析 crash  _/kræʃ/_  v./n.碰撞 n.破产  
 析 crush  _/krʌʃ/_  n./v.压碎,压坏 n.拥挤的人群; (对…的)爱慕  
@@ -645,7 +654,7 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
 
 析 inn  _/ɪn/_  n.小旅馆; 客栈; 小酒馆  
 析 hotel  _/həʊˈtel/_  n.宾馆; 旅馆; 酒店  
-析 hostel  _/ˈhɒstl/_  n.廉价招待所,临时收容所 =youth hostel  注意 t 的发音更像 d
+析 hostel  _/ˈhɒstl/_  n.廉价招待所,临时收容所, *youth hostel* 青年旅舍, 注意 t 的发音更像 d
 
 析 interpret  _/ɪnˈtɜːprət,-ɪt/_  vt.解释,说明; 口译
   <span class="exp">to change what someone is saying into another language, as they are speaking</span>  
@@ -659,26 +668,27 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
 析 hill  _/hɪl/_  n.小山,山岗,高地; [pl.]丘陵(地带)
   <span class="exp">an area of land that is higher than the land around it, which is like a mountain but smaller and usually has a rounded top</span>  
 析 cliff  _/klɪf/_  n.(尤指靠海的)悬崖,峭壁    the steep side of an area of land, often next to the sea  
-析 precipice  _/ˈpresəpəs/_  n.悬崖,峭壁; 险境,绝境   a very steep and dangerous cliff  
+析 precipice  _/ˈpresəpəs/_  especially literary n.悬崖,峭壁; 险境,绝境   a very steep and dangerous cliff  
 析 ridge  _/rɪdʒ/_  n.山脊    a long narrow area of high ground, especially at the top of a mountain  
-析 peak  _/piːk/_  n.山顶,顶峰 a.高峰的    the top of a mountain.(peak time 高峰期的)  
+析 peak  _/piːk/_  especially literary n.山顶,顶峰 a.高峰的    the top of a mountain.(peak time 高峰期的)  
 析 summit  _/ˈsʌmət, ˈsʌmɪt/_  n.峰会,首脑会议; 山峰,峰顶 SYN peak <span class="exp">比 peak 多个峰会的意义</span>  
 
-析 calculate  _/ˈkælkjəleɪt, ˈkælkjʊleɪt/_  v.计算; 估算 这个就是要"算"  
-析 estimate  _/ˈestəmət, ˈestɪmət/_  v./n.估计,估价 n.估算单; 预算书 重在"估",基于现有资料尽量准确地猜测.
+析 calculate  _/ˈkælkjəleɪt, ˈkælkjʊleɪt/_  v.计算; *估算* 这个就是要"算"  
+析 estimate  _/ˈestəmət, ˈestɪmət/_  v./n.估计,*估价* n.估算单; 预算书 重在"估",基于现有资料尽量准确地猜测.
   <span class="exp">to guess an amount, price, or number as exactly as you can, based on the knowledge you have</span>  
-析 reckon  _/ˈrekən/_  v.认为; 预计; 估计  口语常用,重"感觉"缺乏准确性  
-析 evaluate  _/ɪˈvæljueɪt/_  v.根据信息作出评价
+析 reckon  _/ˈrekən/_  v.认为; 预计; 估计  口语常用,重*感觉*缺乏准确性  
+析 evaluate  _/ɪˈvæljueɪt/_  v.根据*信息*作出评价
   <span class="exp">to judge especially by carefully examining all the information about them. Evaluate is often used about the work of people doing research</span>  
-析 assess  _/əˈses/_  v.根据标准来评估,评价
+析 assess  _/əˈses/_  v.根据*标准*来评估,评价
   <span class="exp">to judge especially by using a fixed set of standards. Assess is often used about measuring students’ abilities and performance</span>  
-析 appraise  _/əˈpreɪz/_  formal. v.评价,评估 根据比较优缺点作出评价 
+析 appraise  _/əˈpreɪz/_  formal. v.评价,评估 根据比较*优缺点*作出评价
   <span class="exp">to judge especially by comparing their good and bad points</span>
   <span class="exa">Greenpeace has been invited to appraise the environmental costs of such an operation.</span>  
 析 appraisal  _/əˈpreɪzəl/_  n.评价,评估  
 
 析 barber  _/ˈbɑːbə $ ˈbɑːrbər/_  n.为男性理发的男理发师
-  <span class="exp">a man whose job is to cut men’s hair and sometimes to ↑shave them</span>  
+  <span class="exp">a man whose job is to cut men’s hair and sometimes to ↑shave them</span>
+  <span class="exa">A barber shop is a shop where a barber works.</span>  
 析 hairdresser  _/ˈheəˌdresə/_  n.理发师,美发师; 美发店  
 析 stylist  _/ˈstaɪləst, ˈstaɪlɪst/_  n.发型师; 造型设计师  
 析 beautician  _/bjuːˈtɪʃən/_  n.美容师  
@@ -687,16 +697,16 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
 析 lawyer  _/ˈlɔːjə $ ˈlɒːjər/_  n.律师  
 析 attorney  _/əˈtɜːni $ -ɜːr-/_  n.(美国)律师  NAmE a lawyer.
   <span class="exp">Attorney sounds more formal than lawyer</span>  
-析 advocate  _/ˈædvəkeɪt/_  n.辩护律师  
+析 advocate  _/ˈædvəkeɪt/_  n.辩护律师  SYN proponent  
 
-析 agreement  _/əˈɡriːmənt/_  n.协定; 协议; 承诺; 合约
+析 agreement  _/əˈɡriːmənt/_  n.*协定*; 协议; 承诺; 合约
   <span class="exp">常指两个或多个当事人之间达成的谅解、理解后定的协议</span>  
-析 convention  _/kənˈvenʃən/_  n.(国家,首脑等之间的)公约,协议,协定
+析 convention  _/kənˈvenʃən/_  n.(国家,首脑等之间的)*公约*,协议,协定
   <span class="exp">常用于“国际公约”尤指处理某件具体事务的公约</span>
   <span class="exa">eg. the Geneva Convention 日内瓦公约</span>  
-析 treaty  _/ˈtriːti/_  n.(国家之间的)条约,协定
+析 treaty  _/ˈtriːti/_  n.(国家之间的)*条约*,协定
   <span class="exp">指的是国与国之间正式的、当事国签订并批准的条约</span>  
-析 pact  _/pækt/_  n.合同,条约,公约,协定
+析 pact  _/pækt/_  n.合同,*条约*,公约,协定
   <span class="exp">近来 pact 常代替 treaty, 但在重要性和约束力上不如 treaty</span>
 
 析 velocity  _/vəˈlɒsəti/_  n.速度; 速率 [科技用词] 矢量
@@ -716,8 +726,8 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
   <span class="exp">由韧性材料制成的长的窄带,如皮带,皮鞭</span>  
 析 strip  _/strɪp/_  v.剥,剥去 n.窄条; 商业街
   <span class="exp">通常有同样宽度的长而狭窄的条片</span>  
-析 stripe  _/straɪp/_  n.条纹,线条; 臂章  
-析 streak  _/striːk/_  n.条痕 v.在…上留下条纹(或条痕) 如车轮印  
+析 stripe  _/straɪp/_  n.条*纹*,线条; 臂章  
+析 streak  _/striːk/_  n.条*痕* v.在…上留下条纹(或条痕) 如车轮印  
 
 析 football  _/ˈfʊtbɔːl $ -bɒːl/_  n.足球    在美国指橄榄球,一般的就是通常的足球  
 析 soccer  _/ˈsɒkə $ ˈsɑːkər/_  n.(英式)足球
@@ -730,12 +740,16 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
 析 view  _/vjuː/_  n.视野; 风景; 观察; 见解; 照片 vt.观察; 认为
   <span class="exp">view常指从远处或高处看到的scenery的一部分,有时可与scene互换</span>
 
-析 consist  _/kənˈsɪst/_  v.(in)存在于; (of)由...组成/构成 整体+consists of+部分的全体  
-析 constitute  _/ˈkɒnstətjuːt,-tɪ-/_  v.组成,构成; 设立(委员会、政府等) 部分的全体+constitute+整体  
-析 comprise  _/kəmˈpraɪz/_  vt.包含,包括,由...组成; 构成,组成 comprises or is comprised of  
-析 compose  _/kəmˈpəʊz $ -ˈpoʊz/_  v.组成,构成; 创作(诗歌等) 整体+be composed of+部分的全体  
+析 consist  _/kənˈsɪst/_  v.(in)存在于; (of)由...组成/构成 *整体 + consists of + 部分的全体*  
+析 constitute  _/ˈkɒnstətjuːt,-tɪ-/_  v.组成,*构成*; 设立(委员会、政府等) *部分的全体 + constitute + 整体*
+  <span class="exa">Volunteers constitute more than 95% of The Center's work force. 该中心95%以上的工作人员是志愿者。</span>  
+析 comprise  _/kəmˈpraɪz/_  vt.*包含*,包括,由...组成; 构成,组成 *comprises or is comprised of*
+  <span class="exa">The exhibition comprises 50 oils and watercolours... 展览陈列了50幅油画和水彩画。</span>  
+析 compose  _/kəmˈpəʊz $ -ˈpoʊz/_  v.组成,构成; 创作(诗歌等) *整体 + be composed of + 部分的全体*  
 析 make up   v.组成; 编造; 给…化妆  make up (also constitute formal)  
 析 compound  _/ˈkɒmpaʊnd $ ˈkɑːm-/_  n.(化学中的)化合物; 混合物 a.混合的; (单词句子)复合的  
+
+联 decompose  _/ˌdiːkəmˈpoʊz/_  v. to decay or make something decay; [technical] to divide into smaller parts  
 
 析 tone  _/təʊn $ toʊn/_  n.音调; 腔调; 色调; 格调 O就像嘴形,跟语音有关  
 析 tune  _/tjuːn $ tuːn/_  n.曲调,调子 U就像乐团指挥的手势,跟音乐调子有关  
@@ -768,43 +782,52 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
 
 析 company  _/ˈkʌmpəni/_  n.公司; 陪伴
   <span class="exp">an organization that makes or sells something, or provides a service</span>  
-析 enterprise  _/ˈentəpraɪz $ -tər-/_  n.常指_小型_企业; 创业; 进取心  
-析 firm  _/fɜːm $ fɜːrm/_  n._商_号 a.坚固的; 坚决的
+析 enterprise  _/ˈentəpraɪz $ -tər-/_  n.常指*小型*企业; 创业; 进取心  
+析 firm  _/fɜːm $ fɜːrm/_  n.*商号* a.坚固的; 坚决的
   <span class="exp">a company, especially one that provides a service rather than producing goods</span>  
-析 corporation  _/ˌkɔːpəˈreɪʃən/_  n._大_企业; (英国某些大城市的)市政委员会   a large company that often includes several smaller companies  
+析 corporation  _/ˌkɔːpəˈreɪʃən/_  n.*大*企业; (英国某些大城市的)市政委员会   a large company that often includes several smaller companies  
 析 subsidiary  _/səbˈsɪdiəri/_  n.子公司 a.辅助的; 次要的   a company that is owned by a larger company  
-析 business  _/ˈbɪznəs, ˈbɪznɪs/_  n.商业,生意; _商铺_; 事务,业务,职责
+析 business  _/ˈbɪznəs, ˈbɪznɪs/_  n.商业,生意; *商铺*; 事务,业务,职责
   <span class="exp">a company – often used when talking about a company that employs only a small number of people</span>
 
-析 dispute  _/dɪˈspjuːt, ˈdɪspjuːt/_  n.争论,争端 v.质疑 _in dispute_ 有争端/纠纷   a public or legal argument about something, especially one which continues for a long time  
-析 argument  _/ˈɑːɡjəmənt/_  n.争论(吵),辩论; 理由; 质疑    a situation in which people speak angrily to each other because they disagree about something  
-析 controversy  _/ˈkɒntrəvɜːsi, kənˈtrɒvəsi/_  n.争论,辩论,争吵    a serious argument about something that involves many people and continues for a long time  
-析 quarrel  _/ˈkwɒrəl/_  n.争吵; 吵架   especially British English an argument, especially one in which people get angry and that lasts a long time  
-析 squabble  _/ˈskwɒbəl $ ˈskwɑː-/_  n.(为琐事)争吵,起争执   to argue about something unimportant SYN quarrel  
-析 disagreement  _/ˌdɪsəˈɡriːmənt/_  n.争执; 异议   a situation in which people disagree with each other, but without shouting or getting angry  
-析 row  _/rəʊ $ roʊ/_  n.(一)排; 争吵; 纠纷  have a row row做争吵时仅用于英国,美国用fight  a loud angry argument with someone, especially your boyfriend, girlfriend, or someone in your family. Row is also used about a serious disagreement between politicians about important public issues  
-析 feud  _/fjuːd/_  n.世仇 v.结怨,长期争吵   a very bitter argument between two groups, especially families, which lasts for many years and causes people to hate each other  
+析 dispute  _/dɪˈspjuːt, ˈdɪspjuːt/_  n.争论,争端 v.质疑 _in dispute_ 有争端/纠纷
+  <span class="exp">a public or legal argument about something, especially one which continues for a long time</span>  
+析 argument  _/ˈɑːɡjəmənt/_  n.争论(吵),辩论; 理由; 质疑
+  <span class="exp">a situation in which people speak angrily to each other because they disagree about something</span>  
+析 controversy  _/ˈkɒntrəvɜːsi, kənˈtrɒvəsi/_  n.争论,辩论,争吵
+  <span class="exp">a serious argument about something that involves many people and continues for a long time</span>  
+析 quarrel  _/ˈkwɒrəl/_  n.争吵; 吵架
+  <span class="exp">especially British English an argument, especially one in which people get angry and that lasts a long time</span>  
+析 squabble  _/ˈskwɒbəl $ ˈskwɑː-/_  n.(为琐事)争吵,起争执  to argue about something unimportant SYN quarrel  
+析 disagreement  _/ˌdɪsəˈɡriːmənt/_  n.争执; 异议
+  <span class="exp">a situation in which people disagree with each other, but without shouting or getting angry</span>  
+析 row  _/rəʊ $ roʊ/_  n.(一)排; 争吵; 纠纷  have a row (row 做争吵时仅用于英国,美国用 *fight*)
+  <span class="exp">a loud angry argument with someone, especially your boyfriend, girlfriend, or someone in your family. Row is also used about a serious disagreement between politicians about important public issues</span>  
+析 feud  _/fjuːd/_  n.世仇 v.结怨,长期争吵
+  <span class="exp">a very bitter argument between two groups, especially families, which lasts for many years and causes people to hate each other</span>  
+
+析 bind  _/baɪnd/_  v.捆绑; 束缚 过去式 bound  
+析 bond  _/bɒnd $ bɑːnd/_  n.结合(物); 情感的纽带; 束缚; 公债,债券,契约  
+析 bound  _/baʊnd/_  v.弹起; 约束,限制 n.蹦跳,*跳跃*; 界限,限制 a.与…紧密相连的
+  <span class="exp">Bound refers to a large, powerful leap or jump. It implies movement from one place to another. Bounce refers to a small springing motion up and down in the same place without significant forward movement.
+</span>  
+析 bounce  _/baʊns/_  n/v.(球)弹起,弹回; *弹起*,跳起;  n.弹力  
+析 boundary  _/ˈbaʊndəri/_  n.分界线,边界  ↑bound4  
+
+析 comparable  _/ˈkɒmpərəbəl/_  a.类似的; 可比较的  
+析 comparative  _/kəmˈpærətɪv/_  a.相对的; 比较的; (形容词或副词)比较级的  The comparative of 'pretty' is 'prettier'  
 
 析 sadness  _/ˈsædnəs,-nɪs/_  n.伤心  
 析 depression  _/dɪˈpreʃən/_  n.抑郁,沮丧; 萧条[期]; 洼地; 低气压  
 析 sorrow  _/ˈsɒrəʊ/_  n.悲哀; 悲伤  
 析 despair  _/dɪˈspeə/_  n.绝望 v.感到绝望  
 
-析 bind  _/baɪnd/_  v.捆绑; 束缚 过去式 bound  
-析 bond  _/bɒnd $ bɑːnd/_  n.结合(物); 情感的纽带; 束缚; 公债,债券,契约  
-析 bound  _/baʊnd/_  v.弹起; 约束 n.跳跃; 界限 a.与…紧密相连的  
-析 bounce  _/baʊns/_  n/v.(球)弹起,弹回; 弹起,跳起;  n.弹力  
-析 boundary  _/ˈbaʊndəri/_  n.分界线,边界  ↑bound4  
-
-析 comparable  _/ˈkɒmpərəbəl/_  a.类似的; 可比较的  
-析 comparative  _/kəmˈpærətɪv/_  a.相对的; 比较的; (形容词或副词)比较级的  The comparative of 'pretty' is 'prettier'  
-
-析 miserable  _/ˈmɪzərəbəl/_  a.痛苦的,悲惨的  
 析 upset  _/ˌʌpˈset◂/_  a.心烦的 v.打乱,搅乱  
 析 depressed  _/dɪˈprest/_  a.抑郁的,沮丧的; 萧条的,不景气的; 凹陷的  very unhappy  
 析 heartbroken  _/ˈhɑːtˌbrəʊkən/_  a.极度伤心的,心碎的  
 析 distressed  _/dɪˈstrest/_  a.苦恼的; 仿旧的,做旧的 very upset or worried.  
 析 distress  _/dɪˈstres/_  n.悲伤,痛苦,忧虑; 危难,危急 v.使苦恼  
+析 miserable  _/ˈmɪzərəbəl/_  a.痛苦的,悲惨的  
 
 析 trend  _/trend/_  n.趋势,倾向; 风尚  
 析 tend  _/tend/_  v.倾向于; 个人认为; 照料  
@@ -829,7 +852,7 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
 析 astonish  _/əˈstɒnɪʃ/_  v.使惊讶,使十分惊奇 to greatly surprise someone  
 析 shock  _/ʃɒk $ ʃɑːk/_  n.震惊,惊愕; 休克; 冲击,撞击 v.使震惊  
 
-析 shadow  _/ˈʃædəʊ/_  n.影子,阴影; 阴暗处 v.遮蔽; 跟踪 重"影"  
+析 shadow  _/ˈʃædəʊ/_  n.影子,阴影; 阴暗处 v.遮蔽; 跟踪 重"影"的 // 发音：瞎抖  
 析 shade  _/ʃeɪd/_  n.阴凉处; 阴影部分; 遮光物 v.给…遮挡(光线) 重"荫"  
 
 析 farther  _/ˈfɑːðə/_  ad.更远地,再往前地 a.更远的  指距离上的远  
@@ -838,36 +861,36 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
 析 sample  _/ˈsɑːmpəl $ ˈsæm-/_  n.样品,货样; (用于化验的)取样; (抽查的)样本  
 析 specimen  _/ˈspesəmən/_  n.(动植物)标本; (供检验用的尿、血液等体液的)样本; 具有…特性的人 speci种类+men物品 an example of sth, especially an animal or plant  
 
-析 demand  _/dɪˈmɑːnd/_  v.强烈要求,需要 n.坚决的要求,需求量  
+析 demand  _/dɪˈmɑːnd $ dɪˈmænd/_  v.强烈要求,需要 n.坚决的要求,需求量  
 析 require  _/rɪˈkwaɪə/_  v.需要,有赖于; 命令,规定,要求  
 
-析 solve  _/sɒlv $ sɑːlv/_  v.解决(问题); 解题  
+析 solve  _/sɒlv/_  v.解决(问题); 解题  
 析 resolve  _/rɪˈzɒlv/_  v.解决; 下定决心; 使分解为 n.决心 做"解决"理解时同solve  
 
 析 previous  _/ˈpriːviəs/_  a.先前的,早先的; 上一次的,上一个的  
-析 preceding  _/prɪˈsiːdɪŋ/_  a.发生在…之前的; 顺序 位置在先的  
+析 preceding  _/prɪˈsiːdɪŋ/_  a.发生在…之前的; 顺序、位置在先的  
 
 析 grasp  _/ɡrɑːsp/_  written v.紧握; 理解,领悟 n.紧握; 理解,掌握  比 grip 多个理解的意思  _grasp an opportunity_  
-析 cling  _/klɪŋ/_  v.紧紧抓住,抱紧; 抓住(职位或财产)不放; 黏附,粘住; 缠住  过去式 clung  _/klʌŋ/_  
 析 grip  _/ɡrɪp/_  v.紧握,抓牢 n.控制,支配; 抓地力,防滑; 手提包,旅行袋  
+析 cling  _/klɪŋ/_  v.紧紧抓住,抱紧; 抓住(职位或财产)*不放*; 黏附,粘住; 缠住  过去式 *clung* _/klʌŋ/_  
 析 grab  _/ɡræb/_  v.抓住,攫取; 夺取; 引起…的注意,吸引; 争取,抓住机会等  更突然,更暴力  
-析 seize _/siːz/_ written v.抓住
+析 seize _/siːz/_ written v.抓住,逮捕  
 
-析 part  something that together with other things forms a whole  
-析 piece  one of several different parts that you join together to make something  
-析 component  a part of a machine or process  
-析 section  a part of something that is clearly different and separate from other parts  
-析 chapter  one of the numbered parts that a book is divided into  
-析 scene  one of the parts that a film or play is divided into  
-析 episode  a part of a story on the television or the radio, which is told in separate parts  
+析 part  部分  something that together with other things forms a whole  
+析 piece  片  one of several different parts that you join together to make something  
+析 component  组件  a part of a machine or process  
+析 section  部分,区域  a part of something that is clearly different and separate from other parts  
+析 chapter  章节  one of the numbered parts that a book is divided into  
+析 scene  场景  one of the parts that a film or play is divided into  
+析 episode  集  a part of a story on the television or the radio, which is told in separate parts  
 
 析 cupboard  _/ˈkʌbəd/_  n.橱柜([英] cupboard 指所有类似的家具；[美] 常用 closet 来指较大的此类家具)  
-析 wardrobe  _/ˈwɔːrdroʊb/_  n.衣柜,衣橱；A tall cupboard or cabinet in which you can hang your clothes.  
 析 closet  _/ˈklɒzɪt/_  n.[美] 壁橱; 密室 a.(信仰、习惯、情感)隐蔽的,不公开的  *comes out of the closet* 公开同性恋身份
   <span class="exp">a cupboard built into the wall of a room from the floor to the ceiling</span>  
+析 wardrobe  _/ˈwɔːrdroʊb/_  n.衣柜,衣橱；A tall cupboard or cabinet in which you can hang your clothes.  
 析 cabinet  _/ˈkæbɪnət/_  n.内阁,内阁会议; (带玻璃门存物品的)橱柜
 
-
+<div style="display: none;">
 ## 联
 
 联 elementary  _/ˌeləˈmentəri◂/_  a.简单的; 基本的 element元素,要素-ary  
@@ -2075,6 +2098,6 @@ to shake slightly in a way that you cannot control, especially because you are f
 类 plow BrE plough  _/plaʊ/_  v.犁(地); 耕地  
 类 math BrE maths  _/mæθs/_  n.数学 同 mathematics  
 类 airplane BrE aeroplane  _/ˈeərəpleɪn $ ˈerə-/_  n.飞机  
-
+</div>
 
 

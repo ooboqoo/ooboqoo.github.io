@@ -111,6 +111,15 @@ func add(x int, y int) int {
 }
 ```
 
+注：对应的 TypeScript 版本，基本就是把 `:` 省略掉了而已。
+
+```ts
+function add(x: number, y: number): number {
+  return x + y;
+}
+```
+
+
 当多个参数类型相同时，前面的类型声明可省略，保留最后一个即可。如 `x int, y int` 可写成 `x, y int`。
 
 ```golang
@@ -196,6 +205,8 @@ import "fmt"
 var block = "package"
 
 func main() {
+  fmt.Printf("The block is %s.\n", block)    // package
+
   block := "function"
   {
     block := "inner"
@@ -497,7 +508,7 @@ case true:
   fmt.Println("1.1") // 执行
   fallthrough
 case false:
-  fmt.Println("1.2") // 执行，跟在 fallthrough 后面的case语句始终会执行
+  fmt.Println("1.2") // 执行，跟在 fallthrough 后面的 case 语句始终会执行
   fallthrough
 case false:
   fmt.Println("1.3") // 执行
@@ -564,7 +575,7 @@ console.log('swap');
 
 ### `defer` 语句
 
-推迟调用的函数，参数会立即求值，但直到外层函数返回前该函数都不会被调用。
+推迟调用的函数，*参数会立即求值*，但直到外层函数返回前该函数都不会被调用。
 
 推迟的函数调用会被压入一个栈中。当外层函数返回时，被推迟的函数会按照 *后进先出* 的顺序调用。
 
@@ -590,7 +601,7 @@ func main() {
 
 `&` 操作符会生成一个指向其操作数的指针。
 
-> Go 语言中比较让人费解的设计：`*ptr` 用在代码中表示 ptr 指针指向的值，而当 `*Person` 作为类型时，表示指向 Person 的指针，同样的 `*xx` 出现在代码中和出现中类型中表示的意义正好要倒一倒。助记：`*` 类比 算术运算符 `-`
+> Go 语言中比较让人费解的设计：`*ptr` 用在代码中表示 ptr 指针指向的值，而当 `*Person` 作为类型时，表示指向 Person 的指针，同样的 `*xx` 出现在代码中和出现在类型中表示的意义正好要倒一倒。助记：`*` 类比 算术运算符 `-`
 
 ```golang
 func main() {
@@ -652,29 +663,64 @@ func main() {
 }
 ```
 
-示例2
+#### embedded field
 
-```golang
-type person struct {
-  firstName string
-  lastName  string
-  contactInfo        // 这里 contactInfo 的字段名和类型名相同时可以简写
+Go supports embedding of structs and interfaces to express a more seamless composition of types.
+
+An embedding looks like a field without a name.
+
+```go
+// Defines a struct named MyMutex which has two fields: count of type int and sync.Mutex.
+// The sync.Mutex field is an embedded field,
+// which means that the MyMutex struct inherits all the methods of the sync.Mutex struct.
+type MyMutex struct {
+    count int
+    sync.Mutex
+}
+```
+
+```go
+type base struct {
+  num int
 }
 
-type contactInfo struct {
-  addr    string
-  zipCode int
+func (b base) describe() string {
+  return fmt.Sprintf("base with num=%v", b.num)
+}
+
+type Container struct {
+  str string
+  base
 }
 
 func main() {
-  gavin := person{
-    firstName: "Gavin",
-    lastName:  "Wong",
-    contactInfo: contactInfo{  // 注意这里的写法，比 JavaScript 的用法要多个类型
-      addr:    "123 Main St",
-      zipCode: 12345,
-    },
+  co := Container{
+    base: base{num: 1},
+    str:  "some name",
   }
+
+  // We can access the base’s fields directly on co, e.g. co.num.
+  fmt.Printf("co={num: %v, str: %v}\n", co.num, co.str)
+  // Alternatively, we can spell out the full path using the embedded type name.
+  fmt.Println("also num:", co.base.num)
+  fmt.Println("describe:", co.describe())
+}
+```
+
+嵌入指针类型的用法：
+
+```go
+type Container struct {
+  str string
+  *base                   // 修改点 1
+}
+
+func main() {
+  co := Container{
+    base: &base{num: 1},  // 修改点 2
+    str:  "some name",
+  }
+  // ... 其他用法不变
 }
 ```
 
@@ -698,68 +744,31 @@ type User struct {
 }
 ```
 
-#### embedded field
-
-Go supports embedding of structs and interfaces to express a more seamless composition of types.
-
-An embedding looks like a field without a name.
+示例，利用 `reflect` 包获取 tag 信息：
 
 ```go
-// Defines a struct named MyMutex which has two fields: count of type int and sync.Mutex.
-// The sync.Mutex field is an embedded field,
-// which means that the MyMutex struct inherits all the methods of the sync.Mutex struct.
-type MyMutex struct {
-    count int
-    sync.Mutex
-}
-```
-
-```go
-type Base struct {
-  num int
-}
-
-func (b Base) describe() string {
-  return fmt.Sprintf("base with num=%v", b.num)
-}
-
-type Container struct {
-  Base
-  str string
-}
-
 func main() {
-  co := Container{
-    Base: Base{
-      num: 1,
-    },
-    str: "some name",
-  }
-
-  // We can access the base’s fields directly on co, e.g. co.num.
-  fmt.Printf("co={num: %v, str: %v}\n", co.num, co.str)
-  // Alternatively, we can spell out the full path using the embedded type name.
-  fmt.Println("also num:", co.Base.num)
-  fmt.Println("describe:", co.describe())
+  p := Person{}
+  t := reflect.TypeOf(p)
+  field := t.Field(2)
+  fmt.Println(field.Tag.Get("json"))
 }
+
+// Output:
+// middle_name,omitempty
 ```
 
 ### 数组 Arrays
 
-数组：类型确定，长度不可变
-值类型：传递参数的时候进行值拷贝
-slice：是对底层数组的一段内容的引用。本质：实际数组 (pointer) + 长度 (len) + 最大容量 (cap)
-  * 避免在两个变量中修改同一个底层数组
-
-
-
-
-
+数组：类型确定，长度不可变  
+值类型：传递参数的时候进行值拷贝  
 类型 `[n]T` 表示拥有 `n` 个 `T` 类型的值的数组。
 
 数组的长度是其类型的一部分，因此 *数组不能改变大小*。切片则为数组元素提供 *动态大小的、灵活的视角*，切片比数组更常用。
 
-切片只是对原数组的一种映射，直接改数组内容或者改切片内容，实际都是改的数组，都是联动的。
+切片 slice：是对底层数组的一段内容的引用。  
+本质：实际数组 (pointer) + 长度 (len) + 最大容量 (cap)。  
+直接改数组内容或者改切片内容，实际都是改的数组，都是联动的。
 
 ```golang
 func main() {
@@ -883,7 +892,7 @@ func main() {
 balance := [...]float32{1000.0, 2.0, 3.4, 7.0, 50.0}
 ```
 
-如果设置了数组的长度，我们还可以通过指定下标来初始化元素：
+我们还可以通过指定下标来初始化元素：
 
 ```go
 // 将索引为 1 和 3 的元素初始化
@@ -1199,7 +1208,7 @@ func main() {
 指定了零个方法的接口值被称为 **空接口**，空接口可保存任何类型的值。
 
 ```golang
-interface {}
+type any = interface{}  // 1.18 新增
 ```
 
 #### 类型断言

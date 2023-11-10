@@ -107,10 +107,10 @@ x == y+1 && <-chanInt > 0
 /    quotient               integers, floats, complex values
 %    remainder              integers
 
-&    bitwise AND            integers    1100 & 1010 = 1000
-|    bitwise OR             integers    1100 | 1010 = 1110
-^    bitwise XOR            integers    1100 | 1010 = 0110
-&^   bit clear (AND NOT)    integers    1100 &^ 1010 = 0100
+&    bitwise AND            integers    1100 & 1010 = 1000   // 1 见 1 为 1，其余为 0
+|    bitwise OR             integers    1100 | 1010 = 1110   // 两数 1 相叠加
+^    bitwise XOR            integers    1100 ^ 1010 = 0110   // 两数不同 为 1
+&^   bit clear (AND NOT)    integers    1100 &^ 1010 = 0100  // 1 见 0 为 1，其余为 0
 
 <<   left shift             integer << integer >= 0    不考虑符号 00001100 << 4 = 11000000
 >>   right shift            integer >> integer >= 0
@@ -307,6 +307,7 @@ const (
   a3 = 6    // 6   // 自定义一个常量
   a4        // 6   // 不赋值就和上一行相同
   a5 = iota // 4   // const 已经新增了 4行, 所以这里是 4
+  a6        // 5   // 上一行是 iota 继续走 iota 相关逻辑
 )
 ```
 
