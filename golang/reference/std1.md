@@ -67,8 +67,8 @@ pointer to above:   &{}, &[], &map[]                   &{Jhon 23} &[1 2 3] &map[
 Package `strings` implements simple functions to manipulate UTF-8 encoded strings.
 
 ```go
-func TrimRight(s, cutset string) string  // cutset 即 []rune, 如 TrimRight("123oxo", "xo") => "123"
-func TrimSuffix(s, suffix string) string
+func TrimSuffix(s, suffix string) string // TrimSuffix("12oxo", "xo") => "12o"
+func TrimRight(s, cutset string) string // cutset 即 []rune, 故 TrimRight("12oxo", "xo") => "12"
 func TrimSpace(s string) string
 ```
 
@@ -95,7 +95,9 @@ err = tmpl.Execute(&buf, sweaters) // text/template
 ```
 
 
-### os
+### os (文件操作、环境 等)
+
+Package `os` provides a platform-independent interface to operating system functionality. Features not generally available appear in the system-specific package `syscall`.
 
 ```go
 // 新建文件并写入

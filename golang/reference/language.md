@@ -53,12 +53,12 @@ go       chan     select
           ( )   [ ]  { }
 ```
 
-https://www.tutorialspoint.com/go/go_operators_precedence.htm
+https://www.tutorialspoint.com/go/go_operators_precedence.htm 貌似错误不少
 
 Category       | Operator                          | Associativity
 ---------------|-----------------------------------|---------------
-Postfix        | `()` `[]` `->` `.` `++` `--`      | Left to right
-Unary          | `+` `-` `!` `~` `++` `--` `*` `&` `sizeof` `^`                 | Right to left
+Postfix        | `()` `[]` `.`                     | Left to right
+Unary          | `+` `-` `!` `^` `*` `&`           | Right to left
 Multiplicative | `*` `/` `%`                       | Left to right
 Additive       | `+` `-`                           | Left to right
 Shift          | `<<` `>>`                         | Left to right
@@ -69,12 +69,12 @@ Bitwise XOR    | `^`                               | Left to right
 Bitwise OR     | `\|`                              | Left to right
 Logical AND    | `&&`                              | Left to right
 Logical OR     | `\|\|`                            | Left to right
-Assignment     | `=` `+=` `-=` `*=` `/=` `%=` `>` `>=` `<` `<=` `&=` `^=` `\|=` | Right to left
+Assignment     | `=` `+=` `-=` `*=` `/=` `%=` `>=` `<=` `&=` `^=` `\|=` | Right to left
 Comma          | `,`                               | Left to right
 
 ### Operator precedence
 
-Unary operators have the highest precedence. As the `++` and `--` operators form statements, not expressions, they fall outside the operator hierarchy. As a consequence, statement `*p++` is the same as `(*p)++`.
+Unary operators have the highest precedence. As the `++` and `--` operators *form statements, not expressions*, they fall outside the operator hierarchy. As a consequence, statement `*p++` is the same as `(*p)++`.
 
 There are five precedence levels for binary operators. Multiplication operators bind strongest, followed by addition operators, comparison operators, `&&` (logical AND), and finally `||` (logical OR):
 
@@ -108,7 +108,7 @@ x == y+1 && <-chanInt > 0
 %    remainder              integers
 
 &    bitwise AND            integers    1100 & 1010 = 1000   // 1 见 1 为 1，其余为 0
-|    bitwise OR             integers    1100 | 1010 = 1110   // 两数 1 相叠加
+|    bitwise OR             integers    1100 | 1010 = 1110   // 两数 1 相叠加（见 1 为 1）
 ^    bitwise XOR            integers    1100 ^ 1010 = 0110   // 两数不同 为 1
 &^   bit clear (AND NOT)    integers    1100 &^ 1010 = 0100  // 1 见 0 为 1，其余为 0
 
@@ -116,9 +116,42 @@ x == y+1 && <-chanInt > 0
 >>   right shift            integer >> integer >= 0
 ```
 
-`^` 作为一元运算符时为 *bitwise NOT*，如 `^y` 对 y 按位取反。`x &^ y` 即 `x & ^y`，对 y 按位取反后再跟 x 进行 AND 操作。
+In computing, the *modulo operation* returns the *remainder* or signed remainder of a *division*. In Go and JavaScript `%` is the remainder 余数 NOT the modulus 模数 operator. 余数 和 模数 在正数时结果是一样的，但碰到负数时结果不一样。
 
-The `^` symbol is used as a unary operator to perform bitwise complement of an integer. The C equivalent of the Go expression `x &^ y` is just `x & ~y`. That is literally "x AND (bitwise NOT of y)".
+`^` 作为一元运算符时为 *bitwise NOT*，如 `^y` 对 y 按位取反。`x &^ y` 即 `x & ^y`，对 y 按位取反后再跟 x 进行 AND 操作。The `^` symbol is used as a unary operator to perform bitwise complement of an integer. The C equivalent of the Go expression `x &^ y` is just `x & ~y`. That is literally "x AND (bitwise NOT of y)".
+
+### Variadic function 可变函数
+
+```go
+func sum(nums ...int) int {
+  total := 0
+  for _, num := range nums {
+    total += num
+  }
+  return total
+}
+
+func main() {
+  nums := []int{1, 2, 3, 4}
+  total := sum(nums...)  // 跟 JS 不同，Go 的展开符放后面
+  fmt.Println(total)
+}
+```
+
+```go
+func foo(num ...int) {
+  fmt.Printf("%p\n", num)
+}
+
+func main() {
+  a := []int{5, 6, 7}
+  foo(a...)
+  fmt.Printf("%p\n", a)
+}
+
+// 上面 num 和 a 是同一个地址，所以这块 go 和 JS 还是有不小差异的
+// Go 提供的语法糖 `...` 可以将 slice 传进可变函数（可变函数是指针传递），不会创建新的切片
+```
 
 
 ## Types
@@ -203,8 +236,12 @@ for c := 0; c < len(str); c++ {
 }
 ```
 
+rune
 
-
+```go
+var char = '1'
+mt.Printf("%T", char) // 输出 "int32"，即 rune 类型
+```
 
 Array: Fixed lenght list of things
 
@@ -259,7 +296,7 @@ Reference Types:
 * Channels: `chan T` (e.g., `chan int`, `chan string`, etc.)
 * Pointers: `*T` (e.g., `*int`, `*string`, etc.)
 * Functions: `func(args)` returnType (e.g., `func(int) bool`, `func(string) int`, etc.)
-* Interfaces: User-defined interfaces or built-in interfaces (e.g., io.Reader, error, etc.)
+* Interfaces: User-defined interfaces or built-in interfaces (e.g., `io.Reader`, error, etc.)
 
 It's important to note that *arrays in Go are value types*, but they are less commonly used compared to slices. Also, *interface values themselves are reference types, but* the underlying values they hold can be either value types or reference types.
 
@@ -279,10 +316,6 @@ any(x).(T)
 // 如
 value, ok := any(input).(int)
 ```
-
-
-
-
 
 
 ## 其他
@@ -584,6 +617,18 @@ func make(t Type, size ...IntegerType) Type
 // allocated zero value of that type.
 func new(Type) *Type
 
+// The max built-in function returns the largest value of a fixed number of
+// arguments of [cmp.Ordered] types. There must be at least one argument.
+// If T is a floating-point type and any of the arguments are NaNs,
+// max will return NaN.
+func max[T cmp.Ordered](x T, y ...T) T
+
+// The min built-in function returns the smallest value of a fixed number of
+// arguments of [cmp.Ordered] types. There must be at least one argument.
+// If T is a floating-point type and any of the arguments are NaNs,
+// min will return NaN.
+func min[T cmp.Ordered](x T, y ...T) T
+
 // The complex built-in function constructs a complex value from two
 // floating-point values. The real and imaginary parts must be of the same
 // size, either float32 or float64 (or assignable to them), and the return
@@ -599,6 +644,15 @@ func real(c ComplexType) FloatType
 // number c. The return value will be floating point type corresponding to
 // the type of c.
 func imag(c ComplexType) FloatType
+
+// The clear built-in function clears maps and slices.
+// For maps, clear deletes all entries, resulting in an empty map.
+// For slices, clear sets all elements up to the length of the slice
+// to the zero value of the respective element type. If the argument
+// type is a type parameter, the type parameter's type set must
+// contain only map or slice types, and clear performs the operation
+// implied by the type argument.
+func clear[T ~[]Type | ~map[Type]Type1](t T)
 
 // The close built-in function closes a channel, which must be either
 // bidirectional or send-only. It should be executed only by the sender,
@@ -672,5 +726,20 @@ func main() {
   fmt.Println("Start of main()")
   recoverDemo()
   fmt.Println("End of main()")
+}
+```
+
+recover() 必须在 defer() 函数中直接调用才有效。上面其他几种情况调用都是无效的：直接调用、在 defer 中直接调用 和 defer 调用时多层嵌套。
+
+```go
+func main() {
+  recover()         // 直接调用，无效
+  defer recover()   // 在 defer 中直接调用，无效
+  defer func() {
+    defer func() {
+      recover()    // 多层嵌套内调用，无效
+    }()
+  }()
+  panic(1)
 }
 ```

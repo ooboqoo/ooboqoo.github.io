@@ -45,6 +45,23 @@ func main() {
 }
 ```
 
+### min
+
+```go
+func min(numbers ...int) int {  // 注意这里 `...` 的用法
+  if len(numbers) == 0 {
+    panic("min: no arguments")
+  }
+  minimum := math.MaxInt
+  for _, num := range numbers {
+    if num < minimum {
+      minimum = num
+    }
+  }
+  return minimum
+}
+```
+
 ### 利用通道来调度协程
 
 ```go

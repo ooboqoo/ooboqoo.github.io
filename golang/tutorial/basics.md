@@ -1,18 +1,6 @@
 # Go 语言入门教程
 
-Go 语言最主要的特性：
-
-* 自动垃圾回收
-* 更丰富的内置类型
-* 函数多返回值
-* 错误处理
-* 匿名函数和闭包
-* 类型和接口
-* 并发编程
-* 反射
-* 语言交互性
-
-Go 语言实现了开发效率与执行效率的完美结合，让你写 JavaScript 代码（效率）一样编写C代码（性能）。
+Go 语言实现了开发效率与执行效率的完美结合，让你像写 JavaScript 代码（效率）一样编写 C 代码（性能）。
 
 <image src="https://www.topgoer.com/static/home/2.jpg" width="505" />
 
@@ -72,18 +60,6 @@ import (
 #### 导入 Imports
 
 ```golang
-// 导入多个包时推荐这种写法
-import (
-  "fmt"
-  "math/rand"
-)
-
-// 当然这样写也是允许的
-import "fmt"
-import "math/rand"
-```
-
-```golang
 // 几种特殊的 import 用法
 import (
   .     "fmt"       // no name, import in scope  
@@ -94,6 +70,7 @@ import (
 
 ```go
 // 支持一个依赖的多个大版本并存
+
 ```
 
 #### 导出 Exported names
@@ -111,7 +88,7 @@ func add(x int, y int) int {
 }
 ```
 
-注：对应的 TypeScript 版本，基本就是把 `:` 省略掉了而已。
+注：对应的 TypeScript 版本。可以看到 Go 基本就是把 `:` 省略掉了而已。
 
 ```ts
 function add(x: number, y: number): number {
@@ -286,7 +263,7 @@ float32 float64
 complex64 complex128
 ```
 
-本例展示了几种类型的变量。同导入语句一样，变量声明也可以“分组”成一个语法块。
+本例展示了几种类型的变量。同导入语句一样，变量声明也可以 *分组* 成一个语法块。
 
 ```golang
 package main
@@ -298,7 +275,7 @@ import (
 
 var (
   ToBe   bool       = false
-  MaxInt uint64     = 1<<64 - 1
+  MaxUint uint64     = 1<<64 - 1  // MaxInt 则为 1<<63 - 1
   z      complex128 = cmplx.Sqrt(-5 + 12i)
 )
 
@@ -343,8 +320,7 @@ A type assertion provides access to an interface value's underlying concrete val
 
 ```go
 t: = i.(T)      // If `i` does not hold a `T`, the statement will trigger a panic
-
-t, ok := i.(T)  // If not, `ok` will be false and `t` will be the zero value of type T, no panic occurs.
+t, ok := i.(T)  // If not, `ok` will be false and `t` will be the zero value of type T, no panic
 ```
 
 ```go
@@ -369,7 +345,7 @@ func main() {
 
 在声明一个变量而不指定其类型时（即，使用不带类型的 `:=` 语法或 `var =` 表达式语法），变量的类型由右值推导得出。
 
-在声明变量且赋值时，可利用 Go 语言自身的类型推断能力，省掉变量的类型声明。类型推断是一种编程语言在编译期自动解析表达式类型的能力。
+在声明变量且赋值时，可利用 Go 语言自身的类型推断能力，省掉变量的类型声明。类型推断是一种编程语言在 *编译期* 自动解析表达式类型的能力。
 
 Go 语言的类型推断可以明显提升程序的灵活性，使得代码重构变得更加容易，同时又不会给代码的维护带来额外负担（实际上，它恰恰可以避免散弹式的代码修改），更不会损失程序的运行效率。
 
@@ -448,7 +424,7 @@ func main() {
 // for 就是 while
 func main() {
   sum := 1
-  for sum < 1000 {  // 同时省略 初始化语句 和 后置语句 时，`;` 也可以省略
+  for sum < 1000 {  // *同时*省略 初始化语句 和 后置语句 时，`;` 也可以省略
     sum += sum
   }
   fmt.Println(sum)
@@ -478,6 +454,8 @@ func main() {
 ```
 
 ### `switch` 语句
+
+`switch` 语句可以在条件表达式前执行一个简单的语句。另，case 后跟布尔判断时，没有条件表达式。
 
 Go 会自动提供每个 `case` 后面的 `break` 语句，除非以 `fallthrough` 语句结束，否则分支会自动终止。  
 另外，`switch` 的 `case` 无须为常量，且取值不必为整数。
@@ -523,6 +501,19 @@ case true:
   fmt.Println("2.1") // 执行
 case true:
   fmt.Println("2.2") // 不会执行
+}
+```
+
+#### 单个 case 包含多个选项
+
+```go
+switch fruit {
+case "apple", "orange":
+  fmt.Println("It's either an apple or an orange.")
+case "banana", "pineapple":
+  fmt.Println("It's either a banana or a pineapple.")
+default:
+  fmt.Println("It's something else.")
 }
 ```
 
@@ -588,6 +579,18 @@ func main() {
   fmt.Print("hello")
 }
 // 输出 hello321world
+```
+
+`defer` 对返回值的影响：Deferred anonymous functions may access and modify the surrounding function’s named return parameters.
+
+```go
+// In this example, the foo function returns “Change World”
+func foo() (result string) {
+  defer func() {
+    result = "Change World" // change value at the very last moment
+  }()
+  return "Hello World"
+}
 ```
 
 
@@ -766,6 +769,42 @@ func main() {
 
 数组的长度是其类型的一部分，因此 *数组不能改变大小*。切片则为数组元素提供 *动态大小的、灵活的视角*，切片比数组更常用。
 
+#### 初始化数组
+
+如果数组长度不确定，可以使用 `...` 代替数组的长度，编译器会根据元素个数自行推断数组的长度：
+
+```go
+balance := [...]float32{1000.0, 2.0, 3.4, 7.0, 50.0}
+```
+
+我们还可以通过指定下标来初始化元素：
+
+```go
+// 将索引为 1 和 3 的元素初始化
+balance := [5]float32{1:2.0,3:7.0}
+
+// 考点：字面量初始化切片时候，可以指定索引，没有指定索引的元素会在前一个索引基础之上加一
+var x = []int{2: 2, 3, 0: 1} // [1 0 2 3]
+```
+
+#### 强类型示例
+
+数组的长度不同，被认为是不同类型，无法直接比较。int + float64 也会报错，强类型语言和弱类型语言差别还是蛮大的。
+
+```go
+func main() {
+  a := [2]int{5, 6}
+  b := [3]int{5, 6}
+  if a == b {  // invalid operation: a == b (mismatched types [2]int and [3]int)
+    fmt.Println("equal")
+  } else {
+    fmt.Println("not equal")
+  }
+}
+```
+
+### 切片 Slices
+
 切片 slice：是对底层数组的一段内容的引用。  
 本质：实际数组 (pointer) + 长度 (len) + 最大容量 (cap)。  
 直接改数组内容或者改切片内容，实际都是改的数组，都是联动的。
@@ -792,7 +831,7 @@ func main() {
 []bool{true, true, false}   // 切片字面量，切片类型为 `[]T` 表明切片是动态的
 ```
 
-切片时可忽略上下界。如忽略，下界默认为 0，上界则默认为该切片的长度。
+切片时可忽略上下界。如忽略，下界默认为 0，上界则默认为该*切片的长度*。
 
 ```golang
 var a [10]int
@@ -801,6 +840,15 @@ a[0:10]
 a[:10]
 a[0:]
 a[:]
+```
+
+```go
+func main() {
+  a := [5]int{1, 2, 3, 4, 5}
+  s := a[3:4:5]  // 还支持第三个参数，用于控制 capacity
+                 // 取值范围 0 <= low <= high <= capacity <= cap(a)
+  fmt.Println(s, len(s), cap(s))  // 输出 [4] 1 2
+}
 ```
 
 切片拥有 长度 和 容量，可通过表达式 `len(s)` 和 `cap(s)` 来获取。
@@ -884,21 +932,6 @@ func main() {
 }
 ```
 
-#### 初始化数组
-
-如果数组长度不确定，可以使用 `...` 代替数组的长度，编译器会根据元素个数自行推断数组的长度：
-
-```go
-balance := [...]float32{1000.0, 2.0, 3.4, 7.0, 50.0}
-```
-
-我们还可以通过指定下标来初始化元素：
-
-```go
-// 将索引为 1 和 3 的元素初始化
-balance := [5]float32{1:2.0,3:7.0}
-```
-
 ### 系列 Range
 
 Go 语言中 `range` 关键字用于 `for` 循环中迭代数组(array)、切片(slice)、通道(channel)或映射(map)的元素。在数组和切片中它返回 `(index, value)`，在映射中返回 `(key, value)` 对。
@@ -917,6 +950,109 @@ for _, value := range pow {
 kvs := map[string]string{"a": "apple", "b": "banana"}
 for k, v := range kvs {
   fmt.Printf("%s -> %s\n", k, v)
+}
+```
+
+在迭代过程中修改被迭代对象，值对象（只有数组）取的 k v 不会受影响，其他的都受影响。
+
+```go
+func main() {
+  var a = [5]int{1, 2, 3, 4, 5}
+  var r [5]int
+
+  for i, v := range a { // range 表达式是副本参与循环，即，这里参与循环的是 a 的副本
+    if i == 0 {
+      a[1] = 12  // 这里的修改不会影响后续迭代中 v 的取值
+      a[2] = 13
+    }
+    r[i] = v
+  }
+  fmt.Println("r = ", r)
+  fmt.Println("a = ", a)
+}
+// Output:
+// r =  [1 2 3 4 5]
+// a =  [1 12 13 4 5]
+
+func main() {
+  var a = [5]int{1, 2, 3, 4, 5}
+  for i, v := range &a { // 这里改成 &a，指针的副本依旧是指向原数组的指针，所以迭代过程中会被实时影响到
+    if i == 0 {          // 或者把 a 由 数组 改成 切片，也能起到同样的效果
+      a[1] = 12 // 这里的修改会影响后续迭代中 v 的取值
+      a[2] = 13
+    }
+    fmt.Print(v, " ")
+  }
+}
+// Output: 1 12 13 4 5
+```
+
+```go
+func main() {
+  var m = map[string]int{"A": 21, "B": 22, "C": 23}
+  counter := 0
+  for k, v := range m {
+    clear(m)
+    counter++
+    fmt.Println(k, v)
+  }
+  fmt.Println("counter is ", counter)
+}
+// Output:
+// <第一条 k v 随机输出>
+// counter is  1
+```
+
+```go
+func main() {
+  var s = []int{1, 2, 3}
+  for i, v := range s {
+    clear(s)
+    fmt.Print(i, v, "\n")
+  }
+}
+// Output: 0 1   1 0   2 0
+```
+
+```go
+func main() {
+  var a = []int{1, 2, 3, 4, 5}
+  var r = make([]int, 0)
+  for i, v := range a {
+    if i == 0 {
+      a = append(a, 6, 7)  // 这里的 a 换了地址，不影响 range a 中的地址，故不影响迭代过程
+    }
+    r = append(r, v)
+  }
+  fmt.Println(r)  // [1 2 3 4 5]
+}
+```
+
+`range` 迭代次数根据类型定，如果只有类型不取值就不会报错。
+
+```go
+// 正常输出  0 1 2
+for k := range (*[3]int)(nil) {
+  println(k)
+}
+
+// panic: runtime error: invalid memory address or nil pointer dereference
+for k, v := range (*[3]int)(nil) {
+  println(k, v)
+}
+```
+
+`range` 迭代数组 `[n]T` 和 指向数组的指针 `*[n]T` 效果是一样的，但 `**[n]T` 就报编译错误了
+
+```go
+type T struct{ n int }
+
+func main() {
+  ts := [2]T{}
+  for i, t := range &ts { // 数组的指针 &ts 和 数组 ts 在这里没啥差异
+    t.n = i // 这里的 t 依然是数组元素的副本，所以修改 t.n 不会影响数组元素的值
+  }
+  fmt.Print(ts)
 }
 ```
 
@@ -960,6 +1096,41 @@ delete(m, key)
 elem, exist = m[key]
 ```
 
+`map` 的 value 本身是不可寻址的
+
+```go
+type Math struct {
+  x, y int
+}
+
+var m = map[string]Math{
+  "foo": Math{2, 3},
+}
+
+func main() {
+  m["foo"].x = 4  // cannot assign to struct field m["foo"].x in map
+  fmt.Println(m["foo"].x)
+}
+
+// 作为对比，这里的用法是没问题的
+func main() {
+    m := make(map[string]int)
+    m["foo"]++                 // OK
+    fmt.Println(m["foo"])
+}
+```
+
+`map` 不支持指针取值
+
+```go
+func main() {
+  m := make(map[string]string)
+  p := &m
+  m["foo"] = "bar"
+  p["hello"] = "world" // invalid operation: cannot index p
+}
+```
+
 Map VS Struct
 
 * Map
@@ -983,6 +1154,19 @@ Map VS Struct
 ### 方法
 
 方法就是一类带特殊的 **接收者** 参数的函数。
+
+```go
+type T struct{}
+func (T) foo() {}
+func (*T) bar()  {}
+type S struct{ *T }
+
+func main() {
+  t := T{}
+  t.foo()  // foo 的类型为 func (T).foo() 所以 t 实际也是 foo 的一个参数，只是写在 foo 的前面罢了
+  t.bar()  // bar 的类型为 func (*T).bar() 所以实际会展开成 (&t).bar()
+}
+```
 
 Go 没有类，但可以为结构体类型定义方法，实现类似的功能。
 
@@ -1042,6 +1226,79 @@ func main() {
 }
 ```
 
+当「值接收者」和「指针接收者」碰到 接口 时：
+
+```go
+type Person interface{ Say() }
+
+type Man struct{}
+func (m Man) Say() {}
+
+type Woman struct{}
+func (w *Woman) Say() {}
+
+func main() {
+  m := Man{}
+  var p1 Person = m  // OK
+  var p2 Person = &m // OK  方法定义为「值接收者」时，传指针不报错；反之报错
+                     // the pointer is implicitly dereferenced
+  w := Woman{}
+  var p3 Person = &w // OK
+  var p4 Person = w  // cannot use w (variable of type Woman) as Person value in variable declaration:
+                     // Woman does not implement Person (method Say has pointer receiver)
+}
+```
+
+知识点：方法表达式。通过类型引用的方法表达式会被还原成普通函数样式，接收者是第一个参数，调用时显式传参。类型可以是 `T` 或 `*T`，只要目标方法存在于该类型的方法集中就可以。
+
+知识点：方法值。当指针值赋值给变量或者作为函数参数传递时，会立即计算并复制该方法执行所需的接收者对象，与其绑定，以便在稍后执行时，能隐式第传入接收者参数。
+
+```go
+type N int
+
+// 本例中，接收者为值，所以绑定的是值
+func (n N) test(i int) {
+  fmt.Println(n, i)
+}
+
+func main() {
+  var n N = 10
+
+  // 方法表达式 演示
+  N.test(n, 4)     // 10 4
+  (*N).test(&n, 5) // 10 5
+
+  // 方法值 演示
+  n++
+  f1 := n.test
+  n++
+  f2 := (&n).test
+  f1(6) // 11 6
+  f2(7) // 12 7
+}
+```
+
+```go
+type N int
+
+// 本例中，接收者为指针，所以绑定的是指针
+func (n *N) test() {
+  fmt.Println(*n)
+}
+
+func main() {
+  var n N = 10
+
+  n++
+  f1 := n.test
+  n++
+  f2 := (&n).test
+
+  f1()  // 12
+  f2()  // 12
+}
+```
+
 #### Pass by Value
 
 定义方法使用 **值接收者** 这种形式时，需要很清楚地知道传的的值属于 **值类型** 还是 **引用类型**，如果是引用类型，那效果跟方法的 **指针接收者** 这种用法是一样的。
@@ -1080,6 +1337,39 @@ func main() {
 // n ptr: 0xc0000a2020, val: map[age:29]
 // b: {1}
 // c: {2}
+```
+
+#### 更多例子
+
+```go
+type People struct{}
+
+func (p *People) ShowA() {
+  println("people showA")
+  p.ShowB()  // 注意这里，本例中输出的是 "people showB" 而不是 "teacher showB"
+}
+func (p *People) ShowB() {
+  println("people showB")
+}
+
+type Teacher struct {
+  People
+}
+
+func (t *Teacher) ShowB() {
+  println("teacher showB")
+}
+
+func main() {
+  t := Teacher{}
+  t.ShowA()
+  t.ShowB()
+}
+
+// Output:
+// people showA
+// people showB
+// teacher showB
 ```
 
 ### 接口
@@ -1217,7 +1507,7 @@ type any = interface{}  // 1.18 新增
 // 断言接口值 i 保存的具体值的类型是 T，并将其底层类型为 T 的值赋给变量 v
 // 如果断言能够成立，那么 ok 为 true 否者为 false
 // 如果这里没有定义 ok 变量，那么断言失败就会抛错
-v, ok := i.(T)
+v, ok := i.(T)  // 这里的 i 必须是一个 interface，否则编译报错
 ```
 
 ```golang
@@ -1241,7 +1531,7 @@ func main() {
 **类型选择** 是一种按顺序从几个断言中选择分支的结构。
 
 ```golang
-switch v := i.(type) {
+switch v := i.(type) {  // 这里的 type 是关键字，不是变量名
 case T:
     // v 的类型为 T
 case S:
@@ -1378,6 +1668,17 @@ func main() {
 }
 ```
 
+Go 的 `err` 在最后，Node.js 的 `err` 在最前面。
+
+```js
+import { readFile } from 'node:fs';
+
+readFile('/etc/passwd', (err, data) => {
+  if (err) throw err;
+  console.log(data);
+});
+```
+
 
 ## 性能分析
 
@@ -1396,6 +1697,68 @@ func main() {
   // 浏览器访问 http://localhost:8888/debug/pprof/ 就可以看到性能分析信息了
   http.ListenAndServe(":8888", nil)
 }
+```
+
+### 工具型应用
+
+收集数据
+
+```go
+import (
+  "log"
+  "os"
+  "runtime"
+  "runtime/pprof"
+  "time"
+)
+
+func main() {
+  // Collect CPU profile
+  f, err := os.Create("profile.pprof")
+  if err != nil {
+    log.Fatal(err)
+  }
+  defer f.Close()
+
+  err = pprof.StartCPUProfile(f)
+  if err != nil {
+    log.Fatal(err)
+  }
+  defer pprof.StopCPUProfile()
+
+  // Collect memory profile
+  f, err = os.Create("mem_profile.pprof")
+  if err != nil {
+    log.Fatal(err)
+  }
+  defer f.Close()
+
+  runtime.GC() // Run garbage collection to get accurate memory profile
+  err = pprof.WriteHeapProfile(f)
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  // Your code goes here
+  for i := 0; i < 100; i++ {
+    hello()
+    time.Sleep(100 * time.Millisecond)
+  }
+}
+
+func hello() {
+  println("hello")
+}
+```
+
+分析，输入一下命令后，可以进一步输入 `top` `list` `web` 等进行分析。
+
+```bash
+# analyze the CPU profile
+$ go tool pprof profile.pprof
+
+# analyze the memory profile
+$ go tool pprof -alloc_objects mem_profile.pprof
 ```
 
 

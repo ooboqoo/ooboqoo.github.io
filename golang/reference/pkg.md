@@ -168,19 +168,20 @@ copier.CopyWithOption(&to, &from, copier.Option{IgnoreEmpty: true, DeepCopy: tru
 
 ```go
 import (
-  "encoding/json"
-  "fmt"
+    "encoding/json"
+    "fmt"
 )
 
 type Person struct {
-  Name string `json:"name"` // ield tag 更多用法见 https://pkg.go.dev/encoding/json#Marshal
+    Name string `json:"name"` // field tag 更多用法见 https://pkg.go.dev/encoding/json#Marshal
+    age  int    `json:"age"`  // 因为小写开头，encoding/json 包无法读到这个字段，编辑器有黄色提示
 }
 
 func main() {
-  raw := `{"name": "John", "age": 12}`
-  var p Person
-  json.Unmarshal([]byte(raw), &p) // 解包
-  fmt.Println(p) // {John}
+    raw := `{"name": "John", "age": 12, "city": "Shanghai"}`
+    var p Person
+    json.Unmarshal([]byte(raw), &p) // 解包
+    fmt.Println(p)                  // {John 0} age 为空值，没有 city
 }
 ```
 
