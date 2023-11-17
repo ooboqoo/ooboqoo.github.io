@@ -5,26 +5,59 @@ https://go.dev/ref/spec
 
 ## Lexical elements
 
+### 文档摘要
+
+Comments
+
+Tokens
+  * There are four classes: identifiers, keywords, operators and punctuation, and literals.
+  * a newline or end of file may trigger the insertion of a semicolon.
+
+Semicolons
+
+Identifiers
+* The first character in an identifier must be a letter.
+
+Keywords
+
+Operators and punctuation
+
+Integer literals
+* An optional prefix sets a non-decimal base: `0b` or `0B` for binary, `0`, `0o`, or `0O` for octal, and `0x` or `0X` for hexadecimal.
+* For readability, an underscore character `_` may appear after a base prefix or between successive digits
+
+Floating-point literals
+* A decimal floating-point literal consists of an *integer part* (decimal digits), a decimal point, a *fractional part* (decimal digits), and an *exponent part* (e or E followed by an optional sign and decimal digits).
+* A hexadecimal floating-point literal consists of ...
+
+Imaginary literals 虚数
+
+Rune literals
+
+String literals
+* There are two forms: raw string literals and interpreted string literals.
+
 ### Keywords
 
 ```go
-break        default      func         interface    select
-case         defer        go           map          struct
-chan         else         goto         package      switch
-const        fallthrough  if           range        type
-continue     for          import       return       var
+break        default        func         interface    select
+case         defer          go           map          struct
+chan         else           goto         package      switch
+const        fallthrough    if           range        type
+continue     for            import       return       var
 ```
 
 整理后
 
 ```go
-package  import
-func     return   defer
-const    var
-if       else     switch     case      default  fallthrough  break¹
-for      range    continue   break²    goto
-type     struct   interface  map
-go       chan     select
+package    import
+func       return    defer
+const      var
+if         else
+switch     case      default      fallthrough    break¹
+for        range     continue     break²         goto
+type       struct    interface    map
+go         chan      select       case²          default²
 ```
 
 ### Operators and punctuation
@@ -53,6 +86,8 @@ go       chan     select
           ( )   [ ]  { }
 ```
 
+#### Operator precedence
+
 https://www.tutorialspoint.com/go/go_operators_precedence.htm 貌似错误不少
 
 Category       | Operator                          | Associativity
@@ -72,22 +107,7 @@ Logical OR     | `\|\|`                            | Left to right
 Assignment     | `=` `+=` `-=` `*=` `/=` `%=` `>=` `<=` `&=` `^=` `\|=` | Right to left
 Comma          | `,`                               | Left to right
 
-### Operator precedence
-
 Unary operators have the highest precedence. As the `++` and `--` operators *form statements, not expressions*, they fall outside the operator hierarchy. As a consequence, statement `*p++` is the same as `(*p)++`.
-
-There are five precedence levels for binary operators. Multiplication operators bind strongest, followed by addition operators, comparison operators, `&&` (logical AND), and finally `||` (logical OR):
-
-```
-Precedence    Operator
-    5             *  /  %  <<  >>  &  &^
-    4             +  -  |  ^
-    3             ==  !=  <  <=  >  >=
-    2             &&
-    1             ||
-```
-
-Binary operators of the same precedence associate from left to right. For instance, `x / y * z` is the same as `(x / y) * z`.
 
 ```
 +x
@@ -98,7 +118,7 @@ f() || g()
 x == y+1 && <-chanInt > 0
 ```
 
-### Arithmetic operators
+#### Arithmetic operators
 
 ```
 +    sum                    integers, floats, complex values, strings
@@ -120,38 +140,45 @@ In computing, the *modulo operation* returns the *remainder* or signed remainder
 
 `^` 作为一元运算符时为 *bitwise NOT*，如 `^y` 对 y 按位取反。`x &^ y` 即 `x & ^y`，对 y 按位取反后再跟 x 进行 AND 操作。The `^` symbol is used as a unary operator to perform bitwise complement of an integer. The C equivalent of the Go expression `x &^ y` is just `x & ~y`. That is literally "x AND (bitwise NOT of y)".
 
-### Variadic function 可变函数
+
+## Constants
+
+There are boolean constants, rune constants, integer constants, floating-point constants, complex constants, and string constants. Rune, integer, floating-point, and complex constants are collectively called numeric constants.
 
 ```go
-func sum(nums ...int) int {
-  total := 0
-  for _, num := range nums {
-    total += num
-  }
-  return total
-}
-
 func main() {
-  nums := []int{1, 2, 3, 4}
-  total := sum(nums...)  // 跟 JS 不同，Go 的展开符放后面
-  fmt.Println(total)
+  a := [...]int{1, 2, 3}
+  const l = len(a)
+  println(l)  // 3
 }
 ```
 
+### `iota`
+
+iota 是一个古希腊字母，在 Go 中表示常量计数器
+
 ```go
-func foo(num ...int) {
-  fmt.Printf("%p\n", num)
-}
+// Iota is a useful concept for creating incrementing constants in Go
+// use the `iota` identifier to tell the Go compiler you want the first value to start at 0
+// and then increment by 1 for each following constant
+const (
+  a = iota  // 0
+  b         // 1
+  c         // 2
+)
 
-func main() {
-  a := []int{5, 6, 7}
-  foo(a...)
-  fmt.Printf("%p\n", a)
-}
-
-// 上面 num 和 a 是同一个地址，所以这块 go 和 JS 还是有不小差异的
-// Go 提供的语法糖 `...` 可以将 slice 传进可变函数（可变函数是指针传递），不会创建新的切片
+const (
+  a1 = iota // 0   // 又一个 const 出现, iota 初始化为 0
+  a2 = iota // 1   // const 新增一行, iota 加1
+  a3 = 6    // 6   // 自定义一个常量
+  a4        // 6   // 不赋值就和上一行相同
+  a5 = iota // 4   // const 已经新增了 4行, 所以这里是 4
+  a6        // 5   // 上一行是 iota 继续走 iota 相关逻辑
+)
 ```
+
+
+## Variables
 
 
 ## Types
@@ -256,6 +283,8 @@ for index, product := range products {
 
 ### Struct types
 
+A struct is *a sequence of* named elements, called fields, each of which has a name and a type. Field names may be specified explicitly (IdentifierList) or implicitly (EmbeddedField). Within a struct, non-blank field names must be unique.
+
 A field declaration may be followed by an optional string literal **tag**，Tag 由一对或几对键值对组成，通过空格来分隔键值。
 
 ```go
@@ -318,31 +347,208 @@ value, ok := any(input).(int)
 ```
 
 
-## 其他
+## Properties of types and values
 
-### `iota`
+Underlying types
 
-iota 是一个古希腊字母，在 Go 中表示常量计数器
+Core types
+
+### Type indentity
+
+A **named type** is always different from any other type. Otherwise, two types are identical if their underlying type literals are structurally equivalent
+
+### Assignability
+
+A value x of type V is assignable to a variable of type T ("x is assignable to T") if one of the following conditions applies:
+
+* V and T are identical.
+* V and T have identical underlying types but are not type parameters and *at least one of V or T is not a named type*.
+* V and T are channel types with identical element types, V is a bidirectional channel, and at least one of V or T is not a named type.
+* T is an interface type, but not a type parameter, and x implements T.
+* x is the predeclared identifier nil and T is a pointer, function, slice, map, channel, or interface type, but not a type parameter.
+* x is an untyped constant representable by a value of type T.
+
+### Representability
+
+### Method sets
+
+* The method set of a defined type `T` consists of all methods declared with receiver type `T`.
+* The method set of *a pointer to a defined type* `T` (where `T` is neither a pointer nor an interface) is the set of all methods declared with receiver `*T` or `T`.
+* The method set of an interface type is the intersection of the method sets of each type in the interface's type set (the resulting method set is usually just the set of declared methods in the interface).
+
+
+## Blocks
+
+```txt
+Block = "{" StatementList "}" .
+StatementList = { Statement ";" } .
+```
+
+In addition to explicit blocks in the source code, there are implicit blocks:
+
+* The universe block encompasses all Go source text.
+* Each package has a package block containing all Go source text for that package.
+* Each file has a file block containing all Go source text in that file.
+* Each `if`, `for`, and `switch` statement is considered to be in its own implicit block.
+* Each clause in a `switch` or `select` statement acts as an implicit block.
+
+
+## Declarations and scope
+
+### Label scopes
+
+Labels are declared by **labeled statements** and are used in the `break`, `continue`, and `goto` statements. It is illegal to define a label that is never used. In contrast to other identifiers, labels are not block scoped and do not conflict with identifiers that are not labels. The scope of a label is the body of the function in which it is declared and excludes the body of any nested function.
+
+### Blank identifier
+
+The blank identifier is represented by the underscore character `_`. It serves as an anonymous placeholder instead of a regular (non-blank) identifier and has special meaning in declarations, as an operand, and in assignment statements.
+
+### Predeclared identifiers
+
+```txt
+Types:
+  any bool byte comparable
+  complex64 complex128 error float32 float64
+  int int8 int16 int32 int64 rune string
+  uint uint8 uint16 uint32 uint64 uintptr
+
+Constants:
+  true false iota
+
+Zero value:
+  nil
+
+Functions:
+  append cap clear close complex copy delete imag len
+  make max min new panic print println real recover
+```
+
+### Exported identifiers
+
+An identifier may be exported to permit access to it from another package. An identifier is exported if both:
+
+1. the first character of the identifier's name is a Unicode *uppercase letter* (Unicode character category Lu); and
+2. the identifier is declared in the package block or it is a field name or method name.
+
+### Type declarations
+
+A defined type may have methods associated with it. It does not inherit any methods bound to the given type
 
 ```go
-// Iota is a useful concept for creating incrementing constants in Go
-// use the `iota` identifier to tell the Go compiler you want the first value to start at 0
-// and then increment by 1 for each following constant
-const (
-  a = iota  // 0
-  b         // 1
-  c         // 2
-)
+// A Mutex is a data type with two methods, Lock and Unlock.
+type Mutex struct         { /* Mutex fields */ }
+func (m *Mutex) Lock()    { /* Lock implementation */ }
+func (m *Mutex) Unlock()  { /* Unlock implementation */ }
 
-const (
-  a1 = iota // 0   // 又一个 const 出现, iota 初始化为 0
-  a2 = iota // 1   // const 新增一行, iota 加1
-  a3 = 6    // 6   // 自定义一个常量
-  a4        // 6   // 不赋值就和上一行相同
-  a5 = iota // 4   // const 已经新增了 4行, 所以这里是 4
-  a6        // 5   // 上一行是 iota 继续走 iota 相关逻辑
-)
+// NewMutex has the same composition as Mutex but its method set is empty.
+type NewMutex Mutex
 ```
+
+### Variable declarations
+
+### Function declarations
+
+A function declaration without type parameters may omit the body. Such a declaration provides the signature for a function implemented outside Go, such as an assembly routine.
+
+```go
+func flushICache(begin, end uintptr)  // implemented externally
+```
+### Method declarations
+
+A method is a function with a receiver. A method declaration binds an identifier, the method name, to a method, and associates the method with the receiver's base type.
+
+
+## Expression
+
+An expression specifies the computation of a value by applying operators and functions to operands.
+
+### Operators
+Operators combine operands into expressions.
+
+```txt
+Expression = UnaryExpr | Expression binary_op Expression .
+UnaryExpr  = PrimaryExpr | unary_op UnaryExpr .
+
+binary_op  = "||" | "&&" | rel_op | add_op | mul_op .
+rel_op     = "==" | "!=" | "<" | "<=" | ">" | ">=" .
+add_op     = "+" | "-" | "|" | "^" .
+mul_op     = "*" | "/" | "%" | "<<" | ">>" | "&" | "&^" .
+
+unary_op   = "+" | "-" | "!" | "^" | "*" | "&" | "<-" .
+```
+
+### Conversions
+
+
+### Order of evaluation
+
+### Passing arguments to ... parameters
+
+Variadic function 可变函数
+
+```go
+func sum(nums ...int) int {
+  total := 0
+  for _, num := range nums {
+    total += num
+  }
+  return total
+}
+
+func main() {
+  nums := []int{1, 2, 3, 4}
+  total := sum(nums...)  // 跟 JS 不同，Go 的展开符放后面
+  fmt.Println(total)
+}
+```
+
+If the final argument is assignable to a slice type `[]T` and is followed by `...`, it is passed unchanged as the value for a `...T` parameter. In this case *no new slice is created*.
+
+```go
+func foo(num ...int) {
+  fmt.Printf("%p\n", num)
+}
+
+func main() {
+  a := []int{5, 6, 7}
+  foo(a...)
+  fmt.Printf("%p\n", a)
+}
+
+// 上面 num 和 a 是同一个地址，所以这块 go 和 JS 还是有不小差异的
+// Go 提供的语法糖 `...` 可以将 slice 传进可变函数（可变函数是指针传递），不会创建新的切片
+```
+
+
+
+## Statements
+
+```txt
+Statement =
+  Declaration | LabeledStmt | SimpleStmt |
+  GoStmt | ReturnStmt | BreakStmt | ContinueStmt | GotoStmt |
+  FallthroughStmt | Block | IfStmt | SwitchStmt | SelectStmt | ForStmt |
+  DeferStmt .
+
+SimpleStmt = EmptyStmt | ExpressionStmt | SendStmt | IncDecStmt | Assignment | ShortVarDecl .
+```
+
+
+## Built-in functions
+
+## Packages
+
+## Program initialization and exection
+
+
+## Errors
+
+
+## Run-time panics
+
+
+
+## 其他
 
 ### directive
 

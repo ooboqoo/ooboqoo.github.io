@@ -1645,7 +1645,7 @@ import (
 func Sqrt(value float64) (float64, error) {
   if value < 0 {
     // errors.New(s string)  来返回错误，有点 JS `new Error()` 的意思
-    return 0, errors.New("Math: negative number passed to Sqrt")
+    return 0, errors.New("math: negative number passed to Sqrt")
   }
   return math.Sqrt(value), nil
 }
