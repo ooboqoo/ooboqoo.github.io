@@ -1,3 +1,7 @@
+<style>
+  .exa { background-color: #f6f6f6; padding: 0 8px; }
+</style>
+
 # 概论
 
 语法是躯干，词汇是枝叶，语法和词汇密不可分。  
@@ -11,7 +15,7 @@
 **词法 Morphology** 为研究词形变化的部分，如名词的数、格，动词的时态、语态。  
 **句法 Syntax** 为研究句子结构的部分，如句子的成分、语序、句子种类等。
 
-morphology  _/mɔːˈfɒlədʒi/_  n.  形态学;词法  
+> morphology  _/mɔːˈfɒlədʒi/_  n.  形态学;词法  
 
 ### 语法与词汇
 
@@ -39,11 +43,11 @@ morphology  _/mɔːˈfɒlədʒi/_  n.  形态学;词法
 |||
 虚词 **Form Words**
 **冠词 Article** `art.`       | 用在名词前，帮助说明其意义            | an, the
-**介词 Preposition** `prep.`  | 用在名词、代词前说明与别的词的*关系*   | for, from
+**介词 Preposition** `prep.`  | *用在名词、代词前说明与别的词的关系*   | for, from
 **连词 Conjunction** `conj.`  | 用来*连接*词与词或句与句             | and, if
 |||
 **感叹词 Interjection** `interj.` | 表示说话时的感情或口气             | oh, ah
-其他                              | **小品词** `to`；`yes` `no`      |
+其他                              | (**小品词** `to`)；`yes` `no`   |
 
 **实意词** Notional Words 前六种可以在句子中独立担任成分，称为实意词。  
 **虚词** Form Words 介词、连词、冠词不能独立在句子中担任任何成分，称为虚词。  
@@ -54,18 +58,18 @@ morphology  _/mɔːˈfɒlədʒi/_  n.  形态学;词法
 
 注：关于词类的区分，大多数语法学家都按上述分法。但有些英国语法学家把一些词归在一起，称为 **限定词** Determiners，主要指用在名词前帮助说明词义的词，如冠词 + 物主代词 + 用作定语的某些不定代词 + 用作定语的指示代词、疑问代词、关系代词等。而美国语言学家不做这种区分，用作定语的代词他们干脆称为形容词。
 
+> notional  _/ˈnoʊʃənəl/_  a. 名义上的;理论上的;概念的
+
 ### 分清词类 + 一词多类
 
 分清词类至关重要：各种词类都有自己的特点，只有知道一个词属于哪个词类，才能正确使用它。同时还应弄清各个句子成分应由哪类词来担任。
 
 同一个词可用作多种词类。
 
-<pre class="exa">
-It is easy to be wise <em>after</em> the event.        // 介词
-I will tell them the news <em>after</em> you leave.    // 连词
-A moment <em>after</em> there was a knock at his door. // 副词
-In <em>after</em> years I became familiar with it.     // 形容词
-</pre>
+> It is easy to be wise _after_ the event.        // 介词  
+> I will tell them the news _after_ you leave.    // 连词  
+> A moment _after_ there was a knock at his door. // 副词  
+> In _after_ years I became familiar with it.     // 形容词  
 
 ### 词尾
 
@@ -87,13 +91,16 @@ In <em>after</em> years I became familiar with it.     // 形容词
 
 此外还有 **同位语 Appositive**，**插入语 Parenthesis**，**呼语 Vocative**
 
+> predicate  n. _/ˈpredɪkət, ˈpredɪkɪt/_ 谓语  v. _/ˈpredəkeɪt, ˈpredɪkeɪt/_ 基于;取决于  
+> adverbial  _/ədˈvɜːbiəl $ -ɜːr-/_  a. 副词的;状语的  
+
 ### 句子的种类
 
 按照说话的目的可分为四类：  
 **陈述句 Statement**  陈述一个事实，或是表明一个看法等  
 **问句 Question**  提出问题  
 **祈使句 Imperative**  提出命令、请求等  
-**感叹句 Exclamation**  表示赞美、惊异等情绪
+**感叹句 Exclamation**  表示赞美、惊异等情绪  _/ˌekskləˈmeɪʃən/_
 
 从结构上又可分为三类：  
 **简单句 Simple Sentences**  句子成分都由单词或短语担任，且只有一个主谓结构  
@@ -104,7 +111,7 @@ In <em>after</em> years I became familiar with it.     // 形容词
 
 **一般问句 General Questions**  通常以 yes no 回答  
 **特殊问句 Special Questions**  都用疑问词开始  
-**选择问句 Alternative Questions**  都提出两种可能，问那种情况属实  
+**选择问句 Alternative Questions**  都提出两种可能，问哪种情况属实  
 **反意问句 Disjunctive Questions**  这种问句由两部分组成，前面是陈述句，后面为简短问句
 
 反意问句，[A类] 如果前面是肯定句，后面一般为否定问句，[B类] 如果前面是否定句，则后面多为肯定问句。  
@@ -122,12 +129,12 @@ So he won't pay his bills, won't he? We'll see about it.  // 有威胁的意思
 
 ## 1.4 单词、短语、从句
 
+担任句子成分的，多数情况下是单词。
 
 #### 短语
 
-担任句子成分的，在很多情况下都是单词，可作任何成分。
+句子也有很多成分可用 **短语 Phrases** 担任。最常用的短语有：
 
-句子也有很多成分可用 **短语 Phrases** 担任。最常用的短语有：  
 **动词短语 Verbal Phrases**  <span class="exa">What _have_ you _been doing_?</span>  
 **不定式短语 Infinitive Phrases**  <span class="exa">It's time _to go to bed_.</span>  
 **动名词短语 Gerundial Phrases**  <span class="exa">I enjoy _working with you_.</span>  

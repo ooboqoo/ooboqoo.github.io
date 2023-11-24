@@ -1,4 +1,9 @@
-# 习语
+# Idiom 成语,习语
+
+idiom - a group of words that has a special meaning which you cannot guess from the meanings of each separate word
+
+
+under the weather  生病了 ill
 
 
 

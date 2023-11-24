@@ -1,10 +1,5 @@
 # 词汇表 - 前端开发
 
-<style>
-  strong { color:#C00; }
-  i, em { font-style: normal; font-family:"lucida sans unicode", arial, sans-serif; color: #0aa; }
-</style>
-
 
 ## HTML
 
@@ -23,10 +18,10 @@ __Safari__  _/səˈfɑːri/_  n. (尤指在东非的)观兽旅行, 游猎; 浏�
 
 __declaration__  _/ˌdekləˈreɪʃən/_  n. 宣布, 宣告; 声明  
 __element__  _/ˈeləmənt, ˈelɪmənt/_  n. 成分; 要素  
-__validation__  n. 验证  __validate__  v. 证实, 确认, 认可  
+__validation__  _/ˌvælɪˈdeɪʃən/_  n. 验证  __validate__  _/ˈvælɪdeɪt/_  v. 证实, 确认, 认可  
 __parse__  _/pɑːz $ pɑːrs/_  v. 对句子作语法分析 __paser__ 语法分析器  
 __dialect__  _/ˈdaɪəlekt/_  n. 方言  
-__omit__  _/əˈmɪt/_  n. 省略, 遗漏  
+__omit__  _/əˈmɪt, oʊ-/_  n. 省略, 遗漏  
 __horizontal line__  _/ˌhɔːrəˈzɑːntl/_  分割线  
 __pre__  pre-formatted text  
 __quotation__  n. 引文, 引语  
@@ -36,18 +31,18 @@ __acronym__  _/ˈækrənɪm/_  n. 首字母缩略词
 __bdo__  `<bdo dir="rtl">该段落文字从右到左显示。</bdo>` __rtl__: right to left  
 __var__  _/ˈveəriəbəl/_  __variable__ a. 易变的 n. 变量  
 __anchor__  _/ˈæŋkə/_  n. 锚, 超链接hypertext的标准叫法  
-__attribute__  _/ˈætrəbjuːt/_  n. 特性 v. 把…归因于  
-__property__  _/ˈprɒpəti/_  n. 属性; 财产  
+
+__attribute__  n. _/ˈætrəbjuːt/_ 特性,属性,标志 v. _/ə'trɪbjuːt/_ 把…归因于  <span>HTML 中配的叫 attribute "设置特性" `<img src="xxx">`</span>  
+__property__  _/ˈprɒpəti/_  n. 属性; 财产  <span>JS 中的叫 property "修改属性" `imgElement.src`</span>  
+
 __stumble upon__  v. 绊脚, 步履蹒跚  
-__hexadecimal__  _/ˌheksəˈdesɪməl◂/_  a. 十六进制的  
 __diacritic__  _/ˌdaɪəˈkrɪtɪk/_  n. 音标符号  
 __scheme__  _/skiːm/_  n. 计划, 方案.  -- 定义因特网服务的类型, 最常见的类型是http  
 __extensible__  _/ɪk'stensəbl/_  a. 可扩展的  -- EXtensible HyperText Markup Language  
-__parameter__  _/pəˈræmətə/_  n. 参数; 界限  
 __prefix__  _/ˈpriːfɪks/_  n. 前缀  
 __specification__  _/ˌspesɪfɪˈkeɪʃn/_  n. 规格, 具体要求  
 __implement__  _/ˈɪmpləment, ˈɪmplɪment/_  v. 履行, 实施 n. 工具, 器具  
-__implementer__  n. 实施者  
+__implementer__  _/ˈɪmplɪmentə/_  n. 实施者  
 __hover__  _/ˈhɒvə, ˈhʌvər/_  v. 悬浮; 昆虫等振翅悬停  
 __flicker__  _/ˈflɪkə/_  v. 闪烁, 抖动  
 __cache__  _/kæʃ/_  n. 隐匿物(如军火), 高速缓存  
@@ -84,7 +79,7 @@ __opaque__  _/əʊˈpeɪk/_  a. 不透明的; 不透光的
 __transparent__  _/trænˈspærənt/_  a. 透明的; 清澈的  
 __gradient__  _/ˈɡreɪdiənt/_  n. 斜坡; 坡度; 变化率  
 __transition__  _/trænˈzɪʃən/_  n. 转变; 过渡  
-__skew__  _/skjuː/_  v. 扭曲  
+__skew__  _/skjuː/_  v. 扭曲;歪曲  
 __matrix__  _/ˈmeɪtrɪks/_  n. 数学中矩阵  
 __transform__  _/trænsˈfɔːm/_  v. 转换; 改变  
 __transition__  _/trænˈzɪʃən/_  n/v. 转变; 过渡  
@@ -103,7 +98,7 @@ __sibling__  _/ˈsɪblɪŋ/_  n. 兄弟姐妹
 __traverse__  _/ˈtrævɜːs/_  v. 横穿, 穿过  
 __gradient__  _/ˈɡreɪdiənt/_  斜坡, 倾斜度; 变化率  
 __linear__  _/ˈlɪniə/_  a. 过程或发展线性的  
-__diagonal__  _/daɪˈæɡənəl/_  a. 斜的; 对角的  
+__diagonal__  _/daɪˈæɡənəl/_  a. 斜的; 对角的  <span>a diagonal line is straight and joins two opposite corners of a flat shape, usually a square ⇨ horizontal, vertical</span>
 
 
 ## Bootstrap
@@ -115,11 +110,11 @@ __typography__  _/taɪˈpɒɡrəfi/_  n. 排版式样; 印刷格式
 __jumbo__  _/ˈdʒʌmbəʊ/_  a. 巨大的  
 __modal window__  子窗口, 模态框  
 __carousel__  _/ˌkærəˈsel/_  n. 行李传送带, 旋转木马  
-__well__  n. 油井, 水井  这里使用水井来形象地描述一种会引起内容凹陷显示的容器  
+__well__  n. 油井, 水井  <span>这里使用水井来形象地描述一种会引起内容凹陷显示的容器</span>  
 __glyph__  _/ɡlɪf/_  n. 刻在石头上的符号  
 __badge__  _/bædʒ/_  n. 徽章; 标记  
 __pagination__  _/ˌpædʒɪˈneɪʃən/_  n. 编页码  
-__breadcrumb__  _/krʌm/_  n. 面包屑  
+__breadcrumb__  _/ˈbredkrʌm/_  n. 面包屑  
 __orientation__  _/ˌɔːriənˈteɪʃən/_  n. 朝向  
 __collapse__  _/kəˈlæps/_  v. 倒塌  -- BootStrap 里意为折叠  
 __accordion__  _/əˈkɔːdiən/_  n. 手风琴  

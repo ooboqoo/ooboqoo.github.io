@@ -28,15 +28,31 @@
       <a href="news.md">新闻</a>
       <a href="temp.md">暂存</a>
     </div>
-    <h2>习语</h2>
+    <h2>短语</h2>
     <div>
-      <a href="phrase/phrase.md">成语</a>
-      <a href="phrase/idiom.md">习语</a>
-      <a href="phrase/quote.md">名言</a>
+      <a href="phrase/phrase.md">短语 Phrases</a>
+      <a href="phrase/verb.md">张道真成语动词</a>
     </div>
     <h2>地道表达</h2>
     <div>
+      <a href="native/idiom.md">成语习语 Idioms</a>
+      <a href="native/quote.md">名言警句 Quotes</a>
       <a href="native/native.md">地道口语</a>
+    </div>
+    <h2>计算机词汇</h2>
+    <div>
+      <a href="cs/general.md">通用词汇</a>
+      <a href="cs/lang-spec.md">语言规范</a>
+      <a href="cs/basics.md">计算机基础</a>
+      <a href="cs/web.md">前端开发</a>
+      <a href="cs/devops.md">DevOps</a>
+    </div>
+    <h2>美剧</h2>
+    <div>
+      <a href="drama/housewives.md">绝望主妇</a>
+      <a href="drama/friends.md">老友记</a>
+      <a href="drama/victorious-s01.md">胜利之歌 S01</a>
+      <a href="drama/victorious-s02.md">胜利之歌 S02</a>
     </div>
     <!-- 手动填入到此结束 -->
     </div>
@@ -50,6 +66,35 @@
   <script src="/resource/lib/marked.min.js"></script>
   <script src="/resource/lib/highlight.pack.js"></script>
   <script src="/resource/lib/touch.js"></script>
+  <script>
+    const onloadmd = md.onload;
+    md.onload = () => {
+      onloadmd && onloadmd()
+      const ps = document.querySelectorAll('#md p')
+      for (let p of ps) {
+        p.innerHTML = p.innerHTML
+          .replace(/\b(n|v|vt|vi|a|ad|prep)\./g, '<span class="tag-pos">$&</span>')
+          .replace(/SYN|OPP|BrE|NAmE/g, '<span class="tag-syn">$&</span>')
+      }
+      const exs = document.querySelectorAll('#md p span.exp, #md p span.exa')
+      for (let ex of exs) { ex.innerHTML = `<div>${ex.innerHTML}</div>` }
+    }
+  </script>
+  <style>
+    strong { color:red; }
+    i, em { font-style: normal; color: #6aa; }
+    span { color: #999;  }
+    .tag-pos { padding: 0 2px; color: #c33; }
+    .tag-syn { padding: 0 2px; color: #999; font-size: .75em; border: 1px solid; border-radius: 4px; }
+    .exp::before, .exa::before { padding: 0 2px; color: #999; border: 1px solid; border-radius: 4px; }
+    .exp::before { content: '释'; }
+    .exa::before { content: '例'; }
+    .exp > div, .exa > div { display: none }
+    .exp:hover > div, .exa:hover > div {
+      display: block; position: absolute; width: 95%;
+      padding: 12px 4px 12px 12px; background-color: #f6f6f6; color: initial;
+    }
+  </style>
 </body>
 
 </html>

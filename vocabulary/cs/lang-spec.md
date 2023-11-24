@@ -1,11 +1,5 @@
 # 词汇表 - 语言规范
 
-<style>
-  strong { color:#C00; }
-  i, em { font-style: normal; font-family:"lucida sans unicode", arial, sans-serif; color: #0aa; }
-  span { color: #999; }
-</style>
-
 
 ## 语法术语
 
@@ -48,7 +42,7 @@ __affix__  _/əˈfɪks/_  v. 贴上 n. 词缀
 __JIT__  运行时动态编译  
 __AOT__  预编译(静态编译)  
 __AST__  Abstract Syntax Tree 抽象语法树  
-__DSL__  领域专用语言  
+__DSL__  Domain-Specific Language 领域专用语言  
 
 
 

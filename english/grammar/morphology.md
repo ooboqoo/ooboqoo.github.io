@@ -1,30 +1,24 @@
 <script>ooboqoo.contentsRegExp = /H[123]/</script>
 <style>
-  .exp, .exa { background-color: #f3f3f6; padding: 2px 6px; }
-  .exa em { color: #066; font-style: italic; }
-  pre.exa { padding: .5em !important; background-color: #f6f6f9; border-radius: .25em; }
+  span { background-color: #f6f6f6; padding: 2px 8px; }
 </style>
 
-# 词类 Parts of Speech
+# 词法 Morphology
 
 
 
 ## 2 构词法
 
-
-
-## 构词法
-
 英语主要有下面三种构词法：
-  * **转化** Conversion  由一个词类变为另一个词类 <span class="exa">water n.水 -> v.浇水</span>  
-  * **派生** Derivation  通过加前缀和后缀构成另一个词  
-  * **合成** Compounding  由两个或更多词构成一个词 <span class="exa">wood + cut -> woodcut 木刻</span>
+  * __转化__ Conversion  由一个词类变为另一个词类 <span>water n.水 -> v.浇水</span>  
+  * __派生__ Derivation  通过加**前缀**和**后缀**构成另一个词  
+  * __合成__ Compounding  由两个或更多词构成一个词 <span>wood + cut -> woodcut 木刻</span>
 
 英语还有一些次要的构词法，如：
-  * **截短法** Clipping  截取一个词的部分构成新词 <span class="exa">bicycle -> cycle</span>
-  * **混合** Blending  两个词各取部分构成新词 <span class="exa">Europe + Asia -> Eurasia 欧亚大陆</span>
-  * **缩写** Abbreviation  <span class="exa">British Broadcasting Corporation -> BBC</span>
-  * **反转构词法** Backformation  把带词尾的名词去掉词尾构成动词 <span class="exa">editor -> edit</span>
+  * __截短法__ Clipping  截取一个词的部分构成新词 <span>bicycle -> cycle</span>
+  * __混合__ Blending  两个词各取部分构成新词 <span>Europe + Asia -> Eurasia 欧亚大陆 /jʊˈreɪʒə/</span>
+  * __缩写__ Abbreviation  <span>British Broadcasting Corporation -> BBC</span>
+  * __反转构词法__ Backformation  把带词尾的名词去掉词尾构成动词 <span>editor -> edit</span>
 
 要学好英语，掌握构词法至关重要。
   * 帮助辨认词类 -- 通过一些词尾或词头辨别某些词的词类
@@ -34,29 +28,37 @@
   * 建立清楚的词类概念，每学一个词都要知道它的词类，并掌握与它相关的词，左引右联，很容易形成一个词汇网
   * 建立词与词的联系
 
-### 转化
+### 2.2 转化
+
+* 动词 转 名词
+* 名词 转 动词
+* 形容词 转 动词
+* 其他: 形容词 转 名词; 形容词 转 副词; 等
+
+转化时发音的变化
+* 重音: 动词重音多在后面, 名词、形容词重音多在前面
+* 词尾变化: 名词常见清辅音, 动词常见浊辅音 `ce -> se` `f -> ve`
+* 元音变化
+
+### 2.3 派生
+
+
+### 2.4 合成
+
+
+### 2.5 一些次要的构词法
 
 
 
-### 派生
-
-
-### 合成
-
-
-### 一些次要的构词法
 
 
 
 
 
 
+## 3 名词
 
-
-
-## 名词
-
-### 名词的种类
+### 3.1 名词的种类
 
 ```txt
 专有名词 Proper Nouns
@@ -67,7 +69,7 @@
   \- 抽象名词 Abstract Nouns        --/
 ```
 
-#### 专有名词
+#### 3.1.1 专有名词
 
 专有名词主要指人名、地名及某类人和事物专有的名称，如 （专有名词的第一个字母要大写）
   * 人名
@@ -78,71 +80,66 @@
   * 书名、电影及诗歌的名称：A Tale of Two Cities, Gone with the Wind
   * 对家人等的称呼：Mum, Dad, Auntie (这几个貌似并不需要首字母大写)
 
-#### 个体名词 & 集体名词
+#### 3.1.2 个体名词 & 集体名词
 
 个体名词指作为个体而存在的人或东西，可以指具体的人或物，也可指抽象的东西。  
 个体名词有复数形式，如 weeks；单数形式可以和 a(n) 连用，如 a week。
 
-```txt
-He has two _ants_.
-A new _century_ has just begun.
-```
+> He has two _ants_.  
+> A new _century_ has just begun.  
 
 集体名词表示由个体组成的集体。  
 集体名词有时作单数看待，有时作复数看待。一般来说，视为整体时作单数看待，想到它的成员时作复数看待。
 
-```txt
-His _family_ isn't large.  他家人不多。
-His _family_ are all music lovers.  他家人都喜欢音乐。
-```
+> His _family_ isn't large.  他家人不多。  
+> His _family_ are all music lovers.  他家人都喜欢音乐。  
 
-#### 物质名词 & 抽象名词
+#### 3.1.4 物质名词 & 抽象名词
 
 物质名词指无法分为个体的东西。  
 一般来说，物质名词是不可数的，因而没有复数形式。但有一些特殊情况：
-  * 有些物质名词可用作可数名词，表示一份、一杯 <span class="exp">Three _beers_, please.</span>
-  * 有些物质名词可作可数名词，表示一种 <span class="exp">It was a delicious Californian _wine_.</span>
-  * 个别物质名词可用于复数形式或有特殊意义 <span class="exp">Here are the _snows_ of last year.</span>
+  * 有些物质名词可用作可数名词，表示一份、一杯 <span>Three _beers_, please.</span>
+  * 有些物质名词可作可数名词，表示一种 <span>It was a delicious Californian _wine_.</span>
+  * 个别物质名词可用于复数形式或有特殊意义 <span>Here are the _snows_ of last year.</span>
 
 抽象名词主要表示一些抽象概念，一般不可数，因此没有复数形式，前面也一般不加不定冠词。但有时也加定冠词或不定冠词。
 
-```txt
-He's learning French for _fun_.  他学法语是为着好玩。
-_The_ oppressive _weather_ lasted only a few days.  闷热天气只持续了几天。
-There's _a beauty_ in simplicity.  朴实之中有一种美。
-```
+> He's learning French for _fun_.  他学法语是为着好玩。  
+> _The_ oppressive _weather_ lasted only a few days.  闷热天气只持续了几天。  
+> There's _a beauty_ in simplicity.  朴实之中有一种美。  
 
-#### 可数名词与不可数名词
+
+#### 3.1.6 可数名词与不可数名词
 
 * 可数名词与不可数名词的区分是英语中的一个重要问题，因为它牵涉到一个名词的形式和它前面加不加冠词以及加哪种冠词的问题。多数名词比较简单，但也有不少名词中文可数而英文不可数，如 `furniture` `equipment` `clothing` `news` `information` `machinery`, 如果要表示`一件`之类概念，前面得加 `a __ of` 这类定语。<span class="exp">No news is good news.</span> <span class="exp">an item of news</span>
 * 有些名词可以兼作可数名词和不可数名词，如 <span class="exp">glass 玻璃  a glass 玻璃杯</span>
 * 有些个体名词可转而用作抽象名词，如 <span class="exp">room 房间 -> There's no room for doubts. 没有怀疑的余地。</span>
 * 英语中有许多对词，一个可数，一个不可数，如 <span class="exp">a poem -> poetry; a job -> work</span>
 
-### 名词复数
+### 3.2 名词复数
 
-#### 一般名词的复数形式
+#### 3.2.1 一般名词的复数形式
 
 1) 一般名词的复数以加 `-s` `-es` 的方式构成
-  * 一般情况加 `-s`, 如 <span class="exp">brothers  flowers  schools  books</span>
-  * 以 `s` `x` `ch` `sh` 结尾的词，加 `-es`, 如 <span class="exp">buses  foxes  watches  dishes</span>
-  * 以 `辅音 + y` 结尾的词，变 `y` 为 `i` 再加 `-es`，如 <span class="exp">ladies  countries</span> 但 <span class="exp">boys  toys  ways</span>
+  * 一般情况加 `-s`, 如 <span>brothers, flowers, schools, books</span>
+  * 以 `s` `x` `ch` `sh` 结尾的词，加 `-es`, 如 <span>buses, foxes, watches, dishes</span>
+  * 以 `辅音 + y` 结尾的词，变 `y` 为 `i` 再加 `-es`，如 <span>ladies, countries</span> 但 <span>boys, toys, ways</span>
 
 `-(e)s` 词尾的读法如下
-  * 在 `/p/` `/t/` `/k/` `/f/` 等清辅音后, 读 `/s/`, 如 <span class="exa">cups /kʌps/ hats /hæts/</span>  
-  * 在 `/s/` `/z/` `/ʃ/` `/tʃ/` `/dʒ/` 等音后, 读 `/ɪz/`, 如 <span class="exa">glasses /ɡlæsɪz/ ages /eɪdʒɪz/</span>  
-  * 其他情况, 读 `/z/`, 如 <span class="exa">boys /bɔɪz/ ladies /ˈleɪdiz/</span>
+  * 在 `/p/` `/t/` `/k/` `/f/` 等清辅音后, 读 `/s/`, 如 <span>cups /kʌps/, hats /hæts/</span>  
+  * 在 `/s/` `/z/` `/ʃ/` `/tʃ/` `/dʒ/` 等音后, 读 `/ɪz/`, 如 <span>glasses /ɡlæsɪz/, ages /eɪdʒɪz/</span>  
+  * 其他情况, 读 `/z/`, 如 <span>boys /bɔɪz/ ladies /ˈleɪdiz/</span>
     * 以 `th` 结尾的词
-      * 原读 `/θ/`，加词尾后多读 `/ð/`，如 <span class="exa">mouths /maʊðz/ paths /pæðz/</span>
-      * 但也有些这类词加词尾后读音不变，如 <span class="exa">months /mʌnθs/ lengths /leŋθs/</span>
-      * 另有个别词可变可不变 <span class="exa">youths /juːθs/ 或 /juːðz/ truths /truːθs/ 或 /truːðz/</span>
+      * 原读 `/θ/`，加词尾后多读 `/ð/`，如 <span>mouths /maʊðz/</span> <span>paths /pæðz/</span>
+      * 但也有些这类词加词尾后读音不变，如 <span>months /mʌnθs/</span> <span>lengths /leŋθs/</span>
+      * 另有个别词可变可不变 <span>youths /juːθs/ 或 /juːðz/</span> <span>truths /truːθs/ 或 /truːðz/</span>
 
 2) 以 `-o` 结尾的词
   * 许多加 `-es` 构成复数，特别是一些常用词
   * 但下面几类词只加 `-s`
-    * 以 `元音 + o` 或 `oo` 结尾的词
+    * 以 `元音 + o` 或 `oo` 结尾的词 <span>videos, radios, zoos, bamboos</span>
     * 一些外来词，特别是音乐方面的词
-    * 一些缩写词和专有名词
+    * 一些缩写词和专有名词 <span>kilos, photos, memos, micros, Filipinos /ˌfɪlɪˈpi:noʊ/ 菲律宾人</span>
   * 有个别词加两种词尾都可以，如
 
 3) 以 `-f` 或 `-fe` 结尾的词
@@ -150,18 +147,14 @@ There's _a beauty_ in simplicity.  朴实之中有一种美。
   * 有些只加 `-s`，读作 `/fs/`
   * 有个别词加 `-s` 或 `-es` 都可以
 
-#### 不规则的复数形式
+#### 3.2.2 不规则的复数形式
+
+#### 3.2.4 单复数同形的情况
+
+#### 3.2.5 通常用于复数形式的词
 
 
-#### 单复数同形的情况
-
-
-#### 通常用于复数形式的词
-
-
-
-
-### 名词所有格
+### 3.3 名词所有格
 
 英语中有许多名词可加 `'s` 来表示所有关系。
 
@@ -174,16 +167,16 @@ There's _a beauty_ in simplicity.  朴实之中有一种美。
 `'s` 的读音规则和名词复数词尾的读音规则一样
 
 
-### 名词的性
+### 3.4 名词的性
 
 英语不像其他欧洲语言，它的名词一般不分阴阳性。但随着词义不同，有一部分名词也可以分阴阳性，表示男人或雄性动物的名词属于阳性，表示女人或雌性动物的名词属于阴性。
 
-### 名词在句中的作用
+### 3.5 名词在句中的作用
 
 名词在句中可担任不同成分：作主语、作表语、作宾语(谓语或非谓语动词的宾语)、作定语、作同位语、作呼语、作状语、作介词宾语、构成复合宾语(作宾语的补语)。
 
 
-## 冠词
+## 4 冠词
 
 > 定冠词和不定冠词很好区分，难就难在加不加冠词上...变化太多
 
@@ -200,7 +193,7 @@ There's _a beauty_ in simplicity.  朴实之中有一种美。
   * 在不可数名词前多不加什么，有时也可加 some any 等
 
 
-### 各类名词前的冠词用法
+### 4.3 各类名词前的冠词用法
 
 专有名词前冠词的用法
 
@@ -216,8 +209,8 @@ There's _a beauty_ in simplicity.  朴实之中有一种美。
 * 若抽象名词用于特指(即指特定的内容)，特别是有一个限制性定语修饰时，多加定冠词
 * 抽象名词在一定的情况下可加不定冠词，用来表示：一种、一场等，某动作的一次、一例等，引起某种情绪的人或事，表示某种品质的具体行动、人或东西
 
-**限制性定语** Limiting Attributes 指 of 引导的定语或某些定语从句，它们限制名词的意义，使指特定的内容，和它相对的则是  
-**描绘性定语** Descriptive Attributes，这种定语只描绘，不限定意思。
+__限制性定语__ Limiting Attributes 指 of 引导的定语或某些定语从句，它们限制名词的意义，使指特定的内容，和它相对的则是  
+__描绘性定语__ Descriptive Attributes，这种定语只描绘，不限定意思。
 
 物质名词前冠词的用法
 
@@ -225,7 +218,7 @@ There's _a beauty_ in simplicity.  朴实之中有一种美。
 * 物质名词特指时前面也可以加 the
 * 物质名词前间或加不定冠词，表示：一场、一阵，一种，一份
 
-### 不用或省略冠词的情况
+### 4.4 不用或省略冠词的情况
 
 #### 零冠词
 
@@ -240,14 +233,14 @@ There's _a beauty_ in simplicity.  朴实之中有一种美。
 #### 冠词省略的情况
 
 在一些情况下冠词常常省略，如：
-  * 新闻标题 <span class="exa">(The) City Congress (is) to be in session Friday.</span>
-  * 通知说明 <span class="exa">Cut along (the) dotted line. 沿虚线剪开。</span>
-  * 提纲 <span class="exa">(The) Causes of World War II: massive re-armament, (the) invasion...</span>
+  * 新闻标题 <span>(The) City Congress (is) to be in session Friday.</span>
+  * 通知说明 <span>Cut along (the) dotted line. 沿虚线剪开。</span>
+  * 提纲 <span>(The) Causes of World War II: massive re-armament, (the) invasion...</span>
   * 剧本提示
-  * 书名 <span class="exa">(The) BBC English Dictionary</span>
+  * 书名 <span>(The) BBC English Dictionary</span>
 
 
-## 代词
+## 5 代词
 
 代词可以分为下面几类
   * 人称代词 Personal Pronouns
@@ -262,7 +255,7 @@ There's _a beauty_ in simplicity.  朴实之中有一种美。
 
 严格地讲，代词是代替名词的，在句子中起名词的作用，可用作：主语、宾语、表语、同位语、呼语，偶作宾语的补语。
 
-### 人称代词和物主代词
+### 5.2 人称代词和物主代词
 
 格/人称/数 | 单I | 单II | 单III        | 复I | 复II | 复III
 -----------|-----|------|--------------|-----|------|--------
@@ -274,7 +267,7 @@ There's _a beauty_ in simplicity.  朴实之中有一种美。
 形容词型   | my   | your  | his, she, its  | our    | you    | their
 名词型     | mine | yours | his, hers, its | ours   | yours  | theirs
 
-### 自身代词和相互代词
+### 5.3 自身代词和相互代词
 
 自身代词也称反身代词(Reflexive Pronouns)。  
 自身代词主要用作宾语；也常用作介词宾语；有时用作主语或宾语的同位语；有时还可用作表语，间或还可用作主语。
@@ -286,34 +279,36 @@ There's _a beauty_ in simplicity.  朴实之中有一种美。
 
 相互代词只有两个(如下)，可表示两个人或几个人之间的相互关系。
 
-```
+```txt
 one another    each other
 ```
 
-### 指示代词
+> Liz and I have known _one another_ for years. 丽丝和我认识多年了。
+
+### 5.4 指示代词
 
 指示代词有四个(如下)，在句子中用作：定语、主语、宾语或介词宾语、偶尔用作表语。
 
-```
+```txt
 this  that  these  those
 ```
 
-### 疑问代词和连接代词
+### 5.5 疑问代词和连接代词
 
 疑问代词有下面这些：
 
-```
+```txt
 who  whom  whose  what  which
 ```
 
 连接代词与疑问代词同形，引导各种从句。  
 who(m) what which 都可以和 `ever` 构成连接代词，可在句中引导状语从句。
 
-### 关系代词
+### 5.6 关系代词
 
 关系代词有如下这些：
 
-```
+```txt
 who  whom  whose  that  which
 ```
 
@@ -322,11 +317,11 @@ who  whom  whose  that  which
   * 把从句和它所修饰的词连接起来
   * 在从句中也担任一个成分
 
-### 不定代词
+### 5.7 不定代词
 
 不定代词可分作两类：
 
-```
+```txt
 // 由 body, one, thing 构成的合成代词
 somebody   anybody   everybody   nobody
 someone    anyone    everyone    no one
@@ -339,18 +334,18 @@ neither  none     other   some
 ```
 
 
-## 数词和量词
+## 6 数词和量词
 
-### 基数词
+### 6.1 基数词
 
 基数词 Cardinal Numerals 指表示数目的词。下面是最基本的基数词，其他数目都由这些基数词构成。
 
-|||
+|||||
 ---------|--------------|------------|-------------------------------
-1 one    | 11 eleven    | 10 ten     | 100 a hundred
-2 two    | 12 twelve    | 20 twenty  | 1,000 a thousand
-3 three  | 13 thirteen  | 30 thirty  | 1,000,000 a million 百万
-4 four   | 14 fourteen  | 40 forty   | 1,000,000,000 a billion 十亿
+1 one    | 11 _eleven_    | 10 ten     | 100 a hundred
+2 two    | 12 _twelve_    | 20 _twenty_  | 1,000 a thousand
+3 three  | 13 _thirteen_  | 30 thirty  | 1,000,000 a million 百万
+4 four   | 14 fourteen  | 40 _forty_   | 1,000,000,000 a billion 十亿
 5 five   | 15 fifteen   | 50 fifty   |
 6 six    | 16 sixteen   | 60 sixty   |
 7 seven  | 17 seventeen | 70 seventy |
@@ -362,7 +357,7 @@ neither  none     other   some
   * 101-999 - 先说 “几百”，再加 and，再加末尾两位数或末位数
   * 1000 以上的词 - 先从后向前数，每三位数加一个逗号，用这个方法把数目分作若干段，再一段一段念
 
-```
+```txt
 902         nine hundred and two
 819         eight hundred and nineteen
 4,007       four thousand and seven
@@ -373,7 +368,7 @@ neither  none     other   some
 
 一些数学公式的读法如下
 
-```
+```txt
 7 + 4 = 11  Seven plus four is eleven
 12 - 5 = 7  Twelve minus five is seven
 6 * 8 = 48  Six times eight (Six multiplied by eight) is forty-eight
@@ -384,17 +379,37 @@ a ≈ b  a approximately equals b
 a ≠ b  a is not equal to b
 ```
 
-### 序数词
+### 6.2 序数词
+
+```txt
+first  second  third     fourth      fifth     sixth    seventh      eighth     ninth    tenth
+eleventh twelfth thirteenth fourteenth fifteenth sixteenth seventeenth eighteenth nineteenth
+          twentieth thirtieth  fortieth  fiftieth  sixrieth  seventieth  eightieth  ninetieth
+```
+
+one -> _first_  two -> _second_  three -> _third_  five -> _fifth_  eight -> _eighth_  nine -> _ninth_  twelve -> _twelfth_
+
+电话号码的读法  
+年份读法  
+日期读法  
+时刻读法  
+
+### 6.3 分数词
 
 
-### 分数词
+
+### 6.4 量词
 
 
+## 14 形容词
 
-### 量词
+## 15 副词
 
+## 16 介词
 
+## 17 连词
 
+## 18 感叹词
 
 
 

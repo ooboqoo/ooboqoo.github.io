@@ -1,29 +1,25 @@
-# 词汇表 - DevOps
+# DevOps
 
-<style>
-  strong { color:#C00; }
-  i, em { font-style: normal; font-family:"lucida sans unicode", arial, sans-serif; color: #0aa; }
-</style>
 
 ### 软件工程
 
-__CI__ 持续集成 continuous integration  _/ˌɪntɪˈɡreɪʃən/_  
+__CI__  continuous integration  _/ˌɪntɪˈɡreɪʃən/_  持续集成  
 __Agile Manifesto__  _/ˈædʒəl ˌmænɪˈfestəʊ/_  敏捷宣言  
 
 
 ## Linux
 
-__locale__  _/ləʊˈkɑːl/_  n. 场所; 地点  
-__guid__  全局唯一标识符 globally unique identifier  
+__locale__  _/ləʊˈkɑːl/_  n.场所;地点  
+__GUID__  globally unique identifier  全局唯一标识符  
 __grep__  _/'grep/_  一个字符串查找工具  g/re/p globally search a regular expression and print  
 
 
 ## SQL
 
-__constraint__  _/kənˈstreɪnt/_  n. 限制; 约束  
+__constraint__  _/kənˈstreɪnt/_  n. 限制;约束  
 __wild card__  n. 通配符  
-__aggregate__  _/ˈæɡrɪɡət, ˈæɡrɪɡɪt/_  a. 合计的  -- 译为"聚合"  
-__scalar__  _/ˈskeɪlər/_  a. 分等级的 n. 数量, 标量  
+__aggregate__  _/ˈæɡrɪɡət, ˈæɡrɪɡɪt/_  a. 合计的 n. 集合体,聚合 v. 总计  
+__scalar__  _/ˈskeɪlər/_  a. 分等级的 n. 数量,标量  
 __truncate__  _/trʌŋˈkeɪt/_  v. 缩短 SYN shorten  
 __ascending__  a. 上升的, 向上的  __ascend__ _/əˈsend/_ v. 攀登, 升职  
 __descending__  a. 秩序下降的, 递减的  __descend__ _/dɪˈsend/_ v. 下来, 下降, 走下; 堕落; 陷入(糟糕境地)  
@@ -37,6 +33,7 @@ __delimiter__  _/dɪˈlɪmɪtə/_  n. 分隔符  __delimit__  _/dɪˈlɪmət, d�
 
 https://www.scrum.org/resources/professional-scrum-developer-glossary
 
+__agile__  _/ˈædʒaɪl $ ˈædʒəl/_  a. 敏捷的; 机敏的,机智的  
 __Scrum__  _/skrʌm/_  一种敏捷方法论  
 __backlog__  _/ˈbæklɒɡ/_  n. 积压的事情, 未完成的工作  
 __retrospective__  _/ˌretrəˈspektɪv◂/_  n. 艺术家作品的回顾展 a. 回顾的; [法]有追溯效力的  

@@ -5,6 +5,11 @@
 * TODO：搜 american pronunciation 捞些视频学一学
 
 
+> a  _/eɪ/_       b  _/biː/_    c  _/siː/_     d  _/diː/_    e  _/iː/_    f  _/ef/_    g  _/dʒiː/_  
+> h  _/eɪtʃ/_     i  _/aɪ/_     j  _/dʒeɪ/_    k  _/keɪ/_    l  _/el/_    m  _/em/_    n  _/en/_  
+> o  _/əʊ $ oʊ/_  p  _/piː/_    q  _/kjuː/_    r  _/ɑː $ ɑːr/_            s  _/es/_    t  _/tiː/_  
+> u  _/juː/_      v  _/viː/_    w  _/ˈdʌbəljuː/_             x  _/eks/_   y  _/waɪ/_   z  _/ziː/_  
+
 ## 音标
 
 * 国际音标 IPA，含上百个符号，是一套转写和记录人类所有语言的音标系统，英语音标只是其中一部分。
@@ -235,13 +240,8 @@ towel vs tower 辨音: `/r/` 尾部的“饿”更纯，而 `/l/` 有点“饿�
 
 重读方法：第一个音节稍微拉长、音调更高
 
-record
-* noun /ˈrekɔːd $ -ərd/  
-* verb /rɪˈkɔːd $ -ɔːrd/
-
-content
-* noun /ˈkɒntent $ ˈkɑːn-/
-* verb /kənˈtent/
+record  n. _/ˈrekɔːd $ -ərd/_  v. _/rɪˈkɔːd $ -ɔːrd/_  
+content  n. _/ˈkɒntent $ ˈkɑːn-/_  v. _/kənˈtent/_  
 
 
 判断音节
@@ -265,7 +265,7 @@ American speakers use the sound `/t̮/`, which is like a quick /d/, in many word
 
 辅音 + 元音 连读
 
-* love~and peace  /v/ + /ə/ = /və/    这个连读听示例录音还真忍不出来
+* love~and peace  /v/ + /ə/ = /və/    这个听地少还真难反应过来
 * come~in  /m/ + /ɪn/ = /mɪn/
 * think~about  /k/ + /ə/ = /kə/
 
@@ -306,7 +306,7 @@ American speakers use the sound `/t̮/`, which is like a quick /d/, in many word
 句子语调：英语句子语调分为升调和降调两种。  She doesn't like [him ↘︎].
 
 1. 陈述句、感叹句和祈使句，使用降调  Please don't forget the [meeting ↘︎].
-2. 一般疑问句，使用升调  Do you enjoy living in [China ↗]?
+2. *一般疑问句，使用升调*  Do you enjoy living in [China ↗]?
 3. 特殊疑问句(what / which / why / where / who / how)，使用降调  What's the [matter ↘︎]?
 
 句子重音：一句话中被重读的部分，会稍微拉长、音量升调。  His [face] looks [familiar] to me.
@@ -345,14 +345,16 @@ American speakers use the sound `/t̮/`, which is like a quick /d/, in many word
 
 ## 错音纠正
 
-hello 英 /həˈləʊ/ 美 /heˈloʊ/
-
 juice /dʒuːs/ 发 “就是”
+
+shoot /ʃuːt/  发 “秀特”
+
+hello 英 /həˈləʊ/ 美 /heˈloʊ/
 
 vacation /vəˈkeɪʃən $ veɪ-/
 
-happy 中的 /p/ 在英式发音中是 /p/ 但在美式发音中，到底有几分 /b/ 的成分？
+happy 中的 /p/ 在英式发音中是 /p/ 但在美式发音中发 /b/
 
 dollar /ˈdɒlə $ ˈdɑːlər/
 
-shoot /ʃuːt/  发 “秀特”
+

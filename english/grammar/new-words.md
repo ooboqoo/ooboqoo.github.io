@@ -70,5 +70,26 @@ the Tropic of Capricorn  南回归线  Capricorn 摩羯座
 the tropics  n.热带地区  -- the hottest part of the world, which is around the equator  
 
 
+2.2.1
+
+
+__leave__  许可  
+__giggle__  _/ˈɡɪɡəl/_  v. 咯咯地笑,傻笑 n. 傻笑; 趣事; 玩笑  
+__grin__  
+__groan__  
+__jog__  慢跑  
+__shout__  
+__sip__  
+__stroll__  
+
+2.2.2
+
+__usher__  
+
+
+
+
+
+
 
 

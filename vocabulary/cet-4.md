@@ -6,15 +6,6 @@
   for (let p of ps) {
     p.innerHTML = p.innerHTML
       .replace(/(^|<br>)([忘析混错联派类]) ([\w-]+)/g, '$1<span class="tag-class">$2</span> <span class="word">$3</span>')
-      .replace(/\b(n|v|vt|vi|a|ad|prep)\./g, '<span class="tag-pos">$&</span>')
-      .replace(/SYN|OPP|BrE|NAmE/g, '<span class="tag-syn">$&</span>')
-  }
-  const exs = document.querySelectorAll('#md p span.exp, #md p span.exa')
-  for (let ex of exs) { ex.dataset.txt = ex.innerHTML; ex.innerHTML = '' }
-  const ems = document.querySelectorAll('#md p em')
-  for (let em of ems) {
-    const txt = em.textContent
-    if (txt[0] === '/' && txt[txt.length - 1] === '/') { em.classList.add('tag-ps') }
   }
 })();
 </script>
@@ -22,17 +13,9 @@
 <style>
   .tag-class { font-size: .75em; color: #999; }
   .word { color: red; }
-  .tag-ps { color: #6aa; }
-  .tag-pos { padding: 0 2px; color: #c33; }
-  .tag-syn { padding: 0 2px; color: #999; font-size: .75em; border: 1px solid; border-radius: 4px; }
-  .exp::before, .exa::before { padding: 0 2px; color: #999; border: 1px solid; border-radius: 4px; }
-  .exp:hover::after, .exa:hover::after { display: block; position: absolute; background-color: #f6f6f6; padding: 12px 4px 12px 12px; width: 95%; }
-  .exp:hover::after, .exa:hover::after { content: attr(data-txt); }
-  .exp::before { content: '释'; }
-  .exa::before { content: '例'; }
 </style>
 
-<div style="display: none;">
+
 ## 忘 1
 
 
@@ -509,7 +492,6 @@ accumulate  _/əˈkjuːmjʊleɪt/_  v.积聚
 
 混 drip  _/drɪp/_  v.滴下,漏水 n.滴,水滴 a drop of drip 一滴水滴  
 混 drop  _/drɒp/_  v.使降低,掉落,扔下; 中途卸下某人或物; 输掉 n.滴; 微量; 落差  
-</div>
 
 
 ## 析
@@ -890,7 +872,7 @@ accumulate  _/əˈkjuːmjʊleɪt/_  v.积聚
 析 wardrobe  _/ˈwɔːrdroʊb/_  n.衣柜,衣橱；A tall cupboard or cabinet in which you can hang your clothes.  
 析 cabinet  _/ˈkæbɪnət/_  n.内阁,内阁会议; (带玻璃门存物品的)橱柜
 
-<div style="display: none;">
+
 ## 联
 
 联 elementary  _/ˌeləˈmentəri◂/_  a.简单的; 基本的 element元素,要素-ary  
@@ -2098,6 +2080,5 @@ to shake slightly in a way that you cannot control, especially because you are f
 类 plow BrE plough  _/plaʊ/_  v.犁(地); 耕地  
 类 math BrE maths  _/mæθs/_  n.数学 同 mathematics  
 类 airplane BrE aeroplane  _/ˈeərəpleɪn $ ˈerə-/_  n.飞机  
-</div>
 
 

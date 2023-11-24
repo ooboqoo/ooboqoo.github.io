@@ -1,25 +1,22 @@
 # 词汇表 - 通用词汇
 
-<style>
-  strong { color:#C00; }
-  i, em { font-style: normal; font-family:"lucida sans unicode", arial, sans-serif; color: #0aa; }
-  span { color: #999; }
-</style>
-
 
 ## Punctuation
 
 __punctuation mark__  _/ˌpʌŋktʃuˈeɪʃən/_  n. 标点符号  
 __parentheses__  _/pəˈrenθəsiːz/_  pl. (圆)括号 `()`  
-__brackets__  _/ˈbrækət, ˈbrækɪt/_  n. 中括号 `[]`  
+__brackets__  _/ˈbrækɪts/_ pl. 中括号 `[]`  
 __angle brackets__  pl. 尖括号 `<>`  
 __curly braces__  pl. 大括号 `{}`  a pair of curly braces  -- __brace__ _/breɪs/_ v. 支撑 n. 托架  
 __colon__  _/ˈkəʊlən/_  n. 冒号 `:`  
 __semicolon__  _/ˌsemiˈkəʊlən/_  n. 分号 `;`  
 __comma__  _/ˈkɑːmə/_  n. 逗号 `,`  
-__period__  n. 句号 `.`  
-__hyphen__  _/ˈhaɪfən/_  n. 连字符 `-`  
-__dash__  n. 破折号 `–`  
+__period__  _/ˈpɪrriəd/_  n. 句号 `.`  
+__hyphen__  _/ˈhaɪfən/_  n. 连字符 `-`  注：变量命名时用到的是 hyphen 和 underscore  
+__dash__  n. 破折号
+  - The en dash `–` is slightly longer than a hyphen, 用法 "Monday–Friday"
+  - The em dash `—` is approximately the width of the letter 'm'  
+
 __underscore__  _/ˌʌndəˈskɔː/_  v.强调, 突出; 在…下画线 `_`  
 __slash__  n. 斜线号 `/`  
 __backslash__  n. 反斜杠 `\`  
@@ -27,9 +24,9 @@ __ellipsis__  _/ɪˈlɪpsəs/_  n. 语言学中的省略, 省略号  `…`
 __exclamation point__  _/ˌekskləˈmeɪʃən/_  n. 感叹号 `!`  
 __question mark__  n. 问号 `?`  
 __quotation marks__  n. 引号 `'` `"`  
-__apostrophe__  _/əˈpɒstrəfi/_  n. 撇号, 省字号 `` ` ``  
+__apostrophe__  _/əˈpɒstrəfi/_  n. 撇号, 省字号   
 __asterisk__  _/ˈæstərɪsk/_  n. 星号 `*`  
-__at sign__  `@`  
+__at sign__  at 符  `@`  
 __ampersand__  _/ˈæmpəsænd/_  `&`  
 __caret__  _/ˈkærət/_  n. 插入符, 补字符号 `^`  
 __hash__  n. 井号 `#`  
@@ -44,7 +41,7 @@ __exponent__  _/ɪkˈspəʊnənt/_  n. 倡导者; [数] 指数
 __exponential function__  _/ˌekspəˈnenʃəl◂/_  n. 指数函数  
 __exponentiation__  _/ˌekspənenʃɪˈeʃən/_  n. 求幂运算  
 __exponentiation operator__  n. 求幂运算符  
-__power__  n. 幂, 乘方(a**x); 功率, 权力  
+__power__  n. 幂, 乘方(a^x); 功率, 权力  
 
 __finite__  _/ˈfaɪnaɪt/_  a. 有限的; 有尽的  
 __infinite__  _/ˈɪnfɪnət/_  a. 无限的; 无穷的  
@@ -52,6 +49,7 @@ __infinite__  _/ˈɪnfɪnət/_  a. 无限的; 无穷的
 __integer__  _/ˈɪntɪdʒə/_  n. 整数  
 __fraction__  _/ˈfrækʃən/_  n. 分数  
 
+__hexadecimal__  _/ˌheksəˈdesɪməl◂/_  a. 十六进制的  
 
 ## 名词
 
@@ -63,7 +61,7 @@ __reference__  n. 引用, 即建立一个符号链接, 非复制
 __caveat__  _/ˈkæviæt/_  n. 警告; 注意事项  <span>记忆：cave + at 洞穴内的警告</span>  
 
 __rudiments__  _/ˈruːdɪmənts/_  n. 基础知识, 基本原理  
-__criteria__  _/-riə/_ plural 准则  __criterion__  _/kraɪˈtɪəriən/_  n. (判定的)标准, 准则  
+__criteria__  _/kraɪˈtriə/_ pl. (评判或做决定的)标准，准则  __criterion__  _/kraɪˈtɪəriən/_  n. (判定的)标准, 准则  
 
 __alias__  _/ˈeɪliəs/_  n. 化名, 别名  
 __annotation__  _/ænə'teɪʃ(ə)n/_  n. 注释; 注解  
@@ -114,19 +112,19 @@ __emit__  _/ɪˈmɪt/_  vt. 发出, 放射; 发表, 发行
 
 __compatible__  _/kəmˈpætəbəl/_  a. 兼容的  
 __adjacent__  _/əˈdʒeɪsənt/_  a. 临近的, 毗连的  
-__deprecated__ [计] 废弃的  __deprecate__  _/ˈdeprəkeɪt/_  v. 批评, 反对  
+__deprecated__  _/ˈdeprəkeɪtɪd/_  [计] 废弃的  __deprecate__  _/ˈdeprəkeɪt/_  v. 批评, 反对  
 __recursively__  ad. [数] 递归地  
 __conventionla__  _/kənˈvenʃənəl/_  a. 通常的, 常规的, 传统的  <span>a conventional method, product, practice etc has been used for a long time and is considered the usual type.</span>  
 __volatile__  _/ˈvɒlətaɪl/_  a.易变的  
 
-__idiomatic__  _/ˌɪdiəˈmætɪk◂/_  a. 惯用的; 地道的  -- __idiom__ n. 习语; 方言; 特色  
+__idiomatic__  _/ˌɪdiəˈmætɪk◂/_  a. 惯用的; 地道的  -- __idiom__  _/ˈɪdiəm/_  n. 习语; 方言; 特色  
 __subtle__  _/ˈsʌtl/_  a. 精巧的, 巧妙的; 细微的, 微妙的  
 
 
 ## 其他
 
 __nonetheless__ __nevertheless__  ad. 虽然如此,但是  
-__thus__  ad. 这样; 因此  
+__thus__  _/ðʌs/_  ad. 这样; 因此  
 
 
 ## Git
@@ -137,14 +135,14 @@ __thus__  ad. 这样; 因此
 ## 简写/新创
 
 __w/__  with;  __w/o__ without  
-__i.e.__  亦即, 也就是  
-__e.g.__  例如  
+__i.e.__  亦即, 也就是 an abbr derived from the Latin term "id est" which translates to "that is" or "in other words"  
+__e.g.__  例如 an abbr derived from the Latin term "exempli gratia" which translates to "for example" in English.  
 __a.k.a__  also known as  
-__TL;DR;__  too long, don't read
+__TL;DR;__  too long, don't read  
 __expando__  [计] 扩展属性, 附加属性, 可能源于 expandable object property  
 __noop__  [计] 空操作 no operation  
 __nonce__ [计] Number used once 或 Number once 的缩写，密码学中 nonce 是一个只被使用一次随机数值  
 
 __reinvent the wheel__  _/ˌriːɪnˈvent/_  重新发明轮子, 意为做无谓的重复工作  
 
-__LGTM__  Looks good to me
+__LGTM__  Looks Good To Me  
