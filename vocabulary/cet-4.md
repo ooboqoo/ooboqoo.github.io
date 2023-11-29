@@ -69,7 +69,10 @@ freight  _/freɪt/_  n. 货运; 货物
 联 downtown  ad.在城市的商业区 a./n.城市商业区(的)  
 联 suburb  _/ˈsʌbɜːb/_  n.城郊  
 
-snack n. 小吃;便餐  a small amount of food that is eaten between main meals or instead of a meal  
+snack  n. 小吃;便餐  a small amount of food that is eaten between main meals or instead of a meal  
+dim sum  _/ˌdɪmˈsʌm/_  n. 中式点心,小吃  
+dessert  _/dɪˈzɜːt $ -ɜːrt/_  n. 饭后甜点  
+desert  _/ˈdezət $ -ərt/_  n. 荒漠  v. 遗弃  
 
 troop  _/truːp/_  n.部队,士兵(可复数); 一群,一队 v.结队前行  
 
@@ -360,6 +363,7 @@ accumulate  _/əˈkjuːmjʊleɪt/_  v.积聚
 错 mobile  _/ˈməʊbaɪl $ ˈmoʊbl/_  a.行动自如的  注意下英美发音区别  
 错 circle  _/ˈsɜːkəl/_  n. 圆, 周期  
 错 women  _/ˈwɪmɪn/_  n. the plural of woman  _/ˈwʊmən/_  
+square  _/skwer/_  n. 正方形,广场  记发音  
 
 ## 混
 

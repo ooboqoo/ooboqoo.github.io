@@ -1,6 +1,6 @@
 <script>ooboqoo.contentsRegExp = /H[123]/</script>
 <style>
-  span { background-color: #f6f6f6; padding: 2px 8px; }
+  span { background-color: #f6f6f6; padding: 0 8px; border-radius: 8px; }
 </style>
 
 # 词法 Morphology
@@ -403,13 +403,210 @@ one -> _first_  two -> _second_  three -> _third_  five -> _fifth_  eight -> _ei
 
 ## 14 形容词
 
+### 14.1 形容词的类型
+
+形容词大体上可以分为下面几类
+* 品质形容词 Qualitative Adjectives, 表示人或物的品质 <span>active</span> <span>old</span> <span>special</span>
+* 类属形容词 Classifying Adjectives, 表示属于哪一类, 这类形容词一般不能用于比较级 <span>financial</span> <span>absolute</span> <span>west</span>
+* 颜色形容词 Color Adjectives
+* 强调形容词 Emphasizing Adjectives <span>absolute</span> <span>total</span> <span>true</span>
+* -ing 形容词 -ing Adjectives 有大量现在分词正在或者已经变为形容词 <span>amazing</span> <span>existing</span> <span>living</span>
+* -ed 形容词 -ed Adjectives <span>required</span> <span>broken</span> <span>reduced</span>
+* 合成形容词 Compound Adjectives <span>low-paid</span> <span>long-standing</span> <span>heart-to-heart talk</span>
+
+### 14.2 形容词在句子的作用
+
+形容词在句中主要可用作
+* 定语
+* 表语
+* 宾语的补语（构成合成宾语）<span>This delay has made me _late_.</span>
+* 状语 <span>Many poets died _young_.</span> <span>_Strange to say_, no one was hurt.</span>
+
+### 14.3 形容词的位置
+
+作定语时的通常位置
+
+```txt
+冠词  品质形容词  颜色形容词  类别形容词  所修饰的词
+a    little    white      wooden    house    一幢白色的小木屋
+```
+
+### 14.4 形容词的比较级
+
+* 单音节词及少数双音节词都以在后面加词尾 `-er` `-est` 的方式构成比较级
+* 其他双音节词及多音节词都以在前面加 `more` 和 `most` 的方式构成比较级和最高级 <span>more likely</span>
+* `less` 和 `least` 也可用来构成比较级和最高级 <span>less dangerous</span>
+* 有些形容词有不规则的比较级和最高级形式
+
+```txt
+good, well    better               best
+bad           worse                worst
+much, many    more                 most
+little        less                 least
+far           farther, further     farthest, furthest
+old           older, elder         oldest, eldest
+```
+
+### 14.5 名词化的形容词
+
+"the + 形容词" 可表示一类人、一些事物或品质
+
+> _The poor_ get poorer; _the rich_ get richer.  
+> He expected me to do _the impossible_.  
+
+包含名词化形容词的词组
+* 有不少词组中包含名词化形容词 <span>I can't say _for sure_. 我说不准。</span> <span>He cuts my hairs _for free_.</span>
+* 有不少形容词最高级有时可以名词化 <span>We're not going to Japan. _At least_ not for the present.</span>
+
+
 ## 15 副词
+
+### 15.1 副词的类型
+
+副词大体上可分为以下几类
+* 时间副词 Adverbs of Time <span>ago</span> <span>always</span> <span>already</span>
+* 地点副词 Adverbs of Place <span>abroad</span> <span>down</span> <span>locally</span>
+* 方式副词 Adverbs of Manner <span>badly</span> <span>hopefully</span> <span>specially</span>
+* 程度副词 Adverbs of Degree <span>absolutely</span> <span>totally</span> <span>truly</span>
+* 强调副词 Emphasing Adverbs <span>much</span> <span>quite</span> <span>truly</span>
+* 疑问副词 Interrogative Adverbs <span>how</span> <span>where</span> <span>when</span> <span>why</span>
+* 连接副词 Conjunctive Adverbs <span>how</span> <span>where</span> <span>when</span> <span>why</span>
+* 关系副词 Relative Adverbs <span>where</span> <span>when</span> <span>why</span>
+* 句子副词 Sentence Adverbs 有些副词并不修饰动词，而是修饰整个句子，表示说话人的看法 <span>_Honestly_, I don't know.</span>
+
+### 15.2 副词在句中的作用
+
+副词最主要的作用是作状语
+* 可修饰动词，也可修饰动词的非谓语形式 <span>He'll be here _directly_. 他一会就到这里来。</span>
+* 也可修饰形容词 或 副词 <span>He is _slightly_ lame.</span> <span>The summer passed _too_ quickly.</span>
+* 还可修饰整个句子 <span>_Sure_ I will come.</span>
+
+副词作表语，大部分副词小品词（即与介词同形的副词）都可用作表语。
+
+> The light is still _on_. 电灯还亮着。  
+> I'll be _along_ in a minute. 我一会儿就来。  
+
+### 15.3 副词的比较级和最高级
+
+副词和形容词一样，也有比较级和最高级形式。
+* 单音节词和少数双音节词可以以加词尾的方式构成比较级和最高级 <span>faster</span>
+* 双音节词和多音节词大多以加 `more` 和 `most` 的方式构成比较级和最高级 <span>more strongly</span>
+* 副词的比较级和最高级也有不规则的情形
+
+```txt
+well       better               best
+badly      worse                worst
+little     less                 least
+much       more                 most
+far        farther, further     farthest, furthest
+```
+
+### 15.4 副词的位置
+
+一般副词的位置
+
+* 多数副词都放在所修饰动词后面 或句末（宾语或状语后面）<span>It's raining _hard_.</span> <span>He looked at me _suspiciously_.</span>
+* 有时放在主语和动词之间 <span>He _careflly_ picked up all the bits of broken glass.</span>
+* 有些副词常放在助动词和主要动词之间 或 主语和表语之间 <span>I'm _still_ waiting for an answer.</span>
+* 有些副词为了强调可放在句首 <span>_Recently_ I haven't been feeling very well.</span>
+
+
 
 ## 16 介词
 
+### 16.1 介词分类
+
+介词按结构分类
+* 简单介词 <span>about</span> <span>above</span> <span>across</span> <span>after</span>
+* 合成介词 <span>alongside</span> <span>into</span> <span>out of</span> <span>upon</span>
+* 带 -ing 词尾的介词 <span>considering</span> <span>following</span> <span>including</span> <span>pending</span>
+* 成语介词 <span>according to</span> <span>ahead of</span> <span>as for</span> <span>due to</span>
+
+介词按意思分类
+* 引导时间短语的介词 <span>at (5 o'clock)</span> <span>on (Saturday)</span> <span>during (the summer)</span> <span>since (then)</span>
+* 引导地点短语的介词 <span>in (Beijing)</span> <span>at (the airport)</span> <span>across (the river)</span> <span>to (twon)</span>
+* 引导其他短语的介词 <span>by (train)</span> <span>with (a knife)</span> <span>except (her)</span> <span>like (a child)</span>
+
+### 16.2 介词短语在句子中的作用
+
+#### 16.2.1 介词短语
+
+介词不能单独担任一个成分，必须构成介词短语来担任一个成分。
+
+能和介词构成短语的有
+* 名词 <span>Who's knocking at _the door_?</span>
+* 代词 <span>I'm looking for _something_.</span>
+* 动名词 <span>Are you interested in _going with us_</span>
+* 由连接代（副）词或关系代词型 what 引导的从句 <span>She was grateful to him for _what he had done_.</span>
+* 由连接代（副）词引导的不定式短语 <span>She gave a talk on _how to fight the disease_.</span>
+* 另一个介词 <span>I saw her from _across the street_. 我从街对面看到她。</span>
+* 副词或形容词 <span>I heard someone calling me from _below_.</span>
+* 复合结构 <span>I had no objection to _Dinny marrying him_.</span>
+
+#### 16.2.2 介词短语作状语
+
+* 介词短语作状语时最多，主要修饰谓语 <span>I arrived at the concert hall _in good time_.</span>
+* "be + 形容词" 这种结构也常跟介词短语 <span>She _is afraid of_ dogs.</span>
+* 还可用介词短语修饰非谓语动词 <span>I asked to speak _to the dean_. 我要求和院长谈话。</span>
+
+#### 16.2.3 介词短语作定语
+
+> a child _of_ six  
+> a child _with_ dark eyes  
+> the gril _in_ blue  
+> an answer _to_ a puzzle  
+> a medicine _for_ colds  
+> doubts _about_ his ability  
+
+#### 16.2.4 介词短语作表语或宾补
+
+许多介词可构成短语作表语
+
+> It was _against_ the law.  
+> He didn't feel _at ease_.  
+> The road is _beyond_ that hill.  
+> He's still _in danger_.  
+> She's _of middle_ height.  
+> He is _on guard_.  
+> He's _out of work_.  
+> He's _under forty_. 他不到四十。  
+
+介词短语有时可作宾语的补语（一道构成复合宾语）
+
+> We found her _in better spirits_ that evening. 那天晚上我们发现她情绪好些了。  
+> A cold kept him _in bed_ for three days. 感冒使他卧床三天。  
+
+### 16.3 由介词构成的成语动词和介词成语
+
+（转到 vocabulary 记忆）
+
+
 ## 17 连词
+
+连词是一种虚词，不能担任一个句子成分，但可以起连接的作用，即连接词与词或句与句。
+
+连词数量有限，却很重要，许多从句由它引导。
+
+连词分两类
+* **从属连词** Subordinating Conjunctions，这类连词都引导从句
+  - 时间从句 (Time Clauses) `when` `while` `as` `before` `after` `until` `till` `whenever`
+  - 条件从句 (Conditional Clauses) `if` `unless` `supposing` `provided(ing)` `suppose`
+  - 目的从句 (Purpose Clauses) `in order that` `so that` `so` `that` `lest`
+  - 结果从句 (Result Clauses) `so...that`  `such...that`  `so that` `so`
+  - 原因从句 (Reason Clauses) `because` `as` `since`
+  - 让步从句 (Concessive Cluases) `although` `though` `even though (if)` `while`
+  - 方式从句 (Clauses of Manner) `as` `like` `the way` `as if` `as though`
+  - 地点从句 (Place Clauses) `where` `wherever`
+  - 比较从句 (Clauses of Comparison) `than` `as`
+* **并列连词** Coordinating Conjunctions，并列连词连接两个互不依从的词、短语或分句
+  - 表示意思转折的连词 `but` `yet` `however` `nevertheless`
+  - 表示因果关系的连词 `for` `so` `therefore` `hence`
+  - 其他并列连词 `and` `or` `either...or` `neither...nor` `not only...but also` `both...and` `as well as`
+
 
 ## 18 感叹词
 
+感叹词是表示说话时的情绪的，它不构成句子的一个成分，却和后面的句子在意思上有关连。
 
+感叹词一般都搁在句子前面，间或也可能插在句子中间。
 

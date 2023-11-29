@@ -55,3 +55,5 @@ candid  _/ˈkændɪd/_  a. 坦诚的,直言的
 
 excited  _/ɪkˈsaɪtəd, ɪkˈsaɪtɪd/_  
 cousin  _/ˈkʌzən/_  n. 同辈表亲(或堂亲),堂(或表)兄弟(或姐妹)
+
+Some people prefer aisle seats, while some like seats by the window. // 表述形式的变化带来语言的美感
