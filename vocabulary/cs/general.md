@@ -24,7 +24,8 @@ __ellipsis__  _/ɪˈlɪpsəs/_  n. 语言学中的省略, 省略号  `…`
 __exclamation point__  _/ˌekskləˈmeɪʃən/_  n. 感叹号 `!`  
 __question mark__  n. 问号 `?`  
 __quotation marks__  n. 引号 `'` `"`  
-__apostrophe__  _/əˈpɒstrəfi/_  n. 撇号, 省字号   
+__apostrophe__  _/əˈpɒstrəfi/_  n. 撇号,省字号,所有格符号 `’`  
+__backtick__  反引号,重音符号  <code>&#x0060;</code>  
 __asterisk__  _/ˈæstərɪsk/_  n. 星号 `*`  
 __at sign__  at 符  `@`  
 __ampersand__  _/ˈæmpəsænd/_  `&`  

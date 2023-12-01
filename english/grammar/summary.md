@@ -156,13 +156,14 @@ So he won't pay his bills, won't he? We'll see about it.  // 有威胁的意思
   * 由关系代词引导的从句，可称为关系从句，也可称为定语从句
   <span class="exa">The girl _who won the prize_ is my cousin.</span>
 
-随着在句中的作用不同，从句也可分为：  
-**主语从句 Subject Clause**  
-**宾语从句 Object Clause**  
-**表语从句 Predicative Clause**  
-**定语从句 Attributive Clause**  
-**状语从句 Adverbial Clause**  
-**同位语从句 Appositive Clause**  
+随着在句中的作用不同，从句也可分为：
+* **定语从句 Attributive Clause**
+* **状语从句 Adverbial Clause**
+* 名词性从句
+  - **主语从句 Subject Clause**
+  - **表语从句 Predicative Clause**
+  - **宾语从句 Object Clause**
+  - **同位语从句 Appositive Clause**
 
 
 
