@@ -57,3 +57,66 @@ excited  _/ɪkˈsaɪtəd, ɪkˈsaɪtɪd/_
 cousin  _/ˈkʌzən/_  n. 同辈表亲(或堂亲),堂(或表)兄弟(或姐妹)
 
 Some people prefer aisle seats, while some like seats by the window. // 表述形式的变化带来语言的美感
+
+
+
+# VOA 常速英语
+
+humor Bre humour  vt.迎合,迁就 n.幽默  
+
+
+#### How to Say I'm Not Surprised?
+
+*It's no wonder* we're together. 我们在一起并不奇怪。  
+*It's no wonder* that the park is crowded. 公园总是很人满为患。
+
+A: Ahmed stayed late last night to help with our project.  
+B: *Of course*. He's very generous with his time. 当然，他总是很慷慨花时间帮助别人。
+
+
+
+# 待整理
+
+用英语思考：每种语言都有独特的句子结构规则。如果你总是想机械地把中文翻译成英语，就永远无法适应英语中的规则。所以，你首先要做的就是用英语思考如何进行表达。
+
+
+
+The considerate waiter anticipated our needs and provided excellent service.
+
+
+
+
+
+
+I forgot to read the book. 我忘了去读那本书了。
+I forgot reading the book. 我忘了我读过这个本书了。
+
+了解了语言背后的表达思路，你学语言才能事半功倍，你眼里的 ”固定搭配“ 也自然而然就少了。
+
+
+
+
+
+the Tropic of Cancer  北回归线  Cancer 巨蟹座  
+the Tropic of Capricorn  南回归线  Capricorn 摩羯座  
+the tropics  n.热带地区  -- the hottest part of the world, which is around the equator  
+
+
+2.2.1
+
+
+__leave__  许可  
+__giggle__  _/ˈɡɪɡəl/_  v. 咯咯地笑,傻笑 n. 傻笑; 趣事; 玩笑  
+__grin__  
+__groan__  
+__jog__  慢跑  
+__shout__  
+__sip__  
+__stroll__  
+
+2.2.2
+
+__usher__  
+
+
+

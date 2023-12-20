@@ -1,6 +1,6 @@
 <script>ooboqoo.contentsRegExp = /H[123]/</script>
 <style>
-  span { background-color: #f6f6f6; padding: 0 8px; border-radius: 8px; }
+  span { background-color: #f6f6f6; padding: 0 8px; border-radius: 4px; }
 </style>
 
 # 词法 Morphology
@@ -120,6 +120,8 @@
 
 #### 3.2.1 一般名词的复数形式
 
+> 加 `-s` 还是 `-es` 可以简单记成一条：*方便读音*，如 bus 如果只加 s 就变成 buss 还是发 /bʌs/
+
 1) 一般名词的复数以加 `-s` `-es` 的方式构成
   * 一般情况加 `-s`, 如 <span>brothers, flowers, schools, books</span>
   * 以 `s` `x` `ch` `sh` 结尾的词，加 `-es`, 如 <span>buses, foxes, watches, dishes</span>
@@ -151,12 +153,21 @@
 
 #### 3.2.4 单复数同形的情况
 
+fish, sheep / deer, Chinese
+
+```txt
+means 方式    works 工厂    series 系列    species 物种
+```
+
 #### 3.2.5 通常用于复数形式的词
 
+```txt
+scissors 剪刀    pants 裤子    shorts 短裤    belongs 财产    goods 货物
+```
 
 ### 3.3 名词所有格
 
-英语中有许多名词可加 `'s` 来表示所有关系。
+英语中有许多名词可加 `'s` 来表示所有关系。用特殊的 *格式* 来表示名词对其他词的 *所有关系* 就叫作 “名词所有格”。
 
 `'s` 词尾的加法可概括如下
   * 在单数情况下把 `'s` 直接加上去
@@ -166,6 +177,9 @@
 
 `'s` 的读音规则和名词复数词尾的读音规则一样
 
+对比名词所有格和 `of` 表从属关系的用法区别
+* 突出事物的所有者，而非事物本身，多用所有格 <span class="exa">today's newspaper</span>
+* 突出事物本身，而非事物的所有者，多用 of <span class="exa">the leg of the table</span>
 
 ### 3.4 名词的性
 
@@ -333,6 +347,15 @@ either   few      little  many  much
 neither  none     other   some
 ```
 
+为什么 *不定代词的修饰词要放在后面* ？
+* 不定代词本身就是 “形容词/限定词 + 名词” 的合成词，`some` `any` 等习惯置于前定语的最前面，所以把前定语的位置占完了
+* 印欧语系定语后置是一个正常现象
+* 作为初学者，可以把修饰词后置理解为从句的简化
+
+```txt
+I'm looking for someplace safe. (= someplace that is safe)
+```
+
 
 ## 6 数词和量词
 
@@ -403,6 +426,8 @@ one -> _first_  two -> _second_  three -> _third_  five -> _fifth_  eight -> _ei
 
 ## 14 形容词
 
+An adjective is a word that describes a noun or pronoun. Adjectives usually come before nouns or after link verbs.
+
 ### 14.1 形容词的类型
 
 形容词大体上可以分为下面几类
@@ -461,6 +486,8 @@ old           older, elder         oldest, eldest
 
 ## 15 副词
 
+An adverb is a word that adds to the meaning of a verb, an adjective, another adverb, or a whole sentence, such as ‘slowly’ in ‘He ran slowly’, ‘very’ in ‘It’s very hot’, or ‘naturally’ in ‘Naturally, we want you to come.’
+
 ### 15.1 副词的类型
 
 副词大体上可分为以下几类
@@ -514,6 +541,11 @@ far        farther, further     farthest, furthest
 
 ## 16 介词
 
+中文解释：“介” 在两者之间，如 “介绍” “中介”  
+英语词源：preposition，pre- 在前 + position 位置 -> 位置在前（的词），也叫 “前置词”
+
+介词位于名词（或相当于名词成分的词）或代词之前，表示它后面的名词或代词与句子其他成分的关系。
+
 ### 16.1 介词分类
 
 介词按结构分类
@@ -528,6 +560,12 @@ far        farther, further     farthest, furthest
 * 引导其他短语的介词 <span>by (train)</span> <span>with (a knife)</span> <span>except (her)</span> <span>like (a child)</span>
 
 ### 16.2 介词短语在句子中的作用
+
+介词属于虚词，不能单独作句子成分，只能用在名词、代词、动名词(短语)和宾语从句之前，和后面的词构成 *介词短语（= 介词 + 介词宾语）*
+
+宾语分两类
+* 动词后的宾语叫动词宾语
+* 介词后的宾语叫*介词宾语*
 
 #### 16.2.1 介词短语
 
@@ -547,13 +585,14 @@ far        farther, further     farthest, furthest
 
 * 介词短语作状语时最多，主要修饰谓语 <span>I arrived at the concert hall _in good time_.</span>
 * "be + 形容词" 这种结构也常跟介词短语 <span>She _is afraid of_ dogs.</span>
+   - 形容词经常和后面介词构成词组，如果不接则意思不完整，如 `be good at`  `be fond of` `be opposed to`
 * 还可用介词短语修饰非谓语动词 <span>I asked to speak _to the dean_. 我要求和院长谈话。</span>
 
 #### 16.2.3 介词短语作定语
 
 > a child _of_ six  
 > a child _with_ dark eyes  
-> the gril _in_ blue  
+> the girl _in_ blue  
 > an answer _to_ a puzzle  
 > a medicine _for_ colds  
 > doubts _about_ his ability  

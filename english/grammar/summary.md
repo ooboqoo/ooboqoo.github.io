@@ -1,5 +1,6 @@
 <style>
-  .exa { background-color: #f6f6f6; padding: 0 8px; }
+  span { color:gray; }
+  .exa { background-color: #f6f6f6; padding: 0 8px; border-radius: 4px; }
 </style>
 
 # 概论
@@ -33,7 +34,7 @@
 
 词类                        | 作用                     | 例词
 ---------------------------|--------------------------|------------
-实意词 **Notional Words**
+实意词 **Notional Words**   | _/ˈnoʊʃənəl/_  a. 名义上的;概念的
 **名词 Noun** `n.`          | 人或事物的名称            | girl, history
 **代词 Pronoun** `pron.`    | 代替名词、数词等           | they, many
 **数词 Numeral** `num.`     | 表示数目或顺序            | nine, third
@@ -43,11 +44,26 @@
 |||
 虚词 **Form Words**
 **冠词 Article** `art.`       | 用在名词前，帮助说明其意义            | an, the
-**介词 Preposition** `prep.`  | *用在名词、代词前说明与别的词的关系*   | for, from
+**介词 Preposition** `prep.`  | *用在名词、代词前说明与别的词的关系*   | of, for, from
 **连词 Conjunction** `conj.`  | 用来*连接*词与词或句与句             | and, if
 |||
 **感叹词 Interjection** `interj.` | 表示说话时的感情或口气             | oh, ah
 其他                              | (**小品词** `to`)；`yes` `no`   |
+
+> noun  _/naʊn/_  n.名词
+>  <span class="exp"> collective noun; count noun; mass noun; proper noun; singular noun; uncount noun</span>  
+> pronoun  _/ˈproʊnaʊn/_  n.代词,代名词
+>  <span class="exp"> indefinite pronoun; personal pronoun; reflexive pronoun; relative pronoun</span>  
+> adjective  _/ˈædʒɪktɪv/_  n.形容词
+>  <span class="exp">a word that describes a noun or pronoun.</span>  
+> adjectival  _/ˌædʒɪkˈtaɪvəl◂/_  n.形容词的,形容词性的
+>  <span class="exa">an adjectival phrase 形容词短语</span>  
+> article  _/ˈɑːrtɪkəl/_  n. 冠词 <span class="exp">a 和 an 是不定冠词，the 是定冠词</span>  n.报纸、杂志的文章; 物品,物件; 文件的条款,条文  
+> preposition  _/ˌprepəˈzɪʃən/_  n.介词,前置词  
+> conjunction  _/kənˈdʒʌŋkʃən/_  n.(事件的)同时发生,同地发生; (语法中的)连词  _in conjunction with_ 与…一起  
+> interjection  _/ˌɪntəˈdʒekʃən/_  n.(突然的)插话; 感叹词,感叹语  
+> interject  _/ˌɪntəˈdʒekt/_  v.(突然)插入 formal.
+>  <span class="exp">to interrupt what someone else is saying with a sudden remark</span>  
 
 **实意词** Notional Words 前六种可以在句子中独立担任成分，称为实意词。  
 **虚词** Form Words 介词、连词、冠词不能独立在句子中担任任何成分，称为虚词。  
@@ -57,8 +73,6 @@
 实意词大多数在句子中重读，只有助动词，情态动词和动词 `be` 以及人称代词等在某些情况下弱读，而虚词一般都不重读。
 
 注：关于词类的区分，大多数语法学家都按上述分法。但有些英国语法学家把一些词归在一起，称为 **限定词** Determiners，主要指用在名词前帮助说明词义的词，如冠词 + 物主代词 + 用作定语的某些不定代词 + 用作定语的指示代词、疑问代词、关系代词等。而美国语言学家不做这种区分，用作定语的代词他们干脆称为形容词。
-
-> notional  _/ˈnoʊʃənəl/_  a. 名义上的;理论上的;概念的
 
 ### 分清词类 + 一词多类
 
@@ -85,14 +99,16 @@
 **主语 Subject**  一句话的中心，整句话都谈它的情况  
 **谓语 Predicate**  是主语的主要情况，可表示动作，也可表示状态  
 **宾语 Object**  表示动作的承受者，也可表示动作的结果  
-**表语 Predicative**  和系动词一道构成谓语  
+**表语 Predicative Adjective (直译：谓语性形容词)**  和系动词一道构成谓语  <span>Predicate adjectives are adjectives that modify or describe the subject of a sentence or clause and are linked to the subject by a linking verb.</span>  
 **定语 Attribute**  修饰名称、代词等  
 **状语 Adverbial**  修饰动词、形容词、副词
 
 此外还有 **同位语 Appositive**，**插入语 Parenthesis**，**呼语 Vocative**
 
+> object n. _/'ɒbdʒɪkt/_ 物体;目标;语法中的宾语 v. _/əb'dʒekt/_ 反对  
 > predicate  n. _/ˈpredɪkət, ˈpredɪkɪt/_ 谓语  v. _/ˈpredəkeɪt, ˈpredɪkeɪt/_ 基于;取决于  
-> adverbial  _/ədˈvɜːbiəl $ -ɜːr-/_  a. 副词的;状语的  
+> predicative  _/prɪˈdɪkətɪv $ ˈpredəkeɪtɪv/_  adj. a predicative adjective or phrase comes after a verb  
+> adverbial  _/ədˈvɜːbiəl $ -ɜːr-/_  a. 副词的;状语的  // means relating to adverbs or like an adverb
 
 ### 句子的种类
 
@@ -106,6 +122,14 @@
 **简单句 Simple Sentences**  句子成分都由单词或短语担任，且只有一个主谓结构  
 **并列句 Compound Sentences**  句子成分都有单词或短语担任，但有两个或更多互不依从的主谓结构  
 **复合句 Complex Sentences**  有一个或更多成分由从句担任
+
+### 简单句的五大基本句型(五大动词句型)
+
+* 主语 + 谓语（不及物动词）（+ 状语） <span class="exa">It hurts (badly)!</span>
+* 主语 + 谓语（及物动词）+ 宾语 <span class="exa">I love you.</span>
+* 主语 + 谓语（双宾动词）+ 间接宾语 + 直接宾语 <span class="exa">He teaches me English.</span>
+* 主语 + 系动词 + 表语（主语补足语） <span class="exa">I feel very happy.</span>
+* 主语 + 谓语 + 宾语 + 宾语补足语 <span class="exa">She made me happy.</span>
 
 ### 问句种类
 
@@ -142,6 +166,9 @@ So he won't pay his bills, won't he? We'll see about it.  // 有威胁的意思
 **介词短语 Prepositional Phrases**  <span class="exa">_Who_ are you talking _to on the phone_?</span>  
 **名词短语 Noun Phrases**  <span class="exa">Wait _a minute_.</span>
 
+> gerund  _/ˈdʒerənd/_  n. 动名词  a noun formed from a verb which refers to an action, process, or state  
+> participle  _/ˈpɑːtɪsɪpəl/_  n. 分词(过去分词+现在分词)  
+
 #### 从句
 
 还有些成分由类似句子的*主谓结构*担任，称为 **从句** Clause，它们有以下几类：  
@@ -165,5 +192,6 @@ So he won't pay his bills, won't he? We'll see about it.  // 有威胁的意思
   - **宾语从句 Object Clause**
   - **同位语从句 Appositive Clause**
 
-
+> apposition  _/ˌæpəˈzɪʃən/_  n. 同位,同格  
+> appositive  _/əˈpɑzətiv/_  adj. 同 appositional
 

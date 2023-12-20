@@ -18,3 +18,8 @@ Lay of the land 直译 地形、地势，that metaphorically means the current s
 
 *Now that* you know the *lay of the land*, you’re ready to become a product pundit. 既然你已经了解了这一领域，就准备好成为一名产品专家吧。
 
+
+To _phone it in_ is to do something with low enthusiasm or effort. 敷衍了事  
+
+
+

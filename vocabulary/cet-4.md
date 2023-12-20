@@ -5,13 +5,13 @@
   const ps = document.querySelectorAll('#md p')
   for (let p of ps) {
     p.innerHTML = p.innerHTML
-      .replace(/(^|<br>)([忘析混错联派类]) ([\w-]+)/g, '$1<span class="tag-class">$2</span> <span class="word">$3</span>')
+      .replace(/(^|<br>)([忘析混错联派类]) (([\w-]+ )+)/g, '$1<span class="tag-cat">$2</span> <span class="word">$3</span>')
   }
 })();
 </script>
 
 <style>
-  .tag-class { font-size: .75em; color: #999; }
+  .tag-cat, .tag-category { font-size: .75em; color: #999; }
   .word { color: red; }
 </style>
 
@@ -33,9 +33,9 @@ swear  _/sweə/_  v.咒骂,诅咒,说脏话; 发誓,郑重声明
 
 vocal  a.大声说出的; 嗓音的,发声的 vocal training 发声训练  
 
-string  
-cord  
-rope  
+联 string n. 线; a string of 一串,一排,一系列; 【计】字符串  
+联 cord  n. 粗线,细绳;电源线  
+联 rope n. 粗绳;绳索;缆绳  
 
 
 联 anxious  _/ˈæŋkʃəs/_  a. 渴望的; 焦虑的  
@@ -51,7 +51,7 @@ stoop  _/stuːp/_  v. 弯腰
 析 discourage  v.使泄气,使灰心; 劝阻,打消…的念头  discourage someone from doing something  
 
 reproduce  _/ˌriːprəˈdjuːs/_  v.(动植物)繁殖; 复制 copy  
-mount  _/maʊnt/_  v. 骑上(马、自行车等) n. 山  
+mount  _/maʊnt/_  v. 骑上(马、自行车等) n. (用于山的名称中)山 Mount is used as part of the name of a mountain.  
 
 promise  n.诺言  a verbal commitment  
 rally  _/ˈræli/_  n.集会  a public meeting to support or oppose someone or something  
@@ -221,7 +221,7 @@ crane _/kreɪn/_ n.建筑工地用的吊车; 鹤; v.(为看或听得更清楚)�
 忘 dye  _/daɪ/_  v.给…染色 n.染料  
 忘 recite  _/rɪˈsaɪt/_  v.背诵,朗诵  
 忘 stimulate  _/ˈstɪmjəleɪt, ˈstɪmjʊleɪt/_  v.刺激(身体部位); 激励,鼓舞  
-accumulate  _/əˈkjuːmjʊleɪt/_  v.积聚  
+联 accumulate  _/əˈkjuːmjʊleɪt/_  v.积聚  
 忘 tidy  _/ˈtaɪdi/_  a.整洁的,整齐的 v.整理,收拾  
 忘 blend  _/blend/_  n.混合(物) v.混和,混杂  
 忘 compensate  _/ˈkɒmpənseɪt/_  v.(for)补偿,赔偿; 酬报(某人)  
@@ -288,7 +288,6 @@ accumulate  _/əˈkjuːmjʊleɪt/_  v.积聚
 忘 nutritious  _/njuːˈtrɪʃəs $ nuː-/_  a.有营养的  Nutrilite 安利纽崔莱 lite低糖的; 简化的  
 忘 nonsense  _/ˈnɒnsəns/_  n.胡说,废话; 愚蠢的举动; 荒谬的话  untrue or silly  
 忘 repair  _/rɪˈpeə $ -ˈper/_  n.修理,修补 v.补救,纠正; 修理 NAmE fix;  BrE mend  
-忘 num5.386      five point three eight six  
 忘 frighten  _/ˈfraɪtn/_  v.使惊恐  
 
 忘 delicate  _/ˈdelɪkət/_  a.精致的,娇美的; 易碎的 SYN fragile  
@@ -884,14 +883,14 @@ square  _/skwer/_  n. 正方形,广场  记发音
 联 essential  _/ɪˈsenʃəl/_  a.必不可少的; 基本的n.必需品; 基础知识 extremely important and necessary  
 联 fundamental  _/ˌfʌndəˈmentl◂/_  a.基础的,基本的 n.(pl.)基本原则,基本原理   fundament 臀部\基础; 几本词典都没收录,故不单列单词  
 联 necessary  _/ˈnesəsəri, ˈnesɪsəri/_  a.必需的,必要的; 必然的 n. necessaries 必需品  
-联 vital  _/ˈvaɪtl/_  a.生死攸关的,重大的   extremely important and necessary, especially in order to avoid serious problems  
+联 vital  _/ˈvaɪtl/_  a.生死攸关的,重大的 <span class="exp">extremely important and necessary, especially in order to avoid serious problems</span>  
 联 crucial  _/ˈkruːʃəl/_  a.至关重要的; 关键性的  
 
-联 council  _/ˈkaʊnsəl/_  n.理事会,委员会,议事机构    A council is more often an independent group of experts concerned with arts, sports, academic research, etc.  
-联 committee  _/kəˈmɪti/_  n.委员会,全体委员    Committee is the most general word and refers to a group of people within an organization who make decisions.  
-联 commission  _/kəˈmɪʃən/_  n.委员会; 委任,委托(书),代办; 佣金,手续费    A commission is usually a group of important politicians with responsibility for a particular area  
-联 parliament  _/ˈpɑːləmənt $ ˈpɑːr-/_  n.英国国会    the main law-making institution in the UK, which consists of the House of Commons and the House of Lords  
-联 congress  _/ˈkɒŋɡres/_  n.美国国会    Congress consists of two parts: the House of Representatives and the Senate.  
+联 council  _/ˈkaʊnsəl/_  n.理事会,委员会,议事机构 <span class="exp">A council is more often an independent group of experts concerned with arts, sports, academic research, etc.</span>  
+联 committee  _/kəˈmɪti/_  n.委员会,全体委员 <span class="exp">Committee is the most general word and refers to a group of people within an organization who make decisions.</span>  
+联 commission  _/kəˈmɪʃən/_  n.委员会; 委任,委托(书),代办; 佣金,手续费 <span class="exp">A commission is usually a group of important politicians with responsibility for a particular area</span>  
+联 parliament  _/ˈpɑːləmənt $ ˈpɑːr-/_  n.英国国会 <span class="exp">the main law-making institution in the UK, which consists of the House of Commons and the House of Lords</span>  
+联 congress  _/ˈkɒŋɡres/_  n.美国国会 <span class="exp">Congress consists of two parts: the House of Representatives and the Senate.</span>  
 联 senate  _/ˈsenət, ˈsenɪt/_  n.(美澳等)参议院  
 联 assembly  _/əˈsembli/_  n.集合; 会议; 装配; (美)洲议会的众议院  
 联 cabinet  _/ˈkæbənət, ˈkæbɪnət/_  n.内阁,内阁会议; 橱柜  SYN cupboard  
@@ -980,7 +979,7 @@ square  _/skwer/_  n. 正方形,广场  记发音
   <span class="exp">现在已经被 Celsius 取代... It was not until February 1985 that the forecasts issued by the BBC switched from "centigrade" to "Celsius".</span>  
 联 Fahrenheit  _/ˈfærənhaɪt/_  a.华氏温标的; 华氏的
 
-联 flesh  _/fleʃ/_  n.肉体; 果肉  
+联 flesh  _/fleʃ/_  n.肉体,肌肤; 果肉  
 联 fresh  _/freʃ/_  a.新鲜的,无经验的  
 
 联 cement  _/sɪˈment/_  n.水泥; 胶泥,胶接剂 v.胶合; 巩固,加强  
@@ -1020,7 +1019,7 @@ square  _/skwer/_  n. 正方形,广场  记发音
 
 联 wardrobe  _/ˈwɔːdrəʊb/_  n.衣柜,衣厨; (某人的)全部服装; (剧团的)全部戏装   warder + robe  
 联 robe  _/rəʊb $ roʊb/_  n.长袍; 浴袍; 睡袍  
-联 warder 美guard  _/ˈwɔːdə/_  n.监狱看守; 狱吏  
+联 warder NAmE guard  _/ˈwɔːdə/_  n.监狱看守; 狱吏  
 联 warden  _/ˈwɔːdn/_  n.管理员; 监狱长  
 
 联 flourish  _/ˈflʌrɪʃ/_  v.繁荣,茂盛,茁壮成长  flour花+ish  
@@ -1037,9 +1036,10 @@ square  _/skwer/_  n. 正方形,广场  记发音
 联 length  _/leŋθ/_  n.长度  
 
 联 negro  _/ˈniːɡrəʊ/_  n.黑鬼; 黑奴 旧用,冒犯  
-联 African American    n.非裔美国人,比较尊敬  中性偏贬 the black; 中性 African  
+联 African American  n.非裔美国人,偏尊敬 （中性 African 非洲人）（中性偏贬 the black 黑人）（贬 negro 黑鬼）  
 
-联 disguise  _/dɪsˈɡaɪz/_  n.假装; 装扮; 伪装 v.假扮; 掩饰    to make someone or something seem like a different person or thing, so that other people cannot recognize them  
+
+联 disguise  _/dɪsˈɡaɪz/_  n.假装; 装扮; 伪装 v.假扮; 掩饰  <span class="exp">to make someone or something seem like a different person or thing, so that other people cannot recognize them</span>  
 联 mask  _/mɑːsk $ mæsk/_  v.掩饰 n.面具,面罩; 伪装   to make something less noticeable  
 联 conceal  _/kənˈsiːl/_  v.隐瞒,隐藏,隐蔽    formal to hide something, especially by carefully putting it somewhere.  
 
@@ -1052,14 +1052,15 @@ square  _/skwer/_  n. 正方形,广场  记发音
 联 tract  _/trækt/_  n.[医]系统; 大片土地; 短文 the digestive/reproductive/urinary etc tract  
 联 tractor  _/ˈtræktə $ -ər/_  n.拖拉机 tract=draw,表示"拉,拖"  
 
-联 terror  _/ˈterə/_  n.恐慌; 恐怖活动; 恐怖的事物; 小捣蛋  
-联 horror  _/ˈhɒrə $ ˈhɔːrər/_  n.恐怖,战栗 a.惊悚的  
+联 terror  _/ˈterə/_  n.恐慌;恐怖活动; 恐怖的事物; 小捣蛋 <span>强调的是对即将发生或潜在的威胁感到的极度恐慌</span>  
+联 horror  _/ˈhɒrə $ ˈhɔːrər/_  n.震惊,恐惧,战栗; 残酷 a.影片或故事情节惊悚的  <span>强调的是对恶心、残忍或可怕事物的感觉</span>  
 联 awful  _/ˈɔːfəl $ ˈɒː-/_  a.糟糕的; 可怕的,极坏的; 生病的  
 联 terrible  _/ˈterəbəl/_  a.很糟的; 骇人的; 极度的 SYN horrible, awful  
 联 horrible  _/ˈhɒrəbəl/_  a.糟透的,令人恐惧的,可怕的; 极讨厌的  
-联 dread  _/dred/_  v/n.忧虑; 恐惧 a.令人畏惧的  
+联 dread  _/dred/_  v./n.忧虑; 恐惧 a.令人畏惧的  
 
 联 succeed  _/səkˈsiːd/_  v.成功; 继承,接替  
+联 successor  _/səkˈsesə $ -ər/_  n.接任者,继承者  
 联 success  _/səkˈses/_  n.成就,成功
   <span class="exp">Word Family: noun: success,succession,successor;  adjective:successful≠unsuccessful,successive;  verb:succeed;  adverb:successfully≠unsuccessfully</span>  
 联 successful  _/səkˈsesfəl/_  a.圆满的; 顺利的; 成功的  
@@ -1085,18 +1086,20 @@ square  _/skwer/_  n. 正方形,广场  记发音
   <span class="exp">used especially when considering your actions in a religious way</span>  
 联 regret  _/rɪˈɡret/_  v.对…感到后悔 n.悔恨; 抱歉; 遗憾  
 
-联 confine  _/kənˈfaɪn/_  vt.限制; 监禁 n.[pl.]限制; 局限    verb  _/kən'faɪn/_  noun confines  _/'kɒnfaɪnz/_  
-联 confines  _/ˈkɒnfaɪnz/_  n.限制; 局限  
+联 confine  _/kən'faɪn/_  vt. 限制(自己的活动); 监禁 sb. be confined to; 防止蔓延  
+联 confines  _/ˈkɒnfaɪnz/_  n.[pl.] 限制; 范围,界限  
 联 restrict  _/rɪˈstrɪkt/_  v.限制,约束(规模,行为,地点等)  
 联 restrain  _/rɪˈstreɪn/_  v.(from)抑制,制止  
+联 prevent  v. 防止;阻止;预防  // 词典中都用 prevent 来解释上面的词  
 
 联 brow  _/braʊ/_  n.眉,眉毛; 额头 SYN forehead  
-联 bow  _/baʊ/_  v./n.鞠躬,点头 n.弓(形); 蝴蝶结  
+联 bow  v./n. _/baʊ/_ 鞠躬,点头 n. _/bəʊ/_ 弓(形); 蝴蝶结  
 联 elbow  _/ˈelbəʊ $ -boʊ/_  n.肘,(衣服的)肘部 vt.用肘推  
 联 stoop  _/stuːp/_  v.弯腰,俯身 n.弯腰,驼背  
 
 联 wing  _/wɪŋ/_  n.翅,翅膀; 翼,机翼; 派别 vt.装以翼  
-联 swing  _/swɪŋ/_  v.摇摆,摇荡,旋转 n.秋千; 摆动  [past tense and past participle] swung  _/swʌŋ/_  
+联 swing  _/swɪŋ/_  v.摇摆,摇荡,旋转 n.秋千; 摆动  [past tense and past participle] swung  _/swʌŋ/_ 
+  <span class="exp">swing 指的是物体或人以弧形或往返运动，通常是围绕一个固定点或中心旋转。<br />sway 指的是物体或人以来回或摇晃的方式运动，但它通常没有围绕一个固定点旋转的概念</span>  
 
 联 burden  _/ˈbɜːdn $ ˈbɜːrdn/_  n.负担,重负 v.使烦恼  
 联 strain  _/streɪn/_  v.拉紧; 紧张; 扭伤; 竭尽全力 n.负担; 压力; 拉紧; 扭伤  
@@ -1137,7 +1140,8 @@ a mark that is difficult to remove, especially one made by a dark liquid
 联 competitive  _/kəmˈpetətɪv, -tɪtɪv/_  a.竞争的; 好胜的; 具有竞争力的  
 
 联 halt  _/hɔːlt $ hɒːlt/_  v.使生长、发展、活动等停止或中止  
-联 suspend  _/səˈspend/_  v.暂缓,推迟,暂停; 悬挂; 吊  
+联 suspend  _/səˈspend/_  v.暂缓,推迟,暂停; 悬挂; 吊
+  <span class="exp">halt 强调的是突然的停止或中断，而 suspend 强调的是暂时的中断或搁置，并暗示着将来可能会有进一步的行动或恢复</span>  
 
 联 intellectual  _/ˌɪntəˈlektʃuəl◂/_  n.知识分子; 脑力劳动者;  a.智力的; 脑力的  
 联 academic  _/ˌækəˈdemɪk◂/_  a.学院的,大学的; 学术性的,理论的  

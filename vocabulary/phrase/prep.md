@@ -2,6 +2,158 @@
 
 https://www.collinsdictionary.com/dictionary/english/wait-on 可以看到很多词都已经过时了(所以让 ChatGPT 删了一些)
 
+
+## 重点介词
+
+### 常用介词
+
+about
+
+around
+
+round
+
+above
+
+below
+
+across
+
+after
+
+behind
+
+before
+
+against
+
+along
+
+amid
+
+among
+
+as
+
+at
+
+in
+
+underneath beneath
+
+beside 在...旁边; 与...相比
+besides 除...之外
+
+between 在...之间
+
+beyond
+
+but
+
+by
+
+despite
+
+down
+
+up
+
+during
+
+except
+
+for
+
+from
+
+like
+
+near
+
+of
+
+The desk _is made of_ wood.  
+The wine _is made from_ grapes.  
+
+off
+
+on
+
+over
+
+under
+
+since
+
+than
+
+through  throughout
+
+till
+untill
+
+to
+
+with
+
+inside
+outside
+
+into
+onto
+
+out of
+
+toward
+
+upon
+
+within
+without
+
+
+
+### 介词辨析
+
+`at` `in`
+* `at` 侧重 “点”，地方较小; `in` 侧重 “在里面”, 地方较大 <span>at home</span> <span>in Beijing</span>
+* `at` 可以表示 “接近”，`in` 表示 “在里面，在范围内”
+	- He's standing _at_ the back of the house. 他在房子(外面)后面站着。
+	- He's standing _in_ the back of the house. 他在房子(里面)后部站着。
+
+`on` vs `in`
+* `get on the bus` `get in the car` 因为公交车高，要往 “上” 走，小汽车矮，要往 “里” 钻
+* `on` a plane / ship / bus / train / bicycle // CAN STAND UP INSIDE
+* `in` a car / helicopter / truck / taxi / limo // CANNOT STAND UP INSIDE
+
+`in front of` 在 xxx 前面(在外面) `in the front of` 在 xxx 的前部(在里面)  
+
+`believe sb.` 相信某人 `believe in sb.` 信任某人  
+
+`above` `over` `on`
+* `above` 表示 “在较高的一层，在 ... 之上”，但“没有接触”，也“不强调在正上方” <span>The sun is above the man.</span>
+* `over` 突出 “在正上方” <span>The eagle is over the man.</span>
+* `on` 表示 “在上方且有接触” <span>The hat is on the man's head.</span>
+
+`below` `under` `beneath`
+* `blow` 表示 “在较低的一层，在 ... 之下”，但 “没有接触”，也 “不强调在正下方”，与 `above` 相对 <span>The cars below the plane look small.</span>
+* `under` 突出“在正下方”，与 `over` 相对 <span>The man is standing under the tree.</span>
+* `beneath` 表示 “在下方且有接触”，与 `on` 相对 <span>The books are beneath the cat.</span>
+
+## 介词常见搭配种类
+
+1. 介词与动词搭配
+  * 动词 + 介词 <span>I need to talk about the problem with you.</span> 
+  * 动词 + 宾语 + 介词 <span>He took me for his brother.</span> 
+  * 动词 + 介副词 + 介词 <span>The family came up against fresh problems.</span> 
+2. 介词与形容词搭配
+   * 有些形容词要求与一定的介词搭配 <span>I'm indifferent to heat and cold.</span> 
+   * 不少形容词之后可不跟不同的介词，表示不同的意义 <span></span> <span></span> 
+3. 介词与名词搭配
+   * 某些名词之后要求用介词 <span>a glance at this letter</span> 
+   * 某些名词之前要求用介词 <span>We did it at your request.</span> 
+
+
 ## 由介词构成的成语动词
 
 由介词构成的成语动词主要有两类:
@@ -71,6 +223,13 @@ __stand up to__  面对（危险等）  <span>It's important to _stand up to_ un
 ## 介词成语
 
 除了成语动词，英语中还有大量成语由介词构成，单是一些常用介词就可构成大量成语:
+
+
+
+
+
+
+
 
 ### at
 

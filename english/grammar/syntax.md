@@ -2,7 +2,7 @@
 
 <script>ooboqoo.contentsRegExp = /H[123]/</script>
 <style>
-  span { background-color: #f6f6f6; padding: 0 8px; border-radius: 8px; }
+  span { background-color: #f6f6f6; padding: 0 8px; border-radius: 4px; }
 </style>
 
 
@@ -49,7 +49,7 @@ it 有时并不指具体东西，而指天气、时间、环境等，称为 "非
 
 #### 19.2.4 先行主语 it
 
-it 可作先行词，作为句子形式上的主语，而真正的主语移到句子后部。不致因主语太长显得头重脚轻。这种 it 称为 **先行主语**。
+it 可作先行词，作为句子形式上的主语，而真正的主语移到句子后部。不致因主语太长显得*头重脚轻*。这种 it 称为 **先行主语**。
 
 可移到句子后部区的主语最常见的是 *不定式*，另外 *动名词* 也不少。
 
@@ -140,6 +140,9 @@ there 引导一种特殊句子，there 放在句首好似主语，但真正的�
 表语 Predicate Nominative 通常是主语后面用来重新说明主语的名词、代词 和 形容词。它与主语通过连系动词相连，这类动词讲主语与描述主语的词语连接在一起，而不表示动作。
 
 **补语** Complement 是一个广泛的术语，它包括了表语，也包括其他类型的补充成分，如宾语补语和状语。
+
+补(足)语 分 主语补足语(就是表语) 和 宾语补足语。
+
 
 ### 20.4 主谓一致
 
@@ -304,7 +307,7 @@ it 也可用作先行宾语，特别是用在一些复合宾语中 <span>She fou
 
 ## 25 省略句
 
-为了省事，人们常把某些词省掉，特别是在口语中。这种现象称为 **省略**，这种句子称为 **省略句**。
+为了省事，人们常把某些词省掉，特别是在口语中。这种现象称为 **省略 Ellipsis**，这种句子称为 **省略句 Elliptical Sentence**。
 
 被省略的部分可能是
 * 主语 <span>(I) Thank you.</span> <span>(I) Hope to see you again.</span>
@@ -321,7 +324,146 @@ it 也可用作先行宾语，特别是用在一些复合宾语中 <span>She fou
 省略句的意思
 * 省略句有时本身意思很清楚
 * 有时意思需从上下文中推断
-* 某些描绘性文字（如小说、日记、摘要等）中，有时一有词省略，但由于有上下文，意思很清楚
+* 某些描绘性文字（如小说、日记、摘要等）中，有时也有词省略，但由于有上下文，意思很清楚
+
+### 从句的简化
+
+主从复合句包含两个及以上的从句时，其中常常有重复的元素。剔除重复元素，让句子结构更精简，表意更清晰，就是简化从句。
+
+言贵简洁，如果说简单句是初级句型，复合句是中级句型，那么简化过的从句就是高级句型。用有限的字数，承载更多的意思，是语言进阶的一个目标。
+
+#### 从句简化通用规则
+
+*省略从句主语*：当主语和从句的主语一致时，或从句主语是不定代词时，省略会更简洁。
+
+> // 从句与主句主语重复，可省略  
+> The man *who works for that company* is my friend.  
+> The man *working for the company* is my friend.  
+> 
+> // 宾语从句和动名词都含有名词属性  
+> She forgot *that she had watched that movie before*.  
+> She forgot *watching that movie before*.  
+> 
+> // one 是不定代词，表泛指，可省略  
+> It is a good idea *that one should bring a bottle of wine* while *one goes to friends' homes* for dinner.  
+> It is a good idea *to bring a bottle of wine* while *going to friends' homes* for dinner.  
+
+*省略从句主语和系动词*：系动词单独表述不清晰，不能独立作谓语，在从句中省略不会影响原句意思。
+
+> The girl *(who is)* holding a book is my sister.  
+> While *(he was)* a young boy, he was always ready to help others.  
+> He stood up as if *(he were)* to say something.  
+
+*从句有情态动词时变不定式*：所有情态动词可以改成（be 动词加）不定式。
+
+> // 动词不定式作目的状语  
+> He worked hard *so that he could* save some money.  
+> He worked hard *to* save some money.  
+> 
+> // 动词不定式作后置定语  
+> The conference *which will be* held this afternoon is bound to be a great success.  
+> The conference *to be* held this afternoon is bound to be a great success.  
+> 
+> // 动词不定式作宾补  
+> She told me *that I must* go at once.  
+> She told me *to* go at once.  
+> 
+> // 动词不定式作形式主语  
+> It's required *that everyone should* keep silent during the exam.  
+> It's required *to* keep silent during the exam.  
+
+#### 名词性从句的简化
+
+名词性从句简化后往往由动名词或不定式来代替，因为这两种形态都可以当名词使用。
+
+> I remember *that I have closed the door*.  
+> I remember *having closed the door*.  
+
+> I hope *that I can catch up with you*.  
+> I hope *to catch up with you*.  
+
+当从句中有被动语态或形容词时，修改为属于名词范畴的 `being + V-ed/adj.`。
+
+> *That you are busy* should not be the excuse for making mistakes.  
+> *Your being busy* should not be an excuese for making mistakes.  
+
+当从句主语和主句主语不一致时，如果省略从句主语会导致表意不清，此时可用别的方法简化句子
+
+> I can't stand *that he texts my girlfriend every day*.  
+> I can't stand *his texting my girlfriend every day*.  
+> 
+
+#### 形容词性从句（定语从句）的简化
+
+定语从句中的主动语态可简化为现在分词形式
+
+> I changed my laptop *which collapses every now and then*.  
+> I changed my laptop *collapsing every now and then*.  
+
+定语从句中的被动语态可简化成过去分词形式
+
+> The bridge, *which was built 50 years ago*, collapsed in the last storm.  
+> The bridge *built 50 years ago* collapsed in the last storm.  
+
+定语从句中的情态动词可简化成不定式
+
+> She is the one *who will go on a business trip*.  
+> She is the one *to go on a business trip*.  
+
+非限定性定语从句中的be动词加形容词，可简化为形容词，作插入语
+
+> The girl, *who is slim and smart*, is my girlfriend.  
+> The girl, *slim and smart*, is my girlfriend.  
+
+非限定性定语从句中的be动词加形容词，可简化为形容词，作同位语
+
+> Mr. Smith, *who is our new teacher*, is very kind to us.  
+> Mr. Smith, *our new teacer*, is very kind to us.  
+
+当从句主语和主句主语不一致时，如果省略从句主语会导致表意不清，可用 “介词 + 原从句主语” 来作不定式的逻辑主语
+
+> I have hundreds of books *that you can borrow*.  
+> I have hundreds of books *for you to borrow*.  
+
+#### 副词性从句（状语从句）的简化
+
+状语从句中的被动语态可简化为过去分词形式
+
+> *As it was weakened by the storm*, the bridge was no longer safe.  
+> *Weakened by the storm*, the bridge was no longer safe.  
+
+状语从句中的进行式可简化为现在分词形式，从属连词在不影响句意的前提下可省略
+
+> *While he was walking down the street*, he bumped into his old friend.  
+> *While walking down the street*, he bumped into his old friend.  // 另，此处的 while 也可省略
+
+状语从句表目的或结果，可简化成不定式
+
+> I learn English, *so that I can communicate with foreigners*.  
+> I learn English *to communicate with foreigners*.  
+
+
+状语从句中有be动词加形容词，可简化为形容词
+
+> *As he was sure that he would win*, he didn't feel nervous at all.  
+> *Sure that he would win*, he didn't feel nervous at all.  
+
+状语从句中，如从句主语和主句主语不同，则无法省略，但可
+* 从句改写成独立主格结构
+* 换句子主语
+
+> Worried about being late, a taxi seemed like a good idea. // 省略产生歧义  
+> *The girl* worried about being late, *a taxi* seemed like a good idea. // 独立主格  
+> Worried about being late, *the girl* got a taxi.  // 换主语  
+
+除了省略，状语从句 *有时还可转换为介词短语*
+
+> Don't do anything *until you get further notice*.  
+> Don't do anything *until further notice*.  
+> 
+> *Although she opposed it*, he went out.  
+> *Despite / In spite of her opposition*, he went out.
+
 
 
 ## 26 句型的转换

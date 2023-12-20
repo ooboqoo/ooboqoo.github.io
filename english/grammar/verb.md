@@ -1,6 +1,6 @@
 <script>ooboqoo.contentsRegExp = /H[123]/</script>
 <style>
-  span { background-color: #f6f6f6; padding: 0 8px; border-radius: 8px; }
+  span { background-color: #f6f6f6; padding: 0 8px; border-radius: 4px; }
 </style>
 
 
@@ -19,7 +19,13 @@
 * 双宾动词 (Ditransive Verbs)
 * 成语动词 (Phrasal Verbs)
 * 系动词 (Linking Verbs)
-* 助动词 和 情态动词 (Auxiliary Verbs and Modal Verbs)
+* (辅)助动词 和 情态动词 (Auxiliary Verbs and Modal Verbs)
+
+> ergative  _/ˈɜːɡətɪv/_  adj. 动词通格的，即同一个名词既可作其宾语又可作其主语 "The door opened" "She opened the door"  
+> ditransitive  _/ˌdaɪˈtrænsətɪv, -sɪ-/_  adj. a ditransitive verb has an indirect object and a direct object.  
+> auxiliary  _/ɔːɡˈzɪljəri/_  n. 医务或军队中的辅助人员;附属机构 adj. 辅助的,后备的 n. 助动词  
+
+
 
 #### 7.1.2 及物动词
 
@@ -40,7 +46,7 @@
 
 > The sun is _shining_. 阳光灿烂。  _Shine_ your shoes. 把你的皮鞋擦一擦。
 
-3. 还有些动词经常和某个介词连用
+3. 还有些动词经常和某个介词连用 （*不及物动词后面如果跟宾语，需要介词作为中介来连接*）
 
 > Don't _refer to_ that matter again. 不要再提此事。
 
@@ -85,11 +91,20 @@
 3. 表变化: `become` `grow` `turn` `go` `get` `fall` `run`
 4. 表状态: `remain` `keep` `hold` `stay` `appear` `prove` `rest`
 
+如何判断一个动词是不是系动词：将句子的动词换成 be 动词后，句意是否还成立。
+
 #### 7.1.8 助动词和情态动词
 
 1. `be` `have` `do` 都可用作助动词
+    * be: `am` `is` `are` `was` `were` 
+    * do: `does` `did`
+    * have: `has` `had`
 2. `shall` `will` `should`  `would` 都可用作助动词，但有时包含一定的意思，接近一个情态动词
 3. `can` `could` `may` `might` `must` 这五个词是情态动词，它们和一个动词原形构成谓语，各有一定的意思
+
+*助动词帮助主要动词构成时态、语态、语气、否定和疑问等*；助动词即不能单独做谓语，本身也没有对应的汉语词义。
+
+情态动词 是表明说话者的 “主观感情和态度” 的动词。
 
 ### 7.2 动词的各种形式
 
@@ -102,113 +117,39 @@
 > She _was_ a worker. Now she _is_ a technician.  
 > We are _learning_ grammar.
 
+在英语语法中，"现在分词"（Present Participle）和"过去分词"（Past Participle）中的"分词"指的是动词的一种形式。动词的"分词"形式是指动词变化后的形态，可以作为形容词使用，也可以与助动词构成各种时态和语态。需要注意的是，现在分词和过去分词并不总是表示时间上的现在或过去，*它们更多地表示动作的状态或完成*。此外，分词也可以用作动词的补语、形容词的补语或状语等其他语法功能。
+
+#### 7.2.2 过去式和过去分词构成法
+
+英语中大部分动词都以加 -ed 词尾的办法构成过去式及过去分词，这类词称为 **规则动词 Regular Verbs**
+
+* 若末尾已有字母 e 则只加 -d
+* 若以 “辅音(字母) + y” 结尾，先变 y 为 i 再加 -ed
+* 若是以 “一个元音字母 + 一个辅音字母” 结尾，该音节又重读者，末尾字母要双写，再加 -ed
+  * 但以 x 结尾的词，x 不双写
+
 #### 7.2.3 不规则动词
 
-不规则动词的数量有限，但都是非常活跃的词。常用的不规则动词 *必须背熟*，否则学时态就会困难重重。
+不规则动词 Irregular Verbs 数量有限，但都非常活跃。常用的不规则动词 *必须背熟*，否则学时态就会困难重重。
 
-<div style="display:flex;">
-<pre>
-beat         beat         beaten
-become       became       become
-begin        began        begun
-blow         blew         blown /oʊ/
-break        broke        broken
-bring        brought      brought
-build        built        built
-burst        burst        burst
-buy          bought       bought
-catch        caught       caught
-choose      chose /tʃoʊz/ chosen
-come         came         come
-cost         cost         cost
-cut          cut          cut
-dig          dug          dug
-do           did          done
-draw         drew         drawn
-eat          ate          eaten
-fall         fell         fallen
-feel         felt         fe1t
-fight       fought /fɒːt/ fought
-find         found        found
-fly          flew /fluː/  flown /floʊn/
-freeze       froze        frozen
-get          got          got
-give         gave         given
-go           went         gone
-grow         grew         grown /oʊ/
-have         had          had
-hear         heard        heard
-hide         hid          hidden
-hurt         hurt         hurt
-keep         kept         kept
-know         knew         known
-lay          laid         laid
-lead         led          led
-leave        left         left
-lend         lent         lent
-let          let          let
-lie          lay          lain /leɪn/
-lose         lost         lost
-make         made         made
-mean         meant /ment/ meant
-meet         met          met
-</pre>
-<pre style="margin-left:2rem;padding-left:3rem;border-left:1px dotted #ccc;">
-pay          paid         paid
-put          put          put
-read         read /red/   read
-ride         rode /roʊd/  ridden /ˈrɪdn/
-ring         rang /ræŋ/   rung /rʌŋ/
-rise         rose         risen /ˈrɪzn/
-run          ran          run
-say          said /sed/   said
-see          saw          seen
-sell         sold         sold
-send         sent         sent
-set          set          set
-shake        shook /ʃʊk/  shaken
-shine        shone /ʃɒn/  shone
-shoot        shot         shot
-show         showed       shown
-shut         shut         shut
-sing         sang         sung
-sink         sank         sunk
-sit          sat          sat
-sleep        slept        slept
-speak        spoke        spoken
-spend        spent        spent
-spin         span         spun
-spread       spread       spread
-spring       sprang       sprung
-stand        stood        stood
-steal        stole        stolen
-stick        stuck        stuck
-strike       struck       struck
-sweep        swept        swept
-swim         swam /swæm/  swum
-take         took         taken
-teach        taught       taught
-tear         tore         torn
-tell         told         told
-think        thought      thought
-throw        threw        thrown
-understand   understood   understood
-wake         woke         woken
-wear         wore /wɔːr/  worn
-weep         wept         wept
-win          won          won
-write        wrote        written
-</pre>
-</div>
-
-__burst__  _/bɜːst $ bɜːrst/_  使胀破,使炸开  
-__shake__  _/ʃeɪk/_  摇动,抖动,摇晃  
-__sweep__  _/swiːp/_  打扫  
-__spring__  _/sprɪŋ/_  n.弹簧 v.跳,跃  
-__tear__  _/tɪr/_  n. 眼泪,哭泣 v. 撕开  
-__weep__  _/wiːp/_  哭泣,流泪  
+> irregular  _/ɪˈreɡjʊlə/_  adj. (动词、名词或形容词)不规则的; 不定期的; 不规则的,不平整的; (行为)不正当的  
 
 #### 7.2.4 现在分词
+
+在多数情况下都直接加 `-ing`，但有一些特殊情况 （其实都是*方便发音*需要而定的特殊小规则）
+
+1. 以不读音的 `e` 结尾的词，去掉 `e` 再加 `-ing` <span>moving making writing</span>
+2. 以 “一个元音字母 + 一个辅音字母” 结尾，该音节又重读者，末尾辅音要双写，再加 -ing
+   * betting  swimming begging chatting referring beginning forgetting
+   * beating(两个元音字母) opening(末尾音节不重读) packing(末尾有两个辅音字母)
+
+另，下面这些词加 -ing 词尾时有特别之处
+
+```txt
+die -- dying    lie -- lying    tie --tying    hoe -- hoeing    toe -- toeing
+dye -- dyeing   age -- ageing 或 aging
+picnic -- picnicking    panic -- panicking    mimic -- mimicking
+```
 
 #### 7.2.5 `-s` 词尾的加法
 
@@ -248,31 +189,33 @@ __weep__  _/wiːp/_  哭泣,流泪
 
 ## 8 时态
 
+英语中不同时间发生的动作或情况要用动词的不同形式表示，称为 “动词时态”。
+
 16大时态: 时间（现在、将来、过去、过去将来）x 状态（一般...时、进行时、完成时、完成进行时）  
 常用的5种时态: *一般现在时 57.51%  一般过去时 19.7%  一般将来时 8.5%  现在完成时  6.0%  现在进行时  5.1%*  [参考链接](https://ginsengenglish.com/blog/english-verb-tense-frequency)
 
 要素
 * 时间点：现在、将来、过去、过去将来
-* 进行时：表示持续进行
+* 进行时：表示持续进行。如，过去某个动作需要持续一段时间，那么就应该用过去进行时
 * 完成时：表示影响、关联
 
 简要
-* 一般 现在时 `do` <span>I do my homework.</span>
-* 一般 过去时 `did` <span>I did my homework.</span>
-* 一般 将来时 `will do` <span>I will do my homework.</span>
-* 现在 进行时 `be doing` <span>I am doing my homework.</span>
-* 过去 进行时 `was/were doing` <span>I was doing my homework.</span>
-* 将来 进行时 `will be doing` <span>I will be doing my homework.</span>
-* 现在 完成时 `have/has done` <span>I have done my homework.</span>
-* 过去 完成时 `had done` <span>I had done my homework.</span>
-* 将来 完成时 `will have done` <span>I will have done my homework.</span>
-* 现在 完成进行时 `have/has been doing` 现在已经完成（一段时间）并还在持续进行 <span>I had been doing my homework for 2 hours before you opened the door.</span>
-* 过去 完成进行时 `had been doing` <span></span>
-* 将来 完成进行时 `will have been doing` <span></span>
-* 过去将来 时 `would do / was going to` 从过去某个时间来看将要发生的事 <span>I said I would do my homework tomorrow.</span>
-* 过去将来 进行时 `would be doing` <span></span>
-* 过去将来 完成时 `would have done` 在过去的时间说将来某一时间已经完成的动作 <span>I said I would have done my homework before you opened the door.</span>
-* 过去将来 完成进行时 `would have been doing` 在过去的时间说将来某一时间 已经完成并还在持续进行的动作<span></span>
+* 一般 现在时 Present Simple  `do` <span>I do my homework.</span>
+* 一般 过去时 Past Simple  `did` <span>I did my homework.</span>
+* 一般 将来时 Future Simple  `will do` <span>I will do my homework.</span>
+* 现在 进行时 Present Continuous  `be doing` <span>I am doing my homework.</span>
+* 过去 进行时 Past Continuous  `was/were doing` <span>I was doing my homework.</span>
+* 将来 进行时 Future Continuous  `will be doing` <span>I will be doing my homework.</span>
+* 现在 完成时 Present Perfect  `have/has done` <span>I have done my homework.</span>
+* 过去 完成时 Past Perfect  `had done` <span>I had done my homework.</span>
+* 将来 完成时 Future Perfect  `will have done` <span>I will have done my homework.</span>
+* 现在 完成进行时 Present Perfect Continuous  `have/has been doing` 现在已经完成（一段时间）并还在持续进行 <span>I had been doing my homework for 2 hours before you opened the door.</span>
+* 过去 完成进行时 Past Perfect Continuous `had been doing` <span></span>
+* 将来 完成进行时 Future Perfect Continuous `will have been doing` <span></span>
+* 过去将来 时  `would do / was going to` 从过去某个时间来看将要发生的事 <span>I said I would do my homework tomorrow.</span>
+* 过去将来 进行时  `would be doing` <span></span>
+* 过去将来 完成时  `would have done` 在过去的时间说将来某一时间已经完成的动作 <span>I said I would have done my homework before you opened the door.</span>
+* 过去将来 完成进行时  `would have been doing` 在过去的时间说将来某一时间 已经完成并还在持续进行的动作<span></span>
 
 ### 8.1 一般现在时
 
@@ -311,6 +254,8 @@ __weep__  _/wiːp/_  哭泣,流泪
 > What _are_ you _doing_? —— I'_m reading_ a play by Shaw.
 
 有些*表示状态和感觉*的动词不能表示正在进行的动作，如 `know` `love` `like` `belong` `detest` `hate`。
+
+> She looks tired. (作 "看起来" 时没有进行时) vs  She is looking at a bird.
 
 有些表示*极短暂动作*的动词也不宜用于进行时，如 `declare` `recognize` 等，但这类词表示反复动作时用进行时。
 
@@ -448,7 +393,13 @@ __weep__  _/wiːp/_  哭泣,流泪
 
 ## 10 虚拟语气
 
-和时态、语态一样，**语气 Mood** 也是谓语动词的一种形式，表明说话的目的和意图。英语中有四种语气：*陈述语气、疑问语气、祈使语气 和 虚拟语气*。
+和时态、语态一样，**语气 Mood** 也是谓语动词的一种形式，表明说话的目的和意图。英语中有四种语气：*陈述语气 Indicative Mood、疑问语气、祈使语气 Imperative Mood 和 虚拟语气 Subjunctive Mood*。
+
+虚表示“虚假”，拟表示“打算、猜测”，表示所说的内容只是一种主观的愿望、假想或建议。
+
+英语句子要表现虚拟语气，一般会从两方面区别于普通句子：
+1. *动词时态采取 “时间倒退”*（原因：跳到事情发生前，重新虚拟一种情况）
+2. *情态动词表达 “主观意愿”*（原因：只用过去式，配合虚拟的情况）
 
 ### 10.2 虚拟语气在条件句中的用法
 
@@ -478,17 +429,108 @@ __weep__  _/wiːp/_  哭泣,流泪
 
 定义：情态动词是一组特殊的助动词，包括 can, could, may, might, shall, should, will, would, must。  
 用法： 情态动词用于表示说话人的意愿、能力、推测、义务等情感或态度。它们通常与*动词的原形*一起使用。  
-是否带有实际意义： *情态动词具有实际的含义，它们传达了说话人对某种可能性、必要性或意愿的看法*。  
+是否带有实际意义： *情态动词具有实际的含义，它们传达了说话人对某种可能性、必要性或意愿的 看法*。  
 
+情态动词：`can` `could` `may` `might` `must` `ought to` (否定 `ought not to`) `used to`
 
-情态动词：`can` `could` `may` `might` `must` `ought`
+半情态动词：`need` `dare` `be able to` `have to` (否定 `don't have to`) `had better`
 
-半情态动词：`need` `dare` `be able to` `have to` `had better`
+注意点：
+
+* `be able to` 和 `can` `could` 都表示 "能够"，`be able to` 可以用于各种时态，但 `can` 只有现在时和过去时。
+* `may be` 是情态动词加上 be 动词，相当于谓语，而 `maybe` 是一个副词
+
+情态动词后的动词形式
+* 情态动词 + be doing，表示 ”推测或判断正在进行的情况“ <span>She might be sleeping right now.</span>
+* 情态动词 + have done，表示 ”推测或判断过去的情况“
+  - <span>He must have gone home. 他肯定已经回家了。</span>
+  - <span>He could have simply walked away. 他本可以直接走掉的。</span>
+  - <span>She might have forgotten me. 她很可能已经忘记我了。</span>
+  - <span>You should have told / ought to have told me the truth. 你本应该跟我说实话。</span>
+  - <span>She needn't have bought all these for her child. 她本不需要给她小孩儿买这些东西。</span>
+  - <span>I would have told you all about the boy's story, but you didn't ask me. 我本来会告诉你这个小男孩儿的故事，但是你没有问我。</span>
 
 
 ## 12 非谓语动词
 
+英语句子里的谓语动词，因受到主语的 人称、数 和 时态 的限制，所以又称为限定动词(Finite Verb)。相反，在句子里，不受主语的人称、数和时态的限制，与限定动词相对的动词，叫 **非限定动词(Non-finite Verb)**。由于非限定动词在句子中不能作主句的谓语，故又称之为 **非谓语动词(Non-predicate Verb)**。
+
+*非谓语动词分为不定式、动名词和分词，在句中可充当除谓语之外的所有成分。*
+
+> *To save his job* <span>(目的状语)</span>, the man *wearing black* <span>(定语)</span> felt *compelled* <span>(表语)</span> *to deny* <span>(状语)</span> his *drinking beer at work* <span>(deny 的宾语)</span>. 为了不丢饭碗，穿黑衣服的那个人觉得他必须得否认上班喝啤酒这事。
+
+非谓语动词的功能：英文句子中，如果想 *表达多个动作，多种逻辑关系*，就要用从句。为了让句子更简洁明了，可以把从句简化成一些其他结构，这其中就包含非谓语动词。
+
+### 不同时态和语态变化
+
+非谓语动词虽不是谓语动词，但仍保留一定的动词属性，有不同的时态和语态变化。
+
+不定式的时态变化
+* 不定式一般时态表目的 <span>I've been waiting *to see* you. 我一直等着就为了见你。</span>
+* 不定式完成时态表推测 <span>He seems *to have forgotten* what he said. 他看起来好像已经忘记了自己说过的话。</span>
+* 不定式进行时态表推测 <span>The weather seems *to be improving*. 天气似乎在好转。</span>
+
+动名词的时态变化
+* 动名词一般时态，表“带动作属性的事情” <span>Do you mind my *smoking*?</span>
+* 动名词完成时态，表“已经发生的事情” <span>He denied *having asked* me to come.</span>
+
+分词的时态变化
+* 现在分词一般时态，表主动 <span>*Seeing* from the hill, you will see the beautiful city.</span>
+* 现在分词完成时态，表主动 <span>*Having promised* his friend to stay, he found it difficult to leave.</span>
+* 过去分词一般时态，表被动 <span>*Driven* by ambition, he seeks re-election despite his retirement plans.</span>
+
+不定式的语态变化
+* 主动 <span>I want *to go*.</span>
+* 被动 <span>I don't want *to be forced* to go.</span>
+
+动名词的语态变化
+* 主动 <span>I like *watching* movies.</span>
+* 被动 <span>I don't like *being watched*.</span>
+
+分词的语态变化
+* 主动 <span>Not *knowing* what to do, he called his friend.</span>
+* 被动 <span>*Having been told* so many times, he still made the same mistakes.</span>
+
+
 ### 12.1 不定式的用法
+
+Infinitive: simple, uninflected form of a verb
+
+不定式与助动词有共性，两者后面都接动词原形，表示语气的助动词都可以转化为不定式，含不定式的句子也往往可以转换成一个含助动词的句子。
+
+```txt
+will - be going to    can - be able to    may - be likely to
+must - have to    should - ought to
+```
+
+> He is gald *to see me*.  
+> He is glad *that he can see me*.  
+
+
+不定式的句法功能
+* 作主语
+* 作宾语
+* 作表语
+* 作定语
+* 作状语
+* 作宾补 [注] <span>I want you to call me.</span>
+
+注：感官动词或使役动词后作宾语补足语的不定式省略 `to`。常见的感官动词有 `feel` `hear` `notice` `sound` `smell` `see` `watch` `look` `taste`，常见的使役动词有 `make` `have` `let`。因为 to do 代表“未来的动作，不保证一定发生”，而感官动词和使役动词后接“事实或确定性动作”，所以不加 to。但感官动词和使役动词变为被动结构时，不定式的标志 to 一般不能省略。
+
+> I asked him *to have* his hair cut, but he didn't.  一般动词，带 to  
+> I made him *have* his hair cut. // 使役动词，省略 to  
+> My son was made *to have* his hair cut. // 被动，带 to  
+
+
+
+不定式的特殊形式
+* 省去 to 的不定式 Zero Infinitive
+  - 动词 help 之后的不定式作宾补时，to 可省略，尤其是口语中 <span>Thank you for helping us (to) find the right hotel for our holiday.</span>
+  - `cannot but` `cannot choose but` `cannot help but` 之后的不定式一般不带 to <span>He cannot help but like her.</span>
+  - 在连词 but 前有动词 do，其后不用 to，结构对等；在连词 but 前没有动词 do，其后需要 to，表最终结果 <span>He has nothing to do but read.</span>
+  - 当主语部分含有动词 do 时，表语中不定式可省略 to <span>All you need to do is (to) wait.</span>
+* 省去动词原形的不定式 <span>Please don't go untill I tell you to *(go / do so)*.</span>
+* 有时候为了简洁，甚至把整个不定式都省略 <span>Can you speak louder? OK, I'll try *(to speak louder / to do so)*.</span>
 
 ### 12.2 动名词的用法
 
