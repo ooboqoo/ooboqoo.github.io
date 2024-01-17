@@ -1,15 +1,20 @@
 <style>
-.es3::before, .es5::before, .es6::before, .es8::before, .es::before {
+.deprecated::before { content: 'X'; margin-right: 4px; padding: 1px 3px; font:bolder 12px sans-serif; color: white; background: red; }
+.es3::before, .es5::before, .es6::before, .esn::before, .es::before {
   margin-right: 1em; padding: 1px 3px; font-size: .5em; color: #fff; border-radius: .25em; }
-.es::before  { content: "ES?"; background-color: #ccc; }
 .es3::before { content: "ES3"; background-color: #0c3; }
 .es5::before { content: "ES5"; background-color: #9c0; }
 .es6::before { content: "ES6"; background-color: #c30; }
-.es16::before { content: "E16"; background-color: #c3c; }
-.es17::before { content: "E17"; background-color: #c3c; }
-.es18::before { content: "E18"; background-color: #c3c; }
-.es19::before { content: "E19"; background-color: #c3c; }
-.esn::before { content: "ES+"; background-color: #c3c; }
+.es::before  { background-color: #c3c; }
+.esn::before { content: "ES+"; }
+.es16::before { content: "16"; }
+.es17::before { content: "17"; }
+.es18::before { content: "18"; }
+.es19::before { content: "19"; }
+.es20::before { content: "20"; }
+.es21::before { content: "21"; }
+.es22::before { content: "22"; }
+.es23::before { content: "23"; }
 h2 { text-align: center; }
 #md .dl::before { content: ""; }
 #md .dl h5 { width: initial; color: #2824bd; }
@@ -22,6 +27,10 @@ h2 { text-align: center; }
 构造函数定义的属性，初始化时会在每个实例中产生一份副本，每个实例都使用其自有的属性；  
 原型中的属性和方法，可以通过实例查找原型链读取到（读取而非复制）。
 
+历年新特性
+* 新特性 https://github.com/tc39/proposals/blob/main/finished-proposals.md
+* 支持情况 https://node.green/
+
 
 ## Object
 
@@ -33,16 +42,17 @@ h2 { text-align: center; }
 <h5 class="es6">Object.assign(target, src1, ...) <span>-- 对象合并，将一个或多个对象的自有可遍历属性复制到 target</span></h5>
 <h5 class="es6">Object.is(value1, value2) <span>-- 同值相等，与 `===` 全等基本相同，区别是 `+0` `-0` 不等，`NaN` 自等</span></h5>
 <h5 class="es5">Object.keys(obj) <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的名称</span></h5>
-<h5 class="es8">Object.values(obj) <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的值</span></h5>
-<h5 class="es8">Object.entries(obj) <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的键值对 `[[k1,v1], ...]`</span></h5>
-<h5 class="es">Object.fromEntries(entries) <span>-- 将包含一系列键值对的数组转成一个对象</span></h5>
+<h5 class="es es17">Object.values(obj) <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的值</span></h5>
+<h5 class="es es17">Object.entries(obj) <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的键值对 `[[k1,v1], ...]`</span></h5>
+<h5 class="es es19">Object.fromEntries(entries) <span>-- 将包含一系列键值对的数组转成一个对象</span></h5>
+<h5 class="es es22">Object.hasOwn(prop) <span>-- 较实例方法 `hasOwnProperty` 更为安全</span></h5>
 </div>
 <div class="dl">
-<h5 class="es6">object.__proto__ <span>-- 对象实例属性，指向对象的原型对象，本质上属于内部属性，应避免使用</span><span class="mark">[注2]</span></h5>
+<h5 class="es6"><i class="deprecated"></i>object.__proto__ <span>-- 对象实例属性，指向对象的原型对象，本质上属于内部属性，应避免使用</span><span class="mark">[注2]</span></h5>
 <h5 class="es3">object.constructor <span>-- 指向构造函数(该属性位于对象的原型上)</span></h5>
 </div>
 <div class="dl">
-<h5 class="es3">object.valueOf() <span>-- 返回指定对象的原始值类型，很少显式调用，当期望得到原始值而提供的是对象时，系统会自动调用</span></h5>
+<h5 class="es3">object.valueOf() <span>-- 返回指定对象的原始值类型，很少显式调用，当期望得到原始值时系统会自动调用</span></h5>
 <h5 class="es3">object.toString() <span>-- 只会简单返回 `'[object Array]'` `'[object Number]'` 等，除了类型判断，其他情况都需重写</span></h5>
 <h5 class="es3">object.toLocaleString() <span>-- 调用 toString()</span></h5>
 <h5 class="es3">object.isPrototypeOf(obj) <span>-- 检查对象是否在 obj 的原型链上</span></h5>
@@ -60,7 +70,7 @@ h2 { text-align: center; }
 <h5 class="es5">Object.defineProperty(obj, prop, descriptor) <span>-- 给对象添加一个属性并指定该属性的配置</span><span class="mark">[注4]</span></h5>
 <h5 class="es5">Object.defineProperties(obj, props) <span>-- 给对象添加多个属性并分别指定它们的配置 `{prop1: descriptor1, ...}`</span></h5>
 <h5 class="es5">Object.getOwnPropertyDescriptor(obj, prop) <span>-- 返回指定对象上一个自有属性对应的属性描述符</span></h5>
-<h5 class="es8">Object.getOwnPropertyDescriptors(obj) <span>-- 返回指定对象上所有自有属性的属性描述符</span></h5>
+<h5 class="es es17">Object.getOwnPropertyDescriptors(obj) <span>-- 返回指定对象上所有自有属性的属性描述符</span></h5>
 <h5 class="es5">Object.freeze(obj) <span>-- 冻结对象：不能增减属性，不能配置属性，不能修改属性值</span></h5>
 <h5 class="es5">Object.seal(obj) <span>-- 封闭对象：不能增删或配置属性，但还能修改现有对象属性的值</span></h5>
 <h5 class="es5">Object.preventExtensions(obj) <span>-- 禁止扩展，即不能再添加新属性</span></h5>
@@ -111,17 +121,17 @@ var a = {
 
 <div class="dl">
 <h5 class="es3">Function(arg1, arg2, ..., body)<span>-- 构造函数，用于创建函数对象。带不带 new 效果一样。</span></h5>
+<h5 class="es3">Function.prototype <span>-- 构造函数的原型对象 `{constructor, __proto__}`</span></h5>
 </div>
 <div class="dl">
-<h5 class="es3">arguments <span>-- 一个 Array-like 类数组对象，保存了调用函数时的参数信息，仅在函数内部有效</span></h5>
+<h5 class="es3">arguments <span>-- a local variable available within all non-arrow functions, an array-like object</span></h5>
 <h5 class="es3">arguments.length <span>-- 调用函数时实际传入的参数个数。而 Function.length 为函数定义时的形参个数</span></h5>
-<h5 class="es3">arguments.callee <span>-- 指向当前函数，严格模式下被禁用，有缺陷，但似乎又没办法完全弃用</span></h5>
+<h5 class="es3"><i class="deprecated"></i>arguments.callee <span>-- 指向当前函数，严格模式下被禁用，有缺陷，但似乎又没办法完全弃用</span></h5>
 </div>
 <div class="dl">
-<h5 class="es3">function.prototype <span>-- 构造函数的原型对象 `{constructor, __proto__}`</span></h5>
 <h5 class="es3">function.length <span>-- 获取函数的形参个数</span></h5>
 <h5 class="es6">function.name <span>-- 获取函数的名称</span></h5>
-<h5 class="es">function.caller <span>-- 保存着对调用当前函数的函数的引用，用于替代被废弃的 arguments.caller</span><span class="mark">[注1]</span></h5>
+<h5 class="es6"><i class="deprecated"></i>function.caller <span>-- 保存着对调用当前函数的函数的引用，用于替代被废弃的 arguments.caller</span><span class="mark">[注1]</span></h5>
 </div>
 <div class="dl">
 <h5 class="es3">function.apply(thisArg, argsArray?) <span>-- 设定 this 值后执行，参数以数组形式传入</span></h5>
@@ -137,7 +147,7 @@ var a = {
 var foo = Function('a', 'b, c', 'return a + b + c');  // 运行时求值
 ```
 
-[注1]：在非严格模式下可以通过 `foo.caller` `foo.arguments` 读到调用栈上其他函数的信息，出于安全性考虑，foo.arguments 已经被废弃，而 foo.caller 则是一个模糊的存在，两者在严格模式下都被禁用。
+注1：在非严格模式下可以通过 `foo.caller` `foo.arguments.caller` 读到调用栈上其他函数的信息，出于安全性考虑已经被废弃，在严格模式下都被禁用。
 ```js
 function foo(a, b) { bar(); }
 function bar() { console.log(foo.arguments, bar.caller); }
@@ -150,8 +160,9 @@ function bar() { console.log(foo.arguments, bar.caller); }
 
 <div class="dl">
 <h5 class="es3">Array.prototype <span>-- 可以通过该属性给 Array类型 添加公共属性</span></h5>
-<h5 class="es5">Array.isArray() <span>-- 确定某个值是不是数组</span></h5>
-<h5 class="es6">Array.from(arrayLike, mapFn?, thisArg?) <span>-- 根据 arrayLike 创建一个数组</span></h5>
+<h5 class="es5">Array.isArray(value) <span>-- 确定某个值是不是数组</span></h5>
+<h5 class="es6">Array.from(arrayLike, mapFn?, thisArg?) <span>-- 根据 arrayLike 创建一个数组。`arrayLike`: An iterable or array-like object</span></h5>
+<h5 class="es esn">Array.fromAsync(arrayLike, mapFn?, thisArg?) <span>-- </span></h5>
 <h5 class="es6">Array.of(element0, e1?, ..., eN?) <span>-- 创建一个新数组<br>用于替代 <code>Array(arrayLength)</code> <code>Array(element0, element1[, ..., elementN])</code></span></h5>
 </div>
 <div class="dl">
@@ -163,35 +174,44 @@ function bar() { console.log(foo.arguments, bar.caller); }
 <h5 class="es3">array.pop() <span>-- 从数组末尾移除最后一项，然后返回移除的项</span></h5>
 <h5 class="es3">array.push(item1, item2, ...) <span>-- 在数组尾部添加1个或多个元素，返回新数组的 <code>length</code></span></h5>
 <h5 class="es3">array.shift() <span>-- 移除数组中的第一个项并返回该项</span></h5>
-<h5 class="es3">array.unshift() <span>-- 在数组前端添加1个或多个元素，返回新数组的 <code>length</code></span></h5>
+<h5 class="es3">array.unshift(item1, item2, ...) <span>-- 在数组前端添加1个或多个元素，返回新数组的 <code>length</code></span></h5>
 <h5 class="es3">array.splice(start, deleteCount?, item1?, ...) <span>-- 在给定位置删除若干元素并添加一些元素，返回包含被删除元素的数组</span></h5>
-<h5 class="es3">array.sort((a, b) => { }?) <span>-- 按升序排列数组项(默认都当<span style="color: blue;">字符串</span>比较, 故 10 在 2 前面)，提供比较函数可自定义排序</span></h5>
+<h5 class="es3">array.sort((a, b) => number) <span>-- 按升序排列数组(默认都当<span style="color: blue;">字符串</span>比较, 故 10 在 2 前面)，可自定义比较函数</span></h5>
 <h5 class="es3">array.reverse() <span>-- 反转数组项的顺序</span></h5>
-<h5 class="es6">array.copyWithin(target, start?, end?) <span>-- 在数组<i>内部</i>浅拷贝其中一段到另一个位置，返回修改后的数组</span></h5>
+<h5 class="es6">array.copyWithin(target: number, start?, end?) <span>-- 在数组<i>内部</i>浅拷贝其中一段到另一个位置，返回修改后的数组</span></h5>
 <h5 class="es6">array.fill(value, start?, end?) <span>-- 给指定位置填充数值，返回修改后的数组</span></h5>
 
 <h4>Accessor methods -- 只返回信息，不修改数组本身</h4>
+<h5 class="es es22">array.at(index) <span>-- 支持负数索引 index allowing for positive and negative integers</span></h5>
 <h5 class="es3">array.concat(arrayOrValue, ...) <span>-- 返回由当前数组和其它数组或值组成的新数组</span></h5>
 <h5 class="es3">array.slice(begin?, end?) <span>-- 抽取数组中的一段元素组成一个新数组(不含 end 位置的值)，方法可将类数组转成数组</span></h5>
 <h5 class="es5">array.indexOf(item, from?) <span>-- 返回给定元素能在数组中找到的第一个索引值，否则返回-1</span></h5>
 <h5 class="es5">array.lastIndexOf(item, from?) <span>-- 返回给定元素能在数组中找到的最后一个索引值，否则返回-1</span></h5>
 <h5 class="es6">array.includes(item, from?) <span>-- 是否存在查找项，返回 ture 或 false</span></h5>
-<h5 class="es6">array.find((element, index, array) => { }, thisArg?) <span>-- 返回首个通过测试函数检测的元素值，都失败返回 undefined</span></h5>
+<h5 class="es6">array.find((element, index, array) => boolean, thisArg?) <span>-- 返回首个通过测试函数检测的元素值，都失败返回 undefined</span></h5>
 <h5 class="es6">array.findIndex(cb, thisArg?) <span>-- 返回首个通过测试函数检测的元素索引，都失败返回 -1</span></h5>
+<h5 class="es es23">array.findLast(callbackFn, thisArg) <span>-- </span></h5>
+<h5 class="es es23">array.findLastIndex(callbackFn, thisArg) <span>-- </span></h5>
 <h5 class="es3">array.join(separator?) <span>-- 根据提供的分隔符字符串，返回包含所有数组项的字符串</span></h5>
 <h5 class="es3">array.toString() <span>-- 返回一个由所有数组元素组合而成的字符串，重写</span></h5>
-<h5 class="es">array.toLocaleString() <span>-- 返回一个由所有数组元素组合而成的本地化后的字符串，重写</span></h5>
+<h5 class="es3">array.toLocaleString() <span>-- 返回一个由所有数组元素组合而成的本地化后的字符串，重写</span></h5>
 <h5 class="es6">array.keys() <span>-- returns a new Array Iterator object</span></h5>
 <h5 class="es6">array.values() <span>-- returns a new Array Iterator object</span></h5>
 <h5 class="es6">array.entries() <span>-- returns a new Array Iterator object</span></h5>
+<h5 class="es es19">array.flat(depth=1) <span>-- a new array with all sub-array elements concatenated into it recursively up to the specified depth</span></h5>
+<h5 class="es es19">array.flatMap(callbackFn, thisArg?) <span>-- 等效于 `arr.map(...args).flat()`</span></h5>
+<h5 class="es esn">array.with(index, value) <span>-- change the value of a given index, and returns a new array</span></h5>
+<h5 class="es esn">array.toSpliced(start, deleteCount, item1, …, itemN) <span>-- the copying version of the `splice()`</span></h5>
+<h5 class="es esn">array.toReversed() <span>-- the copying version of the `reverse()`</span></h5>
+<h5 class="es esn">array.toSorted() <span>-- the copying version of the `sort()`</span></h5>
 
 <h4>Iteration methods -- 遍历方法，<small>为了可读性和可维护性，不要在遍历过程中对原数组进行修改</small></h4>
-<h5 class="es5">array.forEach((current, index, array) => { }, thisArg?) <span>-- 对数组中的每一项运行给定函数，没有返回值</span></h5>
+<h5 class="es5">array.forEach((current, index, array) => void, thisArg?) <span>-- 对数组中的每一项运行给定函数，没有返回值</span></h5>
 <h5 class="es5">array.map(cb, thisArg?) <span>-- 返回一个由回调函数的返回值组成的新数组</span></h5>
 <h5 class="es5">array.filter(cb, thisArg?) <span>-- 对每一项运行给定函数，返回由 true 项组成的新数组</span></h5>
 <h5 class="es5">array.every(cb, thisArg?) <span>-- 对每一项运行给定函数，每项都 true 才返回 true</span></h5>
 <h5 class="es5">array.some(cb, thisArg?) <span>-- 对每一项运行给定函数，只要有一项 true 就返回 true</span></h5>
-<h5 class="es5">array.reduce(cb, initialValue?) <span>-- 从左到右为每个元素执行回调函数，并将上次返回值传给下次，返回最后一次的返回值</span></h5>
+<h5 class="es5">array.reduce(cb, initialValue?) <span>-- 从左到右为每个元素执行回调，并将上次返回值传给下次，返回最后一次的返回值</span></h5>
 <h5 class="es5">array.reduceRight((acc, val, idx, arr) => { return acc + val; }, initialValue?) <span>-- 从右到左...</span></h5>
 </div>
 
@@ -301,14 +321,14 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <h5 class="es6">Number.isInteger(value) <span>-- 判断一个值是否为整数，注意 `3.0` 也被认为是整数，因为整数和浮点数用的同样的储存方法</span></h5>
 <h5 class="es6">Number.parseInt(string, radix?) <span>-- Number.parseInt === parseInt; // true</span></h5>
 <h5 class="es6">Number.parseFloat(string) <span>-- Number.parseFloat === parseFloat; // true</span></h5>
-<h5 class="es6">Number.isSafeInteger() <span>-- JS能准确表示的整数范围在 -2^53 到 2^53 之间(不含两个端点)</span></h5>
+<h5 class="es6">Number.isSafeInteger(testValue) <span>-- JS能准确表示的整数范围在 -2^53 到 2^53 之间(不含两个端点)</span></h5>
 </div>
 <div class="dl">
 <h5 class="es3">number.toExponential(fractionDigits?) <span>-- 把对象的值转换为指数计数法，小数点保留(0-20 含)位</span></h5>
 <h5 class="es3">number.toFixed(digits?) <span>-- 把数字转换为字符串，结果的小数点后有指定位数的数字</span></h5>
-<h5 class="es3">number.toPrecision(length?) <span>-- 把数字格式化为指定的长度</span></h5>
+<h5 class="es3">number.toPrecision(length?) <span>-- 把数字格式化为指定的精度 `toPrecision(2): 5.123 -> 5.1 0.0123 -> 0.012`</span></h5>
 <h5 class="es3">number.toString(radix?) <span>-- 把数字转换为字符串，使用指定的基数(2-36 含)</span></h5>
-<h5 class="es3">number.toLocaleString() <span>-- 把数字转换为字符串，使用本地数字格式顺序</span></h5>
+<h5 class="es3">number.toLocaleString(locales?, options?) <span>-- 把数字转换为字符串，使用本地数字格式顺序</span></h5>
 <h5 class="es3">number.valueOf() <span>-- 返回一个 Number 对象的基本数字值</span></h5>
 </div>
 <div class="dl">
@@ -326,34 +346,45 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 ['10', '10', '10', '10', '10'].map(parseInt)  // [10, NaN, 2, 3, 4]
 ```
 
+## <span class="es es20">BigInt</span>
+
+<div class="dl">
+
+</div>
+
 
 ## String
 
-估计不全，待整理
+数组相关的方法略
 
+<div class="dl">
+<h5 class="es3">String.fromCharCode(num1, num2, …) <span>-- </span></h5>
+<h5 class="es3">String.fromCodePoint(num1, num2, …) <span>-- </span></h5>
+<h5 class="es6">String.raw`templateString` / String.raw(strings, sub1, sub2, ...) <span>-- is a tag function of template literals</span></h5>
+</div>
 <div class="dl">
 <h5 class="es3">string.length <span>-- 返回字符串的长度</span></h5>
 </div>
 <div class="dl">
-<h5 class="es3">string.concat(string2, ...) <span>-- 将字符串与一个或多个字符串拼接，返回拼接后的新字符串</span></h5>
-<h5 class="es3">string.substr(start, length?) <span>-- 从指定位置摘取指定长度的子字符串</span></h5>
-<h5 class="es3">string.slice(begin, end?) <span>-- 返回指定下标间的子字符串，不含 end 位置的字符，与 substring 效果一样</span></h5>
+<h5 class="es3">string.localeCompare(compareString, locales, options) <span>-- </span></h5>
 <h5 class="es3">string.substring(index1, index2?) <span>-- 返回指定的两个下标之间的子字符串。不含 index2 位置的字符</span></h5>
+<h5 class="es3">string.substr(start, length?) <span>-- 从指定位置摘取指定长度的子字符串</span></h5>
 </div>
 <div class="dl">
+<h5 class="es6">string.startsWith(searchString, position) <span>-- </span></h5>
+<h5 class="es6">string.endsWith(searchString, endPosition) <span>-- </span></h5>
+<h5 class="es6">string.repeat(count) <span>-- </span></h5>
 <h5 class="es3">string.match(regexp) <span>-- 使用正则表达式对象匹配字符串并返回数组，无匹配为 null</span><span class="mark">[注1]</span></h5>
+<h5 class="es es20">string.matchAll(regexp) <span>-- </span></h5>
 <h5 class="es3">string.replace(regexp|substr, newSubstr|function) <span>-- 返回替换后的新字符串，注意，原字符串不会变</span></h5>
+<h5 class="es es21">string.replaceAll(pattern, replacement) <span>-- </span></h5>
 <h5 class="es3">string.search(regexp) <span>-- 返回索引位置，找不到为 -1</span></h5>
 <h5 class="es3">string.split(separator?, limit?) <span>-- 返回数组，支持字符串和正则</span></h5>
 </div>
 <div class="dl">
-<h5 class="es3">string.indexOf(searchValue, fromIndex?) <span>-- 返回指定字符在字符串中首次出现的位置, 找不到为 -1</span></h5>
-<h5 class="es3">string.lastIndexOf(searchValue, fromIndex?) <span>-- 返回指定字符在字符串中最后一次出现的位置, 找不到为 -1</span></h5>
-<h5 class="es6">string.includes(searchString, position?) <span>-- 是否包含子字符串</span></h5>
-</div>
-<div class="dl">
 <h5 class="es3">string.charAt(index) <span>-- 返回给定位置的那个字符</span></h5>
-<h5 class="es3">string.charCodeAt(index) <span>-- 返回给定位置字符的字符编码</span></h5>
+<h5 class="es3">string.charCodeAt(index) <span>-- 返回给定位置字符的字符编码 `[0,65535]`</span></h5>
+<h5 class="es3">string.codePointAt(index) <span>-- 返回给定位置字符的字符编码 `[0, 0x10FFFF]`</span></h5>
 </div>
 <div class="dl">
 <h5 class="es3">string.toUpperCase() <span>-- 将字符串转换成大写并返回新字符串</span></h5>
@@ -365,14 +396,15 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <h5 class="es es19">string.{trimEnd, trimRight}() <span>-- 删除后缀的所有空格并返回处理后的新字符串</span></h5>
 <h5 class="es es17">string.padStart(length [, padString]) <span>-- 如果字符串小于指定长度就在前面用指定字符串填充</span></h5>
 <h5 class="es es17">string.padEnd(length [, padString]) <span>-- 如果字符串小于指定长度就在后面用指定字符串填充</span></h5>
+<h5 class="es5">string.normalize(form?) <span>-- </span></h5>
 </div>
 <div class="dl">
-<h5 class="es3">string.anchor(name) <span>-- 创建一个名为 name 的锚</span></h5>
-<h5 class="es3">string.link(url) <span>-- 根据提供的url创建一个链接</span></h5>
+<h5 class="es3"><i class="deprecated"></i>string.anchor(name) <span>-- 创建一个名为 name 的锚</span></h5>
+<h5 class="es3"><i class="deprecated"></i>string.link(url) <span>-- 根据提供的url创建一个链接</span></h5>
 </div>
 
-[注1]: `string.match()` 的三种用法 `string.match(/regexp/)` `string.match(/regexp/g)` `string.match() /*无参*/`  
-[注2]: `'abc.jar'.substr(-4) == '.jar'` `'abc.jar'.substring(-4) == 'abc.jar'` `'abc.jar'.slice(-4) == '.jar'`
+注1: `string.match()` 的三种用法 `string.match(/regexp/)` `string.match(/regexp/g)` `string.match() /*无参*/`  
+注2: `'abc.jar'.substr(-4) == '.jar'` `'abc.jar'.substring(-4) == 'abc.jar'` `'abc.jar'.slice(-4) == '.jar'`
 
 ```js
 '8'.padStart(2, '0')  // '08'
@@ -387,9 +419,14 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 </div>
 <div class="dl">
 <h5>Symbol.for(key) <span>-- 查找并返回key对应的symbol，如找不到则新建一个symbol并返回</span><span class="mark">[注1]</span></h5>
-<h5>Symbol.keyFor(symbol) <span>-- 查找并返回symbol对应的key，找不到返回 undefined</span></h5>
+<h5>Symbol.keyFor(symbol) <span>-- 查找并返回symbol对应的key，找不到返回 undefined (跟 Symbol.for() 对应，与 Symbol() 无关)</span></h5>
 <h5>symbol.toString() <span>-- 返回symbol的字符串表示，重写的方法 `Symbol("desc").toString(); // "Symbol(desc)"`</span></h5>
 </div>
+
+Well-known Symbols
+* their purpose is to serve as "protocols" for certain built-in JavaScript operations
+* In MDN and other sources, well-known symbol values are stylized by prefixing `@@`
+
 <div class="dl">
 <h5>Symbol.hasInstance <span>-- </span></h5>
 <h5>Symbol.isConcatSpreadable <span>-- </span></h5>
@@ -423,6 +460,13 @@ class ClassWithPrivateProps {
 </div>
 <div class="dl">
 <h5 class="es3">regexp.lastIndex <span>-- 下次匹配开始的字符串索引位置，只有设置了 g 标志时才有效</span></h5>
+<h5 class="es3">regexp.global <span>-- </span></h5>
+<h5 class="es3">regexp.ignoreCase <span>-- </span></h5>
+<h5 class="es3">regexp.multiline <span>-- </span></h5>
+<h5 class="es es18">regexp.dotAll <span>-- </span></h5>
+<h5 class="es es22">regexp.hasIndices <span>-- </span></h5>
+<h5 class="es3">regexp.source <span>-- </span></h5>
+<h5 class="es es22">regexp.flags <span>-- </span></h5>
 </div>
 <div class="dl">
 <h5 class="es3">regexp.exec(str) <span>-- 检索字符串中指定的值。返回找到的值，并确定其位置</span></h5>
@@ -447,7 +491,7 @@ reg.test('abcd'); // true
 </div>
 <div class="dl">
 <h5 class="es3">Math.min(x, y, z,...) <span>-- 确定一组数值中的最小值</span></h5>
-<h5 class="es3">Math.max(x, y, z,...) <span>-- 确定一组数值中的最小值</span></h5>
+<h5 class="es3">Math.max(x, y, z,...) <span>-- 确定一组数值中的最大值</span></h5>
 <h5 class="es3">Math.ceil(x) <span>-- 执行向上取整</span></h5>
 <h5 class="es3">Math.floor(x) <span>-- 执行向下取整, 即不超过 x 的最大整数 `Math.floor(-3.5) // -4`</span></h5>
 <h5 class="es3">Math.round(x) <span>-- 执行四舍五入 `Math.round(x) = Math.floor(x + 0.5);  // 0.5 -> 1; -0.5 -> 0`</span></h5>
@@ -498,6 +542,7 @@ reg.test('abcd'); // true
 <h5 class="es3">date.toTimeString() <span>-- 把 Date 对象的时间部分转换为字符串。</span></h5>
 <h5 class="es3">date.toLocaleDateString() <span>-- 根据本地时间格式，把 Date 对象的日期部分转换为字符串。</span></h5>
 <h5 class="es3">date.toLocaleTimeString() <span>-- 根据本地时间格式，把 Date 对象的时间部分转换为字符串。</span></h5>
+<h5 class="es3">date.toISOString() <span>-- '2024-01-17T07:41:59.580Z'</span></h5>
 <h5 class="es3">date.toUTCString() <span>-- 根据世界时，把 Date 对象转换为字符串。</span></h5>
 </div>
 <div class="dl">
@@ -548,12 +593,13 @@ new Date(year, monthIndex, day?, hours?, minutes?, seconds?, milliseconds?)
 <div class="dl">
   <h5>promise.then(onFulfilled, onRejected) <span>-- 为 Promise 实例添加状态改变时的回调函数</span></h5>
   <h5>promise.catch(onRejected) <span>-- 是 `.then(null, onRejected)` 的别名，用于指定发生错误时的回调函数</span></h5>
-  <h5>promise.finally(onFinally) <span>-- 不管是成功还是失败，只要状态确定就会执行</span></h5>
+  <h5 class="es es18">promise.finally(onFinally) <span>-- 不管是成功还是失败，只要状态确定就会执行</span></h5>
   <h5>Promise.resolve(value) <span>-- 将现有对象转为 Promise 对象</span></h5>
   <h5>Promise.reject(reason) <span>-- 返回一个新的 Promise 实例，该实例的状态为 rejected</span></h5>
   <h5>Promise.all(iterable) <span>-- 将多个 Promise 实例包装成一个新的 Promise 实例，返回数组或首个 reject 值</span></h5>
+  <h5 class="es es20">Promise.allSettled(iterable) <span>-- 返回 `Promise<{status 'fulfilled'|'rejected'; value: any; reason: any}[]>`</h5>
   <h5>Promise.race(iterable) <span>-- 返回率先<i>改变</i>的 Promise 实例的返回值</span></h5>
-  <h5>Promise.any(iterable) <span>-- 返回率先<i>成功</i>的 Promise 实例的返回值</span></h5>
+  <h5 class="es es21">Promise.any(iterable) <span>-- 返回率先<i>成功</i>的 Promise 实例的返回值</span></h5>
 </div>
 
 ```js
@@ -564,6 +610,38 @@ const p = new Promise(function(resolve, reject) {
 });
 ```
 
+```js
+const p1 = Promise.all([1, 2, 3, Promise.resolve(444)]);
+const p2 = Promise.all([1, 2, 3, Promise.reject(555)]);
+
+setTimeout(() => {
+  console.log(p1); // Promise { <state>: "fulfilled", <value>: Array[4] }
+  console.log(p2); // Promise { <state>: "rejected", <reason>: 555 }
+});
+```
+
+## JSON
+
+JSON is a syntax for serializing objects, arrays, numbers, strings, booleans, and `null`.
+
+<div class="dl">
+  <h5>JSON.parse(text, reviver) <span>-- </h5>
+  <h5>JSON.stringify(value, replacer, space) <span>-- </h5>
+</div>
+
+```js
+const replacer = (key, value) => typeof value === "bigint" ? value.toString() : value;
+const data = { number: 1, big: 18014398509481982n };
+const stringified = JSON.stringify(data, replacer);
+console.log(stringified); // {"number":1,"big":"18014398509481982"}
+```
+
+```js
+const reviver = (key, value) => (key === "big" ? BigInt(value) : value);
+const payload = '{"number":1,"big":"18014398509481982"}';
+const parsed = JSON.parse(payload, reviver);
+console.log(parsed); // { number: 1, big: 18014398509481982n }
+```
 
 
 ## <span class="es6">Generator</span>

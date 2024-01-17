@@ -14,19 +14,116 @@ func Sprintf(format string, a ...any) string             格式化字符串
 fmt.Sscanf("12 34 567 ", "%s%d", &s, &i)  // s="12" i=34
 ```
 
+.     | bool  | int   | float64  | string | uintptr            | slice           | struct
+------|-------|-------|----------|--------|--------------------|-----------------|-----------------------
+`%v`  | true  | 8     | 8.0      | abc    | 0x112c300          | [1 8]           | &{Jack}
+`%T`  | bool  | int   | float64  | string | \*int              | []int           | \*main.Man
+`%#v` | true  | 8     | 8        | "abc"  | (*int)(0x112c300)  | []int{1, 8}     | &main.Man{Name:"Jack"}
+`%p`  | -     | -     | -        | -      | 0x112c300          | 0x112c3f0       | 0x1131830
+`%q`  | -     | '\b'  | -        | "abc"  | -                  | ['\x01' '\b']   | &{"Jack"}
+`%x`  | -     | 8     | 0x1p+03  | 616263 | 0x112c300          | [1 8]           | &{4a61636b}
+
+注：所有标注 `-` 的实际都会输出类似  `%!p(bool=true)` 的内容
+
 #### Printing Verbs
 
+General:
+
 ```txt
-%v 值
-%T  类型
+%v  the value in a default format
+    when printing structs, the plus flag (%+v) adds field names
+%#v a Go-syntax representation of the value
+%T  a Go-syntax representation of the type of the value
+%%  a literal percent sign; consumes no value
+```
+
+Boolean:
+
+```txt
+%t  the word true or false
+```
+
+`%t`: When scanning input, `fmt.Scanf` had to deal somehow with any string you pass it. It can read values `true` and `false` correctly, and that's its main purpose. When it doesn't see neither `true`, nor `false` in the input, it goes another way: it takes only first character and returns `true` if it is `'t'` or `false` if it is anything else, i.g. not-'t'. Note, that the rest of the input is still available for scanning with other options.
+
+Integer:
+
+```txt
+%b  base 2
+%c  the character represented by the corresponding Unicode code point
+%d  base 10
+%o  base 8
+%O  base 8 with 0o prefix
+%q  a single-quoted character literal safely escaped with Go syntax.
+%x  base 16, with lower-case letters for a-f
+%X  base 16, with upper-case letters for A-F
+%U  Unicode format: U+1234; same as "U+%04X"
+```
+
+Floating-point and complex constituents:
+
+```txt
+%b  decimalless scientific notation with exponent a power of two,
+    in the manner of strconv.FormatFloat with the 'b' format,
+    e.g. -123456p-78
+%e  scientific notation, e.g. -1.234456e+78
+%E  scientific notation, e.g. -1.234456E+78
+%f  decimal point but no exponent, e.g. 123.456
+%F  synonym for %f
+%g  %e for large exponents, %f otherwise. Precision is discussed below.
+%G  %E for large exponents, %F otherwise
+%x  hexadecimal notation (with decimal power of two exponent), e.g. -0x1.23abcp+20
+%X  upper-case hexadecimal notation, e.g. -0X1.23ABCP+20
+```
+
+Width is specified by an optional decimal number immediately preceding the verb.  
+Precision is specified after the (optional) width by a period followed by a decimal number.
+
+```txt
+%f     default width, default precision
+%9f    width 9, default precision
+%.2f   default width, precision 2
+%9.2f  width 9, precision 2
+%9.f   width 9, precision 0
+```
+
+Other flags:
+
+```txt
+'+' always print a sign for numeric values;
+  guarantee ASCII-only output for %q (%+q)
+'-' pad with spaces on the right rather than the left (left-justify the field)
+'#' alternate format: add leading 0b for binary (%#b), 0 for octal (%#o),
+  0x or 0X for hex (%#x or %#X); suppress 0x for %p (%#p);
+  for %q, print a raw (backquoted) string if strconv.CanBackquote
+  returns true;
+  always print a decimal point for %e, %E, %f, %F, %g and %G;
+  do not remove trailing zeros for %g and %G;
+  write e.g. U+0078 'x' if the character is printable for %U (%#U).
+' ' (space) leave a space for elided sign in numbers (% d);
+  put spaces between bytes printing strings or slices in hex (% x, % X)
+'0' pad with leading zeros rather than spaces;
+  for numbers, this moves the padding after the sign;
+  ignored for strings, byte slices and byte arrays
 ```
 
 ```go
-fmt.Printf("%[1]T %[1]v", 3)  // int 3
+fmt.Printf("%08b", int8(5))    // 00000101
+fmt.Printf("%08b", int8(-5))   // -0000101
+fmt.Printf("%+08b\n", int8(5)) // +0000101
+```
+
+For compound objects, the elements are printed using these rules, recursively, laid out like this:
+
+```txt
+struct:             {field0 field1 ...}                {John 23}
+array, slice:       [elem0 elem1 ...]                  [1 2 3]
+maps:               map[key1:value1 key2:value2 ...]   map[one:1 two:2]
+pointer to above:   &{}, &[], &map[]                   &{Jhon 23} &[1 2 3] &map[one:1 two:2]
 ```
 
 The default format for `%v` is:
-```go
+
+```txt
 %t  布尔值  bool
 %s  字符串  string
 %d  整数    int
@@ -47,19 +144,14 @@ The default format for `%v` is:
   - [String] base 16, two characters per byte
   - [Float] hexadecimal notation, e.g. -0x1.23abcp+20 -0X1.23ABCP+20
 
-For compound objects, the elements are printed using these rules, recursively, laid out like this:
-```txt
-struct:             {field0 field1 ...}                {John 23}
-array, slice:       [elem0 elem1 ...]                  {1 2 3}
-maps:               map[key1:value1 key2:value2 ...]   map[one:1 two:2]
-pointer to above:   &{}, &[], &map[]                   &{Jhon 23} &[1 2 3] &map[one:1 two:2]
-```
-
-附注
-
-`%t`: When scanning input, `fmt.Scanf` had to deal somehow with any string you pass it. It can read values `true` and `false` correctly, and that's its main purpose. When it doesn't see neither `true`, nor `false` in the input, it goes another way: it takes only first character and returns `true` if it is `'t'` or `false` if it is anything else, i.g. not-'t'. Note, that the rest of the input is still available for scanning with other options.
-
 `%g`: `%e` for large exponents, `%f` otherwise. `g` 应该是直接取字母表 e f 后面就是 g
+
+Explicit argument indexes
+
+```go
+fmt.Printf("%[1]T %[1]v", 3)  // int 3
+fmt.Sprintf("%[3]*.[2]*[1]f", 12.0, 2, 6)  ==  fmt.Sprintf("%6.2f", 12.0)
+```
 
 
 ### strings
@@ -82,6 +174,10 @@ func FormatInt(i int64, base int) string
 func ParseInt(s string, base int, bitSize int) (i int64, err error)
 ```
 
+```go
+i, err := strconv.Atoi("-42")  // -42 <nil>
+s := strconv.Itoa(-42)         // "-42"
+```
 
 ### bytes
 
@@ -99,11 +195,41 @@ err = tmpl.Execute(&buf, sweaters) // text/template
 
 Package `os` provides a platform-independent interface to operating system functionality. Features not generally available appear in the system-specific package `syscall`.
 
+* type DirEntry
+* type File
+* type FileInfo
+* type FileMode
+* type LinkError
+* type PathError
+* type ProcAttr
+* type Process
+* type ProcessState
+* type Signal
+* type SyscallError
+
+```go
+// opens the named file for reading
+func Open(name string) (*File, error)
+// OpenFile is the generalized open call, it opens the named file with specified flag (O_RDONLY etc.)
+func OpenFile(name string, flag int, perm FileMode) (*File, error)
+
+// Read reads up to len(b) bytes from the File and stores them in b. It returns the number of bytes read and any error encountered. At end of file, Read returns 0, io.EOF.
+func (f *File) Read(b []byte) (n int, err error)
+```
+
+```go
+// Getenv retrieves the value of the environment variable named by the key.
+func Getenv(key string) string
+
+// Exit causes the current program to exit with the given status code. Conventionally, code zero indicates success, non-zero an error. The program terminates immediately; deferred functions are not run. For portability, the status code should be in the range [0, 125].
+func Exit(code int)
+
+```
+
 ```go
 // 新建文件并写入
 func main() {
-  file, err := os.OpenFile("./temp.txt", os.O_WRONLY|o
-    s.O_CREATE, 0666)
+  file, err := os.OpenFile("./temp.txt", os.O_WRONLY|os.O_CREATE, 0666)
   if err != nil {
     fmt.Println("文件打开失败", err)
   }
@@ -127,6 +253,7 @@ func main() {
   file, err := os.OpenFile("./temp.txt", os.O_RDWR|os.O_APPEND, 0666)
   if err != nil {
     fmt.Println("文件打开失败", err)
+    panic(err)
   }
   // 及时关闭file句柄
   defer file.Close()
@@ -134,26 +261,43 @@ func main() {
   // 读文件
   reader := bufio.NewReader(file)
   for {
-    str, err := reader.ReadString('\n')
-    if err == io.EOF {
+    line, err := reader.ReadString('\n')
+    if err != nil {
       break
     }
-    fmt.Print(str)
+    fmt.Print(line)  // line 带 '\n' 所以不用 Println
   }
 
   // 追加文件 。。。
 }
 ```
 
+### bufio
+
+Package bufio implements buffered I/O. It wraps an io.Reader or io.Writer object, creating another object (Reader or Writer) that also implements the interface but provides buffering and some help for textual I/O.
+
+```go
+func ScanLines(data []byte, atEOF bool) (advance int, token []byte, err error)
+func ScanWords(data []byte, atEOF bool) (advance int, token []byte, err error)
+
+func (b *Reader) ReadBytes(delim byte) ([]byte, error)
+func (b *Reader) ReadString(delim byte) (string, error)
+```
 
 ### time
 
 ```go
 func main() {
-  fmt.Println(time.Now().Format(time.DateTime))
+  fmt.Println(time.Now().Format(time.DateTime))  // 2024-01-08 12:30:56
   fmt.Println(time.Now().Unix())  // s 秒, 10位, eg 1689765768
   fmt.Println(time.Now().UnixMilli())  // millisecond 毫秒, 13位, eg 1689765768812
 }
+```
+
+### errors
+
+```go
+errors.Is(err, fs.ErrExist)
 ```
 
 ### log

@@ -138,6 +138,11 @@ func TestReverseRunes(t *testing.T) {
 }
 ```
 
+```txt
+usage: go test [build/test flags] [packages] [build/test flags & test binary flags]
+'Go test' automates testing the packages named by the import paths.
+```
+
 ```bash
 # go test 应该是针对 packge 来跑测试的，直接在 hello 目录跑 `go test` 会找不到用例文件
 $ go test demo.dev/hello/stringutil

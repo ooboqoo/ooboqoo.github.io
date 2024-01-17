@@ -26,7 +26,7 @@ element.style._property_ = _new style_     | Change the style of an HTML element
 document.createElement(_element_) | Create an HTML element
 document.removeChild(_element_)   | Remove an HTML element
 document.appendChild(_element_)   | Add an HTML element
-document.replaceChild(_element_)  | Replace an HTML element
+document.replaceChild(_new_, _old_)  | Replace an HTML element
 document.write(_text_)            | Write into the HTML output stream
 
 ### Adding Events Handlers

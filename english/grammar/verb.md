@@ -6,23 +6,22 @@
 
 # 动词
 
-> 动词是语法的纲，掌握动词是掌握英语的先决条件。
-
+动词是语法的纲，掌握动词是掌握英语的先决条件。
 
 ## 7 动词概说
 
 ### 7.1 动词的种类
 
-* 及物动词 (Transitive Verbs)
-* 不及物动词 (Intransitive Verbs)
+* 及物动词 (Transitive Verbs) _/ˈtrænsətɪv, -zə-/_
+* 不及物动词 (Intransitive Verbs) _/ɪnˈtrænsətɪv/_
 * 兼作及物动词和不及物动词的动词 (Ergative Verbs)
-* 双宾动词 (Ditransive Verbs)
+* 双宾动词 (Ditransitive Verbs)
 * 成语动词 (Phrasal Verbs)
 * 系动词 (Linking Verbs)
-* (辅)助动词 和 情态动词 (Auxiliary Verbs and Modal Verbs)
+* (辅)助动词 和 情态动词 (Auxiliary Verbs and Modal Verbs) _/ˈməʊdl $ ˈmoʊdl/_
 
 > ergative  _/ˈɜːɡətɪv/_  adj. 动词通格的，即同一个名词既可作其宾语又可作其主语 "The door opened" "She opened the door"  
-> ditransitive  _/ˌdaɪˈtrænsətɪv, -sɪ-/_  adj. a ditransitive verb has an indirect object and a direct object.  
+> ditransitive  _/ˌdaɪˈtrænsətɪv, -sɪ-, -zə-/_  adj. a ditransitive verb has an indirect object and a direct object.  
 > auxiliary  _/ɔːɡˈzɪljəri/_  n. 医务或军队中的辅助人员;附属机构 adj. 辅助的,后备的 n. 助动词  
 
 
@@ -33,7 +32,10 @@
 
 > Shakespeare _compared_ the world _to_ a stage. 莎士比亚把世界比作舞台。
 
-4. 有几个及物动词可以和许多名词一道表示动作，这类动词称为 **虚意动词** Delexical Verbs，常见有 `have` `give` `take` `make`
+4. 有几个及物动词可以和许多名词一道表示动作，称为 **虚意动词** Delexical Verbs _/diːˈleksɪkəl/_，常见有 `have` `take` `make` `give` `go` `do`
+
+Lexical verbs act as the main verb in a sentence.  
+Delexical verbs are common verbs, when used with particular nouns have very little meaning of their own. These verbs do not have much semantic meaning on their own and instead complement nouns to make complete sense.  
 
 5. 动词 do 可以跟许多名词作宾语，意思随后面的名词而变化
 
@@ -52,7 +54,7 @@
 
 #### 7.1.4 兼作及物和不及物动词的词
 
-英语中大部分动词都即可作 vt. 也可作 vi.，只能作一种动词而不能作另一种动词的是少数。
+英语中大部分动词都既可作 vt. 也可作 vi.，只能作一种动词而不能作另一种动词的是少数。
 
 #### 7.1.5 双宾动词
 
@@ -89,7 +91,7 @@
 1. `be` 动词: `am` `is` `are` `was` `were`
 2. 表感官: `feel` `smell` `sound` `taste` `look` `seem`
 3. 表变化: `become` `grow` `turn` `go` `get` `fall` `run`
-4. 表状态: `remain` `keep` `hold` `stay` `appear` `prove` `rest`
+4. 表状态: `remain` `keep` `hold` `stay` `appear` `prove`
 
 如何判断一个动词是不是系动词：将句子的动词换成 be 动词后，句意是否还成立。
 
@@ -123,10 +125,16 @@
 
 英语中大部分动词都以加 -ed 词尾的办法构成过去式及过去分词，这类词称为 **规则动词 Regular Verbs**
 
-* 若末尾已有字母 e 则只加 -d
-* 若以 “辅音(字母) + y” 结尾，先变 y 为 i 再加 -ed
-* 若是以 “一个元音字母 + 一个辅音字母” 结尾，该音节又重读者，末尾字母要双写，再加 -ed
-  * 但以 x 结尾的词，x 不双写
+* 若末尾已有字母 e 则只加 -d <span>lived, freed</span>
+* 若以 “辅音(字母) + y” 结尾，先变 y 为 i 再加 -ed <span>tried, simplified</span>
+* 若是以 “一个元音字母 + 一个辅音字母” 结尾，该音节又重读者，末尾字母要双写，再加 -ed <span>stopped, fitted</span>
+  * 但以 x 结尾的词，x 不双写 <span>mixed, fixed</span>
+
+在英语中，动词的过去分词形式（动词+ed）的发音规则取决于动词的结尾音素。以下是一些常见的发音规则：
+
+* 动词以元音或浊辅音结尾时，后缀 `-ed` 读作 `/d/`，如 played  used  slowed
+* 动词以清音结尾时（如 /p/ /t/ /k/ /s/等），后缀 `-ed` 读作 `/t/`，如 looked  helped  fixed
+* 动词以 `/t/` 或 `/d/` 结尾时，后缀 `-ed` 读作 `/ɪd/`，如  wanted  needed
 
 #### 7.2.3 不规则动词
 
@@ -138,16 +146,16 @@
 
 在多数情况下都直接加 `-ing`，但有一些特殊情况 （其实都是*方便发音*需要而定的特殊小规则）
 
-1. 以不读音的 `e` 结尾的词，去掉 `e` 再加 `-ing` <span>moving making writing</span>
+1. 以不读音的 `e` 结尾的词，去掉 `e` 再加 `-ing` <span>moving, making, writing</span>
 2. 以 “一个元音字母 + 一个辅音字母” 结尾，该音节又重读者，末尾辅音要双写，再加 -ing
-   * betting  swimming begging chatting referring beginning forgetting
+   * betting, swimming, begging, chatting, referring, beginning, forgetting
    * beating(两个元音字母) opening(末尾音节不重读) packing(末尾有两个辅音字母)
 
 另，下面这些词加 -ing 词尾时有特别之处
 
 ```txt
-die -- dying    lie -- lying    tie --tying    hoe -- hoeing    toe -- toeing
-dye -- dyeing   age -- ageing 或 aging
+die -- dying     dye -- dyeing     lie -- lying     tie --tying
+hoe -- hoeing    toe -- toeing     age -- ageing 或 aging
 picnic -- picnicking    panic -- panicking    mimic -- mimicking
 ```
 
@@ -175,10 +183,11 @@ picnic -- picnicking    panic -- panicking    mimic -- mimicking
 
 动词在句子中除了充当谓语，还可充当许多其他成分，此时不受主语制约，所以被称为 非限定形式 Non-finite Forms，也称为 非谓语形式。
 
-1. **不定式** The Infinitive 一般是在动词原形前加 `to`，在句子中可担任各种成分
-2. **动名词** The Gerund 有些动词的 -ing 形式可起名词的作用，在句中也可担任许多成分
-3. **分词** The Participle 含 *现在分词* The Present Participle 和 *过去分词* The Past Participle 两种
+1. **不定式** The Infinitive _/ɪnˈfɪnətɪv/_ 一般是在动词原形前加 `to`，在句子中可担任各种成分
+2. **动名词** The Gerund _/ˈdʒerənd/_ 有些动词的 -ing 形式可起名词的作用，在句中也可担任许多成分
+3. **分词** The Participle _/ˈpɑːtəsɪpəl/_ 含 *现在分词* The Present Participle 和 *过去分词* The Past Participle 两种
 
+> 
 
 > I've come _to ask_ your advice. 我是来找你出主意的。（不定式 作状语）  
 > Thank you for _helping_ us. 谢谢你帮我们。（动名词 作介词宾语）  
@@ -192,12 +201,12 @@ picnic -- picnicking    panic -- panicking    mimic -- mimicking
 英语中不同时间发生的动作或情况要用动词的不同形式表示，称为 “动词时态”。
 
 16大时态: 时间（现在、将来、过去、过去将来）x 状态（一般...时、进行时、完成时、完成进行时）  
-常用的5种时态: *一般现在时 57.51%  一般过去时 19.7%  一般将来时 8.5%  现在完成时  6.0%  现在进行时  5.1%*  [参考链接](https://ginsengenglish.com/blog/english-verb-tense-frequency)
+常用的5种时态: *一般现在时 57.51%  一般过去时 19.7%  一般将来时 8.5%  现在完成时  6.0%  现在进行时  5.1%*  过去进行时 1.4%  过去完成时 1.2%  现在完成进行时 0.7%  [参考链接](https://ginsengenglish.com/blog/english-verb-tense-frequency)
 
 要素
 * 时间点：现在、将来、过去、过去将来
-* 进行时：表示持续进行。如，过去某个动作需要持续一段时间，那么就应该用过去进行时
-* 完成时：表示影响、关联
+* 进行时：表示*持续进行*。如，过去某个动作需要*持续一段时间*，那么就应该用过去进行时
+* 完成时：表示*影响、关联*
 
 简要
 * 一般 现在时 Present Simple  `do` <span>I do my homework.</span>
@@ -303,6 +312,18 @@ picnic -- picnicking    panic -- panicking    mimic -- mimicking
 可以用过去进行时表示过去某段时间的想法(一种状态)，显得客气一点。
 
 > I _was wondering_ whether you could give me some advice. 句子含义：我在过去某个时间点思考着是否你能给我一些建议。
+
+#### 8.4.3 过去进行时和一般过去时比较
+
+过去进行时表示一个正在进行的动作，而一般过去时表示一个业已完成的动作。
+
+> I was writing an essay. 我在写一篇论文。（可能还没写完）  
+> I wrote an essay yesterday. 我昨天写了一篇论文。（已写完）  
+
+有些动词本身并不表示动作完成，如 rain snow cough wear feel wait stay work 等，这时用两种时态意思上差别不大
+
+> It snowed all night.  下了一整夜的雪。  
+> It was snowing all night.
 
 ### 8.5 现在完成时和现在完成进行时
 
@@ -417,7 +438,7 @@ picnic -- picnicking    panic -- panicking    mimic -- mimicking
 ### 11.1 助动词
 
 定义：助动词是用来*帮助构成时态和语态*的动词。常见的助动词包括 "be"、"have" 和 "do"。  
-否带有实际意义：*助动词通常没有独立的实际意义*，它们的作用主要是辅助主要动词。  
+否带有实际意义：*助动词通常没有独立的实际意义*，它们的作用主要是*辅助主要动词*。  
 
 英语中常用作助动词的有三组词
 * `be` `am` `are` `is` `was` `were` `been` `being`

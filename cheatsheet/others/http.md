@@ -156,7 +156,7 @@ TE
 ```txt
 Location  // 3xx 跳转用这个指明地址
 
-Allow: GET, POST, HEAD  // 504 必须返回这个头
+Allow: GET, POST, HEAD  // 405 必须返回这个头
 
 From: webmaster@example.org  // Request header 如果你在写一个爬虫，就有必要带上你的邮箱，必要时服务方可通过电邮联系你
 ```

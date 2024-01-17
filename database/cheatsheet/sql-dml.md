@@ -248,26 +248,24 @@ SELECT cust_id, cust_name, (
 
 ### 表联结 JOIN
 
-很好地理解联结及其语法是学习 SQL 的极为重要的部分。
+![](https://www.wangbase.com/blogimg/asset/201901/bg2019011506.jpg)
 
-#### 等值联结/内联结
+#### 内联结
 
 ```sql
-SELECT column_name(s) FROM table1 INNER JOIN table2 ON table1.col_name = table2.col_name;  -- INNER 可省略
+SELECT column_name(s) FROM table1 INNER JOIN table2 ON table1.col_name = table2.col_name;
+-- INNER 可省略
 ```
 
 ```sql
-/* 等值联结 */
-SELECT vend_name, prod_name, prod_price
-FROM vendor, product
-WHERE vendor.vend_id = product.vend_id;
 /* 内联结 */
 SELECT vend_name, prod_name, prod_price
 FROM vendor INNER JOIN product ON vendor.vend_id = product.vend_id;
 /* 多表联结 */
-SELECT prod_name, vend_name, prod_price, quantity
-FROM order_item, product, vendor
-WHERE product.vend_id = vendor.vend_id AND order_item.prod_id = product.prod_id;
+SELECT p.prod_name, v.vend_name, p.prod_price, oi.quantity
+FROM order_item oi
+INNER JOIN product p ON oi.prod_id = p.prod_id
+INNER JOIN vendor v ON p.vend_id = v.vend_id;
 ```
 
 #### 自联结
@@ -284,7 +282,10 @@ WHERE p1.vend_id = p2.vend_id AND p2.prod_id = 'TNT1';
 #### 外联结
 
 `LEFT OUTER JOIN` 内联结 + 左边表中没有关联的行  
-`RIGHT OUTER JOIN` 内联结 + 右边表中没有关联的行
+`RIGHT OUTER JOIN` 内联结 + 右边表中没有关联的行  
+`FULL OUTER JOIN` 全联结（内联结 + 左、右表中未关联的行）(MySQL 不支持这种联结)  
+
+`OUTER` 可省略，即，可使用 `LEFT JOIN` `RIGHT JOIN` `FULL JOIN`
 
 ```sql
 /* 检索所有客户及每个客户下的订单数量 */

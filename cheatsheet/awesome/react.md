@@ -1,7 +1,7 @@
 # Awesome React
 
 
-## AntD
+## Ant Design
 
 https://github.com/websemantics/awesome-ant-design
 
@@ -76,6 +76,10 @@ We can treat navigation as a first-class concept, even encoding state transition
 It's easy to persist the entire application state in a way that is backwards-compatible, so persisted states can survive application changes.
 
 
+## 组件库开发
+
+https://storybook.js.org/
+
 
 ## Test
 
@@ -83,9 +87,17 @@ https://www.cypress.io/ E2E Test Runner
 写自动化测试的，具体看下这个视频就知道了 https://docs.cypress.io/guides/getting-started/writing-your-first-test
 
 
+## 其他
 
+* https://github.com/gilbarbara/react-joyride Create awesome tours for your app (storybook use this)
 
+挖高亮窗口的实现
 
+```css
+.react-joyride__spotlight {
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 0px 9999px;  // 精华就是这个 9999px
+}
+```
 
 
 

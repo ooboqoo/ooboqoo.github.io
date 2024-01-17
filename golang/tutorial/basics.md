@@ -15,7 +15,7 @@ package main
 import "fmt"
 
 // 每一个可执行程序都必须包含一个 main 函数
-// 一般来说都是启动后第一个执行的函数（如果有 init 函数则先执行 init 函数）
+// 一般来说都是启动后第一个执行的函数（如果有 init 函数则先执行 init 函数们）
 func main() {
   fmt.Println("Hello, World")
 }
@@ -312,33 +312,6 @@ u := uint(f)
 string(97)     // "a"
 // javascript
 String(97)     // "97"
-```
-
-#### 类型断言
-
-A type assertion provides access to an interface value's underlying concrete value.
-
-```go
-t: = i.(T)      // If `i` does not hold a `T`, the statement will trigger a panic
-t, ok := i.(T)  // If not, `ok` will be false and `t` will be the zero value of type T, no panic
-```
-
-```go
-func main() {
-  var i any = "hello"
-
-  s := i.(string)
-  fmt.Println(s)
-
-  s, ok := i.(string)
-  fmt.Println(s, ok)
-
-  f, ok := i.(float64)
-  fmt.Println(f, ok)
-
-  f = i.(float64) // panic
-  fmt.Println(f)
-}
 ```
 
 #### 类型推断 Type inference
@@ -1052,16 +1025,16 @@ func main() {
   for i, t := range &ts { // 数组的指针 &ts 和 数组 ts 在这里没啥差异
     t.n = i // 这里的 t 依然是数组元素的副本，所以修改 t.n 不会影响数组元素的值
   }
-  fmt.Print(ts)
+  fmt.Print(ts) // [{0} {0}]
 }
 ```
 
 ### 映射 Maps
 
-```txt
 Go   |  JavaScript  |  Ruby  |  Python
+-----|--------------|--------|----------
 Map  |  Object      |  Hash  |  Dict
-```
+
 
 映射将键映射到值。`make` 函数会返回给定类型的映射，并将其初始化备用。
 
@@ -1096,7 +1069,7 @@ delete(m, key)
 elem, exist = m[key]
 ```
 
-`map` 的 value 本身是不可寻址的
+`map` 相关考题 —— 寻址
 
 ```go
 type Math struct {
@@ -1109,6 +1082,7 @@ var m = map[string]Math{
 
 func main() {
   m["foo"].x = 4  // cannot assign to struct field m["foo"].x in map
+                  // struct 是值类型，需要整体替换，如 `foo = m["foo"]; foo.x = 4; m["foo"] = foo`
   fmt.Println(m["foo"].x)
 }
 
@@ -1120,7 +1094,7 @@ func main() {
 }
 ```
 
-`map` 不支持指针取值
+`map` 相关考题 —— 指针取值
 
 ```go
 func main() {
@@ -1128,6 +1102,7 @@ func main() {
   p := &m
   m["foo"] = "bar"
   p["hello"] = "world" // invalid operation: cannot index p
+  (*p)["hello"] = "world" // OK
 }
 ```
 
@@ -1227,6 +1202,8 @@ func main() {
 ```
 
 当「值接收者」和「指针接收者」碰到 接口 时：
+* 方法定义为「值接收者」时，传指针不报错，因为可以（隐式地）通过指针拿到值
+* 方法定义为「指针接收者」时，传值报错，因为传值是复制，无法根据当前值拿到原始值的地址（定义为「指针接收者」说明方法的原意是要改原值值内容的）
 
 ```go
 type Person interface{ Say() }
@@ -1244,14 +1221,14 @@ func main() {
                      // the pointer is implicitly dereferenced
   w := Woman{}
   var p3 Person = &w // OK
-  var p4 Person = w  // cannot use w (variable of type Woman) as Person value in variable declaration:
+  var p4 Person = w  // cannot use w (variable of type Woman) as Person value:
                      // Woman does not implement Person (method Say has pointer receiver)
 }
 ```
 
 知识点：方法表达式。通过类型引用的方法表达式会被还原成普通函数样式，接收者是第一个参数，调用时显式传参。类型可以是 `T` 或 `*T`，只要目标方法存在于该类型的方法集中就可以。
 
-知识点：方法值。当指针值赋值给变量或者作为函数参数传递时，会立即计算并复制该方法执行所需的接收者对象，与其绑定，以便在稍后执行时，能隐式第传入接收者参数。
+知识点：方法值。当指针值赋值给变量或者作为函数参数传递时，会立即计算并复制该方法执行所需的接收者对象，与其绑定，以便在稍后执行时，能隐式地传入接收者参数。
 
 ```go
 type N int
@@ -1272,9 +1249,10 @@ func main() {
   n++
   f1 := n.test
   n++
-  f2 := (&n).test
+  f2 := (&n).test // 这里的 `&n` 最终还是会被转成 `n` 的，这个是由方法定义决定的
+  n++
   f1(6) // 11 6
-  f2(7) // 12 7
+  f2(7) // 12 7  // 注意这里不是 13
 }
 ```
 
@@ -1319,8 +1297,8 @@ func main() {
   m["age"] = 28
   n := m // 复制的是指针
   n["age"] = 29
-  fmt.Printf("m ptr: %p, val: %v\n", &m, m)
-  fmt.Printf("n ptr: %p, val: %v\n", &n, n)
+  fmt.Printf("m ptr: %p, val: %[1]v\n", m)
+  fmt.Printf("n ptr: %p, val: %[1]v\n", n)
 
   type Base struct {
     num int
@@ -1333,8 +1311,8 @@ func main() {
 }
 
 // Output:
-// m ptr: 0xc0000a2018, val: map[age:29]
-// n ptr: 0xc0000a2020, val: map[age:29]
+// m ptr: 0xc0000740c0, val: map[age:29]
+// n ptr: 0xc0000740c0, val: map[age:29]
 // b: {1}
 // c: {2}
 ```
@@ -1397,7 +1375,7 @@ type Phone interface {
 
 type NokiaPhone struct {
 }
-func (nokiaPhone NokiaPhone) call() {
+func (nokiaPhone NokiaPhone) call() { // 行内的 nokiaPhone 可省略
   fmt.Println("I am Nokia, I can call you!")
 }
 
@@ -1410,7 +1388,7 @@ func (iPhone IPhone) call() {
 func main() {
   var phone Phone
 
-  phone = new(NokiaPhone)
+  phone = new(NokiaPhone) // 也可改成 NokiaPhone{}
   phone.call()
 
   phone = new(IPhone)
@@ -1503,11 +1481,18 @@ type any = interface{}  // 1.18 新增
 
 #### 类型断言
 
+A type assertion provides access to an interface value's underlying concrete value.
+
 ```golang
 // 断言接口值 i 保存的具体值的类型是 T，并将其底层类型为 T 的值赋给变量 v
 // 如果断言能够成立，那么 ok 为 true 否者为 false
 // 如果这里没有定义 ok 变量，那么断言失败就会抛错
 v, ok := i.(T)  // 这里的 i 必须是一个 interface，否则编译报错
+```
+
+```go
+t: = i.(T)      // If `i` does not hold a `T`, the statement will trigger a panic
+t, ok := i.(T)  // If not, `ok` will be false and `t` will be the zero value of type T, no panic
 ```
 
 ```golang

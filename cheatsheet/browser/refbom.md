@@ -6,7 +6,7 @@
 
 每个页面和 `<iframe>` 都有一个对应的 window 对象。
 
-||
+|||
 -------------|------------------------------------------------------------------------
 closed       | Returns a Boolean value indicating whether a window has been closed or not
 defaultStatus| Sets or returns the default text in the statusbar of a window
@@ -39,7 +39,7 @@ self         | Returns the current window
 status       | Sets or returns the text in the statusbar of a window
 top          | Returns the topmost browser window
 
-||
+|||
 -------------------|------------------------------------------------------------------------------------
 setTimeout(_cb, delay?, p1?..._) | Calls a function or evaluates an expression after a specified number of milliseconds
 clearTimeout()     | Clears a timer set with setTimeout()
@@ -71,7 +71,7 @@ stop()     | Stops the window from loading
 
 The navigator object contains information about the browser.
 
-||
+|||
 --------------|-----------------------------------------------------
 appCodeName   | Returns the code name of the browser
 appName       | Returns the name of the browser
@@ -84,7 +84,7 @@ platform      | Returns for which platform the browser is compiled
 product       | Returns the engine name of the browser
 userAgent     | Returns the user-agent header sent by the browser to the server
 
-||
+|||
 ---------------|-------------------------------------------------------
 javaEnabled()  | Specifies whether or not the browser has Java enabled
 taintEnabled() | Removed in JavaScript version 1.2. Specifies whether the browser has data tainting enabled
@@ -94,7 +94,7 @@ taintEnabled() | Removed in JavaScript version 1.2. Specifies whether the browse
 
 The screen object contains information about the visitor's screen.
 
-||
+|||
 ------------|-----------------------------------------------------------------
 availHeight | Returns the height of the screen (excluding the Windows Taskbar)
 availWidth  | Returns the width of the screen (excluding the Windows Taskbar)
@@ -108,12 +108,12 @@ width       | Returns the total width of the screen
 
 The History interface allows to manipulate the browser session history 会话历史。
 
-||
+|||
 -------|----------------
 length | The number of URLs in the history list
 state  | The current state object
 
-||
+|||
 ------------|--------------------------------------------------------------------------
 back()      | 相当于点击后退按钮，会导致页面更新，会在 `window` 上触发 `popstate` 事件
 forward()   | 相当于点击前进按钮，会导致页面更新，会在 `window` 上触发 `popstate` 事件
@@ -126,7 +126,7 @@ replaceState(_stateObj, title, url?_) | Updates the session history by the given
 
 The location object contains information about the current URL.
 
-||
+|||
 ----------|----------------------------------------
 hash      | Sets or returns the anchor part (#) of a URL
 host      | Sets or returns the hostname and port number of a URL
@@ -138,7 +138,7 @@ port      | Sets or returns the port number of a URL
 protocol  | Sets or returns the protocol of a URL
 search    | Sets or returns the querystring part of a URL
 
-||
+|||
 ----------|-------------------------------
 assign()  | Loads a new document
 reload()  | Reloads the current document
@@ -149,7 +149,7 @@ replace() | Replaces the current document with a new one
 
 含 `Window.sessionStorage` `Window.localStorage`
 
-||
+|||
 ----------|----------------------------------------
 s.length    | 返回数据条数，只读
 ||
@@ -162,7 +162,7 @@ s.removeItem(_keyName_)   | 移除一条记录，不管有没有记录被移除�
 
 ## Console
 
-||
+|||
 -----------------------------------|----------------------------------------
 console.error(...args)             | 打印一条错误消息
 console.warn(...args)              | 打印一条警告
@@ -189,7 +189,7 @@ console.groupEnd(...args)          | 结束消息组
 
 注： 格式说明符 Summary of formatting specifiers
 
-||
+|||
 :--------:|----------------------------------------------------------
 `%s`      | Element which substitutes is converted to a string
 `%d` `%i` | Element which substitutes is converted to an integer

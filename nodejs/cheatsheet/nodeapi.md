@@ -1,6 +1,6 @@
 # Node.js API 摘要
 
-https://nodejs.org/en/docs/
+https://nodejs.org/docs/
 
 
 ## Globals 全局对象
@@ -17,7 +17,7 @@ https://nodejs.org/en/docs/
 | process           | 进程对象
 | console           | 控制台
 | Buffer            | 用于处理8位字节流
-| __dirname         | [String] 当前执行脚本所在目录的目录名
+| __dirname         | [String] 当前执行脚本所在目录的目录名(完整绝对路径)
 | __filename        | [String] 当前所执行代码文件的完整绝对路径
 |                   | `setTimeout(cb, ms)` `clearTimeout(t)` `setInterval(cb, ms)` `clearInterval(t)` `setImmediate(cb)`
 
@@ -44,7 +44,7 @@ path.resolve(__dirname, './a')  // "e:\GitHub\testlab\nodejs\module\a"
 
 |||
 -------------------|---------------------------------------------------------------------------------
-process.argv       | 一个包含命令行参数的数组，`garv[0]` 为 `process.execPath` 即 `node.exe` 的完整路径
+process.argv       | 一个包含命令行参数的数组，`argv[0]` 为 `process.execPath` 即 `node.exe` 的完整路径
 process.env        | 读取环境变量，这个对象是可写的，但是更改仅限于当前进程，不会实际写入系统配置文件
 process.argv0      | the original value of argv[0] passed when Node.js starts，正常都为 `'node'`
 process.exepath    | 启动 node 的应用的完整应用路径

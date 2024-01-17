@@ -133,7 +133,7 @@ x == y+1 && <-chanInt > 0
 &^   bit clear (AND NOT)    integers    1100 &^ 1010 = 0100  // 1 见 0 为 1，其余为 0
 
 <<   left shift             integer << integer >= 0    不考虑符号 00001100 << 4 = 11000000
->>   right shift            integer >> integer >= 0
+>>   right shift            integer >> integer >= 0    符号位不动
 ```
 
 In computing, the *modulo operation* returns the *remainder* or signed remainder of a *division*. In Go and JavaScript `%` is the remainder 余数 NOT the modulus 模数 operator. 余数 和 模数 在正数时结果是一样的，但碰到负数时结果不一样。
@@ -252,14 +252,14 @@ interpreted_string_lit = `"` { unicode_value | byte_value } `"` .
 ```go
 str := "hello大美"
 
-// 遍历字符串
-for index, s := range str {
-  fmt.Printf("%c %d\n", s, index)
+// 遍历字符串（"大美"能正常打印，但 index 会跳，分别为 5 和 8）
+for index, c := range str {
+  fmt.Printf("%c %d\n", c, index)
 }
 
-// 访问字符串的字节
-for c := 0; c < len(str); c++ {
-  fmt.Printf("%c %v\n", str[c], str[c])
+// 访问字符串的字节（"大美"会变成乱码）
+for i := 0; i < len(str); i++ {
+  fmt.Printf("%c %v\n", str[i], str[i])
 }
 ```
 
@@ -267,7 +267,7 @@ rune
 
 ```go
 var char = '1'
-mt.Printf("%T", char) // 输出 "int32"，即 rune 类型
+fmt.Printf("%T", char) // 输出 "int32"，即 rune 类型
 ```
 
 Array: Fixed lenght list of things
@@ -935,7 +935,7 @@ func main() {
 }
 ```
 
-recover() 必须在 defer() 函数中直接调用才有效。上面其他几种情况调用都是无效的：直接调用、在 defer 中直接调用 和 defer 调用时多层嵌套。
+recover() 必须在 defer() 函数中直接调用才有效。下面其他几种情况调用都是无效的：直接调用、在 defer 中直接调用 和 defer 调用时多层嵌套。
 
 ```go
 func main() {

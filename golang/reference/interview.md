@@ -150,9 +150,9 @@ func main() {
 
 ### `-` 取负
 
-对于 `int8` 类型来说，对 `i = 0` `i = -128` 时 `i == -i`
+对于 `int8` 类型来说，对 `i = 0` `i = -128` 时 `i == -i`，重点记 `-128 == --128`
 
-取负操作（对 正数、负数 都一样）
+取负内存操作步骤（对 正数、负数 都一样）
 1. 按位取反
 2. 加1
 
@@ -326,16 +326,16 @@ func factorial(n int) int {
 
 不能对 `nil` 的 map 直接赋值，需要使用 `make()` 初始化。
 
-也无法给但可以为 `nil` 的 slice 增加元素。
+也无法通过下标访问 `nil` 的 slice，但可以为 `nil` 的 slice `append` 增加元素。
 
 ```go
 func main() {
-	var s1, s2 []int
-	s1 = append(s1, 1)   // OK
+  var s1, s2 []int
+  s1 = append(s1, 1)   // OK
   s2[0] = 1  // panic: runtime error: index out of range [0] with length 0
 
-	var m map[string]int
-	m["one"] = 1         // panic: assignment to entry in nil map
+  var m map[string]int
+  m["one"] = 1         // panic: assignment to entry in nil map
 }
 ```
 
@@ -394,22 +394,22 @@ func main() {
 type X struct{}
 
 func (x *X) test() {
-	println(x)
+  println(x)
 }
 func main() {
-	var a *X
-	a.test()
-	X{}.test()  // cannot call pointer method test on X
+  var a *X
+  a.test()
+  X{}.test()  // cannot call pointer method test on X
 }
 ```
 
 ```go
 // 注意区分本例中的3个地址，fn1 和 fn2 变量各自的地址，以及 fn1 fn2 共同指向的函数的地址
 func main() {
-	var fn1 = func() {}
-	var fn2 = fn1
-	fmt.Printf("%p %p", fn1, fn2)   // 0x104680370 0x104680370      函数存储地址
-	fmt.Printf("%p %p", &fn1, &fn2) // 0x14000116018 0x14000116020  fn1 和 fn2 变量地址
+  var fn1 = func() {}
+  var fn2 = fn1
+  fmt.Printf("%p %p", fn1, fn2)   // 0x104680370 0x104680370      函数存储地址
+  fmt.Printf("%p %p", &fn1, &fn2) // 0x14000116018 0x14000116020  fn1 和 fn2 变量地址
 }
 ```
 
@@ -417,12 +417,12 @@ func main() {
 
 ```go
 func main() {
-	x := any(nil)
-	y := (*int)(nil)
+  x := any(nil)
+  y := (*int)(nil)
 
-	println(y == x)   // false    // 又是强类型语言跟弱类型语言的很大不同之处
-	println(x == nil) // true
-	println(y == nil) // true
+  println(y == x)   // false    // 又是强类型语言跟弱类型语言的很大不同之处
+  println(x == nil) // true
+  println(y == nil) // true
 }
 ```
 
@@ -453,19 +453,19 @@ func main() {
 
 ```go
 type User struct {
-	Name string
+  Name string
 }
 
 func (u *User) SetName(name string) {
-	u.Name = name
-	fmt.Println(u.Name)
+  u.Name = name
+  fmt.Println(u.Name)
 }
 
 type Employee User
 
 func main() {
-	employee := new(Employee)
-	employee.SetName("Jack")  // 编译错误
+  employee := new(Employee)
+  employee.SetName("Jack")  // 编译错误
 }
 ```
 
@@ -561,11 +561,11 @@ func main() {
   mu.Lock()
   var mu1 = mu  // 加锁后复制变量，会将锁的状态也复制
   mu.count++
-	mu.Unlock()
-	mu1.Lock()    // fatal error  重复加锁，mu1 其实是已经加锁状态
-	mu1.count++
-	mu1.Unlock()
-	fmt.Println(mu.count, mu1.count)
+  mu.Unlock()
+  mu1.Lock()    // fatal error  重复加锁，mu1 其实是已经加锁状态
+  mu1.count++
+  mu1.Unlock()
+  fmt.Println(mu.count, mu1.count)
 }
 ```
 

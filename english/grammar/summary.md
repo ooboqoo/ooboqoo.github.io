@@ -166,8 +166,10 @@ So he won't pay his bills, won't he? We'll see about it.  // 有威胁的意思
 **介词短语 Prepositional Phrases**  <span class="exa">_Who_ are you talking _to on the phone_?</span>  
 **名词短语 Noun Phrases**  <span class="exa">Wait _a minute_.</span>
 
+> infinitive  _/ɪnˈfɪnətɪv/_  n.  (动词)原形,不定式(前面常加 to)  
+>  <i style="padding-left:32px" /> `to`: `动词 + to + 动词原形` 时为小品词，`动词 + to + 名词` 时为介词  
 > gerund  _/ˈdʒerənd/_  n. 动名词  a noun formed from a verb which refers to an action, process, or state  
-> participle  _/ˈpɑːtɪsɪpəl/_  n. 分词(过去分词+现在分词)  
+> participle  _/ˈpɑːtəsɪpəl/_  n. 分词(过去分词+现在分词)  
 
 #### 从句
 
@@ -184,8 +186,8 @@ So he won't pay his bills, won't he? We'll see about it.  // 有威胁的意思
   <span class="exa">The girl _who won the prize_ is my cousin.</span>
 
 随着在句中的作用不同，从句也可分为：
-* **定语从句 Attributive Clause**
-* **状语从句 Adverbial Clause**
+* **定语从句 Attributive Clause** _/əˈtrɪbjətɪv/_
+* **状语从句 Adverbial Clause** _/ədˈvɜːbiəl/_
 * 名词性从句
   - **主语从句 Subject Clause**
   - **表语从句 Predicative Clause**
@@ -193,5 +195,5 @@ So he won't pay his bills, won't he? We'll see about it.  // 有威胁的意思
   - **同位语从句 Appositive Clause**
 
 > apposition  _/ˌæpəˈzɪʃən/_  n. 同位,同格  
-> appositive  _/əˈpɑzətiv/_  adj. 同 appositional
+> appositive  _/əˈpɑzətiv/_   another term for appositional  adj. 同位格的 n. 同位语
 

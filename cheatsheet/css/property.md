@@ -71,6 +71,7 @@ background-position: right 35% bottom 5px;
 -----------|-----------------------------------------------------------------------------------|---
 display    | `block` `inline-block` `table` `flex` `inline-flex` `grid` `list-item`            | 1
 position   | `static` `relative` `absolute` `fixed`                                            | 2
+insect     | shorthand for top + right + bottom + left                                         | 3
 top        | Specifies the top position of a positioned element                                | 2
 right      | Specifies the right position of a positioned element                              | 2
 bottom     | Specifies the bottom position of a positioned element                             | 2
