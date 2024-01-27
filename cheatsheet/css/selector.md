@@ -24,7 +24,7 @@ Selector | Example | Example description | CSS
  .<i>class</i>       | .important | 类选择器   | 1
  #<i>id</i>          | #news      | id 选择器  | 1
  <i>element</i>      | p          | 元素选择器 | 1
- *                   | *          | 通配符，选择所有元素，特殊的用法：非子选择符 section * p | 2
+ <i>\*</i>           | <i>\*</i>  | 通配符，选择所有元素，特殊的用法：非子选择符 section * p | 2
  <i>elem1, elem2</i> | div, p     | 群组选择器，逗号表示 “或” | 1
 
 需要特别注意的是 `.c1.c2` 与 `.c1 .c2` 是完全不同的，前者必须是同时拥有两个类的同一个元素，而后者要求两个类分布在不同层级的元素内。
@@ -52,8 +52,8 @@ Selector | Example | Example description | CSS
  [<i>attribute</i>^=<i>value</i>] | a[href^="https"] | 要点：打头，符合："https123" 不符：" https" | 3
  [<i>attribute</i>$=<i>value</i>] | a[href$=".pdf"]  | 要点：结尾 | 3
  [<i>attribute</i>&#124;=<i>value</i>] | [lang&#124;=en]  | 要点：相等，可接 `-`，符合："en" "en-us" 不符："en cn" "gb-en" | 2
- [<i>attribute</i>~=<i>value</i>] | [title~=flower]  | 要点：包含独立单词，符合："klis flower" 不符："flowers" | 2
- [<i>attribute</i>*=<i>value</i>] | a[href*="flower"] | 要点：片段，符合 "flowers" "noflower" | 3
+ [<i>attribute</i>~=<i>value</i>]  | [title~=flower]   | 要点：包含独立单词，符合："klis flower" 不符："flowers" | 2
+ [<i>attribute</i>\*=<i>value</i>] | a[href*="flower"] | 要点：片段，符合 "flowers" "noflower" | 3
 
 ### 伪类选择符 - Anchor
 
@@ -133,7 +133,7 @@ Selector | Example | Example description | CSS
  ::first-line   | p::first-line   | 选择段落的首行          | 1
  ::selection    | ::selection     | 当前选中范围            | 4
 
-||
+|||
 --------------------------|-----------------------------
 ::-webkit-scrollbar       | targets the whole scrollbar element.
 ::-webkit-scrollbar-track | targets only the scrollbar track.

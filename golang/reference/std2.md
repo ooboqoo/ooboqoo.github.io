@@ -374,4 +374,85 @@ if err != nil { panic(err) }
 ### html/template
 
 
+### sort
 
+Package sort provides primitives for sorting slices and user-defined collections.
+
+```go
+func Ints(x []int)  // sorts a slice of ints in increasing order
+func Reverse(data Interface) Interface  // returns the reverse order for data
+// SearchInts searches for x in a sorted slice of ints and returns the index as specified by Search.
+// The return value is the index to insert x if x is not present. The slice must be sorted in ascending order.
+func SearchInts(a []int, x int) int
+func (x StringSlice) Swap(i, j int)
+```
+
+
+### container
+
+container/heap  -- 提供了一些操作堆的工具函数
+
+A heap is a tree with the property that each node is the minimum-valued node in its subtree.
+
+A heap is a common way to implement a priority queue.
+
+```go
+type Interface interface {
+	sort.Interface
+	Push(x any) // add x as element Len()
+	Pop() any   // remove and return element Len() - 1.
+}
+```
+
+数组、队列、栈 底层都是数组，这里的 堆 的底层也是数组，然后基于树的概念管理数组（每个操作基本都会涉及到重新排序）
+
+container/list -- a doubly linked list
+
+```go
+// Element is an element of a linked list.
+type Element struct {
+	// Next and previous pointers in the doubly-linked list of elements.
+	// To simplify the implementation, internally a list l is implemented
+	// as a ring, such that &l.root is both the next element of the last
+	// list element (l.Back()) and the previous element of the first list
+	// element (l.Front()).
+	next, prev *Element
+
+	// The list to which this element belongs.
+	list *List
+
+	// The value stored with this element.
+	Value any
+}
+
+// List represents a doubly linked list.
+// The zero value for List is an empty list ready to use.
+type List struct {
+	root Element // sentinel list element, only &root, root.prev, and root.next are used
+	len  int     // current list length excluding (this) sentinel element
+}
+```
+
+container/ring -- a circular list
+
+```go
+// A Ring is an element of a circular list, or ring.
+// Rings do not have a beginning or end; a pointer to any ring element
+// serves as reference to the entire ring. Empty rings are represented
+// as nil Ring pointers. The zero value for a Ring is a one-element
+// ring with a nil Value.
+type Ring struct {
+	next, prev *Ring
+	Value      any // for use by client; untouched by this library
+}
+```
+
+### unsafe
+
+```go
+// get the size of int on your machine
+func main() {
+	size := unsafe.Sizeof(int(0))
+	fmt.Printf("Size of int: %d bytes\n", size)
+}
+```

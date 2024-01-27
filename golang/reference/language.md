@@ -519,7 +519,17 @@ func main() {
 // Go 提供的语法糖 `...` 可以将 slice 传进可变函数（可变函数是指针传递），不会创建新的切片
 ```
 
+```go
+// 在参数个数上，也跟 JS 有较大出入
 
+s1 := []int{1,2,3}
+s2 := []int{7, 8}
+append(s1, 4, 5, 6)  // OK
+append(s1, s2...)  // OK
+append(s1, 4, 5, 6, s2...)  // Compile error: too many arguments in call to append
+                            // have ([]int, number, number, number, []int)
+                            // want ([]int, ...int)
+```
 
 ## Statements
 

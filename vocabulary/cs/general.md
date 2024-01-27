@@ -5,7 +5,7 @@
 
 __punctuation mark__  _/ˌpʌŋktʃuˈeɪʃən/_  n. 标点符号  
 __parentheses__  _/pəˈrenθəsiːz/_  pl. (圆)括号 `()`  
-__brackets__  _/ˈbrækɪts/_ pl. 中括号 `[]`  
+__square brackets__  _/ˈbrækɪts/_ pl. 中括号 `[]`  
 __angle brackets__  pl. 尖括号 `<>`  
 __curly braces__  pl. 大括号 `{}`  a pair of curly braces  -- __brace__ _/breɪs/_ v. 支撑 n. 托架  
 __colon__  _/ˈkəʊlən/_  n. 冒号 `:`  
@@ -32,7 +32,7 @@ __ampersand__  _/ˈæmpəsænd/_  `&`
 __caret__  _/ˈkærət/_  n. 插入符, 补字符号 `^`  
 __hash__  n. 井号 `#`  
 __percent sign__  n. 百分号 `%`  
-
+__tilde operator__  n. `~`
 
 ## Math
 

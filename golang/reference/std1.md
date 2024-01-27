@@ -162,6 +162,22 @@ Package `strings` implements simple functions to manipulate UTF-8 encoded string
 func TrimSuffix(s, suffix string) string // TrimSuffix("12oxo", "xo") => "12o"
 func TrimRight(s, cutset string) string // cutset 即 []rune, 故 TrimRight("12oxo", "xo") => "12"
 func TrimSpace(s string) string
+
+func ToLower(s string) string
+func ToUpper(s string) string
+func Join(elems []string, sep string) string
+func Split(s, sep string) []string
+
+func Index(s, substr string) int  // strings.Index("chicken", "ken") // 4
+func LastIndex(s, substr string) int
+func Compare(a, b string) int  // 0 if a == b, -1 if a < b, and +1 if a > b
+func Contains(s, substr string) bool
+func ContainsAny(s, chars string) bool  // strings.ContainsAny("fail", "ui") // true
+func ContainsRune(s string, r rune) bool
+func Count(s, substr string) int  // strings.Count("cheese", "e") // 3
+
+func HasPrefix(s, prefix string) bool
+func HasSuffix(s, suffix string) bool
 ```
 
 
@@ -170,8 +186,15 @@ func TrimSpace(s string) string
 Package `strconv` implements conversions to and from string representations of basic data types.
 
 ```go
-func FormatInt(i int64, base int) string
+func Atoi(s string) (int, error)
+func Itoa(i int) string
+
 func ParseInt(s string, base int, bitSize int) (i int64, err error)
+func FormatInt(i int64, base int) string
+func ParseBool(str string) (bool, error)  // It accepts 1, t, T, TRUE, true, True, 0, f, F, FALSE, false, False
+func FormatBool(b bool) string  // returns "true" or "false"
+func ParseFloat(s string, bitSize int) (float64, error)
+func FormatFloat(f float64, fmt byte, prec, bitSize int) string // fmt: 'b' 'e' 'E' 'f' 'g' 'G' 'x' 'X'
 ```
 
 ```go
@@ -293,6 +316,100 @@ func main() {
   fmt.Println(time.Now().UnixMilli())  // millisecond 毫秒, 13位, eg 1689765768812
 }
 ```
+
+### math
+
+```go
+const (
+  E   = 2.71828182845904523536028747135266249775724709369995957496696763 // https://oeis.org/A001113
+  Pi  = 3.14159265358979323846264338327950288419716939937510582097494459 // https://oeis.org/A000796
+  Phi = 1.61803398874989484820458683436563811772030917980576286213544862 // https://oeis.org/A001622
+
+  Sqrt2   = 1.41421356237309504880168872420969807856967187537694807317667974 // https://oeis.org/A002193
+  SqrtE   = 1.64872127070012814684865078781416357165377610071014801157507931 // https://oeis.org/A019774
+  SqrtPi  = 1.77245385090551602729816748334114518279754945612238712821380779 // https://oeis.org/A002161
+  SqrtPhi = 1.27201964951406896425242246173749149171560804184009624861664038 // https://oeis.org/A139339
+
+  Ln2    = 0.693147180559945309417232121458176568075500134360255254120680009 // https://oeis.org/A002162
+  Log2E  = 1 / Ln2
+  Ln10   = 2.30258509299404568401799145468436420760110148862877297603332790 // https://oeis.org/A002392
+  Log10E = 1 / Ln10
+)
+```
+
+```go
+const (
+  MaxFloat32             = 0x1p127 * (1 + (1 - 0x1p-23)) // 3.40282346638528859811704183484516925440e+38
+  SmallestNonzeroFloat32 = 0x1p-126 * 0x1p-23            // 1.401298464324817070923729583289916131280e-45
+
+  MaxFloat64             = 0x1p1023 * (1 + (1 - 0x1p-52)) // 1.79769313486231570814527423731704356798070e+308
+  SmallestNonzeroFloat64 = 0x1p-1022 * 0x1p-52            // 4.9406564584124654417656879286822137236505980e-324
+)
+```
+
+```go
+const (
+  MaxInt    = 1<<(intSize-1) - 1  // MaxInt32 or MaxInt64 depending on intSize.
+  MinInt    = -1 << (intSize - 1) // MinInt32 or MinInt64 depending on intSize.
+  MaxInt8   = 1<<7 - 1            // 127
+  MinInt8   = -1 << 7             // -128
+  MaxInt16  = 1<<15 - 1           // 32767
+  MinInt16  = -1 << 15            // -32768
+  MaxInt32  = 1<<31 - 1           // 2147483647
+  MinInt32  = -1 << 31            // -2147483648
+  MaxInt64  = 1<<63 - 1           // 9223372036854775807
+  MinInt64  = -1 << 63            // -9223372036854775808
+  MaxUint   = 1<<intSize - 1      // MaxUint32 or MaxUint64 depending on intSize.
+  MaxUint8  = 1<<8 - 1            // 255
+  MaxUint16 = 1<<16 - 1           // 65535
+  MaxUint32 = 1<<32 - 1           // 4294967295
+  MaxUint64 = 1<<64 - 1           // 18446744073709551615
+)
+```
+
+```go
+func Max(x, y float64) float64
+func Min(x, y float64) float64
+func Ceil(x float64) float64
+func Floor(x float64) float64
+func Abs(x float64) float64
+func Mod(x, y float64) float64
+
+func Pow(x, y float64) float64
+func Pow10(n int) float64
+func Log(x float64) float64
+```
+
+### slices (1.12新增)
+
+A collection of generic functions that operate on slices of any element type.
+
+有了这个库，原先很多使用 `sort` 的场景都要迁移过来。
+
+```go
+// reports whether x is sorted in ascending order
+func IsSorted[S ~[]E, E cmp.Ordered](x S) bool
+func IsSortedFunc[S ~[]E, E any](x S, cmp func(a, b E) int) bool
+
+func Sort[S ~[]E, E cmp.Ordered](x S)
+func SortFunc[S ~[]E, E any](x S, cmp func(a, b E) int)
+
+// returns the index of the first occurrence of v in s, or -1 if not present
+func Index[S ~[]E, E comparable](s S, v E) int
+func IndexFunc[S ~[]E, E any](s S, f func(E) bool) int
+func BinarySearch[S ~[]E, E cmp.Ordered](x S, target E) (int, bool)
+func BinarySearchFunc[S ~[]E, E, T any](x S, target T, cmp func(E, T) int) (int, bool)
+func Contains[S ~[]E, E comparable](s S, v E) bool
+func ContainsFunc[S ~[]E, E any](s S, f func(E) bool) bool
+
+// inserts the values v... into s at index i, returning the modified slice
+func Insert[S ~[]E, E any](s S, i int, v ...E) S
+// removes the elements s[i:j] from s, returning the modified slice
+func Delete[S ~[]E, E any](s S, i, j int) S
+// replaces the elements s[i:j] by the given v, and returns the modified slice
+func Replace[S ~[]E, E any](s S, i, j int, v ...E) S
+```
+
 
 ### errors
 

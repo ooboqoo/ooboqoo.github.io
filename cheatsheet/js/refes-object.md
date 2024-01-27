@@ -206,7 +206,7 @@ function bar() { console.log(foo.arguments, bar.caller); }
 <h5 class="es esn">array.toSorted() <span>-- the copying version of the `sort()`</span></h5>
 
 <h4>Iteration methods -- 遍历方法，<small>为了可读性和可维护性，不要在遍历过程中对原数组进行修改</small></h4>
-<h5 class="es5">array.forEach((current, index, array) => void, thisArg?) <span>-- 对数组中的每一项运行给定函数，没有返回值</span></h5>
+<h5 class="es5">array.forEach((current, index, array) => void, thisArg?) <span>-- 对数组中的每一项（非 empty）运行给定函数，没有返回值</span></h5>
 <h5 class="es5">array.map(cb, thisArg?) <span>-- 返回一个由回调函数的返回值组成的新数组</span></h5>
 <h5 class="es5">array.filter(cb, thisArg?) <span>-- 对每一项运行给定函数，返回由 true 项组成的新数组</span></h5>
 <h5 class="es5">array.every(cb, thisArg?) <span>-- 对每一项运行给定函数，每项都 true 才返回 true</span></h5>
@@ -219,12 +219,26 @@ https://gist.github.com/rauschma/f7b96b8b7274f2e2d8dab899803346c3
 
 ```js
 // 避免这些用法，有很大缺陷。另外注意，数组各方法对空位的处理逻辑很不一致
-const arr1 = Array(7);  // 声明一个长度为7的数组 [empty x 7]
+const arr1 = Array(7);  // 声明一个长度为7的数组 [empty x 7] // forEach() 会跳过 empty 项，其他场景不会
 const arr2 = Array(7, 1);  // 新建数组 [7, 1]
 
 // 新建数组应该用下面这两种方式
 const arr3 = Array.from({length: 7});  // [undefined, ..., undefined]
 const arr4 = Array.of(7);  // [7]
+```
+
+```js
+// empty 项目行为测试
+
+const arr = Array(5) // [empty x 5]
+arr[1] = 1           // [empty, 1 empty x 3]
+arr['2'] = undefined // [empty, 1, undefined, empty x 2]
+arr[3] = 3           // [empty, 1, undefined, 3, empty]
+delete arr[3]        // [empty, 1, undefined, empty x 2]
+arr.map((v, i) => i) // [empty, 1, 2, empty x 2]
+arr.forEach((v, i) => console.log(i))    // 1 2
+for (const i in arr) { console.log(i) }  // 1 2
+for (const v of arr) { console.log(v) }  // undefined 1 undefined x 3
 ```
 
 ```js

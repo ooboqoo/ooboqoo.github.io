@@ -1,7 +1,34 @@
 # 算法
 
 
-## 递归
+https://github.com/wangzheng0822/algo/tree/master/go
+
+算法题常见解题步骤
+
+* 确定解题方案：
+  - 时间复杂度最差到 O(nlogn)，如果是 O(n^2) 的解法部分用例会超时
+  - 常见方案：递归、双指针、二分查找、滑动窗口
+  - 算法思想：分治、回溯、贪心算法、动态规划
+  - 常用数据结构：数组、链表、堆
+* 答题：
+  - 异常和边界处理
+  - 初始化
+  - 循环体
+  - 结束条件
+
+如何写出正确的链表代码
+* 理解指针或引用的含义
+* 警惕指针丢失和内存泄漏
+* 利用哨兵简化实现难度
+* 重点留意 *边界条件* 处理：链表为空；只包含一个节点；只包含两个节点；头、尾节点
+* 举例画图，辅助思考
+* 多写多练，没有捷径
+
+carry  你可以说 "9 plus 2 requires a carry"，其中的 "carry" 意味着需要将进位的数值加到下一位  
+O(n^2) 念 "Big-O n square"  
+
+
+## 递归 Recursion
 
 从我自己学习数据结构和算法的经历来看，我个人觉得，有两个最难理解的知识点，一个是动态规划，另一个就是递归。递归是一种应用非常广泛的算法(或叫编程技巧)。之后我们要讲的很多数据结构和算法的编码实现都要用到递归，比如 DFS 深度优先搜索、前中后序二叉树遍历等等。所以，搞懂递归非常重要，否则，后面复杂一些的数据结构和算法学起来就会比较吃力。
 
@@ -81,7 +108,7 @@ int fib(int n) {
 
 
 
-## 排序
+## 排序 Sort
 
 排序算法太多了，有很多可能你连名字都没听说过，比如猴子排序、睡眠排序、面条排序等。我只讲众多排序算法中的一小撮，也是最经典、最常用的：冒泡排序、插入排序、选择排序、归并排序、快速排序、计数排序、基数排序、桶排序。我按照时间复杂度把它们分成了三类，分三节课来讲解。
 
@@ -127,21 +154,30 @@ int fib(int n) {
 
 ### 冒泡排序 BubbleSort
 
-```c
-// 冒泡排序，a 表示数组，n 表示数组大小
-void bubbleSort(int *a, int n) {
-  if (n <= 1) return;
-  for (int i = 0; i < n; i++) {
-    bool flag = false;  // 提前退出冒泡循环的标志位
-    for (int j = 0; j < n - i - 1; j++) {
-      if (a[j] > a[j+1]) {
-        int tmp = a[j];
-        a[j] = a[j+1];
-        a[j+1] = tmp;
-        flag = true;
+```go
+// 冒泡排序
+func BubbleSort(arr []int) {
+  for i := 0; i < len(arr); i++ {
+    for j := 1; j < len(arr)-i; j++ {
+      if arr[j-1] > arr[j] {
+        arr[j-1], arr[j] = arr[j], arr[j-1]
       }
     }
-    if (!flag) break;
+  }
+}
+
+func BubbleSortV2(arr []int) {
+  for i := 0; i < len(arr); i++ {
+    isSorted := true   // 小的性能优化，如果某次循环内没有发生数据交换，就说明已经排好序了
+    for j := 1; j < len(arr)-i; j++ {
+      if arr[j-1] > arr[j] {
+        arr[j-1], arr[j] = arr[j], arr[j-1]
+        isSorted = false
+      }
+    }
+    if isSorted {
+      break
+    }
   }
 }
 ```
@@ -150,41 +186,45 @@ void bubbleSort(int *a, int n) {
 
 插入算法的核心思想是取未排序区间中的元素，在已排序区间中找到合适的插入位置将其插入，并保证已排序区间数据一直有序。重复这个过程，直到未排序区间中元素为空，算法结束。
 
-<img src="images/insertion-sort.jpg" width="571">
+<img src="images/algorithms/insertion-sort.jpg" width="571">
 
-```c
-// 插入排序，a 表示数组，n 表示数组大小
-void insertionSort(int *a, int n) {
-  if (n <= 1) return;
-  for (int i = 1; i < n; i++) {
-    int tmp = a[i];
-    int j = i - 1;
-    // 查找插入位置
-    for (; j >= 0; j--) {
-      if (a[j] > tmp)
-        a[j + 1] = a[j];  // 移动数据
-      else
-        break;
+```go
+// 插入排序
+func InsertionSort(arr []int) {
+  for i := 1; i < len(arr); i++ {
+    val := arr[i]
+    j := i // j 对应 val 要插入的格子
+    for ; j > 0 && val < arr[j-1]; j-- {
+      arr[j] = arr[j-1]
     }
-    a[j + 1] = tmp;       // 插入数据
+    arr[j] = val
   }
 }
+```
 
+```go
 // 利用哨兵优化后的插入排序
-void insertionSortWithSentry(int *a, int n) {
-  // 腾出第一个结点作为哨兵结点
-  int tmp = a[0];
-  // 排序子数组 a[1] 到 a[n - 1]
-  for (int i = 2; i < n; i++) {
-    a[0] = a[i];
-    for (int j = i - 1; a[j] > a[0]; j--)
-      a[j + 1] = a[j];  // 循环体内省掉了一次比较
-    a[j + 1] = a[0];
+func InsertionSortWithSentry(arr []int) {
+  n := len(arr)
+  tmp := arr[0] // 腾出第一个结点作为哨兵结点
+  // 排序子数组 arr[1] 到 arr[n - 1]
+  for i := 2; i < n; i++ {
+    arr[0] = arr[i]
+    j := i
+    for ; arr[j-1] > arr[0]; j-- { // 因为哨兵结点的存在，所以不需要再判断 j >= 1
+      arr[j] = arr[j-1]
+    }
+    arr[j] = arr[0]
   }
   // 插入第一个元素
-  for (int i = 1; i < n && a[i] < tmp; i++)
-    a[i - 1] = a[i];
-  a[i - 1] = tmp;
+  for i := 1; i < n; i++ {
+    if arr[i] < tmp {
+      arr[i-1] = arr[i]
+    } else {
+      arr[i-1] = tmp
+      break
+    }
+  }
 }
 ```
 
@@ -192,21 +232,20 @@ void insertionSortWithSentry(int *a, int n) {
 
 选择排序算法的实现思路有点类似插入排序，也分已排序区间和未排序区间。但是选择排序每次会从未排序区间中找到最小的元素，将其放到已排序区间的末尾。选择排序是一种不稳定的排序算法。选择排序每次都要找剩余未排序元素中的最小值，并和前面的元素交换位置，这样破坏了稳定性。
 
-<img src="images/selection-sort.jpg" width="571">
+<img src="images/algorithms/selection-sort.jpg" width="571">
 
-```c
-// 选择排序，a 表示数组，n 表示数组大小
-void selectionSort(int *a, int n) {
-  for (int i = 0; i < n; i++) {
-    int p = n - 1;
-    int j = n - 1;
-    // 查找最小值所在的位置
-    for (; j >= i; j--) {
-      if (a[j] < a[p]) p = j;
+```go
+// 选择排序
+func SelectionSort(arr []int) {
+  n := len(arr)
+  for i := 0; i < n; i++ {
+    p := n - 1 // 记录最小值的位置
+    for j := n - 2; j >= i; j-- {
+      if arr[j] < arr[p] {
+        p = j
+      }
     }
-    j = a[p];  // j 临时当 tmp 使用，少声明一个临时变量
-    a[p] = a[i];
-    a[i] = j;
+    arr[i], arr[p] = arr[p], arr[i]
   }
 }
 ```
@@ -215,7 +254,7 @@ void selectionSort(int *a, int n) {
 
 归并排序使用的是分治思想。分治，顾名思义，就是分而治之，将一个大问题分解成小的子问题来解决。小的子问题解决了，大问题也就解决了。分治思想跟递归思想很像，分治算法一般都是用递归来实现的。*分治是一种解决问题的处理思想，递归是一种编程技巧*，这两者并不冲突。
 
-<img src="images/merge-sort.jpg" width="571">
+<img src="images/algorithms/merge-sort.jpg" width="571">
 
 ```txt
 递推公式：merge_sort(p…r) = merge(merge_sort(p…q), merge_sort(q+1…r))
@@ -231,71 +270,79 @@ T(n) = 2*T(n/2) + n
      = Cn+nlog2n
 ```
 
-```c
+```go
 // 归并排序
-void mergeSort(int *a, int n) {
-  int *tmp = malloc(sizeof(int) * n);
-  _mergeSort(a, tmp, 0, n - 1);
-  free(tmp);
+func MergeSort(arr []int) {
+  arrLen := len(arr)
+  tmp := make([]int, arrLen) // 在这里一次性把辅助数组申请好，避免递归中频繁申请
+  mergeSort(arr, tmp, 0, arrLen-1)
 }
 
-static void _mergeSort(int *arr, int *tmp, int start, int end) {
-  if (start >= end) return;
-  int center = (start + end) / 2;
-  _mergeSort(arr, tmp, start, center);
-  _mergeSort(arr, tmp, center + 1, end);
-  merge(arr, tmp, start, center, end);
+func mergeSort(arr, tmp []int, start, end int) {
+  if start >= end {
+    return
+  }
+  mid := (start + end) / 2
+  mergeSort(arr, tmp, start, mid)
+  mergeSort(arr, tmp, mid+1, end)
+  merge(arr, tmp, start, mid, end)
 }
 
 // 可看作是合并两个有序数组的问题
-static void merge(int *arr, int *tmp, int start, int center, int end) {
-  int pTmp = start, pLeft = start, pRight = center + 1;
-  while (pLeft <= center && pRight <= end) {
-    if (arr[pLeft] < arr[pRight])
-      tmp[pTmp++] = arr[pLeft++];
-    else
-      tmp[pTmp++] = arr[pRight++];
+func merge(arr, tmp []int, start, mid, end int) {
+  i := start    // 左侧数组读取位置
+  j := mid + 1  // 右侧数组读取位置
+  k := 0        // 写入位置
+  for ; i <= mid && j <= end; k++ {
+    if arr[i] <= arr[j] {
+      tmp[k] = arr[i]
+      i++
+    } else {
+      tmp[k] = arr[j]
+      j++
+    }
   }
-  while (pLeft <= center)
-    tmp[pTmp++] = arr[pLeft++];
-  while (pRight <= end)
-    tmp[pTmp++] = arr[pRight++];
-  for (int i = start; i <= end; i++) {
-    arr[i] = tmp[i];
+
+  for ; i <= mid; i++ {
+    tmp[k] = arr[i]
+    k++
   }
+  for ; j <= end; j++ {
+    tmp[k] = arr[j]
+    k++
+  }
+  copy(arr[start:end+1], tmp)
 }
 ```
 
 ### 快速排序 QuickSort
 
-```c
-void quickSort(int *a, int n) {
-  if (n <= 1) return;
-  _quickSort(a, 0, n - 1);
+```go
+func QuickSort(arr []int) {
+  quickSort(arr, 0, len(arr)-1)
 }
 
-static void _quickSort(int *arr, int start, int end) {
-  // 一次分组后，左边组的值 <= arr[p]，右边组的值 >= arr[p]，多个相同 arr[p] 会均分到两边
-  int p = partition(arr, start, end);  // 左 arr[start]-arr[p-1]  右 arr[p]-arr[end]
-  if (start < p - 1) _quickSort(arr, start, p - 1);
-  if (p < end) _quickSort(arr, p, end);
+func quickSort(arr []int, low, high int) {
+  if low >= high {
+    return
+  }
+  pivotIndex := partition(arr, low, high)
+  quickSort(arr, low, pivotIndex-1)
+  quickSort(arr, pivotIndex+1, high)
 }
 
-// 分组操作，小于 pivot 的值在左，大于 pivot 的值在右，多个 pivot 值会均分到两边
-// 单个 pivot 值正常情况下在左，但如果是最大值就会跑到右边
-static int partition(int *arr, int start, int end) {
-  int pivot = arr[(end + start) / 2];    // +    这些个符号，一点都不能偏差，手写要求还是蛮高的
-  int tmp;
-  while (start <= end) {                 // <=
-    while (arr[start] < pivot) start++;  // <
-    while (arr[end] > pivot) end--;      // >
-    if (start <= end) {                  // <=  如改成 < 则 pivot 在右，但无法跳出外层 while 导致死循环
-      tmp = arr[start];
-      arr[start++] = arr[end];
-      arr[end--] = tmp;
+func partition(arr []int, low, high int) int {
+  pivot := arr[high]
+  // i is the index of the last element that is less than the pivot
+  i := low - 1
+  for j := low; j < high; j++ {
+    if arr[j] < pivot {
+      i++
+      arr[i], arr[j] = arr[j], arr[i]
     }
   }
-  return start;
+  arr[i+1], arr[high] = arr[high], arr[i+1]
+  return i + 1 // return the pivot index
 }
 ```
 
@@ -311,7 +358,7 @@ static int partition(int *arr, int start, int end) {
 
 快速排序算法虽然最坏情况下的时间复杂度是 O(n2)，但是平均情况下时间复杂度都是 O(nlogn)。不仅如此，*快速排序算法时间复杂度退化到 O(n<sup>2</sup>) 的概率非常小*，我们可以通过合理地选择 pivot 来避免这种情况。
 
-<img src="images/quick-sort.jpg" width="571">
+<img src="images/algorithms/quick-sort.jpg" width="571">
 
 #### 快速排序优化
 
@@ -337,7 +384,7 @@ static int partition(int *arr, int start, int end) {
 
 *桶排序比较适合用在外部排序中* 。所谓的外部排序就是数据存储在外部磁盘中，数据量比较大，内存有限，无法将数据全部加载到内存中。
 
-<img src="images/bucket-sort.jpg" width="571">
+<img src="images/algorithms/bucket-sort.jpg" width="571">
 
 ### 记数排序 CountingSort
 
@@ -345,40 +392,49 @@ static int partition(int *arr, int start, int end) {
 
 我总结一下，计数排序只能用在数据范围不大的场景中，如果数据范围 k 比要排序的数据 n 大很多，就不适合用计数排序了。而且，计数排序只能给非负整数排序，如果要排序的数据是其他类型的，要将其在不改变相对大小的情况下，转化为非负整数。
 
-```c
-// 计数排序，a是数组，n是数组大小 (要求数组中存储的都是非负整数)
-void countingSort(int *a, int n) {
-  if (n <= 1) return;
-
-  // 查找数组中数据的范围
-  int max = a[0];
-  for (int i = 1; i < n; ++i)
-    if (max < a[i]) max = a[i];
-
-  // 申请一个计数数组，下标大小[0, max]
-  int *c = calloc(max + 1, sizeof(int));
-
-  // 计算每个元素的个数，放入c中
-  for (int i = 0; i < n; ++i)
-    c[a[i]]++;
-
-  // 关键步骤1: 依次累加，累加之后就可以根据值推算出元素排序后的位置了
-  for (int i = 1; i <= max; ++i)
-    c[i] = c[i-1] + c[i];
-
-  // 临时数组r，存储排序之后的结果
-  int *r = calloc(n, sizeof(int));
-
-  // 关键步骤2: 将元素依次放入排序后的位置，有点难理解，可以打断点观察下整个过程
-  for (int i = n - 1; i >= 0; --i) {
-    int index = c[a[i]] - 1;  // a[i] 元素排序后的位置为 c[a[i]]-1
-    r[index] = a[i];
-    c[a[i]]--;                // 如再次出现跟 a[i] 一样的值，那么放到 a[i] 前面一位，所以这是个稳定的排序算法
+```go
+// CountingSort sorts an array of non-negative integers.
+func CountingSort(arr []int) {
+  n := len(arr)
+  if n <= 1 {
+    return
   }
 
-  // 将结果拷贝给a数组
-  for (int i = 0; i < n; ++i)
-    a[i] = r[i];
+  // Find the maximum value in the array
+  maxVal := arr[0]
+  for i := 1; i < n; i++ {
+    if maxVal < arr[i] {
+      maxVal = arr[i]
+    }
+  }
+
+  // Create a count array with size equal to the maximum value + 1
+  countArr := make([]int, maxVal+1)
+
+  // Count the occurrence of each element in the array
+  for i := 0; i < n; i++ {
+    countArr[arr[i]]++
+  }
+
+  // 关键步骤1: 依次累加，累加之后就可以根据值推算出元素排序后的位置了
+  // Accumulate the counts successively
+  for i := 1; i <= maxVal; i++ {
+    countArr[i] += countArr[i-1]
+  }
+
+  // Create a temporary array to store the sorted elements
+  sortedArr := make([]int, n)
+
+  // 关键步骤2: 将元素依次放入排序后的位置，有点难理解，可以打断点观察下整个过程
+  // Place the elements in their sorted position
+  for i := n - 1; i >= 0; i-- {
+    sortedIndex := countArr[arr[i]] - 1  // arr[i] 元素排序后的位置为 countArr[arr[i]]-1
+    sortedArr[sortedIndex] = arr[i]
+    countArr[arr[i]]--  // 如再次出现跟 arr[i] 一样的值，那么放到 arr[i] 前面一位，所以这是个稳定的排序算法
+  }
+
+  // Copy the sorted elements back to the original array
+  copy(arr, sortedArr)
 }
 ```
 
@@ -388,23 +444,23 @@ void countingSort(int *a, int n) {
 
 刚刚这个问题里有这样的规律：假设要比较两个手机号码 a，b 的大小，如果在前面几位中，a 手机号码已经比 b 手机号码大了，那后面的几位就不用看了。借助稳定排序算法，这里有一个巧妙的实现思路。先按照最后一位来排序手机号码，然后，再按照倒数第二位重新排序，以此类推，最后按照第一位重新排序。经过 11 次排序之后，手机号码就都有序了。
 
-根据每一位来排序，我们可以用刚讲过的桶排序或者计数排序，它们的时间复杂度可以做到 O(n)。如果要排序的数据有 k 位，那我们就需要 k 次桶排序或者计数排序，总的时间复杂度是 O(k*n)。
+根据每一位来排序，我们可以用刚讲过的桶排序或者计数排序，它们的时间复杂度可以做到 O(n)。如果要排序的数据有 k 位，那我们就需要 k 次桶排序或者计数排序，总的时间复杂度是 O(k\*n)。
 
 疑问：这个对于 k 很小的情况下有优势，k 要是比 log2(n) 大那还不如直接干。具体有机会再实测下效果。
 
-### 原理解析 `qsort()` 
+### 原理解析 `qsort()`
 
 几乎所有的编程语言都会提供排序函数，比如 C 语言中 `qsort()`，C++ STL 中的 `sort()`、`stable_sort()`，还有 Java 语言中的 `Collections.sort()`。在平时的开发中，我们也都是直接使用这些现成的函数来实现业务逻辑中的排序功能。那你知道这些排序函数是如何实现的吗？底层都利用了哪种排序算法呢？
 
 我们前面讲过，线性排序算法的时间复杂度比较低，适用场景比较特殊。所以如果要写一个通用的排序函数，不能选择线性排序算法。
 
-如果对小规模数据进行排序，可以选择时间复杂度是 O(n2) 的算法；如果对大规模数据进行排序，时间复杂度是 O(nlogn) 的算法更加高效。为了兼顾任意规模数据的排序，一般都会首选时间复杂度是 O(nlogn) 的排序算法来实现排序函数。
+如果对小规模数据进行排序，可以选择时间复杂度是 O(n<sup>2</sup>) 的算法；如果对大规模数据进行排序，时间复杂度是 O(nlogn) 的算法更加高效。为了兼顾任意规模数据的排序，一般都会首选时间复杂度是 O(nlogn) 的排序算法来实现排序函数。
 
 如果你去看 glibc 中的 qsort() 源码，你就会发现，qsort() *会优先使用归并排序* 来排序输入数据，因为归并排序的空间复杂度是 O(n)，所以对于小数据量的排序，比如 1KB、2KB 等，归并排序额外需要 1KB、2KB 的内存空间，这个问题不大。现在计算机的内存都挺大的，我们很多时候追求的是速度。还记得我们前面讲过的用空间换时间的技巧吗？这就是一个典型的应用。
 
 要排序的数据量比较大的时候，qsort() 会改为用快速排序算法来排序。qsort() 选择分区点的方法就是 *三数取中法* 。还有我们前面提到的递归太深会导致堆栈溢出的问题，qsort() 是通过自己实现一个堆上的栈，*手动模拟递归* 来解决的。
 
-实际上，qsort() 并不仅仅用到了归并排序和快速排序，它 *还用到了插入排序*。在快速排序的过程中，当要排序的区间中，元素的个数小于等于 4 时，qsort() 就退化为插入排序，不再继续用递归来做快速排序，因为我们前面也讲过，在小规模数据面前，O(n2) 时间复杂度的算法并不一定比 O(nlogn) 的算法执行时间长。
+实际上，qsort() 并不仅仅用到了归并排序和快速排序，它 *还用到了插入排序*。在快速排序的过程中，当要排序的区间中，元素的个数小于等于 4 时，qsort() 就退化为插入排序，不再继续用递归来做快速排序，因为我们前面也讲过，在小规模数据面前，O(n<sup>2</sup>) 时间复杂度的算法并不一定比 O(nlogn) 的算法执行时间长。
 
 还记得我们之前讲到的 *哨兵* 来简化代码，提高执行效率吗？在 qsort() 插入排序的算法实现中，也利用了这种编程技巧。虽然哨兵可能只是少做一次判断，但是毕竟排序函数是非常常用、非常基础的函数，性能的优化要做到极致。
 
@@ -425,7 +481,7 @@ int bsearch(int *a, int size, int value) {
 
   while (low <= high) {                // 循环条件是 <= 不能写成 <
     int mid = low + (high - low) / 2;  // 不能写成 `(low + high) / 2`，存在溢出风险
-    if (a[mid] == value)               //     如果要将性能优化到极致，还可以写成 `low + ((high - low) >> 1)`
+    if (a[mid] == value)               //   还可进一步利用位运算优化性能 `low + ((high - low) >> 1)`
       return mid;
     else if (a[mid] < value)
       low = mid + 1;
@@ -464,7 +520,7 @@ int bsearch(int *a, int size, int value) {
   while (low <= high) {
     int mid = low + ((high - low) >> 1);
     if (a[mid] > value)
-      high = mid + 1;
+      high = mid - 1;
     else if (a[mid] < value)
       low = mid + 1;
     else {
@@ -506,9 +562,302 @@ int bsearch(int *a, int size, int value) {
 
 ## 哈希算法
 
+安全加密
+唯一标识
+数据校验
+散列函数
+
+密码存储：加密密码并存储；防止字典攻击：使用盐值增加复杂度
+
+### 哈希算法在分布式系统中的应用
+
+负责均衡
+数据分片
+分布式存储
+
+
+## 贪心算法 Greedy Algrothm
+
+*贪心算法、分治算法、回溯算法、动态规划 是算法思想，并不是具体的算法*，常用来指导我们设计具体的算法和编码。
+
+贪心算法有很多经典的应用，比如 霍夫曼编码 Huffman Coding、Prim 和 Kruskal 最小生成树算法、Dijkstra 单源最短路径算法。
+
+贪心算法最难的一块是如何将要解决的问题抽象成贪心算法模型，只要这一步搞定之后，贪心算法的编码一般都很简单。
+
+贪心算法解决问题的步骤
+1. 适用场景：*针对一组数据，我们定义了限制值和期望值，希望从中选出几个数据，在满足限制值的情况下，期望值最大*
+2. 解决问题：每次选择当前情况下，在对限制值同等贡献的情况下，对期望值贡献最大的数据
+3. 验证：举几个例子看下贪心算法产生的结果是否是最优的。大部分情况下举几个例子验证下就行，严格地证明贪心算法的正确性，是非常复杂的。
 
 
 
+## 分治算法 Divide and Conquer
+
+分治算法的核心思想就四个字，*分而治之*，「*分解*」也就是将原问题划分成n个规模较小且结构与原问题相似的子问题，「*解决*」递归地解决这些子问题，「*合并*」然后再合并子问题的结果得到原问题的解。
+
+分治算法能解决的问题，一般需要满足下面这几个条件：
+* 原问题与分解成的小问题具有相同的模式；
+* 原问题分解成的*子问题可以独立求解*，子问题之间没有相关性，这一点是分治算法跟动态规划的明显区别，等我们讲到动态规划的时候，会详细对比这两种算法；
+* *具有分解终止条件*，也就是说，当问题足够小时，可以直接求解；
+* *可以将子问题合并成原问题*，而这个合并操作的复杂度不能太高，否则就起不到减小算法总体复杂度的效果了。
+
+分治算法在海量数据处理中的应用
+* 数据量过大无法一次性加载到内存
+* 利用分治思想将数据划分为小的数据集合
+* 单独加载小数据集合到内存处理
+* 最后合并小数据集合的结果
+
+MapReduce 框架的本质是分治思想
+* 将任务拆分到多台机器上处理
+* 每个小任务独立计算，最后合并结果
+* 利用集群并行处理提高效率
+
+
+## 回溯算法 Backtracking Algorithm
+
+回溯的处理思想，有点类似枚举搜索，通过枚举所有解来寻找满足期望的解。为了有规律地枚举所有可能的解，我们把问题求解的过程分为多个阶段。每个阶段，我们都会面对一个岔路口，我们先随意选一条路走，当发现这条路不通的时候（不符合期望的解），就回退到上一个岔路口，另选一种走法继续走。
+
+回溯算法的思想非常简单，大部分情况下，都是用来解决广义的搜索问题，也就是，*从一组可能的解中选择出一个满足要求的解*。
+
+*回溯算法非常适合用递归来实现*，在实现的过程中，利用 *剪枝操作*可以提高回溯效率。
+
+尽管回溯算法的原理非常简单，但是却可以解决很多问题，比如我们开头提到的深度优先搜索、八皇后、0-1 背包问题、图的着色、旅行商问题、数独、全排列、正则表达式匹配等等。
+
+### 0/1 Knapsack Problem
+
+> knapsack  _/ˈnæpsæk/_  n. 帆布或皮背包
+
+0/1 Knapsack Problem 有很多变体，先介绍个基础的。我们期望选择几件物品，装载到背包中，如何让背包中物品的总重量最大？
+
+<img src="images/algorithms/knapsack-recursion.webp" width="571">
+
+上图递归树中的每个节点表示一种状态，我们用 `(i,w)` 来表示，`i` 表示当前决策节点 `w` 表示当前背包重量。
+
+从递归树中你应该能发现，有些子问题的求解是重复的，比如图中 f(2,2) 和 f(3,4) 都被重复计算了两次。我们可以利用缓存结果来规避重复计算。此时它的执行效率和动态规划基本就没啥差别了。
+
+```go
+// return weight, packedItems
+func Knapsack(items []int, capacity int) (int, []int) {
+  return knapsackStep(0, 0, []int{}, items, capacity)
+}
+
+// 解题思路：父节点负责派发，子节点负责判断
+// i - currentIndex; w - packedWeight; packed - packedItems
+func knapsackStep(i, w int, packed, items []int, capacity int) (int, []int) {
+  if w == capacity || i == len(items) { // w == capacity 叫剪枝操作
+    return w, packed
+  }
+  current := items[i]
+  if w+current > capacity {
+    return knapsackStep(i+1, w, packed, items, capacity)
+  }
+  w1, p1 := knapsackStep(i+1, w, packed, items, capacity)
+  w2, p2 := knapsackStep(i+1, w+current, append(packed, current), items, capacity)
+  if w1 < w2 {
+    return w2, p2
+  }
+  return w1, p1
+}
+
+Knapsack([]int{2, 2, 4, 6, 3}, 9)  // [6 3]
+```
+
+
+## 动态规划 Dynamic Programming
+
+几种算法思想比较
+* 贪心算法：要求子问题之间没有关联；答案不一定是最优解
+* 回溯算法：子问题之间可以有关联，穷举的算法效率没有动态规划高 O(n^2)
+* 动态规划：效率高 O(n\*w) 但比较难写
+
+动态规划比较*适合用来求解最优问题*，比如求最大值、最小值等等。它可以非常显著地降低时间复杂度，提高代码的执行效率。不过它也是出了名地难学。它的主要学习难点跟递归类似，求解问题的过程不太符合人类常规的思维方式。不过真得掌握之后你会发现其实也没那么难。
+
+### 0/1 Knapsack Problem
+
+在回溯算法中提到可以利用「缓存结果」来规避重复计算。而动态规划则通过另一层抽象来规避重复计算，大幅降低了时间复杂度。
+
+我们把整个求解过程分为 n 个阶段，每个阶段会决策一个物品是否放到背包中。每个物品决策（放入或者不放入背包）完之后，背包中的物品的重量会有多种情况（即，多种不同的状态），对应到递归树中，就是有很多不同的节点。我们把每一层重复的状态（节点）合并，只记录不同的状态，然后基于上一层的状态集合，来推导下一层的状态集合。我们*通过合并每一层重复的状态*，保证每一层不同状态的个数都不会超过 w 个（w 表示背包的承载重量），也就是例子中的 9。于是，我们就成功*避免了每层状态个数的指数级增长*。
+
+<img src="images/algorithms/knapsack-dynamic.webp" width="571">
+
+我们用一个二维数组 `states[n][w+1]`，来记录每层可以达到的不同状态。我们只需要在最后一层找一个值为 true 的最接近 w 的值，就是背包中物品总重量的最大值。
+
+```go
+// 查找背包中物品总重量的最大值
+func Knapsack(items []int, capacity int) int {
+  n := len(items)
+  // 初始化二维数组 states[n][capacity+1]
+  states := make([][]bool, n)
+  for i := 0; i < n; i++ {
+    states[i] = make([]bool, capacity+1)
+  }
+  // 第一行特殊处理
+  states[0][0] = true
+  if items[0] <= capacity {
+    states[0][items[0]] = true
+  }
+  // 动态规划状态转移
+  for i := 1; i < n; i++ {
+    for j := 0; j <= capacity; j++ {
+      if states[i-1][j] {
+        // 不把第 i 个物品放入背包
+        states[i][j] = true
+        // 把第 i 个物品放入背包
+        if j+items[i] <= capacity {
+          states[i][j+items[i]] = true
+        }
+      }
+    }
+  }
+  // 输出结果：最后一行从后往前找最接近 capacity 的值
+  for i := capacity; i >= 0; i-- {
+    if states[n-1][i] {
+      return i
+    }
+  }
+  return 0
+}
+
+Knapsack([]int{2, 2, 4, 6, 3}, 9) // 9
+```
+
+实际上，这就是一种用动态规划解决问题的思路。我们*把问题分解为多个阶段，每个阶段对应一个决策。我们记录每一个阶段可达的状态集合（去掉重复的），然后通过当前阶段的状态集合，来推导下一个阶段的状态集合，动态地往前推进*。这就是动态规划这个名字的由来。
+
+这个代码的时间复杂度非常好分析，耗时最多的部分就是代码中的 *两层 for 循环*，所以*时间复杂度是 `O(n*w)`*。n 表示物品个数，w 表示背包可以承载的总重量。
+
+尽管动态规划的执行效率比较高，但是就刚刚的代码实现来说，我们需要额外申请一个 n 乘以 w+1 的二维数组，对空间的消耗比较多。所以，有时候，我们会说，动态规划是一种空间换时间的解决思路。你可能要问了，有什么办法可以降低空间消耗吗？实际上，我们只需要一个大小为 w+1 的一维数组就可以解决这个问题。动态规划状态转移的过程，都可以基于这个一维数组来操作。
+
+```go
+// 空间优化：只用一个 [w+1]bool 记录状态
+func KnapsackV2(items []int, capacity int) int {
+  n := len(items)
+  // 接上面的代码，其实只需要一个数组记录就够了，相当于上例中的 states[n-1]
+  states := make([]bool, capacity+1)
+  // 第一行特殊处理
+  states[0] = true
+  if items[0] <= capacity {
+    states[items[0]] = true
+  }
+  // 动态规划状态转移
+  for i := 1; i < n; i++ {
+    // 这里 j 需要从大到小处理，否则存在重复计算的问题
+    for j := capacity - items[i]; j >= 0; j-- {
+      if states[j] {
+        // 把第 i 个物品放入背包
+        states[j+items[i]] = true
+      }
+    }
+  }
+  // 输出结果：最后一行从后往前找最接近 capacity 的值
+  for i := capacity; i >= 0; i-- {
+    if states[i] {
+      return i
+    }
+  }
+  return 0
+}
+```
+
+### 动态规划适合解决的问题的特征
+
+如何鉴别一个问题是否可以用动态规划来解决：*一个模型三个特征*。
+
+一个模型：*多阶段决策最优解模型*
+
+我们一般用动态规划来解决最优问题，而解决问题的过程，需要经历多个决策阶段。每个决策阶段都对应着一组状态。然后我们寻找一组决策序列，经过这组决策序列，能够产生最终期望求解的最优值。
+
+三个特征：最优子结构 + 无后效性 + 重复子问题
+
+*最优子结构*指的是，问题的最优解包含子问题的最优解。反过来说就是，我们可以通过子问题的最优解，推导出问题的最优解。如果把最优子结构对应到前面定义的动态规划问题模型上，也可以理解为，*后面阶段的状态可以通过前面阶段的状态推导出来*。
+
+*无后效性*有两层含义，第一层含义是，在推导后面阶段的状态的时候，*只关心前面阶段的状态值，不关心这个状态是怎么一步一步推导出来的*。第二层含义是，某阶段状态一旦确定，就不受之后阶段的决策影响。只要满足动态规划问题模型基本上都会满足无后效性。
+
+*重复子问题*，一句话概括就是，不同的决策序列，到达某个相同的阶段时，*可能会产生重复的状态*。
+
+### 两种动态规划解题思路
+
+例题：假设我们有一个 nxn 的矩阵，矩阵存储的都是正整数。棋子起始位置在左上角，终止位置在右下角，求从左上角移动到右下角的最短路径长度是多少。
+
+<img src="images/algorithms/dynamic-programming-matrix.webp" width="571">
+
+#### 状态转移表法
+
+
+
+```go
+func main() {
+  matrix := [][]int{{1, 3, 5, 9}, {2, 1, 3, 4}, {5, 2, 6, 7}, {6, 8, 4, 3}}
+  fmt.Println(MinDist(3, 3, matrix)) // 1+2+1+2+6+4+3=19
+}
+
+// matrix[i,j] 到 matrix[0][0] 的最短路径
+func MinDist(i, j int, matrix [][]int) int {
+  states := make([]int, len(matrix[0])+1)
+  for i := 0; i < len(matrix[0]); i++ {
+    states[i+1] = states[i] + matrix[0][i]
+  }
+  for i := 1; i < len(matrix); i++ {
+    states[0] = states[1] // states[0] 为哨兵
+    for j := 0; j < len(matrix[0]); j++ {
+      states[j+1] = min(states[j], states[j+1]) + matrix[i][j]
+    }
+  }
+  return states[len(states)-1]
+}
+```
+
+#### 状态转移方程法
+
+状态转移方程法有点类似递归的解题思路。我们需要分析，某个问题如何通过子问题来递归求解，也就是所谓的最优子结构。根据最优子结构，写出递归公式，也就是所谓的**状态转移方程**。有了状态转移方程，代码实现就非常简单了。一般情况下，我们有两种代码实现方法，*一种是递归加“备忘录”，另一种是迭代递推*。
+
+状态转移方程式解决动态规划的关键，但很多动态规划问题的状态本身就不好定义，状态转移方程也就更不好想到。
+
+```
+min_dist(i, j) = w[i][j] + min(min_dist(i, j-1), min_dist(i-1, j))
+```
+
+```go
+var cache [][]int // 利用缓存避免重复计算
+
+func main() {
+  cache = make([][]int, 4)
+  for i := range cache {
+    cache[i] = make([]int, 4)
+  }
+  matrix := [][]int{{1, 3, 5, 9}, {2, 1, 3, 4}, {5, 2, 6, 7}, {6, 8, 4, 3}}
+  fmt.Println(MinDist(3, 3, matrix)) // 1+2+1+2+6+4+3=19
+}
+
+// matrix[i,j] 到 matrix[0][0] 的最短路径
+func MinDist(i, j int, matrix [][]int) (res int) {
+  if cache[i][j] > 0 {
+    return cache[i][j]
+  }
+  defer func() {
+    cache[i][j] = res
+  }()
+  if i == 0 && j == 0 {
+    return matrix[0][0]
+  }
+  if i == 0 {
+    return matrix[0][j] + MinDist(0, j-1, matrix)
+  }
+  if j == 0 {
+    return matrix[i][0] + MinDist(i-1, 0, matrix)
+  }
+  return min(matrix[i][j]+MinDist(i-1, j, matrix), matrix[i][j]+MinDist(i, j-1, matrix))
+}
+```
+
+### 四种算法思想比较
+
+将四种算法思想分下类，贪心、回溯、动态规划 可以归为一类，而 分治 单独作为一类。
+
+回溯算法是个“万金油”，基本上能用动态规划、贪心解决的问题，都可以用回溯算法解决。不过回溯算法的时间复杂度太高。
+
+尽管动态规划比回溯算法高效，但并不是所有问题都可以用动态规划。能用动态规划解决的问题，需要满足三个特征，最优子结构、无后效性和重复子问题。在重复子问题这一点上，动态规划和分治算法的区分非常明显。*分治算法要求分割成的子问题，不能有重复子问题，而动态规划正好相反，动态规划之所以高效，就是因为回溯算法实现中存在大量的重复子问题*。
+
+贪心算法实际上是动态规划算法的一种特殊情况。它解决问题起来更加高效，代码实现也更加简洁。不过，它可以解决的问题也更加有限。它能解决的问题需要满足三个条件，最优子结构、无后效性和贪心选择性（这里我们不怎么强调重复子问题）。
 
 
 

@@ -3,6 +3,14 @@
 https://gophersnippets.com/
 
 
+### Slice
+
+```go
+// JavaScript: s.splice(2, 2, 10, 11, 12)
+s := []int{1, 2, 3, 4, 5}
+s = append(s[:2], append([]int{10, 11, 12}, s[4:]...)...)
+```
+
 
 
 ### Maps

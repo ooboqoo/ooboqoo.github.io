@@ -1,3 +1,5 @@
+ <script>ooboqoo.contentsRegExp = /H[123]/;</script>
+
 # Go 语言入门教程
 
 Go 语言实现了开发效率与执行效率的完美结合，让你像写 JavaScript 代码（效率）一样编写 C 代码（性能）。
@@ -1616,7 +1618,92 @@ func main() {
 }
 ```
 
-### 错误处理
+
+## 泛型 Generic
+
+Generics are a way of writing code that is independent of the specific types being used. Functions and types may now be written to use any of a set of types.
+
+Generics and three new big things to the language:
+* Type parameters for functions and types
+* Type sets defined by interfaces
+* Type inference
+
+### 类型参数 Type Parameters
+
+Functions and types are now permitted to have type parameters. A type parameter list looks like an ordinary parameter list, except that it *uses square brackets* instead of parentheses.
+
+泛型函数
+
+```go
+import (
+  "fmt"
+  "golang.org/x/exp/constraints"
+)
+
+func Min[T constraints.Ordered](x, y T) T {
+  if x < y {
+    return x
+  }
+  return y
+}
+
+func main() {
+  x := Min[int](2, 3)  // explicit type argument
+  y := Min(2.0, 3.0)   // type inference
+  fMin := Min[float64] // get a non-generic function by instantiating Min
+  z := fMin(2.0, 3.0)
+  fmt.Println(x, y, z)
+}
+```
+
+泛型类型
+
+```go
+type Tree[T any] struct {
+    left, right *Tree[T]
+    value       T
+}
+
+func (t *Tree[T]) Lookup(x T) *Tree[T] { ... }
+
+var stringTree Tree[string]
+```
+
+**泛型特化 instantiation** 是指将泛型代码转换为具体类型的代码。在 Go 中，泛型特化是在编译期间完成，避免了运行时的类型检查和类型转换，从而提高代码的性能和运行效率。
+
+
+### 联合类型 Type sets
+
+Type constraints must be interfaces. Interfaces as type sets is a powerful new mechanism and is key to making type constraints work in Go.
+
+```go
+// define the type set containing the types int64 and float64
+type Number interface {
+    ~int64 | ~float64
+}
+```
+
+`~` is a new token added to Go. `~T` means the set of all types with underlying type T. For example, the expression `~string` means the set of all types whose underlying type is `string`. This includes the type `string` itself as well as all types declared with definitions such as `type MyString string`.
+
+Interfaces used as constraints may be given names (such as Ordered), or they may be *literal interfaces inlined* in a type parameter list. For example:
+
+```go
+// Here S must be a slice type whose element type can be any type.
+[S ~[]E, E any]                    // 简化写法
+[S interface{~[]E}, E interface{}] // 完整写法
+
+// Scale returns a copy of s with each element multiplied by c.
+func Scale[S ~[]E, E constraints.Integer](s S, c E) S {
+    r := make(S, len(s))
+    for i, v := range s {
+        r[i] = v * c
+    }
+    return r
+}
+```
+
+
+## 错误处理
 
 ```go
 package main
