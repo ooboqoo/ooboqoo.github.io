@@ -342,6 +342,11 @@ td > span.mark {
   transition: top .2s ease-out, border-bottom-width .2s ease-out, box-shadow 0s .2s;
 }
 
+#header .ul {
+  max-width: 1210px;
+  margin: auto;
+}
+
 #header > div, #menu-overlay > div {
   background-color: #666;
   overflow: overlay;
@@ -397,13 +402,6 @@ td > span.mark {
   color: #fff;
   text-align: center;
   cursor: pointer;
-}
-
-@media (min-width: 1210px) {
-  #header .ul {
-    width: 1180px;
-    margin: auto;
-  }
 }
 
 @media (max-width: 960px) {

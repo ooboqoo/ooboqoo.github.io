@@ -7,7 +7,7 @@ The HTML5 DOM has methods, properties, and events for the `<audio>` and `<video>
 
 ## HTML Audio/Video Methods
 
-||
+|||
 ----------------------------|----------------------------------------------------------
 [addTextTrack()](av_met_addtexttrack.asp) | Adds a new text track to the audio/video
 [canPlayType()](av_met_canplaytype.asp)   | Checks if the browser can play the specified audio/video type
@@ -18,7 +18,7 @@ The HTML5 DOM has methods, properties, and events for the `<audio>` and `<video>
 
 ## HTML Audio/Video Properties
 
-||
+|||
 ---------------------------------------|-----------------------------------------------------------------------
 [audioTracks](av_prop_audiotracks.asp) | Returns an AudioTrackList object representing available audio tracks
 [autoplay](av_prop_autoplay.asp)       | Sets or returns whether the audio/video should start playing as soon as it is loaded
@@ -53,7 +53,7 @@ crossOrigin | Sets or returns the CORS settings of the audio/video
 
 ## HTML Audio/Video Events
 
-||
+|||
 --------------------------------|---------------------------------------------
 [abort](av_event_abort.asp)     | Fires when the loading of an audio/video is aborted
 [canplay](av_event_canplay.asp) | Fires when the browser can start playing the audio/video

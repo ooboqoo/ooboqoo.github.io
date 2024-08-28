@@ -1,5 +1,14 @@
 # SyntheticEvent
 
+
+https://legacy.reactjs.org/blog/2020/10/20/react-v17.html
+
+In React 16 and earlier, React would do `document.addEventListener()` for most events.  
+React 17 will call `rootNode.addEventListener()` under the hood instead.
+
+
+
+
 ## Overview
 
 Your event handlers will be passed instances of `SyntheticEvent`, a cross-browser wrapper around the browser's native event. It has the same interface as the browser's native event, except the events work identically across all browsers.

@@ -2,6 +2,8 @@
 
 https://lodash.com/docs/
 
+https://github.com/rayepps/radash/ 其的新项目，打算替代 lodash
+
 
 ### Array
 

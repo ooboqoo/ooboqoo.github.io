@@ -11,6 +11,11 @@ s := []int{1, 2, 3, 4, 5}
 s = append(s[:2], append([]int{10, 11, 12}, s[4:]...)...)
 ```
 
+```go
+// 将 s 的 length 置为 0
+// 注：`clear()` 不会修改 length
+s = s[:0]
+```
 
 
 ### Maps
@@ -45,9 +50,19 @@ map[string]bool
 
 ```go
 func main() {
-  // Create a template with placeholders for the variables
-  t := template.Must(template.New("Demo").Parse("My name is {{.Name}}, I am {{.Age}} years old."))
+  var builder strings.Builder
+  builder.Grow(64)  // 性能优化，一次性给够 builder.buf 的 cap
+  builder.WriteString("Hello, ")             // Appending strings to the builder
+  builder.WriteString(fmt.Sprintf("%d", 66)) // Appending integers to the builder
+  result := builder.String()                 // Converting the builder to a string
+  fmt.Println(result)                        // Output: Hello, 66
+}
+```
 
+```go
+func main() {
+  // Create a template with placeholders for the variables
+  t := template.Must(template.New("").Parse("{{.Name}} is {{.Age}} years old."))
   // Execute the template to stdout, passing the variables
   t.Execute(os.Stdout, map[string]any{"Name": "John", "Age": 30})
 }

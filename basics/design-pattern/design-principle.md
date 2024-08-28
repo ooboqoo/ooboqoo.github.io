@@ -1,6 +1,12 @@
 # 设计原则
 
 
+* SRP 单一职责原则 Single Responsibility - each object should have one and only one reason to change
+* OCP 开闭原则 Open-Closed - it should be open for extension but closed for modification
+* LSP 里式替换原则 Liskov Substitution - objects of a subclass should be able to replace objects of a superclass without breaking the program
+* ISP 接口隔离原则 Interface Segregation - objects should not depend on interface they do not use
+* DIP 依赖倒置原则 Dependency Inversion - objects should depend on abstractions rather than concrete implementations
+
 ## SOLID-SRP 单一职责原则
 
 一个类只负责完成一个职责或功能。单一职责原则通过避免设计大而全的类，避免将不相关的功能耦合在一起，来 *提高类的内聚性* 。同时，类职责单一，类依赖的和被依赖的其他类也会变少，*减少了代码的耦合性* ，以此来实现代码的高内聚、松耦合。但是，如果 *拆分得过细会适得其反*，反倒会降低内聚性，也会影响代码的可维护性。不同的应用场景、不同阶段的需求背景、不同的业务层面，对同一个类的职责是否单一，可能会有不同的判定结果。实际上，一些侧面的判断指标更具有指导意义和可执行性，比如，出现下面这些情况就有可能说明这类的设计不满足单一职责原则：

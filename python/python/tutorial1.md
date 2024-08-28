@@ -40,7 +40,7 @@ print(r'line1\nline2\\nline3')
 ```
 
 ```py
-str.title()  # 单词搜字母大写
+str.title()  # 单词首字母大写
 str.upper()  # 转大写
 str.lower()  # 转小写
 str.strip()  # 返回去除两边空白后的字符串，原字符串不动

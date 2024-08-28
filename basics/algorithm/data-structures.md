@@ -25,24 +25,15 @@
   - 特点：散列表用的是数组支持按照下标随机访问数据的特性，故查询效率 O(1)
   - 适用场景：单词拼写检查; LRU缓存的索引
 * 二叉树
-  - 特点：
-  - 优点：
-  - 缺点：
-  - 适用场景：
+  - 考点：概念、二叉树的遍历
 * 堆
   - 特点：建堆 O(n)，求 Top K 问题的最坏时间复杂度为 O(nlogK)，比排序的 O(nlogn) 快很多
   - 适用场景：热门榜（Top N 关键词）、优先级队列、求中位数
   - 备考：要会基于现有数组进行建堆操作
 * 图
-  - 特点：
-  - 优点：
-  - 缺点：
-  - 适用场景：
+  - 考点：深度和广度优先搜索
 * Trie树
-  - 特点：
-  - 优点：
-  - 缺点：
-  - 适用场景：
+  - 适用场景：查找前缀匹配的字符串
 
 
 ## 数组 Array
@@ -354,7 +345,7 @@ LRU 缓存
 
 
 
-## 树
+## 树 Tree
 
 ### 树基础
 
@@ -579,7 +570,7 @@ private static void buildHeap(int[] a, int n) {
 // 从上往下堆化      go container/heap 中直接用 up down 来命名 向上 和 向下 堆化
 private static void heapify(int[] a, int n, int i) {
   while (true) {
-    int maxPos = i;
+    int maxPos = i;  // 这个变量很巧妙，大幅简化了代码
     if (i*2 <= n && a[i] < a[i*2]) maxPos = i*2;
     if (i*2+1 <= n && a[maxPos] < a[i*2+1]) maxPos = i*2+1;
     if (maxPos == i) break;

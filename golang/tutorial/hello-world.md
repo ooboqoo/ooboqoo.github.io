@@ -1,6 +1,6 @@
 # Hello World (基本开发流程)
 
-https://golang.org/doc/code
+https://go.dev/doc/code
 
 
 ## Your first program
@@ -8,7 +8,7 @@ https://golang.org/doc/code
 新建 module: _demo.dev/hello_
 
 ```bash
-$ cd $(go env GOPATH)  # 此示例中将默认的 ~/go 修改成了 ~/golang
+$ cd $(go env GOPATH)
 $ mkdir demo.dev/hello && cd demo.dev/hello
 $ go mod init demo.dev/hello
 ```
@@ -34,7 +34,7 @@ $ go run .  # 立即运行命令
 ```bash
 # 安装并运行
 $ go install demo.dev/hello  # 可执行文件名为模块名的末尾部分，如，这里的 demo.dev/hello 安装后为 hello
-$ ~/golang/bin/hello         # 运行可执行文件
+$ ~/go/bin/hello             # 运行可执行文件
 
 # 上面两个命令还可以简化为
 $ go install  # 因为在模块内操作，模块名可省略
@@ -45,7 +45,7 @@ $ hello       # 因为已经配置好 PATH 变量了，路径可省
 ## Your first library
 
 ```bash
-$ cd ~/golang/demo.dev/hello
+$ cd ~/go/demo.dev/hello
 $ mkdir stringutil
 ```
 
@@ -70,7 +70,7 @@ package main
 
 import (
     "fmt"
-    "hello.demo.dev/stringutil"
+    "demo.dev/hello/stringutil"
 )
 
 func main() {
@@ -114,7 +114,7 @@ Go has a lightweight test framework composed of the `go test` command and the te
 
 You write a test by creating a file with a name ending in *_test.go* that contains functions `func TestXxx(t *testing.T)`. The test framework runs each such function; if the function calls a failure function such as `t.Error` or `t.Fail`, the test is considered to have failed.
 
-_~/golang/demo.dev/hello/stringutil/reverse_test.go_
+_~/go/demo.dev/hello/stringutil/reverse_test.go_
 
 ```golang
 package stringutil

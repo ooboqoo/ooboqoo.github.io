@@ -31,6 +31,11 @@ Redux 一把梭固然方便，但区别对待不同类型「状态」能让项�
 * 让类似 Redux 之类的 「全局状态管理方案」 可以更专注于 「前端中间状态」处理
 
 
+
+
+
+
+
 ### React Query
 
 > React Query is often described as the missing data-fetching library for React, but in more technical terms, it makes fetching, caching, synchronizing and updating server state in your React applications a breeze.

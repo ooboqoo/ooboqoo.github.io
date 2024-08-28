@@ -7,7 +7,7 @@
 SSR vs CSR
 * 首屏时间
 * SEO
-* 性能：客户端渲染，React 代码在浏览器上执行，消耗的用户浏览器的资源，而服务端渲染，React 代码在服务器上执行，消耗的是服务器的性能。因为 React 代码是很消耗性能的，如果网站本来就很快了，也没有 SEO 方面的需求的话，就不要做 SSR 了。
+* 性能：客户端渲染，React 代码在浏览器上执行，消耗用户浏览器的资源，而服务端渲染，React 代码在服务器上执行，消耗的是服务器的资源。因为 React 代码很消耗性能，如果网站本来就很快了，也没有 SEO 方面的需求的话，就不要做 SSR 了。
 
 
 主流的单页面应用一般采用 CSR，首屏展示时间 TTFP 比较慢。
@@ -28,7 +28,7 @@ SSR 流程
 
 ## 搭建 SSR 框架
 
-```js
+```jsx
 import express from 'express'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
@@ -58,20 +58,20 @@ app.get('/ssr', (req, res) => {
 
 _src/client/index.js_
 
-```js
+```jsx
 import React from "react";
-import ReactDom from "react-dom";
+import { hydrateRoot } from "react-dom";
 
 import Home from "../containers/Home";
 
-// 做同构需要将 原先的 `render()` 方法改为 `hydrate()`
-// 另外 hydrate 方法还涉及到数据的脱水和注水
-ReactDom.hydrate(<Home />, document.getElementById("root"));
+// 做同构需要将 原先的 `render()` 方法改为 `hydrateRoot()`
+// 另外 hydrateRoot 方法还涉及到数据的脱水和注水
+hydrateRoot(document.getElementById("root"), <Home />);
 ```
 
 _src/server/index.js_
 
-```js
+```jsx
 import express from "express";
 import React from "react";
 import { renderToString } from "react-dom/server";
@@ -91,7 +91,7 @@ const server = app.listen(3300);
 
 _src/containers/Home/index.js_
 
-```js
+```jsx
 import React, { useState } from "react";
 
 export default function(props) {
@@ -122,7 +122,7 @@ export default function(props) {
 
 _src/Routes.js_
 
-```js
+```jsx
 import React from 'react';
 import { Route } from 'react-router-dom';
 import Home from './containers/Home';
@@ -138,20 +138,20 @@ export default (
 
 _src/client/index.js_
 
-```js
+```jsx
 import React from 'react';
-import ReactDom from 'react-dom';
+import { hydrateRoot } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from '../Routes';
 
 const App = () => <BrowserRouter>{Routes}</BrowserRouter>;
 
-ReactDom.hydrate(<App />, document.getElementById('root'));
+hydrateRoot(document.getElementById('root'), <App />);
 ```
 
 _src/server/index.js_
 
-```js
+```jsx
 import express from 'express';
 import { render } from './utils';
 
@@ -167,7 +167,7 @@ export const server = app.listen(3300);
 
 _src/server/utils.js_
 
-```js
+```jsx
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
@@ -219,7 +219,7 @@ export const render = path => {
 
 _src/containers/Home/index.js_
 
-```js
+```jsx
 import style from './style.css';
 export default function Home(props) {
   // server 环境，staticContext 由 StaticRouter 传入

@@ -6,11 +6,10 @@ https://electronjs.org/docs
 
 ## 安装
 
-国内直接 npm install 不行，需配置淘宝镜像：
+国内直接 npm install 不行，需配置镜像：
 
 ```bash
-$ npm config set registry=https://registry.npm.taobao.org
-$ export ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/  # Win 下用 set 命令
+$ echo "registry=https://registry.npmmirror.com" >> .npmrc  # local config
 $ npm install electron --save-dev --save-exact  # 目前推荐的安装方式
 ```
 

@@ -24,14 +24,34 @@ https://orbstack.dev/
 $ brew cask install docker
 ```
 
-### 配置阿里云 Registry
+### 配置代理
 
-登录阿里云容器镜像服务 https://cr.console.aliyun.com/ 获取加速器地址 https://00f97hsa.mirror.aliyuncs.com
+为 daemon (`docker pull` 时生效) 设置代理 _~/.docker/daemon.json_
 
-_~/.docker/daemon.json_
+注：Docker Desktop 不用配就能拉镜像，OrbStack 怎么调都不会来。
 
 ```json
-{"registry-mirrors": ["https://00f97hsa.mirror.aliyuncs.com"]}
+{
+  "proxies": {
+    "http-proxy": "http://proxy.example.com:3128",
+    "https-proxy": "https://proxy.example.com:3129",
+    "no-proxy": "*.test.example.com,.example.org,127.0.0.0/8"
+  }
+}
+```
+
+为 docker 容器设置代理 _~/.docker/config.json_
+
+```json
+{
+    "proxies": {
+        "default": {
+            "httpProxy": "http://host.docker.internal:1087",  // 这里应该将 127.0.0.1 改成 host.docker.internal
+            "httpsProxy": "http://host.docker.internal:1087",
+            "noProxy": "*.test.example.com,.example.org,localhost,127.0.0.0/8"
+        }
+    }
+}
 ```
 
 

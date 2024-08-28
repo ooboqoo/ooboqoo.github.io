@@ -38,7 +38,7 @@ $ alias go="https_proxy=socks5://127.0.0.1:1080 go"
 
 ```bash
 # go1.15 以上用 `|` 替换原来的 `,` 这样兼容的错误场景更多
-$ go env -w GOPROXY="https://goproxy.dance.org|https://goproxy.cn|direct"
+$ go env -w GOPROXY="https://goproxy.cn|https://goproxy.io|direct"
 $ go env -w GOSUMDB="sum.golang.google.cn"
 ```
 
@@ -103,7 +103,7 @@ https://go.dev/ref/mod
 注意：在本地，module 是可以脱离 repository 存在的，但发布代码时 module 必须隶属于某个 repository。
 
 ```golang
-import "demo.dev/hello/package-xxx"
+import "demo.dev/hello/package_xxx"
   // repository + module + package
 ```
 
@@ -127,7 +127,7 @@ With Go workspaces, you control all your dependencies using a _go.work_ file in 
 * 独立程序的入口
 * 属于 main 包，包含一个无参数无返回的 main 函数
 * `go build` 构建后生成可执行文件，生成位置在命令执行目录
-* `go install` 安装位置在当前工作区的 _bin 目录_
+* `go install` 安装位置在当前工作区 (指 GOPATH 对应的那个工作区) 的 _bin 目录_
 
 库源码文件
 * 安装生成归档文件（即静态链接库文件），位于当前工作区的 _pkg 目录_

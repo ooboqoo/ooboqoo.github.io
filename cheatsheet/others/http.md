@@ -1,6 +1,8 @@
 # HTTP
 
-https://developer.mozilla.org/en-US/docs/Web/HTTP
+https://developer.mozilla.org/en-US/docs/Web/HTTP  
+https://http.dev/  
+
 
 ## Request Methods (verbs)
 
@@ -93,7 +95,8 @@ HTTP 状态码 HTTP Status Code 是用以表示网页服务器 HTTP 响应状态
 424 Failed Dependency
 425 Unordered Collection
 426 Upgrade Required
-449 Retry With
+429 Too Many Requests
+431 Request Header Fields Too Large
 451 Unavailable For Legal Reasons
 
 500 Internal Server Error
@@ -310,9 +313,13 @@ If-Range  // 用于恢复下载，如果资源没变化，返回 206+后续内�
 强缓存
 
 ```http
-Expires: Sun, 08 Apr 2018 18:11:41 GMT
-Cache-Control: max-age=31536000, public
+Expires: Sun, 08 Apr 2018 18:11:41 GMT    // 
+Cache-Control: max-age=31536000, public   // 
 ```
+
+注：Expires 是 HTTP1.0 的定以的，Cache-Control 是 HTTP1.1定义的。Cache-Control 功能覆盖了 Expires
+，两者同时使用 Cache-Control 优先级更高。
+
 
 协商缓存
 

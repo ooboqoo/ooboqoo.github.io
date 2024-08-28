@@ -305,65 +305,63 @@ Don't act so foolishly. **Come to your senses**! 不要干傻事了，清醒清�
 
 But Aunt Josephine **came to** his rescue. 但约瑟芬姨母来援救他了。
 
-Don't talk all round the question, come to the point. 不要绕圈子，谈正题吧。
-While we were talking, a man came up. 我们正谈话时一个人走了过来。只
+Don't talk all round the question, **come to the point**. 不要绕圈子，谈正题吧。
+
+While we were talking, a man **came up**. 我们正谈话时一个人走了过来。
+
 ate for the party. 来吧，赶快，否则就
-tLThe bill came up for debate. 法案被提交大家辩论。loli beit/n Vi研你系流You might come up against a bit of opposition.你可能会遭到一点反对。
-n） Jim'sdiary.拉开抽屉时她看到了
-The concert did not come up to expectations. 音乐会没达到预期的水平.
-l'aatarile
-He came up with a new suggestion.
-么 时候出版的？
-有些花已经开始绽放了。
-Hle cannot compare with Shakespeare. 他不能和莎士比亚相比。HJeikspia
-b考了第一名。
-Nothing can compensate for the loss of one’s health. 丧失了健康什么也不能弥补。
-大白。
-I kompenseitf
-，她总是很上相。
-They competed for the gold medal.他们争夺金牌。
-aay.工人们罢工要求增加工资。
-We can't hope to compete with him.我们不能指望和他抗衡。
-通常洗不掉。
-She complained about the food （of his rudeness）. 她抱怨伙食不好（他粗鲁
-le bill. 许多参议员表示反对（支
-无礼）。
-| kam plein
-h认会价/kongrzs
-We must comply with the rules. 我们必须遵守这些规定。
-了一些滑稽的想法。
-The school conferred a medal on him. 学校颁发给他一枚奖章。
-上你一定要到我家来。
-Imust confer with my lawyer first. 我得先和我的律师商量一下。
-一个奇怪的感觉。
-He confessed to having done it.
-他承认这是他干的。六…
-rd.你来我家我非常感谢。
-所有学生都要遵守规定。
-Ind. 那个失去知觉的人开始了《说伊上或道义上知1滑，使感激
-Goodness consists in being honest.
-善良也包含诚实。IKTDP CroPK級
-eT. 她会回心转意的，这是KatiAll sorits of difioulties cropped up. 产生了各种各样的困难。
-收等，科植
-if you cut down all the trees you will ruin the land. 如果你把所有的树都砍
-安全经受了心脏手术。
-onsist)
-掉，这片地就毁了。jiks'pens
-ing. 他来到桥头时听到有
-#y We must cut down expenses.
-我们必须削减开支。
-1| 接近
-1Could you cut the article down to 2,000word？你能把这遍文章压缩到两于
 
+The bill **came up** for debate. 法案被提交大家辩论。
 
+You might **come up against** a bit of opposition. 你可能会遭到一点反对。
 
+The concert did not **come up to** expectations. 音乐会没达到预期的水平。
 
+He **came up with** a new suggestion. 他提出了一个新建议。
 
-They have cut off our electricity supply. 他们切断了我们的电源。
-The village was cut off by the snow for more than a month. 大雪把村子和外界隔绝了一个多月。
-Let's cut out the unimportant details. 咱们把不重要的细节删掉。
-The boy is cut out for an artist. 这男孩天生适合当画家。
-He always cuts up his food before he eats it. 他总是把食物切碎后再吃。
+The poet **compared** her teeth **to** pearls. 诗人把她的牙齿比作珍珠。
+
+He cannot **compare with** Shakespeare. 他无法和莎士比亚相提并论。
+
+Nothing can **compensate for** the loss of one’s health. 丧失了健康什么也不能弥补。
+
+They **competed for** the gold medal. 他们争夺金牌。
+
+We can't hope to **compete with** him. 我们不能指望和他抗衡。
+
+She **complained about** the food (**of** his rudeness). 她抱怨伙食不好（他粗鲁无礼）。
+
+We must **comply with** the rules. 我们必须遵守这些规定。
+
+The school **conferred** a medal **on** him. 学校颁发给他一枚奖章。
+
+I must **confer with** my lawyer first. 我得先和我的律师商量一下。
+
+He **confessed to** having done it. 他承认这是他干的。
+
+All students must **conform to** the rules. 所有学生都要遵守规定。
+
+Carbon dioxide **consists of** carbon and oxygen. 二氧化碳含有碳和氧。
+
+Goodness **consists in** being honest. 美德包含诚实。
+
+All sorts of difficulties **cropped up**. 产生了各种各样的困难。 // 庄稼 -> 突然产生
+
+If you **cut down** all the trees you will ruin the land. 如果你把所有的树都砍掉，这片地就毁了。
+
+We must **cut down** expenses. 我们必须削减开支。
+
+Could you **cut** the article **down to** 2,000 words？ 你能把这遍文章压缩到两千词吗?
+
+They have **cut off** our electricity supply. 他们切断了我们的电源。
+
+The village was **cut off** by the snow for more than a month. 大雪把村子和外界隔绝了一个多月。
+
+Let's **cut out** the unimportant details. 咱们把不重要的细节删掉。
+
+The boy is **cut out for** an artist. 这男孩天生适合当画家。
+
+He always **cuts up** his food before he eats it. 他总是把食物切碎后再吃。
 
 
 ### D

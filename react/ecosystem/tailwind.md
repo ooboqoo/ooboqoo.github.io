@@ -15,6 +15,65 @@ Tailwind 相较 inline CSS 优势
 * *hover focus 等状态* 内联样式无法设置 hover 或者 focus 这样的装填，使用 Tailwind 的「状态变体」功能类可以非常容易地为这些状态设置样式
 
 
+## Versions
+
+### V4
+
+https://tailwindcss.com/blog/tailwindcss-v4-alpha 2024-3-27
+
+* A new engine, built for speed
+    - Up to 10x faster
+    - Rust where it counts
+* Unified toolchain: v4 isn’t just a plugin anymore — it’s an all-in-one tool for processing your CSS. We’ve integrated Lightning CSS directly into the framework so you don’t have to configure anything about your CSS pipeline.
+* Designed for the modern web
+* Composable variants
+* Zero-configuration content detection
+* CSS-first configuration
+
+### V3
+
+JIT mode (Just-In-Time) is an alternative way to generate the CSS that, instead of generating all possible classes and then removing all those that are not being used, parses the content of HTML files and instantly generates only those classes that are needed and used.
+
+This technical improvement has made it possible to introduce numerous new variants and utility classes, as well as the ability to create utility classes on the fly with arbitrary values not set in the configuration.
+
+Starting with version 3, JIT mode has become the default.
+
+
+
+
+
+
+## Tailwind UI
+
+https://adamwathan.me/tailwindcss-from-side-project-byproduct-to-multi-mullion-dollar-business/
+
+https://wangpan/s/17PYZ1fPyERD2JgTslDqqMg?pwd=j5ba 下载
+
+* 2015 年 Adam 在开发 Digest 项目时，Bootstrap4-aplpha 刚发布，Bootstrap4 放弃了 Less 转投 Sass，Adam 不想写 Sass 就开始自己写 Less，这个过程中发现 实用类 比组件样式更灵活、更易移植，这启发了 utility-first 哲学
+* 几年后 Adam 和 Steve 开发 KiteTail 项目，Adam 努力使样式 “项目无关“，并在 YouTube 上展示其中的实用类样式
+* 2017年的万圣节之夜，Tailwind CSS 正式发布，获得了积极的关注
+* 2018-12 出版了书籍 Refactoring UI，让 Adam 赚了很多钱，Adam 开始全职搞 Tailwind
+* 2019-05-13 v1 正式发布
+* 2019年，Adam 和 Steve 探索了多种关于 Tailwind 商业化的想法，最终（2019-03）他们决定推出 Tailwind UI
+* 2020-02 Tailwind UI early access 发布
+* 2023年8月份 Tailwind UI 的总收入超过 200万美元，团队
+
+
+
+### Tailwind UI 库
+
+Since it's launch in 2017, Tailwind CSS has grown substantially in popularity with the developer community, mainly because it provides developers the flexibility to build custom interfaces without being bound by any UI kit rules.
+
+However, too much choice may cause decision paralysis. Tailwind components and template collections provide fully responsive UI components and page templates. These collections allow you to *copy and paste HTML snippets directly into your codebase to use or modify*.
+
+Tailwind UI 库比较（基本没内嵌js能力，纯静态内容，需要拷贝后自己封装React组件）
+* [daisyUI](https://daisyui.com/) 30k  daisyUI adds class names (`btn` `card` `toggle`) to Tailwind CSS for all common UI components.
+* [tailwindcomponents](https://tailwindcomponents.com/) 是个组件市场，多但乱 is an community-contributed collection of free or paid Tailwind UI templates and components.
+* [TW Elements](https://tw-elements.com/) 部分收费还不便宜，但完成度挺高
+* Material Tailwind  3.2k  2021年初开始开发，开源免费
+
+
+
 
 ## Core Concepts
 
@@ -26,6 +85,23 @@ Tailwind 相较 inline CSS 优势
 * 不用再为起名烦恼了 You aren't wasting energy inventing class names.
 * Your CSS stops growing. Your CSS files get bigger every time you add a new feature.
 * Making changes feels safer. CSS is global and you never know what you're breaking when you make a change.
+
+
+
+
+CSS Frameworks like Bootstrap provide a series of predefined classes for elements such as buttons or tables.
+
+```html
+<!-- Bootstrap -->
+<button type="button" class="btn btn-primary">Primary</button>
+<table class="table table-striped table-bordered">...</table>
+
+<!-- Tailwind CSS -->
+<button type="button" class="pointer-events-auto ml-8 rounded-md bg-indigo-600 px-3 py-2 text-[0.8125rem] font-semibold leading-5 text-white hover:bg-indigo-500">Primary</button>
+```
+
+
+
 
 ### Responsive Design
 
@@ -153,12 +229,81 @@ Badge.size = SIZE_MAPS;
 
 ### Theme
 
+通过 `[data-theme]` 来控制主题
+
+```css
+import 'tailwindcss';
+
+@theme {
+    --color-canvas: var(--color-white);
+    --color-fg: var(--color-black);
+    --color-fg-soft: var(--color-gray-600);
+    --color-btn: var(--color-indigo-600);
+    --color-btn-text: var(--color-white);
+}
+
+[data-theme='midnight'] {
+    --color-canvas: var(--color-slate-900);
+    --color-fg: var(--color-white);
+    --color-fg-soft: var(--color-slate-400);
+    --color-btn: var(--color-slate-700);
+    --color-btn-text: var(--color-white);
+}
+
+[data-theme='electric']
+    --color-canvas: var(--color-black);
+    --color-fg: var(--color-white);
+    --color-fg-soft: var(--color-gray-400);
+    --color-btn: var(--color-lime-400);
+    --color-btn-text: var(--color-black);
+}
+```
+
+```html
+<div data-theme="electric" className="bg-canvas">
+    <div className="px-6 py-20">
+        <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-4xl font-bold tracking-tight text-fg">Boost your productivity.</h2>
+            <p className="mx-auto mt-4 max-w-xl text-xl/8 text-fg-soft">
+                Incididunt sint fugiat pariatur cupidatat consectetur.
+            </p>
+            <div className="mt-10 flex items-center justify-center gap-x-6">
+            <ButtonLink href="#">Get started</ButtonLink>
+            <a href="#" className="text-sm/6 font-semibold text-fg">
+                Learn more <span aria-hidden="true">*</span>
+            </a>
+        </div>
+    </div>
+</div>
+```
+
 
 ## Getting Started
 
 
 
 ## API
+
+
+
+## Best Practice
+
+### Automatic Class Sorting with Prettier
+
+https://tailwindcss.com/blog/automatic-class-sorting-with-prettier
+
+```bash
+$ pnpm add -D prettier-plugin-tailwindcss
+```
+
+
+
+```json
+// .prettierrc
+{
+  "plugins": ["prettier-plugin-tailwindcss"]
+}
+```
 
 
 

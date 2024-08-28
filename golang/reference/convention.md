@@ -2,6 +2,11 @@
 
 <style>del { text-decoration-color: #6669; }</style>
 
+
+* Effective Go https://go.dev/doc/effective_go
+* Go Wiki: Go Code Review Comments https://go.dev/wiki/CodeReviewComments
+* Go Style Decisions https://google.github.io/styleguide/go/decisions
+
 Go 语言实战: 编写可维护 Go 语言代码建议 https://github.com/llitfkitfk/go-best-practice
 
 

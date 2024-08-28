@@ -7,25 +7,25 @@
 
 ```js
 // 去抖函数，确保两次调用之间超过特定时长才真正执行
-const debounce = (fn, ms = 200, context = window) => {
+const debounce = (fn, ms = 200) => {
   let timerId;
   return function(...args) {
     clearTimeout(timerId);
-    timerId = setTimeout(() => fn.apply(context, args), ms);
+    timerId = setTimeout(() => fn.apply(this, args), ms);
   };
 };
 
 // 节流函数，在某一个时间段内，只执行一次
-const throttle = (fn, wait = 200, context = window) => {
-  let lastFn, lastTime = Date.now() - wait
+const throttle = (fn, wait = 200) => {
+  let timerId, lastTime = Date.now() - wait
   return function (...args) {
     if (Date.now() - lastTime >= wait) {
-      fn.apply(context, args)
+      fn.apply(this, args)
       lastTime = Date.now()
     } else {
-      clearTimeout(lastFn)
-      lastFn = setTimeout(function () {
-        fn.apply(context, args)
+      clearTimeout(timerId)
+      timerId = setTimeout(function () {
+        fn.apply(this, args)
         lastTime = Date.now()
       }, Math.max(wait - (Date.now() - lastTime), 0))
     }
@@ -183,7 +183,7 @@ int bsearch(int *a, int size, int value) {
 
   while (low <= high) {                // 循环条件是 <= 不能写成 <
     int mid = low + (high - low) / 2;  // 不能写成 `(low + high) / 2`，存在溢出风险
-    if (a[mid] == value)               //     如果要将性能优化到极致，还可以写成 `low + ((high - low) >> 1)`
+    if (a[mid] == value)               // 如果要将性能优化到极致，还可以写成 `low + (high - low >> 1)`
       return mid;
     else if (a[mid] < value)
       low = mid + 1;

@@ -4,7 +4,7 @@
 
 Go 语言实现了开发效率与执行效率的完美结合，让你像写 JavaScript 代码（效率）一样编写 C 代码（性能）。
 
-<image src="https://www.topgoer.com/static/home/2.jpg" width="505" />
+<image src="images/comparison.jpeg" width="505" />
 
 
 ## 语言结构
@@ -156,6 +156,26 @@ func add() func(int) int {
 }
 ```
 
+#### 嵌套函数
+
+nested function vs named function
+
+* Recursion: Nested functions cannot directly call themselves recursively.
+* Performance: Defining nested functinos can have a slight impact on performance compared to defining functions at the package level. This is because each invocation of the outer function will create a new instance of the nested function.
+
+```go
+func foo() {
+  var bar func()
+  bar = func() {  // 这里不支持写 `func bar()`
+    if rand.IntN(5) > 1 {
+      bar()
+    }
+  }
+  bar()
+}
+
+```
+
 #### 代码块
 
 *全域代码块 > 包代码块 > 函数代码块 > 语句、子语句代码块 > 空代码块*
@@ -229,16 +249,21 @@ func main() {
 ```go
 var i int = 0  // 这种场景有以下三种简写形式
 var i int      // 省掉 零值
-var i = 0      // 省掉 默认类型
+var i = 0      // 省掉 类型 (类型推断：找出值对应的默认类型)
 i := 0         // 省掉 var
 ```
 
 #### 值类型和引用类型
 
-值类型赋值给另外一个变量时会进行值拷贝。  
-引用类型赋值给另外一个变量时传递的是内存地址（即，拷贝的是指针的值）。
+* 值类型赋值给另外一个变量时会进行值拷贝
+* 函数直接传参的逻辑同赋值，都是值拷贝
+* *值类型拷贝数据本身，引用类型拷贝数据对应的内存地址*。指针本身是值类型，值为一个内存地址。
 
-注意：*函数直接传参（即，没传指针）都是值拷贝*
+map 和 channel 等最初是 pointer 类型，后面独立出来引用类型的概念。引用类型实例本身可看成是一个 struct，包含了实例的元信息，如 slice 的 `{length int; cap: int; ptr: *E}`。也就是说，拷贝的是元信息但不包含底层实际数据，简化下，可以理解为，*引用类型赋值拷贝的是指针的值*（即，实际数据的内存地址）。
+
+> Why are maps, slices, and channels references while arrays are values?
+>
+> There's a lot of history on that topic. Early on, maps and channels were syntactically pointers and it was impossible to declare or use a non-pointer instance. Also, we struggled with how arrays should work. Eventually we decided that the strict separation of pointers and values made the language harder to use. Changing these types to act as references to the associated, shared data structures resolved these issues. This change added some regrettable complexity to the language but had a large effect on usability: Go became a more productive, comfortable language when it was introduced.
 
 #### 基本类型 Basic types
 
@@ -341,6 +366,8 @@ const (
 
 第九个希腊字母，在 Go 中为一个特殊常量，可简单理解为 `const` 语句块中的行索引。
 
+注：`iota` 仅适用于 `const`，无法在 `var` 定义块中使用。
+
 ```go
 // 定义枚举值
 const (
@@ -370,6 +397,60 @@ n, err := io.WriteString(os.Stdout, "Hello, everyone!\n")  // err 被重声明�
 所谓“变量的重声明”容易引发歧义，而且也不容易理解。如果没有为变量分配一块新的内存区域，那么用声明是不恰当的。在《Go 语言圣经》一书中将短声明的这种特性称为赋值。
 
 Go 为短声明语法提供了一个语法糖（或者叫便利措施）：*短变量声明不需要声明所有在左边的变量。如果多个变量在同一个词法块中声明，那么对于这些变量，短声明的行为等同于赋值*。
+
+
+## 字符串
+
+```go
+// string is the set of all strings of 8-bit bytes, conventionally but not
+// necessarily representing UTF-8-encoded text. A string may be empty, but
+// not nil. Values of string type are immutable.
+type string string
+
+// byte is an alias for uint8 and is equivalent to uint8 in all ways. It is
+// used, by convention, to distinguish byte values from 8-bit unsigned
+// integer values.
+type byte = uint8
+
+// rune is an alias for int32 and is equivalent to int32 in all ways. It is
+// used, by convention, to distinguish character values from integer values.
+type rune = int32
+```
+
+```go
+func main() {
+  row := `[a-z]`  // row string 常用于写正则
+
+  s := "abc"
+  r := 'a'    // rune
+  b := s[0]   // byte
+  s2 := s[:1] // string
+
+  fmt.Println(r, b, s2) // 97 97 a
+
+  r == 'a'  // true
+  b == 'a'  // true
+  b == r    // ERROR: mismatched types byte and rune
+  b == "a"  // ERROR: mismatched types byte and untyped string
+  r == "a"  // ERROR: mismatched types rune and untyped string
+}
+```
+
+Unicode（统一码、万国码）是一种字符编码标准，它为世界上几乎所有的字符分配了唯一的标识符。`rune` 即为一个Unicode字符。
+
+UTF-8 是一种 Unicode 字符编码方案，是 Unicode 的一种实现方式，使用可变长度的编码方式，兼容 ASCII 编码（ASCII字符使用单个字节存储）。一个字节编码的码点范围 0-7F，同 ASCII 编码表；两个字节编码的码点范围 80-7FF，主要是一些拉丁文；中文的码点范围是 4E00-9FFF，使用3个字节进行编码。
+
+```go
+func main() {
+  str := "⌘"  // 只有 1 个 rune，但 len(str) == 3
+  for i := 0; i < len(str); i++ {                          // str[i] 为 byte 类型
+    fmt.Printf("%d:%x, ", i, str[i]) // 0:e2, 1:8c, 2:98,
+  }
+  for _, r := range str {                                  // r 为 rune 类型
+    fmt.Printf("%x\n", r) // prints 2318
+  }
+}
+```
 
 
 ## 流程控制语句 Flow control statements
@@ -541,6 +622,11 @@ console.log('swap');
 
 ### `defer` 语句
 
+```go
+defer foo()
+defer func() { /* ... */ }()
+```
+
 推迟调用的函数，*参数会立即求值*，但直到外层函数返回前该函数都不会被调用。
 
 推迟的函数调用会被压入一个栈中。当外层函数返回时，被推迟的函数会按照 *后进先出* 的顺序调用。
@@ -559,9 +645,10 @@ func main() {
 `defer` 对返回值的影响：Deferred anonymous functions may access and modify the surrounding function’s named return parameters.
 
 ```go
-// In this example, the foo function returns “Change World”
+// In this example, the foo function returns "Change World"
 func foo() (result string) {
   defer func() {
+    fmt.Println(result)     // "Hello World"
     result = "Change World" // change value at the very last moment
   }()
   return "Hello World"
@@ -668,7 +755,7 @@ func (b base) describe() string {
 
 type Container struct {
   str string
-  base
+  base         // 如果改成 `b base` 的话，就不支持直接调用，必须 `co.b.num` 而无法 `co.num`
 }
 
 func main() {
@@ -907,6 +994,63 @@ func main() {
 }
 ```
 
+切片与性能：不要在 for 循环中使用 append
+
+```go
+// file: slice_test.go
+// run test: go test -bench=. -benchmem
+
+// append 版本 vs 一次性申请版本，前者耗时和内存分配都是后者的3~5倍
+func appendSpeed(n int) {
+  var s []int
+  for i := 0; i < n; i++ {
+    s = append(s, i)
+  }
+}
+
+func appendSpeed2(n int) {
+  s := make([]int, n)
+  for i := 0; i < n; i++ {
+    s[i] = i
+  }
+}
+
+func BenchmarkAppendSpeed(b *testing.B) {
+  appendSpeed(b.N)
+}
+func BenchmarkAppendSpeed2(b *testing.B) {
+  appendSpeed2(b.N)
+}
+
+```
+
+```go
+// 实现队列时，可以采用循环队列来规避 append 操作
+
+type CircularQueue struct {
+  data []int
+  head int
+  tail int
+  size int
+}
+
+// ...
+```
+
+切片与内存泄漏：截取 slice 容易导致内存泄漏
+
+```go
+func main() {
+  s := []*Node{node1, node2}
+  s = s[:1] // 此时 node1 在代码中已经无法访问了
+            // 但 s 的底层数组没动，也就还保留着对 node1 的引用，导致 node1 相关的内存都无法被释放
+
+  // 通过新建 slice 规避内存泄漏
+  s = append([]*Node{}, s[:1]...)
+}
+```
+
+
 ### 系列 Range
 
 Go 语言中 `range` 关键字用于 `for` 循环中迭代数组(array)、切片(slice)、通道(channel)或映射(map)的元素。在数组和切片中它返回 `(index, value)`，在映射中返回 `(key, value)` 对。
@@ -1074,6 +1218,23 @@ elem, exist = m[key]
 `map` 相关考题 —— 寻址
 
 ```go
+type Person struct {
+  Name string
+  Age int
+}
+
+func main() {
+  p := Person{"John", 30}
+  dict1 := make(map[string]Person)
+  dict2 := make(map[string]*Person)
+  dict1["John"] = p       // 这里复制了一份 p 到 map 内，后续 map 内的 struct 只能整体替换，无法部分修改
+  dict2["John"] = &p
+  dict1["John"].Age = 33  // ERROR: UnaddressableFieldAssign
+  dict2["John"].Age = 33  // OK
+}
+```
+
+```go
 type Math struct {
   x, y int
 }
@@ -1108,6 +1269,20 @@ func main() {
 }
 ```
 
+`map` 相关考题 —— 有效 key
+
+Map lookup requires an equality operator ...  struct、数组、指针 和 信道 等都能作为键名，但 slice 不行（暂未定义相等行为）。
+
+```go
+func main() {
+  m := make(map[[1]int]int)
+  a := [1]int{1}
+  b := [1]int{1}
+  m[a] = 100
+  fmt.Println(m[b]) // 100
+}
+```
+
 Map VS Struct
 
 * Map
@@ -1134,8 +1309,8 @@ Map VS Struct
 
 ```go
 type T struct{}
-func (T) foo() {}
-func (*T) bar()  {}
+func (T) foo()  {}
+func (*T) bar() {}
 type S struct{ *T }
 
 func main() {
@@ -1204,6 +1379,7 @@ func main() {
 ```
 
 当「值接收者」和「指针接收者」碰到 接口 时：
+* 不允许同时定义 值接收者 和 指针接收者 的同名方法 （开发规范：要么全是指针接收者要么全是值接收者）
 * 方法定义为「值接收者」时，传指针不报错，因为可以（隐式地）通过指针拿到值
 * 方法定义为「指针接收者」时，传值报错，因为传值是复制，无法根据当前值拿到原始值的地址（定义为「指针接收者」说明方法的原意是要改原值值内容的）
 
@@ -1249,7 +1425,7 @@ func main() {
 
   // 方法值 演示
   n++
-  f1 := n.test
+  f1 := n.test    // 此时 f1 对应的 n 被固化在 n 的当前值 11
   n++
   f2 := (&n).test // 这里的 `&n` 最终还是会被转成 `n` 的，这个是由方法定义决定的
   n++
@@ -1409,7 +1585,7 @@ Concrete Type VS Interface Type: 无法基于「接口」创建特定实体，�
 隐式实现从接口的实现中解耦了定义，这样接口的实现可以出现在任何包中，无需提前准备。
 
 优缺点
-* 优点：少写模板代码
+* 优点：少写模板代码; 可以随时新增接口定义而不需要修改现有代码
 * 缺点：因为是隐式实现，不够直观，且无法得到及时反馈，类型错误需要等到编译时才能看到报错
 
 ```golang
@@ -1431,15 +1607,27 @@ type Printable interface {
   Print() string
 }
 
-func print(p Printable) {
+func Print(p Printable) {
   fmt.Println(p.Print())
 }
 
 func main() {
   var doc = Document{"hero"}
-  print(&doc)
+  Print(&doc)
 }
 ```
+
+How can I guarantee my type satisfies an interface?
+
+You can ask the compiler to check that the type `T` implements the interface `I` by attempting an assignment using the zero value for `T` or pointer to `T`, as appropriate:
+
+```go
+type T struct{}
+var _ I = T{}       // Verify that T implements I.
+var _ I = (*T)(nil) // Verify that *T implements I.
+```
+
+If `T` (or `*T`, accordingly) doesn't implement `I`, the mistake will be caught at compile time.
 
 #### 接口值
 
@@ -1463,13 +1651,13 @@ func main() {
   var p Printable
   // 接口值为 nil
   describe(p)             // (<nil>, <nil>)
-  // print(p)             // 运行时报错
+  // Print(p)             // 运行时报错
 
   var doc *Document
   p = doc
   // 接口值的具体值为 nil
   describe(p)             // (<nil>, *main.Document)
-  print(p)                // 运行时能正确找到 (*Document).Print 方法
+  Print(p)                // 运行时能正确找到 (*Document).Print 方法
 }
 ```
 
@@ -1542,13 +1730,13 @@ func handleInput(i interface{}) {
 ```
 
 ```golang
-// 动态类型(即实现 TypeScript 的 `x: number | string`
+// 动态类型(variant types aka algebriac types)(即实现 TypeScript 的 `x: number | string`
 func (x any) {
   switch x.(type) {
-    case string:
-      //...
-    case int:
-      //...
+  case string:
+    //...
+  case int:
+    //...
   }
 }
 ```
@@ -1669,7 +1857,7 @@ func (t *Tree[T]) Lookup(x T) *Tree[T] { ... }
 var stringTree Tree[string]
 ```
 
-**泛型特化 instantiation** 是指将泛型代码转换为具体类型的代码。在 Go 中，泛型特化是在编译期间完成，避免了运行时的类型检查和类型转换，从而提高代码的性能和运行效率。
+**泛型特化 instantiation** 是指将泛型代码转换为具体类型的代码。在 Go 标准编译器中(不同 compiler 可能有不同的行为)，泛型特化是在编译期间完成，避免了运行时的类型检查和类型转换，从而提高代码的性能和运行效率。
 
 
 ### 联合类型 Type sets
@@ -1751,11 +1939,35 @@ readFile('/etc/passwd', (err, data) => {
 });
 ```
 
+## 测试
+
+Go 的测试库非常简单，且没有提供断言 assertion 能力。*Go 推荐利用语言本身的能力 + 外加清晰的报错信息 来写单元测试*。
+
+Create a new file ending in `_test.go` in the same directory as your package sources.
+
+```go
+var fmtTests = []struct{fmt string; val any; out string}{
+  {"%d", 12345, "12345"},
+  {"%v", 12345, "12345"},
+}
+
+func TestSprintf(t *testing.T) {
+  for _, tt := range fmtTests {
+    s := Sprintf(tt.fmt, tt.val)
+    if s != tt.out {
+      t.Errorf("Sprintf(%q, %v) = %q want %q", tt.fmt, tt.val, s, tt.out)
+    }
+  }
+}
+```
+
+Run `go test` in that directory. That script finds the Test functions, builds a test binary, and runs it.
+
 
 ## 性能分析
 
 Profile
-* CPU 分析：在 runtime中每隔很短的时间，记录当前正在运行的协程的栈。持续一段时间之后，通常是5~10s。通过分析这段时间记录下来的栈，出现频率比较高的函数占用CPU比较多。
+* CPU 分析：在 runtime 中每隔很短的时间，记录当前正在运行的协程的栈。持续一段时间之后，通常是5~10s。通过分析这段时间记录下来的栈，出现频率比较高的函数占用CPU比较多。
 * Mem 分析：内存分析只能分析在堆上申请内存的情况，同CPU类似，也是采用采样的方法，每一定次数的内存申请操作会采样一次。通过分析这些采样的记录可以判断出哪些语句申请内存较多。
 
 Go语言内置了获取程序运行数据的工具，包括以下两个标准库：
@@ -1846,7 +2058,7 @@ for {
 }
 ```
 
-接受一个新的TCP连接，创建一个新的协程用于读写该连接上的数据。标准库net/http, thrift 等都是用的这种服务端模型。
+接受一个新的TCP连接，创建一个新的协程用于读写该连接上的数据。标准库 net/http, thrift 等都是用的这种服务端模型。
 相对于进程和线程，协程更加轻量级，创建和退出一个协程的代价比较小。
 但是这种方式在请求处理阻塞的情况下，容易引发“协程爆炸”，进而引发内存占用过多，调度延迟等问题。
 

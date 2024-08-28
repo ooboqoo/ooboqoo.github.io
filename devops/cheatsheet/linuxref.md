@@ -12,10 +12,15 @@ $ date [+format]  # 查看日期
 $ cal             # 日历
 ```
 
-```
+```bash
 $ uptime  # 开机运行时间
 $ w       # display who is logged in and what they are doing
+```
 
+```bash
+$ free -h  # display amount of free and used memory in the system
+$ lscpu    # display information about the CPU architecture
+$ df -h    # "disk free" report file system disk space usage
 ```
 
 查看端口占用

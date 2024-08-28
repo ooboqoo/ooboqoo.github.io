@@ -73,7 +73,7 @@
 
 少即是多（less code is more） 文档详尽（well-documented） 分层清晰（well-layered）
 
-正确性（correctness、bug free） 健壮性（robustness） 鲁棒性（robustness） 可用性（reliability） 可伸缩性（scalability） 稳定性（stability）
+正确性（correctness、bug free） 健壮性（robustness） 鲁棒性（perfection） 可用性（reliability） 可伸缩性（scalability） 稳定性（stability）
 
 优雅（elegant） 好（good） 坏（bad）……
 ```
@@ -111,7 +111,7 @@
 
 我们整个专栏的内容也是围绕着这几块展开讲解的。所以，今天我就先来简单介绍一下这几个概念，并且说一说它们之间的联系。
 
-### 面向对象
+### 面向对象 Object Oriented Design
 
 主流的编程范式或者编程风格有三种：面向过程、面向对象和函数式编程。面向对象是最主流的，其具有丰富的特性(封装、抽象、继承、多态)，可以实现很多复杂的设计思路，是很多设计原则、设计模式编码实现的基础。所以在专栏的最开始，我们会详细地讲解面向对象编程的相关知识，为后面的学习做铺垫。对于这部分内容，需要掌握下面 7 个大的知识点。
 
@@ -123,20 +123,21 @@
 * 多用组合少用继承的设计思想
 * 面向过程的贫血模型和面向对象的充血模型
 
-### 设计原则
+### 设计原则 Design Principles
 
 设计原则是指导我们代码设计的一些经验总结。设计原则这块的知识有一个非常大的特点，那就是这些原则听起来都比较抽象，定义描述都比较模糊，不同的人会有不同的解读。所以如果单纯地去记忆定义，对于编程、设计能力的提高，意义并不大。对于每一种设计原则，我们需要掌握它的 *设计初衷，能解决哪些编程问题，有哪些应用场景*。只有这样，我们才能在项目中灵活恰当地应用这些原则。
 
 你需要透彻理解并掌握下面这几个常用的设计原则。
 
-* SOLID 原则 —— SRP 单一职责原则
-* SOLID 原则 —— OCP 开闭原则
-* SOLID 原则 —— LSP 里式替换原则
-* SOLID 原则 —— ISP 接口隔离原则
-* SOLID 原则 —— DIP 依赖倒置原则
+* SOLID 原则
+  - SRP 单一职责原则 Single Responsibility Principle
+  - OCP 开闭原则 Open-Closed Principle
+  - LSP 里式替换原则 Liskov Substitution Principle
+  - ISP 接口隔离原则 Interface Segregation Principle
+  - DIP 依赖倒置原则 Dependency Inversion Principle
 * DRY 原则、KISS 原则、YAGNI 原则、LOD 法则
 
-### 设计模式
+### 设计模式 Design Patterns
 
 设计模式是针对软件开发中经常遇到的一些设计问题总结出来的一套 *解决方案或设计思路* 。大部分设计模式要解决的都是 *代码的可扩展性* 问题。设计模式相对于设计原则来说，没有那么抽象，而且大部分都不难理解，代码实现也并不复杂。这一块的学习难点是了解它们都能解决哪些问题，*掌握典型的应用场景，并且懂得不过度应用*。
 

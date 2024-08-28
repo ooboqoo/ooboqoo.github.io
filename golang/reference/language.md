@@ -1,6 +1,25 @@
 # Language Specification
 
-https://go.dev/ref/spec
+https://go.dev/ref/spec  
+https://go.dev/doc/faq  
+
+
+## FAQ
+
+nimble lightweight
+
+正交 
+
+```go
+type Copyable interface {
+    Copy() interface{}
+}
+func (v Value) Copy() Value  // 这里的 `Value` 类型跟 `Copyable` 接口不匹配
+                             // 在 Go 类型系统里，`any` 就是 `any` 不会去匹配 `Value`
+                             // `(T=*int,V=nil)` 和 `nil` 不相等也是一个道理，Go 的类型系统很简洁但也很死板
+```
+
+`new` 和 `make` 的区别: new allocates memory, while make initializes the slice, map, and channel types.
 
 
 ## Lexical elements

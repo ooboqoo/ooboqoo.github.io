@@ -45,7 +45,7 @@ h2 { text-align: center; }
 <h5 class="es es17">Object.values(obj) <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的值</span></h5>
 <h5 class="es es17">Object.entries(obj) <span>-- 返回一个数组，包含指定对象的所有自有可遍历属性的键值对 `[[k1,v1], ...]`</span></h5>
 <h5 class="es es19">Object.fromEntries(entries) <span>-- 将包含一系列键值对的数组转成一个对象</span></h5>
-<h5 class="es es22">Object.hasOwn(prop) <span>-- 较实例方法 `hasOwnProperty` 更为安全</span></h5>
+<h5 class="es es22">Object.hasOwn(obj, prop) <span>-- 较实例方法 `hasOwnProperty` 更为安全</span></h5>
 </div>
 <div class="dl">
 <h5 class="es6"><i class="deprecated"></i>object.__proto__ <span>-- 对象实例属性，指向对象的原型对象，本质上属于内部属性，应避免使用</span><span class="mark">[注2]</span></h5>
@@ -63,7 +63,7 @@ h2 { text-align: center; }
 以下都属于语言内部的方法，会调用 ES6 新增的 Reflect 对象上对应方法，但调用前可能会做一定预处理。
 
 <div class="dl">
-<h5 class="es5">Object.getPrototypeOf(obj) <span>-- 返回指定对象的原型对象</span></h5>
+<h5 class="es5">Object.getPrototypeOf(obj) <span>-- 返回指定对象的原型对象（非副本，可直接修改）</span></h5>
 <h5 class="es6">Object.setPrototypeOf(obj) <span>-- 设置对象的原型，即 `[[Prototype]]` 属性</span><span class="mark">[注3]</span></h5>
 <h5 class="es5">Object.getOwnPropertyNames(obj) <span>-- 返回一个数组，包含对象所有自有属性(可枚举+不可枚举)</span></h5>
 <h5 class="es6">Object.getOwnPropertySymbols(obj) <span>-- 返回一个数组，包含对象的所有自有以 Symbol 类型为键名的属性</span></h5>
@@ -129,15 +129,15 @@ var a = {
 <h5 class="es3"><i class="deprecated"></i>arguments.callee <span>-- 指向当前函数，严格模式下被禁用，有缺陷，但似乎又没办法完全弃用</span></h5>
 </div>
 <div class="dl">
-<h5 class="es3">function.length <span>-- 获取函数的形参个数</span></h5>
-<h5 class="es6">function.name <span>-- 获取函数的名称</span></h5>
-<h5 class="es6"><i class="deprecated"></i>function.caller <span>-- 保存着对调用当前函数的函数的引用，用于替代被废弃的 arguments.caller</span><span class="mark">[注1]</span></h5>
+<h5 class="es3">func.length <span>-- 获取函数的形参个数</span></h5>
+<h5 class="es6">func.name <span>-- 获取函数的名称</span></h5>
+<h5 class="es6"><i class="deprecated"></i>func.caller <span>-- 保存着对调用当前函数的函数的引用，用于替代被废弃的 arguments.caller</span><span class="mark">[注1]</span></h5>
 </div>
 <div class="dl">
-<h5 class="es3">function.apply(thisArg, argsArray?) <span>-- 设定 this 值后执行，参数以数组形式传入</span></h5>
-<h5 class="es3">function.call(thisArg, arg1, arg2, ...) <span>-- 设定 this 值后执行，参数以列表形式传入</span></h5>
-<h5 class="es5">function.bind(thisArg, arg1?, ...) <span>-- 创建一个新函数(绑定函数)，原函数 this 被替换，还可预先设置部分参数</span></h5>
-<h5 class="es3">function.toString() <span>-- 获取函数源码的字符串，重写</span></h5>
+<h5 class="es3">func.apply(thisArg, argsArray?) <span>-- 设定 this 值后执行，参数以数组形式传入</span></h5>
+<h5 class="es3">func.call(thisArg, arg1, arg2, ...) <span>-- 设定 this 值后执行，参数以列表形式传入</span></h5>
+<h5 class="es5">func.bind(thisArg, arg1?, ...) <span>-- 创建一个新函数(绑定函数)，原函数 this 被替换，还可预先设置部分参数</span></h5>
+<h5 class="es3">func.toString() <span>-- 获取函数源码的字符串，重写</span></h5>
 </div>
 
 ```js
@@ -200,6 +200,7 @@ function bar() { console.log(foo.arguments, bar.caller); }
 <h5 class="es6">array.entries() <span>-- returns a new Array Iterator object</span></h5>
 <h5 class="es es19">array.flat(depth=1) <span>-- a new array with all sub-array elements concatenated into it recursively up to the specified depth</span></h5>
 <h5 class="es es19">array.flatMap(callbackFn, thisArg?) <span>-- 等效于 `arr.map(...args).flat()`</span></h5>
+<h5></h5>
 <h5 class="es esn">array.with(index, value) <span>-- change the value of a given index, and returns a new array</span></h5>
 <h5 class="es esn">array.toSpliced(start, deleteCount, item1, …, itemN) <span>-- the copying version of the `splice()`</span></h5>
 <h5 class="es esn">array.toReversed() <span>-- the copying version of the `reverse()`</span></h5>
@@ -247,6 +248,29 @@ var arr = ['c', 'd']; arr.unshift('e', 'f');  // 4; arr: [ 'e', 'f', 'c', 'd' ] 
 ['a', 'b', 'c', 'd'].copyWithin(0, 2, 4)  // [ 'c', 'd', 'c', 'd' ]
 Array.from(['a', 'b'].entries())  // [ [ 0, 'a' ], [ 1, 'b' ] ]
 ```
+
+## Iterator (实验性)
+
+```js
+Iterator.from(iterable)
+```
+
+```js
+Iterator.prototype.toArray()
+Iterator.prototype.drop(limit)  // 忽略前 limit 个元素
+Iterator.prototype.take(limit)  // 只取前 limit 个元素
+
+// analogous to array methods
+Iterator.prototype.every()
+Iterator.prototype.filter()
+Iterator.prototype.find()
+Iterator.prototype.flatMap()
+Iterator.prototype.forEach()
+Iterator.prototype.map()
+Iterator.prototype.reduce()
+Iterator.prototype.some()
+```
+
 
 ## <span class="es6">Set</span>
 
@@ -332,7 +356,7 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <div class="dl">
 <h5 class="es6">Number.isNaN(value) <span>-- 与全局 isNaN() 不同的是，对非数值不会先调用 Number() 进行转换，直接返回 false</span></h5>
 <h5 class="es6">Number.isFinite(value) <span>-- 检查数值是否非无穷，与全局 isFinite() 不同的是，对非数值直接返回 false</span></h5>
-<h5 class="es6">Number.isInteger(value) <span>-- 判断一个值是否为整数，注意 `3.0` 也被认为是整数，因为整数和浮点数用的同样的储存方法</span></h5>
+<h5 class="es6">Number.isInteger(value) <span>-- 判断一个值是否为整数，注意 `3.0` 也算整数，因为整数和浮点数共用一种储存方法</span></h5>
 <h5 class="es6">Number.parseInt(string, radix?) <span>-- Number.parseInt === parseInt; // true</span></h5>
 <h5 class="es6">Number.parseFloat(string) <span>-- Number.parseFloat === parseFloat; // true</span></h5>
 <h5 class="es6">Number.isSafeInteger(testValue) <span>-- JS能准确表示的整数范围在 -2^53 到 2^53 之间(不含两个端点)</span></h5>
@@ -368,8 +392,6 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 
 
 ## String
-
-数组相关的方法略
 
 <div class="dl">
 <h5 class="es3">String.fromCharCode(num1, num2, …) <span>-- </span></h5>
@@ -413,16 +435,35 @@ WeakMap 结构与 Map 结构基本类似，唯一的区别是它只接受对象�
 <h5 class="es5">string.normalize(form?) <span>-- </span></h5>
 </div>
 <div class="dl">
+<h5 class="es3">string.indexOf(str, from=0) <span>-- 返回子字符串的(起始)位置</span></h5>
+<h5 class="es3">string.lastIndexOf(str, position) <span>-- 返回子字符串的(起始)位置</span></h5>
+<h5 class="es3">string.includes(str, from=0) <span>-- 是否包含子字符串</span></h5>
+<h5 class="es es22">string.at(index) <span>-- 支持负数索引</span></h5>
+<h5 class="es3">string.concat(str1, str2, ...) <span>-- 字符串跟其他字符串拼接，生成一个新字符串</span></h5>
+<h5 class="es3">string.slice(start, end) <span>-- 截取子字符串</span></h5>
+</div>
+<div class="dl">
 <h5 class="es3"><i class="deprecated"></i>string.anchor(name) <span>-- 创建一个名为 name 的锚</span></h5>
 <h5 class="es3"><i class="deprecated"></i>string.link(url) <span>-- 根据提供的url创建一个链接</span></h5>
 </div>
 
-注1: `string.match()` 的三种用法 `string.match(/regexp/)` `string.match(/regexp/g)` `string.match() /*无参*/`  
+注1: `string.match()` 的三种用法 `string.match(/regexp/)` `string.match(/regexp/g)` `string.match() /*无参，等同 ""*/`  
 注2: `'abc.jar'.substr(-4) == '.jar'` `'abc.jar'.substring(-4) == 'abc.jar'` `'abc.jar'.slice(-4) == '.jar'`
 
 ```js
 '8'.padStart(2, '0')  // '08'
 'abc'.padStart(6, '123456')  // 123abc
+```
+
+```js
+const str = "𠮷"   // JS 内部字符以 UTF-16（字符用两个字节或四个字节表示）的格式存储
+str.length         // 2
+str.charAt(0)      // '\uD842'
+str.charAt(1)      // '\uDFB7'
+str.charCodeAt(0)  // 55362
+str.charCodeAt(1)  // 57271
+str.codePointAt(0) // 134071    // code point 码点，即文字在 Unicode 中的编码
+str.codePointAt(1) // 57271
 ```
 
 
@@ -545,8 +586,8 @@ reg.test('abcd'); // true
 <div class="dl">
 <h5 class="es3">Date() <span>-- 以 <b>字符串</b> 形式返回当前的日期和时间。</span></h5>
 <h5 class="es3">Date.now() <span>-- 返回调用这个方法时的日期和时间的 <b>毫秒数</b>。</span></h5>
-<h5 class="es3">Date.parse(dateString) <span>-- 返回 1970年1月1日午夜 到指定日期（字符串）的 <b>毫秒数</b>。</span></h5>
-<h5 class="es3">Date.UTC(year, month[, ...]) <span>-- 根据世界时返回 1970年1月1日 到指定日期的 <b>毫秒数</b>。</span></h5>
+<h5 class="es3">Date.parse(dateString) <span>-- 返回 1970年1月1日午夜 到指定日期（字符串）的 <b>毫秒数</b>。Date.parse("1970-1-1 08:00") == 0</span></h5>
+<h5 class="es3">Date.UTC(year, month[, ...]) <span>-- 根据世界时返回 1970年1月1日 到指定日期的 <b>毫秒数</b>。month 从0开始，无时区影响</span></h5>
 </div>
 <div class="dl">
 <h5 class="es3">date.valueOf() <span>-- 返回 Date 对象的原始值。</span></h5>

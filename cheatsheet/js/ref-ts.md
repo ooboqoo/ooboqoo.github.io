@@ -115,6 +115,8 @@ InstanceType<Type>
 ThisParameterType<Type>            如果函数有参数 this 那么获取其类型，否则为 unknown
 OmitThisParameter<Type>
 ThisType<Type>
+
+Awaited<Type>
 ```
 
 ```ts

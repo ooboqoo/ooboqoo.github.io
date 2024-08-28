@@ -76,6 +76,19 @@ FireFox、Chrome 都做过管线化的试验，但是由于各种原因，它们
 
 HTTP/1.1 通过引入 *Chunk transfer 机制* 来解决这个问题，服务器会将数据分割成若干个任意大小的数据块，每个数据块发送时会附上上个数据块的长度，最后使用一个零长度的块作为发送数据完成的标志。这样就提供了对动态内容的支持。
 
+```txt
+HTTP/1.1 200 OK
+Content-Type: text/plain
+Transfer-Encoding: chunked
+
+5\r\n
+Hello\r\n
+6\r\n
+ World\r\n
+0\r\n
+\r\n
+```
+
 #### 5. 客户端 Cookie、安全机制
 
 除此之外，HTTP/1.1 还引入了客户端 Cookie 机制和安全机制。

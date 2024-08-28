@@ -229,7 +229,7 @@ https://www.zhihu.com/question/31809713/answer/53544875
 
 React 的基本思维模式是，每次有变动就整个重新渲染整个应用。如果没有 Virtual DOM，最简单的做法是直接重置 `innerHTML`。很多人都没意识到，在一个大型列表所有数据都变了的情况下，重置 `innerHTML` 其实是一个比较高效的操作。真正的问题是，在 “全部重新渲染”的思维模式下，即使只有一行数据变了，它也需要重制整个 `innerHTML`，这时显然就有大量的浪费。
 
-Virtual DOM render + diff 显然比渲染 html 字符串要慢，但它依然是纯 js 层的计算，比起后面的 DOM 操作依然便宜太多了。Virtual DOM 保证了不管你的数据变化多少，每次重绘的性能都可以接受，但你依然可以用类似 in呢让HTML 的思路去写你的应用。
+Virtual DOM render + diff 显然比渲染 html 字符串要慢，但它依然是纯 js 层的计算，比起后面的 DOM 操作依然便宜太多了。Virtual DOM 保证了不管你的数据变化多少，每次重绘的性能都可以接受，但你依然可以用类似 innerHTML 的思路去写你的应用。
 
 #### diff 时间复杂度从 O(n^3) 优化到 O(n)，时间复杂度又是如何来的
 

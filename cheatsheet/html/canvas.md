@@ -8,7 +8,7 @@ https://www.w3schools.com/tags/ref_canvas.asp
 
 ### Colors, Styles, and Shadows
 
-||
+|||
 --------------|---------------------------------------------------------------------
 fillStyle     | 填充颜色或样式，值类型 颜色DOMString / 渐变CanvasGradient / 贴图CanvasPattern
 strokeStyle   | 线条颜色或样式，值类型 DOMString / CanvasGradient / CanvasPattern
@@ -17,7 +17,7 @@ shadowBlur    | 阴影尺寸等级，默认 `0`，跟像素的关系大概是，
 shadowOffsetX | 阴影水平偏移量，float 值
 shadowOffsetY | 阴影垂直偏移量，float 值
 
-||
+|||
 ---------------------------------------------|-------------------------------------------------------
 createLinearGradient(x0, y0, x1, y1)         | 创建线性渐变
 createRadialGradient(x0, y0, r0, x1, y1, r1) | 创建径向渐变
@@ -26,7 +26,7 @@ createPattern(image, repetition)             | 创建一个贴图 CanvasPattern
 
 ### Line Styles
 
-||
+|||
 -----------|---------------------------------------------------------------------------------------------
 lineWidth  | 线条宽度，不带单位 px
 lineCap    | 线头类型，`'butt'`(方头，默认) `'round'`(圆头) `'square'`(加长方头，线条两头各加长一半线宽)
@@ -35,7 +35,7 @@ miterLimit | 线段交点为锐角时，锐角的最大尺寸，默认 `10`，`0
 
 ### Rectangles
 
-||
+|||
 -----------|----------------------------------------
 rect       | 创建一个闭合矩形路径
 fillRect   | 填充一个矩形区域 = `rect()` + `fill()`
@@ -44,7 +44,7 @@ clearRect  | 清除指定矩形区域
 
 ### Paths
 
-||
+|||
 -----------------------|--------------------------------------------
 beginPath()            | 开始创建一个新路径
 closePath()            | 闭合当前路径(直线连接起点和终点)
@@ -53,7 +53,7 @@ lineTo(x, y)           | 在当前点和指定点间添加一段(直线)路径
 fill(path?, fillRule?) | 执行填充操作 [注1]
 stroke(path?)          | 沿着路径绘制线条
 
-||
+|||
 ------------------------------|-------------------------------------------------------------------------
 arc(x, y, radius, startAngle, endAngle, anticlockwise?)  | 添加圆或圆弧路径，默认顺时针
 arcTo(x1, y1, x2, y2, radius)  | 在切线P0-(x1,y1) 和 切线 (x1,y1)-(x2,y2)<br>添加圆弧路径并与 P0 相连
@@ -70,7 +70,7 @@ isPointInPath(path?, x, y, fillRule?)          | 判断一个坐标点是否在 
 
 https://segmentfault.com/a/1190000007792150
 
-||
+|||
 ---------------|-----------------------------------------------
 translate()    | Remaps the (0,0) position on the canvas
 scale()        | Scales the current drawing bigger or smaller
@@ -80,13 +80,13 @@ setTransform() | Resets the current transform to the identity matrix. Then runs 
 
 ### Text
 
-||
+|||
 -------------|------------------------------------------
 font         | Sets or returns the current font properties for text content
 textAlign    | Sets or returns the current alignment for text content
 textBaseline | Sets or returns the current text baseline used when drawing text
 
-||
+|||
 ------------|----------------------------------
 fillText    | Draws "filled" text on the canvas
 strokeText  | Draws text on the canvas (no fill)
@@ -94,19 +94,19 @@ measureText | Returns an object that contains the width of the specified text
 
 ### Image Drawing
 
-||
+|||
 -------------------------------------------------|--------------------------------------------------
 drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh) | Draws an image, canvas, or video onto the canvas
 
 ### Pixel Manipulation
 
-||
+|||
 -------|-------------------------------------------
 width  | Returns the width of an ImageData object
 height | Returns the height of an ImageData object
 data   | Returns an object that contains image data of a specified ImageData object
 
-||
+|||
 ----------------|---------------------------------
 createImageData | Creates a new, blank ImageData object
 getImageData    | Returns an ImageData object that copies the pixel data for the specified rectangle on a canvas
@@ -114,14 +114,14 @@ putImageData    | Puts the image data (from a specified ImageData object) back o
 
 ### Compositing
 
-||
+|||
 -------------------------|--------------------------------------------------------------------------
 globalAlpha              | Sets or returns the current alpha or transparency value of the drawing
 globalCompositeOperation | Sets or returns how a new image are drawn onto an existing image
 
 ### Other
 
-||
+|||
 ----------|--------------------------------------------------------------------------------------------------
 canvas    | 获取对应的 DOM 对象
 save()    | 保存(push) Context 的当前状态，含 transformation matrix / clipping region / dash list / 设置项 [注]
@@ -129,7 +129,7 @@ restore() | 恢复(pop)最近一次保存的 Context 状态
 
 注：设置项包含 `strokeStyle` `globalAlpha` `font` 等
 
-||
+|||
 -------------------------------------------------|------------------------------------------------------------------
 cvs.getContext(contextType, contextAttributes?)  | 获取绘图上下文，contextType: `'2d'` `'webgl'` `'webgl2'`
 cvs.toDataURL(type='image/png', encoderOptions?) | 数据 URL 就是一个以 `data:image/png;base64` 之类开头的<br> base-64 编码的字符串

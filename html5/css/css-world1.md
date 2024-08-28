@@ -153,7 +153,7 @@ div { position: absolute; left: 20px; right: 20px; }
 .ao::before { content: attr(title); outline: 2px solid #cd0000; font-family: Consolas,monospace; }
 /* 这里使用了 attr 是为了规避双引号被 marked 自动转义问题 */
   </style>
-  <span class="ao" title="love你love"></span>
+  <span class="ao" title="love你好love"></span>
 </div>
 
 **最大宽度**
@@ -252,10 +252,10 @@ height 和 width 还有一个比较明显的区别就是对百分比单位的支
   </style>
   <div class="wh-outer">
     <div class="wh-absolute">
-      我是绝对定位元素，宽高百分比是相对于 padding box 计算的
+      红框绝对定位元素，宽高百分比是相对于 padding box 计算的
     </div>
     <div class="wh-static">
-      我是非绝对定位元素，宽高百分比是相对于 content box 计算的
+      绿框是非绝对定位元素，宽高百分比是相对于 content box 计算的
     </div>
     <p>。。。</p>
   </div>

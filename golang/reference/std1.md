@@ -202,6 +202,23 @@ i, err := strconv.Atoi("-42")  // -42 <nil>
 s := strconv.Itoa(-42)         // "-42"
 ```
 
+### regexp
+
+```go
+// MustCompile is like Compile but panics if the expression cannot be parsed.
+func MustCompile(str string) *Regexp
+
+func (re *Regexp) MatchString(s string) bool
+func (re *Regexp) ReplaceAllString(src, repl string) string
+func (re *Regexp) Split(s string, n int) []string
+```
+
+```go
+re := regexp.MustCompile(`a(x*)b`)
+fmt.Println(re.Match([]byte(`seafood abc`)))  // true
+fmt.Println(re.ReplaceAllString("-ab-axxb-", "${1}W")) // "-W-xxW-"
+```
+
 ### bytes
 
 Package `bytes` implements functions for the manipulation of byte slices.
@@ -380,7 +397,27 @@ func Pow10(n int) float64
 func Log(x float64) float64
 ```
 
-### slices (1.12新增)
+### math/rand/v2 (1.22新增)
+
+```go
+// V1 API
+func Intn(n int) int  // returns a pseudo-random int in the half-open interval `[0,n)`
+```
+
+```go
+func IntN(n int) int    // returns a pseudo-random int in the half-open interval `[0,n)`
+func Perm(n int) []int  // returns a slice of `n` ints
+func N[Int intType](n Int) Int  // 泛型版
+```
+
+```go
+fmt.Println(rand.IntN(100)) // [0, 100)
+```
+
+permutation  _/ˌpɜːmjʊˈteɪʃən/_  n. 排列组合  one of the different ways in which a number of things can be arranged
+
+
+### slices (1.21新增)
 
 A collection of generic functions that operate on slices of any element type.
 
@@ -402,12 +439,19 @@ func BinarySearchFunc[S ~[]E, E, T any](x S, target T, cmp func(E, T) int) (int,
 func Contains[S ~[]E, E comparable](s S, v E) bool
 func ContainsFunc[S ~[]E, E any](s S, f func(E) bool) bool
 
+// Equal reports whether two slices are equal: the same length and all elements equal.
+func Equal[S ~[]E, E comparable](s1, s2 S) bool
+func EqualFunc[S1 ~[]E1, S2 ~[]E2, E1, E2 any](s1 S1, s2 S2, eq func(E1, E2) bool) bool
+
 // inserts the values v... into s at index i, returning the modified slice
 func Insert[S ~[]E, E any](s S, i int, v ...E) S
 // removes the elements s[i:j] from s, returning the modified slice
 func Delete[S ~[]E, E any](s S, i, j int) S
 // replaces the elements s[i:j] by the given v, and returns the modified slice
 func Replace[S ~[]E, E any](s S, i, j int, v ...E) S
+
+// Concat returns a new slice concatenating the passed in slices.    // 1.22新增
+func Concat[S ~[]E, E any](slices ...S) S
 ```
 
 

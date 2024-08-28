@@ -84,11 +84,6 @@ platform      | Returns for which platform the browser is compiled
 product       | Returns the engine name of the browser
 userAgent     | Returns the user-agent header sent by the browser to the server
 
-|||
----------------|-------------------------------------------------------
-javaEnabled()  | Specifies whether or not the browser has Java enabled
-taintEnabled() | Removed in JavaScript version 1.2. Specifies whether the browser has data tainting enabled
-
 
 ## Screen Object
 
@@ -118,8 +113,8 @@ state  | The current state object
 back()      | 相当于点击后退按钮，会导致页面更新，会在 `window` 上触发 `popstate` 事件
 forward()   | 相当于点击前进按钮，会导致页面更新，会在 `window` 上触发 `popstate` 事件
 go(_num_)   | 更灵活的前进后退，如 退一 `go(-1)` 进二 `go(2)`
-pushState(_stateObj, title, url?_)    | Pushes the given data with the title and URL onto the session history. <br>不会导致页面更新，不会触发事件，提供了 url 会更新 url，title 目前浏览器都忽略
-replaceState(_stateObj, title, url?_) | Updates the session history by the given data, title, and if provided, URL.
+pushState(_state, unused, url?_)    | Pushes the given data with the title and URL onto the session history. <br>不会导致页面更新，不会触发事件，提供了 url 会更新 url，<br>`unused` 即原先的 `title` 目前浏览器都忽略
+replaceState(_state, unused, url?_) | Updates the session history by the given data, title, and if provided, URL.
 
 
 ## Location Object

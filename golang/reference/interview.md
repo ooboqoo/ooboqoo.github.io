@@ -227,6 +227,8 @@ case false:
 
 ### 闭包引用反直觉
 
+JavaScript 会在每次迭代是生成新的变量，而 Go 则不会。从 Go 1.22 开就没这问题了。
+
 ```go
 func main() {
   str := "abc"

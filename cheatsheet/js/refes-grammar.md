@@ -124,9 +124,9 @@ for (let i of iterable) { console.log(i) }            // logs 3, 5, 7
 只能操作一个值的操作符叫做 "一元操作符"。一元运算符只有一个参数。
 
 |||
----------|--------------------------------------------
+---------|---------------------------------------------------------------
 `delete` | 删除开发者自定义的对象属性或方法
-`void`   | 对任何值都返回 undefined，常见用法 `<a href="javascript:void();">click me</a>`
+`void`   | 对任何值都返回 undefined，现代代码你可以直接使用 `undefined` 字面量
 `typeof` | 确定目标所属的原始值类型，引用类型和 null 都返回 "object"
 |
 `+` | 一元加，对数值没影响，非数值调用 Number() 进行数值转换
@@ -142,8 +142,8 @@ for (let i of iterable) { console.log(i) }            // logs 3, 5, 7
 `void` 运算符通常用于避免输出不应该输出的值，`<a href="javascript:void(window.open('about:blank'))">click me</a>`
 
 ```js
-void 5  // undefined
-void(5) // undefined
+void 5     // undefined
+void (1+4) // undefined
 ```
 
 ```js
@@ -176,8 +176,8 @@ let i = '5', j = '5';
 -----|--------------------------------------------
 `+`  | 加
 `-`  | 减
-`/`  | 除
 `*`  | 乘
+`/`  | 除
 `%`  | 求余
 `**` | 乘方，求幂，ES2016新增
 
@@ -197,7 +197,7 @@ let i = '5', j = '5';
 * 字符串与数值比较，字符串会转换成数值再进行比较，如果字符串无法转换成数值，就统一返回 false
 
 ```js
-'25' > '3' // true
+'25' < '3' // true
 'a' < 3;   // false
 'a' >= 3;  // false
 ```

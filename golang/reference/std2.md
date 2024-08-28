@@ -379,7 +379,10 @@ if err != nil { panic(err) }
 Package sort provides primitives for sorting slices and user-defined collections.
 
 ```go
-func Ints(x []int)  // sorts a slice of ints in increasing order
+// 后续用 v1.21 的 func Sort[S ~[]E, E cmp.Ordered](x S)
+xxx func Ints(x []int)  // sorts a slice of ints in increasing order
+xxx func Strings(x []string) // sorts a slice of strings in increasing order
+
 func Reverse(data Interface) Interface  // returns the reverse order for data
 // SearchInts searches for x in a sorted slice of ints and returns the index as specified by Search.
 // The return value is the index to insert x if x is not present. The slice must be sorted in ascending order.

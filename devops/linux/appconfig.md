@@ -246,14 +246,6 @@ https://www.v2ray.com/
 
 > 两会期间碰到上不去或特别慢，请自觉关机一段时间，不然 IP 过几天就爆。
 
-### 主机选择
-
-检查 IP 是否被封(选能用的) https://ipcheck.need.sh/  
-查看路由详情(选速度快的) https://tools.ipip.net/traceroute.php  
-
-搬瓦工查看 IP 是否被封 https://kiwivm.64clouds.com/\<id\>/main-exec.php?mode=blacklistcheck
-如果被封就申请更换 https://bwh88.net/ipchange.php  
-
 ### 服务器
 
 ```bash
@@ -454,13 +446,44 @@ V2Ray 和 Trojan 有如下区别及特点：
 
 ## 辅助工具
 
-IP 被墙检测及解决办法(SSR中文网) https://ssr.tools/772  
-候选供应商(要是封杀厉害就买现成的) https://justmysocks.net/  
+查看路由详情(选速度快的) https://tools.ipip.net/traceroute.php  / https://ping.pe/
 
 伪装设置完整度检测 https://whoer.net/
 
-路由查看 `traceroute`，话说不怎么会用。
+IP 被墙检测及解决办法(SSR中文网) https://ssr.tools/772  
+搬瓦工查看 IP 是否被封 https://kiwivm.64clouds.com/\<id\>/main-exec.php?mode=blacklistcheck  
+如果被封就申请更换 https://bwh88.net/ipchange.php  
+候选供应商(要是封杀厉害就买现成的) https://justmysocks.net/  
 
 
+## Hysteria 2
 
+https://v2.hysteria.network/zh/
+
+通过魔改的 QUIC 协议，伪装成 HTTP/3 流量，无论中间人还是主动探测，都很难分辨和封锁。
+
+Server
+
+```bash
+$ bash <(curl -fsSL https://get.hy2.sh/)
+
+# Edit server config file
+# Quick server config guide: https://hysteria.network/docs/getting-started/Server/
+$ vim /etc/hysteria/config.yaml
+
+$ systemctl start hysteria-server.service   # Start hysteria server
+$ systemctl enable hysteria-server.service  # Configure hysteria start on system boot
+```
+
+Client
+
+临时方案：client + v2rayU (4.0 会内置支持)
+
+```bash
+# download binary form https://v2.hysteria.network/zh/docs/getting-started/Client/
+$ chmod +x hysteria-darwin-amd64
+$ vim config.yaml
+$ ./hysteria-darwin-amd64  # macOS 拒绝可到 "Privacy & Security" 下给应用开白
+# 然后到 v2rayU 下添加一台 Server 到 socks://127.0.0.1:1090
+```
 

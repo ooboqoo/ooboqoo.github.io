@@ -168,25 +168,25 @@ converge
 curry
 
 // 去抖函数，确保两次调用之间超过特定时长才真正执行
-const debounce = (fn, ms = 200, context = window) => {
+const debounce = (fn, ms = 200) => {
   let timeoutId;
   return function(...args) {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn.apply(context, args), ms);
+    timeoutId = setTimeout(() => fn.apply(this, args), ms);
   };
 };
 
 // 节流函数，在某一个时间段内，只执行一次
-const throttle = (fn, wait = 200, context = window) => {
+const throttle = (fn, wait = 200) => {
   let lastFn, lastTime = Date.now() - wait
   return function (...args) {
     if (Date.now() - lastTime >= wait) {
-      fn.apply(context, args)
+      fn.apply(this, args)
       lastTime = Date.now()
     } else {
       clearTimeout(lastFn)
       lastFn = setTimeout(function () {
-        fn.apply(context, args)
+        fn.apply(this, args)
         lastTime = Date.now()
       }, Math.max(wait - (Date.now() - lastTime), 0))
     }
