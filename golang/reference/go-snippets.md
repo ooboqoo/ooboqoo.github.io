@@ -39,7 +39,41 @@ for _, model := range models {
 map[string]bool
 ```
 
+### enum
 
+```ts
+enum Direction {
+  North,
+  South,
+  East,
+  West
+}
+```
+
+```go
+package main
+
+import "fmt"
+
+type Direction int
+
+const (
+    North Direction = iota
+    South
+    East
+    West
+)
+
+func (d Direction) String() string {
+    return [...]string{"North", "South", "East", "West"}[d]
+}
+
+func main() {
+    var d Direction = East
+    fmt.Println(d)         // 输出 2
+    fmt.Println(d.String()) // 输出 East
+}
+```
 
 ### 字符串拼接
 

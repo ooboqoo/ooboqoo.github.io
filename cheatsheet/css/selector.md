@@ -100,6 +100,13 @@ Selector | Example | Example description | CSS
  :last-of-type               | p:last-of-type        |  | 3
  :only-of-type               | p:only-of-type        |  | 3
 
+
+[stackflow: text nodes](https://stackoverflow.com/questions/42074295/is-there-a-css-selector-for-the-first-child-taking-text-nodes-into-account) 这里 `strong:first-child` 依然能选中 "abc"，because text is not a dom element of it's own
+
+```html
+<li>123<strong>abc</strong></li>
+```
+
 ### 伪类选择符 - Forms
 
    Selector    |       Example      | Example description | CSS

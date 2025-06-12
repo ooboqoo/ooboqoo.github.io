@@ -66,7 +66,8 @@ $ git reflog  # 强力后悔药，可以找回误删的 commit hash 并复原
 ```bash
 # 仅适用于对 http/https 加速，对 ssh+git 无效
 # ssh+git 设置可参考 https://gist.github.com/ozbillwang/005bd1dfc597a2f3a00148834ad3e551
-$ git config --global http.proxy socks5://localhost:1080
+$ git config --global http.proxy socks5h://127.0.0.1:1080  # prefer `socks5h` than `socks5`
+$ git config --global https.proxy socks5h://127.0.0.1:1080
 
 # 单次下载临时使用代理
 $ git clone https://github.com/goldendict/goldendict.git --config "http.proxy=socks5://localhost:1080"

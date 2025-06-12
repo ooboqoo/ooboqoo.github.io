@@ -9,7 +9,7 @@ https://electronjs.org/docs
 国内直接 npm install 不行，需配置镜像：
 
 ```bash
-$ echo "registry=https://registry.npmmirror.com" >> .npmrc  # local config
+$ echo "electron_mirror=https://npmmirror.com/mirrors/electron/" >> .npmrc  # local config
 $ npm install electron --save-dev --save-exact  # 目前推荐的安装方式
 ```
 

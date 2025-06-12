@@ -23,7 +23,7 @@ JS文件
 * script 的用法，不会出现跨域
 * `import(module_url)` 会出现跨域报错，但配 `*` 就行，即 `Access-Control-Allow-Origin: *`
 
-如果需要跨域发送 Cookie
+如果需要跨域发送 Cookie （注：跨域发送的 Cookie 是「接口站点自己的 Cookie」而不是「发起请求方的 Cookie」）
 * `Access-Control-Allow-Origin` 字段必须是具体的地址，使用通配符 `*` 不好使
     - Reason: Credential is not supported if the CORS header `Access-Control-Allow-Origin` is `*`
 * `Access-Control-Allow-Credentials` 字段设置为 `true`

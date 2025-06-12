@@ -9,3 +9,5 @@ Ingress  _/ˈɪnɡres/_  外部流量的入口
 egress  _/ˈiːɡres/_  流量的出口  
 
 A service mesh is more concerned about inter-service communication (east-west traffic) than service-client communication (north-south traffic). Typically, this is achieved by deploying sidecar proxies with APIs/services.
+
+

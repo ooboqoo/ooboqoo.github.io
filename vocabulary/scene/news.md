@@ -1,3 +1,5 @@
+# News
+
 skyscraper  _/ˈskaɪˌskreɪpə/_ n.摩天大楼  
 scraper _/ˈskreɪpə/_  n.刮刀,刮板 scrape v.刮擦  
 engulf  _/ɪnˈɡʌlf/_ n.常指突然吞没,吞噬 gulf n.海湾  

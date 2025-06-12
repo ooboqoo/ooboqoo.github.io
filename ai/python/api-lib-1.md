@@ -28,7 +28,7 @@ Basic date and time types
 ### random
 
 ```py
-from random import randit
+from random import randint
 x = randint(1, 6)
 ```
 

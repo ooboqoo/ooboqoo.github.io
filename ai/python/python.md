@@ -1,5 +1,6 @@
 # Python 资源索引
 
+[uv](https://github.com/astral-sh/uv) 包管理器，A single tool to replace `pip`, `pip-tools`, `pipx`, `poetry`, `pyenv`, `twine`, `virtualenv`, and more.
 Requests 一个 HTTP 客户端库  
 BeautifulSoup 一个 HTML 解析器  
 Flask  一个 Web 框架  
