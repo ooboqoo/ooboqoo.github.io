@@ -82,12 +82,6 @@ fetch(url, options)
 ```
 
 
-### 跨域
-
-
-
-
-
 ## Server-Sent events
 
 https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
@@ -97,6 +91,17 @@ https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server
 顾名思义，轮询就是每隔一定时间(如10s)就向Web服务器请求新数据。为了实现这个操作，可以使用 `setInterval()` 或 `setTimeout()` 函数，每过设定的时间就触发一次代码。轮询是一个合理的方案，但有时候效率不高。因为轮询意味着要向服务器发送请求，要建立新连接，而这样做只是想知道是否有新数据。如果成千上万的用户都这样轮询，无疑会给服务器造成无谓的压力。
 
 另一种方案，服务器发送事件，可以让网页与Web服务器保持连接。服务器任何时候都可以发送消息，而不必频繁断开连接，然后再重新连接并重新运行服务器端脚本(除非你希望如此，因为服务器发送事件也支持轮询)。最关键的是，使用服务器发送事件很简单，大多数Web主机都支持，而且极其稳定可靠。在服务器端，只需要按照一定的格式返回事件流，在客户端中，只需要为一些事件类型绑定监听函数，和处理其他普通的事件没多大区别。
+
+### 使用兼容性
+
+因为用得少，实际使用存在兼容性问题，复杂点的场景不如上 WebSocket 更省心。
+
+https://github.com/mpetazzoni/sse.js 客户端解决问题：The main limitations of `EventSource` are that it only supports no-payload GET requests, and does not support specifying additional custom headers to the HTTP request.
+
+| 问题类型 | 说明 | 典型环境 | 解决方式
+|---------|------|---------|-------------------
+| HTTP/反向代理超时 | 一些代理（如 Nginx、Cloudflare）会在连接无响应超时后关闭 SSE 连接 | Nginx、AWS ALB、Cloudflare | 服务端定期发送“心跳”数据，如 :\n\n 每隔30秒发送一次，或调整代理超时时间
+
 
 ### 消息格式
 

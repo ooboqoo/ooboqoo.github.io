@@ -1,7 +1,6 @@
 # 重点巩固
 
 Vercel _/ˈvɜːrsəl/_ The Vercel company  
-王郧臣 _/Wáng Yúnchén/_ Wang Yunchen
 
 go back to the drawing board  idiom  back to the beginning of a process to start it again, because it is not working
 https://dictionary.cambridge.org/dictionary/english/back-to-the-drawing-board

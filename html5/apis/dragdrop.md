@@ -119,7 +119,7 @@ IE10 开始支持 **拖拽**、**File API** 以及样式中的 **Flexbox**，所
   </style>
 </head>
 <body>
-  <div id="uploader" draggable="true">请拖动文件到框内</div>
+  <div id="uploader">请拖动文件到框内</div>
   <script>
     var uploader = document.getElementById('uploader');
     function handleDrop(ev) {
@@ -134,7 +134,7 @@ IE10 开始支持 **拖拽**、**File API** 以及样式中的 **Flexbox**，所
 
     function upload(files) {
       var fd = new FormData();
-      files.forEach(function (file) { fd.append("file", file); });
+      Array.from(files).forEach(function (file) { fd.append("file", file); });
       var xhr = new XMLHttpRequest();
       xhr.open("POST", "URL/TO/YOUR/FILE/HANDLER");
       xhr.send(fd);

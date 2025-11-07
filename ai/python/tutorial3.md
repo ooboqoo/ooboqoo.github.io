@@ -162,7 +162,7 @@ import unittest
 from survey import AnonymousSurvey
 
 class TestAnonymousSurvey(unittest.TestCase):
-
+    # 注意这里的命名，用的是 camelCase 格式，unittest 内置函数使用 camelCase 命名习惯
     def setUp(self):
         question = "What language did you first learn to speak?"
         self.my_survey = AnonymousSurvey(question)
@@ -353,15 +353,27 @@ Python语言特定的序列化模块是 pickle，但如果要把序列化搞得�
 >>> import pickle
 >>> d = dict(name='Bob', age=20, score=88)
 >>> pickle.dumps(d)
-
+b'\x80\x04\x95$\x00\x00\x00\x00\x00\x00\x00}\x94(\x8c\x04name\x94\x8c\x03Bob\x94\x8c\x03age\x94K\x14\x8c\x05score\x94KXu.'
 >>> f = open('dump.txt', 'wb')
 >>> pickle.dump(d, f)
 >>> f.close()
-
 >>> f = open('dump.txt', 'rb')
 >>> d = pickle.load(f)
 >>> f.close()
 >>> d
+{'name': 'Bob', 'age': 20, 'score': 88}
+```
+
+```py
+import json
+d = dict(name='Bob', age=20, score=88)
+print(json.dumps(d))
+f = open('dump.txt', 'w')
+json.dump(d, f)
+f.close()
+f = open('dump.txt', 'r')
+d = json.load(f)
+f.close()
 ```
 
 

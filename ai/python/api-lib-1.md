@@ -38,8 +38,10 @@ x = randint(1, 6)
 JSON encoder and decoder
 
 ```py
+# Serialize obj as a JSON formatted stream to fp
 json.dump(obj, fp, *, skipkeys=False, ensure_ascii=True, check_circular=True, allow_nan=True,
     cls=None, indent=None, separators=None, default=None, sort_keys=False, **kw)
+# Serialize obj to a JSON formatted str.
 json.dumps(obj, *, skipkeys=False, ensure_ascii=True, check_circular=True, allow_nan=True,
     cls=None, indent=None, separators=None, default=None, sort_keys=False, **kw)
 

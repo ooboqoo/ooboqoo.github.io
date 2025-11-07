@@ -6,16 +6,16 @@ orthogonal  _/ɔːˈθɒɡənəl/_  adj. [数] 正交的,直角的  Another impo
 
 Go usage is growing worldwide, especially but *by no means* exclusively (但绝不仅限于) in the cloud computing space. *A couple of* (几个) major cloud infrastructure projects written in Go are Docker and Kubernetes, but there are many more.
 
-We understand that this is *a point of contention*. 我们知道这是一个争议点。
+We understand that this is *a point of contention*. 我们知道这是一个争议点。contention /kənˈtenʃən/ 争吵
 
 mutex  _/ˈmjuːtɛks/_  n. pl. mutexes 互斥锁  v. 互斥  
 
-overhead  开销  
+overhead adv. _/ˌəʊvəˈhed/_ 在头顶上的，高架的  n. _/ˈoʊvərhed/_ 开销  
 
 the compatibility promise encourages us to provide an automatic path forward for old programs to adapt *should* that situation arise. 中的 should 是一个虚拟语气的标志，用于引导一个条件从句。它相当于 if 的意思，但更强调一种假设和可能性。
 
 
-This is a *laundry list* of common style issues, not a comprehensive style guide. 待洗衣服的清单，用于表达。。。
+This is a *laundry list* of common style issues, not a comprehensive style guide. “laundry list” 在这里指 “一长串项目的清单”，意思是把许多（通常是零散或常见的）事项逐条列出来。
 
 Almost all Go code *in the wild* uses gofmt. 不应该理解为 ”在野外“，而应该理解为 ”在现实中“ wild 翻译为 ”自然环境“
 

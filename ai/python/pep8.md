@@ -152,7 +152,8 @@ if foo == 'blah': one(); two(); three()
 多行文档说明使用的结尾 `"""` 应该自成一行；单行的文档说明，尾部的 `"""` 应该和文档在同一行。
 
 ```py
-"""Return a foobang
+"""Return a foobang.
+
 Optional plotz says to frobnicate the bizbaz first.
 """
 ```

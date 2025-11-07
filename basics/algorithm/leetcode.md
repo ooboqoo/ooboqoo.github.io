@@ -2,15 +2,7 @@
 
 # Leetcode
 
-做算法题和实际开发的区别：实际开发时可以借助各种库，但做算法题不能用这些库，要的就是纯手撸
 
-题目限制条件：做题时看清题目中的条件(Description + Constraints)，很多时候只需要处理特定场景，大大降低实现难度，而且可能人家就是考这种场景下的处理方法
-
-关于边界：边界、中间场景 直接在纸上把各个变量列出来核对，不然改来改去非常影响效率。还可以添加测试用例进行验证
-
-双指针写法：
-* 在一个 for 循环里（非同步）移动指针，即每个循环里只移动一个指针，不要套两层 for 代码不好写会出各种问题。
-* 结束条件、边界逻辑处理也都在 for 内部处理
 
 测试用例：CodeSignal 平台不支持调试，但可以添加自定义用例，可以构造几个基本的测试用例来查看输出情况
 
@@ -21,6 +13,189 @@
 
 
 大佬的在线解题书 https://github.com/halfrost/LeetCode-Go
+
+
+
+
+
+## 题型和解法
+
+做算法题和实际开发的区别：实际开发时可以借助各种库，但做算法题不能用这些库，要的就是纯手撸
+
+题目限制条件：做题时看清题目中的条件(Description + Constraints)，很多时候只需要处理特定场景，大大降低实现难度，而且可能人家就是考这种场景下的处理方法
+
+
+Leetcode TS 环境下可以直接使用 lodash.js 和 datastructures-js
+https://support.leetcode.com/hc/en-us/articles/360011833974-What-are-the-environments-for-the-programming-languages
+
+
+
+关于边界：边界、中间场景 直接在纸上把各个变量列出来核对，不然改来改去非常影响效率。还可以添加测试用例进行验证
+
+双指针写法：
+* 在一个 for 循环里（非同步）移动指针，即每个循环里只移动一个指针，不要套两层 for 代码不好写会出各种问题。
+* 结束条件、边界逻辑处理也都在 for 内部处理
+
+### 题目特征
+
+做题时，需要考虑会用到哪些数据结构，以及哪些算法。碰到一些特征要快速反应，如
+* 所有可行解：回溯
+* O(log n) 的解法：二分法
+* 常量额外空间：原地记录状态
+* 第K个元素：动态 ——》 必须是堆；静态 -》借助快排思想，实现一个 quickSelect
+  - 215题，数组中的第K个最大元素，这个题目想到的解法肯定是小顶堆，但解题场景是没有时间实现堆的，所以这题最优的解法是借助快排的原理，实现一个 quickSelect 函数。
+* 排序相关的题目，凡是要求 O(n) 时间复杂度内完成的，除了适用于 桶排序 等 O(n) 的排序算法，其他基本都是用 hashmap 解决。
+
+
+
+
+### TypeScript 解题注意点
+
+整数排序一定要提供比较函数
+
+```ts
+arr.sort((a, b) => a - b);
+```
+
+## Top150 快速复习
+
+滑动窗口
+* 最短型滑动窗口
+  - [209]() 长度最小的子数组
+    * 题目描述
+    * 解题思路
+  - [76]() 最小覆盖子串
+
+
+
+
+
+
+
+## Temp
+
+
+
+// TODO
+* https://leetcode.cn/problems/perfect-squares/description/ 279 完全平方数
+
+
+
+
+
+BFS 可以看成是层序遍历，从某个节点触发，BFS 首先遍历到距离为 1 的节点，然后是距离为 2、3、4... 的节点。因此，BFS 可以用来求最短路径问题。BFS 先搜索到的节点，一定是距离最近的节点。
+
+
+
+763 划分字母区间
+核心是先遍历一遍，找出每个字符最后出现的位置，存到 map 中。
+
+
+
+
+
+
+207题，课程表，考的是图相关知识：有向有环图，入度，出度...
+
+
+```ts
+function canFinish(numCourses: number, prerequisites: number[][]): boolean {
+    // 构建邻接表和入度数组
+    const adj: number[][] = Array.from({length: numCourses}, () => []);
+    const inDegree: number[] = Array(numCourses).fill(0);
+
+    for (const pair of prerequisites) {
+        const [course, pre] = pair; // 要学 course 需先学 pre -> 边 pre -> course
+        adj[pre].push(course);
+        inDegree[course] += 1;
+    }
+
+    // 初始化队列（所有入度为 0 的课程）
+    const queue: number[] = [];
+    for (let i = 0; i < numCourses; i++) {
+        if (inDegree[i] === 0) {
+            queue.push(i);
+        }
+    }
+
+    let processed = 0;
+
+    while(processed < queue.length) {
+        const node = queue[processed];
+        for (const nei of adj[node]) { // nei -> neighbor
+            inDegree[nei] -= 1;
+            if (inDegree[nei] === 0) {
+                queue.push(nei);
+            }
+        }
+        processed++;
+    }
+
+    return processed === numCourses;
+};
+```
+
+41题，缺失的第一个正数 https://leetcode.cn/problems/first-missing-positive/description/  标记为 hard 的原因是，需要对hash有深入的理解和灵活运用的能力，有思路后编码倒不难。
+
+
+39题，组合总和，回溯，注意去除重复子集的思路
+
+![题解](images/leetcode/39.png)
+
+```ts
+function combinationSum(candidates: number[], target: number): number[][] {
+    candidates.sort((a,b) => a-b);
+    const res: number[][] = [];
+    function dfs(items: number[], sum: number) {
+        for (const c of candidates) {
+           // 剪枝二 避免生成重复子集
+            if (items.length && c < items.at(-1)) {
+                continue;
+            }
+            // 剪枝一 元素不能超过 target
+            if (sum + c > target) {
+                break;
+            }
+            if (sum + c === target) {
+                res.push([...items, c]);
+                break;
+            }
+            dfs([...items, c], sum+c);
+        }
+    }
+    dfs([], 0);
+    return res;
+};
+
+// 优化版本
+// 优化1：引入 startIndex 避免 full-loop scans
+// 优化2：引入 paths 替换 items 减少内存分配负担
+function combinationSum(candidates: number[], target: number): number[][] {
+    candidates.sort((a, b) => a - b);
+    const res: number[][] = [];
+    const paths: number[] = [];
+    function dfs(startIdx: number, sum: number) {
+        for (let i = startIdx; i < candidates.length; i++) {
+            const c = candidates[i];
+            if (sum + c > target) {
+                break;
+            }
+            paths.push(c);
+            if (sum + c === target) {
+                res.push([...paths]);
+                paths.pop();
+                break;
+            }
+            dfs(i, sum+c);
+            // 回溯
+            paths.pop();
+        }
+    }
+    dfs(0, 0);
+    return res;
+};
+```
+
 
 
 ## Array
@@ -791,6 +966,11 @@ func isSubsequence(s string, t string) bool {
 
 #### 15 三数之和 3Sum  __medium__
 
+这道题感觉在 Medium 里也算难的吧
+
+题目描述：
+题解1：
+
 ```go
 func threeSum(nums []int) (res [][]int) {
 	n := len(nums)
@@ -816,6 +996,45 @@ func threeSum(nums []int) (res [][]int) {
 	return
 }
 ```
+
+```ts
+// 难点在于规避重复解
+function threeSum(nums: number[]): number[][] {
+  nums.sort((a, b) => a - b) // 数字排序别忘比较函数，规避重复解
+  const map = new Map() // 用 Map 记录数字最后出现位置
+  nums.forEach((v, i) => map.set(v, i));
+  const res = []
+  let i = 0
+  let j = 1
+  while (i < nums.length) {
+    const a = nums[i]
+    // 确定 a 数值后，题目变成 2数相加问题
+    while (j < nums.length) {
+      const b = nums[j]
+      const c = 0 - a - b
+      // 剪枝
+      if (c < 0) {
+        break
+      }
+      if (map.has(c) && map.get(c) > j) {
+        res.push([a, b, c])
+      }
+      // 规避重复解。手欠写成 `while(nums[j++] === b) { }` 就坑了，不符合条件时 j++ 也会执行一次
+      while (nums[j] === b) {
+        j++
+      }
+    }
+    // 规避重复解
+    while (nums[i] === a) {
+        i++
+    }
+    j = i + 1
+  }
+  return res
+}
+```
+
+
 
 
 ## 回溯
@@ -953,6 +1172,48 @@ function findSubstring(s, words) {
 
 console.log(findSubstring('barfoofoobarthefoobarman', ['foo', 'bar', 'the']));
 ```
+
+## 前缀和
+
+滑动窗口解决的是“动态维护一个区间”的问题，前缀和解决的是“快速计算某个区间结果”的问题。它们都处理连续区段，但一个动态，一个静态。
+
+#### 560 和为 K 的子数组 https://leetcode.cn/problems/subarray-sum-equals-k
+
+一般来说，看到连续子数组元素相关的，基本就是「滑动窗口」或者「前缀和」，而滑动窗口的使用需要满足前置条件：窗口内的元素必须要有“单调性”，也就是说新元素进入窗口必须使得内部和不能减少，必须使得窗口向着不满足约束的方向前进。由于数组 *存在负数*，因此新入元素反而可能使得窗口更加不超过k。因此排除滑动窗口，想到使用前缀和。前缀和的优势就在于能够将子数组求和的时间优化到 O(n)。
+
+解题思路
+1. 连续子数组和问题
+2. 发现需要频繁计算区间和
+3. 联想前缀和技巧（空间换时间）
+4. 数学变换：sum(i,j) = prefix[j+1] - prefix[i] = k
+5. 转化为 prefix[i] = prefix[j+1] - k
+6. 用哈希表存储历史 prefix[i] 实现 O(1) 查找
+7. 添加边界条件 prefix[0]=0
+8. O(n) 高效解法
+
+```
+
+```ts
+function subarraySum(nums: number[], k: number): number {
+    // 计算前缀和，其实可以优化到下面那个循环里计算，不过这样看着直观
+    const preSum = Array.from(nums);
+    for (let i = 1; i < nums.length; i++) {
+        preSum[i] += preSum[i-1];
+    }
+    let res = 0;
+    const map = new Map<number, number>([[0,1]]); // preSum 为某个值时，对应出现的次数，避免每次遍历查找 si 为特定值的个数
+    for (let sj of preSum) {
+        const si = sj - k;  // !!核心!! 理解图示： [..., idx=i, {... sum=k ...idx=j}]
+        res += map.get(si) || 0;
+        map.set(sj, map.has(sj) ? map.get(sj)+1 : 1)
+    }
+    return res;
+};
+```
+
+
+
+
 
 
 ## 其他

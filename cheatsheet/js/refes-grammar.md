@@ -25,24 +25,24 @@ http://www.ecma-international.org/ecma-262/5.1/
 
 |||
 --------------------|---------------------------------------------------------------------------------------------
-`[label:] { }`      | 程序块由一对大括号分隔，程序块内可包含多条语句，程序块前可以添加 "标签"，供程序控制确定位置
-`break [label];`    | 终止并跳出当前程序块，如指定 "标签"，可指定调出的程序块级别
+`[label:] { }`      | 程序块由一对大括号分隔，程序块前可以添加 "标签"，供程序控制确定位置
+`break [label];`    | 终止并跳出当前程序块，如指定 "标签"，可指定跳出的程序块级别
 `continue [label];` | 终止本次迭代，继续执行下次迭代，通过 "标签" 可指定操作的迭代层级
 `;`                 | 空语句，当没有语句时，需要使用 `;` 注明结尾
 `if...else`         | if 语句，详见示例
 `switch`            | switch 语句，详见示例
-`throw`             | 抛出一个用户自定义异常，会被调用栈中最近的一层 catch 捕获，如果没有进行捕获处理，程序就会终止
+`throw`             | 抛出一个用户自定义异常，会被调用栈中最近的一层 catch 捕获，如果到最外层还没捕获程序就会终止
 `try...catch`       | try...catch...finally 语句用于捕获内部代码异常，下方有简单示例，详细使用请查文档
 |
 `for`        | `for ([initialization]; [condition]; [final-expression]) statement`
-`for...in`   | `for (key in object) { ... }` 不保证迭代顺序，用于遍历**对象的可遍历属性** enumerable properties
-`for...of`   | `for (value of iterable) { ... }` 迭代按顺序执行，只遍历 iterable object 无法用于普通对象
+`for...in`   | `for (key in object) { ... }` 遍历**对象的可遍历属性** enumerable properties
+`for...of`   | `for (value of iterable) { ... }` 迭代按顺序执行，只遍历 iterable，普通对象不适用
 `while`      | `while (condition) statement` 先判断再执行
 `do...while` | `do statement while (condition);` 先执行再判断
 |
 `debugger` | 用于在代码中开启调试，调试开启时会自动中断，调试未开启则沉默
-`export`   | ES6新增，用于设定模块导出内容
-`import`   | ES6新增，用于导入外部模块内容
+`export`   | 设定模块导出内容
+`import`   | 导入外部模块内容
 
 
 ```js
@@ -56,14 +56,14 @@ for (; ;) { }  // 这是个死循环，当不提供判断语句时会一直执�
 
 switch (expression) {
   case value1:
-    //Statements executed when the result of expression matches value1
+    // Statements executed when the result of expression matches value1
     [break;]            // 不加 break; 就会继续往下执行，如不加，要添加注释，告诉别人是故意不加的
   case value2:
-    //Statements executed when the result of expression matches value2
+    // Statements executed when the result of expression matches value2
     [break;]
   ...
   default:
-    //Statements executed when none of the values match the value of the expression
+    // Statements executed when none of the values match the value of the expression
 }
 
 try {
@@ -81,11 +81,11 @@ Object.prototype.objCustom = function () { }
 Array.prototype.arrCustom = function () { }
 let iterable = [3, 5, 7]
 iterable.foo = 'hello'
-for (let i in iterable) { console.log(i) }            // logs 0, 1, 2, "foo", "arrCustom", "objCustom"
-for (let i in iterable) {
+for (const i in iterable) { console.log(i) }  // logs 0, 1, 2, "foo", "arrCustom", "objCustom"
+for (const i in iterable) {
   if (iterable.hasOwnProperty(i)) { console.log(i) }  // logs 0, 1, 2, "foo"
 }
-for (let i of iterable) { console.log(i) }            // logs 3, 5, 7
+for (const i of iterable) { console.log(i) }          // logs 3, 5, 7
 ```
 
 
@@ -100,9 +100,9 @@ for (let i of iterable) { console.log(i) }            // logs 3, 5, 7
 `class`     | 声明一个类表达式，ES6新增
 `function*` | 声明一个 Generator 函数表达式，ES6新增
 `yield`     | The yield keyword is used to pause and resume a generator function ES6新增
-`yield*`    | The yield* expression is used to delegate to another generator or iterable object. ES6新增
-`async function` | 声明一个 async 函数，ES2017新增
-`await`          | 用于 async 函数内部，表示一个异步等待，ES2017新增
+`yield*`    | The yield* expression is used to delegate to another generator or iterable object
+`async function` | 声明一个 async 函数
+`await`          | 用于 async 函数内部，表示一个异步等待
 `[]`             | 数组字面量
 `{}`             | 对象字面量
 `/ab+c/i`        | 正则字面量
@@ -139,7 +139,7 @@ for (let i of iterable) { console.log(i) }            // logs 3, 5, 7
 `++A` | 前递增，先增再计算表达式
 `--A` | 前递减，先减再计算表达式
 
-`void` 运算符通常用于避免输出不应该输出的值，`<a href="javascript:void(window.open('about:blank'))">click me</a>`
+`void` 通常用于避免输出不应该输出的值，`<a href="javascript:void(window.open('about:blank'))">New</a>`
 
 ```js
 void 5     // undefined
@@ -155,6 +155,16 @@ let i = '5', j = '5';
 ### 位运算符
 
 按位取反 <code>~</code>  按位左移`<<`  按位右移 `>>`  无符号右移 `>>>`  按位与 `&`  按位或 `|`  按位异或 `^`
+
+| 运算符 | 名称       | 说明
+| :------ | :---------- | :-----------------------------------
+| `~`     | 按位取反     | 将二进制位全部取反（0 变 1，1 变 0）
+| `<<`    | 按位左移     | 向左移动指定位数，右侧补 0
+| `>>`    | 按位右移     | 向右移动指定位数，保留符号位（符号扩展）
+| `>>>`   | 无符号右移   | 向右移动指定位数，左侧补 0（不保留符号位）
+| `&`     | 按位与       | 两位都为 1 时结果为 1，否则为 0
+| `\|`    | 按位或       | 只要有一位为 1，结果为 1
+| `^`     | 按位异或     | 两位不同为 1，相同为 0
 
 ```js
 // 取反：先改符号，值加1
@@ -179,7 +189,7 @@ let i = '5', j = '5';
 `*`  | 乘
 `/`  | 除
 `%`  | 求余
-`**` | 乘方，求幂，ES2016新增
+`**` | 乘方，求幂
 
 ### 关系操作符 Relational operators
 

@@ -31,6 +31,9 @@ $ git merge bwh/tabview
 $ git push   # 上传代码
 $ git add .  # 添加更改到 staged
 
+$ git switch branchname    # 切换分支
+$ git restore <file_path>  # reverts the specified file to its state in the last commit or the index (if staged)
+
 $ git reset        # 用最近一次 commit 的内容覆盖 index，相当于撤销 git add . 操作
 $ git reset HEAD~2 # 用最近第2次 commit 的内容覆盖 index
 $ git reset --hard # 清空工作目录中已跟踪文件到上次提交状态
@@ -225,13 +228,15 @@ $ git fetch -p  # 当删除远程分支后，本地还是能看到 origin/branch
 
 $ git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d  # 批量删本地已合分支
 
-# checkout 切换分支或恢复工作目录文件
-$ git checkout <branch-name>    # 切换到某个分支
+# checkout 切换分支或恢复工作目录文件 (常用功能被新加的 switch 和 restore 替代了)
+$ git switch <branch-name>      # 切换到某个分支
+  # $ git checkout <branch-name>
 $ git checkout HEAD~2           # 往回退2个commit，这对于快速查看项目旧版本来说非常有用
   # 此时工作在 detached HEAD 模式，所做的修改在切换到普通分支后将无法找回，除非你新建分支 checkout -b
 $ git checkout -b renamed-feature origin/feature  # 在 fetch 下来的 origin/master 的基础上创建一个新分支
 $ git checkout --track origin/feature             # 创建与远程分支同名的本地分支
-$ git checkout <files>          # 从最近的一次提交中取回文件并覆盖工作目录中的文件
+$ git restore <files>           # 从最近的一次提交中取回文件并覆盖工作目录中的文件
+  # $ git checkout -- <files>
   # 示例  git checkout -- a.txt b.txt  /  git checkout -- "path/to/*.txt"
 
 $ git merge origin/master       # 将刚拉取下来的 master 合并到本地分支
@@ -347,6 +352,8 @@ $ git ls-files --stage # 检查保存在 stage 的文件
 $ git cat-file -p d67046  # 查看一个 Git 对象的内容，用于研究 Git 内部机制
 ```
 
+A **Git worktree** is an *additional working directory* linked to a single Git repository. Each worktree is connected to a specific branch or commit, allowing you to *work on multiple branches simultaneously* without needing to clone the repository multiple times.
+
 ```bash
 # work on an existing branch in a new worktree
 git worktree add <path> <branch>
@@ -355,9 +362,24 @@ git worktree add <path> <branch>
   # creates a new worktree with a detached HEAD at the same commit as the current branch
   git worktree add -d <path>
 
+# clean up a worktree
+git worktree remove <worktree>
+
 git worktree prune
 git worktree list
 ```
+
+Example of Using Worktree
+
+```bash
+cd ~/my-repo
+git worktree add ../my-repo-feature feature-branch # add a new worktree
+cd ../my-repo-feature                              # work in the new worktree
+git worktree list                                  # see all active worktrees
+cd ~/my-repo
+git worktree remove ../my-repo-feature             # clean up a worktreeworktree
+```
+
 
 ### 图形化操作
 

@@ -30,16 +30,48 @@ message = 'Hello' + ' ' + 'world'
 # 非打印字符
 print('Languages:\n\tPython\n\tJavaScript')
 
-# 多行字符串
-print('''line1
+# 多行字符串   """...""" or '''...'''
+print('''\
+line1
+line2
+line3''')
+# 效果同上，通过在行尾添加一个 \ 来消除 \n
+print('''\
+line1
 line2
 line3''')
 
 # 原始字符串(不转义)
 print(r'line1\nline2\\nline3')
+
+# 重复字符串
+3 * 'un' + 'ium'  # 'unununium'
+
+# Two or more string literals next to each other are automatically concatenated
+# This feature is particularly useful when you want to break long strings
+'Py' 'thon'  # 'Python'
 ```
 
 ```py
+# Strings can be indexed
+
+>>> word = 'Python'
+>>> word[0]  # character in position 0
+'P'
+>>> word[-1]
+'n'
+>>> word[0:2]  # characters from position 0 (included) to 2 (excluded)
+'Py'
+>>> word[-2:]
+'on'
+```
+
+```py
+len(str)  # 字符窜长度
+```
+
+```py
+# String Methods https://docs.python.org/3/library/stdtypes.html#string-methods
 str.title()  # 单词首字母大写
 str.upper()  # 转大写
 str.lower()  # 转小写
@@ -80,26 +112,71 @@ print('%.2f' % 3.1415926)   # 3.14
 'Hello, {0}, 成绩提升了 {1:.1f}%'.format('小明', 17.125)  # 'Hello, 小明, 成绩提升了 17.1%'
 ```
 
+```py
+name = "Bob"
+age = 30
+
+# 1. % 格式化（旧式） https://docs.python.org/3/library/stdtypes.html#old-string-formatting
+print("Hello %s, you are %d years old" % (name, age))
+
+# 2. .format() 方法 https://docs.python.org/3/library/string.html#formatstrings
+print("Hello {}, you are {} years old".format(name, age))
+
+# 3. f-string（推荐 v3.6） https://docs.python.org/3/reference/lexical_analysis.html#f-strings
+print(f"Hello {name}, you are {age} years old")
+
+>>> f = 0.03456
+>>> print(f"this is a number {f:.2f}")
+this is a number 0.03
+```
+
+#### 字符串前缀
+
+* b: 字节串字面量
+* r: 原始字符串
+* f: 格式字符串字面量 ("f-string")
+* t: 模板字符串字面量 ("t-string")
+
+f-string 在表达式后加等于号 `=`，可在求值后，同时显示表达式文本及其结果（*用于调试*）。 随后是用叹号 '!' 标记的转换字段。还可以*在冒号 ':' 后附加格式说明符*。替换字段以右花括号 '}' 为结尾。
+
+```py
+>>> name = 'gavin'
+>>> print(f'Hello, {name=}!')
+Hello, name='gavin'!
+```
+
 ### 数字
+
+`<class 'int'>`  `<class 'float'>`
+
+`+` `-` `*` `**` `/` `//` `%`
+
 
 ```py
 2 + 3      # 5
 3 / 2      # 1.5
-3 ** 3     # 27
+3 ** 3     # 27   # `-3 ** 2 == -9` 因为 ** 的优先级要高于 -
 2 + 3 * 4  # 14
 0.2 + 0.1  # 0.30000000000000004
 3 * 0.1    # 0.30000000000000004
 10 / 3 - 3 == 1 / 3  # False
 
 4 / 2      # 2.0  除法计算结果是浮点数，即使是两个整数恰好整除，结果也是浮点数
-10 // 3    # 3  地板除，两个整数的除法仍然是整数
+10 // 3    # 3  整除，两个整数的除法仍然是整数
 10 % 3     # 1  取余
 
 print('Happy ' + 23 + 'rd Birthday')       # TypeError
 print('Happy ' + str(23) + 'rd Birthday')  # OK
 ```
 
-Python 的整数没有大小限制，浮点数也没有大小限制，但是超出一定范围就直接表示为inf（无限大）。
+Python 的整数没有大小限制，仅受可用内存的存储能力限制。浮点数也没有大小限制，但是超出一定范围就直接表示为inf（无限大）。
+
+数字之间可以使用单个下划线来提高可读性。
+
+```py
+3.14_15_93
+```
+
 
 ### 布尔值
 
@@ -109,13 +186,17 @@ Python 的整数没有大小限制，浮点数也没有大小限制，但是超�
 
 空值是 Python 里一个特殊的值，用 `None` 表示。
 
-### 列表(数组) list
+### 列表(数组) `<class 'list'>`
 
 ```py
 list_0 = ['a', 'b', 'c']
 list_0[0]   # a
 list_0[-1]  # c
 list_0[3]   # IndexError: list index out of range
+
+>>> squares = [1, 4, 9, 16, 25]
+>>> squares + [36, 49, 64, 81, 100]
+[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 
 # 修改、添加和删除元素
 list_0[0] = 'aa'
@@ -155,6 +236,68 @@ digits[:2]   # [1, 2]
 digits[2:]   # [3, 4, 5]
 digits[-3:]  # [3, 4, 5]
 new_list = digits[:]  # 复制列表
+```
+
+#### Using Lists as Stacks
+
+```py
+>>> stack = [3, 4, 5]
+>>> stack.append(6)
+>>> stack.append(7)
+>>> stack
+[3, 4, 5, 6, 7]
+>>> stack.pop()
+7
+```
+
+#### Using Lists as Queues
+
+```py
+>>> from collections import deque
+>>> queue = deque(["Eric", "John", "Michael"])
+>>> queue.append("Terry")           # Terry arrives
+>>> queue.append("Graham")          # Graham arrives
+>>> queue.popleft()                 # The first to arrive now leaves
+'Eric'
+>>> queue.popleft()                 # The second to arrive now leaves
+'John'
+>>> queue                           # Remaining queue in order of arrival
+deque(['Michael', 'Terry', 'Graham'])
+```
+
+#### List Comprehensions 列表解析语法
+
+List comprehensions provide a concise way to create lists.
+
+```py
+# 常规操作，会引入 side effects
+# this creates (or overwrites) a variable named x that still exists after the loop completes.
+squares = []
+for x in range(10):
+    squares.append(x**2)
+print(f'x is {x}')  # 这里会打印 'x is 9'
+
+squares = list(map(lambda x: x**2, range(10)))
+
+# A list comprehension consists of brackets containing an expression followed by a for clause, then zero or more for or if clauses. 
+squares = [x**2 for x in range(10)]
+```
+
+#### The `del` statement
+
+The `del` statement can remove an item from a list given its index instead of its value, and also, can be used to remove slices from a list or clear the entire list.
+
+```py
+>>> a = [-1, 1, 66.25, 333, 333, 1234.5]
+>>> del a[0]
+>>> a
+[1, 66.25, 333, 333, 1234.5]
+>>> del a[2:4]
+>>> a
+[1, 66.25, 1234.5]
+>>> del a[:]
+>>> a
+[]
 ```
 
 ### 元组 tuple
@@ -248,6 +391,24 @@ s.remove(4)         # {1, 2, 3}
 s.add([1, 2])  # TypeError: unhashable type: 'list'
 ```
 
+Basic uses include membership testing and eliminating duplicate entries. Set objects also support mathematical operations like union, intersection, difference, and symmetric difference.
+
+```py
+# Demonstrate set operations on unique letters from two words
+>>> a = set('abracadabra')
+>>> b = set('alacazam')
+>>> a                                  # unique letters in a
+{'a', 'r', 'b', 'c', 'd'}
+>>> a - b                              # letters in a but not in b
+{'r', 'd', 'b'}
+>>> a | b                              # letters in a or b or both
+{'a', 'c', 'r', 'd', 'b', 'm', 'z', 'l'}
+>>> a & b                              # letters in both a and b
+{'a', 'c'}
+>>> a ^ b                              # letters in a or b but not both
+{'r', 'd', 'b', 'm', 'z', 'l'}
+```
+
 ### if 判断
 
 ```py
@@ -277,6 +438,7 @@ else:
 ### for 循环
 
 ```py
+# 注意，Python的 for 循环不会在循环结束后销毁循环变量，循环外部可以读到 car 的最终值
 for car in cars:
     print(car)  # Python 根据缩进来判断代码行与前一个代码行的关系
 
@@ -284,6 +446,24 @@ for value in range(1, 5):
     print(value)
 
 for value in range(1, 5): print(value); print(value ** 2)
+```
+
+Code that modifies a collection while iterating over that same collection can be tricky to get right. Instead, it is usually more straight-forward to loop over a copy of the collection or to create a new collection:
+
+```py
+# Create a sample collection
+users = {'Hans': 'active', 'Éléonore': 'inactive', '景太郎': 'active'}
+
+# Strategy:  Iterate over a copy
+for user, status in users.copy().items():
+    if status == 'inactive':
+        del users[user]
+
+# Strategy:  Create a new collection
+active_users = {}
+for user, status in users.items():
+    if status == 'active':
+        active_users[user] = status
 ```
 
 ### while 循环
@@ -295,6 +475,42 @@ while n > 0:
     sum += n
     n -= 2
 print(sum)
+```
+
+### `pass` or `...`
+
+```py
+class MyEmptyClass:
+    pass
+```
+Another place pass can be used is as a place-holder for a function or conditional body when you are working on new code, allowing you to keep thinking at a more abstract level. The pass is silently ignored:
+
+```py
+def initlog(*args):
+    pass   # Remember to implement this!
+```
+
+For this last case, many people use the ellipsis literal `...` instead of `pass`.
+
+### `match` Statements
+
+没有 `switch case` 但有 `match case`
+
+只有第一个符合条件的分支会执行，不需要手动加 `break`。
+
+```py
+def http_error(status):
+    match status:
+        case 400:
+            return "Bad request"
+        case 404:
+            return "Not found"
+        case 401 | 403 | 404:
+            return "Not allowed"
+        case 418:
+            return "I'm a teapot"
+        case _:
+            return "Something's wrong with the internet"
 ```
 
 ### 用户输入
@@ -321,7 +537,7 @@ while active:
     else:
         print(message)
 
-# 使用 break 推出循环
+# 使用 break 退出循环
 while True:
   message = input("Enter something or 'quit' to exit: ")
   if message == 'quit':

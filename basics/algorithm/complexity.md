@@ -5,9 +5,6 @@
 可视化展示 https://visualgo.net/en  
 
 
-
-https://medium.com/@_marcos_otero/the-real-10-algorithms-that-dominate-our-world-e95fa9f16c04
-
 > Informally, an algorithm is any well-defined computational procedure that takes
 some value, or set of values, as input and produces some value, or set of values, as
 output. An algorithm is thus a sequence of computational steps that transform the
@@ -17,16 +14,7 @@ input into the output.
 >
 > Source: Thomas H. Cormen, Chales E. Leiserson (2009), Introduction to Algorithms 3rd edition.
 
-1. Merge Sort, Quick Sort and Heap Sort 合并排序，快速排序与堆排序
-2. Fourier Transform and Fast Fourier Transform 傅利叶变换与快速傅利叶变换
-3. Dijkstra’s algorithm 迪杰斯特拉算法
-4. RSA algorithm RSA 算法
-5. Secure Hash Algorithm 安全哈希算法
-6. Integer factorization 整数分解
-7. Link Analysis 链接分析
-8. Proportional Integral Derivative Algorithm 比例微积分算法
-9. Data compression algorithms 数据压缩算法
-10. Random Number Generation 随机数生成算法
+
 
 ## 为什么要学数据结构和算法
 
@@ -151,9 +139,30 @@ k次方阶 polynomial  _/ˌpɑːlɪˈnoʊmiəl/_  n. 多项式
 指数阶 exponential  _/ˌekspəˈnenʃəl◂/_  adj. 成指数倍增的  
 阶乘阶 factorial  _/fækˈtɔːriəl/_  n. 阶乘  
 
+
+Linear & Constant
+* `O(1)`  "big O of one" or "constant time"
+* `O(n)`  "big O of n" or "order of n"
+
+Logarithmic
+* `O(log n)`  "big O of log n"
+* `O(n log n)`  "big O of n log n"
+
+Polynomial adj. 多项式的；n. 多项式  // 多项式概念 n 为变量，k 为次数 degree 是一个整数
+* `O(n²)`  "big O of n squared"
+* `O(n³)`  "big O of n cubed"
+* `O(n^k)`  "big O of n to the k" (replace k with the number)
+
+Exponential & Factorial （非多项式量级 // 中文惯用翻译，实际用 ”超多项式“更准确）
+
+* `O(2ⁿ)`  “big O of two to the n”
+* `O(kⁿ)`  “big O of k to the n”
+* `O(n!)`  “big O of n factorial”
+
+
 ---
 
-我们把时间复杂度为非多项式量级的算法问题叫作 NP（Non-Deterministic Polynomial，非确定多项式）问题。当数据规模 n 越来越大时，非多项式量级算法的执行时间会急剧增加，无实际应用价值。所以我们这里只关注几种常见的多项式时间复杂度。
+随着数据规模 n 增大，非多项式量级算法的执行时间会急剧增加，无实际应用价值。所以我们只关注几种常见的多项式时间复杂度。
 
 ##### $O(1)$
 

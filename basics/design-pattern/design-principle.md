@@ -1,11 +1,11 @@
 # 设计原则
 
 
-* SRP 单一职责原则 Single Responsibility - each object should have one and only one reason to change
-* OCP 开闭原则 Open-Closed - it should be open for extension but closed for modification
-* LSP 里式替换原则 Liskov Substitution - objects of a subclass should be able to replace objects of a superclass without breaking the program
-* ISP 接口隔离原则 Interface Segregation - objects should not depend on interface they do not use
-* DIP 依赖倒置原则 Dependency Inversion - objects should depend on abstractions rather than concrete implementations
+* 【内聚】SRP 单一职责原则 Single Responsibility - each object should have one and only one reason to change
+* 【扩展】OCP 开闭原则 Open-Closed - it should be open for extension but closed for modification
+* 【约定】LSP 里式替换原则 Liskov Substitution - objects of a subclass should be able to replace objects of a superclass without breaking the program
+* 【接口】ISP 接口隔离原则 Interface Segregation - objects should not depend on interface they do not use
+* 【依赖】DIP 依赖倒置原则 Dependency Inversion - objects should depend on abstractions rather than concrete implementations
 
 ## SOLID-SRP 单一职责原则
 

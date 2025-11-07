@@ -1,4 +1,4 @@
-# Charles & Fiddler & NProxy
+# Charles & Fiddler & Wireshark
 
 http://www.jianshu.com/p/99b6b4cd273c
 
@@ -123,6 +123,11 @@ Wireshark 可以抓取各种网络封包，显示封包详细信息。不懂网�
 
 Wireshark 能直接分析 HTTP 协议的包，但无法解析 HTTPS 包的加密内容，要看解密内容可使用更上层的抓包软件(如 Charles)。
 
+本地抓包典型使用流程
+1. 接口选择 `Loopback` 本地网络
+2. Display Filter 填入 `http and tcp.dstport == 10000`
+3. 选中某条记录，然后右键 -》 Follow -》 HTTP Stream 查看抓包内容
+
 ### What is Wireshark?
 
 Wireshark is a network packet analyzer which presents captured packet data in as much detail as possible.
@@ -138,17 +143,19 @@ Here are some reasons people use Wireshark:
 
 ### 过滤器 Filter
 
+https://www.wireshark.org/docs/man-pages/wireshark-filter.html
+
 初学者不会用过滤器，将会淹没在大量的抓包记录中，无从下手。过滤器会帮我们在大量的数据中迅速找到我们需要的信息。
 
 过滤器有两种
 * Display Filter 显示过滤器，就是主界面上那个，用来在捕获的记录中找到所需要的记录
-* Capture Filter 捕获过滤器，在 Capture -> Capture Filters 中设置，避免捕获太多记录
+* Capture Filter 捕获过滤器，在 Capture options -> Capture filter for selected interfaces 中设置，避免捕获太多记录
 
 过滤表达式
 * Field or Protocol  `ip` `ip.src` `ip.dst` `tcp.port` `udp` 等等
-* Operator  `==` `!=` `>` `>=` `<` `<=` `in` `contains` `matches`
+* Operator  `== eq` `!= ne` `> gt` `>= ge` `< lt` `<= le` `in` `contains` `matches`
 * Values
-* Combine Tests  `&&` `||`
+* Combine Tests  `&& and` `|| or`
 
 IP 过滤示例 `ip.src == 192.168.0.1` `ip.src == 192.168.0.1` `ip.dst == 192.168.0.1`
 
@@ -164,4 +171,9 @@ IP 过滤示例 `ip.src == 192.168.0.1` `ip.src == 192.168.0.1` `ip.dst == 192.1
 * Transmission Control Protocol 传输层
 * Hypetext Transfer Protocol 应用层
 
+### 查看传输内容
+
+在单条记录上右键 -》Follow -》 HTTP Stream 就可以查看非加密内容
+
+如何解密 HTTPS 流量：暂略
 

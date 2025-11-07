@@ -24,9 +24,9 @@ __truncate__  _/trʌŋˈkeɪt/_  v. 缩短 SYN shorten
 __ascending__  a. 上升的, 向上的  __ascend__ _/əˈsend/_ v. 攀登, 升职  
 __descending__  a. 秩序下降的, 递减的  __descend__ _/dɪˈsend/_ v. 下来, 下降, 走下; 堕落; 陷入(糟糕境地)  
 __revoke__  _/rɪˈvəʊk/_  v. 取消, 撤回  
-__populate__  v. 填充  
+__populate__  v. 填充 （；栖居与，向...移民，占据）  
 __invoke__  v. 引用  
-__delimiter__  _/dɪˈlɪmɪtə/_  n. 分隔符  __delimit__  _/dɪˈlɪmət, dɪˈlɪmɪt/_  v. 限定; 划定…的边界  
+__delimiter__  _/dɪˈlɪmɪtər/_  n. 分隔符  __delimit__  _/dɪˈlɪmət, dɪˈlɪmɪt/_  v. 限定; 划定…的边界  
 
 
 ## Agile

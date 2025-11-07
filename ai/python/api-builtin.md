@@ -5,12 +5,13 @@
 
 ## Python Keywords
 
+https://docs.python.org/3.14/reference/lexical_analysis.html#keywords
+
 |||
 |---------------|----------------------------------------------
 | if       | To make a conditional statement
 | elif     | Used in conditional statements, same as else if
 | else     | Used in conditional statements
-| finally  | Used with exceptions, a block of code that will be executed no matter if there is an exception or not
 | for      | To create a for loop
 | while    | To create a while loop
 | break    | To break out of a loop
@@ -29,7 +30,11 @@
 | def      | To define a function
 | return   | To exit a function and return a value
 | lambda   | To create an anonymous function
+| pass     | A null statement, a statement that will do nothing
 | yield    | To end a function, returns a generator
+| async    | Define an asynchronous function
+| await    | Wait for and get a result from an awaitable
+|||
 | from     | To import specific parts of a module
 | import   | To import a module
 | as       | To create an alias
@@ -37,6 +42,7 @@
 |||
 | try      | To make a try...except statement
 | except   | Used with exceptions, what to do when an exception occurs
+| finally  | Used with exceptions, a block of code that will be executed no matter if there is an exception or not
 | raise    | To raise an exception
 | with     | Used to simplify exception handling
 |||
@@ -44,7 +50,21 @@
 | nonlocal | To declare a non-local variable
 | assert   |  For debugging
 | del      | To delete an object
-| pass     | A null statement, a statement that will do nothing
+
+```py
+try:
+    # 可能发生错误的代码
+except ExceptionType:
+    # 出现特定异常时执行
+else:
+    # 如果没有发生异常执行（可选）
+finally:
+    # 无论是否发生异常都执行
+```
+
+某些名称仅在特定上下文中保留。这些被称为 软关键字：
+* `match`、`case` 和 `_` 在 match 语句中使用时属于软关键字。
+* `type` 在 type 语句中使用时属于软关键字。
 
 
 ## Built in Functions
@@ -73,7 +93,7 @@
 | object()      | Returns a new object
 | frozenset()   | Returns a frozenset object
 |||
-| dir()         | Returns a list of the specified object's properties and methods
+| dir(obj?)     | Returns a list of the specified object's properties and methods 某个对象或当前作用域内属性清单
 | property()    | Gets, sets, deletes a property
 | vars()        | Returns the `__dict__` property of an object
 | zip()         | Returns an iterator, from two or more iterators
@@ -108,7 +128,7 @@
 | all()         | Returns True if all items in an iterable object are true
 | any()         | Returns True if any item in an iterable object is true
 | map()         | Returns the specified iterator with the specified function applied to each item
-| filter()      | Use a filter function to exclude items in an iterable object
+| filter(func, iterable) | Use a filter function to exclude items in an iterable object
 |||
 | callable()    | Returns True if the specified object is callable, otherwise False
 | eval()        | Evaluates and executes an expression
@@ -183,18 +203,40 @@
 
 |||
 |-----------|-------------------------
-| append()  | Adds an element at the end of the list
-| insert()  | Adds an element at the specified position
-| pop()     | Removes the element at the specified position
-| remove()  | Removes the first item with the specified value
-| clear()   | Removes all the elements from the list
-| extend()  | Add the elements of a list (or any iterable), to the end of the current list
-| sort()    | Sorts the list
-| reverse() | Reverses the order of the list
-| count()   | Returns the number of elements with the specified value
-| index()   | Returns the index of the first element with the specified value
-| copy()    | Returns a copy of the list
+| append(x) | Adds an element at the end of the list
+| extend(iterable) | Add the elements of a list (or any iterable), to the end of the current list
+| insert(i, x) | Adds an element at the specified position
+| remove(x)    | Removes the first item with the specified value
+| pop(i?)      | Removes the element at the specified position
+| clear()      | Removes all the elements from the list
+| index(x,start?,end?) | Returns the index of the first element with the specified value
+| count(x)     | Returns the number of elements with the specified value
+| sort(*, key=None, reverse=False) | Sorts the list
+| reverse()    | Reverses the order of the list
+| copy()       | Returns a copy of the list
 
+```py
+>>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+>>> fruits.count('apple')
+2
+>>> fruits.count('tangerine')
+0
+>>> fruits.index('banana')
+3
+>>> fruits.index('banana', 4)  # Find next banana starting at position 4
+6
+>>> fruits.reverse()
+>>> fruits
+['banana', 'apple', 'kiwi', 'banana', 'pear', 'apple', 'orange']
+>>> fruits.append('grape')
+>>> fruits
+['banana', 'apple', 'kiwi', 'banana', 'pear', 'apple', 'orange', 'grape']
+>>> fruits.sort()
+>>> fruits
+['apple', 'apple', 'banana', 'banana', 'grape', 'kiwi', 'orange', 'pear']
+>>> fruits.pop()
+'pear'
+```
 
 ## Dictionary Methods
 
@@ -215,6 +257,28 @@
 | setdefault() | Returns the value of the specified key. If the key does not exist: insert the key, with the specified value
 | update() | Updates the dictionary with the specified key-value pairs
 
+```py
+tel = {'jack': 4098, 'sape': 4139}
+tel['guido'] = 4127
+tel
+
+tel['jack']
+
+tel['irv']
+print(tel.get('irv'))
+
+del tel['sape']
+tel['irv'] = 4127
+tel
+
+list(tel)
+
+sorted(tel)
+
+'guido' in tel
+
+'jack' not in tel
+```
 
 ## Tuple Methods
 

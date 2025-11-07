@@ -29,7 +29,7 @@ def nop():
 
 ### 参数
 
-除了正常定义的必选参数外，还可使用默认参数、可变参数和关键字参数。
+除了正常定义的 **必选参数** 外，还可使用 **默认参数**、**可变参数** 和 **关键字参数**。
 
 ```py
 # 位置实参
@@ -83,6 +83,43 @@ user_profile = build_profile('albert', 'einstein', location='princeton', field='
 print(user_profile)
 ```
 
+4.9.3. Special parameters
+
+By default, arguments may be passed to a Python function either by position or explicitly by keyword. For readability and performance, it makes sense to restrict the way arguments can be passed so that a developer need only look at the function definition to determine if items are passed by position, by position or keyword, or by keyword.
+
+A function definition may look like:
+
+```txt
+def f(pos1, pos2, /, pos_or_kwd, *, kwd1, kwd2):
+      -----------    ----------     ----------
+        |             |                  |
+        |        Positional or keyword   |
+        |                                - Keyword only
+         -- Positional only
+```
+
+where `/` and `*` are optional. If used, these symbols indicate the kind of parameter by how the arguments may be passed to the function: positional-only, positional-or-keyword, and keyword-only. Keyword parameters are also referred to as named parameters.
+
+4.9.3.1. Positional-or-Keyword Arguments
+
+If `/` and `*` are not present in the function definition, arguments may be passed to a function by position or by keyword.
+
+4.9.3.4. Function Examples
+
+```py
+def standard_arg(arg):
+    print(arg)
+
+def pos_only_arg(arg, /):
+    print(arg)
+
+def kwd_only_arg(*, arg):
+    print(arg)
+
+def combined_example(pos_only, /, standard, *, kwd_only):
+    print(pos_only, standard, kwd_only)
+```
+
 ### 返回值
 
 ```py
@@ -106,9 +143,9 @@ print(x, y)
 
 ### 函数编写指南
 
-应给函数指定描述性**名称**，且只使用小写字母和下划线。描述性名称可帮助你和别人明白代码想要做什么。给模块命名时也应遵循上述规定。
+应给函数指定描述性**名称**，且*只使用小写字母和下划线*。描述性名称可帮助你和别人明白代码想要做什么。给**模块命名**时也应遵循上述规定。
 
-每个函数都应包含简要阐述其功能的**注释**，该注释应紧跟在函数定义后面，并采用文档字符串格式。
+每个函数都应包含简要阐述其功能的**注释**，该注释应紧跟在函数定义后面，并采用*文档字符串*格式。
 
 给**形参**指定默认值时，等号两边不要有空格；对于函数调用中的关键字实参，也应遵循这种约定。如果形参很多，导致函数定义的长度超过了79个字符，可在函数定义中输入左括号后换行，并在下一行按两次 Tab 键缩进。
 
@@ -119,7 +156,7 @@ def function_name(
     function body...
 ```
 
-如果程序或模块包含多个函数，可使用两个空行将相邻的函数分开。
+如果程序或模块包含多个函数，可使用*两个空行*将相邻的函数分开。
 
 所有的 `import` 语句都应该放在文件开头，如果有描述整个程序的文件开头的注释，则置于此注释后。
 
@@ -149,6 +186,10 @@ sorted(['bob', 'about', 'Zoo', 'Credit'], key=str.lower, reverse=True)
 ```
 
 #### 匿名函数
+
+```txt
+lambda_expr: "lambda" [parameter_list] ":" expression
+```
 
 ```py
 f = lambda x: x * x
@@ -221,12 +262,50 @@ int2('1010101')  # 85
 int2('12345', base=8)  # 5349
 ```
 
+#### 异步函数
+
+```py
+import asyncio
+
+# 定义一个异步函数
+async def fetch_data(name, delay):
+    print(f"开始获取 {name} 数据...")
+    await asyncio.sleep(delay)  # 模拟网络请求（异步等待）
+    print(f"{name} 数据获取完成！")
+    return f"{name} 的数据"
+
+# 定义主函数
+async def main():
+    # 并发运行两个任务（不会阻塞）
+    task1 = asyncio.create_task(fetch_data("用户", 2))
+    task2 = asyncio.create_task(fetch_data("商品", 3))
+
+    print("开始执行其他任务...")
+
+    # 等待两个任务完成
+    result1 = await task1
+    result2 = await task2
+
+    print("所有任务完成：", result1, "|", result2)
+
+# 启动事件循环（Python 3.7+）
+asyncio.run(main())
+
+# 输出
+开始执行其他任务...
+开始获取 用户 数据...
+开始获取 商品 数据...
+用户 数据获取完成！
+商品 数据获取完成！
+所有任务完成： 用户 的数据 | 商品 的数据
+```
+
 
 ## 模块
 
-为了编写可维护的代码，我们把很多函数分组，分别放到不同的文件里，这样，每个文件包含的代码就相对较少，很多编程语言都采用这种组织代码的方式。在 Python 中，一个 .py 文件就称之为一个模块 Module。
+为了编写可维护的代码，我们把很多函数分组，分别放到不同的文件里，这样，每个文件包含的代码就相对较少，很多编程语言都采用这种组织代码的方式。在 Python 中，一个 .py 文件就称之为一个模块 **Module**。
 
-你也许还想到，如果不同的人编写的模块名相同怎么办？为了避免模块名冲突，Python 又引入了按目录来组织模块的方法，称为包 Package。
+你也许还想到，如果不同的人编写的模块名相同怎么办？为了避免模块名冲突，Python 又引入了按目录来组织模块的方法，称为包 **Package**。
 
 注: 模块命名不要和内置模块名称冲突。例如，系统自带了 sys 模块，自己的模块就不可命名为 sys.py，否则将无法导入系统自带的 sys 模块。
 
@@ -236,7 +315,9 @@ mycompany
  │  ├─ __init__.py  # 每一个包目录下必须有这个文件，否则会被当成普通目录
  │  ├─ utils.py     # 模块名 mycompany.web.utils
  │  └─ www.py
- ├─ __init__.py
+ |- foo
+ |  └─ bar.py       # foo 目录里没有 __init__.py 文件，所以 bar.py 无法被外层其他 .py 文件导入
+ ├─ __init__.py     # 这个文件声明 mycompany 目录为一个 Package
  ├─ abc.py
  └─ utils.py        # 模块名 mycompany.utils
 ```
@@ -326,8 +407,6 @@ sys.path.append('/Users/michael/my_py_scripts')
 
 在使用 Python 时，我们经常需要用到很多第三方库，例如 Pillow，MySQL驱动，Web框架 Flask，科学计算 Numpy 等。用 pip 一个一个安装费时费力，还需要考虑兼容性。我们推荐直接使用 Anaconda，这是一个基于 Python 的数据处理和科学计算平台，它已经内置了许多非常有用的第三方库，我们装上 Anaconda，就相当于把数十个第三方模块自动安装好了，非常简单易用。
 
-可以从 Anaconda 官网下载 GUI 安装包，安装包有 500~600M，所以需要耐心等待下载。网速慢的同学请移步国内镜像。下载后直接安装，Anaconda 会把系统 Path 中的 python 指向自己自带的 Python，并且，Anaconda 安装的第三方模块会安装在 Anaconda 自己的路径下，不影响系统已安装的 Python 目录。
-
 
 ## 面向对象编程
 
@@ -339,7 +418,7 @@ sys.path.append('/Users/michael/my_py_scripts')
 
 Python中，所有数据类型都可以视为对象，当然也可以自定义对象。
 
-面向过程的程序设计把计算机程序视为一系列的命令集合，即一组函数的顺序执行。而面向对象的程序设计把计算机程序视为一组对象的集合。
+面向过程的程序设计把计算机程序视为一系列的命令集合，而面向对象的程序设计把计算机程序视为一组对象的集合。
 
 ### 类
 
@@ -364,7 +443,9 @@ print("My dog's name is " + my_dog.name.title() + '.')
 my_dog.sit()
 ```
 
-继承
+注：像 `functools.partial()` 实际实现是个 Class，但从语义和使用角度看，本质上是个高阶函数，所以首字母没有大写。即，类名首字母大写只是约定，而非强制。
+
+#### 继承
 
 ```py
 class Car():
@@ -406,7 +487,7 @@ my_new_car = Car('audi', 'a4', 2016)
 class ClassName():
     def __init__(self):
         _private_prop = ''   # 单下划线开头的在外部可以访问到，但不建议
-        __private_prop = ''  # 双下划线开头的在外部无法访问(此规则不适用于模块内的方面名)
+        __private_prop = ''  # 双下划线开头的在外部无法访问(此规则不适用于模块内的方法名)
 ```
 
 #### 类属性
@@ -427,12 +508,12 @@ print(s.name)       # Student
 
 #### 继承和多态
 
-对于一个变量，我们只需要知道它是 Animal 类型，无需确切地知道它的子类型，就可以放心地调用 run() 方法，而具体调用的 run() 方法是作用在 Animal、Dog、Cat 还是 Tortoise 对象上，由运行时该对象的确切类型决定，这就是多态真正的威力：调用方只管调用，不管细节，而当我们新增一种Animal 的子类时，只要确保 run() 方法编写正确，不用管原来的代码是如何调用的。这就是著名的“开闭”原则：
+对于一个变量，我们只需要知道它是 Animal 类型，无需确切地知道它的子类型，就可以放心地调用 run() 方法，而具体调用的 run() 方法是作用在 Animal、Dog、Cat 还是 Tortoise 对象上，由运行时该对象的确切类型决定，这就是多态真正的威力：调用方只管调用，不管细节，而当我们新增一种 Animal 的子类时，只要确保 run() 方法编写正确，不用管原来的代码是如何调用的。这就是著名的“开闭”原则：
   * 对扩展开放：允许新增 Animal 子类；
   * 对修改封闭：不需要修改依赖 Animal 类型的 run_twice() 等函数。
 
-对于静态语言，如Java，来说，如果需要传入 Animal 类型，则传入的对象必须是 Animal 类型或者它的子类，否则，将无法调用 run() 方法。
-对于 Python 这样的动态语言来说，则不一定需要传入 Animal 类型。我们只需要保证传入的对象有一个 run() 方法就可以了。
+对于静态语言，如 Java，来说，如果需要传入 Animal 类型，则传入的对象必须是 Animal 类型或者它的子类，否则，将无法调用 run() 方法。
+对于 Python 这样的动态语言来说，则不一定需要传入 Animal 类型。我们只需要保证传入的对象有一个 run() 方法就可以了 *duck typeing*。
 
 ```py
 class Animal(object):
@@ -484,8 +565,6 @@ isinstance(d, Dog) and isinstance(d, Animal)  # True
 
 对于每个类，都应紧跟在类定义后面包含一个文档字符串，简要描述类的功能。
 
-在类中，可使用一个空行来分隔方法，而在模块中给，可使用两个空行来分隔类。
-
 需要同时导入标准库中的模块和你编写的模块时，先导入标准库，然后添加一个空行，再导入自己编写的模块。
 
 ### 面向对象高级编程
@@ -516,7 +595,7 @@ class Student(object):
     def birth(self, value):
         self._birth = value
 
-    @property                # 没有设置 @age.setter 所以是自读属性
+    @property                # 没有设置 @age.setter 所以是只读属性
     def age(self):
         return 2015 - self._birth
 ```
@@ -525,23 +604,26 @@ class Student(object):
 
 通过多重继承，一个子类就可以同时获得多个父类的所有功能。
 
+Python 不支持接口，但可以通过 **抽象类** 来实现，3.8 版本开始还提供了 typing.Protocal 来更灵活地描述 “接口” 的结构。
+
 ```py
-class Bird(Animal):
-    pass
-
-class Runnable(object):
-    def run(self):
-        print('Running...')
-
-class Flyable(object):
+class Flyable:
     def fly(self):
-        print('Flying...')
+        print("I can fly in the sky!")
 
-class Ostrich(Bird, Runnable):
-    pass
+class Swimmable:
+    def swim(self):
+        print("I can swim in the water!")
 
-class Parrot(Mammal, Flyable):
-    pass
+# 多重继承
+class Duck(Flyable, Swimmable):
+    def quack(self):
+        print("Quack! Quack!")
+
+duck = Duck()
+duck.fly()    # 来自 Flyable
+duck.swim()   # 来自 Swimmable
+duck.quack()  # 来自 Duck
 ```
 
 在设计类的继承关系时，通常，主线都是单一继承下来的，例如，Ostrich 继承自 Bird。但是，如果需要“混入”额外的功能，通过多重继承就可以实现，比如，让 Ostrich 除了继承自 Bird 外，再同时继承 Runnable。这种设计通常称之为 **MixIn**。
@@ -567,7 +649,7 @@ class Student(object):
 
 `__getitem__()` 方法动态返回一个元素。  
 `__getattr__()` 方法动态返回一个属性。  
-`__call__()` 任何类只要定义改方法，就可以直接对实例进行调用。  
+`__call__()` 任何类只要定义该方法，就可以直接对实例进行调用。  
 
 ```py
 class Student():

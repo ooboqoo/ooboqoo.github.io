@@ -35,8 +35,16 @@ x = [10, 'hello'];  // Error
 // 枚举 Enum - 可以方便地将名称与数值(下标)建立联系。这个跟其他类型不一样，是会影响到 runtime 的
 enum Color {Red, Green, Blue};  // ['enəm]
 enum Color {Red = 1, Green=128, Blue};
-console.log(Color[128]);   // Green
 console.log(Color.Green);  // 128
+// https://www.typescriptlang.org/docs/handbook/enums.html#reverse-mappings
+console.log(Color[128]);   // Green，必须是下标（数字）才能取到 Key
+
+// Node.js + Enum  https://nodejs.org/api/typescript.html
+// https://www.typescriptlang.org/docs/handbook/enums.html#const-enums
+const enum Direction {Up, Down, Left, Right};
+let directions = [Direction.Up];  // 编译后输出 `let directions = [0 /* Direction.Up */]`
+// https://www.typescriptlang.org/docs/handbook/enums.html#objects-vs-enums
+// In modern TypeScript, you may not need an enum when an object with `as const` could suffice
 ```
 
 ```ts
@@ -313,5 +321,5 @@ type ReturnType<T> = T extends (...args: any[]) => infer P ? P : any;
 function print(foo: { bar: string }) {
   console.log(foo.bar)
 }
-type Foo = Parameters<typeof print>[0]
+type Foo = Parameters<typeof print>[0]  // type Foo = { bar: string }
 ```

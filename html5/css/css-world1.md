@@ -355,7 +355,7 @@ max-width 与 min-width 并存并起冲突时，min-width 设置碾压 max-width
 
 #### 幽灵空白节点
 
-Each line box starts with a zero-width inline box with the element's font and line height properties. We call that imaginary box a "strut".
+Each line box starts with a zero-width inline box with the element's font and line height properties. We call that imaginary box a "strut". 支撑，支柱
 
 "幽灵空白节点" 是内联盒模型中非常重要的一个概念，具体指的是：在 HTML5 文档中，内联元素的所有解析和渲染表现就如同每个行框盒子的前面有一个 "空白节点" 一样，这个空白节点不占据任何宽度，看不见也无法通过脚本获取，就像幽灵一样，但又确确实实地存在。理解 "幽灵空白节点" 的存在是理解后续很多内联元素为何会这么表现的基础。
 

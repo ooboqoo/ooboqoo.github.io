@@ -26,7 +26,7 @@ Here are the rules for percentages on vertical items:
 
 * `margin-top` `margin-bottom` `padding-top` `padding-bottom` 的百分比值是基于父元素的 **width** 来计算的
 * `height` `min-height` `max-height` 的高度是基于外层元素的 **height** 来计算的
-  * 高度百分比生效的条件 https://developer.mozilla.org/en-US/docs/Web/CSS/height
+  * 高度百分比生效的条件（满足其中一条即可） https://developer.mozilla.org/en-US/docs/Web/CSS/height
     * 父元素明确指定高度，此时以指定高度为计算基准
     * 元素采用绝对定位，此时会逐层往上查找基准元素 relative absolute fixed
 * `border-width` 属性不支持百分比

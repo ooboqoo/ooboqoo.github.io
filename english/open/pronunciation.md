@@ -18,18 +18,29 @@
 
 ## 音标
 
+音标体系
+
 * 国际音标 IPA，含上百个符号，是一套转写和记录人类所有语言的音标系统，英语音标只是其中一部分。
-* D.J. 音标 是 Daniel Jones 根据 IPA 设计的针对英式发音的注音系统。在中国内地和香港都使用 D.J. 音标，我们平时常说的「国际音标」说的就是这个。
+* D.J. 音标 是 Daniel Jones 根据 IPA 设计的针对英式发音的注音系统。在中国内地和香港都使用 D.J. 音标。
 * K.K. 音标 是 John Samuel Kenyon 和 Thomas Albert Knott 根据 IPA 针对美式发音的注音系统。主要在台湾使用。
 * [韦式音标](https://www.merriam-webster.com/help/pronunciation-key) 是 韦式词典所使用的音标系统。很多美国人认识韦式音标但不认识 KK 音标。
 
-### D.J. 音标
+IPA 音标类型
 
-D.J. 是一套音标符号，多用来标注英音。现在有很多词典，也用 D.J. 音标来标注美音，比如《牛津高阶》《朗文当代》
+| 名称                 | 用途                  | 主要特征
+|---------------------|-----------------------|---------------------------------
+| D.J. 音标（IPA 旧式）| 英国传统教材、老牛津词典 | 偏 RP、用 /ʤ/ /ʧ/ 等符号
+| Gimson IPA          | 现代 RP、改良 D.J.     | 更口语化（如 /əʊ/）
+| 现代 IPA（主流）     | 《朗文》《牛津》《剑桥》 | 通用 IPA，英美对照清晰
+| 美式 IPA            | 美式词典/学习资源       | 会将 /t/ 弱化为 [ɾ] 或更强调 /r/ 等
 
-示例：在《朗文当代》中，air 标注了 `/eə $ er/`，两个发音都用的 D.J. 音标，前为英音，后为美音，中间用 `$` 隔开。
 
-44个音标发音 https://en-yinbiao.xiao84.com/biao/
+
+### 现代 IPA 音标
+
+现代 IPA 指的是 “1989年以后被主流词典、语言学界和英语教学广泛使用的IPA符号集”。
+
+在《朗文当代》中使用「现代 IPA」同时标注英音和美音。如 air 标注了 `/eə $ er/`，前为英音，后为美音，中间用 `$` 隔开。
 
 ||||
 |-------|----------|------------------------------------------------
@@ -47,9 +58,9 @@ D.J. 是一套音标符号，多用来标注英音。现在有很多词典，也
 |       | 浊辅音 | `/dʒ/`
 | 鼻音   | 浊辅音 | `/m/` , `/n/` , `/ŋ/`
 | 舌则音 | 浊辅音 | `/l/`
-| 半元音 | 浊辅音 | `/j/` , `/w/`  注：半元音又叫「滑音」
+| 半元音 | 浊辅音 | `/j/` , `/w/`  注：半元音又叫 *滑音*
 
-新旧版本对比
+新旧版本对比（朗文在2003年的第4版，全面采用「现代 IPA」替代 「D.J. 音标」）
 
 ```txxt
 新    ɜː    ɪ     ʊ     ɒ
@@ -161,7 +172,7 @@ ChatGPT 说 `/ʌ/` 和 `/ə/` 之间的主要区别
 
 `/uː/`  too 中的 "乌..."
 
-would `/wʊd/`  发音是 武德 还是 我的，ChatGPT 认为更像 "我的" so do I.
+would `/wʊd/`  发音是 吾的 还是 我的，ChatGPT 认为更像 "我的" so do I.
 
 ### `/aʊ/` `/oʊ/`
 
@@ -230,7 +241,7 @@ would `/wʊd/`  发音是 武德 还是 我的，ChatGPT 认为更像 "我的" s
 * 元音前，舌尖抵住上颚后，立即分开。如 light
 * 元音后，舌尖抵住上颚后，不要分开。如 seal
 
-towel vs tower 辨音: `/r/` 尾部的“饿”更纯，而 `/l/` 有点“饿”的感觉，但带更多的“呕“ （本身对中文中的 卷舌 也不敏感）
+towel vs tower 辨音: `/r/` 尾部的“儿”更纯，而 `/l/` 有点“儿”的感觉但更像“欧“ （`/l/`抵住上齿龈就行，`/r/`要进一步往后卷）
 
 
 ## 单词发音技巧
@@ -265,7 +276,7 @@ content  n. _/ˈkɒntent $ ˈkɑːn-/_  v. _/kənˈtent/_
 
 https://www.oxfordlearnersdictionaries.com/about/pronunciation_american_english
 
-American speakers use the sound `/t̮/`, which is like a quick /d/, in many words spelled with -t- or -tt-. It is used in words *after a vowel or /r/, and before an unstressed vowel or syllablic /l/*: city /ˈsɪt̮ɪ/; parting /ˈpɑrt̮ɪŋ/; little /ˈlɪt̮l/.
+American speakers use the sound <code style="font-family:arial;">/t̮/</code>, which is like a quick /d/, in many words spelled with -t- or -tt-. It is used in words *after a vowel or /r/, and before an unstressed vowel or syllablic /l/*: city /ˈsɪt̮ɪ/; parting /ˈpɑrt̮ɪŋ/; little /ˈlɪt̮l/.
 
 ### 辅元连读
 
@@ -333,7 +344,7 @@ American speakers use the sound `/t̮/`, which is like a quick /d/, in many word
 
 一个意群结束时 *稍微停顿、换口气*，再进入下一部分，或者可以在一个意群结束时 *把尾音稍微拉长*，再进入下一个意群。
 
-按照意群断句：意群内部不断句，意群之问断句。
+*按照意群断句*：意群内部不断句，意群之问断句。
 
 * They had a big quarrel (断) over a small thing.
 * The United States (断) is a sports-loving nation.
@@ -343,7 +354,7 @@ American speakers use the sound `/t̮/`, which is like a quick /d/, in many word
 * He is fat (断) and he is trying to lose weight.
 * He didn't go to school (断) because he was seriously ill.
 
-从属连接词前断句：从属连接词 that / which / who / how / what / why / when / where 前断句。
+*从属连接词前断句*：从属连接词 that / which / who / how / what / why / when / where 前断句。
 
 * It's the book (断) that I bought yesterday.
 * I don't know (断) how I can get to the post office.

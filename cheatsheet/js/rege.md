@@ -6,7 +6,7 @@ http://www.pcre.org/original/doc/html/pcresyntax.html
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions   
 http://zytrax.com/tech/web/regex.htm   
 
-正则表达式并不是一个工具程序，而是一种字符创处理的标准依据。
+正则表达式并不是一个工具程序，而是一种字符串处理的标准依据。
 
 > 正则表达式与通配符是完全不一样的东西！通配符是 bash 操作接口的一个功能，而正则表达式则是一种字符串处理的表达方式。
 

@@ -43,4 +43,4 @@ grandparent _/ˈɡrænˌpeərənt/_ n. 祖父母 / 外祖父母
 grandchild (pl. grandchildren) _/ˈɡræntʃaɪld/_ n. 孙子 / 孙女 / 外孙 / 外孙女
 
 grandson _/ˈɡrænsʌn/_ n. 孙子 / 外孙  
-granddaughter _/ˈɡrændˌdɔːtər/_ n. 孙女 / 外孙女
+granddaughter _/ˈɡrænˌdɔːtə $ -ˌdɒːtər/_ n. 孙女 / 外孙女

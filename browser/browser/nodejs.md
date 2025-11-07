@@ -111,8 +111,8 @@ function enqueueTasks() {
   setImmediate(() => console.log('setImmediate 1')); // (A)
   setTimeout(() => console.log('setTimeout 1'), 0);
 
-  Promise.resolve().then(() => console.log('Promise reaction 2'));
   queueMicrotask(() => console.log('queueMicrotask 2'));
+  Promise.resolve().then(() => console.log('Promise reaction 2'));
   process.nextTick(() => console.log('nextTick 2'));
   setImmediate(() => console.log('setImmediate 2')); // (B)
   setTimeout(() => console.log('setTimeout 2'), 0);
@@ -125,8 +125,8 @@ setImmediate(enqueueTasks);
 // nextTick 2
 // Promise reaction 1   // current "check" phase - promise
 // queueMicrotask 1     // current "check" phase - queueMicrotask()
-// Promise reaction 2
 // queueMicrotask 2
+// Promise reaction 2   // promise 和 queueMicrotask 处于同一阶段，按添加的先后顺序执行
 // setTimeout 1         // next "timer" phase
 // setTimeout 2
 // setImmediate 1       // next "check" phase
@@ -154,7 +154,7 @@ setImmediate(() => {
 // nextTick 1
 // nextTick 2
 // queueMicrotask 1
-// queueMicrotask 2
+// queueMicrotask 2        // queueMicrotask2 在 nextTick3 先执行，因为当前处于 Microtasks 阶段
 // nextTick 3
 // setTimeout 1
 // setImmediate 1
@@ -189,8 +189,26 @@ console.log('AFTER'); // always logged
 console.log(await readFile('./play.js', 'utf-8'));
 ```
 
-
-
-
-
-
+```js
+// 面试真题
+async function async1() {  // 注意转成 Promise 后的版本形态，再答题
+  console.log('async1 start')
+  await async2()
+  console.log('async1 end')
+}
+async function async2() {
+  console.log('async2')
+}
+console.log('script start')
+setTimeout(function () {
+  console.log('settimeout')
+})
+async1()
+new Promise(function (resolve) {
+  console.log('promise1')
+  resolve()
+}).then(function () {
+  console.log('promise2')
+})
+console.log('script end')
+```
