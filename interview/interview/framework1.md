@@ -117,6 +117,59 @@ https://vuex.vuejs.org/zh/guide/forms.html
 
 ## React
 
+#### useContext vs Zustand
+
+是的——当 context 的 value 发生变化时，所有使用了该 context 的子组件都会重新渲染。React 会沿着 Provider → Consumer 的树结构，让所有 useContext(MyContext) 的组件重新渲染，不论它们是否真的用到了变更的部分。
+
+Zustand 并不会像 Context 那样让所有订阅者都重渲染，而是在 selector 的结果发生变化时才触发对应组件渲染。这也是为什么即便整个 store 改了很多字段，只要组件用到的字段没变，它就不会重新渲染。
+
+#### Zustand 核心原理
+
+Zustand 的设计灵感来自 Redux + useSyncExternalStore：
+
+1. 内部维护一个 全局状态对象
+
+```js
+let state = { count: 0 };
+const listeners = new Set();
+```
+
+2. 提供 set 和 get 操作
+
+```js
+function set(partial) {
+  state = { ...state, ...partial };
+  listeners.forEach((listener) => listener()); // 通知订阅者
+}
+function get() {
+  return state;
+}
+```
+
+3. 组件通过 useStore(selector) 订阅状态
+
+```js
+function useStore(selector) {
+  const selected = selector(state);
+  const [, forceRender] = useState(0);
+
+  useEffect(() => {
+    const listener = () => {
+      const newSelected = selector(state);
+      if (!Object.is(newSelected, selected)) {
+        forceRender((x) => x + 1); // 仅在 selector 结果变化时重渲染
+      }
+    };
+    listeners.add(listener);
+    return () => listeners.delete(listener);
+  }, [selected]);
+
+  return selected;
+}
+```
+
+
+
 #### When is `setState()` asynchronous?
 
 https://reactjs.org/docs/faq-state.html#when-is-setstate-asynchronous

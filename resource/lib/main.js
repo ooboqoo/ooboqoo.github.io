@@ -176,7 +176,17 @@ function isMobile() {
         // 替换 <tag></tag>，用法示例 <tag>div class="dl"</tag> 会生成 <div class="dl">
 
       // 给文档代码设置高亮
-      [].forEach.call(elem_md.querySelectorAll("pre > code"), hljs.highlightElement);
+      [].forEach.call(elem_md.querySelectorAll("pre > code:not(.language-mermaid)"), hljs.highlightElement);
+
+      // 渲染 Mermaid
+      [].forEach.call(elem_md.querySelectorAll('code.language-mermaid'), (block, i) => {
+          const code = block.textContent;
+          const div = document.createElement('div');
+          div.className = 'mermaid';
+          div.innerHTML = code;
+          block.parentNode.replaceWith(div);
+      });
+      setTimeout(() => mermaid?.init(), 100);
 
       // markd 怎么把引号都转义了...
       [].forEach.call(elem_md.querySelectorAll(".demo"), function(demo) {
@@ -332,7 +342,7 @@ function isMobile() {
   });
 
   // 对 hash 变化做出响应
-  window.onhashchange = function (event) {
+  window.addEventListener('hashchange', function (event) {
     if (event.newURL.indexOf("!") === -1) {  // 防止点击页内导航时修改网址
       location.href = event.oldURL;
     } else {                                 // 如果带 ! 而 hash 变化了就是点击了回退或前进按钮
@@ -340,7 +350,7 @@ function isMobile() {
       loadPage(src);
       localStorage.setItem(currentPath, src);
     }
-  };
+  });
 })();
 
 // 提供一些额外功能增强 ###########################################################################

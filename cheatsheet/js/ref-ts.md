@@ -3,6 +3,10 @@
 https://www.typescriptlang.org/
 
 
+## Everyday Types
+
+https://www.typescriptlang.org/docs/handbook/2/everyday-types.html
+
 ### 类型注解
 
 ```ts
@@ -115,7 +119,7 @@ Extract<UnionType, Union>          从 Type 中找出符合 Union 的项目
 Readonly<Type>
 NonNullable<Type>                  剔除 null 和 undefined
 
-Parameters<FunctionType>           从函数类型中获取参数类型（一个元祖类型）
+Parameters<FunctionType>           从函数类型中获取参数类型（一个 Tuple 类型）
 ConstructorParameters<Type>        获取构造函数的参数类型信息
 ReturnType<Type>
 InstanceType<Type>
@@ -196,7 +200,170 @@ let x: X & Y = {} as Z;  // OK
 type EventNames = 'click' | 'scroll' | 'mousemove';
 ```
 
-### 泛型
+类相关的一些生疏写法
+
+```ts
+interface JSONResponse extends Response, HTTPAble {
+  // These are two ways to describe a property which is a function
+  update: (retryTimes: number) => void;
+  update(retryTimes: number): void;
+
+  // You can call this object via `()` - functions in JS are objects which can be called
+  (): JSONResponse
+
+  // You can use `new` on the object this interface describes
+  new(s: string): JSONResponse;
+}
+```
+
+接口扩展
+
+```ts
+// Interfaces are merged, so multiple declarations will add new fields to the type definition.
+// 表述2 Interfaces can be extended by declaring it multiple times
+interface APICall { data: Response }
+interface APICall { error?: Error }
+```
+
+重载
+
+```ts
+// 定义「使用方式」 1
+function makeDate(timestamp: number): Date;
+// 定义「使用方式」 2
+function makeDate(m: number, d: number, y: number): Date;
+// 具体「代码实现」，要能 cover 住上面定义的几种使用方式
+// 注意，看这里的实现，视乎可以只传2个参数，但实际不是可以的，因为这里只负责实现，怎么用不看这里，要看上面的定义
+function makeDate(mOrTimestamp: number, d?: number, y?: number): Date {
+  if (d !== undefined && y !== undefined) {
+    return new Date(y, mOrTimestamp, d);
+  } else {
+    return new Date(mOrTimestamp);
+  }
+}
+```
+
+### 类型保护
+
+```ts
+// `in` 关键字
+
+// `typeof` 关键字
+
+// `instanceof` 关键字
+
+// 自定义类型保护
+function isNumber(x: any): x is number {
+  return typeof x === 'number';
+}
+```
+
+## 类 Class
+
+```ts
+class User extends Account implements Updatable, Serializable {
+  id: string                      // A field
+  displayName?: boolean           // An optional field
+  name!: string                   // A 'trust me, it's there' field
+  #attributes: Map<any, any>      // A private field
+  roles = ['user']                // A field with a default
+  readonly createdAt = new Date() // A readonly field with a default
+
+  // The code called on 'new'
+  constructor(id: string, email: string) {
+    super(id)
+    // ... more code
+  }
+
+  // Ways to describe class methods (and arrow function fields)
+  setName(name: string) { this.name = name }
+  verifyName = (name: string) => { /* ... */ }
+
+  // A function with 2 overload definitions
+  sync(): Promise<{ result: string }>
+  sync(cb: (result: string) => void): void
+  sync(cb?: (result: string) => void): void | Promise<{ result: string }> {
+    // Implementation
+  }
+
+  // Getters and setters
+  get accountID() { return this.id }
+  set accountID(value: string) { this.id = value }
+
+  // Private access is just to this class, protected allows to subclasses. Only used for type checking, public is the default.
+  private makeRequest() { }
+  protected handleRequest() { }
+
+  // Static fields / methods
+  static #userCount = 0
+  static registerUser(user: User) { /* ... */ }
+
+  // Static blocks for setting up static vars. 'this' refers to the static class
+  static { this.#userCount = -1 }
+}
+
+// Type definitions needed for the class
+class Account {
+  id: string
+  constructor(id: string) {
+    this.id = id
+  }
+}
+
+interface Updatable {
+  sync(): Promise<any>
+}
+
+interface Serializable {
+  // Interface for serialization
+}
+```
+
+以下特性是 TypeScript 自己加的，JavScript 应该不会引入这些特性。
+
+### Parameter Properties
+
+```ts
+class Location {
+  // automatically set an instance field to the input parameter
+  constructor(public x: number, public y: number) {}
+}
+const loc = new Location(20, 40);
+```
+
+### Abstract Classes
+
+```ts
+abstract class Animal {
+  abstract getName(): string;
+  printName() {
+    console.log('Hello, ' + this.getName());
+  }
+}
+class Dog extends Animal {
+  getName(): string {
+    // ...
+  }
+}
+```
+
+### Decorators and Attributes
+
+
+
+
+
+
+
+## Type Manipulation 类型运算
+
+https://www.typescriptlang.org/docs/handbook/2/types-from-types.html
+
+这里的很多高级用法只在开发 lib 时才会用到，日常应用开发很少用到。
+
+These features are great for building libraries, describing existing JavaScript code and you may find you rarely reach for them in mostly TypeScript applications.
+
+### Generics 泛型
 
 * `T` Type 通常用作第一个类型变量名
 * `K` Key 表示对象中的键类型
@@ -233,40 +400,7 @@ function createArray<T = string>(length: number, value: T): Array<T> {
 }
 ```
 
-### 重载
-
-```ts
-// 定义「使用方式」 1
-function makeDate(timestamp: number): Date;
-// 定义「使用方式」 2
-function makeDate(m: number, d: number, y: number): Date;
-// 具体「代码实现」，要能 cover 住上面定义的几种使用方式
-// 注意，看这里的实现，视乎可以只传2个参数，但实际不是可以的，因为这里只负责实现，怎么用不看这里，要看上面的定义
-function makeDate(mOrTimestamp: number, d?: number, y?: number): Date {
-  if (d !== undefined && y !== undefined) {
-    return new Date(y, mOrTimestamp, d);
-  } else {
-    return new Date(mOrTimestamp);
-  }
-}
-```
-
-### 类型保护
-
-```ts
-// `in` 关键字
-
-// `typeof` 关键字
-
-// `instanceof` 关键字
-
-// 自定义类型保护
-function isNumber(x: any): x is number {
-  return typeof x === 'number';
-}
-```
-
-### 条件类型(类型运算的 if else)
+### Conditional Types 条件类型 `extends`
 
 https://www.typescriptlang.org/docs/handbook/2/conditional-types.html
 
@@ -297,7 +431,7 @@ type MessageOf<T> = T extends { message: unknown } ? T['message'] : never;
 type NonNullable<T> = T extends null | undefined ? never : T;
 ```
 
-#### `infer` Type Inference in Conditional Types
+#### Type Inference in Conditional Types `infer`
 
 Another useful feature that conditional types support is inferring type variables using the `infer` keyword. Within the extends clause of a conditional type, you can use the `infer` keyword to infer a type variable, effectively performing pattern matching on types.
 
@@ -323,3 +457,35 @@ function print(foo: { bar: string }) {
 }
 type Foo = Parameters<typeof print>[0]  // type Foo = { bar: string }
 ```
+
+### Mapped Types 映射类型
+
+通过遍历已有的类型来生成新的类型。
+
+```ts
+// Removes 'optional' attributes from a type's properties
+type Concrete<Type> = {
+  [Property in keyof Type]-?: Type[Property]
+}
+
+type MaybeUser = { id: string; name?: string; age?: number }
+
+type User = Concrete<MaybeUser>
+// type User = { id: string; name: string; age: number }
+```
+
+
+
+### Template Literal Types
+
+A template string can be used t combine and manipulate text inside the type system.
+
+```ts
+type SupportedLangs = 'en' | 'pt' | 'zh'
+type FooterLocaleIDs = 'header' | 'footer'
+type AllLocaleIDs = `${SupportedLangs}_${FooterLocaleIDs}_id`
+// "en_header_id" | "en_footer_id" | "pt_header_id" | "pt_footer_id" | "zh_header_id" | "zh_footer_id"
+```
+
+
+

@@ -24,8 +24,9 @@ https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script  
 https://javascript.info/script-async-defer
 
+* 加载时间 async 和 defer 差不多，碰到标签就开始加载，主要区别在执行时机
 * async 下载完后马上执行，但不阻塞页面渲染流程
-* defer 在页面 document parsed 之后才执行，在完成下载和执行前 `DOMContentLoaded` 不会触发
+* defer 在页面 document parsed 之后才执行，多个 defer 按顺序执行，在完成下载和执行前 `DOMContentLoaded` 不会触发
 
 在 同步 script 中再插入 `<script>` 会是什么效果？
 * 通过 `document.createElement('script')` 插入的脚本默认 `async="true"`
@@ -47,6 +48,8 @@ async
 
 
 ### crossorigin 属性
+
+> crossorigin="anonymous" = “跨域加载脚本但不带身份信息，并能正确报告错误。”
 
 ```html
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">

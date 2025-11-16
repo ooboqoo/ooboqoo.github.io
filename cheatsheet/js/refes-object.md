@@ -213,7 +213,7 @@ function bar() { console.log(foo.arguments, bar.caller); }
 <h5 class="es5">array.every(cb, thisArg?) <span>-- 对每一项运行给定函数，每项都 true 才返回 true</span></h5>
 <h5 class="es5">array.some(cb, thisArg?) <span>-- 对每一项运行给定函数，只要有一项 true 就返回 true</span></h5>
 <h5 class="es5">array.reduce(cb, initialValue?) <span>-- 从左到右为每个元素执行回调，并将上次返回值传给下次，返回最后一次的返回值</span></h5>
-<h5 class="es5">array.reduceRight((acc, val, idx, arr) => { return acc + val; }, initialValue?) <span>-- 从右到左...</span></h5>
+<h5 class="es5">array.reduceRight((acc, val, idx, arr) => { return acc + val; }, initialValue?) <span>-- 从右到左... 【注】initialValue 省略的用法</span></h5>
 </div>
 
 https://gist.github.com/rauschma/f7b96b8b7274f2e2d8dab899803346c3
@@ -248,6 +248,11 @@ var arr = ['c', 'd']; arr.unshift('e', 'f');  // 4; arr: [ 'e', 'f', 'c', 'd' ] 
 ['a'].concat('b', ['c', 'd'])  // [ 'a', 'b', 'c', 'd' ] 参数可以是多个值或数组，数组只展开一层
 ['a', 'b', 'c', 'd'].copyWithin(0, 2, 4)  // [ 'c', 'd', 'c', 'd' ]
 ['a', 'b'].entries().toArray()  // [ [ 0, 'a' ], [ 1, 'b' ] ]
+```
+
+```js
+;[1, 2, 3].reduce((acc, curr) => (log(acc, curr), 'next'))  // 1 2 \n next 3  // 3个元素只执行两轮
+;[1, 2, 3].reduce((acc, curr) => (log(acc, curr), 'next'), 'start') // start 1 \n next 2 \n next3
 ```
 
 ## Iterator

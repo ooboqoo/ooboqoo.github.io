@@ -9,8 +9,10 @@
 function compose(...fns) {
   if (fns.length === 0) return a => a
   if (fns.length === 1) return fns[0]
-  return fns.reduce((f1, f2) => (...args) => f1(f2(...args)))
+  return fns.reduce((f1, f2) => (...args) => f1(f2(...args))) // 右边的先执行
 }
+// const composed = compose(() => log('f1'), () => log('f2'), () => log('f3'))
+// console.log(composed()) // f3 f2 f1
 
 function applyMiddleware (target, ...middlewares) {
   return compose(...middlewares)(target)

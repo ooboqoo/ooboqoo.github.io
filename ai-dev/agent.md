@@ -1,5 +1,9 @@
 # Agent
 
+> 开发范式需要改变：我们应该把 Agent 当成一个独立的初级程序员，告诉它具体要做的事情和上下文就可以了，具体它的决策和执行过程不需要过于关注，重点把好 Review 这关就行。就像我们学习“递归”算法一样，我们不要去尝试推演整个执行过程。
+
+> 2025.11.9 今天连上 Google Devtools MCP 调试并改进了 aifan.wang 网站性能，确实好用。"Check the performance of https://www.aifan.wang/translate"
+
 大模型无法感知外部世界，也无法影响外部世界，当我们给大模型
 
 
@@ -147,6 +151,14 @@ sequenceDiagram
     %% 最终阶段
     A -->> U: 任务执行完毕，答案如下：……
 ```
+
+
+
+
+
+
+
+
 
 
 
