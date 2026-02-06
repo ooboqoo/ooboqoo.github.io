@@ -156,3 +156,37 @@ $ brew install bash
 $ sudo vim /etc/shells         # 追加 /usr/local/bin/bash 这样添加白名单后新 bash 才能作为 login shell
 $ chsh -s /usr/local/bin/bash  # 修改默认 shell
 ```
+
+
+## oh-my-zsh
+
+.zshrc
+
+```bash
+plugins=(git z extract zsh-autosuggestions zsh-syntax-highlighting)
+source $ZSH/oh-my-zsh.sh
+
+export LANG=en_US.UTF-8
+
+source ~/.bashrc
+
+. "$HOME/.local/bin/env"
+```
+
+### 插件
+
+* z - 目录跳转神器，autojump 的效果 `z myfolder`
+* extract - 万能解压命令 `x file.zip`
+* zsh-autosuggestions 命令自动提示 - 效果：输入命令时，灰色提示历史命令 → 按 → 或 Ctrl + E 补全
+* zsh-syntax-highlighting 语法高亮 - 效果：正确命令 → 绿色，错误命令 → 红色
+
+```bash
+# 安装第三方插件
+git clone https://github.com/zsh-users/zsh-autosuggestions \
+~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting \
+~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+```
+
+
+

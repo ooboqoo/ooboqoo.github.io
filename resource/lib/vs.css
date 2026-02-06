@@ -110,18 +110,6 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
   content: "css";
 }
 
-.hljs.language-less::after,
-.hljs.less {
-  content: "less";
-}
-
-.hljs.language-scss::after,
-.hljs.language-sass::after,
-.hljs.scss::after,
-.hljs.sass::after {
-  content: "sass";
-}
-
 .hljs.language-dart::after {
   content: "dart";
 }
@@ -130,6 +118,10 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
 .hljs.language-sh::after,
 .hljs.bash::after {
   content: "sh";
+}
+
+.hljs.language-powershell::after {
+  content: "ps1";
 }
 
 .hljs.language-diff::after,

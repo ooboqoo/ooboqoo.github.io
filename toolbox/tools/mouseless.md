@@ -41,6 +41,43 @@ alias glo='git log --oneline --decorate'
 alias glog='git log --oneline --decorate --graph'
 ```
 
+### zoxide (autojump) ❤️
+
+z / autojump 的现代替代品，比 z 快，比 autojump 准，支持所有 shell，已经逐渐成为新标准
+
+```bash
+brew install zoxide
+```
+
+.zshrc
+
+```
+# 先关掉（删掉）z，避免和 zoxide 冲突
+plugins=(git ~~z~~ extract zsh-autosuggestions zsh-syntax-highlighting)
+
+# zoxide（用 z 作为命令名）
+eval "$(zoxide init zsh --cmd z)"
+alias cd="z"
+alias zi="zoxide query -i"  # 依赖 fzf
+```
+
+```bash
+z foo<SPACE><TAB>  # show interactive completions (zoxide v0.8.0+, bash 4.4+/fish/zsh only)
+```
+
+### hstr 历史命令
+
+### fzf 通用模糊查找引擎
+
+装 fzf 后，hstr 就可以下岗了。
+
+推荐 zoxide + fzf + oh-my-zsh 组合。
+
+```bash
+$ brew install fzf
+$ $(brew --prefix)/opt/fzf/install
+```
+
 ### jq
 
 https://stedolan.github.io/jq/tutorial/

@@ -4,7 +4,7 @@
 Software Architecture Guide https://martinfowler.com/architecture/
 
 
-
+相关名词
 
 Software Engineering 软件工程   
 Software Architecture 软件架构   
@@ -79,7 +79,9 @@ All software architecture is engineering, but not all engineering is software ar
 ## 架构师
 
 
-A key dev team role: Architect. Duties: 架构师的职责
+A key dev team role: Architect.
+
+Duties: 架构师的职责
 - Foster reuse 鼓励复用
 - Enforce consistency 强制团队内一致性
 - Standardize solutions 标准化解决方案

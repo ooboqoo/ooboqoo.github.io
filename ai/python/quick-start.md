@@ -66,7 +66,7 @@ $ uv init
 
 uv will create the following files
 
-```
+```txt
 .gitignore
 .python-version
 README.md
@@ -82,7 +82,7 @@ $ uv run main.py
 
 A project consists of a few important parts that work together and allow uv to manage your project. In addition to the files created by uv init, uv will create a virtual environment and uv.lock file in the root of your project the first time you run a project command, i.e., uv run, uv sync, or uv lock.
 
-```
+```txt
 ├── .venv
 │   ├── bin
 │   ├── lib

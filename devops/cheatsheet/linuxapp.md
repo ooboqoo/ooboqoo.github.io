@@ -250,14 +250,6 @@ $ rsync -avzP --delete -e 'ssh -i /home/git/.ssh/id_rsa' /opt/project/dist/ dev@
 
 ### 高效使用终端
 
-#### autojump ❤️
-
-`j <key_word_in_name>` 快速跳转到某个常用目录。
-
-```bash
-$ brew install autojump
-```
-
 #### ranger
 
 A VIM-inspired File Manager for the console https://ranger.github.io/

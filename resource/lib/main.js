@@ -186,7 +186,7 @@ function isMobile() {
           div.innerHTML = code;
           block.parentNode.replaceWith(div);
       });
-      setTimeout(() => mermaid?.init(), 100);
+      setTimeout(() => window.mermaid?.init(), 100);
 
       // markd 怎么把引号都转义了...
       [].forEach.call(elem_md.querySelectorAll(".demo"), function(demo) {

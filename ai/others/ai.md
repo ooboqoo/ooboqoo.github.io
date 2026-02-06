@@ -6,13 +6,15 @@
 https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/
 
 Principles:
-• Write clear and specific instructions
-• Give the model time to "think"
-• Iterative prompt development
-• Capabilities: Summarizing, Inferring, Transforming, Expanding
-• Building a chatbot
+* Write clear and specific instructions
+* Give the model time to "think"
+* Iterative prompt development
+* Capabilities: Summarizing, Inferring, Transforming, Expanding
+* Building a chatbot
 
-* `temperature` 0~1 数值越小返回内容越稳定，越大随机性越大。（高兴了就多说几句，思维比较活跃...）
+参数
+
+* `temperature` 0~1 数值越小返回内容越稳定，越大随机性越大。（气氛上来了就畅所欲言...）
 * `messages` 实现聊天机器人，每次调接口，都需要把历史聊天记录带上
 
 

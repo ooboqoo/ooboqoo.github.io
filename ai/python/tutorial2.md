@@ -315,8 +315,8 @@ mycompany
  │  ├─ __init__.py  # 每一个包目录下必须有这个文件，否则会被当成普通目录
  │  ├─ utils.py     # 模块名 mycompany.web.utils
  │  └─ www.py
- |- foo
- |  └─ bar.py       # foo 目录里没有 __init__.py 文件，所以 bar.py 无法被外层其他 .py 文件导入
+ ├─ foo
+ │  └─ bar.py       # foo 目录里没有 __init__.py 文件，所以 bar.py 无法被外层其他 .py 文件导入
  ├─ __init__.py     # 这个文件声明 mycompany 目录为一个 Package
  ├─ abc.py
  └─ utils.py        # 模块名 mycompany.utils
@@ -390,7 +390,7 @@ make_pizza(16, 'pepperoni')
 
 ### 模块搜索路径
 
-默认情况下，Python 解释器会搜索当前目录、所有已安装的内置模块和第三方模块，搜索路径存放在 sys 模块的 path 变量中。
+默认情况下，Python 解释器会搜索*当前目录*、所有已安装的内置模块和第三方模块，搜索路径存放在 sys 模块的 path 变量中。
 
 如果我们要添加自己的搜索目录，有两种方法：
   * 直接修改 `sys.path`，添加要搜索的目录，这种方法是在运行时修改，运行结束后失效。

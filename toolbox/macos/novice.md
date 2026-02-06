@@ -226,9 +226,3 @@ _~/Library/KeyBindings/DefaultKeyBinding.dict_
 }
 ```
 
-### 词典配置
-
-欧陆词典免费版，把我 GoldenDict 的 柯林斯高阶 拷到词典目录下的 dic 目录下能读取，其他位置不来
-
-知乎上有 Mac 自带词典的资源包下载，搞了一本 柯林斯，看着效果不给力。
-

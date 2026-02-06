@@ -35,6 +35,13 @@ Through my experience, I’ve found that combining a simple agent’s flexibilit
 The key isn’t to pick the most feature-rich tool, but to understand how different types of agents can complement each other in your workflow. This mixed approach has been crucial in my productivity gains.
 
 
+## Spec-driven development
+
+* https://github.com/github/spec-kit
+* https://github.com/Fission-AI/OpenSpec
+
+
+
 ## 洞见
 
 ### Addy Osmani: AI只能帮你完成70%的代码

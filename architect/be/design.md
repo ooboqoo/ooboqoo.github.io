@@ -56,7 +56,7 @@ https://segmentfault.com/a/1190000021317534
 实现 Implemention (implement) | 接口和实现的关系                         | 带空心箭头的虚线
 泛化 Generlization (extend)   | 继承关系(推广、普及)                     | 带空心箭头的实线
 
-<image src="https://static001.geekbang.org/resource/image/5e/61/5e3579a02b2aebf8d57af2f0bf69ac61.jpg" width="720">
+<image src="images/uml/5e3579a02b2aebf8d57af2f0bf69ac61.jpg" width="720">
 
 ### 时序图
 
@@ -68,7 +68,7 @@ https://segmentfault.com/a/1190000021317534
 
 `dispatch`    `return`    `self call`    `callback`
 
-<image src="https://static001.geekbang.org/resource/image/31/c7/31effd0d543f441f62a386e76c290fc7.jpg" width="720">
+<image src="images/uml/31effd0d543f441f62a386e76c290fc7.jpg" width="720">
 
 ### 组件图
 
@@ -76,7 +76,7 @@ https://segmentfault.com/a/1190000021317534
 
 如果想要描述组件之间的动态调用关系可以使用 *组件时序图*。
 
-<image src="https://static001.geekbang.org/resource/image/95/e5/95174d7c145029fd26164bba6c042ae5.jpg" width="720">
+<image src="images/uml/95174d7c145029fd26164bba6c042ae5.jpg" width="720">
 
 ### 部署图
 
@@ -84,7 +84,7 @@ https://segmentfault.com/a/1190000021317534
 
 部署图是整个软件设计模型中比较宏观的一种图，是在 *设计早期* 就需要画的一种模型图。只有对部署图达成共识，才能继续后面的细节设计。
 
-<image src="https://static001.geekbang.org/resource/image/d5/09/d5c4b7d3bb3d2ce1649118a9ee9a7d09.jpg" width="480">
+<image src="images/uml/d5c4b7d3bb3d2ce1649118a9ee9a7d09.jpg" width="480">
 
 ### 用例图
 
@@ -94,13 +94,13 @@ https://segmentfault.com/a/1190000021317534
 * 系统的功能可能会很复杂，所以一张用例图可能只包含其中 *一小部分功能*，这些功能被一个 *矩形框* 框起来，这个矩形框被称为 *用例的边界*。
 * 框里的 *椭圆* 表示一个一个的功能，功能之间可以调用依赖，也可以进行功能扩展。
 
-<image src="https://static001.geekbang.org/resource/image/e5/17/e5fc82a9164e324766d5c3f1da1f5817.jpg" width="480">
+<image src="images/uml/e5fc82a9164e324766d5c3f1da1f5817.jpg" width="480">
 
 ### 状态图
 
 状态图用来展示 *单个对象生命周期的状态变迁*。
 
-<image src="https://static001.geekbang.org/resource/image/be/a1/bed856dee1e08cefbbd60f24643850a1.jpg" width="480">
+<image src="images/uml/bed856dee1e08cefbbd60f24643850a1.jpg" width="480">
 
 ### 活动图
 
@@ -112,7 +112,7 @@ https://segmentfault.com/a/1190000021317534
 * 菱形 表示分支判断
 * *泳道*：将活动根据领域、系统和角色等划分到不同的泳道中，使流程边界更加清晰
 
-<image src="https://static001.geekbang.org/resource/image/c8/41/c87dca4b7a9a5d1a08318e96a711a541.jpg" width="720">
+<image src="images/uml/c87dca4b7a9a5d1a08318e96a711a541.jpg" width="720">
 
 
 ## 软件设计文档
@@ -142,17 +142,78 @@ https://segmentfault.com/a/1190000021317534
 
 架构、系统，文档、相关人员之间的关系可以参考下面这张图。
 
-<image src="https://static001.geekbang.org/resource/image/29/d1/29045ffff5888a9cff39c1358eb1dbd1.jpg" width="480">
+<image src="images/uml/29045ffff5888a9cff39c1358eb1dbd1.jpg" width="480">
 
 
 ## 绘图工具
 
-
+* Mermaid https://mermaid.js.org/syntax/flowchart.html 直接嵌入 Markdown，现在很流行
 * draw.io https://github.com/jgraph/drawio-desktop 可以作为主力工具，开源，够用
 * ProcessOn https://www.processon.com/ 收费，很多在线模板值得学习借鉴
 * excalidraw https://excalidraw.com/ 手绘风格
 
 * 技术文章配图指南 https://draveness.me/sketch-and-sketch/
+
+
+## Mermaid 语法
+
+### Flowchart 流程图
+
+```mermaid
+---
+config:
+  flowchart:
+    htmlLabels: false
+---
+flowchart LR
+    markdown["`This **is** _Markdown_`"]
+    newLines["`Line1
+    Line 2
+    Line 3`"]
+    markdown e1@--> newLines
+
+    e1@{ animate: true }
+```
+
+
+### Sequence Diagram 时序图
+
+
+
+
+### C4 Diagram - Component diagram
+
+```mermaid
+---
+config:
+  c4:
+    componentBgColor: red
+---
+C4Component
+    Component(pdd, "网页", "Web", "客服工作台")
+    Component(rpa, "RPA", "Playwright", "自动化工具")
+    
+    Container_Boundary(server, "") {
+        Component(register, "注册中控", "WebSocket", "负责 RPA 注册、解绑等操作")
+        Component(bizServer, "业务中控", "WebSocket", "负责消息的收发转")
+    }
+    
+    BiRel(pdd, rpa, "读取消息<br/>/<br/>发送消息")
+    BiRel(rpa, register, "注册  /  解绑")
+    BiRel(rpa, bizServer, "上报消息  /  下发各类操作指令")
+
+    UpdateElementStyle(pdd, $bgColor="royalblue")
+    UpdateElementStyle(register, $bgColor="palegreen", $fontColor="black")
+    UpdateElementStyle(bizServer, $bgColor="palegreen", $fontColor="black")
+    UpdateElementStyle(rpa, $bgColor="tomato")
+
+    UpdateRelStyle(pdd, rpa, $offsetX="-25")
+    UpdateRelStyle(rpa, register, $offsetX="-60", $offsetY="50")
+    UpdateRelStyle(rpa, bizServer, $offsetX="-50", $offsetY="50")
+
+```
+
+
 
 
 

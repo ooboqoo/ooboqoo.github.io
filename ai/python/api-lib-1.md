@@ -1,6 +1,63 @@
 # 速查手册 - 标准库
 
-https://docs.python.org/3.7/library/index.html
+https://docs.python.org/3.14/library/index.html
+
+
+文本处理
+* string - 常见的字符串操作
+* re - 正则表达式操作
+* textwrap  - 文本自动换行与填充
+
+数据类型
+
+数字和数学模块
+* numbers - 数字抽象基类
+* math - 数学函数
+* random - 生成伪随机数
+
+数据持久化
+* marshal - 内部 Python 对象序列化
+
+通用操作系统服务
+* os - 多种操作系统接口
+* io - 处理流的核心工具
+* time - 时间的访问和转换
+* logging - 日志记录工具
+* platform - 访问底层平台的标识数据
+
+命令行界面库
+* argparse - 命令行选项、参数和子命令的解析
+
+并发执行
+* threading - 多线程
+* multiprocessing - 多进程
+* subprocess - 子进程
+
+网络和进程间通信
+* asyncio - 异步 I/O
+* socket - 低层级的网络接口
+
+互联网数据处理
+* json - JSON 编码器和解码器
+* base64 - Base16，Base32，Base64，Base85 数据编码
+
+结构化标记处理
+* html
+* html.parser
+
+互联网协议支持
+* http - HTTP 模块
+* http.client - HTTP 客户端
+
+Tk 图形用户界面
+* tkinter
+
+开发工具
+* typing - 类型提示
+* pydoc - 文档生成器和在线帮助系统
+* unittest - 单元测试框架
+
+
 
 
 ### collections

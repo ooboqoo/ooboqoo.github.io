@@ -3,7 +3,7 @@
 ## 基础
 
 Python 的语法特点
-  * Python 使用换行来结束命令，而其他编程语言常用 `;` 等来标记结尾
+  * Python 使用换行来结束命令，而其他编程语言常用 `;` 等来标记结尾 // `;` 只能作为同一行多语句分隔符，而且几乎不该用。
   * Python 依赖缩进来标识层级，而其他语言多用 `{}`
 
 要关闭 Python 解析器，可按 `Ctrl+D` 或执行命令 `exit()`
@@ -143,6 +143,54 @@ f-string 在表达式后加等于号 `=`，可在求值后，同时显示表达�
 >>> name = 'gavin'
 >>> print(f'Hello, {name=}!')
 Hello, name='gavin'!
+```
+
+#### 多行文本
+
+推荐的写法（90% 场景）：括号+自动拼接（最佳工程实践）
+
+```py
+sql = (
+    "SELECT id, name "
+    "FROM users "
+    "WHERE status = 'active' "
+    "ORDER BY created_at DESC"
+)
+```
+
+真正的“多行文本”（才用三引号）：三引号 + `dedent()` (非常重要)。要求高时，还可以再配合 `strip()` 使用
+
+```py
+from textwrap import dedent
+
+def test():
+    # 第一行以 \ 结束以避免出现空行！
+    s = '''\
+    hello
+      world
+    '''
+    print(repr(s))          # prints '    hello\n      world\n    '
+    print(repr(dedent(s)))  # prints 'hello\n  world\n'
+
+test()
+
+prompt = dedent("""
+    You are a helpful assistant.
+    Answer the question step by step.
+""").strip()
+print(repr(prompt))
+```
+
+docsting 用三引号（这是规范），且不要用 dedent
+
+```py
+def fetch_data():
+    """
+    Fetch data from the database.
+
+    Returns:
+        list: result rows
+    """
 ```
 
 ### 数字
@@ -407,6 +455,98 @@ Basic uses include membership testing and eliminating duplicate entries. Set obj
 {'a', 'c'}
 >>> a ^ b                              # letters in a or b but not both
 {'r', 'd', 'b', 'm', 'z', 'l'}
+```
+
+### enum
+
+> 比较，可以直接和 int str 比，但序列化时赋值必须 .value
+
+enum 用来定义一组有语义的常量，解决的问题主要有
+* ❌ 魔法数字 / 魔法字符串
+* ❌ 常量值写散、写错没人发现
+* ❌ IDE 无法提示、类型不安全
+
+基础用法
+
+```py
+from enum import Enum
+
+class Color(Enum):
+    RED = 1
+    GREEN = 2
+    BLUE = 3
+```
+
+使用方式
+
+```py
+Color.RED          # Color.RED
+Color.RED.name     # 'RED'
+Color.RED.value    # 1
+```
+
+比较（⚠️注意）枚举 ≠ 它的 value
+
+```py
+Color.RED == Color.RED       # True
+Color.RED == 1               # False
+```
+
+通过 name 查枚举
+
+```py
+Color['RED']  # Color.RED
+```
+
+遍历枚举
+
+```py
+for c in Color:
+    print(c, c.name, c.value)
+
+# 输出
+Color.RED RED 1
+Color.GREEN GREEN 2
+Color.BLUE BLUE 3
+```
+
+序列化 / 反序列化
+
+```py
+# 转 JSON（常见坑）
+json.dumps({"status": OrderStatus.PAID})        # ❌ TypeError
+json.dumps({"status": OrderStatus.PAID.value})  # ✅ .value
+
+# 反序列化
+status = OrderStatus(data["status"])
+```
+
+常用枚举类型
+
+* `IntEnum`（最常用）- 如果你需要和 `int` 比较 / 存数据库 / 序列化
+
+```py
+from enum import IntEnum
+
+class Status(IntEnum):
+    INIT = 0
+    RUNNING = 1
+    DONE = 2
+
+Status.RUNNING == 1   # True
+isinstance(Status.RUNNING, int)  # True
+```
+
+* `StrEnum` 非常适合：JSON，HTTP API，配置文件
+
+```py
+from enum import StrEnum
+
+class Role(StrEnum):
+    ADMIN = "admin"
+    USER = "user"
+
+Role.ADMIN == "admin"   # True
 ```
 
 ### if 判断

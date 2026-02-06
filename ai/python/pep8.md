@@ -3,6 +3,28 @@
 https://www.python.org/dev/peps/pep-0008/  
 https://blog.csdn.net/ratsniper/article/details/78954852
 
+## 什么是 PEP
+
+PEP = Python Enhancement Proposal（Python 增强提案）
+
+PEP 是用来：
+* 提议 新特性
+* 规范 代码风格
+* 记录 语言设计决策
+* 说明 为什么 Python 要这样设计
+
+学习 Python 最重要的几类 PEP
+
+* 代码风格类
+    * PEP 8 – Python 代码风格指南
+* 语言特性类（解释”为什么有这个语法“）
+    * PEP 20 – Python 的设计哲学（The Zen of Python）
+    * PEP 484 – 类型注解（Type Hints）
+    * PEP 526 – 变量类型注解
+* 行为 / 语义改变类（容易踩坑）
+    * PEP 563 / PEP 649 – 注解求值时机
+    * PEP 572 – 海象运算符 `:=`
+
 ## 代码布局
 
 每一级缩进使用4个空格。

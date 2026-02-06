@@ -21,5 +21,5 @@ Lay of the land 直译 地形、地势，that metaphorically means the current s
 
 To _phone it in_ is to do something with low enthusiasm or effort. 敷衍了事  
 
-
+Spec-Driven Development _flips the script_ on traditional software development. 规范驱动开发（Spec-Driven Development）颠覆了传统的软件开发方式。“翻剧本” -》改变游戏规则，扭转局面
 

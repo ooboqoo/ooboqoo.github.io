@@ -99,7 +99,7 @@ finally:
 | zip()         | Returns an iterator, from two or more iterators
 | memoryview()  | Returns a memory view object
 | next()        | Returns the next item in an iterable
-| repr()        | Returns a readable version of an object
+| repr(obj)     | Returns a readable version of an object // the string *representation* of an object
 |||
 | str()         | Returns a string object
 | bytes()       | Returns a bytes object
@@ -146,6 +146,29 @@ finally:
 | isinstance()  | Returns True if a specified object is an instance of a specified object
 | issubclass()  | Returns True if a specified class is a subclass of a specified object
 
+
+## Operator precedence
+
+https://docs.python.org/3/reference/expressions.html#operator-precedence
+
+* `(expressions...)`, `[expressions...]`, `{key: value...}`, `{expressions...}`
+* `x[index]`, `x[index:index]`, `x(arguments...)`, `x.attribute`
+* `await x`
+* `**`
+* `+x`, `-x`, `~x`
+* `*`, `@`, `/`, `//`, `%`
+* `+`, `-`
+* `<<`, `>>`
+* `&`
+* `^`
+* `|`
+* `in`, `not in`, `is`, `is not`, `<`, `<=`, `>`, `>=`, `!=`, `==`
+* `not x`
+* `and`
+* `or`
+* `if – else`
+* `lambda`
+* `:=`
 
 
 ## String Methods

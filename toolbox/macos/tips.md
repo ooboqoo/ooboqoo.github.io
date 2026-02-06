@@ -66,10 +66,29 @@ sqlite3 $(find /private/var/folders \( -name com.apple.dock.launchpad -a -user $
 
 ## 系统增强
 
+### Mos 鼠标
+
+外接鼠标时，默认的滚动行为跟原先习惯是相反的，这个软件就可以改回来。
+
+### Karabiner-Elements 键盘
+
+按键自定义，主要是把 MagicKey 最右上角的「锁定」键改成「删除」键。
+
+### Ice 菜单栏图标
+
+菜单栏图标太多时，可以用这个第三方工具来整理。
+
+### iStat Menus
+
+状态栏增强，一个图标查看系统的各种运行状态信息。
+
+### Snipaste 截屏
+
+截屏增强工具。
+
 ### Alfred
 
 增强版的 Spotlight，含免费功能和付费高级功能。免费功能里的网络搜索功能还不错。
-
 
 
 ## APFS
@@ -77,4 +96,10 @@ sqlite3 $(find /private/var/folders \( -name com.apple.dock.launchpad -a -user $
 https://developer.apple.com/library/content/documentation/FileManagement/Conceptual/APFS_Guide/FAQ/FAQ.html
 
 APFS 是2017年新的文件系统，macOS 默认使用的是 case-insensitive 类型，因此同一个文件下不能同时存在 abc.txt 和 Abc.txt。其实 Linux 下分区都是区分大小写的，bash 等也是区分大小写的，所以用起来有时会感觉怪怪的。
+
+
+
+
+
+
 

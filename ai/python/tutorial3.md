@@ -49,21 +49,146 @@ def foo(s):
 foo('0')
 ```
 
-### 记录错误
+
+### traceback
+
+traceback = 异常发生时的 “调用栈记录”，回答了3个问题
+* 错误是什么
+* 错误发生在哪一行
+* 这行代码是被谁一层层调用过来的
 
 ```py
-import logging
-def foo(s):
-    return 10 / int(s)
-def bar(s):
-    return foo(s) * 2
-def main():
-    try:
-        bar('0')
-    except Exception as e:
-        logging.exception(e)
-main()
+try:
+    service.run()
+except Exception:
+    logger.exception("service failed") # = `logger.error(traceback.format_exc())`
+    return "系统错误，请稍后再试"
 ```
+
+#### loguru 的 traceback 美化
+
+
+```py
+logger.add(
+    sys.stderr,
+    backtrace=True,  # 显示完整调用链（包括 try 之前）
+    diagnose=True,   # 显示局部变量（开发阶段神器）
+)
+```
+
+#### traceback 与 raise
+
+❌ 错误示例（会丢失原始 traceback）
+
+```py
+try:
+    1 / 0
+except Exception as e:
+    raise e  # traceback 会从这一行开始
+```
+
+✅ 正确方式（保留原 traceback）
+
+```py
+try:
+    1 / 0
+except Exception:
+    raise
+
+# 或者封装时加 `from e`
+
+try:
+    1 / 0
+except Exception as e:
+    raise RuntimeError("计算失败") from e
+```
+
+
+### async 场景
+
+#### 异常丢失
+
+```py
+async def f():
+    1 / 0
+
+asyncio.create_task(f())
+```
+
+结果 👉 异常被“放进 Task 里”，没人去取
+* ❌ 没有 traceback
+* ❌ 程序继续跑
+* ❌ *你甚至不知道错了*
+
+> Task 的异常，必须被 “await / 获取 / 记录”，否则就是未观察异常（unhandled exception）
+
+
+#### 协程内部必须自己 log
+
+```py
+async def worker():
+    try:
+        await task()
+    except Exception:
+        logger.exception("worker error")
+```
+
+否则
+* 协程异常 可能被吞掉
+* 你只看到任务失败，不知道原因
+
+#### asyncio.create_task 的坑
+
+```py
+asyncio.create_task(worker())
+```
+
+如果 worker() 抛异常但没人 await：❌ traceback 不会自动打印。👉 解决方式：
+
+```py
+task = asyncio.create_task(worker())
+task.add_done_callback(
+    lambda t: t.exception() and logger.exception("task crashed")
+)
+```
+
+#### asyncio.gather()
+
+默认行为（推荐）
+
+任一异常：
+* gather 立刻抛
+* 其他 task 会被 cancel
+* traceback 保留
+
+```py
+await asyncio.gather(f1(), f2())
+```
+
+return_exceptions=True（慎用）
+* 异常变成普通返回值
+* ❌ 如果你不检查 → 全丢
+
+```py
+results = await asyncio.gather(f1(), f2(), return_exceptions=True)
+# 必须检查返回值，不然异常全丢
+for r in results:
+    if isinstance(r, Exception):
+        logger.exception("task failed", exception=r)
+```
+
+#### 调试利器（开发阶段）
+
+```py
+asyncio.get_running_loop().set_debug(True)
+```
+
+或
+
+```bash
+PYTHONASYNCIODEBUG=1
+```
+
 
 
 ## 调试
