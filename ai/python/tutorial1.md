@@ -413,8 +413,8 @@ for value in user_0.values():
 for key, value in user_0.items():
     print(key + '\t' + value)
 
-sorted(user_0.key())  # ['first', 'last', 'username']  # 排序
-set(user_0.values())  # {'enrico', 'fermi', 'efermi'}  # 集合
+sorted(user_0.keys())  # ['first', 'last', 'username']  # 转数组 + 排序
+set(user_0.values())   # {'enrico', 'fermi', 'efermi'}  # 转集合
 ```
 
 嵌套

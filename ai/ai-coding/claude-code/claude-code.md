@@ -24,16 +24,22 @@ curl -fsSL https://claude.ai/install.sh | bash
 
 https://doc.closeai-asia.com/tutorial/integrations/claude-code.html
 
-```bash
-export ANTHROPIC_BASE_URL="https://api.openai-proxy.org/anthropic"
-export ANTHROPIC_API_KEY="sk-xxxxxxxxxxxxxxxx"
+> 使用第三方服务商，是不需要登录 Anthropic 账号的。如果需要登录，在 _~/.claude.json_ 中添加一条 `"hasCompletedOnboarding": true` 就行。
+
+直接编辑 _~/.claude/settings.json_，这份配置可以被 VS Code 扩展 和 CLI 共享。
+
+注意，不用的代理，要看清楚是配 `ANTHROPIC_AUTH_TOKEN` 还是 `ANTHROPIC_API_KEY`，不同平台配置不一样。
+
 ```
-
-配好上面两个环境变量到 `~/.bashrc` 就能用。
-
-完整配置过程
-1. 正常登录并配置 Claude Code，开始按量使用（对于没官方账号或者翻墙有困难的，教程有配置免登录的方案）
-2. 配好上面两个环境变量，绕过官方服务达到免翻墙使用的目的
+{
+  "skipDangerousModePermissionPrompt": true,
+  "model": "opus",
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "sk-mYTXExwb5UV8...N7Z",
+    "ANTHROPIC_BASE_URL": "https://sky.vai.com"
+  }
+}
+```
 
 ### 网络访问
 
@@ -44,6 +50,35 @@ Claude Code 需要访问以下几个 URL：
 * sentry.io
 
 在使用容器化环境时，确保这些 URL 被允许进行访问。
+
+### 配置文件
+
+https://code.claude.com/docs/en/settings
+
+* `~/.claude.json` 全局用户数据文件，基本由 CC 自动写入。但需要检查这个文件来排查配置问题。
+* `~/.claude/settings.json` 用户配置文件
+  - `permissions.allow / deny / ask`：工具权限控制
+  - `env`：环境变量（如 API base URL、模型选择）
+  - `hooks`：Pre/PostToolUse 钩子脚本
+  - `mcpServers`：MCP 服务器配置
+
+配置优先级
+
+1. 命令行参数 Command line arguments
+2. 本地 Local `.claude/settings.local.json`
+3. 项目级 Project `.claude/settings.json`
+3. 用户 User `~/.claude/settings.json`
+
+Scopes apply to many Claude Code features:
+
+| Feature     | User location              | Project location                  | Local location                    |
+|-------------|----------------------------|-----------------------------------|-----------------------------------|
+| Settings    | `~/.claude/settings.json`  | `.claude/settings.json`           | `.claude/settings.local.json`     |
+| Subagents   | `~/.claude/agents/`        | `.claude/agents/`                 | —                                 |
+| MCP servers | `~/.claude.json`           | `.mcp.json`                       | `~/.claude.json` (per-project)    |
+| Plugins     | `~/.claude/settings.json`  | `.claude/settings.json`           | `.claude/settings.local.json`     |
+| CLAUDE.md   | `~/.claude/CLAUDE.md`      | `CLAUDE.md` or `.claude/CLAUDE.md`| `CLAUDE.local.md`                 |
+
 
 ## 使用技巧
 
@@ -58,6 +93,45 @@ pnpm dlx ccusage
 cat build-error.txt | claude -p '简明扼要地解释这个构建错误的根本原因' > output.txt
 ```
 
+## 操作说明
+
+### MCP
+
+```bash
+# Add a remote HTTP server
+claude mcp add --help
+claude mcp add --transport http <name> <url>
+
+# List all configured servers
+claude mcp list
+# Get details for a specific server
+claude mcp get github
+# Remove a server
+claude mcp remove github
+# (within Claude Code) Check server status
+/mcp
+```
+
+MCP 服务器支持三个作用域级别
+
+| Scope        | 说明                          | 存储位置                                  |
+|--------------|-------------------------------|------------------------------------------|
+| local（默认） | 仅当前项目可用，私有，不共享     | `~/.claude.json`（按项目路径存储）          |
+| project      | 项目内所有成员共享              | 项目根目录的 `.mcp.json` 文件（可提交到 git）|
+| user         | 你所有项目都可用（原来叫 global）| `~/.claude.json`                          |
+
+```bash
+# 默认（local scope）—— 仅当前项目，私有
+claude mcp add my-server -- npx -y @some/mcp-package
+
+# project scope —— 团队共享，写入 .mcp.json
+claude mcp add my-server --scope project -- npx -y @some/mcp-package
+
+# user scope —— 所有项目可用（全局）
+claude mcp add my-server --scope user -- npx -y @some/mcp-package
+# 简写 -s
+claude mcp add my-server -s user -- npx -y @some/mcp-package
+```
 
 
 ## Cursor vs Claude vs Codex
@@ -166,21 +240,34 @@ CLI 命令直接在终端中输入，用于启动会话、执行查询、修改�
 
 Slash 命令在 Claude Code 会话中执行各种操作，如错误报告、历史记录清除、查看成本等。常见 Slash 命令包括：
 
-* `/bug` 报告错误 将当前会话内容发送给 Anthropic 团队，帮助诊断和解决问题。
+高频
+
 * `/clear` 清除会话历史记录 重置会话上下文，节省 token 消耗，保持会话简洁。
 * `/compact` 压缩会话 降低 token 使用量，当上下文变得庞大时，减少数据存储需求。
-* `/config` 查看/修改配置 允许用户在会话中动态调整设置，例如修改主题或功能偏好。
 * `/cost` 显示 token 使用统计 帮助用户实时监控和管理 token 消耗，避免不必要的费用。
+
+* `/model`
+* `/effort`
+    * Use `/effort high` for better one-shot answers. Claude thinks it through first.
+* `/status`
+
+常用
+
+* `/login` 切换 Anthropic 帐户 切换使用不同的 Anthropic 帐户登录，方便管理多个账户。
+* `/logout` 注销账户 安全退出当前账户，保护用户隐私。
+* `/continue` 继续某个历史对话
+* `/rewind` 回滚代码 / 回滚代码+对话，回滚代码只负责回滚它自己创建/修改的文件
+
+其他
+
+* `/bug` 报告错误 将当前会话内容发送给 Anthropic 团队，帮助诊断和解决问题。
+* `/config` 查看/修改配置 允许用户在会话中动态调整设置，例如修改主题或功能偏好。
 * `/doctor` 检查安装健康状况 诊断 Claude Code 安装问题，确保正常运行。
 * `/help` 获取帮助 提供快速参考，帮助用户了解 Claude Code 的命令和功能。
 * `/init` 初始化项目 使用 CLAUDE.md 文件初始化或更新项目，确保 Claude Code 理解项目背景。
-* `/login` 切换 Anthropic 帐户 切换使用不同的 Anthropic 帐户登录，方便管理多个账户。
-* `/logout` 注销账户 安全退出当前账户，保护用户隐私。
 * `/pr_comments` 查看 pull request 评论 便于用户在 Claude Code 中查看和处理代码审查意见。
 * `/review` 请求代码审查 提交代码审查请求，获得反馈。
 * `/terminal-setup` 安装 `Shift+Enter` 键绑定，改善在特定终端（如 iTerm2 或 VSCode）中的多行输入体验。
-* `/rewind` 回滚代码 / 回滚代码+对话，回滚代码只负责回滚它自己创建/修改的文件
-* `/continue` 继续某个历史对话
 
 
 ### 处理大量文本
